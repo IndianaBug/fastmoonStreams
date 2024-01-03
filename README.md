@@ -1,2 +1,2 @@
 # SatoshiVault
-Real-time and historical BTC spot and futures data from Binance, OKEx, Bitget, Bybit, Deribit, Kucoin, and Coinbase
+Introducing BTC DataVault, your go-to API for real-time and historical BTC data. Harness the power of API calls to access second-by-second insights on prices, liquidations, open interest volume, full order book levels, taker volume, maker volume, funding rates, open interest, and long/short ratios. Covering top exchanges including Binance, OKEx, Coinbase, Bybit, Bitget, Deribit, and KuCoin, BTC DataVault is your gateway to seamless data integration without the need for websocket streaming. Elevate your applications with precise information for informed decision-making in the world of Bitcoin trading 
