@@ -7,16 +7,30 @@ from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaStorageError
 from collections import Counter
 import ssl
+import random
+import okx.PublicData as PublicData
 
+# ! pip install python-okx --upgrade
 
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+def generate_random_integer(n):
+    if n <= 0:
+        raise ValueError("Length should be a positive integer")
+    lower_bound = 10 ** (n - 1)
+    upper_bound = (10 ** n) - 1
+    random_integer = random.randint(lower_bound, upper_bound)
+    return random_integer
+
 class WebSocketClient():
 
-    
+    """
+        OKEx: https://www.okx.com/docs-v5/en/?python#public-data-websocket-funding-rate-channel
+    """
+
 
     def __init__ (self, host, **kwards):
         
@@ -28,18 +42,41 @@ class WebSocketClient():
                                                                                   "btcusdt@depth@100ms", 
                                                                                   "btcfdusd@aggTrade", 
                                                                                   "btcfdus@depth@100ms"], 
-                                                                                  "id": 54614645})
+                                                                                  "id": generate_random_integer(10)})
         self.binance_usdtFutures_basepoint = "wss://fstream.binance.com"
         self.binance_usdtFutures_request = json.loads({"method": "SUBSCRIBE", "params": ["btcusdt@aggTrade", 
                                                                                          "btcusdt@depth@100ms",
-                                                                                         "btcusdt@forceOrder", 
-                                                                                         "btcusd@aggTrade", 
-                                                                                         "btcusd@depth@100ms",
-                                                                                         "btcusd@aggTrade"], 
-                                                                                         "id": 541354})
-        # coin futures
-
+                                                                                         "btcusdt@forceOrder"], 
+                                                                                         "id": generate_random_integer(10)})
+        self.binance_usdtFutures_basepoint = "wss://dstream.binance.com"
+        self.binance_usdtFutures_request = json.loads({"method": "SUBSCRIBE", "params": ["btcusdt_perp@aggTrade", 
+                                                                                         "btcusdt_perp@depth@100ms",
+                                                                                         "btcusdt_perp@forceOrder"], 
+                                                                                         "id": generate_random_integer(10)})
         # OKEx
+        # BTC-USDT-SWAP, BTC-USD-SWAP, BTC-USDT, option summary, economic calendar, adl warning, liquidation order
+        self.okx_endpoint = "wss://ws.okx.com:8443/ws/v5/public"
+        self.okex_open_interest_params_usdt = {"event": "subscribe", 
+                                               "arg": [{"channel": "open-interest", 
+                                                        "instId": "BTC-USDT-SWAP"}], 
+                                                "connId": str(generate_random_integer(10))}
+        self.okex_open_interest_params_usd = {"event": "subscribe", 
+                                               "arg": [{"channel": "open-interest", 
+                                                        "instId": "BTC-USD-SWAP"}], 
+                                                "connId": str(generate_random_integer(10))}
+        self.okex_funding_params_usdt = {"event": "subscribe", 
+                                               "arg": [{"channel": "funding-rate", 
+                                                        "instId": "BTC-USDT-SWAP"}], 
+                                                "connId": str(generate_random_integer(10))}
+        self.okex_funding_params_usd = {"event": "subscribe", 
+                                               "arg": [{"channel": "funding-rate", 
+                                                        "instId": "BTC-USD-SWAP"}], 
+                                                "connId": str(generate_random_integer(10))}
+        self.okex_optionSummary = {"event": "subscribe", 
+                                               "arg": [{"channel": "opt-summary", 
+                                                        "instId": "BTC-USD"}], 
+                                                "connId": str(generate_random_integer(10))}
+
 
         # Bybit
 
@@ -50,7 +87,6 @@ class WebSocketClient():
         # Kucoin
 
         # Coinbase
-
 
     
     async def keep_alive_bitget(self, websocket, ping_interval=30):
@@ -79,7 +115,6 @@ class WebSocketClient():
             keep_alive_task = asyncio.create_task(self.keep_alive_bitget(websocket, 30))
             try:
                 async for message in websocket:
-                    #keep_alive_task = asyncio.create_task(self.keep_alive_bitget(websocket, 30))
                     try:
                         message = await websocket.recv()
                         await producer.send_and_wait(topic=topic, value=str(message).encode())

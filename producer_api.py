@@ -17,6 +17,11 @@ class combined_API():
     """
         Params :  { the length of the orderbook snapshot of ... 1 - 4,
                     websocket uri for streaming
+
+                    Binance APIs : https://binance-docs.github.io/apidocs/spot/en/#change-log
+                                   https://binance-docs.github.io/apidocs/futures/en/#change-log
+                                   https://binance-docs.github.io/apidocs/delivery/en/#change-log
+                    OKEx APIs:     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-instruments
     """
 
     def __init__(self, 
@@ -67,7 +72,8 @@ class combined_API():
         self.binance_futures_GTP_usd_url = "https://dapi.binance.com/futures/data/globalLongShortAccountRatio" 
         self.binance_futures_GTP_usd_params = {"pair":"BTCUSD", "period": "5m", "limit": 1}
         self.binance_futures_GTP_usd_name = "binance_futures_GTP_usd"        
-        # OKEX #
+        # OKEX #    
+
 
 
         # Fetched data

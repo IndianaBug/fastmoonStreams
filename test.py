@@ -1,18 +1,14 @@
-import requests
+import okx.PublicData as PublicData
 
-# Replace this URL with the actual API endpoint you want to request
-api_url = "https://api.binance.com/api/v3/depth?symbol=BTCUSDT&limit=1000"
+flag = "0"  # Production trading: 0, Demo trading: 1
 
-# Make a GET request
-response = requests.get(api_url)
+publicDataAPI = PublicData.PublicAPI(flag=flag)
 
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Print the JSON response
-    data = response.json()
-else:
-    # Print an error message if the request was not successful
-    print(f"Error: {response.status_code}")
+# Retrieve a list of instruments with open contracts
+result = publicDataAPI.get_instruments(
+    instType="OPTION" # SPOT SWAP FUTURES
+)
 
 
-print(data)
+# print([x['instId'] for x in result['data'] if "BTC" in x['instId']])
+
