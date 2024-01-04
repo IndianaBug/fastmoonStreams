@@ -71,7 +71,14 @@ class combined_API():
         self.binance_futures_GTP_usd_url = "https://dapi.binance.com/futures/data/globalLongShortAccountRatio" 
         self.binance_futures_GTP_usd_params = {"pair":"BTCUSD", "period": "5m", "limit": 1}
         self.binance_futures_GTP_usd_name = "binance_futures_GTP_usd"        
-        # OKEX #    
+        # OKEX # 
+        # Calendar
+        self.okex_api_endpoint = "https://www.okx.com/api/v5/public/economic-calendar"
+
+        # Bybit #
+        self.bybit_api_endpoint_insurance = "https://api.bybit.com/v5/market/insurance"
+        self.bybit_api_endpoint_LS = "https://api.bybit.com/v5/market/account-ratio"
+        self.bybit_api_params_LS  = {"category": "linear", "symbol": "BTCUSDT", "period": "1d", "limit": 50}
 
 
 
