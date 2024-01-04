@@ -1,0 +1,2 @@
+env: C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
+dir: cd C:\coding\SatoshiVault

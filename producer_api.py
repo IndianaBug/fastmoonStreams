@@ -2,7 +2,6 @@ import requests
 from datetime import datetime
 import concurrent.futures
 import time
-import sched
 from threading import Thread, Lock
 import asyncio
 import websockets
