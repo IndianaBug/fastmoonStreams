@@ -86,9 +86,12 @@ class WebSocketClient():
              { "n": "bybit_perpetual_forceOrder_USDT", "e": "wss://stream.bybit.com/v5/public/linear", "sn": "liquidation.BTCUSDT"},  # ok
              { "n": "bybit_perpetual_tickers_USDT", "e": "wss://stream.bybit.com/v5/public/linear", "sn": "tickers.BTCUSDT"},  # ok # OI funding turnover etc
              # coinbase
-             {"n":"coinbase_spot_btcusd", "e":"wss://ws-feed.exchange.coinbase.com", "sn": {"type": "subscribe", "product_ids": ["BTC-USD"], "channels": ["level2", "ticker"]}},
+             {"n":"coinbase_spot_btcusd", "e":"wss://ws-feed.exchange.coinbase.com", "sn": {"channels":"BTC-PERPETUAL"}},
              # deribit
-             {"n":"deribit_", "e": "wss://streams.deribit.com/ws/api/v2", "sn": "deribit_price_index.btc_usd"}
+             {"n":"deribit_", "e": "wss://test.deribit.com/ws/api/v2", "sn":{
+                "instrument_name" : "BTC-PERPETUAL"
+            }}
+
 
                                                         ] 
         # Economic calendar Retrieve the most up-to-date economic calendar data. This endpoint is only applicable to VIP 1 and above users in the trading fee tier.
@@ -105,8 +108,10 @@ class WebSocketClient():
             return json.dumps({"op": "subscribe","args": [arg]})
         if exchange == "coinbase":
             return json.dumps(arg)
-        if exchange == "deribit":
-            return json.dumps({"jsonrpc" : "2.0", "id" : generate_random_integer(10), "method" : "public/subscribe", "params" : { "channels" : [arg]}})
+        if exchange == "deribit":   # {"jsonrpc" : "2.0","id" : 9344, "method" : "public/get_book_summary_by_currency", "params" :
+            return json.dumps({"jsonrpc" : "2.0", "id" : 8106, "method" : "public/subscribe", "params" : {"channels":["chart.trades.BTC-PERPETUAL.1"]}})
+
+
 
 
     async def keep_alive(self, websocket, exchange, ping_interval=30):

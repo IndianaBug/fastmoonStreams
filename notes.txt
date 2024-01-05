@@ -14,6 +14,9 @@ https://www.deribit.com/api_console/
 # Open interest changes by 24 hors calls and puts ------ https://www.youtube.com/watch?v=o1eR21wzVto   --- bitcoin expiring at the strike price
 
 
+# Maybe integrate binance news feed, I mean okx coinbase ETC
+
+
 
 
 https://cryptopanic.com/developers/api/about
