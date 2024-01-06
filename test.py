@@ -1,5 +1,4 @@
 import requests
-from producerAPI import miliseconds_to_strftime
 from datetime import datetime, timedelta
 
 # Current time in milliseconds
@@ -19,19 +18,10 @@ endpoint = "/get_book_summary_by_currency"
 # Specify the currency pair (e.g., BTC-USD)
 currency_pair = "BTC-USD"
 
-# Build the URL for the API call
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=SWAP&instFamily=BTC-USD&limit=1"
+a = {"exchange":"okx", "insType":"STATISTIC_GENERAL", "obj":"calendar", "snapshotInterval":300, "instrument": "integrated", "url" : "https://www.okx.com/api/v5/public/economic-calendar"} # Need authentication
 
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=FUTURES&instFamily=BTC-USD&limit=1"
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=FUTURES&instFamily=BTC-USDT&limit=1"
 
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=OPTION&instFamily=BTC-USD&limit=1"
-
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=MARGIN&ccy=BTC&limit=1"
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=MARGIN&ccy=USDT&limit=1"
-url = "https://www.okx.com/api/v5/public/insurance-fund?instType=SWAP&instFamily=BTC-USDT&limit=1"
-
-r = requests.get(url)
+r = requests.get(a['url'])
 if r.status_code == 200:
     data = r.json()
 else:

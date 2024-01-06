@@ -1,12 +1,11 @@
-import requests
 from datetime import datetime, timedelta
-import concurrent.futures
 import time
-from threading import Thread, Lock
 import asyncio
 import websockets
 import json
 import random
+import ssl
+import aiohttp
 
 def miliseconds_to_strftime(data) -> str:
     return datetime.utcfromtimestamp(int(data) / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
@@ -18,6 +17,11 @@ def generate_random_integer(n):
     upper_bound = (10 ** n) - 1
     random_integer = random.randint(lower_bound, upper_bound)
     return random_integer
+
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False  # Disable hostname checking
+ssl_context.verify_mode = ssl.CERT_NONE  # Disable certificate verification
+
 
 
 # to do ;
@@ -85,110 +89,59 @@ class combined_API():
             {"exchange":"okx", "insType":"STATISTIC_GENERAL", "obj":"insurance-fund-OPTION", "snapshotInterval":300, "instrument":"BTC-USD", "url" : "https://www.okx.com/api/v5/public/insurance-fund?instType=OPTION&instFamily=BTC-USD&limit=1"},
             {"exchange":"deribit", "insType":"FUTURES", "obj":"summary", "instrument":"BTC_integrated", "snapshotInterval":3,"url" : "wss://test.deribit.com/ws/api/v2",  "msg" : {"jsonrpc": "2.0", "id": generate_random_integer(10), "method": "public/get_book_summary_by_currency", "params": { "currency": "BTC", "kind": "future"}}},  # every 5 seconds
             {"exchange":"deribit", "insType":"OPTIONS", "obj":"summary", "instrument":"BTC_integrated", "snapshotInterval":3,"url" : "wss://test.deribit.com/ws/api/v2",  "msg" : {"jsonrpc": "2.0", "id": generate_random_integer(10), "method": "public/get_book_summary_by_currency", "params": { "currency": "BTC", "kind": "option"}}},  # every 5 seconds
-
+            {"exchange":"deribit", "insType":"OPTIONS", "obj":"BVOL", "instrument":"BTC_integrated", "snapshotInterval":3,"url" : "wss://test.deribit.com/ws/api/v2",  "msg" : {"jsonrpc": "2.0", "id": generate_random_integer(10), "method": "public/get_volatility_index_data", "params": { "currency": "BTC", "start_timestamp": int(datetime.timestamp(datetime.now())), "end_timestamp": int(datetime.timestamp(datetime.now() - timedelta(minutes=5)) * 1000), "resolution":"1"}}}
         ]
-
-        # Fetched data
         self.websocket_uri = websocket_uri
-        self.lock = Lock()
-        self.fetched_API_calls = {}
+        self.fetched_API_calls_3 = {}
+        self.fetched_API_calls_300 = {}
 
     def get_stream_names(self):
         return [e["exchange"]+ "_" + e["insType"]+ "_" +e["obj"]+ "_" +e["instrument"] for e in self.APIs]
     
     def get_stream_name(self, e):
-        return e["exchange"]+ "_" +e["insType"]+ "_" +e["obj"]+ "_" +e["instrument"] 
-
-    async def fetch_data_websockets(self, data_dict):
-        # For derebit
-        async def call_api():
-            async with websockets.connect(data_dict["url"]) as websocket:
-                await websocket.send(json.dumps(data_dict["msg"]))
-                return await websocket.recv()
-        async def main():
-            result = await call_api()
-            return result
-        asyncio.run(main())
-        response = await main()
-        return response
-         
-
-    def fetch_data(self, data_dict):
-        r = requests.get(data_dict["url"])
-        if r.status_code == 200:
-            data = r.json()
-            return data
-        else:
-            print(f"Error: {r.status_code}")
-            return None
-    
-    async def send_to_websocket(self, data):
-        async with websockets.connect(self.websocket_uri) as websocket:
-            await websocket.send(data)
-    
-    def fetching_helper(self, max_workers, fetch_interval, data):
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            while True:
-                for data_dict in data:
-                    if data_dict["exchange"] == "deribit":
-                        result = self.fetch_data_websockets(json.dumps(data_dict["msg"]))
-                    else:
-                        result = self.fetch_data(data_dict)
-                    self.fetched_API_calls[self.get_stream_name(data_dict)] = result
-                    print(self.fetched_API_calls.keys())
-                with self.lock:
-                    # Send to the WebSocket server
-                    asyncio.run(self.send_to_websocket(json.dumps(self.fetched_API_calls)))
-                time.sleep(fetch_interval)
-
-    
-    def concurrent_fetching_stream(self):
-        second_thread = Thread(target = self.fetching_helper, args=((50, 3, [x for x in self.APIs if x["snapshotInterval"] == 3 and x["obj"] != "depth" ])))
-        minute_thread = Thread(target = self.fetching_helper, args=((50, 10, [x for x in self.APIs if x["snapshotInterval"] == 300 and x["obj"] != "depth" ])))
-        
-        second_thread.start()
-        minute_thread.start()
-        second_thread.join()
-        minute_thread.join()
+        return e["exchange"]+ "_" +e["insType"]+ "_" +e["obj"]+ "_" +e["instrument"]
 
     def miliseconds_to_strftime(self, data: int) -> str:
         return datetime.utcfromtimestamp(data / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+    async def send_to_websocket(self, data):
+        async with websockets.connect(self.websocket_uri) as websocket:
+            await websocket.send(data) 
+    
+
+    async def fetch_data_websockets(self, data_dict, period):
+        while True:
+            async with websockets.connect(data_dict["url"],  ssl=ssl_context) as websocket:
+                await websocket.send(json.dumps(data_dict["msg"]))
+                response = await websocket.recv()
+                data = {self.get_stream_name(data_dict) : json.loads(response)}
+                print(data.keys())
+                await asyncio.sleep(period)
+
+    async def fetch_data(self, data_dict, period):
+        while True:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(data_dict["url"]) as response:
+                    r =  await response.text()
+                    data = {self.get_stream_name(data_dict) :  json.loads(r)}
+                    print(data.keys())
+                    await asyncio.sleep(period)
+
+
+    async def main(self):
+        
+        tasks_3_deribit = [asyncio.ensure_future(self.fetch_data_websockets(x,  x["snapshotInterval"])) for x in self.APIs if x["exchange"] == "deribit" and x["snapshotInterval"] == 3 and x["obj"] != "depth"]
+        tasks_3 = [asyncio.ensure_future(self.fetch_data(x,  x["snapshotInterval"])) for x in self.APIs if x["exchange"] != "deribit" and x["snapshotInterval"] == 3 and x["obj"] != "depth"]
+        task_300 = [asyncio.ensure_future(self.fetch_data(x,   x["snapshotInterval"])) for x in self.APIs if x["exchange"] != "deribit" and x["snapshotInterval"] == 300 and x["obj"] != "depth"]
+        tasks = tasks_3_deribit + tasks_3 + task_300
+        
+        await asyncio.gather(*tasks)
+    
 
 
 
 loader = combined_API(1000, 1000, 1000, 1000, "some_websocket")
 start_time = time.time()
-a = loader.fetch_data_websockets(loader.APIs[-1])
-
-print(a)
+asyncio.run(loader.main())
 elapsed_time = time.time() - start_time
 print(f"Execution time: {elapsed_time} seconds")
-
-
-
-    # def test_api(self):
-
-    #     for e in self.APIs:
-    #         try:
-    #             if e["exchange"] != "deribit":
-    #                 r = requests.get(e["url"])
-    #                 if r.status_code != 200:
-    #                     print(e)
-    #             else:
-    #                 async def call_api(msg):
-    #                     async with websockets.connect(e["url"]) as websocket:
-    #                         await websocket.send(msg)
-    #                         response = await websocket.recv()
-    #                         print(response)
-    #                 async def main():
-    #                     await call_api(json.dumps(e["msg"]))
-    #                 asyncio.run(main())
-    #         except:
-    #             print(e["exchange"], e["insType"], e["obj"], "not working")
-    #         time.sleep(2)
-
-
