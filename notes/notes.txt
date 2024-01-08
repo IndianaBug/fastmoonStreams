@@ -1,70 +1,61 @@
-C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
-cd C:\coding\SatoshiVault
+Ideas of indicators for options or futures:
+- OI by strike
+- OI by expiration
+- OI put/call profile
+- OI increase decrease at different price levels 
+- Net delta exposure
+- OI changes by 24 hors calls and puts --- https://www.youtube.com/watch?v=o1eR21wzVto   --- bitcoin expiring at the strike price
+- Liquidation heatmap
 
-Open interest profile increase decrease for different price points
-##### Some indicators should be considerend on different timeframes
-
-
-# You need block trading from derebit
-# Derebit --- open interest by strike
-# open interest by experation
-open interest by type put call
-# Net delta exposure --- derebit option data derebit. com statistics
-https://www.deribit.com/api_console/
-# Open interest changes by 24 hors calls and puts ------ https://www.youtube.com/watch?v=o1eR21wzVto   --- bitcoin expiring at the strike price
+Books:
+- increase/decrease of limits on certain price levels
+- pulled limits
 
 
-# Maybe integrate binance news feed, I mean okx coinbase ETC
+Fundamental:
+- Create some model that predicts bitcoin prices weekly based on fundamental indicators
+- okex economic calendar within VIP 1 tier, insurance fund --- get help from someone
+- btc transactions
+- tradingview fundamental indicators
+- https://www.blockchain.com/explorer/api/q   --- some free data xD
+- https://www.blockchain.com/explorer  --- websockets xD
+
+News, twiits, sentiment:
+- zerohedge; 
+- okx, binance, coinbase twitter feeds
+- Mainstream data: youtube, twitter, toktok
+- Twitter scrapping: ---- https://github.com/tomalexsmith/Bitcoin-sentiment-analysis/tree/main
 
 
+Scrapping:
+- Lunar crash --- https://lunarcrush.com/
+- Bitcoin transaction tracker: --- https://github.com/crazicus/Bitcoin-Transaction-Tracker 
+- Monitor specific wallet: https://github.com/SomethingTotallyRandom/Wallet-Transaction-Monitor
+
+Docker:
+- https://github.com/kostyafarber/crypto-lob-data-pipeline 
+
+Data analysis, topic modeling for model
+- https://github.com/drwismer/metis_unsupervised_learning_module/blob/main/Bitcoin%20Sentiment%20-%20Web%20Scraping%20-%20Articles.ipynb
+- 
 
 
-https://cryptopanic.com/developers/api/about
-
-# Target specific traders on twitter ----- zerohedge for some reason he posts quickly
-# News trading. You need to get the fastest News
-
-
-
-To do : 
-    okex economic calendar within VIP 1 tier, insurance fund
-    coinbase: requires authentication
-    https://docs.cloud.coinbase.com/exchange/docs/websocket-auth
-    # Liquidation heatmap coinglass. Where traders probably will be liquidated
-    # Do some lunar crash crapping
-
-# nice presentation
-https://github.com/kostyafarber/crypto-lob-data-pipeline
-
-# Increase oflimit buys vs limit sells vstheir decrease within different percentages
-
-# Whoever says certain aseests are trash (social media, regular people), its because they already done it.
-# Mainstream data -- somehting very social like youtube, tiktoke
-# BTC transaction. When are the masses and people INUPTREND
-
-
-# tradingview fundamentals there are many indicators
-
-# Large indicators
-
-https://github.com/saizk/scryptool
-https://github.com/SpiralDevelopment/crypto-sentiment-data
-# https://github.com/tomalexsmith/Bitcoin-sentiment-analysis  qweqasdadas d
-
-
-https://github.com/luca-santarella/sentiment-analysis-cryptoqaq
-
-https://github.com/drwismer/metis_unsupervised_learning_module/blob/main/Bitcoin%20Sentiment%20-%20Web%20Scraping%20-%20Articles.ipynb
+Selenium handeling:
+- https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux32.tar.gz
+Procedures:
+sudo apt-get update
+sudo apt-get install wget
+wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux32.tar.gz
+tar -xzvf geckodriver-v0.34.0-linux32.tar.gz
+sudo mkdir selenium_driver
+sudo mv geckodriver selenium_driver
+sudo chmod +x selenium_driver/geckodriver
+sudp apt-get install firefox
+# USE DOCKER
 
 
 
 
-# https://github.com/crazicus/Bitcoin-Transaction-Tracker   ----- > transaction
-
-
-# https://github.com/SomethingTotallyRandom/Wallet-Transaction-Monitor  ------ > single wallet transaction monitor  --- this will actually be good for a larger project
-
-#  https://github.com/vizeet/bitcoin_core_python_client --- maybe
 
 
 

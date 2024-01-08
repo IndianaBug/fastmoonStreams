@@ -5,3 +5,10 @@ cd C:\coding\SatoshiVault
 hard pull
 git fetch origin
 git reset --hard origin
+
+
+
+
+Docker
+docker build -t my-python-app .
+docker run -p 4000:80 my-python-app
