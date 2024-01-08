@@ -1,0 +1,7 @@
+C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
+cd C:\coding\SatoshiVault
+
+
+hard pull
+git fetch origin
+git reset --hard origin
