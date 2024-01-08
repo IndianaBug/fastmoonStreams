@@ -18,7 +18,7 @@ endpoint = "/get_book_summary_by_currency"
 # Specify the currency pair (e.g., BTC-USD)
 currency_pair = "BTC-USD"
 
-a = {"exchange":"okx", "insType":"STATISTIC_GENERAL", "obj":"calendar", "snapshotInterval":300, "instrument": "integrated", "url" : "https://www.okx.com/api/v5/public/economic-calendar"} # Need authentication
+a = {"exchange":"okx", "insType":"STATISTIC_GENERAL", "obj":"calendar", "snapshotInterval":300, "instrument": "integrated", "url" : "https://api.coinfeeds.io/coins/list"} # Need authentication
 
 
 r = requests.get(a['url'])

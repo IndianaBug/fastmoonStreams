@@ -19,6 +19,7 @@ class WebSocketClient():
         self.host = host
         self.connection_data = connection_data
 
+
     def parse_params(self, arg, exchange):
         if exchange == "binance": 
             return json.dumps({"method": "SUBSCRIBE", "params": [arg], "id": generate_random_integer(10)})
