@@ -98,6 +98,8 @@ class WebSocketClient():
         # https://www.okx.com/docs-v5/en/#public-data-rest-api-get-economic-calendar-data
         # You may want to nake an API call rather than websocker
 
+    # https://www.blockchain.com/explorer/api/api_websocket ---- real time updates using websockets # HAHAHHAHAHA not only, also USDT ETH, USDC etc
+
 
     def parse_params(self, arg, exchange):
         if exchange == "binance": 
