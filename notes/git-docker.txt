@@ -1,5 +1,5 @@
-C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
-cd C:\coding\SatoshiVault
+source /home/pasha/SatoshiVaultEnv/StatoshiVault/bin/activate
+cd /home/pasha/SatoshiVault 
 
 
 hard pull
