@@ -16,11 +16,24 @@ Introducing BTC DataVault, your go-to API for real-time and historical BTC data.
 - [ ] reddit hot keyword scrapping
 - [ ] lunar crash hot keyword scrapping
 - [ ] coinfeeds -- everything
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
 - [ ] chatGPT sentiment score, topic modeling
 - [ ] extensive data engeneering
 - [ ] wallet inteligence
+- [ ] stabelcoins - defilama api
+- [ ] bitcoin riches adresses - https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html
+- [ ] tagged bitcoin adresses
+- [ ] BTC adress behaviour analysis
+
+## honorable mentions. good for fundamental analysis
+
+- [] https://defillama.com/docs/api
+- [] telegram coin groups
+- [] 1000 riches adresses bitcoin: https://99bitcoins.com/bitcoin-rich-list-top1000/
+- [] top bitcoin wallets - https://www.walletexplorer.com/
+
+
+https://bitaps.com/
+
+https://github.com/TransposeData/transpose-python-sdk
+
+https://dexterlab.com/best-on-chain-analysis-tools/
