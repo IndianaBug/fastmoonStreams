@@ -1,3 +1,7 @@
+Useful websites:
+https://piehost.com/websocket-tester
+
+
 Ideas of indicators for options or futures:
 - OI by strike
 - OI by expiration
@@ -21,7 +25,6 @@ Fundamental:
 - https://www.blockchain.com/explorer  --- websockets xD
 
 News, twiits, sentiment:
-- zerohedge; 
 - okx, binance, coinbase twitter feeds
 - Mainstream data: youtube, twitter, toktok
 - Twitter scrapping: ---- https://github.com/tomalexsmith/Bitcoin-sentiment-analysis/tree/main
@@ -29,8 +32,6 @@ News, twiits, sentiment:
 
 Scrapping:
 - Lunar crash --- https://lunarcrush.com/
-- Bitcoin transaction tracker: --- https://github.com/crazicus/Bitcoin-Transaction-Tracker 
-- Monitor specific wallet: https://github.com/SomethingTotallyRandom/Wallet-Transaction-Monitor
 
 Docker:
 - https://github.com/kostyafarber/crypto-lob-data-pipeline 

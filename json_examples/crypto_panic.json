@@ -1,0 +1,731 @@
+{
+    "count": 200,
+    "next": "https://cryptopanic.com/api/v1/posts/?auth_token=4a5d7e79d937913b9345c41fc6c217de363afe6b&public=true&currencies=BTC%2CUSDT%2CUSDC%2CETH%2CBNB%2COKB&region=en&page=2",
+    "previous": null,
+    "results": [
+        {
+            "kind": "news",
+            "domain": "u.today",
+            "source": {
+                "title": "U.Today",
+                "region": "en",
+                "domain": "u.today",
+                "path": null
+            },
+            "title": "BlackRock's Bitcoin ETF IBIT Records First Millions in Volume, But There May Be a Catch",
+            "published_at": "2024-01-11T13:49:00Z",
+            "slug": "BlackRocks-Bitcoin-ETF-IBIT-Records-First-Millions-in-Volume-But-There-May-Be-a-Catch",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19168038,
+            "url": "https://cryptopanic.com/news/19168038/BlackRocks-Bitcoin-ETF-IBIT-Records-First-Millions-in-Volume-But-There-May-Be-a-Catch",
+            "created_at": "2024-01-11T13:49:00Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "theblock.co",
+            "source": {
+                "title": "The Block",
+                "region": "en",
+                "domain": "theblock.co",
+                "path": null
+            },
+            "title": "Bitcoin Layer 2 Bitfinity raises token round at $130 million valuation",
+            "published_at": "2024-01-11T13:40:03Z",
+            "slug": "Bitcoin-Layer-2-Bitfinity-raises-token-round-at-130-million-valuation",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                },
+                {
+                    "code": "ICP",
+                    "title": "Internet Computer",
+                    "slug": "internet-computer",
+                    "url": "https://cryptopanic.com/news/internet-computer/"
+                }
+            ],
+            "id": 19167990,
+            "url": "https://cryptopanic.com/news/19167990/Bitcoin-Layer-2-Bitfinity-raises-token-round-at-130-million-valuation",
+            "created_at": "2024-01-11T13:40:03Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "cryptoslate.com",
+            "source": {
+                "title": "CryptoSlate",
+                "region": "en",
+                "domain": "cryptoslate.com",
+                "path": null
+            },
+            "title": "US inflation rates exceed expectations while Bitcoin showcases resilience",
+            "published_at": "2024-01-11T13:35:25Z",
+            "slug": "US-inflation-rates-exceed-expectations-while-Bitcoin-showcases-resilience",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167965,
+            "url": "https://cryptopanic.com/news/19167965/US-inflation-rates-exceed-expectations-while-Bitcoin-showcases-resilience",
+            "created_at": "2024-01-11T13:35:25Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "theblock.co",
+            "source": {
+                "title": "The Block",
+                "region": "en",
+                "domain": "theblock.co",
+                "path": null
+            },
+            "title": "USDC stablecoin issuer Circle confidentially files for IPO",
+            "published_at": "2024-01-11T13:33:16Z",
+            "slug": "USDC-stablecoin-issuer-Circle-confidentially-files-for-IPO",
+            "currencies": [
+                {
+                    "code": "USDC",
+                    "title": "USDC",
+                    "slug": "usd-coin",
+                    "url": "https://cryptopanic.com/news/usd-coin/"
+                }
+            ],
+            "id": 19167991,
+            "url": "https://cryptopanic.com/news/19167991/USDC-stablecoin-issuer-Circle-confidentially-files-for-IPO",
+            "created_at": "2024-01-11T13:33:16Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "coinspeaker.com",
+            "source": {
+                "title": "Coinspeaker",
+                "region": "en",
+                "domain": "coinspeaker.com",
+                "path": null
+            },
+            "title": "Cathie Wood Confirms Her $1.5M Dollar Bitcoin Price Target, Expects $4B ETF Inflows",
+            "published_at": "2024-01-11T13:32:16Z",
+            "slug": "Cathie-Wood-Confirms-Her-15M-Dollar-Bitcoin-Price-Target-Expects-4B-ETF-Inflows",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167962,
+            "url": "https://cryptopanic.com/news/19167962/Cathie-Wood-Confirms-Her-15M-Dollar-Bitcoin-Price-Target-Expects-4B-ETF-Inflows",
+            "created_at": "2024-01-11T13:32:16Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "en.bitcoinsistemi.com",
+            "source": {
+                "title": "en bitcoinsistemi",
+                "region": "en",
+                "domain": "en.bitcoinsistemi.com",
+                "path": null
+            },
+            "title": "BREAKING! First US Inflation Data of 2024 Announced! Here is the First Reaction of Bitcoin and Dollar!",
+            "published_at": "2024-01-11T13:32:09Z",
+            "slug": "BREAKING-First-US-Inflation-Data-of-2024-Announced-Here-is-the-First-Reaction-of-Bitcoin-and-Dollar",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167997,
+            "url": "https://cryptopanic.com/news/19167997/BREAKING-First-US-Inflation-Data-of-2024-Announced-Here-is-the-First-Reaction-of-Bitcoin-and-Dollar",
+            "created_at": "2024-01-11T13:32:09Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "beincrypto.com",
+            "source": {
+                "title": "BeInCrypto",
+                "region": "en",
+                "domain": "beincrypto.com",
+                "path": null
+            },
+            "title": "Codego Group Launches CodegoPay \u2013 An All-In-One Payment App with IBANs, Cards, and Crypto-EURO Conversions",
+            "published_at": "2024-01-11T13:31:52Z",
+            "slug": "Codego-Group-Launches-CodegoPay-An-All-In-One-Payment-App-with-IBANs-Cards-and-Crypto-EURO-Conversions",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167963,
+            "url": "https://cryptopanic.com/news/19167963/Codego-Group-Launches-CodegoPay-An-All-In-One-Payment-App-with-IBANs-Cards-and-Crypto-EURO-Conversions",
+            "created_at": "2024-01-11T13:31:52Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "coingabbar.com",
+            "source": {
+                "title": "coingabbar",
+                "region": "en",
+                "domain": "coingabbar.com",
+                "path": null
+            },
+            "title": "Bitcoin ETF Approval Could Open Several Doors for Crypto in India",
+            "published_at": "2024-01-11T13:30:00Z",
+            "slug": "Bitcoin-ETF-Approval-Could-Open-Several-Doors-for-Crypto-in-India",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                },
+                {
+                    "code": "ETH",
+                    "title": "Ethereum",
+                    "slug": "ethereum",
+                    "url": "https://cryptopanic.com/news/ethereum/"
+                }
+            ],
+            "id": 19167948,
+            "url": "https://cryptopanic.com/news/19167948/Bitcoin-ETF-Approval-Could-Open-Several-Doors-for-Crypto-in-India",
+            "created_at": "2024-01-11T13:30:00Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "cryptopolitan.com",
+            "source": {
+                "title": "Feed - Cryptopolitan.Com",
+                "region": "en",
+                "domain": "cryptopolitan.com",
+                "path": null
+            },
+            "title": "SEC Twitter Hack Provides Season High to Crypto Drama",
+            "published_at": "2024-01-11T13:28:14Z",
+            "slug": "SEC-Twitter-Hack-Provides-Season-High-to-Crypto-Drama",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167933,
+            "url": "https://cryptopanic.com/news/19167933/SEC-Twitter-Hack-Provides-Season-High-to-Crypto-Drama",
+            "created_at": "2024-01-11T13:28:14Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "feeds2.benzinga.com",
+            "source": {
+                "title": "Benzinga",
+                "region": "en",
+                "domain": "feeds2.benzinga.com",
+                "path": null
+            },
+            "title": "SEC's Historic Bitcoin ETF Approval Reveals Deep Divide Within Commission",
+            "published_at": "2024-01-11T13:26:41Z",
+            "slug": "SECs-Historic-Bitcoin-ETF-Approval-Reveals-Deep-Divide-Within-Commission",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19168023,
+            "url": "https://cryptopanic.com/news/19168023/SECs-Historic-Bitcoin-ETF-Approval-Reveals-Deep-Divide-Within-Commission",
+            "created_at": "2024-01-11T13:26:41Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "finbold.com",
+            "source": {
+                "title": "Finbold",
+                "region": "en",
+                "domain": "finbold.com",
+                "path": null
+            },
+            "title": "These SEC officials voted against the Bitcoin ETF approval",
+            "published_at": "2024-01-11T13:22:59Z",
+            "slug": "These-SEC-officials-voted-against-the-Bitcoin-ETF-approval",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167935,
+            "url": "https://cryptopanic.com/news/19167935/These-SEC-officials-voted-against-the-Bitcoin-ETF-approval",
+            "created_at": "2024-01-11T13:22:59Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "ambcrypto.com",
+            "source": {
+                "title": "AMBCrypto",
+                "region": "en",
+                "domain": "ambcrypto.com",
+                "path": null
+            },
+            "title": "Just In: USDC stablecoin issuer Circle confidentially files for an IPO",
+            "published_at": "2024-01-11T13:18:27Z",
+            "slug": "Just-In-USDC-stablecoin-issuer-Circle-confidentially-files-for-an-IPO",
+            "currencies": [
+                {
+                    "code": "USDC",
+                    "title": "USDC",
+                    "slug": "usd-coin",
+                    "url": "https://cryptopanic.com/news/usd-coin/"
+                }
+            ],
+            "id": 19167895,
+            "url": "https://cryptopanic.com/news/19167895/Just-In-USDC-stablecoin-issuer-Circle-confidentially-files-for-an-IPO",
+            "created_at": "2024-01-11T13:18:27Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "beincrypto.com",
+            "source": {
+                "title": "BeInCrypto",
+                "region": "en",
+                "domain": "beincrypto.com",
+                "path": null
+            },
+            "title": "Stablecoin Firm Circle Files For US Initial Public Offering: Reports",
+            "published_at": "2024-01-11T13:16:05Z",
+            "slug": "Stablecoin-Firm-Circle-Files-For-US-Initial-Public-Offering-Reports",
+            "currencies": [
+                {
+                    "code": "USDC",
+                    "title": "USDC",
+                    "slug": "usd-coin",
+                    "url": "https://cryptopanic.com/news/usd-coin/"
+                }
+            ],
+            "id": 19167964,
+            "url": "https://cryptopanic.com/news/19167964/Stablecoin-Firm-Circle-Files-For-US-Initial-Public-Offering-Reports",
+            "created_at": "2024-01-11T13:16:05Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "finbold.com",
+            "source": {
+                "title": "Finbold",
+                "region": "en",
+                "domain": "finbold.com",
+                "path": null
+            },
+            "title": "Short squeeze alert for next week: Two cryptocurrencies with potential to skyrocket",
+            "published_at": "2024-01-11T13:11:36Z",
+            "slug": "Short-squeeze-alert-for-next-week-Two-cryptocurrencies-with-potential-to-skyrocket",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                },
+                {
+                    "code": "BNB",
+                    "title": "BNB",
+                    "slug": "binancecoin",
+                    "url": "https://cryptopanic.com/news/binancecoin/"
+                }
+            ],
+            "id": 19167909,
+            "url": "https://cryptopanic.com/news/19167909/Short-squeeze-alert-for-next-week-Two-cryptocurrencies-with-potential-to-skyrocket",
+            "created_at": "2024-01-11T13:11:36Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "en.bitcoinsistemi.com",
+            "votes": {
+                "negative": 0,
+                "positive": 1,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            },
+            "source": {
+                "title": "en bitcoinsistemi",
+                "region": "en",
+                "domain": "en.bitcoinsistemi.com",
+                "path": null
+            },
+            "title": "JUST IN! USDC Issuer Circle Applies for IPO!",
+            "published_at": "2024-01-11T13:07:05Z",
+            "slug": "JUST-IN-USDC-Issuer-Circle-Applies-for-IPO",
+            "currencies": [
+                {
+                    "code": "USDC",
+                    "title": "USDC",
+                    "slug": "usd-coin",
+                    "url": "https://cryptopanic.com/news/usd-coin/"
+                }
+            ],
+            "id": 19167866,
+            "url": "https://cryptopanic.com/news/19167866/JUST-IN-USDC-Issuer-Circle-Applies-for-IPO",
+            "created_at": "2024-01-11T13:07:05Z"
+        },
+        {
+            "kind": "news",
+            "domain": "cryptoslate.com",
+            "source": {
+                "title": "CryptoSlate",
+                "region": "en",
+                "domain": "cryptoslate.com",
+                "path": null
+            },
+            "title": "Prediction: Bitcoin ETF will now dwarf gold performance based on historical data",
+            "published_at": "2024-01-11T13:02:11Z",
+            "slug": "Prediction-Bitcoin-ETF-will-now-dwarf-gold-performance-based-on-historical-data",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167854,
+            "url": "https://cryptopanic.com/news/19167854/Prediction-Bitcoin-ETF-will-now-dwarf-gold-performance-based-on-historical-data",
+            "created_at": "2024-01-11T13:02:11Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "blockworks.co",
+            "source": {
+                "title": "Blockworks",
+                "region": "en",
+                "domain": "blockworks.co",
+                "path": null
+            },
+            "title": "Ethereum ETF hype spills over to Ethereum Classic, leading to 50% pump",
+            "published_at": "2024-01-11T12:51:27Z",
+            "slug": "Ethereum-ETF-hype-spills-over-to-Ethereum-Classic-leading-to-50-pump",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                },
+                {
+                    "code": "ETH",
+                    "title": "Ethereum",
+                    "slug": "ethereum",
+                    "url": "https://cryptopanic.com/news/ethereum/"
+                }
+            ],
+            "id": 19167921,
+            "url": "https://cryptopanic.com/news/19167921/Ethereum-ETF-hype-spills-over-to-Ethereum-Classic-leading-to-50-pump",
+            "created_at": "2024-01-11T12:51:27Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "cryptopolitan.com",
+            "source": {
+                "title": "Feed - Cryptopolitan.Com",
+                "region": "en",
+                "domain": "cryptopolitan.com",
+                "path": null
+            },
+            "title": "Ethereum\u2019s longest gas limit freeze prompts Buterin\u2019s call for change",
+            "published_at": "2024-01-11T12:50:51Z",
+            "slug": "Ethereums-longest-gas-limit-freeze-prompts-Buterins-call-for-change",
+            "currencies": [
+                {
+                    "code": "ETH",
+                    "title": "Ethereum",
+                    "slug": "ethereum",
+                    "url": "https://cryptopanic.com/news/ethereum/"
+                }
+            ],
+            "id": 19167789,
+            "url": "https://cryptopanic.com/news/19167789/Ethereums-longest-gas-limit-freeze-prompts-Buterins-call-for-change",
+            "created_at": "2024-01-11T12:50:51Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "cryptopotato.com",
+            "source": {
+                "title": "Feed - Cryptopotato.Com",
+                "region": "en",
+                "domain": "cryptopotato.com",
+                "path": null
+            },
+            "title": "A Watershed Moment for Crypto: Coinbase Comments on Bitcoin ETFs Approval",
+            "published_at": "2024-01-11T12:48:31Z",
+            "slug": "A-Watershed-Moment-for-Crypto-Coinbase-Comments-on-Bitcoin-ETFs-Approval",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167778,
+            "url": "https://cryptopanic.com/news/19167778/A-Watershed-Moment-for-Crypto-Coinbase-Comments-on-Bitcoin-ETFs-Approval",
+            "created_at": "2024-01-11T12:48:31Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        },
+        {
+            "kind": "news",
+            "domain": "cointelegraph.com",
+            "source": {
+                "title": "CoinTelegraph",
+                "region": "en",
+                "domain": "cointelegraph.com",
+                "path": null
+            },
+            "title": "Spot Bitcoin ETF approval recap: A 10-year journey concludes in historic win for crypto",
+            "published_at": "2024-01-11T12:47:20Z",
+            "slug": "Spot-Bitcoin-ETF-approval-recap-A-10-year-journey-concludes-in-historic-win-for-crypto",
+            "currencies": [
+                {
+                    "code": "BTC",
+                    "title": "Bitcoin",
+                    "slug": "bitcoin",
+                    "url": "https://cryptopanic.com/news/bitcoin/"
+                }
+            ],
+            "id": 19167776,
+            "url": "https://cryptopanic.com/news/19167776/Spot-Bitcoin-ETF-approval-recap-A-10-year-journey-concludes-in-historic-win-for-crypto",
+            "created_at": "2024-01-11T12:47:20Z",
+            "votes": {
+                "negative": 0,
+                "positive": 0,
+                "important": 0,
+                "liked": 0,
+                "disliked": 0,
+                "lol": 0,
+                "toxic": 0,
+                "saved": 0,
+                "comments": 0
+            }
+        }
+    ]
+}

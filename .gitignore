@@ -1,0 +1,7 @@
+# .gitignore
+
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+config.py  # Add any sensitive configuration files here

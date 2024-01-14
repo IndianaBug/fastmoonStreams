@@ -27,7 +27,7 @@ class WebSocketClient():
             return json.dumps({"op": "subscribe", "args": [arg]})
         if exchange == "bybit":
             return json.dumps({"op": "subscribe","args": [arg]})
-        if exchange == "coinbase":
+        if exchange in ["coinbase", "blockchain"] :
             return json.dumps(arg)
 
     async def keep_alive(self, websocket, exchange, ping_interval=30):
@@ -45,6 +45,9 @@ class WebSocketClient():
                 if exchange == "coinbase":
                     await asyncio.sleep(10 - 10)
                     # await websocket.send(json.dumps({"op": "ping"})) 
+                if exchange == "blockchain":
+                    await asyncio.sleep(ping_interval - 10)
+                    await websocket.send('ping')
             except websockets.exceptions.ConnectionClosed:
                 print("Connection closed. Stopping keep-alive.")
                 break

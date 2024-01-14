@@ -6,9 +6,10 @@ from cryptography.hazmat.primitives import serialization
 import time
 import secrets
 from urllib.parse import urlencode
-
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from config import crypto_panic_token, coinbase_api, coinbase_secret
-
 
 def generate_random_integer(n):
     if n <= 0:
@@ -112,7 +113,9 @@ APIs = [
                                                             "resolution":"1"}}},
     # NEWS AGGREGATOR
     {"exchange":"Crypto_Panic", "insType":"news", "obj":"aggregator", "instrument":"BTC_USDT_ETH",
-                                    "snapshotInterval":30, "url":f'https://cryptopanic.com/api/v1/posts/?auth_token={crypto_panic_token}&public=true&currencies=BTC,USDT,ETH&region=en'}
+                                    "snapshotInterval":30, "url":f'https://cryptopanic.com/api/v1/posts/?auth_token={crypto_panic_token}&public=true&currencies=BTC,USDT,ETH&region=en'},  # Every 30 seconds
+    
+
 
 ]
 
@@ -214,8 +217,16 @@ WSs =[
                                                                                               "channel": "market_trades",
                                                                                               "jwt": build_jwt(),
                                                                                               "timestamp": int(time.time())
-                                                                                              }}
+                                                                                              }},
+        # Blockchain
+         { "n": "blockchain_unconfirmed_sub_BTC", "e": "wss://ws.blockchain.info/inv", "sn": {"op": "unconfirmed_sub"}},                                                                   
                                                         ] 
+
+
+
+wallets = {
+    
+}
 
 
 # url_params = urlencode(WSs[-1]["sn"])
