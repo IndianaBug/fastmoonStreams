@@ -14,6 +14,16 @@ Introducing BTC DataVault, your go-to API for real-time and historical BTC data.
 - [ ] chatGPT sentiment score, topic modeling
 - [ ] Footprints, orderflow
 
+###
+https://github.com/dyn4mik3/OrderBook/tree/master/orderbook
+
+Features ranges:
+-0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.33, 2.66, 3, 3,5, 4, 5, 7,5, 10
+- Volume profile
+- Range contraction/expantion indicator
+###
+
+
 #### Order flow features
 Order Flow Momentum (OFM): Measures the change in order flow activity over time.
 Order Flow Mean Reversion (OFMR): Measures the tendency of order flow activity to revert to its mean.
