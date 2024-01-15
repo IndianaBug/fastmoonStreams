@@ -1,0 +1,3282 @@
+{
+    "status": {
+        "timestamp": "2024-01-15T09:40:13.549Z",
+        "error_code": 0,
+        "error_message": null,
+        "elapsed": 592,
+        "credit_count": 1,
+        "notice": null
+    },
+    "data": [
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 189146213.8,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 17464,
+                "price_usd": 0.002999623075223282,
+                "symbol": "STRM",
+                "name": "StreamCoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11335838.71,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 10903,
+                "price_usd": 0.2553170068167541,
+                "symbol": "C98",
+                "name": "Coin98"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5275538.15,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8000,
+                "price_usd": 3.3363658738261073,
+                "symbol": "LDO",
+                "name": "Lido DAO"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 382243516.88,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3816,
+                "price_usd": 0.005482353215172688,
+                "symbol": "VRA",
+                "name": "Verasity"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11881626.68,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1966,
+                "price_usd": 0.45483953179224523,
+                "symbol": "MANA",
+                "name": "Decentraland"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 27416236.71,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 14806,
+                "price_usd": 0.03589827669340014,
+                "symbol": "PEOPLE",
+                "name": "ConstitutionDAO"
+            }
+        },
+        {
+            "wallet_address": "0xA7A93fd0a276fc1C0197a5B5623eD117786eeD06",
+            "balance": 1076676338.81,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 109996651405458.62,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 25023,
+                "price_usd": 6.32134245702533e-08,
+                "symbol": "LADYS",
+                "name": "Milady Meme Coin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 567591825.04,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8425,
+                "price_usd": 0.005417010860807408,
+                "symbol": "JASMY",
+                "name": "JasmyCoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11799422.19,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 22355,
+                "price_usd": 0.2907534254350564,
+                "symbol": "VRTX",
+                "name": "Vertex Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 36895.55,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3155,
+                "price_usd": 118.25930089890728,
+                "symbol": "QNT",
+                "name": "Quant"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 105784683,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 19778,
+                "price_usd": 0.007079647667184758,
+                "symbol": "FITFI",
+                "name": "Step App"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1415104.68,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2586,
+                "price_usd": 3.6554722000952,
+                "symbol": "SNX",
+                "name": "Synthetix"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 613156156.36,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28298,
+                "price_usd": 0.018337938841190785,
+                "symbol": "BEAM",
+                "name": "Beam"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 111351.28,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2087,
+                "price_usd": 9.997383804026807,
+                "symbol": "KCS",
+                "name": "KuCoin Token"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 5000,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 1027,
+                "price_usd": 2521.2117059941697,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 74625399.65,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23633,
+                "price_usd": 0.011611746639953723,
+                "symbol": "HVH",
+                "name": "HAVAH"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 200000000.9,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 10805,
+                "price_usd": 0.017673653051877646,
+                "symbol": "THN",
+                "name": "Throne"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11020947.05,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7501,
+                "price_usd": 0.41041144447155253,
+                "symbol": "WOO",
+                "name": "WOO"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 69782195585.77,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 24594,
+                "price_usd": 2.6701493228922732e-05,
+                "symbol": "BOB",
+                "name": "BOB"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 15542421.23,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2424,
+                "price_usd": 0.28767566123036004,
+                "symbol": "AGIX",
+                "name": "SingularityNET"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 51962777.99,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28299,
+                "price_usd": 0.02967560647937804,
+                "symbol": "TOKEN",
+                "name": "TokenFi"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 24219216.25,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 22484,
+                "price_usd": 0.025478627490336754,
+                "symbol": "ELDA",
+                "name": "Eldarune"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4815957.73,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1934,
+                "price_usd": 0.25765404119493795,
+                "symbol": "LRC",
+                "name": "Loopring"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 17619432.19,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8037,
+                "price_usd": 0.057792281410345855,
+                "symbol": "VANRY",
+                "name": "Vanar Chain"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 613278.16,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 11877,
+                "price_usd": 1.9265469590539301,
+                "symbol": "GAL",
+                "name": "Galxe"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 539659.8,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23246,
+                "price_usd": 1.4806246667549308,
+                "symbol": "TOMI",
+                "name": "tomiNet"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 309214024.97,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7080,
+                "price_usd": 0.02590736000697469,
+                "symbol": "GALA",
+                "name": "Gala"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 424310.27,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 24781,
+                "price_usd": 7.827827518738287,
+                "symbol": "CYBER",
+                "name": "CyberConnect"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 679.46,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4705,
+                "price_usd": 2039.141776797585,
+                "symbol": "PAXG",
+                "name": "PAX Gold"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5779581.94,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 14556,
+                "price_usd": 0.27097995703542066,
+                "symbol": "BOBA",
+                "name": "Boba Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 16212807.23,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 3890,
+                "price_usd": 0.8589868964418063,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 73843278.37,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 19621,
+                "price_usd": 0.030612183995303473,
+                "symbol": "COT",
+                "name": "Cosplay Token"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 17000000.9,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 21711,
+                "price_usd": 0.28584670582346283,
+                "symbol": "FON",
+                "name": "INOFI"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 25179921.69,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 21036,
+                "price_usd": 0.025111808606492692,
+                "symbol": "SLG",
+                "name": "SLG.GAMES"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 267261.6,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6953,
+                "price_usd": 8.82510332756594,
+                "symbol": "FXS",
+                "name": "Frax Share"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 19096220.86,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 19843,
+                "price_usd": 2.1770509859875524,
+                "symbol": "APEX",
+                "name": "ApeX Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 580435.96,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2694,
+                "price_usd": 0.8911196368144569,
+                "symbol": "NEXO",
+                "name": "Nexo"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1525266.59,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7083,
+                "price_usd": 6.556956637043632,
+                "symbol": "UNI",
+                "name": "Uniswap"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3556674.86,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 18934,
+                "price_usd": 0.5715192902024482,
+                "symbol": "STG",
+                "name": "Stargate Finance"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 32934112.01,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28610,
+                "price_usd": 0.2499906445253684,
+                "symbol": "INSP",
+                "name": "Inspect"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 379294.62,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 24781,
+                "price_usd": 7.827827518738287,
+                "symbol": "CYBER",
+                "name": "CyberConnect"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4783565.29,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 10603,
+                "price_usd": 2.03838175186063,
+                "symbol": "IMX",
+                "name": "Immutable"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7658771.22,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 258123291572528.34,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 15270,
+                "price_usd": 1.5553713868539437e-08,
+                "symbol": "VINU",
+                "name": "Vita Inu"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 10618401.86,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 28933,
+                "price_usd": 0.890981274386266,
+                "symbol": "XAI",
+                "name": "Xai"
+            }
+        },
+        {
+            "wallet_address": "TB1WQmj63bHV9Qmuhp39WABzutphMAetSc",
+            "balance": 229375386.5,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
+            "balance": 223346.67,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1027,
+                "price_usd": 2521.2117059941697,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 32070402.77,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28396,
+                "price_usd": 0.03279310929332239,
+                "symbol": "RPK",
+                "name": "RepubliK"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5103118.1,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9543,
+                "price_usd": 0.37081230999428183,
+                "symbol": "BICO",
+                "name": "Biconomy"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 345241671.48,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 27075,
+                "price_usd": 0.7214188471743985,
+                "symbol": "MNT",
+                "name": "Mantle"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5150755.44,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 186677165.04,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28301,
+                "price_usd": 0.028081722807392,
+                "symbol": "MEME",
+                "name": "Memecoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1926385.78,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 14783,
+                "price_usd": 1.1308842803547148,
+                "symbol": "MAGIC",
+                "name": "Treasure"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 187822795.86,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23846,
+                "price_usd": 0.011356775033313456,
+                "symbol": "LAI",
+                "name": "LayerAI"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 257021004.69,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2982,
+                "price_usd": 0.0045887652865660425,
+                "symbol": "MVL",
+                "name": "MVL"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 14246865.45,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 21711,
+                "price_usd": 0.28584670582346283,
+                "symbol": "FON",
+                "name": "INOFI"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 68952.9,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 12999,
+                "price_usd": 33.60228225126311,
+                "symbol": "SSV",
+                "name": "ssv.network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 148704815.62,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 16481,
+                "price_usd": 0.030050351662123477,
+                "symbol": "KASTA",
+                "name": "Kasta"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 86367432103.01,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 26585,
+                "price_usd": 8.016371173996053e-05,
+                "symbol": "PLANET",
+                "name": "PLANET"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 46913051,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4066,
+                "price_usd": 0.08703636206677995,
+                "symbol": "CHZ",
+                "name": "Chiliz"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 53776193.34,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6719,
+                "price_usd": 0.16386939010869048,
+                "symbol": "GRT",
+                "name": "The Graph"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3747102.37,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 17591,
+                "price_usd": 0.22873035869070835,
+                "symbol": "NYM",
+                "name": "NYM"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 24592772.98,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 28817,
+                "price_usd": 0.029530123343933762,
+                "symbol": "AKI",
+                "name": "Aki Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 27250682.4,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3890,
+                "price_usd": 0.8589868964418063,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 36294.26,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8085,
+                "price_usd": 2521.877646469373,
+                "symbol": "stETH",
+                "name": "Lido Staked ETH"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 176595498.8,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 22031,
+                "price_usd": 0.038958853770492616,
+                "symbol": "AGLA",
+                "name": "Angola"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 13352.92,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1027,
+                "price_usd": 2521.2117059941697,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 10740813.91,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8104,
+                "price_usd": 0.4659483900505205,
+                "symbol": "1INCH",
+                "name": "1inch Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 130233.67,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5692,
+                "price_usd": 58.03219983501545,
+                "symbol": "COMP",
+                "name": "Compound"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 39414.15,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 11857,
+                "price_usd": 52.796541919686256,
+                "symbol": "GMX",
+                "name": "GMX"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 34813939.91,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3783,
+                "price_usd": 0.02474583127961923,
+                "symbol": "ANKR",
+                "name": "Ankr"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1712917.68,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 18069,
+                "price_usd": 0.31012131247865593,
+                "symbol": "GMT",
+                "name": "GMT"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4441897.35,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 15084,
+                "price_usd": 0.35753220747160164,
+                "symbol": "SIS",
+                "name": "Symbiosis"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 68782.93,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 1839,
+                "price_usd": 315.59855534253006,
+                "symbol": "BNB",
+                "name": "BNB"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11448513.15,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2539,
+                "price_usd": 0.05938679434137078,
+                "symbol": "REN",
+                "name": "Ren"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 11350189405231.95,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 24478,
+                "price_usd": 1.233317493494534e-06,
+                "symbol": "PEPE",
+                "name": "Pepe"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 92944200.11,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 28299,
+                "price_usd": 0.02967560647937804,
+                "symbol": "TOKEN",
+                "name": "TokenFi"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7292348.13,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5857733.47,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 19843,
+                "price_usd": 2.1770509859875524,
+                "symbol": "APEX",
+                "name": "ApeX Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 51875877.75,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6958,
+                "price_usd": 0.01912767218097998,
+                "symbol": "ACH",
+                "name": "Alchemy Pay"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1731113481712.05,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 28675,
+                "price_usd": 1.4139892071420623e-06,
+                "symbol": "COQ",
+                "name": "Coq Inu"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 327411964.61,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 22289,
+                "price_usd": 0.008779018404131334,
+                "symbol": "MYRIA",
+                "name": "Myria"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 150974.79,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 5805,
+                "price_usd": 36.20068086509748,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4001066.66,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5690,
+                "price_usd": 3.8501486898564417,
+                "symbol": "RNDR",
+                "name": "Render"
+            }
+        },
+        {
+            "wallet_address": "TBpr1tQ5kvoKMv85XsCESVavYo4oZZdWpY",
+            "balance": 63611482.01,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 471508.58,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 11568,
+                "price_usd": 1.3490689249510404,
+                "symbol": "AGLD",
+                "name": "Adventure Gold"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 66126.64,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7278,
+                "price_usd": 101.93867567062907,
+                "symbol": "AAVE",
+                "name": "Aave"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 346255124372.23,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 25047,
+                "price_usd": 5.921221546685243e-06,
+                "symbol": "BEN",
+                "name": "Ben"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 14128026.98,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28509,
+                "price_usd": 0.10061554424584734,
+                "symbol": "JEFF",
+                "name": "Jeff World"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1309423.72,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9481,
+                "price_usd": 1.6718541252591268,
+                "symbol": "PENDLE",
+                "name": "Pendle"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 839184.46,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 17799,
+                "price_usd": 1.0148271182810742,
+                "symbol": "AXL",
+                "name": "Axelar"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4941269.01,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 11221,
+                "price_usd": 0.8076791904340576,
+                "symbol": "BIT",
+                "name": "BitDAO"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1800778.38,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28321,
+                "price_usd": 0.8571692736084168,
+                "symbol": "POL",
+                "name": "Polygon Ecosystem Token"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1299455.33,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1808,
+                "price_usd": 0.7006595171085152,
+                "symbol": "OMG",
+                "name": "OMG Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 494757.02,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6783,
+                "price_usd": 7.921260989614409,
+                "symbol": "AXS",
+                "name": "Axie Infinity"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 49270554.16,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 24908,
+                "price_usd": 0.01026829520250602,
+                "symbol": "MTC",
+                "name": "Metatime Coin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 898563.26,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 10223,
+                "price_usd": 1.23425669425922,
+                "symbol": "VEGA",
+                "name": "Vega Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 15251136.75,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 666368.54,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7226,
+                "price_usd": 39.24728056487786,
+                "symbol": "INJ",
+                "name": "Injective"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 10638634.95,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 11840,
+                "price_usd": 3.547474220357998,
+                "symbol": "OP",
+                "name": "Optimism"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 101092475.22,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28479,
+                "price_usd": 0.08735186569472994,
+                "symbol": "ROOT",
+                "name": "The Root Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1049986.88,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4943,
+                "price_usd": 0.9999934587324898,
+                "symbol": "DAI",
+                "name": "Dai"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 440815601268.84,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 5994,
+                "price_usd": 9.676045860650987e-06,
+                "symbol": "SHIB",
+                "name": "Shiba Inu"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 22074942.33,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6210,
+                "price_usd": 0.5012916202108157,
+                "symbol": "SAND",
+                "name": "The Sandbox"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3193315.46,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 18876,
+                "price_usd": 1.414322606969451,
+                "symbol": "APE",
+                "name": "ApeCoin"
+            }
+        },
+        {
+            "wallet_address": "TS9PDCB6vzLYDCPr5Nas2yzekdr7ot6dxn",
+            "balance": 16614546.27,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 442527426.93,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 20873,
+                "price_usd": 0.0014606322093857064,
+                "symbol": "LEVER",
+                "name": "LeverFi"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 176000188.04,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 7127,
+                "price_usd": 0.006107102722479304,
+                "symbol": "VELO",
+                "name": "Velo"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 478632116.5,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2394,
+                "price_usd": 0.0013087229632199088,
+                "symbol": "TEL",
+                "name": "Telcoin"
+            }
+        },
+        {
+            "wallet_address": "0xe1ab8c08294F8ee707D4eFa458eaB8BbEeB09215",
+            "balance": 335994166,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 27075,
+                "price_usd": 0.7214188471743985,
+                "symbol": "MNT",
+                "name": "Mantle"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 589332.12,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9868,
+                "price_usd": 1.0836874582867557,
+                "symbol": "XCAD",
+                "name": "XCAD Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 132827447.36,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 28868,
+                "price_usd": 0.018484919454019876,
+                "symbol": "DUEL",
+                "name": "GameGPT"
+            }
+        },
+        {
+            "wallet_address": "TQVxjVy2sYt4at45ezD7VG4H6nQZtsua5C",
+            "balance": 16721694.93,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1525017673.06,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 28838,
+                "price_usd": 0.0005745496764979005,
+                "symbol": "FMC",
+                "name": "Fame AI"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 291694.21,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23711,
+                "price_usd": 7.863624696086828,
+                "symbol": "PRIME",
+                "name": "Echelon Prime"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 668373.88,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 13502,
+                "price_usd": 2.778763564470278,
+                "symbol": "WLD",
+                "name": "Worldcoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4303014.69,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1697,
+                "price_usd": 0.2413305877848041,
+                "symbol": "BAT",
+                "name": "Basic Attention Token"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1082838.23,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4687,
+                "price_usd": 0.9996850582609855,
+                "symbol": "BUSD",
+                "name": "BUSD"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 12291263.77,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 233784454,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5824,
+                "price_usd": 0.0030823026497082957,
+                "symbol": "SLP",
+                "name": "Smooth Love Potion"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 56391630103.44,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 10804,
+                "price_usd": 3.067057678731052e-05,
+                "symbol": "FLOKI",
+                "name": "FLOKI"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 212139930.42,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 792791.26,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 8972,
+                "price_usd": 3.4023670360966367,
+                "symbol": "SFUND",
+                "name": "Seedify.fund"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 318.46,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5864,
+                "price_usd": 7922.074471304849,
+                "symbol": "YFI",
+                "name": "yearn.finance"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5035220.39,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 27445,
+                "price_usd": 0.6312435830989234,
+                "symbol": "GSWIFT",
+                "name": "GameSwift"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 272306004.85,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 25224,
+                "price_usd": 0.0039966106997988485,
+                "symbol": "KARATE",
+                "name": "Karate Combat"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 348775102.57,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2682,
+                "price_usd": 0.001997089338972998,
+                "symbol": "HOT",
+                "name": "Holo"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 6146650.1,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 18852,
+                "price_usd": 1.0000996892848564,
+                "symbol": "USDC.e",
+                "name": "USD Coin Bridged"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1666491.25,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 13268,
+                "price_usd": 4.490156521517449,
+                "symbol": "FLIP",
+                "name": "Chainflip"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 2103531.02,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3811128.36,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 14179,
+                "price_usd": 0.4512609678084154,
+                "symbol": "PTU",
+                "name": "Pintu Token"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 18259500.05,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23121,
+                "price_usd": 0.5794540999228928,
+                "symbol": "BLUR",
+                "name": "Blur"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 527080413.26,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 17047,
+                "price_usd": 0.008141815697321263,
+                "symbol": "WWY",
+                "name": "WeWay"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5162739.48,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 2130,
+                "price_usd": 0.3079492125971391,
+                "symbol": "ENJ",
+                "name": "Enjin Coin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1954313.36,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 24476,
+                "price_usd": 0.523651197687769,
+                "symbol": "LMWR",
+                "name": "LimeWire"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 400179.32,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 13855,
+                "price_usd": 24.65826479952874,
+                "symbol": "ENS",
+                "name": "Ethereum Name Service"
+            }
+        },
+        {
+            "wallet_address": "TQVxjVy2sYt4at45ezD7VG4H6nQZtsua5C",
+            "balance": 4660002.12,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "1GrwDkr33gT6LuumniYjKEGjTLhsL5kmqC",
+            "balance": 762.51,
+            "platform": {
+                "crypto_id": 1,
+                "symbol": "BTC",
+                "name": "Bitcoin"
+            },
+            "currency": {
+                "crypto_id": 1,
+                "price_usd": 42618.5489815612,
+                "symbol": "BTC",
+                "name": "Bitcoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 30547280.76,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "TYgFxMvvu2VHFJnxQf8fh1qVAeMfXZJZ3K",
+            "balance": 16592559.06,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 9176210.95,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1009708.88,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1975,
+                "price_usd": 15.54474757455355,
+                "symbol": "LINK",
+                "name": "Chainlink"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 15689568.99,
+            "platform": {
+                "crypto_id": 3513,
+                "symbol": "FTM",
+                "name": "Fantom"
+            },
+            "currency": {
+                "crypto_id": 3513,
+                "price_usd": 0.3922332318523962,
+                "symbol": "FTM",
+                "name": "Fantom"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 84625810.1,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 16305,
+                "price_usd": 0.012760366167658821,
+                "symbol": "IZI",
+                "name": "Izumi Finance"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 706877.41,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8536,
+                "price_usd": 3.743508753263477,
+                "symbol": "MASK",
+                "name": "Mask Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 90727476.22,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9260,
+                "price_usd": 0.04032711638314245,
+                "symbol": "ZIG",
+                "name": "Zignaly"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7411042.1,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 27996,
+                "price_usd": 0.08428059946043667,
+                "symbol": "TRC",
+                "name": "MetaTrace"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 45841.63,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1027,
+                "price_usd": 2521.2117059941697,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 30000.02,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 1839,
+                "price_usd": 315.59855534253006,
+                "symbol": "BNB",
+                "name": "BNB"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 12463766.04,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 16919,
+                "price_usd": 0.27414191141330285,
+                "symbol": "5IRE",
+                "name": "5ire"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 308597.21,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4041,
+                "price_usd": 2.776977900977077,
+                "symbol": "MX",
+                "name": "MX TOKEN"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 70954825.81,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 28784,
+                "price_usd": 0.05580075499068373,
+                "symbol": "GRAPE",
+                "name": "GrapeCoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7597854.28,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6538,
+                "price_usd": 0.5448216255189879,
+                "symbol": "CRV",
+                "name": "Curve DAO Token"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3339275.22,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 28525,
+                "price_usd": 0.19623605408528078,
+                "symbol": "CRDS",
+                "name": "Cradles"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 8878.72,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 8085,
+                "price_usd": 2521.877646469373,
+                "symbol": "stETH",
+                "name": "Lido Staked ETH"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 68826.91,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 11857,
+                "price_usd": 52.796541919686256,
+                "symbol": "GMX",
+                "name": "GMX"
+            }
+        },
+        {
+            "wallet_address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 36569545.41,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 1958,
+                "price_usd": 0.11373116538621622,
+                "symbol": "TRX",
+                "name": "TRON"
+            }
+        },
+        {
+            "wallet_address": "TYgFxMvvu2VHFJnxQf8fh1qVAeMfXZJZ3K",
+            "balance": 4535432.87,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 31931778.5,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 17081,
+                "price_usd": 0.07905547372477635,
+                "symbol": "LOOKS",
+                "name": "LooksRare"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 13995806.53,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 23756,
+                "price_usd": 0.1528718190881196,
+                "symbol": "CGPT",
+                "name": "ChainGPT"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 47068461.01,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 28756,
+                "price_usd": 0.04195863244715727,
+                "symbol": "VPR",
+                "name": "VaporWallet"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 305728850.01,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 28249,
+                "price_usd": 0.01938233440075201,
+                "symbol": "ZTX",
+                "name": "ZTX"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 141292430.51,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 29020,
+                "price_usd": 0.04289768962273598,
+                "symbol": "APP",
+                "name": "Moon App"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 6462845.05,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9104,
+                "price_usd": 0.1518881731729703,
+                "symbol": "AIOZ",
+                "name": "AIOZ Network"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 15772282.86,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 19056899.48,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 236994481.2,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 23920,
+                "price_usd": 0.00655426951573887,
+                "symbol": "VV",
+                "name": "Virtual Versions"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1707904.66,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 4195,
+                "price_usd": 3.1376198422472563,
+                "symbol": "FTT",
+                "name": "FTX Token"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 69307065.1,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 24007,
+                "price_usd": 0.043699626854978725,
+                "symbol": "AGI",
+                "name": "Delysium"
+            }
+        },
+        {
+            "wallet_address": "bc1q2qqqt87kh33s0er58akh7v9cwjgd83z5smh9rp",
+            "balance": 2953.89,
+            "platform": {
+                "crypto_id": 1,
+                "symbol": "BTC",
+                "name": "Bitcoin"
+            },
+            "currency": {
+                "crypto_id": 1,
+                "price_usd": 42618.5489815612,
+                "symbol": "BTC",
+                "name": "Bitcoin"
+            }
+        },
+        {
+            "wallet_address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 10803265.24,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 150000000.9,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 7080,
+                "price_usd": 0.02590736000697469,
+                "symbol": "GALA",
+                "name": "Gala"
+            }
+        },
+        {
+            "wallet_address": "TKFvdC4UC1vtCoHZgn8eviK34kormXaqJ7",
+            "balance": 4803447.23,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 594940.48,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 9797,
+                "price_usd": 1.3275695605366744,
+                "symbol": "XAVA",
+                "name": "Avalaunch"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7525356.36,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6758,
+                "price_usd": 1.0902481933852124,
+                "symbol": "SUSHI",
+                "name": "SushiSwap"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 41732837.13,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3513,
+                "price_usd": 0.3922332318523962,
+                "symbol": "FTM",
+                "name": "Fantom"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1828.82,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1518,
+                "price_usd": 2052.9937984471544,
+                "symbol": "MKR",
+                "name": "Maker"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7101.6,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 1027,
+                "price_usd": 2521.2117059941697,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 3893214.71,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 11156,
+                "price_usd": 2.828411370571987,
+                "symbol": "ETHDYDX",
+                "name": "dYdX (ethDYDX)"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1991472.44,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6950,
+                "price_usd": 1.3760773315018664,
+                "symbol": "PERP",
+                "name": "Perpetual Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 185378412.61,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 15659,
+                "price_usd": 0.004285929750068764,
+                "symbol": "DEVT",
+                "name": "Decentralized Eternal Virtual Traveller"
+            }
+        },
+        {
+            "wallet_address": "TKFvdC4UC1vtCoHZgn8eviK34kormXaqJ7",
+            "balance": 16632020.01,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5919920.7,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 21846,
+                "price_usd": 0.3051612858117272,
+                "symbol": "ID",
+                "name": "SPACE ID"
+            }
+        },
+        {
+            "wallet_address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 827511971361.37,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 16086,
+                "price_usd": 1.0577656353824386e-06,
+                "symbol": "BTT",
+                "name": "BitTorrent (New)"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 10902844.11,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 18852,
+                "price_usd": 1.0000996892848564,
+                "symbol": "USDC.e",
+                "name": "USD Coin Bridged"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 2836951.39,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5198,
+                "price_usd": 0.5663649814203783,
+                "symbol": "CTC",
+                "name": "Creditcoin"
+            }
+        },
+        {
+            "wallet_address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 549280.09,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 2563,
+                "price_usd": 0.9965704517703918,
+                "symbol": "TUSD",
+                "name": "TrueUSD"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 28112105.8,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 14540,
+                "price_usd": 0.04905471551020341,
+                "symbol": "VPAD",
+                "name": "VLaunch"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 20451138.69,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 19786,
+                "price_usd": 0.1314814397576871,
+                "symbol": "TAVA",
+                "name": "ALTAVA"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 22032912.78,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 22461,
+                "price_usd": 0.34442090464300246,
+                "symbol": "HFT",
+                "name": "Hashflow"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 31052113894.28,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 10804,
+                "price_usd": 3.067057678731052e-05,
+                "symbol": "FLOKI",
+                "name": "FLOKI"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4143800.47,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1896,
+                "price_usd": 0.33647818225674475,
+                "symbol": "ZRX",
+                "name": "0x Protocol"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 284205.95,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 16093,
+                "price_usd": 2.0080540052064197,
+                "symbol": "KUB",
+                "name": "Bitkub Coin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7097520.9,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 28867,
+                "price_usd": 0.20105763114232314,
+                "symbol": "GG",
+                "name": "Reboot"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 58483363.96,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 27838,
+                "price_usd": 0.0836380043388978,
+                "symbol": "SEILOR",
+                "name": "Kryptonite"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 5371645.41,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 2040000,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 1975,
+                "price_usd": 15.54474757455355,
+                "symbol": "LINK",
+                "name": "Chainlink"
+            }
+        },
+        {
+            "wallet_address": "TS9PDCB6vzLYDCPr5Nas2yzekdr7ot6dxn",
+            "balance": 4606821.72,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 14179913.95,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3773,
+                "price_usd": 0.6793208906113627,
+                "symbol": "FET",
+                "name": "Fetch.ai"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 18.44,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3717,
+                "price_usd": 42641.949709677516,
+                "symbol": "WBTC",
+                "name": "Wrapped Bitcoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 385688222.5,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 15463,
+                "price_usd": 0.00557502858966912,
+                "symbol": "SIDUS",
+                "name": "SIDUS"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1291846552032.58,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 5994,
+                "price_usd": 9.676045860650987e-06,
+                "symbol": "SHIB",
+                "name": "Shiba Inu"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 16733814.25,
+            "platform": {
+                "crypto_id": 3890,
+                "symbol": "MATIC",
+                "name": "Polygon"
+            },
+            "currency": {
+                "crypto_id": 18852,
+                "price_usd": 1.0000996892848564,
+                "symbol": "USDC.e",
+                "name": "USD Coin Bridged"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 20195691.33,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 6187,
+                "price_usd": 0.06166156714268964,
+                "symbol": "SRM",
+                "name": "Serum"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 8385736.68,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 9175,
+                "price_usd": 0.31384621492170783,
+                "symbol": "MBOX",
+                "name": "MOBOX"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 1172418.57,
+            "platform": {
+                "crypto_id": 11840,
+                "symbol": "OP",
+                "name": "Optimism"
+            },
+            "currency": {
+                "crypto_id": 13502,
+                "price_usd": 2.778763564470278,
+                "symbol": "WLD",
+                "name": "Worldcoin"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 60733339.14,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 9291,
+                "price_usd": 0.021220021516935507,
+                "symbol": "CAPS",
+                "name": "Ternoa"
+            }
+        },
+        {
+            "wallet_address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+            "balance": 84789215.21,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+            "balance": 5000000,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 11156,
+                "price_usd": 2.828411370571987,
+                "symbol": "ETHDYDX",
+                "name": "dYdX (ethDYDX)"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 7542507.4,
+            "platform": {
+                "crypto_id": 11841,
+                "symbol": "ARB",
+                "name": "Arbitrum"
+            },
+            "currency": {
+                "crypto_id": 21106,
+                "price_usd": 0.31601712566399065,
+                "symbol": "RDNT",
+                "name": "Radiant Capital"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 50606810.24,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 3408,
+                "price_usd": 0.9999867660406558,
+                "symbol": "USDC",
+                "name": "USDC"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 833931.9,
+            "platform": {
+                "crypto_id": 1839,
+                "symbol": "BNB",
+                "name": "BNB"
+            },
+            "currency": {
+                "crypto_id": 4943,
+                "price_usd": 0.9999934587324898,
+                "symbol": "DAI",
+                "name": "Dai"
+            }
+        },
+        {
+            "wallet_address": "TXRRpT4BZ3dB5ShUQew2HXv1iK3Gg4MM9j",
+            "balance": 74645368.31,
+            "platform": {
+                "crypto_id": 1958,
+                "symbol": "TRX",
+                "name": "TRON"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 143538084.05,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 10805,
+                "price_usd": 0.017673653051877646,
+                "symbol": "THN",
+                "name": "Throne"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 80810046.55,
+            "platform": {
+                "crypto_id": 5805,
+                "symbol": "AVAX",
+                "name": "Avalanche"
+            },
+            "currency": {
+                "crypto_id": 28363,
+                "price_usd": 0.26337607674912267,
+                "symbol": "SHRAP",
+                "name": "Shrapnel"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 48753383.64,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 825,
+                "price_usd": 0.9994232179027018,
+                "symbol": "USDT",
+                "name": "Tether USDt"
+            }
+        },
+        {
+            "wallet_address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+            "balance": 4391804.66,
+            "platform": {
+                "crypto_id": 1027,
+                "symbol": "ETH",
+                "name": "Ethereum"
+            },
+            "currency": {
+                "crypto_id": 27565,
+                "price_usd": 0.5533271348415586,
+                "symbol": "ARKM",
+                "name": "Arkham"
+            }
+        }
+    ]
+}
