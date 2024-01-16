@@ -24,86 +24,72 @@ Features ranges:
 ###
 
 
-#### Order flow features
-Order Flow Momentum (OFM): Measures the change in order flow activity over time.
-Order Flow Mean Reversion (OFMR): Measures the tendency of order flow activity to revert to its mean.
-Order Flow Autocorrelation (OFAC): Measures the correlation of order flow activity with itself at a lag.
-Order Flow Hurst Exponent (OFHE): Measures the fractal dimension of order flow activity.
-Order Flow Entropy (OFE): Measures the degree of randomness in order flow activity.
-Order Flow Asymmetry (OFA): Measures the imbalance between buy and sell order sizes.
-Order Flow Skewness (OFS): Measures the degree to which order flow activity is skewed towards one side of the market.
-Order Flow Kurtosis (OFK): Measures the degree to which order flow activity is peaked or flat-topped.
-Order Flow Noise (OFN): Measures the amount of random noise in order flow activity.
-Order Flow Profitability (OFP): Measures the profitability of trades based on order flow indicators.
-Order Flow Risk (OFR): Measures the risk of trades based on order flow indicators.
-Order Imbalance (OI): Measures the net difference between buy and sell orders at a specific price level.
-Suitability for DL: High. OI data is readily available and can be used to train DL models to predict price movements and identify potential trading opportunities.
-Delta: The net change in OI between two consecutive price levels.
-Suitability for DL: High. Delta data can be used to track order flow dynamics and identify potential trend reversals.
-Volume Imbalance (VI): Measures the net difference between buy and sell volume at a specific price level.
-Suitability for DL: Moderate. VI data can be used to identify areas of strong support and resistance and potential trading opportunities.
-Volume Profile (VP): A cumulative volume histogram that represents the distribution of trading activity throughout the trading day.
-Suitability for DL: High. VP data can be used to identify support and resistance levels, identify areas of accumulation and distribution, and assess potential trading opportunities.
-Order Flow Heatmap (OH): A visual representation of order flow activity, typically displayed as a color-coded grid where darker colors indicate higher order density.
-Suitability for DL: Moderate. OH data can be used to identify areas of congestion and potential trading opportunities.
-Footprint Chart: A dynamic visualization of order flow activity, showing the arrival of buy and sell orders at specific price levels.
-Suitability for DL: High. Footprint charts can be analyzed using DL models to identify patterns and potential trading opportunities.
-Cluster Analysis: A technique for grouping related orders based on their price and time of arrival.
-Suitability for DL: Moderate. Cluster analysis can be used to identify potential imbalances and trading opportunities.
-Order Size Distribution (OSD): A histogram of order size distribution, showing the frequency of different order sizes.
-Suitability for DL: Moderate. OSD data can be used to identify institutional or retail-driven order flow and potential trading opportunities.
-Order Flow Volatility: Measures the variation in order flow activity over time.
-Suitability for DL: Moderate. Order flow volatility can be used to identify potential trading opportunities and assess market sentiment.
-Order Flow Correlation: Measures the relationship between order flow activity at different price levels.
-Suitability for DL: Moderate. Order flow correlation can be used to identify potential trading opportunities and assess market sentiment.
-Order Flow Volume Ratio (OFVR): Measures the ratio of buy order volume to sell order volume.
-Order Flow Depth (OFD): Measures the total number of limit orders at a specific price level.
-Order Flow Time (OFT): Measures the time it takes for an order to be filled.
-Order Flow Imbalance Duration (OID): Measures the duration of an order imbalance.
-Order Flow Imbalance Width (OIW): Measures the width of an order imbalance.
-Order Flow Imbalance Persistence (OIP): Measures the persistence of an order imbalance.
-Order Flow VWAP (OFVWAP): Measures the volume-weighted average price of all orders executed at a specific price level.
-Order Flow Spread (OFS): Measures the difference between the bid and ask prices.
-Order Flow Bid-Ask Ratio (OBAR): Measures the ratio of the bid price to the ask price.
-Order Flow Quote-to-Trade Ratio (QTR): Measures the ratio of the number of quotes to the number of trades.
-Order Flow Liquidity (OFL): Measures the ease with which an asset can be bought or sold.
-Order Flow Fragmentation (OFF): Measures the degree to which order flow is spread across different trading venues.
-Order Flow Efficiency (OFE): Measures the degree to which order flow reflects the underlying demand and supply for an asset.
-Order Flow Predictability (OFP): Measures the ability to predict future price movements based on order flow indicators.
-Order Imbalance Distribution (OID): Measures the distribution of order imbalance across different price levels.
-Order Flow Clustering (OFC): Groups related orders based on their order size, price, and time of arrival.
-Order Flow Filtering (OFF): Filters out noise and irrelevant information from order flow data.
-Order Flow Anomaly Detection (OFAD): Detects unusual patterns or deviations from normal order flow activity.
-Order Flow Trend Analysis (OFTA): Analyzes the trends in order flow activity to identify potential price movements.
-Order Flow Regime Switching (OFRS): Identifies changes in the trading regime based on order flow patterns.
-Order Flow Signal Generation (OFSG): Generates trading signals based on order flow indicators.
-Order Flow Portfolio Optimization (OFPO): Optimizes trading portfolios based on order flow analysis.
-Order Flow Risk Management (OFRM): Manages trading risks based on order flow indicators.
-Order Flow Dynamical Systems Modeling (OFDSM): Models the dynamics of order flow activity using complex systems theory.
-Order Flow Reinforcement Learning (OFRL): Trains trading agents using reinforcement learning to learn from order flow data.
-Order Flow Big Data Analytics (OFBDA): Analyzes large-scale order flow data using big data analytics techniques.
-Order Flow Cloud Computing (OFCC): Deploys order flow analysis and trading algorithms on cloud computing platforms.
-Order Flow Artificial Intelligence (OFAI): Integrates artificial intelligence techniques into order flow analysis and trading strategies.
-Order Imbalance (OI): Measures the net difference between buy and sell orders at a specific price level.
-Order Flow Volume Ratio (OFVR): Measures the ratio of buy order volume to sell order volume.
-Order Flow Depth (OFD): Measures the total number of limit orders at a specific price level.
-Order Flow Time (OFT): Measures the time it takes for an order to be filled.
-Order Flow Imbalance Duration (OID): Measures the duration of an order imbalance.
-Order Flow Imbalance Width (OIW): Measures the width of an order imbalance.
-Order Flow Imbalance Persistence (OIP): Measures the persistence of an order imbalance.
-Order Flow VWAP (OFVWAP): Measures the volume-weighted average price of all orders executed at a specific price level.
-Order Flow Spread (OFS): Measures the difference between the bid and ask prices.
-Order Flow Bid-Ask Ratio (OBAR): Measures the ratio of the bid price to the ask price.
-Order Flow Quote-to-Trade Ratio (QTR): Measures the ratio of the number of quotes to the number of trades.
-Order Flow Liquidity (OFL): Measures the ease with which an asset can be bought or sold.
-Order Flow Fragmentation (OFF): Measures the degree to which order flow is spread across different trading venues.
-Order Flow Efficiency (OFE): Measures the degree to which order flow reflects the underlying demand and supply for an asset.
-Order Flow Predictability (OFP): Measures the ability to predict future price movements based on order flow indicators.
-"Order Flow Features for Predicting Directional Movement in High-Frequency Data" by Michael Pritzker and Michael Uryasev (2023)
-"Order Flow Features for Detecting High-Frequency Trading Strategies" by Tao Chen, Ruilin Ma, and Qingbo Zhang (2022)
-"Order Flow Features for Predicting Liquidity in Electronic Markets" by Xinran Li and Xianming Hu (2021)
-"Order Flow Features for Identifying Dark Pool Activity" by Haim Mendelson, Yuqiu Sun, and Jun Zhang (2020)
-"Order Flow Features for Forecasting Volatility in Financial Markets" by Xi Chen, Xinyang Wang, and Mingxuan Li (2019)
+Pice momentum indicators
+• Average true range --- good to find consolidation
+• Over different periods
+• Sudden spike or on sudden --- qunantify
+• Moving averages to gauge the trend
+• Price percentages below moving averages 100-1000
+
+Features from open interest
+• The rate of change of OI relatively to OI n-steps ago
+• OI and price divergence
+• OI and colume divergence
+• OI for different time frames
+• Combine Open interest with volatility bands, like true range. Figure out what traders are doing in consiolidation
+• Open interest entropy within different price levels
+• Turnonver ration entropy
+• Open interest kurtosis
+• Open interest skewness
+• Open interest persistance at different levels
+• Open interset distribtuion ot at different price levels
+
+Features from  liquidations
+• Liquidation count
+• Liquidation speed ratio: the speed at which liquidations are occuring compared to overall volume
+• Open interest distribution at liquidation ranges: This feature would measure the concentration of open interest within specific price ranges where significant liquidations have occurred
+• Open Interest Volatility with Liquidations over Time: This feature would measure the correlation between open interest volatility and liquidations over a period of time. A high correlation could suggest that liquidation events are contributing to increased volatility.
+• A liquidation price cluster is a group of liquidations that occur at a similar price level within a given timeframe. These clusters can be identified by calculating the distribution of liquidation prices and identifying areas where the distribution is concentrated.
+• Liquidation Volume Ratio: This feature would measure the ratio of liquidation volume to open interest. A high liquidation volume ratio would suggest that liquidations are occurring frequently relative to the overall open interest, which could increase the risk of sharp price swings.
+• Open Interest Volatility with Liquidations by Hour: This feature would measure the correlation between open interest volatility and liquidations for each hour of the day. A high correlation could suggest that liquidation events are contributing to increased volatility during specific hours
+• Liquidation heatmaps: Use funding, historical liquidation data and open interest at specific price levels in combination of clustering algorithm to identify liquidation heatmap
+
+Funding rate faetures
+• Funding Rate
+• Funding rate persistance
+• Open interest sensitivity to funding rate
+• Funding rate distribution by time of the day
+• FUnding rate volatility with open interest
+• Funding rate index risk --- ocmbination of multiple data
+• Open Interest Sensitivity to Funding Rate with Liquidation Price Clusters
+
+Top Trader Long Short Position
+
+The "top trader long short position" metric measures the total net position of the top 20 traders by trading volume. This metric provides an overview of the overall sentiment of major traders on the platform. A positive value indicates that the top traders are net long, meaning they have more long positions than short positions. A negative value indicates that the top traders are net short, meaning they have more short positions than long positions.
+
+Top Trader Long Short Accounts
+
+The "top trader long short accounts" metric measures the number of accounts with both long and short positions held by the top 20 traders by trading volume. This metric provides an indication of the diversity of trading strategies among large traders. A higher value suggests that the top traders are more active in both long and short positions, while a lower value suggests that they are more focused on one side of the market.
+
+ "long short ratio" metric measures the ratio of long positions to short positions opened by all traders on the platform. This metric provides an overview of the overall sentiment of traders on the platform. A high long short ratio indicates that there are more long positions than short positions, which suggests that traders are generally optimistic about the market. A low long short ratio indicates that there are more short positions than long positions, which suggests that traders are generally pessimistic about the market.
+
+
+Feature of TopTrader Long/Short
+* Top Trader Long Short Position Distribution: This feature would measure the distribution of the top trader long short position across a range of prices.
+* Top Trader Long Short Position Correlation with Price: This feature would measure the correlation between the top trader long short position and the price of the asset. 
+* Top Trader Long Short Position Volatility: This feature would measure the volatility of the top trader long short position over time.
+* Top Trader Long Short Position Persistence: This feature would measure the tendency of the top trader long short position to remain positive or negative over a given timeframe.
+* Top Trader Long Short Position Acceleration: This feature would measure the rate at which the top trader long short position is changing over time.
+* Top Trader Long Short Position Distribution vs. Open Interest Distribution:
+
+CME --- the same shit
+
+Open interest --- the same shit. But there you have direct access to open interest of put calls and stuff so try to capitaliza on that
+
+
+https://github.com/matplotlib/mplfinance --- financial data visualization
+https://github.com/TrellixVulnTeam/stock-pattern-recorginition_PMJP?tab=readme-ov-file  ---- for Deep Learnong for Feature Generation
+
 
 # For the next project
 https://www.coinfeeds.io/api-documentation   
