@@ -22,6 +22,8 @@ def generate_random_integer(n):
 def miliseconds_to_strftime(data: int) -> str:
     return datetime.utcfromtimestamp(data / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
 
+
+
 def build_jwt():
     key_name = f"organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/{coinbase_api}" 
     key_secret = f"-----BEGIN EC PRIVATE KEY-----\n{coinbase_secret}==\n-----END EC PRIVATE KEY-----\n" 
@@ -43,6 +45,32 @@ def build_jwt():
     )
     return jwt_token
 
+def built_jwt_api():
+    key_name       = f"organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/{coinbase_api}"
+    key_secret     = f"-----BEGIN EC PRIVATE KEY-----\n{coinbase_secret}==\n-----END EC PRIVATE KEY-----\n" 
+    request_method = "GET"
+    request_host   = "api.coinbase.com"
+    request_path   = "/api/v3/brokerage/product_book"
+    service_name   = "retail_rest_api_proxy"
+    def build_jwt_books(service, uri):
+        private_key_bytes = key_secret.encode('utf-8')
+        private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+        jwt_payload = {
+            'sub': key_name,
+            'iss': "coinbase-cloud",
+            'nbf': int(time.time()),
+            'exp': int(time.time()) + 120,
+            'aud': [service],
+            'uri': uri,
+        }
+        jwt_token = jwt.encode(
+            jwt_payload,
+            private_key,
+            algorithm='ES256',
+            headers={'kid': key_name, 'nonce': secrets.token_hex()},
+        )
+        return jwt_token
+    return build_jwt_books(service_name, f"{request_method} {request_host}{request_path}")
 
 
 
@@ -218,9 +246,7 @@ WSs =[
                                                                                               "jwt": build_jwt(),
                                                                                               "timestamp": int(time.time())
                                                                                               }},
-        # Blockchain
-         { "n": "blockchain_unconfirmed_sub_BTC", "e": "wss://ws.blockchain.info/inv", "sn": {"op": "unconfirmed_sub"}},                                                                   
-                                                        ] 
+                                                                                              ]
 
 
 

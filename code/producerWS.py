@@ -7,6 +7,8 @@ import ssl
 import random
 from urls import WSs as wss 
 from urls import generate_random_integer
+import http.client
+import json
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -60,6 +62,9 @@ class WebSocketClient():
             producer: websockets producers name
             topic: aiokafka topic
         """
+
+        count = 1
+
         async for websocket in websockets.connect(endpoint, ping_interval=None, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             exchange = name.split("_")[0]
             await websocket.send(self.parse_params(sname, exchange))
@@ -67,9 +72,26 @@ class WebSocketClient():
             try:
                 async for message in websocket:
                     try:
+
+                        if count == 1:
+                            conn = http.client.HTTPSConnection("api.binance.com")
+                            conn.request("GET", "/api/v3/depth?symbol=BTCUSDT&limit=1000")
+                            res = conn.getresponse()
+                            data = res.read()
+                            data = data.decode("utf-8")
+                            count += 1
+                            with open(f"bbooks.json", 'w') as json_file:
+                                json.dump(json.loads(data), json_file, indent=4)
+
                         message = await websocket.recv()
                         #await producer.send_and_wait(topic=topic, value=str(message).encode())
-                        print(name, message)
+                        print(name, type(message))
+
+                        with open(f"bupdate_{count}.json", 'w') as json_file:
+                            json.dump(json.loads(message), json_file, indent=4)
+
+                        count += 1
+                        
                     except KafkaStorageError as e:
                         print(f"KafkaStorageError: {e}")
                         await asyncio.sleep(5)
@@ -96,7 +118,7 @@ class WebSocketClient():
                                              endpoint=self.connection_data[x]["e"], 
                                              sname=self.connection_data[x]["sn"], 
                                              producer=producer, 
-                                             topic=topic) for x in [-1]]
+                                             topic=topic) for x in [1]]
         await asyncio.gather(*tasks) 
         # try:
         #     await asyncio.gather(*tasks)
