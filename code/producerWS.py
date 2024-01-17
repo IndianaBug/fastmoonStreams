@@ -87,7 +87,7 @@ class WebSocketClient():
                         #await producer.send_and_wait(topic=topic, value=str(message).encode())
                         print(name, type(message))
 
-                        with open(f"bupdate_{count}.json", 'w') as json_file:
+                        with open(f"trades_{count}.json", 'w') as json_file:
                             json.dump(json.loads(message), json_file, indent=4)
 
                         count += 1
@@ -118,7 +118,7 @@ class WebSocketClient():
                                              endpoint=self.connection_data[x]["e"], 
                                              sname=self.connection_data[x]["sn"], 
                                              producer=producer, 
-                                             topic=topic) for x in [1]]
+                                             topic=topic) for x in [0]]
         await asyncio.gather(*tasks) 
         # try:
         #     await asyncio.gather(*tasks)
