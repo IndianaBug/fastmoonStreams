@@ -9,6 +9,7 @@ from urls import WSs as wss
 from urls import generate_random_integer
 import http.client
 import json
+import time
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -75,20 +76,33 @@ class WebSocketClient():
 
                         if count == 1:
                             conn = http.client.HTTPSConnection("api.binance.com")
-                            conn.request("GET", "/api/v3/depth?symbol=BTCUSDT&limit=1000")
+                            conn.request("GET", "/api/v3/depth?symbol=BTCUSDT&limit=4000")
                             res = conn.getresponse()
                             data = res.read()
                             data = data.decode("utf-8")
                             count += 1
-                            with open(f"bbooks.json", 'w') as json_file:
-                                json.dump(json.loads(data), json_file, indent=4)
+                            data = json.loads(data)
+                            data['timestamp'] = time.time()
+                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/books.json", 'w') as json_file:
+                                json.dump(data, json_file, indent=4)
 
                         message = await websocket.recv()
                         #await producer.send_and_wait(topic=topic, value=str(message).encode())
-                        print(name, type(message))
+                        message = json.loads(message)
+                        message['timestamp'] = time.time()
 
-                        with open(f"trades_{count}.json", 'w') as json_file:
-                            json.dump(json.loads(message), json_file, indent=4)
+                        if name == "binance_spot_aggTrade_USDT":
+                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/trades.json", 'r') as json_file:
+                                data = json.load(json_file)
+                                data.append(message) 
+                                with open("C:/coding/SatoshiVault/data_binance_books_Trades/trades.json", 'w') as file:
+                                    json.dump(data, file, indent=2) 
+                        if name == "binance_spot_depth_USDT":
+                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/bupdates.json", 'r') as json_file:
+                                data = json.load(json_file)
+                                data.append(message) 
+                                with open("C:/coding/SatoshiVault/data_binance_books_Trades/bupdates.json", 'w') as file:
+                                    json.dump(data, file, indent=2)                       
 
                         count += 1
                         
@@ -118,7 +132,8 @@ class WebSocketClient():
                                              endpoint=self.connection_data[x]["e"], 
                                              sname=self.connection_data[x]["sn"], 
                                              producer=producer, 
-                                             topic=topic) for x in [0]]
+                                             topic=topic) for x in [0, 1]]
+
         await asyncio.gather(*tasks) 
         # try:
         #     await asyncio.gather(*tasks)
