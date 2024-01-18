@@ -52,17 +52,17 @@ def create_data_frame(dftype, column_list):
         r = list(range(0, 10080, 1))  # Minutes in a week
     if dftype == 'h':
         r = list(range(0, 365*24, 1)) # Since the next leap year is 2100
-    columns = ['price'] + [float(x) for x in column_list.tolist()]
+    columns = ['price', 'volume'] + [float(x) for x in column_list.tolist()]
     df = pd.DataFrame(index=r, columns=np.array(columns))
     df.fillna(float(0), inplace=True)
     return df
 
-def filter_ranges(data_array: np.array, percentage_range, ):
+def filter_ranges(data_array: np.array, percentage_range):
     lower_bound = np.ceil(np.percentile(data_array, (100 - percentage_range) / 2))
     upper_bound = np.floor(np.percentile(data_array, 100 - (100 - percentage_range) / 2))
     f = (data_array < lower_bound) | (data_array > upper_bound)
     filtered_array = np.array(data_array)[~f]
-    return np.setdiff1d(data_array, filtered_array)
+    return filtered_array
 
 def find_level(range_array, value_to_find):
     if value_to_find < np.min(range_array):
@@ -74,12 +74,6 @@ def find_level(range_array, value_to_find):
     return range_array[bin_index]
 
 
-def get_level_ranges(start_price, level_range, price_level_ceiling):
-    ceil_price = np.ceil((start_price + (start_price * 0.01 * price_level_ceiling)) / level_range) * level_range
-    floor_price = np.floor((start_price - (start_price * 0.01 * price_level_ceiling)) / level_range) * level_range
-    levels = np.arange(floor_price, ceil_price+1, level_range)
-    return levels
-
 def percentage_difference(value1, value2):
     if value1 == 0 or value2 == 0:
         return 0
@@ -89,7 +83,11 @@ def percentage_difference(value1, value2):
     return percentage_diff
 
 
-
+def get_level_ranges(start_price, level_range, price_level_ceiling):
+    ceil_price = np.ceil(start_price + (start_price * 0.01 * price_level_ceiling))
+    floor_price = np.floor(start_price - (start_price * 0.01 * price_level_ceiling))
+    levels = np.arange(floor_price, ceil_price+1, level_range)
+    return levels
 
 
 
