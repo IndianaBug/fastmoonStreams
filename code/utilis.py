@@ -45,14 +45,58 @@ def get_bucket_list(current_price, bucket_range, n_buckets):
     return full
 
 
-def create_data_frame(dftype, bucker_list):                                
+def create_data_frame(dftype, column_list):                                
     if dftype == 'sec':      
         r = list(range(0, 60, 1))     # Seconds in a minute
     if dftype == 'min':
         r = list(range(0, 10080, 1))  # Minutes in a week
     if dftype == 'h':
         r = list(range(0, 365*24, 1)) # Since the next leap year is 2100
-    columns = ["_".join([str(x[0]), str(x[1])]) for x in bucker_list]
-    df = pd.DataFrame(index=r, columns=['price', 'volume'] + columns)
+    columns = ['price', 'volume'] + [float(x) for x in column_list.tolist()]
+    df = pd.DataFrame(index=r, columns=np.array(columns))
     df.fillna(float(0), inplace=True)
     return df
+
+def filter_ranges(data_array : np.array, center_value, percentage_range):
+    lower_bound = np.percentile(data_array, (100 - percentage_range) / 2)
+    upper_bound = np.percentile(data_array, 100 - (100 - percentage_range) / 2)
+    filtered_array = data_array[(data_array < lower_bound) | (data_array > upper_bound)]
+    return filtered_array
+
+def find_level(range_array, value_to_find):
+    if value_to_find < np.min(range_array):
+        bin_index = None
+    if value_to_find >= np.max(range_array):
+        bin_index = None
+    else:
+        bin_index = np.digitize(value_to_find, bins=range_array, right=True)
+    return range_array[bin_index]
+
+
+
+
+def percentage_difference(value1, value2):
+    if value1 == 0 or value2 == 0:
+        return 0
+    bigger_value = value1 if value1 > value2 else value2
+    smaller_value = value1 if value1 < value2 else value2
+    percentage_diff = ((bigger_value - smaller_value) / abs(smaller_value)) * 100
+    return percentage_diff
+
+
+
+
+
+
+
+import requests
+
+def get_current_price(symbol):
+    url = f"https://api.binance.com/api/v3/avgPrice?symbol={symbol}"
+    response = requests.get(url)
+    data = response.json()
+    price = data["price"]
+    return data
+
+price = get_current_price("btcusdt")
+print(price)
