@@ -10,7 +10,7 @@ git fetch origin
 git reset --hard origin
 
 
-
+git push --force
 
 Docker
 docker build -t my-python-app .

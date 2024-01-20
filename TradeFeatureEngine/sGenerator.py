@@ -5,6 +5,10 @@ import numpy as np
 import pandas as pd
 from utilis import *
 
+# TO
+# Replace with norma; price later sProcessTrades
+#                     current_price sProcessBooks
+
 class sProcessBooks():
     """
         Important notes: 
@@ -130,8 +134,8 @@ class sProcessTrades():
             Inputs price, volume(amount) into dfs_trades frame
         """
         current_second = int(trade[t_name]% 60)  
-        # current_price = float(trade[p_name]) 
-        amount = float(trade['q'])
+        current_price = float(trade[p_name])                                           
+        amount = float(trade[q_name])
         level = np.floor_divide(current_price, self.level_range) * self.level_range
         # Not needed, just incase
         if (level in self.level_ranges) == False:
