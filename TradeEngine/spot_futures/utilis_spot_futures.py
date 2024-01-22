@@ -90,4 +90,67 @@ def get_level_ranges(start_price, level_range, price_level_ceiling):
     return levels
 
 
+def get_common_suffixes_agg_uni(n):
+    """
+        The maximum amount of datasets to aggregate is the len(alphabet). 
+        Modify this function to get more aggregation possibilities
+    """
+    alphabet = 'xyzabcdefghijklmnopqrstuvw'
+    suffixes = [f'_{alphabet[i]}' for i in range(n)]
+    return suffixes
 
+
+def sort_columns_agg_uni_mvb(df :pd.DataFrame):
+    first_str_column = next(iter(df.columns))
+    float_columns = [col for col in df.columns if col != first_str_column]
+    sorted_columns = [first_str_column] + sorted(float_columns, key=float)
+    sorted_df = df[sorted_columns]
+    str_col = list(map(str, sorted_columns))
+    sorted_df.columns = str_col
+    return sorted_df
+
+
+def mvb_percentage_difference(center, value):
+    if center == 0 and value > center:
+        return float(100)
+    if value == 0 and value < center:
+        return float(9999999999)
+    else:
+        diff = value - center
+        average = (center + value) / 2
+        percentage_diff = (diff / average) * 100
+        return percentage_diff
+
+def choose_range_mvb(current_price, level, level_ranges):
+    pd = mvb_percentage_difference(current_price, level)
+    for index, r in enumerate(level_ranges):
+        if index == 0 and pd < level_ranges[0]:
+            return r
+        elif index != 0 and index != len(level_ranges)-1 and pd >= level_ranges[index-1] and pd < level_ranges[index]:
+            return r
+        if index == len(level_ranges)-1 and pd >= level_ranges[index-1]:
+            return r
+        
+def get_levels_list_mvb(levels):
+    levels = np.sort(np.concatenate((levels, -1 * levels)))
+    levels = levels[(levels != -0)]
+    levels = np.append(levels, 100.0)
+    return levels
+
+def format_imput_vBooks_mvb(levels, uncomplete_levels, grouped_sum):
+    array4 = np.zeros_like(levels)
+    for i in range(len(levels)):
+        if levels[i] in uncomplete_levels:
+            array4[i] = grouped_sum[uncomplete_levels.tolist().index(levels[i])]
+    return array4
+
+def get_grouped_var_by_range_mvb(current_price, levels, raw_values, columns_float):
+    try:
+        choosen_level = np.array([choose_range_mvb(current_price, v, levels) for v in columns_float])
+        unique_values, indices = np.unique(choosen_level, return_inverse=True)
+        sums = [np.sum(raw_values[indices == val]) for val in unique_values]
+        array4 = format_imput_vBooks_mvb(levels, unique_values, sums)
+        return array4
+    except:
+        # In case there are only zeros, unlikely but possible
+        return np.zeros_like(levels)
