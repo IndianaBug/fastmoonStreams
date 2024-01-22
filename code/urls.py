@@ -273,3 +273,19 @@ wallets = {
 # data = res.read()
 # print(data.decode("utf-8"))
 
+
+# import requests
+# import json
+# d =  {"exchange":"bybit", "insType":"STATISTIC_FUTURES", 
+#   "obj":"position_Statistic", "instrument": "btc/usdt",
+#     "snapshotInterval":300, "url" : 
+#     "https://api.bybit.com/v5/market/tickers?category=option"}
+
+# bybit = "https://api.bybit.com/v5/market/tickers?category=option"
+# okx = "https://www.okx.com/api/v5/public/open-interest?instType=OPTION&instFamily=BTC-USD"
+
+# response = requests.get("https://www.okx.com/api/v5/public/open-interest?instType=OPTION&instFamily=BTC-USD")
+# data = response.json()
+
+# with open("option_okex.json", 'w') as json_file:
+#     json.dump(data, json_file, indent=4)

@@ -94,6 +94,7 @@ def percentage_difference(value1, value2):
 
 
 
+
 import requests
 
 def get_current_price(symbol):
