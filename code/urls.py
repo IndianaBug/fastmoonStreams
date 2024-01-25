@@ -11,6 +11,11 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from config import crypto_panic_token, coinbase_api, coinbase_secret
 
+# Notes:
+# To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
+# Okx has only 1 liquidation channel for all liquidations stream /// u need to filter if liquidations belon only to BTC
+# bybit stream OI+funding rate in a single websocket
+# bybit apis fetches TTA, TTP, GTA, GTP in a single API call
 
 def generate_random_integer(n):
     if n <= 0:
