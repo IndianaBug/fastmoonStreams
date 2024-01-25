@@ -10,6 +10,7 @@ from urls import generate_random_integer
 import http.client
 import json
 import time
+from booksnap import books_snapshot
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -18,20 +19,8 @@ ssl_context.verify_mode = ssl.CERT_NONE
 class WebSocketClient():
 
     def __init__ (self, host, connection_data):
-        
         self.host = host
         self.connection_data = connection_data
-
-
-    def parse_params(self, arg, exchange):
-        if exchange == "binance": 
-            return json.dumps({"method": "SUBSCRIBE", "params": [arg], "id": generate_random_integer(10)})
-        if exchange == "okx":
-            return json.dumps({"op": "subscribe", "args": [arg]})
-        if exchange == "bybit":
-            return json.dumps({"op": "subscribe","args": [arg]})
-        if exchange in ["coinbase", "blockchain"] :
-            return json.dumps(arg)
 
     async def keep_alive(self, websocket, exchange, ping_interval=30):
         while True:
@@ -47,10 +36,6 @@ class WebSocketClient():
                     await websocket.send(json.dumps({"op": "ping"}))  
                 if exchange == "coinbase":
                     await asyncio.sleep(10 - 10)
-                    # await websocket.send(json.dumps({"op": "ping"})) 
-                if exchange == "blockchain":
-                    await asyncio.sleep(ping_interval - 10)
-                    await websocket.send('ping')
             except websockets.exceptions.ConnectionClosed:
                 print("Connection closed. Stopping keep-alive.")
                 break
@@ -66,46 +51,35 @@ class WebSocketClient():
 
         count = 1
 
-        async for websocket in websockets.connect(endpoint, ping_interval=None, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            exchange = name.split("_")[0]
-            await websocket.send(self.parse_params(sname, exchange))
+        async for websocket in websockets.connect(connection_data, ping_interval=None, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            
+            exchange = connection_data["exchange"]
+            instrument = connection_data["instrument"]
+            insType = connection_data["insType"]
+            obj = connection_data["obj"]
+            msg = connection_data["msg"]
+            
+            await websocket.send(json.dumps(msg))
+            
             keep_alive_task = asyncio.create_task(self.keep_alive(websocket, name.split("_")[0], 30))
+            
             try:
                 async for message in websocket:
                     try:
-
-                        if count == 1:
-                            conn = http.client.HTTPSConnection("api.binance.com")
-                            conn.request("GET", "/api/v3/depth?symbol=BTCUSDT&limit=4000")
-                            res = conn.getresponse()
-                            data = res.read()
-                            data = data.decode("utf-8")
+                        # Some websockets doesn't return the whole data after the first pull
+                        if count == 1 and exchange in ["binance", "coionbase"]:
+                            data = books_snapshot(exchange, instrument, insType, snaplength=5000)
+                            with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'w') as json_file:
+                                d = json.load(json_file)
+                                new_data = json.load(data["response"])
+                                d.append(new_data)
+                                with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'w') as file:
+                                    json.dump(d, file, indent=2)
                             count += 1
-                            data = json.loads(data)
-                            data['timestamp'] = time.time()
-                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/books.json", 'w') as json_file:
-                                json.dump(data, json_file, indent=4)
-
                         message = await websocket.recv()
                         #await producer.send_and_wait(topic=topic, value=str(message).encode())
                         message = json.loads(message)
-                        message['timestamp'] = time.time()
-
-                        if name == "binance_spot_aggTrade_USDT":
-                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/trades.json", 'r') as json_file:
-                                data = json.load(json_file)
-                                data.append(message) 
-                                with open("C:/coding/SatoshiVault/data_binance_books_Trades/trades.json", 'w') as file:
-                                    json.dump(data, file, indent=2) 
-                        if name == "binance_spot_depth_USDT":
-                            with open(f"C:/coding/SatoshiVault/data_binance_books_Trades/bupdates.json", 'r') as json_file:
-                                data = json.load(json_file)
-                                data.append(message) 
-                                with open("C:/coding/SatoshiVault/data_binance_books_Trades/bupdates.json", 'w') as file:
-                                    json.dump(data, file, indent=2)                       
-
-                        count += 1
-                        
+                        message['timestamp'] = time.time()                        
                     except KafkaStorageError as e:
                         print(f"KafkaStorageError: {e}")
                         await asyncio.sleep(5)
