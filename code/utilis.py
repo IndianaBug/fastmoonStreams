@@ -90,16 +90,31 @@ def percentage_difference(value1, value2):
 
 
 
-
-
-
-
-
+import json
 import requests
+from urls import apizzz
 
-def get_current_price(symbol):
-    url = f"https://api.binance.com/api/v3/avgPrice?symbol={symbol}"
-    response = requests.get(url)
-    data = response.json()
-    # price = data["price"]
+# Helper to retrive books
+
+def books_snapshot(exchange, instrument, insType, snaplength):
+    """
+      Gets full latest snapshot of limit orders.
+    """
+    if exchange == "binance":
+        link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        link = "&".join([link, f"limit={snaplength}"])
+    else:
+        link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        
+    response = requests.get(link)
+    if 'code' in response.json():
+        time.sleep(1)
+        books_snapshot(exchange, instrument, insType, snaplength-500)
+    
+    data = {
+        "exchange" : exchange,
+        "instrument" : instrument,
+        "insType" : insType,
+        "response" : response.json()
+    }
     return data

@@ -8,6 +8,7 @@ import secrets
 from urllib.parse import urlencode
 import os
 import sys
+import random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from config import crypto_panic_token, coinbase_api, coinbase_secret
 
@@ -71,7 +72,7 @@ apizzz = [
         },
     {
         "exchange":"binance",
-        "instrument": "btcfdusd" 
+        "instrument": "btcfdusd", 
         "insType":"spot", 
         "obj":"depth", 
         "updateSpeed":1, 
@@ -93,14 +94,21 @@ apizzz = [
         "updateSpeed":1, 
         "url" : f"https://dapi.binance.com/dapi/v1/depth?symbol=BTCUSD_PERP"
     },
-    
     {
-        "exchange":"binance", 
+        "exchange":"bybit", 
+        "insType":"spot", 
+        "obj":"depth", 
+        "instrument": "btcusdt",
+        "updateSpeed":1, 
+        "url" : "https://api.bybit.com/v5/market/orderbook?category=spot&symbol=BTCUSDT&limit=200"
+    },
+    {
+        "exchange":"bybit", 
         "insType":"perpetual", 
-        "obj":"premiumIndex", 
-        "instrument": "btc/usdt", 
-        "updateSpeed":300, 
-        "url" : "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT"
+        "obj":"depth", 
+        "instrument": "btcusdt",
+        "updateSpeed":1, 
+        "url" : "https://api.bybit.com/v5/market/orderbook?category=linear&symbol=BTCUSDT&limit=200"
     },
     ###
     # Funding rate
@@ -110,7 +118,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"fundingRate", 
         "instrument": "btcusd", 
-        "updateSpeed": 3600, 
+        "updateSpeed": 10,  # 360 
         "url" : "https://dapi.binance.com/dapi/v1/fundingRate?symbol=BTCUSD_PERP&limit=1"
     },
     {
@@ -118,7 +126,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"fundingRate",
         "instrument": "btcusdt", 
-        "updateSpeed":3600, 
+        "updateSpeed":10,  # 360 
         "url" : "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1"
     },
     ###
@@ -139,7 +147,7 @@ apizzz = [
         "instrument": "btcusd", 
         "updateSpeed":3, 
         "url" : "https://dapi.binance.com/dapi/v1/openInterest?symbol=BTCUSD_PERP"
-    }
+    },
     ###
     # Top Trades Accounts
     ###
@@ -148,7 +156,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"TTA", 
         "instrument": "btcusdt", 
-        "updateSpeed":300, 
+        "updateSpeed":10,  # 300 
         "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
@@ -156,7 +164,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"TTA", 
         "instrument": "btcusd", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
     },
     ###
@@ -167,7 +175,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"TTP", 
         "instrument": "btcusdt", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
@@ -175,7 +183,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"TTP", 
         "instrument": "btcusd", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
     },
     ###
@@ -186,7 +194,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"GTA", 
         "instrument": "btcusdt", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
@@ -194,14 +202,14 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"GTA", 
         "instrument": "btcusd", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
     },
     {
         "exchange":"okx", 
         "insType":"perpetual", 
         "obj":"GTA", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "instrument": "btcusd", 
         "url" : f"https://www.okx.com/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC&period=5m"
     }, 
@@ -213,7 +221,7 @@ apizzz = [
         "insType":"perpetual", 
         "obj":"GTA_GTP_TTA_TTP", 
         "instrument": "btcusdt", 
-        "updateSpeed":300, 
+        "updateSpeed":10, 
         "url" : "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=1d&limit=50" # the minimum limit
     },
     ###
@@ -244,17 +252,18 @@ apizzz = [
         "url" : "https://api.bybit.com/v5/market/tickers?category=option"
     },
     {
-        "exchange":"bybit", 
+        "exchange":"okx", 
         "insType":"option", 
         "obj":"OI", 
-        "instrument": "btcusdt",
-        "snapshotInterval":1800, 
-        "url" : "https://api.bybit.com/v5/market/tickers?category=option"
+        "instrument": "btc",
+        "updateSpeed":1800, 
+        "url" : f"https://www.okx.com/api/v5/public/open-interest?instType=OPTION&instFamily=BTC-USD"
     },
     ###
     # News Aggregator
     ###
-    {
+    {   
+        "exchange":"None", 
         "insType":"news", 
         "obj":"aggregator", 
         "instrument":"BTC_USDT_ETH",
@@ -282,7 +291,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://stream.binance.com:9443/ws"
+          "url" : "wss://stream.binance.com:9443/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusdt@aggTrade"], 
@@ -295,7 +304,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://stream.binance.com:9443/ws"
+          "url" : "wss://stream.binance.com:9443/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcfdusd@aggTrade"], 
@@ -308,7 +317,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://fstream.binance.com/ws"
+          "url" : "wss://fstream.binance.com/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusdt@aggTrade"], 
@@ -321,7 +330,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://dstream.binance.com/ws"
+          "url" : "wss://dstream.binance.com/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusd_perp@aggTrade"], 
@@ -334,7 +343,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -350,7 +359,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -366,7 +375,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -382,7 +391,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://stream.bybit.com/v5/public/spot"
+          "url" : "wss://stream.bybit.com/v5/public/spot",
           "msg" : {
               "op": 
               "subscribe","args": [
@@ -396,7 +405,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://stream.bybit.com/v5/public/linear"
+          "url" : "wss://stream.bybit.com/v5/public/linear",
           "msg" : {
               "op": "subscribe",
               "args": [
@@ -410,7 +419,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://advanced-trade-ws.coinbase.com"
+          "url" : "wss://advanced-trade-ws.coinbase.com",
           "msg" : {
               "type": "subscribe",
               "product_ids": ["BTC-USD"],
@@ -418,7 +427,7 @@ websocketzzz = [
               "jwt": build_jwt(),
               "timestamp": int(time.time())
               }     
-        }                 
+        },                 
         ###
         # Depth
         ###
@@ -428,7 +437,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 1, 
-          "url" : "wss://stream.binance.com:9443/ws"
+          "url" : "wss://stream.binance.com:9443/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusdt@depth@1000ms"], 
@@ -441,7 +450,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 1, 
-          "url" : "wss://stream.binance.com:9443/ws"
+          "url" : "wss://stream.binance.com:9443/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcfdusd@depth@1000ms"], 
@@ -454,7 +463,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"depth", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://stream.binance.com:9443/ws"
+          "url" : "wss://stream.binance.com:9443/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusdt@depth@500ms"], 
@@ -467,7 +476,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"depth", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://dstream.binance.com/ws"
+          "url" : "wss://dstream.binance.com/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusd_perp@depth@500ms"], 
@@ -480,7 +489,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"depth", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -496,7 +505,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"depth", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -512,7 +521,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -528,7 +537,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 0.2, 
-          "url" : "wss://stream.bybit.com/v5/public/spot"
+          "url" : "wss://stream.bybit.com/v5/public/spot",
           "msg" : {
               "op": 
               "subscribe","args": [
@@ -542,7 +551,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"depth", 
           "updateSpeed" : 0.2, 
-          "url" : "wss://stream.bybit.com/v5/public/linear"
+          "url" : "wss://stream.bybit.com/v5/public/linear",
           "msg" : {
               "op": 
               "subscribe","args": [
@@ -556,7 +565,7 @@ websocketzzz = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 0, 
-          "url" : "wss://advanced-trade-ws.coinbase.com"
+          "url" : "wss://advanced-trade-ws.coinbase.com",
           "msg" : {
               "type": "subscribe",
               "product_ids": ["BTC-USD"],
@@ -564,7 +573,7 @@ websocketzzz = [
               "jwt": build_jwt(),
               "timestamp": int(time.time())
               }     
-        }   
+        },  
         ###
         # Open interest
         ###
@@ -574,7 +583,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"OI", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -590,7 +599,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"OI", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -606,7 +615,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"fundingRate", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -622,7 +631,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"fundingRate", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -641,7 +650,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"liquidations", 
           "updateSpeed" : 0, 
-          "url" : "wss://fstream.binance.com/ws"
+          "url" : "wss://fstream.binance.com/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusdt@forceOrder"], 
@@ -654,7 +663,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"liquidations", 
           "updateSpeed" : 0, 
-          "url" : "wss://dstream.binance.com/ws"
+          "url" : "wss://dstream.binance.com/ws",
           "msg" : {
               "method": "SUBSCRIBE", 
               "params": ["btcusd_perp@forceOrder"], 
@@ -667,7 +676,7 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"liquidations", 
           "updateSpeed" : 0.5, 
-          "url" : "wss://ws.okx.com:8443/ws/v5/public"
+          "url" : "wss://ws.okx.com:8443/ws/v5/public",
           "msg" : {
               "op": "subscribe", 
               "args": [
@@ -686,12 +695,30 @@ websocketzzz = [
           "insType":"perpetual", 
           "obj":"fundingRate_OI", 
           "updateSpeed" : 0, 
-          "url" : "wss://stream.bybit.com/v5/public/linear"
+          "url" : "wss://stream.bybit.com/v5/public/linear",
           "msg" : {
               "op": 
               "subscribe","args": [
                   "tickers.BTCUSDT"
                   ]
               }
+        }, 
+        # HEARTBEAT # Coibase requires to use heartbeats to keep all connections opened
+        {
+          "exchange":"coinbase", 
+          "instrument": "btcusd", 
+          "insType":"spot", 
+          "obj":"heartbeat", 
+          "updateSpeed" : 0, 
+          "url" : "wss://advanced-trade-ws.coinbase.com",
+          "msg" :         {
+            "type": "subscribe",
+            "product_ids": [
+                "BTC-USD"
+            ],
+            "channel": "heartbeats",
+            "jwt": build_jwt(),
+            "timestamp": int(time.time())
+            }  
         },  
 ]
