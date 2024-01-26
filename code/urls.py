@@ -162,7 +162,7 @@ apizzz = [
     {
         "exchange":"binance", 
         "insType":"perpetual", 
-        "obj":"TTA", 
+        "obj":"TTP", 
         "instrument": "btcusd", 
         "updateSpeed":10, 
         "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
@@ -176,7 +176,7 @@ apizzz = [
         "obj":"TTP", 
         "instrument": "btcusdt", 
         "updateSpeed":10, 
-        "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
+        "url" : "https://fapi.binance.com/futures/data/topLongShortPositionRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
         "exchange":"binance", 
@@ -184,7 +184,7 @@ apizzz = [
         "obj":"TTP", 
         "instrument": "btcusd", 
         "updateSpeed":10, 
-        "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
+        "url" : "https://dapi.binance.com/futures/data/topLongShortPositionRatio?pair=BTCUSD&period=5m&limit=1"
     },
     ###
     # Global Traders Accounts
@@ -249,7 +249,7 @@ apizzz = [
         "obj":"OI", 
         "instrument": "btcusdt",
         "updateSpeed":1800, 
-        "url" : "https://api.bybit.com/v5/market/tickers?category=option"
+        "url" : "https://api.bybit.com/v5/market/tickers?category=option&symbol=BTCUSDT"
     },
     {
         "exchange":"okx", 
@@ -494,7 +494,7 @@ websocketzzz = [
               "op": "subscribe", 
               "args": [
                   {
-                      'channel': 'trades', 'instId': 'BTC-USDT'
+                      'channel': 'books', 'instId': 'BTC-USDT'
                       }
               ]
               }
@@ -620,7 +620,7 @@ websocketzzz = [
               "op": "subscribe", 
               "args": [
                   {
-                      'channel': 'open-interest', 'instId': 'BTC-USD-SWAP'
+                      'channel': 'funding-rate', 'instId': 'BTC-USD-SWAP'
                       }
               ]
               }
@@ -636,7 +636,7 @@ websocketzzz = [
               "op": "subscribe", 
               "args": [
                   {
-                      'channel': 'open-interest', 'instId': 'BTC-USDT-SWAP'
+                      'channel': 'funding-rate', 'instId': 'BTC-USDT-SWAP'
                       }
               ]
               }
