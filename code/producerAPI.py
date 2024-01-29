@@ -48,7 +48,7 @@ class combined_API():
                 data = await websocket.recv()
                 
                 try:
-                    with open(f"data/data_2/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
+                    with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
                         d = json.load(json_file)
                 except (FileNotFoundError, json.JSONDecodeError):
                     d = []
@@ -56,7 +56,7 @@ class combined_API():
                 new_data = {"timestamp" : time.time(),  "data" : json.loads(data)}
                 d.append(new_data)
 
-                with open(f"data/data_2/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
+                with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
                     json.dump(d, file, indent=2)         
                 
                 await asyncio.sleep(info["updateSpeed"])
@@ -69,7 +69,7 @@ class combined_API():
                     data =  await response.text()
                     
                     try:
-                        with open(f"data/data_2/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
+                        with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
                             d = json.load(json_file)
                     except (FileNotFoundError, json.JSONDecodeError):
                         d = []
@@ -77,7 +77,7 @@ class combined_API():
                     new_data = {"timestamp" : time.time(),  "data" : json.loads(data)}
                     d.append(new_data)
 
-                    with open(f"data/data_2/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
+                    with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
                         json.dump(d, file, indent=2)
 
                     await asyncio.sleep(info["updateSpeed"])

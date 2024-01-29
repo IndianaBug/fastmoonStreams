@@ -10,6 +10,7 @@ import os
 import sys
 import random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+#from config import crypto_panic_token, secretCoinbase, apiCoinbase
 from config import crypto_panic_token, coinbase_api, coinbase_secret
 
 # Notes:
@@ -26,9 +27,9 @@ def generate_random_integer(n):
     random_integer = random.randint(lower_bound, upper_bound)
     return random_integer
 
-def build_jwt():
-    key_name = f"organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/{coinbase_api}" 
-    key_secret = f"-----BEGIN EC PRIVATE KEY-----\n{coinbase_secret}==\n-----END EC PRIVATE KEY-----\n" 
+def build_jwt_websockets():
+    key_name = apiCoinbase
+    key_secret = secretCoinbase
     service_name = "public_websocket_api"
     private_key_bytes = key_secret.encode('utf-8')
     private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
@@ -45,6 +46,36 @@ def build_jwt():
         algorithm='ES256',
         headers={'kid': key_name, 'nonce': secrets.token_hex()},
     )
+    return jwt_token
+
+
+
+def build_jwt_api(service, uri):
+
+    key_name       = apiCoinbase
+    key_secret     = apiSecret
+    request_method = "GET"
+    request_host   = "api.coinbase.com"
+    request_path   = "/api/v3/brokerage/product_book"
+    service_name   = "retail_rest_api_proxy"
+    private_key_bytes = key_secret.encode('utf-8')
+    private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+    jwt_payload = {
+        'sub': key_name,
+        'iss': "coinbase-cloud",
+        'nbf': int(time.time()),
+        'exp': int(time.time()) + 120,
+        'aud': [service_name],
+        'uri': uri,
+    }
+    jwt_token = jwt.encode(
+        jwt_payload,
+        private_key,
+        algorithm='ES256',
+        headers={'kid': key_name, 'nonce': secrets.token_hex()},
+    )
+    uri = f"{request_method} {request_host}{request_path}"
+
     return jwt_token
 
 
@@ -686,8 +717,22 @@ websocketzzz = [
               ]
               }
         },
+        {
+          "exchange":"bybit", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"liquidations", 
+          "updateSpeed" : 0.2, 
+          "url" : "wss://stream.bybit.com/v5/public/linear",
+          "msg" : {
+              "op": 
+              "subscribe","args": [
+                  "liquidation.BTCUSDT"
+                  ]
+              }
+        },
         ###
-        # OI + FUNDING
+        # OI + FUNDING        # OK
         ###
         {
           "exchange":"bybit", 

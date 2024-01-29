@@ -4,6 +4,9 @@ import time
 import numpy as np
 import pandas as pd
 import math
+import http.client
+from urls import build_jwt_api
+
 
 def convert_timestamp(timestamp):
     return datetime.utcfromtimestamp(timestamp / 1000).strftime('%Y-%m-%d %H:%M:%S UTC')
@@ -105,12 +108,23 @@ def books_snapshot(exchange, instrument, insType, snaplength):
         link = "&".join([link, f"limit={snaplength}"])
     else:
         link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+
+    if exchnage in ['binance', 'bybit']:
+        response = requests.get(link)    
+        if 'code' in response.json():
+            time.sleep(1)
+            books_snapshot(exchange, instrument, insType, snaplength-500)
+    if exchnage == "coinbase":
+        conn = http.client.HTTPSConnection("api.coinbase.com")
+        payload = ''
+        headers = {
+            "Authorization": f"Bearer {build_jwt_api()}",
+            'Content-Type': 'application/json'
+        }
+        conn.request("GET", "/api/v3/brokerage/product_book?product_id=BTC-USD", payload, headers)
+        res = conn.getresponse()
+        response = res.read()
         
-    response = requests.get(link)
-    if 'code' in response.json():
-        time.sleep(1)
-        books_snapshot(exchange, instrument, insType, snaplength-500)
-    
     data = {
         "exchange" : exchange,
         "instrument" : instrument,

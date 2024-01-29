@@ -67,8 +67,8 @@ class WebSocketClient():
                     async for message in websocket:
                         try:
 
-                            # Some websockets doesn't return the whole data after the first pull
-                            if count == 1 and exchange in ["binance"]:
+                            # Some websockets doesn't return the whole book data after the first pull. You need to fetch it via api
+                            if count == 1 and exchange in ["binance", "bybit"] and obj in ["depth"]:
                                 data = books_snapshot(exchange, instrument, insType, snaplength=1000)
                                 data = data["response"]
                                 count += 1   
@@ -80,7 +80,7 @@ class WebSocketClient():
                                     data = {}
                             
                             try:
-                                with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'r') as json_file:
+                                with open(f"data/d/{exchange}_{instrument}_{insType}_{obj}.json", 'r') as json_file:
                                     d = json.load(json_file)
                             except (FileNotFoundError, json.JSONDecodeError):
                                 d = []
@@ -88,7 +88,7 @@ class WebSocketClient():
                             new_data = {"timestamp" : time.time(),  "data" : data }
                             d.append(new_data)
 
-                            with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'w') as file:
+                            with open(f"data/d/{exchange}_{instrument}_{insType}_{obj}.json", 'w') as file:
                                 json.dump(d, file, indent=2)
 
                         except KafkaStorageError as e:
@@ -116,8 +116,8 @@ class WebSocketClient():
         tasks +=  [ self.websocket_connection(
                                     connection_data=self.links[x],
                                     producer=producer, 
-                                    topic=topic) for x in range(len(links)
-                                    )
+                                    topic=topic) for x in range(len(links))
+                                    
                                     ]
 
         await asyncio.gather(*tasks) 
