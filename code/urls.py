@@ -10,7 +10,7 @@ import os
 import sys
 import random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-#from config import crypto_panic_token, secretCoinbase, apiCoinbase
+from config import crypto_panic_token, coinbaseAPI, coinbaseSecret
 
 # Notes:
 # To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
@@ -27,8 +27,8 @@ def generate_random_integer(n):
     return random_integer
 
 def build_jwt_websockets():
-    key_name = apiCoinbase
-    key_secret = secretCoinbase
+    key_name = coinbaseAPI
+    key_secret = coinbaseSecret
     service_name = "public_websocket_api"
     private_key_bytes = key_secret.encode('utf-8')
     private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
@@ -49,10 +49,10 @@ def build_jwt_websockets():
 
 
 
-def build_jwt_api(service, uri):
+def build_jwt_api():
 
-    key_name       = apiCoinbase
-    key_secret     = apiSecret
+    key_name       = coinbaseAPI
+    key_secret     = coinbaseSecret
     request_method = "GET"
     request_host   = "api.coinbase.com"
     request_path   = "/api/v3/brokerage/product_book"

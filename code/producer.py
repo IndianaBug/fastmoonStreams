@@ -10,7 +10,7 @@ from urls import websocketzzz as linksWS
 from urls import apizzz as linksAPI
 from utilis import books_snapshot
 import time
-
+import datetime
 
 
 
@@ -20,7 +20,7 @@ ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
 def miliseconds_to_strftime(data) -> str:
-    return datetime.utcfromtimestamp(int(data) / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
+    return datetime.datetime.utcfromtimestamp(int(data) / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
 
 def generate_random_integer(n):
     if n <= 0:
@@ -164,7 +164,7 @@ class btcproducer():
                 data = await websocket.recv()
                 
                 try:
-                    with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
+                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
                         d = json.load(json_file)
                 except (FileNotFoundError, json.JSONDecodeError):
                     d = []
@@ -181,7 +181,7 @@ class btcproducer():
 
                 d.append(new_data)
 
-                with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
+                with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                     json.dump(d, file, indent=2)         
                 
                 await asyncio.sleep(info["updateSpeed"])
@@ -201,7 +201,7 @@ class btcproducer():
                     data =  await response.text()
                     
                     try:
-                        with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'r') as json_file:
+                        with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
                             d = json.load(json_file)
                     except (FileNotFoundError, json.JSONDecodeError):
                         d = []
@@ -218,7 +218,7 @@ class btcproducer():
                     
                     d.append(new_data)
 
-                    with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
+                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                         json.dump(d, file, indent=2)
 
                     await asyncio.sleep(info["updateSpeed"])
@@ -244,7 +244,7 @@ class btcproducer():
                 connection_data=self.linksWS[x],
                 producer=producer, 
                 topic=topic) 
-                for x in range(1, len(links)-1) 
+                for x in range(1, len(self.linksWS)-1) 
                 ]
 
         for info in self.linksAPI:
@@ -261,7 +261,7 @@ class btcproducer():
 
 
 if __name__ == '__main__':
-    client = WebSocketClient('localhost:9092', linksAPI, linksWS)
+    client = btcproducer('localhost:9092', linksAPI, linksWS)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(client.main())
