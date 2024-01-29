@@ -35,6 +35,7 @@ class combined_API():
     def __init__(self, links, producer):
         self.links = links
         self.producer = producer
+        self.price = 0
 
     async def send_to_websocket(self, data):
         async with websockets.connect(self.websocket_uri) as websocket:
@@ -53,7 +54,16 @@ class combined_API():
                 except (FileNotFoundError, json.JSONDecodeError):
                     d = []
 
-                new_data = {"timestamp" : time.time(),  "data" : json.loads(data)}
+                new_data = { 
+                        "exchange" : exchange,
+                        "instrument" : instrument,
+                        "insType" : insType,
+                        "obj" : obj,
+                        "btc_price" : self.price,
+                        "timestamp" : time.time(),  
+                        "data" : json.loads(data) 
+                        }
+
                 d.append(new_data)
 
                 with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:

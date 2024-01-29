@@ -6,15 +6,46 @@ from aiokafka.errors import KafkaStorageError
 import json
 import ssl
 import random
-from urls import websocketzzz as links 
+from urls import websocketzzz as linksWS
+from urls import apizzz as linksAPI
 from utilis import books_snapshot
 import time
+
+
+
+
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-class WebSocketClient():
+def miliseconds_to_strftime(data) -> str:
+    return datetime.utcfromtimestamp(int(data) / 1000.0).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+def generate_random_integer(n):
+    if n <= 0:
+        raise ValueError("Length should be a positive integer")
+    lower_bound = 10 ** (n - 1)
+    upper_bound = (10 ** n) - 1
+    random_integer = random.randint(lower_bound, upper_bound)
+    return random_integer
+
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False  
+ssl_context.verify_mode = ssl.CERT_NONE  
+
+def get_url_list():
+    linksAPI = [x for x in linksAPI if x["obj"] != "depth"]
+    return linksAPI
+
+linksAPI = get_url_list()
+
+
+
+class btcproducer():
+    """
+        Make sure to call the websocket BTCUSDT trade the first
+    """
 
     def __init__ (self, host, linksAPi, linksWS):
         self.host = host
@@ -120,6 +151,12 @@ class WebSocketClient():
 
 
     async def websockets_fetcher(self, info):
+
+        exchange = info["exchange"]
+        instrument = info["instrument"]
+        insType = info["insType"]
+        obj = info["obj"]
+        
         while True:
             async with websockets.connect(info["url"],  ssl=ssl_context) as websocket:
                 await websocket.send(json.dumps(info["msg"]))
@@ -151,6 +188,12 @@ class WebSocketClient():
 
 
     async def aiohttp_fetcher(self, info):
+
+        exchange = info["exchange"]
+        instrument = info["instrument"]
+        insType = info["insType"]
+        obj = info["obj"]
+
         while True:
             async with aiohttp.ClientSession() as session:
                 async with session.get(info["url"]) as response:
@@ -163,7 +206,16 @@ class WebSocketClient():
                     except (FileNotFoundError, json.JSONDecodeError):
                         d = []
 
-                    new_data = {"timestamp" : time.time(),  "data" : json.loads(data)}
+                    new_data = { 
+                            "exchange" : exchange,
+                            "instrument" : instrument,
+                            "insType" : insType,
+                            "obj" : obj,
+                            "btc_price" : self.price,
+                            "timestamp" : time.time(),  
+                            "data" : json.loads(data) 
+                            }
+                    
                     d.append(new_data)
 
                     with open(f"data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json", 'w') as file:
@@ -185,12 +237,15 @@ class WebSocketClient():
                                     producer=producer, 
                                     topic=topic)
 
+
         tasks = []
-        tasks +=  [ self.websocket_connection(
-                                    connection_data=self.linksWS[x],
-                                    producer=producer, 
-                                    topic=topic) for x in range(1, len(links))
-                                    ]
+        tasks +=  [ 
+            self.websocket_connection(
+                connection_data=self.linksWS[x],
+                producer=producer, 
+                topic=topic) 
+                for x in range(1, len(links)-1) 
+                ]
 
         for info in self.linksAPI:
             if info["exchange"] != "deribit":
@@ -204,8 +259,9 @@ class WebSocketClient():
         # finally:
         #     await producer.stop()
 
+
 if __name__ == '__main__':
-    client = WebSocketClient('localhost:9092', links)
+    client = WebSocketClient('localhost:9092', linksAPI, linksWS)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(client.main())

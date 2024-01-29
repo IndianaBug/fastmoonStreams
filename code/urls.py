@@ -11,7 +11,6 @@ import sys
 import random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 #from config import crypto_panic_token, secretCoinbase, apiCoinbase
-from config import crypto_panic_token, coinbase_api, coinbase_secret
 
 # Notes:
 # To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
