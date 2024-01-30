@@ -59,6 +59,7 @@ def build_jwt_api():
     service_name   = "retail_rest_api_proxy"
     private_key_bytes = key_secret.encode('utf-8')
     private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+    uri = f"{request_method} {request_host}{request_path}"
     jwt_payload = {
         'sub': key_name,
         'iss': "coinbase-cloud",
@@ -73,7 +74,6 @@ def build_jwt_api():
         algorithm='ES256',
         headers={'kid': key_name, 'nonce': secrets.token_hex()},
     )
-    uri = f"{request_method} {request_host}{request_path}"
 
     return jwt_token
 
@@ -140,6 +140,15 @@ apizzz = [
         "updateSpeed":1, 
         "url" : "https://api.bybit.com/v5/market/orderbook?category=linear&symbol=BTCUSDT&limit=200"
     },
+    {
+        "exchange":"coinbase", 
+        "insType":"spot", 
+        "obj":"depth", 
+        "instrument": "btcusd",
+        "updateSpeed":1,
+        "url_base" :  "api.coinbase.com",
+        "url" : "/api/v3/brokerage/product_book?product_id=BTC-USD"
+    },
     ###
     # Funding rate
     ###
@@ -192,7 +201,7 @@ apizzz = [
     {
         "exchange":"binance", 
         "insType":"perpetual", 
-        "obj":"TTP", 
+        "obj":"TTA", 
         "instrument": "btcusd", 
         "updateSpeed":10, 
         "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
@@ -225,7 +234,7 @@ apizzz = [
         "obj":"GTA", 
         "instrument": "btcusdt", 
         "updateSpeed":10, 
-        "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
+        "url" : "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
         "exchange":"binance", 
@@ -233,7 +242,7 @@ apizzz = [
         "obj":"GTA", 
         "instrument": "btcusd", 
         "updateSpeed":10, 
-        "url" : "https://dapi.binance.com/futures/data/topLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
+        "url" : "https://dapi.binance.com/futures/data/globalLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
     },
     {
         "exchange":"okx", 
@@ -249,7 +258,7 @@ apizzz = [
     {
         "exchange":"bybit", 
         "insType":"perpetual", 
-        "obj":"GTA_GTP_TTA_TTP", 
+        "obj":"GTA", 
         "instrument": "btcusdt", 
         "updateSpeed":10, 
         "url" : "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=1d&limit=50" # the minimum limit
@@ -279,7 +288,7 @@ apizzz = [
         "obj":"OI", 
         "instrument": "btcusdt",
         "updateSpeed":1800, 
-        "url" : "https://api.bybit.com/v5/market/tickers?category=option&symbol=BTCUSDT"
+        "url" : "https://api.bybit.com/v5/market/tickers?category=option&baseCoin=BTC"
     },
     {
         "exchange":"okx", 
@@ -293,7 +302,7 @@ apizzz = [
     # News Aggregator
     ###
     {   
-        "exchange":"None", 
+        "exchange":"ALL", 
         "insType":"news", 
         "obj":"aggregator", 
         "instrument":"BTC_USDT_ETH",
@@ -454,7 +463,7 @@ websocketzzz = [
               "type": "subscribe",
               "product_ids": ["BTC-USD"],
               "channel": "market_trades",
-              "jwt": build_jwt(),
+              "jwt": build_jwt_websockets(),
               "timestamp": int(time.time())
               }     
         },                 
@@ -600,7 +609,7 @@ websocketzzz = [
               "type": "subscribe",
               "product_ids": ["BTC-USD"],
               "channel": "level2",
-              "jwt": build_jwt(),
+              "jwt": build_jwt_websockets(),
               "timestamp": int(time.time())
               }     
         },  
@@ -761,7 +770,7 @@ websocketzzz = [
                 "BTC-USD"
             ],
             "channel": "heartbeats",
-            "jwt": build_jwt(),
+            "jwt": build_jwt_websockets(),
             "timestamp": int(time.time())
             }  
         },  

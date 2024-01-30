@@ -6,6 +6,9 @@ import pandas as pd
 import math
 import http.client
 from urls import build_jwt_api
+import requests
+from urls import apizzz
+
 
 
 def convert_timestamp(timestamp):
@@ -91,11 +94,14 @@ def percentage_difference(value1, value2):
     percentage_diff = ((bigger_value - smaller_value) / abs(smaller_value)) * 100
     return percentage_diff
 
+def generate_random_integer(n):
+    if n <= 0:
+        raise ValueError("Length should be a positive integer")
+    lower_bound = 10 ** (n - 1)
+    upper_bound = (10 ** n) - 1
+    random_integer = random.randint(lower_bound, upper_bound)
+    return random_integer
 
-
-import json
-import requests
-from urls import apizzz
 
 # Helper to retrive books
 
@@ -106,31 +112,38 @@ def books_snapshot(exchange, instrument, insType, snaplength):
     if exchange == "binance":
         link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         link = "&".join([link, f"limit={snaplength}"])
+    if exchange == "coinbase":
+        url_1 = [x["url_base"] for x in apizzz if x["exchange"] == "coinbase" and x["obj"] == "depth"][0]
+        url_2 = [x["url"] for x in apizzz if x["exchange"] == "coinbase" and x["obj"] == "depth"][0] 
     else:
         link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
 
-    if exchnage in ['binance', 'bybit']:
-        response = requests.get(link)    
-        if 'code' in response.json():
+    
+    if exchange in ['binance', 'bybit']:
+        response = requests.get(link)
+        response = response.json()    
+        if 'code' in response:
             time.sleep(1)
             books_snapshot(exchange, instrument, insType, snaplength-500)
-    if exchnage == "coinbase":
-        conn = http.client.HTTPSConnection("api.coinbase.com")
+    
+
+    if exchange == "coinbase":
+        conn = http.client.HTTPSConnection(url_1)
         payload = ''
         headers = {
             "Authorization": f"Bearer {build_jwt_api()}",
             'Content-Type': 'application/json'
         }
-        conn.request("GET", "/api/v3/brokerage/product_book?product_id=BTC-USD", payload, headers)
+        conn.request("GET", url_2, payload, headers)
         res = conn.getresponse()
         response = res.read()
+        response = json.loads(response)
         
     data = {
         "exchange" : exchange,
         "instrument" : instrument,
         "insType" : insType,
-        "response" : response.json()
+        "response" : response
     }
     return data
-
 
