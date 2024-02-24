@@ -9,14 +9,23 @@ from urllib.parse import urlencode
 import os
 import sys
 import random
+import hashlib
+import hmac
+import base64
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from config import crypto_panic_token, coinbaseAPI, coinbaseSecret
+from config import crypto_panic_token, coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinPass, kucoinSecret
+import random
+import string
 
 # Notes:
 # To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
 # Okx has only 1 liquidation channel for all liquidations stream /// u need to filter if liquidations belon only to BTC
 # bybit stream OI+funding rate in a single websocket
-# bybit apis fetches TTA, TTP, GTA, GTP in a single API call
+
+def generate_random_id(length):
+    characters = string.ascii_letters + string.digits
+    random_id = ''.join(random.choice(characters) for i in range(length))
+    return random_id
 
 def generate_random_integer(n):
     if n <= 0:
@@ -48,9 +57,7 @@ def build_jwt_websockets():
     return jwt_token
 
 
-
 def build_jwt_api():
-
     key_name       = coinbaseAPI
     key_secret     = coinbaseSecret
     request_method = "GET"
@@ -77,6 +84,32 @@ def build_jwt_api():
 
     return jwt_token
 
+def build_kucoin_headers():
+    api_secret = kucoinSecret
+    api_key = kucoinAPI
+    api_passphrase = kucoinPass
+    now = int(time.time() * 1000)
+    str_to_sign = str(now) + "GET" + "/api/v3/market/orderbook/level2?symbol=BTC-USDT"
+    signature = base64.b64encode(hmac.new(api_secret.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
+    headers = {
+        "KC-API-SIGN": signature,
+        "KC-API-TIMESTAMP": str(now),
+        "KC-API-KEY": api_key,
+        "KC-API-PASSPHRASE": api_passphrase,
+    }
+    return headers
+
+def build_kucoin_wsendpoint():
+    """
+        Returns kucoin token and endpoint
+    """
+    kucoin_api = "https://api.kucoin.com/api/v1/bullet-public"
+    response = requests.post(kucoin_api)
+    kucoin_token = response.json().get("data").get("token")
+    kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
+    kucoin_connectId = generate_random_id(20)
+    return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
+
 
 
 apizzz = [
@@ -88,6 +121,7 @@ apizzz = [
     # OKEx APIs:     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-instruments
     # Bybit APIs:    https://bybit-exchange.github.io/docs/v5/intro
     # Deribit APIs:  https://docs.deribit.com/#deribit-api-v2-1-1
+    # Kucoin APIs :  https://www.kucoin.com/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-
 
     ###
     # Depth
@@ -148,6 +182,15 @@ apizzz = [
         "updateSpeed":1,
         "url_base" :  "api.coinbase.com",
         "url" : "/api/v3/brokerage/product_book?product_id=BTC-USD"
+    },
+    {
+        "exchange":"kucoin", 
+        "insType":"spot", 
+        "obj":"depth", 
+        "instrument": "btcusdt",
+        "updateSpeed":1,
+        "url" : "https://api.kucoin.com/api/v3/market/orderbook/level2?symbol=BTC-USDT",
+        "headers" : build_kucoin_headers()         
     },
     ###
     # Funding rate
@@ -466,7 +509,21 @@ websocketzzz = [
               "jwt": build_jwt_websockets(),
               "timestamp": int(time.time())
               }     
-        },                 
+        },
+        {
+          "exchange":"kucoin", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : build_kucoin_wsendpoint(),
+          "msg" : {
+                    "id": generate_random_integer(10),   # generate random integer
+                    "type": "subscribe",
+                    "topic": "/market/match:BTC-USDT",
+                    "response": True
+                    }
+        }                         
         ###
         # Depth
         ###
@@ -612,7 +669,21 @@ websocketzzz = [
               "jwt": build_jwt_websockets(),
               "timestamp": int(time.time())
               }     
-        },  
+        },
+        {
+          "exchange":"kucoin", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : build_kucoin_wsendpoint(),
+          "msg" : {
+                    "id": generate_random_integer(),   
+                    "type": "subscribe",
+                    "topic": "/market/level2:BTC-USDT",
+                    "response": True
+                    }
+        }  
         ###
         # Open interest
         ###

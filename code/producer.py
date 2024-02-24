@@ -28,7 +28,7 @@ class btcproducer():
 
     def __init__ (self, host, linksAPi, linksWS):
         self.host = host
-        self.linksAPI = linksAPI
+        self.linksAPI = linksAPi
         self.linksWS = linksWS
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
 
@@ -238,40 +238,4 @@ if __name__ == '__main__':
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(client.main())
-
-
-
-# TEST websockets
-
-# from locust import HttpUser, task, between
-# from locust.contrib.fasthttp import FastHttpUser
-# import json
-# import websocket
-
-# class WebSocketUser(FastHttpUser):
-#     wait_time = between(1, 5)  # Time between subsequent requests
-
-#     def on_start(self):
-#         # Called when a user starts executing tasks
-#         self.ws_url = "ws://your-websocket-server-url"
-
-#     @task
-#     def websocket_task(self):
-#         # Connect to the WebSocket
-#         ws = websocket.create_connection(self.ws_url)
-
-#         # Define your WebSocket message payload
-#         message_payload = {"type": "ping", "data": "Hello, WebSocket!"}
-#         ws.send(json.dumps(message_payload))
-
-#         # Receive the response from the WebSocket server
-#         response = ws.recv()
-#         print("Received response:", response)
-
-#         # Close the WebSocket connection
-#         ws.close()
-
-#     def on_stop(self):
-#         # Called when a user stops executing tasks
-#         pass
 
