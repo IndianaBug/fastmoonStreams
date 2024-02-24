@@ -84,19 +84,21 @@ wskucoin = f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId
 #         }
 
 data_trades =            {
-          "exchange":"gateio", 
-          "instrument": "btcusdt", 
-          "insType":"spot", 
-          "obj":"depth", 
-          "updateSpeed" : 0, 
-          "url" : "wss://api.gateio.ws/ws/v4/",
-          "msg" : {
-                    "time": int(time.time()),
-                    "channel": "spot.order_book_update",
-                    "event": "subscribe",
-                    "payload": ["BTC_USDT", "1000ms"]
+          'exchange':'gateio', 
+          'instrument': 'btcusdt', 
+          'insType':'spot', 
+          'obj':'depth', 
+          'updateSpeed' : 0, 
+          'url' : "wss://api.gateio.ws/ws/v4/",
+          'msg' : {
+                        "time": int(time.time()),
+                        "channel": "spot.trades",
+                        "event": "subscribe",  
+                        "payload": ["BTC_USDT"]
                     }
+
         }
+
 
 
 
@@ -119,19 +121,25 @@ class btcproducer():
                     await asyncio.sleep(ping_interval - 10)
                     await websocket.send(json.dumps({"op": "ping"}))  
                 if exchange == "coinbase":
-                    await asyncio.sleep(10 - 10)
+                    await asyncio.sleep(ping_interval - 10)
                 if exchange == "kucoin":
                     await asyncio.sleep(ping_interval - 10)
                     await websocket.send(json.dumps({"type": "ping", "id":1545910660740}))   # generate random id
-                if exchange == "gate":
-                    await asyncio.sleep(ping_interval - 10)
+                if exchange == "gateio":
+                    await asyncio.sleep(ping_interval - 25)
                     await websocket.send("ping")
             except websockets.exceptions.ConnectionClosed:
                 print("Connection closed. Stopping keep-alive.")
                 break
     
+    async def receive_messages(self, websocket):
+        try:
+            async for message in websocket:
+                print(message)
+        except asyncio.exceptions.TimeoutError:
+            print("WebSocket operation timed out")
 
-    async def websocket_connection(self, connection_data, producer, topic):
+    async def websocket_connection(self, connection_data):
 
         count = 1
         exchange = connection_data["exchange"]
@@ -141,12 +149,13 @@ class btcproducer():
         endpoint = connection_data["url"]
         msg = connection_data["msg"]
 
-        async for websocket in websockets.connect(endpoint, ping_interval=None, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            
+
+        async for websocket in websockets.connect(endpoint, ping_interval=30, timeout=86400): #, ssl=ssl_context, max_size=1024 * 1024 * 10):
+                    
             await websocket.send(json.dumps(msg))
             
             keep_alive_task = asyncio.create_task(self.keep_alive(websocket, exchange, 30))
-            
+         
             try:
                 if obj != "heartbeat":
                     async for message in websocket:
@@ -165,6 +174,8 @@ class btcproducer():
                 await asyncio.sleep(5)
                 continue
 
+
+
     async def main(self):
         """
             Make sure to call btcusdt trades in the first place
@@ -175,7 +186,7 @@ class btcproducer():
         topic = ''
 
         tasks = []
-        tasks +=  [self.websocket_connection(self.data, producer, topic)]
+        tasks +=  [self.websocket_connection(self.data)]
 
         await asyncio.gather(*tasks) 
 

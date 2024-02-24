@@ -1,107 +1,55 @@
 import json
-from datetime import datetime
 import time
-import numpy as np
-import pandas as pd
-import math
 import http.client
 from urls import build_jwt_api
 import requests
 from urls import apizzz
+import asyncio 
+import websockets
+import ssl
+import hmac
+from hashlib import sha256
+
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+
+async def websocket_fetcher(link, headers):
+    async with websockets.connect(link,  ssl=ssl_context) as websocket:
+        await websocket.send(json.dumps(headers))
+        response = await websocket.recv()
+        return response
+
+def get_bingx_books(APIURL, path, paramsMap):
+    APIKEY = ""
+    SECRETKEY = ""
+    def demo():
+        payload = {}
+        method = "GET"
+        paramsStr = parseParam(paramsMap)
+        return send_request(method, path, paramsStr, payload)
+
+    def get_sign(api_secret, payload):
+        signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
+        return signature
 
 
+    def send_request(method, path, urlpa, payload):
+        url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(SECRETKEY, urlpa))
+        headers = {
+            'X-BX-APIKEY': APIKEY,
+        }
+        response = requests.request(method, url, headers=headers, data=payload)
+        return response.json()
 
-def convert_timestamp(timestamp):
-    return datetime.utcfromtimestamp(timestamp / 1000).strftime('%Y-%m-%d %H:%M:%S UTC')
-
-def get_current_hour_of_year():
-    now = datetime.now()
-    hour_of_year = (now - datetime(now.year, 1, 1)).total_seconds() / 3600
-    return int(hour_of_year)
-
-def get_current_hour_of_week():
-    now = datetime.now()
-    current_hour_of_week = (now.weekday() * 24) + now.hour
-    return current_hour_of_week
-
-def get_current_secod():
-    datetime_str  = datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-    parsed_datetime = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S UTC')
-    return parsed_datetime.second 
-
-def calculate_percentage_difference(old_value, new_value):
-    try:
-        percentage_difference = ((new_value - old_value) / abs(old_value)) * 100
-        return percentage_difference
-    except ZeroDivisionError:
-        return float('inf')
-
-def get_bucket_list(current_price, bucket_range, n_buckets):
-    """
-        For initialization of buckets
-    """
-    rounded_current_price = round(current_price / 20) * 20
-    asbp = rounded_current_price + (bucket_range * n_buckets) + 1
-    bsbp = rounded_current_price - (bucket_range * n_buckets) - 1
-    bid_buckets = [i for i in range(rounded_current_price, bsbp, -bucket_range)]
-    bid_buckets = [[b, a] for a, b in zip(bid_buckets, bid_buckets[1:])]
-    ask_buckets = [i for i in range(rounded_current_price, asbp, bucket_range)]
-    ask_buckets = [[a, b] for a, b in zip(ask_buckets, ask_buckets[1:])]
-    full = sorted(bid_buckets + ask_buckets)
-    return full
-
-
-def create_data_frame(dftype, column_list):                                
-    if dftype == 'sec':      
-        r = list(range(0, 60, 1))     # Seconds in a minute
-    if dftype == 'min':
-        r = list(range(0, 10080, 1))  # Minutes in a week
-    if dftype == 'h':
-        r = list(range(0, 365*24, 1)) # Since the next leap year is 2100
-    columns = ['price'] + [float(x) for x in column_list.tolist()]
-    df = pd.DataFrame(index=r, columns=np.array(columns))
-    df.fillna(float(0), inplace=True)
-    return df
-
-def filter_ranges(data_array: np.array, percentage_range, ):
-    lower_bound = np.ceil(np.percentile(data_array, (100 - percentage_range) / 2))
-    upper_bound = np.floor(np.percentile(data_array, 100 - (100 - percentage_range) / 2))
-    f = (data_array < lower_bound) | (data_array > upper_bound)
-    filtered_array = np.array(data_array)[~f]
-    return np.setdiff1d(data_array, filtered_array)
-
-def find_level(range_array, value_to_find):
-    if value_to_find < np.min(range_array):
-        bin_index = None
-    if value_to_find >= np.max(range_array):
-        bin_index = None
-    else:
-        bin_index = np.digitize(value_to_find, bins=range_array, right=True)
-    return range_array[bin_index]
-
-
-def get_level_ranges(start_price, level_range, price_level_ceiling):
-    ceil_price = np.ceil((start_price + (start_price * 0.01 * price_level_ceiling)) / level_range) * level_range
-    floor_price = np.floor((start_price - (start_price * 0.01 * price_level_ceiling)) / level_range) * level_range
-    levels = np.arange(floor_price, ceil_price+1, level_range)
-    return levels
-
-def percentage_difference(value1, value2):
-    if value1 == 0 or value2 == 0:
-        return 0
-    bigger_value = value1 if value1 > value2 else value2
-    smaller_value = value1 if value1 < value2 else value2
-    percentage_diff = ((bigger_value - smaller_value) / abs(smaller_value)) * 100
-    return percentage_diff
-
-def generate_random_integer(n):
-    if n <= 0:
-        raise ValueError("Length should be a positive integer")
-    lower_bound = 10 ** (n - 1)
-    upper_bound = (10 ** n) - 1
-    random_integer = random.randint(lower_bound, upper_bound)
-    return random_integer
-
+    def parseParam(paramsMap):
+        sortedKeys = sorted(paramsMap)
+        paramsStr = "&".join(["%s=%s" % (x, paramsMap[x]) for x in sortedKeys])
+        if paramsStr != "": 
+            return paramsStr+"&timestamp="+str(int(time.time() * 1000))
+        else:
+            return paramsStr+"timestamp="+str(int(time.time() * 1000))
+    return demo()
 
 # Helper to retrive books
 
@@ -109,7 +57,7 @@ def books_snapshot(exchange, instrument, insType, snaplength):
     """
       Gets full latest snapshot of limit orders.
     """
-    if exchange == "binance":
+    if exchange in ["binance", "gateio"]:
         link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         link = "&".join([link, f"limit={snaplength}"])
     if exchange == "coinbase":
@@ -138,7 +86,30 @@ def books_snapshot(exchange, instrument, insType, snaplength):
         res = conn.getresponse()
         response = res.read()
         response = json.loads(response)
-        
+
+    if exchange == "kucoin":
+        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        response = requests.get(link, headers=headers)
+        response = response.json()
+
+    if exchange == "gateio":
+        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        response = requests.request('GET', link, headers=headers)
+        response = response.json()
+    
+    if exchange in ["mexc", "bitget", "htx"]:
+        response = requests.get(link)
+        response = response.json()
+    
+    if exchange == "deribit":
+        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(link, headers)))
+
+    if exchange == 'bingx':
+        path = [x['path'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        params = [x['params'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        response = get_bingx_books(link, path, params)
+
     data = {
         "exchange" : exchange,
         "instrument" : instrument,
@@ -146,4 +117,6 @@ def books_snapshot(exchange, instrument, insType, snaplength):
         "response" : response
     }
     return data
+
+print(books_snapshot("bingx", "btcusdt", "spot", "500"))
 
