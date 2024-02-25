@@ -381,6 +381,14 @@ APIS = [
         "updateSpeed":10,  # 360 
         "url" : "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1"
     },
+    {
+        "exchange":"htx", 
+        "insType":"perpetual", 
+        "obj":"fundingRate", 
+        "instrument": "btcusdt", 
+        "updateSpeed":3, 
+        "url" : "https://api.hbdm.com/index/market/history/linear_swap_estimated_rate_kline?contract_code=BTC-USDT&period=1min&size=1"
+    },
     ###
     # OI
     ###
@@ -400,13 +408,21 @@ APIS = [
         "updateSpeed":3, 
         "url" : "https://dapi.binance.com/dapi/v1/openInterest?symbol=BTCUSD_PERP"
     },
+    {
+        "exchange":"htx", 
+        "insType":"perpetual", 
+        "obj":"OI", 
+        "instrument": "btcusdt", 
+        "updateSpeed":3, 
+        "url" : "https://api.hbdm.com/linear-swap-api/v1/swap_his_open_interest?contract_code=BTC-USDT&period=60min&amount_type=1"
+    },
     ###
     # Funding + OI
     ###
     {
         "exchange":"gateio", 
         "insType":"perpetual", 
-        "obj":"fundingOIs", 
+        "obj":"fundingOI", 
         "instrument": "btcusdt", 
         "updateSpeed":3, 
         "url" : "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
@@ -416,7 +432,7 @@ APIS = [
         "id" : "kucoin_perpetual_btcusdt_fundingOI",
         "exchange":"kucoin", 
         "insType":"perpetual", 
-        "obj":"depth", 
+        "obj":"fundingOI", 
         "instrument": "btcusdt",
         "updateSpeed":1,
         "url" : "https://api-futures.kucoin.com/api/v1/contracts/XBTUSDTM",
@@ -560,8 +576,26 @@ APIS = [
         "instrument":"BTC_USDT_ETH",
         "updateSpeed":30,  # We use server-side caching, so there is no point of making requests more than once every 30 seconds.  https://cryptopanic.com/developers/api/
         "url" : f'https://cryptopanic.com/api/v1/posts/?auth_token={crypto_panic_token}&public=true&currencies=BTC,USDT,ETH&region=en'
-    },  
-    
+    },
+    ###
+    # Set heartbeat
+    ###  
+    {   # Can only be called with websockets
+        "id" : "deribit_hearbeat",
+        "exchange":"deribit", 
+        "insType":"hearbeat", 
+        "obj":"heartbeat", 
+        "instrument":"btcusd", 
+        "updateSpeed":1800,
+        "url" : "wss://test.deribit.com/ws/api/v2",  
+        "msg" : {
+            "jsonrpc": "2.0", "id": generate_random_integer(10), 
+            "method": "public/set_heartbeat",
+            "params":  {
+                        "interval" : 30
+                       }
+            }
+    },    
     ]
 
 
@@ -873,63 +907,99 @@ WEBSOCKETS = [
                     ]
                 }
         },
+        {   
+            "id" : "deribit_perpetual_btcusd_trades",
+            "exchange":"deribit", 
+            "insType":"perpetual", 
+            "obj":"trades", 
+            "instrument":"btcusd", 
+            "updateSpeed":0,
+            "url" : "wss://test.deribit.com/ws/api/v2",  
+            "msg" : {
+                    "jsonrpc": "2.0",
+                    "method": "public/subscribe",
+                    "id": generate_random_integer(10),
+                    "params": {
+                        "channels": ["trades.BTC-PERPETUAL.100ms"]}
+                    }
+        },
+        {
+          "id" : "htx_spot_btcusdt_trades",
+          "exchange":"htx", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://api.huobi.pro/ws",
+          "msg" : {
+                    "sub" : "market.btcusdt.trade.detail",
+                    "id" : generate_random_integer(10)
+                    }
+        }, 
+        {
+          "id" : "htx_perpetual_btcusdt_trades",
+          "exchange":"htx", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://api.hbdm.com/linear-swap-ws",
+          "msg" : {
+                    "sub" : "market.BTC-USDT.trade.detail",
+                    "id" : generate_random_integer(10)
+                    }
+        },
+        {
+          "id" : "bingx_spot_btcusdt_trades",
+          "exchange":"bingx", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://open-api-ws.bingx.com/market",
+          "msg" : {"id":generate_random_id(20),
+                   "reqType": "sub",
+                   "dataType":"BTC-USDT@trade"}
+        },  
+        {
+          "id" : "bingx_perpetual_btcusdt_trades",
+          "exchange":"bingx", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://open-api-swap.bingx.com/swap-market",
+          "msg" : {
+                   "id" : generate_random_id(20),
+                   "reqType": "sub",
+                   "dataType":"BTC-USDT@trade"
+                   }
+        },
+        {
+          "id" : "bingx_spot_btcusdt_depth",
+          "exchange":"bingx", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://open-api-ws.bingx.com/market",
+          "msg" : {"id":generate_random_id(20),
+                   "reqType": "sub",
+                   "dataType":"BTC-USDT@depth100"}
+        },
         # {
-        #   "id" : "bitget_spot_btcusdt_depth",
-        #   "exchange":"bitget", 
-        #   "instrument": "btcusdt", 
-        #   "insType":"spot", 
-        #   "obj":"depth", 
-        #   "updateSpeed" : 0, 
-        #   "url" : "wss://ws.bitget.com/v2/ws/public",
-        #   "msg" : {
-        #             "op": "subscribe",
-        #             "args": [
-        #                 {
-        #                     "instType": "SPOT",
-        #                     "channel": "books",
-        #                     "instId": "BTCUSDT"
-        #                 }
-        #             ]
-        #         }
-        # },
-        # {
-        #   "id" : "bitget_perpetual_btcusdt_depth",
-        #   "exchange":"bitget", 
+        #   "id" : "htx_perpetual_btcusdt_depth",
+        #   "exchange":"htx", 
         #   "instrument": "btcusdt", 
         #   "insType":"perpetual", 
         #   "obj":"depth", 
         #   "updateSpeed" : 0, 
-        #   "url" : "wss://ws.bitget.com/v2/ws/public",
+        #   "url" : "wss://api.hbdm.com/linear-swap-ws",
         #   "msg" : {
-        #             "op": "subscribe",
-        #             "args": [
-        #                 {
-        #                     "instType": "USDT-FUTURES",
-        #                     "channel": "books",
-        #                     "instId": "BTCUSDT"
-        #                 }
-        #             ]
-        #         }
-        # },
-        # {
-        #   "id" : "bitget_perpetual_btcusdt_fundingOI",
-        #   "exchange":"bitget", 
-        #   "instrument": "btcusdt", 
-        #   "insType":"perpetual", 
-        #   "obj":"fundingOI", 
-        #   "updateSpeed" : 0, 
-        #   "url" : "wss://ws.bitget.com/v2/ws/public",
-        #   "msg" : {
-        #             "op": "subscribe",
-        #             "args": [
-        #                 {
-        #                     "instType": "USDT-FUTURES",
-        #                     "channel": "ticker",
-        #                     "instId": "BTCUSDT"
-        #                 }
-        #             ]
-        #         }
-        # },                                 
+        #             "sub" : "market.BTC-USDT.trade.detail",
+        #             "id" : generate_random_integer(10)
+        #             }
+        # },                          
         ###
         # Depth
         ###
@@ -1193,6 +1263,87 @@ WEBSOCKETS = [
                     }
                 }
         },
+        {
+          "id" : "bitget_spot_btcusdt_depth",
+          "exchange":"bitget", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://ws.bitget.com/v2/ws/public",
+          "msg" : {
+                    "op": "subscribe",
+                    "args": [
+                        {
+                            "instType": "SPOT",
+                            "channel": "books",
+                            "instId": "BTCUSDT"
+                        }
+                    ]
+                }
+        },
+        {
+          "id" : "bitget_perpetual_btcusdt_depth",
+          "exchange":"bitget", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://ws.bitget.com/v2/ws/public",
+          "msg" : {
+                    "op": "subscribe",
+                    "args": [
+                        {
+                            "instType": "USDT-FUTURES",
+                            "channel": "books",
+                            "instId": "BTCUSDT"
+                        }
+                    ]
+                }
+        },
+        {   
+            "id" : "deribit_perpetual_btcusd_depth",
+            "exchange":"deribit", 
+            "insType":"perpetual", 
+            "obj":"depth", 
+            "instrument":"btcusd", 
+            "updateSpeed":0,
+            "url" : "wss://test.deribit.com/ws/api/v2",  
+            "msg" : {
+                    "jsonrpc": "2.0",
+                    "method": "public/subscribe",
+                    "id": generate_random_integer(10),
+                    "params": {
+                        "channels": ["book.BTC-PERPETUAL.100ms"]}
+                    }
+        }, 
+        {
+          "id" : "htx_spot_btcusdt_depth",
+          "exchange":"htx", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "	wss://api.huobi.pro/feed",
+          "msg" : {
+                    "sub":"market.btcusdt.mbp.400",
+                    "id" : generate_random_integer(10)
+                    }
+        }, 
+        {
+          "id" : "htx_perpetual_btcusdt_depth",
+          "exchange":"htx", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://api.hbdm.com/linear-swap-ws",
+          "msg" : {
+                    "sub":"market.BTC-USDT.depth.size_150.high_freq",
+                    "data_type":"incremental",
+                    "id" : generate_random_integer(10)
+                    }
+        },  
         ###
         # Open interest
         ###
@@ -1378,7 +1529,42 @@ WEBSOCKETS = [
                         "symbol":"BTC_USDT"
                     }
                 }
-        },    
+        },
+        {
+          "id" : "bitget_perpetual_btcusdt_fundingOI",
+          "exchange":"bitget", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"fundingOI", 
+          "updateSpeed" : 0, 
+          "url" : "wss://ws.bitget.com/v2/ws/public",
+          "msg" : {
+                    "op": "subscribe",
+                    "args": [
+                        {
+                            "instType": "USDT-FUTURES",
+                            "channel": "ticker",
+                            "instId": "BTCUSDT"
+                        }
+                    ]
+                }
+        },
+        {   
+            "id" : "deribit_perpetual_btcusd_ticker",
+            "exchange":"deribit", 
+            "insType":"perpetual", 
+            "obj":"ticker", 
+            "instrument":"btcusd", 
+            "updateSpeed":0,
+            "url" : "wss://test.deribit.com/ws/api/v2",  
+            "msg" : {
+                    "jsonrpc": "2.0",
+                    "method": "public/subscribe",
+                    "id": generate_random_integer(10),
+                    "params": {
+                        "channels": ["ticker.BTC-PERPETUAL.100ms"]}
+                    }
+        },          
         # HEARTBEAT # Coibase requires to use heartbeats to keep all connections opened
         {
           "exchange":"coinbase", 
@@ -1396,5 +1582,22 @@ WEBSOCKETS = [
             "jwt": build_jwt_websockets(),
             "timestamp": int(time.time())
             }  
-        },  
+        },
+        {
+          "id" : "deribit_heartbeat",  
+          "exchange":"deribit", 
+          "instrument": "btcusd", 
+          "insType":"perpetual", 
+          "obj":"heartbeat", 
+          "updateSpeed" : 0, 
+          "url" : "wss://test.deribit.com/ws/api/v2",
+          "msg" :         {
+                    "jsonrpc" : "2.0",
+                    "id" : generate_random_integer(10),
+                    "method" : "public/set_heartbeat",
+                    "params" : {
+                        "interval" : 30
+                    }
+                    }
+        },    
 ]

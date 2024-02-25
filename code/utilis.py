@@ -124,9 +124,14 @@ def books_snapshot(exchange, instrument, insType, snaplength):
     }
     return data
 
-# d = get_dict_by_key_value(APIS, "id", "kucoin_perpetual_btcusdt_fundingOI")
-# url = d["url"]
-# headers = d["headers"]
-# response = requests.request('GET', url, headers=headers)
-# response = response.json()
-# print(response)
+def set_deribit_heartbeat():
+    d = get_dict_by_key_value(APIS, "id", "deribit_hearbeat")
+    url = d["url"]
+    msg = d["msg"]
+    asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, msg))
+    print("Deribit heartbeat is set")
+
+
+r = requests.get("https://api.hbdm.com/index/market/history/linear_swap_estimated_rate_kline?contract_code=BTC-USDT&period=1min&size=1")
+
+print(r.json())

@@ -1,46 +1,28 @@
+import asyncio
+import websockets
+import json
+import ssl
+from utilis import get_dict_by_key_value
+from urls import  APIS, WEBSOCKETS
 
-import time
-import requests
-import hmac
-from hashlib import sha256
-
-APIURL = "https://open-api.bingx.com"
-APIKEY = ""
-SECRETKEY = ""
-
-def get_bingx_books_perp_btcusdt():
-    def demo():
-        payload = {}
-        path = '/openApi/swap/v2/quote/depth'
-        method = "GET"
-        paramsMap = {
-        "symbol": "BTC-USDT",
-        "limit": "1000"
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+# To subscribe to this channel:
+msg = \
+    {"jsonrpc": "2.0",
+     "method": "public/subscribe",
+     "id": 42,
+     "params": {
+        "channels": ["book.BTC-PERPETUAL.100ms"]}
     }
-        paramsStr = parseParam(paramsMap)
-        return send_request(method, path, paramsStr, payload)
 
-    def get_sign(api_secret, payload):
-        signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
-        return signature
+async def call_api(msg):
+   async with websockets.connect('wss://test.deribit.com/ws/api/v2', ssl=ssl_context) as websocket:
+       await websocket.send(msg)
+       while websocket.open:
+           response = await websocket.recv()
+           # do something with the notifications...
+           print(response)
 
-
-    def send_request(method, path, urlpa, payload):
-        url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(SECRETKEY, urlpa))
-        headers = {
-            'X-BX-APIKEY': APIKEY,
-        }
-        response = requests.request(method, url, headers=headers, data=payload)
-        return response.json()
-
-    def parseParam(paramsMap):
-        sortedKeys = sorted(paramsMap)
-        paramsStr = "&".join(["%s=%s" % (x, paramsMap[x]) for x in sortedKeys])
-        if paramsStr != "": 
-            return paramsStr+"&timestamp="+str(int(time.time() * 1000))
-        else:
-            return paramsStr+"timestamp="+str(int(time.time() * 1000))
-    return demo()
-
-
-print(get_bingx_books_perp_btcusdt())
+asyncio.get_event_loop().run_until_complete(call_api(json.dumps(msg)))
