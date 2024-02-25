@@ -33,7 +33,7 @@ class btcproducer():
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
 
 
-    async def keep_alive(self, websocket, exchange, ping_interval=30):
+    async def keep_alive(self, websocket, exchange, insType, ping_interval=30):
         while True:
             try:
                 if exchange == "binance":
@@ -46,7 +46,15 @@ class btcproducer():
                     await asyncio.sleep(ping_interval - 10)
                     await websocket.send(json.dumps({"op": "ping"}))  
                 if exchange == "coinbase":
-                    await asyncio.sleep(10 - 10)
+                    pass
+                if exchange == "deribit":
+                    pass
+                if exchange == "gateio":
+                    await asyncio.sleep(ping_interval - 25)
+                    if insType == "spot":
+                        await websocket.send(json.dumps({"time" : int(time.time()), "channel" : "spot.ping"}))  
+                    if insType == "perpetual":
+                        await websocket.send(json.dumps({"time" : int(time.time()), "channel" : "futures.ping"}))  
             except websockets.exceptions.ConnectionClosed:
                 print("Connection closed. Stopping keep-alive.")
                 break

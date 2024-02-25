@@ -127,7 +127,7 @@ def build_kucoin_wsendpoint():
 
 
 
-apizzz = [
+APIS = [
     # updateSpeed in seconds
 
     # Binance APIs : https://binance-docs.github.io/apidocs/spot/en/#change-log
@@ -401,6 +401,40 @@ apizzz = [
         "url" : "https://dapi.binance.com/dapi/v1/openInterest?symbol=BTCUSD_PERP"
     },
     ###
+    # Funding + OI
+    ###
+    {
+        "exchange":"gateio", 
+        "insType":"perpetual", 
+        "obj":"fundingOIs", 
+        "instrument": "btcusdt", 
+        "updateSpeed":3, 
+        "url" : "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
+        "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    },
+    {
+        "id" : "kucoin_perpetual_btcusdt_fundingOI",
+        "exchange":"kucoin", 
+        "insType":"perpetual", 
+        "obj":"depth", 
+        "instrument": "btcusdt",
+        "updateSpeed":1,
+        "url" : "https://api-futures.kucoin.com/api/v1/contracts/XBTUSDTM",
+        "headers" : build_kucoin_headers_futures()         
+    },
+    ###
+    # Liquidation History
+    ###
+    {  # https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history
+        "exchange":"gateio", 
+        "insType":"perpetual", 
+        "obj":"liquidations", 
+        "instrument": "btcusdt", 
+        "updateSpeed":3, 
+        "url" : f"https://api.gateio.ws/api/v4/futures/usdt/liq_orders?s=BTC_USDT&from={int(time.time()) - 10}&to={int(time.time())}",
+        "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    },    
+    ###
     # Top Trades Accounts
     ###
     {
@@ -531,7 +565,7 @@ apizzz = [
     ]
 
 
-websocketzzz = [
+WEBSOCKETS = [
         # Binance spot APIs: https://binance-docs.github.io/apidocs/spot/en/#change-log
         # Binance usdt APIs: https://binance-docs.github.io/apidocs/futures/en/#change-log
         # Binance coin APIs: https://binance-docs.github.io/apidocs/delivery/en/#change-log
@@ -714,6 +748,7 @@ websocketzzz = [
               }     
         },
         {
+          "id" : "kucoin_spot_btcusdt_trades",  
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -721,12 +756,27 @@ websocketzzz = [
           "updateSpeed" : 0, 
           "url" : build_kucoin_wsendpoint(),
           "msg" : {
-                    "id": generate_random_integer(10),   # generate random integer
+                    "id": generate_random_integer(10),   
                     "type": "subscribe",
                     "topic": "/market/match:BTC-USDT",
                     "response": True
                     }
         },
+        # {
+        #   "id" : "kucoin_perpetual_btcusdt_trades",
+        #   "exchange":"kucoin", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"perpetual", 
+        #   "obj":"trades", 
+        #   "updateSpeed" : 0, 
+        #   "url" : build_kucoin_wsendpoint(),
+        #   "msg" : {
+        #             "id": generate_random_integer(10),   
+        #             "type": "subscribe",
+        #             "topic": "/contractMarket/level2:XBTUSDTM",
+        #             "response": True
+        #             }
+        # },
         {
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
@@ -740,7 +790,21 @@ websocketzzz = [
                         "event": "subscribe",  
                         "payload": ["BTC_USDT"]
                     }
-        },                         
+        },
+        { # https://www.gate.io/docs/developers/futures/ws/en/#trades-api
+          'exchange':'gateio', 
+          'instrument': 'btcusdt', 
+          'insType':'perpetual', 
+          'obj':'trades', 
+          'updateSpeed' : 0, 
+          'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
+          'msg' : {
+                        "time": int(time.time()),
+                        "channel": "futures.trades",
+                        "event": "subscribe",  
+                        "payload": ["BTC_USDT"]
+                    }
+        },                          
         ###
         # Depth
         ###
@@ -943,7 +1007,22 @@ websocketzzz = [
                         "payload": ["BTC_USDT", "1000ms"]
                     }
 
-        },  
+        },
+        {
+          'exchange':'gateio', 
+          'instrument': 'btcusdt', 
+          'insType':'spot', 
+          'obj':'depth', 
+          'updateSpeed' : 0, 
+          'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
+          'msg' : {
+                        "time": int(time.time()),
+                        "channel": "futures.order_book_update",
+                        "event": "subscribe",  
+                        "payload": ["BTC_USDT", "1000ms"]
+                    }
+
+        },   
         ###
         # Open interest
         ###

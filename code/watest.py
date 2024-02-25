@@ -13,94 +13,16 @@ import asyncio
 from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaStorageError
 import ssl
+from utilis import get_dict_by_key_value
+from urls import  APIS, WEBSOCKETS
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+data = get_dict_by_key_value(WEBSOCKETS, "id", "kucoin_perpetual_btcusdt_trades")
 
-# Kucoin websocket
-def obtain_kucoin_token_endpoint():
-    """
-        Returns kucoin token and endpoint
-    """
-    kucoin_api = "https://api.kucoin.com/api/v1/bullet-public"
-    response = requests.post(kucoin_api)
-    kucoin_token = response.json().get("data").get("token")
-    kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
-    return kucoin_token, kucoin_endpoint
-
-kucoin_token, kucoin_endpoint = obtain_kucoin_token_endpoint()
-
-
-
-kucoin_connectId = "hQvf8jkno21d65adaffs"  # Made it up
-wskucoin = f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
-
-
-# data =            {
-#           "exchange":"kucoin", 
-#           "instrument": "btcusdt", 
-#           "insType":"spot", 
-#           "obj":"depth", 
-#           "updateSpeed" : 0, 
-#           "url" : wskucoin,
-#           "msg" : {
-#                     "id": build_kucoin_wsendpoint(),   # generate random integer
-#                     "type": "subscribe",
-#                     "topic": "/market/level2:BTC-USDT",
-#                     "response": True
-#                     }
-#         }
-
-# data_trades =            {
-#           "exchange":"kucoin", 
-#           "instrument": "btcusdt", 
-#           "insType":"spot", 
-#           "obj":"trades", 
-#           "updateSpeed" : 0, 
-#           "url" : wskucoin,
-#           "msg" : {
-#                     "id": 1545910660740,   # generate random integer
-#                     "type": "subscribe",
-#                     "topic": "/market/match:BTC-USDT",
-#                     "response": True
-#                     }
-#         }
-
-# data =            {
-#           "exchange":"gateio", 
-#           "instrument": "btcusdt", 
-#           "insType":"spot", 
-#           "obj":"depth", 
-#           "updateSpeed" : 0, 
-#           "url" : "wss://api.gateio.ws/ws/v4/",
-#           "msg" : {
-#                     "id": build_kucoin_wsendpoint(),   # generate random integer
-#                     "type": "subscribe",
-#                     "topic": "/market/level2:BTC-USDT",
-#                     "response": True
-#                     }
-#         }
-
-data_trades =            {
-          'exchange':'gateio', 
-          'instrument': 'btcusdt', 
-          'insType':'spot', 
-          'obj':'depth', 
-          'updateSpeed' : 0, 
-          'url' : "wss://api.gateio.ws/ws/v4/",
-          'msg' : {
-                        "time": int(time.time()),
-                        "channel": "spot.trades",
-                        "event": "subscribe",  
-                        "payload": ["BTC_USDT"]
-                    }
-
-        }
-
-
-
+print(data)
 
 class btcproducer():
 
@@ -108,7 +30,7 @@ class btcproducer():
         self.host = host
         self.data = data
 
-    async def keep_alive(self, websocket, exchange, ping_interval=30):
+    async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
             try:
                 if exchange == "binance":
@@ -124,7 +46,7 @@ class btcproducer():
                     await asyncio.sleep(ping_interval - 10)
                 if exchange == "kucoin":
                     await asyncio.sleep(ping_interval - 10)
-                    await websocket.send(json.dumps({"type": "ping", "id":1545910660740}))   # generate random id
+                    await websocket.send(json.dumps({"type": "ping", "id":id}))   # generate random id
                 if exchange == "gateio":
                     await asyncio.sleep(ping_interval - 25)
                     await websocket.send("ping")
@@ -170,7 +92,7 @@ class btcproducer():
                 await asyncio.sleep(5)
                 continue
             except websockets.exceptions.ConnectionClosed:
-                print("connection  closed of bitget stream, reconnecting!!!")
+                print(f"connection  closed of {exchange}, {instrument}, {insType}, {obj}. Reconnecting!")
                 await asyncio.sleep(5)
                 continue
 
@@ -192,7 +114,7 @@ class btcproducer():
 
 
 if __name__ == '__main__':
-    client = btcproducer('localhost:9092', data_trades)
+    client = btcproducer('localhost:9092', data)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(client.main())

@@ -3,12 +3,18 @@ import time
 import http.client
 from urls import build_jwt_api
 import requests
-from urls import apizzz
+from urls import APIS
 import asyncio 
 import websockets
 import ssl
 import hmac
 from hashlib import sha256
+
+def get_dict_by_key_value(lst, key, value):
+    for d in lst:
+        if d.get(key) == value:
+            return d
+    return None
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -58,13 +64,13 @@ def books_snapshot(exchange, instrument, insType, snaplength):
       Gets full latest snapshot of limit orders.
     """
     if exchange in ["binance", "gateio"]:
-        link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        link = [x['url'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         link = "&".join([link, f"limit={snaplength}"])
     if exchange == "coinbase":
-        url_1 = [x["url_base"] for x in apizzz if x["exchange"] == "coinbase" and x["obj"] == "depth"][0]
-        url_2 = [x["url"] for x in apizzz if x["exchange"] == "coinbase" and x["obj"] == "depth"][0] 
+        url_1 = [x["url_base"] for x in APIS if x["exchange"] == "coinbase" and x["obj"] == "depth"][0]
+        url_2 = [x["url"] for x in APIS if x["exchange"] == "coinbase" and x["obj"] == "depth"][0] 
     else:
-        link = [x['url'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        link = [x['url'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
 
     
     if exchange in ['binance', 'bybit']:
@@ -88,12 +94,12 @@ def books_snapshot(exchange, instrument, insType, snaplength):
         response = json.loads(response)
 
     if exchange == "kucoin":
-        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         response = requests.get(link, headers=headers)
         response = response.json()
 
     if exchange == "gateio":
-        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         response = requests.request('GET', link, headers=headers)
         response = response.json()
     
@@ -102,12 +108,12 @@ def books_snapshot(exchange, instrument, insType, snaplength):
         response = response.json()
     
     if exchange == "deribit":
-        headers = [x['headers'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(link, headers)))
 
     if exchange == 'bingx':
-        path = [x['path'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        params = [x['params'] for x in apizzz if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        path = [x['path'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+        params = [x['params'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         response = get_bingx_books(link, path, params)
 
     data = {
@@ -118,5 +124,9 @@ def books_snapshot(exchange, instrument, insType, snaplength):
     }
     return data
 
-print(books_snapshot("bingx", "btcusdt", "spot", "500"))
-
+# d = get_dict_by_key_value(APIS, "id", "kucoin_perpetual_btcusdt_fundingOI")
+# url = d["url"]
+# headers = d["headers"]
+# response = requests.request('GET', url, headers=headers)
+# response = response.json()
+# print(response)
