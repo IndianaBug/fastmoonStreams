@@ -762,21 +762,21 @@ WEBSOCKETS = [
                     "response": True
                     }
         },
-        # {
-        #   "id" : "kucoin_perpetual_btcusdt_trades",
-        #   "exchange":"kucoin", 
-        #   "instrument": "btcusdt", 
-        #   "insType":"perpetual", 
-        #   "obj":"trades", 
-        #   "updateSpeed" : 0, 
-        #   "url" : build_kucoin_wsendpoint(),
-        #   "msg" : {
-        #             "id": generate_random_integer(10),   
-        #             "type": "subscribe",
-        #             "topic": "/contractMarket/level2:XBTUSDTM",
-        #             "response": True
-        #             }
-        # },
+        {
+          "id" : "kucoin_perpetual_btcusdt_trades",
+          "exchange":"kucoin", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : build_kucoin_wsendpoint(),
+          "msg" : {
+                    "id": generate_random_integer(10),   
+                    "type": "subscribe",
+                    "topic": "/contractMarket/execution:XBTUSDTM",
+                    "response": True
+                    }
+        },
         {
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
@@ -804,7 +804,132 @@ WEBSOCKETS = [
                         "event": "subscribe",  
                         "payload": ["BTC_USDT"]
                     }
-        },                          
+        },
+        {
+          "id" : "mexc_spot_btcusdt_trades",
+          "exchange":"mexc", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://wbs.mexc.com/ws",
+          "msg" : {
+                        "method": "SUBSCRIPTION",
+                        "params": [
+                            "spot@public.deals.v3.api@BTCUSDT"
+                        ]
+                    }
+        },
+        {
+          "id" : "mexc_perpetual_btcusdt_trades",
+          "exchange":"mexc", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://contract.mexc.com/edge",
+          "msg" : {
+                    "method":"sub.deal",
+                    "param":{
+                        "symbol":"BTC_USDT"
+                    }
+                }
+        },
+        {
+          "id" : "bitget_spot_btcusdt_trades",
+          "exchange":"bitget", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://ws.bitget.com/v2/ws/public",
+          "msg" : {
+                    "op": "subscribe",
+                    "args": [
+                        {
+                            "instType": "SPOT",
+                            "channel": "trade",
+                            "instId": "BTCUSDT"
+                        }
+                    ]
+                }
+        },
+        {
+          "id" : "bitget_perpetual_btcusdt_trades",
+          "exchange":"bitget", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://ws.bitget.com/v2/ws/public",
+          "msg" : {
+                    "op": "subscribe",
+                    "args": [
+                        {
+                            "instType": "USDT-FUTURES",
+                            "channel": "trade",
+                            "instId": "BTCUSDT"
+                        }
+                    ]
+                }
+        },
+        # {
+        #   "id" : "bitget_spot_btcusdt_depth",
+        #   "exchange":"bitget", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"spot", 
+        #   "obj":"depth", 
+        #   "updateSpeed" : 0, 
+        #   "url" : "wss://ws.bitget.com/v2/ws/public",
+        #   "msg" : {
+        #             "op": "subscribe",
+        #             "args": [
+        #                 {
+        #                     "instType": "SPOT",
+        #                     "channel": "books",
+        #                     "instId": "BTCUSDT"
+        #                 }
+        #             ]
+        #         }
+        # },
+        # {
+        #   "id" : "bitget_perpetual_btcusdt_depth",
+        #   "exchange":"bitget", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"perpetual", 
+        #   "obj":"depth", 
+        #   "updateSpeed" : 0, 
+        #   "url" : "wss://ws.bitget.com/v2/ws/public",
+        #   "msg" : {
+        #             "op": "subscribe",
+        #             "args": [
+        #                 {
+        #                     "instType": "USDT-FUTURES",
+        #                     "channel": "books",
+        #                     "instId": "BTCUSDT"
+        #                 }
+        #             ]
+        #         }
+        # },
+        # {
+        #   "id" : "bitget_perpetual_btcusdt_fundingOI",
+        #   "exchange":"bitget", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"perpetual", 
+        #   "obj":"fundingOI", 
+        #   "updateSpeed" : 0, 
+        #   "url" : "wss://ws.bitget.com/v2/ws/public",
+        #   "msg" : {
+        #             "op": "subscribe",
+        #             "args": [
+        #                 {
+        #                     "instType": "USDT-FUTURES",
+        #                     "channel": "ticker",
+        #                     "instId": "BTCUSDT"
+        #                 }
+        #             ]
+        #         }
+        # },                                 
         ###
         # Depth
         ###
@@ -994,6 +1119,21 @@ WEBSOCKETS = [
                     }
         },
         {
+          "id" : "kucoin_perpetual_btcusdt_depth",
+          "exchange":"kucoin", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : build_kucoin_wsendpoint(),
+          "msg" : {
+                    "id": generate_random_integer(10),   
+                    "type": "subscribe",
+                    "topic": "/contractMarket/level2:XBTUSDTM",
+                    "response": True
+                    }
+        },
+        {
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
           'insType':'spot', 
@@ -1022,7 +1162,37 @@ WEBSOCKETS = [
                         "payload": ["BTC_USDT", "1000ms"]
                     }
 
-        },   
+        },
+        {
+          "id" : "mexc_spot_btcusdt_depth",
+          "exchange":"mexc", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://wbs.mexc.com/ws",
+          "msg" : {
+                        "method": "SUBSCRIPTION",
+                        "params": [
+                            "spot@public.increase.depth.v3.api@BTCUSDT"
+                        ]
+                    }
+        },
+        {
+          "id" : "mexc_perpetual_btcusdt_depth",
+          "exchange":"mexc", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://contract.mexc.com/edge",
+          "msg" : {
+                    "method":"sub.depth",
+                    "param":{
+                        "symbol":"BTC_USDT"
+                    }
+                }
+        },
         ###
         # Open interest
         ###
@@ -1193,7 +1363,22 @@ WEBSOCKETS = [
                   "tickers.BTCUSD"
                   ]
               }
-        }, 
+        },
+        {
+          "id" : "mexc_perpetual_btcusdt_fundingOI",
+          "exchange":"mexc", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"fundingOI", 
+          "updateSpeed" : 0, 
+          "url" : "wss://contract.mexc.com/edge",
+          "msg" : {
+                    "method":"sub.ticker",
+                    "param":{
+                        "symbol":"BTC_USDT"
+                    }
+                }
+        },    
         # HEARTBEAT # Coibase requires to use heartbeats to keep all connections opened
         {
           "exchange":"coinbase", 

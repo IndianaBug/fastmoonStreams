@@ -20,9 +20,7 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-data = get_dict_by_key_value(WEBSOCKETS, "id", "kucoin_perpetual_btcusdt_trades")
-
-print(data)
+data = get_dict_by_key_value(WEBSOCKETS, "id", "bitget_spot_btcusdt_trades")
 
 class btcproducer():
 
@@ -35,6 +33,9 @@ class btcproducer():
             try:
                 if exchange == "binance":
                     await websocket.pong()
+                    await asyncio.sleep(ping_interval)
+                if exchange == "mexc":
+                    await websocket.send(json.dumps({"method": "PING"}))
                     await asyncio.sleep(ping_interval)
                 if exchange == "okx":
                     await asyncio.sleep(ping_interval - 10)
