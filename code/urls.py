@@ -127,7 +127,7 @@ def build_kucoin_wsendpoint():
 
 
 
-APIS = [
+AaWS = [
     # updateSpeed in seconds
 
     # Binance APIs : https://binance-docs.github.io/apidocs/spot/en/#change-log
@@ -142,6 +142,7 @@ APIS = [
     # Depth
     ###
     {
+        "type" : "api",
         "id" : "binance_spot_btcusdt_depth",
         "exchange":"binance", 
         "instrument": "btcusdt", 
@@ -151,6 +152,7 @@ APIS = [
         "url" : f"https://api.binance.com/api/v3/depth?symbol=BTCUSDT"
         },
     {
+        "type" : "api",
         "id" : "binance_spot_btcfdusd_depth",
         "exchange":"binance",
         "instrument": "btcfdusd", 
@@ -160,6 +162,7 @@ APIS = [
         "url" : f"https://api.binance.com/api/v3/depth?symbol=BTCFDUSD"
     },
     {
+        "type" : "api",
         "id" : "binance_perpetual_btcusdt_depth",
         "exchange":"binance", 
         "instrument": "btcusdt",
@@ -169,6 +172,7 @@ APIS = [
         "url" : f"https://fapi.binance.com/fapi/v1/depth?symbol=BTCUSDT"
     },
     {
+        "type" : "api",
         "id" : "binance_perpetual_btcusd_depth",
         "exchange":"binance", 
         "insType":"perpetual", 
@@ -178,6 +182,7 @@ APIS = [
         "url" : f"https://dapi.binance.com/dapi/v1/depth?symbol=BTCUSD_PERP"
     },
     {
+        "type" : "api",
         "id" : "bybit_spot_btcusdt_depth",
         "exchange":"bybit", 
         "insType":"spot", 
@@ -187,6 +192,7 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/orderbook?category=spot&symbol=BTCUSDT&limit=200"
     },
     {
+        "type" : "api",
         "id" : "bybit_spot_btcusdc_depth",
         "exchange":"bybit", 
         "insType":"spot", 
@@ -196,6 +202,7 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/orderbook?category=spot&symbol=BTCUSDC&limit=200"
     },
     {
+        "type" : "api",
         "id" : "bybit_perpetual_btcusdt_depth",
         "exchange":"bybit", 
         "insType":"perpetual", 
@@ -205,6 +212,7 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/orderbook?category=linear&symbol=BTCUSDT&limit=200"
     },
     {
+        "type" : "api",
         "id" : "bybit_perpetual_btcusd_depth",
         "exchange":"bybit", 
         "insType":"perpetual", 
@@ -214,6 +222,7 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/orderbook?category=linear&symbol=BTCUSD&limit=200"
     },
     {
+        "type" : "api",
         "id" : "coinbase_spot_btcusd_depth",
         "exchange":"coinbase", 
         "insType":"spot", 
@@ -224,6 +233,7 @@ APIS = [
         "url" : "/api/v3/brokerage/product_book?product_id=BTC-USD"
     },
     {
+        "type" : "api",
         "id" : "kucoin_spot_btcusdt_depth",
         "exchange":"kucoin", 
         "insType":"spot", 
@@ -234,6 +244,7 @@ APIS = [
         "headers" : build_kucoin_headers_spot()         
     },
     {
+        "type" : "api",
         "id" : "kucoin_perpetual_btcusdt_depth",
         "exchange":"kucoin", 
         "insType":"perpetual", 
@@ -244,6 +255,7 @@ APIS = [
         "headers" : build_kucoin_headers_futures()         
     },
     {
+        "type" : "api",
         "id" : "gateio_spot_btcusdt_depth",
         "exchange":"gateio", 
         "insType":"spot", 
@@ -254,6 +266,7 @@ APIS = [
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}          # requests.request('GET', url, headers=headers)
     },
     {
+        "type" : "api",
         "id" : "gateio_perpetual_btcusdt_depth",
         "exchange":"gateio", 
         "insType":"perpetual", 
@@ -264,6 +277,7 @@ APIS = [
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}          
     },
     {
+        "type" : "api",
         "id" : "mexc_spot_btcusdt_depth",
         "exchange":"mexc", 
         "insType":"spot", 
@@ -273,6 +287,7 @@ APIS = [
         "url" : "https://api.mexc.com/api/v3/depth?symbol=BTCUSDT&limit=5000", # simple get request
     },
     {
+        "type" : "api",
         "id" : "mexc_perpetual_btcusdt_depth",
         "exchange":"mexc", 
         "insType":"perpetual", 
@@ -282,6 +297,7 @@ APIS = [
         "url" : "https://contract.mexc.com/api/v1/contract/depth/BTC_USDT", # simple get request
     },
     {
+        "type" : "api",
         "id" : "bitget_spot_btcusdt_depth",
         "exchange":"bitget", 
         "insType":"spot", 
@@ -291,6 +307,7 @@ APIS = [
         "url" : "https://api.bitget.com/api/v2/spot/market/orderbook?symbol=BTCUSDT&type=step0&limit=150" , # simple get request
     },
     {
+        "type" : "api",
         "id" : "bitget_perpetual_btcusdt_depth",
         "exchange":"bitget", 
         "insType":"perpetual", 
@@ -300,6 +317,7 @@ APIS = [
         "url" : "https://api.bitget.com/api/v2/mix/market/merge-depth?productType=usdt-futures&symbol=BTCUSDT&limit=1000", 
     },
     {
+        "type" : "api",
         "id" : "htx_spot_btcusdt_depth",
         "exchange":"htx", 
         "insType":"spot", 
@@ -309,6 +327,7 @@ APIS = [
         "url" : "https://api.huobi.pro/market/depth?symbol=btcusdt&depth=20&type=step0", 
     },
     {
+        "type" : "api",
         "id" : "htx_perpetual_btcusdt_depth",
         "exchange":"htx", 
         "insType":"perpetual", 
@@ -318,6 +337,7 @@ APIS = [
         "url" : "https://api.hbdm.com/linear-swap-ex/market/depth?contract_code=BTC-USDT&type=step0", 
     },
     {   # Can only be called with websockets
+        "type" : "api",
         "id" : "deribit_perpetual_btcusd_depth",
         "exchange":"deribit", 
         "insType":"perpetual", 
@@ -335,6 +355,7 @@ APIS = [
             }
     },
     {
+        "type" : "api",
         "id" : "bingx_perpetual_btcusdt_depth",  
         "exchange":"bingx", 
         "insType":"perpetual", 
@@ -348,7 +369,8 @@ APIS = [
                     "limit": "1000"
                     }
     },
-    {  
+    {
+        "type" : "api",  
         "id" : "bingx_spot_btcusdt_depth",  
         "exchange":"bingx", 
         "insType":"spot", 
@@ -366,6 +388,8 @@ APIS = [
     # Funding rate
     ###
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusd_fundingRate",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"fundingRate", 
@@ -374,6 +398,8 @@ APIS = [
         "url" : "https://dapi.binance.com/dapi/v1/fundingRate?symbol=BTCUSD_PERP&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusdt_fundingRate",
         "exchange":"binance",
         "insType":"perpetual", 
         "obj":"fundingRate",
@@ -382,6 +408,8 @@ APIS = [
         "url" : "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "htx_perpetual_btcusdt_fundingRate",
         "exchange":"htx", 
         "insType":"perpetual", 
         "obj":"fundingRate", 
@@ -389,10 +417,26 @@ APIS = [
         "updateSpeed":3, 
         "url" : "https://api.hbdm.com/index/market/history/linear_swap_estimated_rate_kline?contract_code=BTC-USDT&period=1min&size=1"
     },
+    {
+        "type" : "api",  
+        "id" : "bingx_perpetual_btcusdt_OI",  
+        "exchange":"bingx", 
+        "insType":"perpetual", 
+        "obj":"depth", 
+        "instrument":"btcusdt", 
+        "updateSpeed": 1,
+        "url" : "https://open-api.bingx.com",  
+        "path" : "/openApi/swap/v2/quote/openInterest",
+        "params" : {
+                    "symbol": "BTC-USDT",
+                    }
+    },
     ###
     # OI
     ###
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusdt_OI",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"OI", 
@@ -401,6 +445,8 @@ APIS = [
         "url" : "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT"
     },
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusd_OI",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"OI", 
@@ -409,6 +455,8 @@ APIS = [
         "url" : "https://dapi.binance.com/dapi/v1/openInterest?symbol=BTCUSD_PERP"
     },
     {
+        "type" : "api",
+        "id" : "htx_perpetual_btcusdt_OI",
         "exchange":"htx", 
         "insType":"perpetual", 
         "obj":"OI", 
@@ -416,10 +464,26 @@ APIS = [
         "updateSpeed":3, 
         "url" : "https://api.hbdm.com/linear-swap-api/v1/swap_his_open_interest?contract_code=BTC-USDT&period=60min&amount_type=1"
     },
+    {
+        "type" : "api",  
+        "id" : "bingx_perpetual_btcusdt_fundingRate",  
+        "exchange":"bingx", 
+        "insType":"perpetual", 
+        "obj":"depth", 
+        "instrument":"btcusdt", 
+        "updateSpeed": 1,
+        "url" : "https://open-api.bingx.com",  
+        "path" : "/openApi/swap/v2/quote/premiumIndex",
+        "params" : {
+                    "symbol": "BTC-USDT",
+                    }
+    },
     ###
     # Funding + OI
     ###
     {
+        "type" : "api",
+        "id" : "gate_perpetual_btcusdt_fundingOI",
         "exchange":"gateio", 
         "insType":"perpetual", 
         "obj":"fundingOI", 
@@ -429,6 +493,7 @@ APIS = [
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
     },
     {
+        "type" : "api",
         "id" : "kucoin_perpetual_btcusdt_fundingOI",
         "exchange":"kucoin", 
         "insType":"perpetual", 
@@ -442,6 +507,8 @@ APIS = [
     # Liquidation History
     ###
     {  # https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history
+        "type" : "api",
+        "id" : "gate_perpetual_btcusdt_liquidations",
         "exchange":"gateio", 
         "insType":"perpetual", 
         "obj":"liquidations", 
@@ -454,6 +521,8 @@ APIS = [
     # Top Trades Accounts
     ###
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusdt_TTA",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"TTA", 
@@ -462,6 +531,8 @@ APIS = [
         "url" : "https://fapi.binance.com/futures/data/topLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusd_TTA",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"TTA", 
@@ -473,6 +544,8 @@ APIS = [
     # Top Trades Positions
     ###
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusdt_TTP",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"TTP", 
@@ -481,6 +554,8 @@ APIS = [
         "url" : "https://fapi.binance.com/futures/data/topLongShortPositionRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusd_TTP",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"TTP", 
@@ -492,6 +567,8 @@ APIS = [
     # Global Traders Accounts
     ##
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusdt_GTA",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"GTA", 
@@ -500,6 +577,8 @@ APIS = [
         "url" : "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=5m&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "binance_perpetual_btcusd_GTA",
         "exchange":"binance", 
         "insType":"perpetual", 
         "obj":"GTA", 
@@ -508,6 +587,8 @@ APIS = [
         "url" : "https://dapi.binance.com/futures/data/globalLongShortAccountRatio?pair=BTCUSD&period=5m&limit=1"
     },
     {
+        "type" : "api",
+        "id" : "okx_perpetual_btc_GTA",
         "exchange":"okx", 
         "insType":"perpetual", 
         "obj":"GTA", 
@@ -516,6 +597,8 @@ APIS = [
         "url" : f"https://www.okx.com/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC&period=5m"
     }, 
     {
+        "type" : "api",
+        "id" : "bybit_perpetual_btcusdt_GTA",
         "exchange":"bybit", 
         "insType":"perpetual", 
         "obj":"GTA", 
@@ -524,17 +607,21 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDT&period=1d&limit=50" # the minimum limit
     },
     {
+        "type" : "api",
+        "id" : "bybit_perpetual_btcusd_GTA",
         "exchange":"bybit", 
         "insType":"perpetual", 
         "obj":"GTA", 
-        "instrument": "btcusdc", 
+        "instrument": "btcusd", 
         "updateSpeed":10, 
-        "url" : "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSDC&period=1d&limit=50" # the minimum limit
+        "url" : "https://api.bybit.com/v5/market/account-ratio?category=linear&symbol=BTCUSD&period=1d&limit=50" # the minimum limit
     },
     ###
     # Options OI
     ## 
     {   # Can only be called with websockets
+        "type" : "api",
+        "id" : "deribit_option_btc_OI",
         "exchange":"deribit", 
         "insType":"option", 
         "obj":"OI", 
@@ -551,6 +638,8 @@ APIS = [
             }
     },
     {
+        "type" : "api",
+        "id" : "bybit_option_btc_OI",
         "exchange":"bybit", 
         "insType":"option", 
         "obj":"OI", 
@@ -559,6 +648,8 @@ APIS = [
         "url" : "https://api.bybit.com/v5/market/tickers?category=option&baseCoin=BTC"
     },
     {
+        "type" : "api",
+        "id" : "okx_option_btc_OI",
         "exchange":"okx", 
         "insType":"option", 
         "obj":"OI", 
@@ -569,7 +660,9 @@ APIS = [
     ###
     # News Aggregator
     ###
-    {   
+    {
+        "type" : "api",
+        "id"   :  "cryptopanic",
         "exchange":"ALL", 
         "insType":"news", 
         "obj":"aggregator", 
@@ -581,6 +674,7 @@ APIS = [
     # Set heartbeat
     ###  
     {   # Can only be called with websockets
+        "type" : "api",
         "id" : "deribit_hearbeat",
         "exchange":"deribit", 
         "insType":"hearbeat", 
@@ -596,10 +690,7 @@ APIS = [
                        }
             }
     },    
-    ]
 
-
-WEBSOCKETS = [
         # Binance spot APIs: https://binance-docs.github.io/apidocs/spot/en/#change-log
         # Binance usdt APIs: https://binance-docs.github.io/apidocs/futures/en/#change-log
         # Binance coin APIs: https://binance-docs.github.io/apidocs/delivery/en/#change-log
@@ -611,6 +702,8 @@ WEBSOCKETS = [
         # Trades
         ###
         {
+          "type" : "websocket",
+          "id" : "deribit_option_btc_OI",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -624,6 +717,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_spot_btcfdusd_trades",
           "exchange":"binance", 
           "instrument": "btcfdusd", 
           "insType":"spot", 
@@ -637,6 +732,23 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_spot_btcusdt_trades",
+          "exchange":"binance", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"trades", 
+          "updateSpeed" : 0, 
+          "url" : "wss://stream.binance.com:9443/ws",
+          "msg" : {
+              "method": "SUBSCRIBE", 
+              "params": ["btcfdusd@aggTrade"], 
+              "id": generate_random_integer(10)
+              }
+        },
+        {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusdt_trades",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -650,6 +762,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusd_trades",
           "exchange":"binance", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -663,6 +777,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusdt_trades",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -679,6 +795,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusd_trades",
           "exchange":"okx", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -695,6 +813,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_spot_btcusdt_trades",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -711,6 +831,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_spot_btcusdt_trades",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -725,6 +847,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_spot_btcusdc_trades",
           "exchange":"bybit", 
           "instrument": "btcusdc", 
           "insType":"spot", 
@@ -739,6 +863,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusdt_trades",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -753,6 +879,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusd_trades",
           "exchange":"bybit", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -767,6 +895,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "coinbase_spot_btcusd_trades",
           "exchange":"coinbase", 
           "instrument": "btcusd", 
           "insType":"spot", 
@@ -782,6 +912,7 @@ WEBSOCKETS = [
               }     
         },
         {
+          "type" : "websocket",
           "id" : "kucoin_spot_btcusdt_trades",  
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
@@ -797,6 +928,7 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "kucoin_perpetual_btcusdt_trades",
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
@@ -812,6 +944,8 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
+          "id" : "gateio_spot_btcusdt_trades",
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
           'insType':'spot', 
@@ -826,6 +960,8 @@ WEBSOCKETS = [
                     }
         },
         { # https://www.gate.io/docs/developers/futures/ws/en/#trades-api
+          "type" : "websocket",
+          "id" : "gateio_perpetual_btcusdt_trades",
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
           'insType':'perpetual', 
@@ -840,6 +976,7 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "mexc_spot_btcusdt_trades",
           "exchange":"mexc", 
           "instrument": "btcusdt", 
@@ -855,6 +992,7 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "mexc_perpetual_btcusdt_trades",
           "exchange":"mexc", 
           "instrument": "btcusdt", 
@@ -870,6 +1008,7 @@ WEBSOCKETS = [
                 }
         },
         {
+          "type" : "websocket",
           "id" : "bitget_spot_btcusdt_trades",
           "exchange":"bitget", 
           "instrument": "btcusdt", 
@@ -889,6 +1028,7 @@ WEBSOCKETS = [
                 }
         },
         {
+          "type" : "websocket",
           "id" : "bitget_perpetual_btcusdt_trades",
           "exchange":"bitget", 
           "instrument": "btcusdt", 
@@ -907,7 +1047,8 @@ WEBSOCKETS = [
                     ]
                 }
         },
-        {   
+        { 
+           "type" : "websocket",  
             "id" : "deribit_perpetual_btcusd_trades",
             "exchange":"deribit", 
             "insType":"perpetual", 
@@ -924,6 +1065,7 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "htx_spot_btcusdt_trades",
           "exchange":"htx", 
           "instrument": "btcusdt", 
@@ -937,6 +1079,7 @@ WEBSOCKETS = [
                     }
         }, 
         {
+          "type" : "websocket",
           "id" : "htx_perpetual_btcusdt_trades",
           "exchange":"htx", 
           "instrument": "btcusdt", 
@@ -950,6 +1093,7 @@ WEBSOCKETS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "bingx_spot_btcusdt_trades",
           "exchange":"bingx", 
           "instrument": "btcusdt", 
@@ -962,6 +1106,7 @@ WEBSOCKETS = [
                    "dataType":"BTC-USDT@trade"}
         },  
         {
+          "type" : "websocket",
           "id" : "bingx_perpetual_btcusdt_trades",
           "exchange":"bingx", 
           "instrument": "btcusdt", 
@@ -974,36 +1119,13 @@ WEBSOCKETS = [
                    "reqType": "sub",
                    "dataType":"BTC-USDT@trade"
                    }
-        },
-        {
-          "id" : "bingx_spot_btcusdt_depth",
-          "exchange":"bingx", 
-          "instrument": "btcusdt", 
-          "insType":"spot", 
-          "obj":"depth", 
-          "updateSpeed" : 0, 
-          "url" : "wss://open-api-ws.bingx.com/market",
-          "msg" : {"id":generate_random_id(20),
-                   "reqType": "sub",
-                   "dataType":"BTC-USDT@depth100"}
-        },
-        # {
-        #   "id" : "htx_perpetual_btcusdt_depth",
-        #   "exchange":"htx", 
-        #   "instrument": "btcusdt", 
-        #   "insType":"perpetual", 
-        #   "obj":"depth", 
-        #   "updateSpeed" : 0, 
-        #   "url" : "wss://api.hbdm.com/linear-swap-ws",
-        #   "msg" : {
-        #             "sub" : "market.BTC-USDT.trade.detail",
-        #             "id" : generate_random_integer(10)
-        #             }
-        # },                          
+        },                     
         ###
         # Depth
         ###
         {
+          "type" : "websocket",
+          "id" : "binance_spot_btcusdt_trades",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -1017,6 +1139,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_spot_btcfdusd_trades",
           "exchange":"binance", 
           "instrument": "btcfdusd", 
           "insType":"spot", 
@@ -1030,6 +1154,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusdt_trades",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1043,6 +1169,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusd_trades",
           "exchange":"binance", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1056,6 +1184,8 @@ WEBSOCKETS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusdt_trades",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1343,7 +1473,31 @@ WEBSOCKETS = [
                     "data_type":"incremental",
                     "id" : generate_random_integer(10)
                     }
-        },  
+        },
+        {
+          "id" : "bingx_spot_btcusdt_depth",
+          "exchange":"bingx", 
+          "instrument": "btcusdt", 
+          "insType":"spot", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://open-api-ws.bingx.com/market",
+          "msg" : {"id":generate_random_id(20),
+                   "reqType": "sub",
+                   "dataType":"BTC-USDT@depth100"}
+        },
+        {
+          "id" : "bingx_perpetual_btcusdt_depth",
+          "exchange":"bingx", 
+          "instrument": "btcusdt", 
+          "insType":"perpetual", 
+          "obj":"depth", 
+          "updateSpeed" : 0, 
+          "url" : "wss://open-api-swap.bingx.com/swap-market",
+          "msg" : {"id":generate_random_id(20),
+                   "reqType": "sub",
+                   "dataType":"BTC-USDT@depth100@1000ms"}
+        },    
         ###
         # Open interest
         ###

@@ -23,7 +23,7 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-data = get_dict_by_key_value(WEBSOCKETS, "id", "bingx_perpetual_btcusdt_trades")
+data = get_dict_by_key_value(WEBSOCKETS, "id", "bingx_perpetual_btcusdt_depth")
 
 class btcproducer():
 
@@ -49,8 +49,11 @@ class btcproducer():
                 if exchange == "bybit":
                     await asyncio.sleep(ping_interval - 10)
                     await websocket.send(json.dumps({"op": "ping"}))  
-                if exchange in ["coinbase", "htx", "bingx"]:
+                if exchange in ["coinbase", "htx"]:
                     await asyncio.sleep(ping_interval - 10)
+                if exchange == "bingx":
+                    await asyncio.sleep(ping_interval - 27)
+                    await websocket.send("Pong")  
                 if exchange in ["deribit"]:
                     await asyncio.sleep(ping_interval)
                     await websocket.send(json.dumps({"jsonrpc":"2.0", "id": id, "method": "/api/v2/public/test"}))
@@ -103,7 +106,6 @@ class btcproducer():
                             
                             if exchange in ["htx"]:
                                 message =  json.loads(gzip.decompress(message).decode('utf-8'))
-                            print(message)
                             if exchange == "bingx":
                                 compressed_data = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb')
                                 decompressed_data = compressed_data.read()
@@ -111,11 +113,11 @@ class btcproducer():
                                 try:
                                     message = json.loads(utf8_data)
                                 except:
-                                    message = json.loads(gzip.decompress(utf8_data).decode('utf-8'))
+                                    message = utf8_data
                             else:
                                 message = json.loads(message)
                             
-                            print(message)
+                            print(utf8_data)
                             if exchange == "deribit":
                                 try:
                                     if message.get("error", None).get("message") == 'Method not found':
@@ -127,11 +129,10 @@ class btcproducer():
                                     await websocket.send(json.dumps({"pong" : message.get("ping")}))
                             if exchange == "bingx":
                                 if isinstance(message, dict):
-                                    if message.get("ping"):
-                                        if insType == "spot": 
-                                            await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
-                                        else:
-                                            await websocket.send("pong")
+                                    if message.get("ping") and insType == "spot":
+                                        await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+                                if insType == "perpetual" and utf8_data == "Ping":
+                                    await websocket.send("Pong")
                             
                         except KafkaStorageError as e:
                             print(f"KafkaStorageError: {e}")
@@ -143,7 +144,10 @@ class btcproducer():
                 continue
             except websockets.exceptions.ConnectionClosed:
                 print(f"connection  closed of {exchange}, {instrument}, {insType}, {obj}. Reconnecting!")
-                await asyncio.sleep(5)
+                if exchange == "bingx":
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(5)
                 continue
 
 

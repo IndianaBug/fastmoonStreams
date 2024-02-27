@@ -1,6 +1,15 @@
 Useful websites:
 https://piehost.com/websocket-tester
 
+cd C:\coding\SatoshiVault
+C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
+
+
+
+
+
+
+
 
 Ideas of indicators for options or futures:
 - OI by strike

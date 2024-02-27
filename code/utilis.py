@@ -26,7 +26,7 @@ async def websocket_fetcher(link, headers):
         response = await websocket.recv()
         return response
 
-def get_bingx_books(APIURL, path, paramsMap):
+def bingx_apisnap(APIURL, path, paramsMap):
     APIKEY = ""
     SECRETKEY = ""
     def demo():
@@ -114,7 +114,7 @@ def books_snapshot(exchange, instrument, insType, snaplength):
     if exchange == 'bingx':
         path = [x['path'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
         params = [x['params'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        response = get_bingx_books(link, path, params)
+        response = bingx_apisnap(link, path, params)
 
     data = {
         "exchange" : exchange,
@@ -131,7 +131,5 @@ def set_deribit_heartbeat():
     asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, msg))
     print("Deribit heartbeat is set")
 
-
-r = requests.get("https://api.hbdm.com/index/market/history/linear_swap_estimated_rate_kline?contract_code=BTC-USDT&period=1min&size=1")
-
-print(r.json())
+d = get_dict_by_key_value(APIS, "id", "bingx_perpetual_btcusdt_OI")
+print(bingx_apisnap(d["url"], d["path"], d["params"]))
