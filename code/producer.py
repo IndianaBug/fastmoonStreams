@@ -5,24 +5,15 @@ from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaStorageError
 import json
 import ssl
-import random
-from urls import websocketzzz as linksWS
-from urls import apizzz as linksAPI
-from utilis import books_snapshot
+from urls import AaWS
+from utilis2 import books_snapshot
 import time
-import datetime
 import aiohttp
 import requests
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
-
-
-
-# Depth is not needed
-linksAPI = [x for x in linksAPI if x["obj"] != "depth"]
-
 
 class btcproducer():
 
@@ -240,6 +231,9 @@ class btcproducer():
         # finally:
         #     await producer.stop()
 
+
+linksAPI = [x for x in AaWS if x["type"] == "api" and ]
+linksWS = [x for x in AaWS if x["type"] == "websocket"]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', linksAPI, linksWS)

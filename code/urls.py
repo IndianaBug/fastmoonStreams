@@ -1,131 +1,4 @@
-import requests
-import json
-import time
-import jwt
-from cryptography.hazmat.primitives import serialization
-import time
-import secrets
-from urllib.parse import urlencode
-import os
-import sys
-import random
-import hashlib
-import hmac
-import base64
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from config import crypto_panic_token, coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinPass, kucoinSecret
-import random
-import string
-
-# Notes:
-# To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
-# Okx has only 1 liquidation channel for all liquidations stream /// u need to filter if liquidations belon only to BTC
-# bybit stream OI+funding rate in a single websocket
-
-def generate_random_id(length):
-    characters = string.ascii_letters + string.digits
-    random_id = ''.join(random.choice(characters) for i in range(length))
-    return random_id
-
-def generate_random_integer(n):
-    if n <= 0:
-        raise ValueError("Length should be a positive integer")
-    lower_bound = 10 ** (n - 1)
-    upper_bound = (10 ** n) - 1
-    random_integer = random.randint(lower_bound, upper_bound)
-    return random_integer
-
-def build_jwt_websockets():
-    key_name = coinbaseAPI
-    key_secret = coinbaseSecret
-    service_name = "public_websocket_api"
-    private_key_bytes = key_secret.encode('utf-8')
-    private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
-    jwt_payload = {
-        'sub': key_name,
-        'iss': "coinbase-cloud",
-        'nbf': int(time.time()),
-        'exp': int(time.time()) + 60,
-        'aud': [service_name],
-    }
-    jwt_token = jwt.encode(
-        jwt_payload,
-        private_key,
-        algorithm='ES256',
-        headers={'kid': key_name, 'nonce': secrets.token_hex()},
-    )
-    return jwt_token
-
-
-def build_jwt_api():
-    key_name       = coinbaseAPI
-    key_secret     = coinbaseSecret
-    request_method = "GET"
-    request_host   = "api.coinbase.com"
-    request_path   = "/api/v3/brokerage/product_book"
-    service_name   = "retail_rest_api_proxy"
-    private_key_bytes = key_secret.encode('utf-8')
-    private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
-    uri = f"{request_method} {request_host}{request_path}"
-    jwt_payload = {
-        'sub': key_name,
-        'iss': "coinbase-cloud",
-        'nbf': int(time.time()),
-        'exp': int(time.time()) + 120,
-        'aud': [service_name],
-        'uri': uri,
-    }
-    jwt_token = jwt.encode(
-        jwt_payload,
-        private_key,
-        algorithm='ES256',
-        headers={'kid': key_name, 'nonce': secrets.token_hex()},
-    )
-
-    return jwt_token
-
-def build_kucoin_headers_spot():
-    api_secret = kucoinSecret
-    api_key = kucoinAPI
-    api_passphrase = kucoinPass
-    now = int(time.time() * 1000)
-    str_to_sign = str(now) + "GET" + "/api/v3/market/orderbook/level2?symbol=BTC-USDT"
-    signature = base64.b64encode(hmac.new(api_secret.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
-    headers = {
-        "KC-API-SIGN": signature,
-        "KC-API-TIMESTAMP": str(now),
-        "KC-API-KEY": api_key,
-        "KC-API-PASSPHRASE": api_passphrase,
-    }
-    return headers
-
-def build_kucoin_headers_futures():
-    api_secret = kucoinSecret
-    api_key = kucoinAPI
-    api_passphrase = kucoinPass
-    now = int(time.time() * 1000)
-    str_to_sign = str(now) + "GET" + "api/v1/level2/snapshot?symbol=XBTUSDTM"
-    signature = base64.b64encode(hmac.new(api_secret.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
-    headers = {
-        "KC-API-SIGN": signature,
-        "KC-API-TIMESTAMP": str(now),
-        "KC-API-KEY": api_key,
-        "KC-API-PASSPHRASE": api_passphrase,
-    }
-    return headers
-
-def build_kucoin_wsendpoint():
-    """
-        Returns kucoin token and endpoint
-    """
-    kucoin_api = "https://api.kucoin.com/api/v1/bullet-public"
-    response = requests.post(kucoin_api)
-    kucoin_token = response.json().get("data").get("token")
-    kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
-    kucoin_connectId = generate_random_id(20)
-    return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
-
-
+from utilis import *
 
 AaWS = [
     # updateSpeed in seconds
@@ -483,7 +356,7 @@ AaWS = [
     ###
     {
         "type" : "api",
-        "id" : "gate_perpetual_btcusdt_fundingOI",
+        "id" : "gateio_perpetual_btcusdt_fundingOI",
         "exchange":"gateio", 
         "insType":"perpetual", 
         "obj":"fundingOI", 
@@ -508,7 +381,7 @@ AaWS = [
     ###
     {  # https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history
         "type" : "api",
-        "id" : "gate_perpetual_btcusdt_liquidations",
+        "id" : "gateio_perpetual_btcusdt_liquidations",
         "exchange":"gateio", 
         "insType":"perpetual", 
         "obj":"liquidations", 
@@ -1125,7 +998,7 @@ AaWS = [
         ###
         {
           "type" : "websocket",
-          "id" : "binance_spot_btcusdt_trades",
+          "id" : "binance_spot_btcusdt_depth",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -1140,7 +1013,7 @@ AaWS = [
         },
         {
           "type" : "websocket",
-          "id" : "binance_spot_btcfdusd_trades",
+          "id" : "binance_spot_btcfdusd_depth",
           "exchange":"binance", 
           "instrument": "btcfdusd", 
           "insType":"spot", 
@@ -1155,7 +1028,7 @@ AaWS = [
         },
         {
           "type" : "websocket",
-          "id" : "binance_perpetual_btcusdt_trades",
+          "id" : "binance_perpetual_btcusdt_depth",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1170,7 +1043,7 @@ AaWS = [
         },
         {
           "type" : "websocket",
-          "id" : "binance_perpetual_btcusd_trades",
+          "id" : "binance_perpetual_btcusd_depth",
           "exchange":"binance", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1185,7 +1058,7 @@ AaWS = [
         },
         {
           "type" : "websocket",
-          "id" : "binance_perpetual_btcusdt_trades",
+          "id" : "okx_perpetual_btcusdt_depth",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1202,6 +1075,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusd_depth",
           "exchange":"okx", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1218,6 +1093,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_spot_btcusdt_depth",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -1234,6 +1111,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_spot_btcusdt_depth",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -1248,6 +1127,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_spot_btcusdc_depth",
           "exchange":"bybit", 
           "instrument": "btcusdc", 
           "insType":"spot", 
@@ -1262,6 +1143,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusdt_depth",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1276,6 +1159,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusd_depth",
           "exchange":"bybit", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1290,6 +1175,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "coinbase_spot_btcusd_depth",
           "exchange":"coinbase", 
           "instrument": "btcusd", 
           "insType":"spot", 
@@ -1305,6 +1192,8 @@ AaWS = [
               }     
         },
         {
+          "type" : "websocket",
+          "id" : "kucoin_spot_btcusdt_depth",
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
           "insType":"spot", 
@@ -1319,6 +1208,7 @@ AaWS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "kucoin_perpetual_btcusdt_depth",
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
@@ -1334,6 +1224,8 @@ AaWS = [
                     }
         },
         {
+          "type" : "websocket",
+          "id" : "gateio_spot_btcusdt_depth",
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
           'insType':'spot', 
@@ -1349,9 +1241,11 @@ AaWS = [
 
         },
         {
+          "type" : "websocket",
+          "id" : "gateio_perpetual_btcusdt_depth",
           'exchange':'gateio', 
           'instrument': 'btcusdt', 
-          'insType':'spot', 
+          'insType':'perpetual', 
           'obj':'depth', 
           'updateSpeed' : 0, 
           'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
@@ -1364,6 +1258,7 @@ AaWS = [
 
         },
         {
+          "type" : "websocket",
           "id" : "mexc_spot_btcusdt_depth",
           "exchange":"mexc", 
           "instrument": "btcusdt", 
@@ -1379,6 +1274,7 @@ AaWS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "mexc_perpetual_btcusdt_depth",
           "exchange":"mexc", 
           "instrument": "btcusdt", 
@@ -1394,6 +1290,7 @@ AaWS = [
                 }
         },
         {
+          "type" : "websocket",
           "id" : "bitget_spot_btcusdt_depth",
           "exchange":"bitget", 
           "instrument": "btcusdt", 
@@ -1413,6 +1310,7 @@ AaWS = [
                 }
         },
         {
+          "type" : "websocket",
           "id" : "bitget_perpetual_btcusdt_depth",
           "exchange":"bitget", 
           "instrument": "btcusdt", 
@@ -1431,7 +1329,8 @@ AaWS = [
                     ]
                 }
         },
-        {   
+        { 
+          "type" : "websocket",  
             "id" : "deribit_perpetual_btcusd_depth",
             "exchange":"deribit", 
             "insType":"perpetual", 
@@ -1448,6 +1347,7 @@ AaWS = [
                     }
         }, 
         {
+          "type" : "websocket",
           "id" : "htx_spot_btcusdt_depth",
           "exchange":"htx", 
           "instrument": "btcusdt", 
@@ -1461,6 +1361,7 @@ AaWS = [
                     }
         }, 
         {
+          "type" : "websocket",
           "id" : "htx_perpetual_btcusdt_depth",
           "exchange":"htx", 
           "instrument": "btcusdt", 
@@ -1475,6 +1376,7 @@ AaWS = [
                     }
         },
         {
+          "type" : "websocket",
           "id" : "bingx_spot_btcusdt_depth",
           "exchange":"bingx", 
           "instrument": "btcusdt", 
@@ -1487,6 +1389,7 @@ AaWS = [
                    "dataType":"BTC-USDT@depth100"}
         },
         {
+          "type" : "websocket",
           "id" : "bingx_perpetual_btcusdt_depth",
           "exchange":"bingx", 
           "instrument": "btcusdt", 
@@ -1502,6 +1405,8 @@ AaWS = [
         # Open interest
         ###
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusdt_OI",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1518,6 +1423,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusd_OI",
           "exchange":"okx", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1534,6 +1441,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusd_fundingRate",
           "exchange":"okx", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1550,6 +1459,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_btcusdt_fundingRate",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1569,6 +1480,8 @@ AaWS = [
         # Liquidations
         ###
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusdt_liquidations",
           "exchange":"binance", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1582,6 +1495,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "binance_perpetual_btcusd_liquidations",
           "exchange":"binance", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1595,6 +1510,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "okx_perpetual_all_liquidations",
           "exchange":"okx", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1611,6 +1528,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusdt_liquidations",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1625,6 +1544,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusd_liquidations",
           "exchange":"bybit", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1642,6 +1563,8 @@ AaWS = [
         # OI + FUNDING        # OK
         ###
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusdt_fundingOI",
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
@@ -1656,6 +1579,8 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
+          "id" : "bybit_perpetual_btcusd_fundingOI",
           "exchange":"bybit", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
@@ -1670,6 +1595,7 @@ AaWS = [
               }
         },
         {
+          "type" : "websocket",
           "id" : "mexc_perpetual_btcusdt_fundingOI",
           "exchange":"mexc", 
           "instrument": "btcusdt", 
@@ -1685,6 +1611,7 @@ AaWS = [
                 }
         },
         {
+          "type" : "websocket",
           "id" : "bitget_perpetual_btcusdt_fundingOI",
           "exchange":"bitget", 
           "instrument": "btcusdt", 
@@ -1703,7 +1630,8 @@ AaWS = [
                     ]
                 }
         },
-        {   
+        {
+          "type" : "websocket",   
             "id" : "deribit_perpetual_btcusd_ticker",
             "exchange":"deribit", 
             "insType":"perpetual", 
@@ -1721,6 +1649,8 @@ AaWS = [
         },          
         # HEARTBEAT # Coibase requires to use heartbeats to keep all connections opened
         {
+          "type" : "websocket",   
+            "id" : "coinbase_heartbeat",
           "exchange":"coinbase", 
           "instrument": "btcusd", 
           "insType":"spot", 
@@ -1738,6 +1668,7 @@ AaWS = [
             }  
         },
         {
+          "type" : "websocket",   
           "id" : "deribit_heartbeat",  
           "exchange":"deribit", 
           "instrument": "btcusd", 
@@ -1755,3 +1686,6 @@ AaWS = [
                     }
         },    
 ]
+
+
+

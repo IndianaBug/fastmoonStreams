@@ -1,7 +1,3 @@
-# kucoin get public token  POST /api/v1/bullet-public
-# https://www.kucoin.com/docs/websocket/basic-info/ping
-# Create a keep alive to send ping message
-
 import json 
 import gzip
 import requests
@@ -16,14 +12,13 @@ from aiokafka.errors import KafkaStorageError
 import ssl
 import codecs
 import io
-from utilis import get_dict_by_key_value
-from urls import  APIS, WEBSOCKETS
+from utilis2 import AllStreamsByInstrumentS,
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-data = get_dict_by_key_value(WEBSOCKETS, "id", "bingx_perpetual_btcusdt_depth")
+# Bingx Websocket for Depth is useless, do API calls instead as it contains more as much as 1000 peaces
 
 class btcproducer():
 
@@ -117,7 +112,6 @@ class btcproducer():
                             else:
                                 message = json.loads(message)
                             
-                            print(utf8_data)
                             if exchange == "deribit":
                                 try:
                                     if message.get("error", None).get("message") == 'Method not found':
@@ -165,6 +159,26 @@ class btcproducer():
 
         await asyncio.gather(*tasks) 
 
+streams = [
+    ["gateio", "perpetual", "btcusdt"],
+    ["htx", "perpetual", "btcusdt"],
+    ["bingx", "perpetual", "btcusdt"],
+    ["bitget", "perpetual", "btcusdt"],
+    ["bitget", "spot", "btcusdt"],
+    ["mexc", "spot", "btcusdt"],
+    ["gateio", "spot", "btcusdt"],
+    ["bitget", "spot", "btcusdt"],
+    ["htx", "spot", "btcusdt"],
+    ["mexc", "perpetual", "btcusdt"],
+    ["kucoin", "perpetual", "btcusdt"],
+    ["kucoin", "spot", "btcusdt"],
+    ["htx", "spot", "btcusdt"],
+    ["bingx", "spot", "btcusdt"],
+    ["bybit", "spot", "btcusdc"],
+    ["deribit", "perpetual", "btcusd"],
+]
+
+data = AllStreamsByInstrumentS(streams)
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

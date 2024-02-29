@@ -1,14 +1,30 @@
-import json
 import time
-import http.client
-from urls import build_jwt_api
+from urllib.parse import urlencode
 import requests
-from urls import APIS
-import asyncio 
 import websockets
 import ssl
-import hmac
 from hashlib import sha256
+import json
+import jwt
+from cryptography.hazmat.primitives import serialization
+import secrets
+import os
+import sys
+import hashlib
+import hmac
+import base64
+import random
+import string
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from config import crypto_panic_token, coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinPass, kucoinSecret
+
+
+# Notes:
+# To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
+# Okx has only 1 liquidation channel for all liquidations stream /// u need to filter if liquidations belon only to BTC
+# bybit stream OI+funding rate in a single websocket
+
 
 def get_dict_by_key_value(lst, key, value):
     for d in lst:
@@ -26,7 +42,7 @@ async def websocket_fetcher(link, headers):
         response = await websocket.recv()
         return response
 
-def bingx_apisnap(APIURL, path, paramsMap):
+def bingx_AaWSnap(APIURL, path, paramsMap):
     APIKEY = ""
     SECRETKEY = ""
     def demo():
@@ -57,79 +73,114 @@ def bingx_apisnap(APIURL, path, paramsMap):
             return paramsStr+"timestamp="+str(int(time.time() * 1000))
     return demo()
 
-# Helper to retrive books
 
-def books_snapshot(exchange, instrument, insType, snaplength):
-    """
-      Gets full latest snapshot of limit orders.
-    """
-    if exchange in ["binance", "gateio"]:
-        link = [x['url'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        link = "&".join([link, f"limit={snaplength}"])
-    if exchange == "coinbase":
-        url_1 = [x["url_base"] for x in APIS if x["exchange"] == "coinbase" and x["obj"] == "depth"][0]
-        url_2 = [x["url"] for x in APIS if x["exchange"] == "coinbase" and x["obj"] == "depth"][0] 
-    else:
-        link = [x['url'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
+def generate_random_id(length):
+    characters = string.ascii_letters + string.digits
+    random_id = ''.join(random.choice(characters) for i in range(length))
+    return random_id
 
-    
-    if exchange in ['binance', 'bybit']:
-        response = requests.get(link)
-        response = response.json()    
-        if 'code' in response:
-            time.sleep(1)
-            books_snapshot(exchange, instrument, insType, snaplength-500)
-    
+def generate_random_integer(n):
+    if n <= 0:
+        raise ValueError("Length should be a positive integer")
+    lower_bound = 10 ** (n - 1)
+    upper_bound = (10 ** n) - 1
+    random_integer = random.randint(lower_bound, upper_bound)
+    return random_integer
 
-    if exchange == "coinbase":
-        conn = http.client.HTTPSConnection(url_1)
-        payload = ''
-        headers = {
-            "Authorization": f"Bearer {build_jwt_api()}",
-            'Content-Type': 'application/json'
-        }
-        conn.request("GET", url_2, payload, headers)
-        res = conn.getresponse()
-        response = res.read()
-        response = json.loads(response)
-
-    if exchange == "kucoin":
-        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        response = requests.get(link, headers=headers)
-        response = response.json()
-
-    if exchange == "gateio":
-        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        response = requests.request('GET', link, headers=headers)
-        response = response.json()
-    
-    if exchange in ["mexc", "bitget", "htx"]:
-        response = requests.get(link)
-        response = response.json()
-    
-    if exchange == "deribit":
-        headers = [x['headers'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(link, headers)))
-
-    if exchange == 'bingx':
-        path = [x['path'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        params = [x['params'] for x in APIS if x["exchange"] == exchange and x["instrument"] == instrument and x["insType"] == insType][0]
-        response = bingx_apisnap(link, path, params)
-
-    data = {
-        "exchange" : exchange,
-        "instrument" : instrument,
-        "insType" : insType,
-        "response" : response
+def build_jwt_websockets():
+    key_name = coinbaseAPI
+    key_secret = coinbaseSecret
+    service_name = "public_websocket_api"
+    private_key_bytes = key_secret.encode('utf-8')
+    private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+    jwt_payload = {
+        'sub': key_name,
+        'iss': "coinbase-cloud",
+        'nbf': int(time.time()),
+        'exp': int(time.time()) + 60,
+        'aud': [service_name],
     }
-    return data
+    jwt_token = jwt.encode(
+        jwt_payload,
+        private_key,
+        algorithm='ES256',
+        headers={'kid': key_name, 'nonce': secrets.token_hex()},
+    )
+    return jwt_token
 
-def set_deribit_heartbeat():
-    d = get_dict_by_key_value(APIS, "id", "deribit_hearbeat")
-    url = d["url"]
-    msg = d["msg"]
-    asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, msg))
-    print("Deribit heartbeat is set")
 
-d = get_dict_by_key_value(APIS, "id", "bingx_perpetual_btcusdt_OI")
-print(bingx_apisnap(d["url"], d["path"], d["params"]))
+def build_jwt_api():
+    key_name       = coinbaseAPI
+    key_secret     = coinbaseSecret
+    request_method = "GET"
+    request_host   = "api.coinbase.com"
+    request_path   = "/api/v3/brokerage/product_book"
+    service_name   = "retail_rest_api_proxy"
+    private_key_bytes = key_secret.encode('utf-8')
+    private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+    uri = f"{request_method} {request_host}{request_path}"
+    jwt_payload = {
+        'sub': key_name,
+        'iss': "coinbase-cloud",
+        'nbf': int(time.time()),
+        'exp': int(time.time()) + 120,
+        'aud': [service_name],
+        'uri': uri,
+    }
+    jwt_token = jwt.encode(
+        jwt_payload,
+        private_key,
+        algorithm='ES256',
+        headers={'kid': key_name, 'nonce': secrets.token_hex()},
+    )
+
+    return jwt_token
+
+def build_kucoin_headers_spot():
+    api_secret = kucoinSecret
+    api_key = kucoinAPI
+    api_passphrase = kucoinPass
+    now = int(time.time() * 1000)
+    str_to_sign = str(now) + "GET" + "/api/v3/market/orderbook/level2?symbol=BTC-USDT"
+    signature = base64.b64encode(hmac.new(api_secret.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
+    headers = {
+        "KC-API-SIGN": signature,
+        "KC-API-TIMESTAMP": str(now),
+        "KC-API-KEY": api_key,
+        "KC-API-PASSPHRASE": api_passphrase,
+    }
+    return headers
+
+def build_kucoin_headers_futures():
+    api_secret = kucoinSecret
+    api_key = kucoinAPI
+    api_passphrase = kucoinPass
+    now = int(time.time() * 1000)
+    str_to_sign = str(now) + "GET" + "api/v1/level2/snapshot?symbol=XBTUSDTM"
+    signature = base64.b64encode(hmac.new(api_secret.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
+    headers = {
+        "KC-API-SIGN": signature,
+        "KC-API-TIMESTAMP": str(now),
+        "KC-API-KEY": api_key,
+        "KC-API-PASSPHRASE": api_passphrase,
+    }
+    return headers
+
+def build_kucoin_wsendpoint():
+    """
+        Returns kucoin token and endpoint
+    """
+    kucoin_api = "https://api.kucoin.com/api/v1/bullet-public"
+    response = requests.post(kucoin_api)
+    kucoin_token = response.json().get("data").get("token")
+    kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
+    kucoin_connectId = generate_random_id(20)
+    return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
+
+
+def retrieve_dictionary_by2_values(list_of_dicts, key1, value1, key2, value2):
+    for dictionary in list_of_dicts:
+        if key1 in dictionary and key2 in dictionary:
+            if dictionary[key1] == value1 and dictionary[key2] == value2:
+                return dictionary
+    return None  
