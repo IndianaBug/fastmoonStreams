@@ -216,7 +216,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"depth", 
         "instrument":"btcusd", 
-        "updateSpeed": 1,
+        "updateSpeed": 5,
         "url" : "wss://test.deribit.com/ws/api/v2",  
         "headers" : {
             "jsonrpc": "2.0", "id": generate_random_integer(10), 
@@ -234,7 +234,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"depth", 
         "instrument":"btcusdt", 
-        "updateSpeed": 1,
+        "updateSpeed": 5,
         "url" : "https://open-api.bingx.com",  
         "path" : "/openApi/swap/v2/quote/depth",
         "params" : {
@@ -267,7 +267,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"fundingRate", 
         "instrument": "btcusd", 
-        "updateSpeed": 10,  # 360 
+        "updateSpeed": 1000,  # 360 
         "url" : "https://dapi.binance.com/dapi/v1/fundingRate?symbol=BTCUSD_PERP&limit=1"
     },
     {
@@ -277,7 +277,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"fundingRate",
         "instrument": "btcusdt", 
-        "updateSpeed":10,  # 360 
+        "updateSpeed":1000,  # 360 
         "url" : "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1"
     },
     {
@@ -287,7 +287,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"fundingRate", 
         "instrument": "btcusdt", 
-        "updateSpeed":3, 
+        "updateSpeed":1000, 
         "url" : "https://api.hbdm.com/index/market/history/linear_swap_estimated_rate_kline?contract_code=BTC-USDT&period=1min&size=1"
     },
     {
@@ -297,7 +297,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"depth", 
         "instrument":"btcusdt", 
-        "updateSpeed": 1,
+        "updateSpeed": 5,
         "url" : "https://open-api.bingx.com",  
         "path" : "/openApi/swap/v2/quote/openInterest",
         "params" : {
@@ -344,7 +344,7 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"depth", 
         "instrument":"btcusdt", 
-        "updateSpeed": 1,
+        "updateSpeed": 1000,
         "url" : "https://open-api.bingx.com",  
         "path" : "/openApi/swap/v2/quote/premiumIndex",
         "params" : {
@@ -1375,32 +1375,32 @@ AaWS = [
                     "id" : generate_random_integer(10)
                     }
         },
-        {
-          "type" : "websocket",
-          "id" : "bingx_spot_btcusdt_depth",
-          "exchange":"bingx", 
-          "instrument": "btcusdt", 
-          "insType":"spot", 
-          "obj":"depth", 
-          "updateSpeed" : 0, 
-          "url" : "wss://open-api-ws.bingx.com/market",
-          "msg" : {"id":generate_random_id(20),
-                   "reqType": "sub",
-                   "dataType":"BTC-USDT@depth100"}
-        },
-        {
-          "type" : "websocket",
-          "id" : "bingx_perpetual_btcusdt_depth",
-          "exchange":"bingx", 
-          "instrument": "btcusdt", 
-          "insType":"perpetual", 
-          "obj":"depth", 
-          "updateSpeed" : 0, 
-          "url" : "wss://open-api-swap.bingx.com/swap-market",
-          "msg" : {"id":generate_random_id(20),
-                   "reqType": "sub",
-                   "dataType":"BTC-USDT@depth100@1000ms"}
-        },    
+        # {
+        #   "type" : "websocket",
+        #   "id" : "bingx_spot_btcusdt_depth",
+        #   "exchange":"bingx", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"spot", 
+        #   "obj":"depth", 
+        #   "updateSpeed" : 0, 
+        #   "url" : "wss://open-api-ws.bingx.com/market",
+        #   "msg" : {"id":generate_random_id(20),
+        #            "reqType": "sub",
+        #            "dataType":"BTC-USDT@depth100"}
+        # },
+        # {
+        #   "type" : "websocket",
+        #   "id" : "bingx_perpetual_btcusdt_depth",
+        #   "exchange":"bingx", 
+        #   "instrument": "btcusdt", 
+        #   "insType":"perpetual", 
+        #   "obj":"depth", 
+        #   "updateSpeed" : 0, 
+        #   "url" : "wss://open-api-swap.bingx.com/swap-market",
+        #   "msg" : {"id":generate_random_id(20),
+        #            "reqType": "sub",
+        #            "dataType":"BTC-USDT@depth100@1000ms"}
+        # },    
         ###
         # Open interest
         ###

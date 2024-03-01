@@ -1,10 +1,6 @@
 import json 
 import gzip
-import requests
 import time
-import hashlib
-import hmac
-import base64
 import websockets 
 import asyncio
 from aiokafka import AIOKafkaProducer
@@ -12,7 +8,8 @@ from aiokafka.errors import KafkaStorageError
 import ssl
 import codecs
 import io
-from utilis2 import AllStreamsByInstrumentS,
+from utilis2 import AllStreamsByInstrumentS, books_snapshot
+import aiohttp
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -24,7 +21,8 @@ class btcproducer():
 
     def __init__ (self, host, data):
         self.host = host
-        self.data = data
+        self.api = [x for x in data if x["type"] == "api" and x["obj"] != "depth" and x["exchange"] != x["bingx"]] + [x for x in data if x["type"] == "api" and x["obj"] == "depth" and x["exchange"] == x["bingx"]] 
+        self.ws = [x for x in data if x["type"] == "websocket"]
 
     async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
@@ -69,9 +67,10 @@ class btcproducer():
         except asyncio.exceptions.TimeoutError:
             print("WebSocket operation timed out")
 
-    async def websocket_connection_v1(self, connection_data):
+    async def websocket_connection(self, connection_data):
 
         count = 1
+        id = connection_data["id"]
         exchange = connection_data["exchange"]
         instrument = connection_data["instrument"]
         insType = connection_data["insType"]
@@ -91,7 +90,6 @@ class btcproducer():
                 keep_alive_task = asyncio.create_task(self.keep_alive(websocket, exchange, id, 30))
             else:
                 keep_alive_task = asyncio.create_task(self.keep_alive(websocket, exchange, 30))
-         
             try:
                 if obj != "heartbeat":
                     async for message in websocket:
@@ -99,6 +97,7 @@ class btcproducer():
                             
                             message = await websocket.recv()
                             
+                            # Decompressing and dealing with pings
                             if exchange in ["htx"]:
                                 message =  json.loads(gzip.decompress(message).decode('utf-8'))
                             if exchange == "bingx":
@@ -111,7 +110,6 @@ class btcproducer():
                                     message = utf8_data
                             else:
                                 message = json.loads(message)
-                            
                             if exchange == "deribit":
                                 try:
                                     if message.get("error", None).get("message") == 'Method not found':
@@ -127,6 +125,44 @@ class btcproducer():
                                         await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
                                 if insType == "perpetual" and utf8_data == "Ping":
                                     await websocket.send("Pong")
+
+                            # Writing down into a json file
+                                    
+                            if exchange == "binance" and obj == "trades" and insType == "spot" and instrument == "btcusdt":
+                                response = await websocket.recv()
+                                response = json.loads(response)
+                                self.btc_price = float(response['p'])
+
+                            # Some websockets doesn't return the whole book data after the first pull. You need to fetch it via api
+                            if count == 1 and exchange in ["binance", "bybit", "coinbase"] and obj in ["depth"]:
+                                data = books_snapshot(id snaplength=1000)
+                                data = data["response"]
+                                count += 1   
+                            else:
+                                data = await websocket.recv()
+                                try:
+                                    data = json.loads(data)
+                                except:
+                                    data = {}
+                            try:
+                                with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'r') as json_file:
+                                    d = json.load(json_file)
+                            except (FileNotFoundError, json.JSONDecodeError):
+                                d = []
+
+                            new_data = { 
+                                    "exchange" : exchange,
+                                    "instrument" : instrument,
+                                    "insType" : insType,
+                                    "obj" : obj,
+                                    "btc_price" : self.btc_price,
+                                    "timestamp" : time.time(),  
+                                    "data" : data 
+                                   }
+                            d.append(new_data)
+
+                            with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'w') as file:
+                                json.dump(d, file, indent=2)
                             
                         except KafkaStorageError as e:
                             print(f"KafkaStorageError: {e}")
@@ -144,6 +180,82 @@ class btcproducer():
                     await asyncio.sleep(5)
                 continue
 
+    async def websockets_fetcher(self, info):
+        """
+            Json rpc api need to be called via websockets
+        """
+
+        exchange = info["exchange"]
+        instrument = info["instrument"]
+        insType = info["insType"]
+        obj = info["obj"]
+        
+        while True:
+            async with websockets.connect(info["url"],  ssl=ssl_context) as websocket:
+                await websocket.send(json.dumps(info["msg"]))
+                
+                data = await websocket.recv()
+                
+                try:
+                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
+                        d = json.load(json_file)
+                except (FileNotFoundError, json.JSONDecodeError):
+                    d = []
+
+                new_data = { 
+                        "exchange" : exchange,
+                        "instrument" : instrument,
+                        "insType" : insType,
+                        "obj" : obj,
+                        "btc_price" : self.btc_price,
+                        "timestamp" : time.time(),  
+                        "data" : json.loads(data) 
+                        }
+
+                d.append(new_data)
+
+                with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
+                    json.dump(d, file, indent=2)         
+                
+                await asyncio.sleep(info["updateSpeed"])
+
+
+    async def aiohttp_fetcher(self, info):
+
+        exchange = info["exchange"]
+        instrument = info["instrument"]
+        insType = info["insType"]
+        obj = info["obj"]
+
+        while True:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(info["url"]) as response:
+
+                    data =  await response.text()
+                    
+                    try:
+                        with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
+                            d = json.load(json_file)
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        d = []
+
+                    new_data = { 
+                            "exchange" : exchange,
+                            "instrument" : instrument,
+                            "insType" : insType,
+                            "obj" : obj,
+                            "btc_price" : self.btc_price,
+                            "timestamp" : time.time(),  
+                            "data" : json.loads(data) 
+                            }
+                    
+                    d.append(new_data)
+
+                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
+                        json.dump(d, file, indent=2)
+
+                    await asyncio.sleep(info["updateSpeed"])
+
 
     async def main(self):
         """
@@ -155,7 +267,19 @@ class btcproducer():
         topic = ''
 
         tasks = []
-        tasks +=  [self.websocket_connection_v1(self.data)]
+        tasks +=  [ 
+                self.websocket_connection(
+                        connection_data=self.ws[x],
+                        producer=producer, 
+                        topic=topic) 
+                        for x in range(0, len(self.ws)-1) 
+                  ]
+
+        for info in self.api:
+            if info["exchange"] != "deribit":
+                tasks.append(asyncio.ensure_future(self.aiohttp_fetcher(info)))
+            if info["exchange"] == "deribit":
+                tasks.append(asyncio.ensure_future(self.websockets_fetcher(info)))
 
         await asyncio.gather(*tasks) 
 
