@@ -184,24 +184,19 @@ class btcproducer():
         """
             Json rpc api need to be called via websockets
         """
-
         exchange = info["exchange"]
         instrument = info["instrument"]
         insType = info["insType"]
         obj = info["obj"]
-        
         while True:
             async with websockets.connect(info["url"],  ssl=ssl_context) as websocket:
                 await websocket.send(json.dumps(info["msg"]))
-                
                 data = await websocket.recv()
-                
                 try:
                     with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
                         d = json.load(json_file)
                 except (FileNotFoundError, json.JSONDecodeError):
                     d = []
-
                 new_data = { 
                         "exchange" : exchange,
                         "instrument" : instrument,
@@ -211,34 +206,26 @@ class btcproducer():
                         "timestamp" : time.time(),  
                         "data" : json.loads(data) 
                         }
-
                 d.append(new_data)
-
                 with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                     json.dump(d, file, indent=2)         
-                
                 await asyncio.sleep(info["updateSpeed"])
 
 
     async def aiohttp_fetcher(self, info):
-
         exchange = info["exchange"]
         instrument = info["instrument"]
         insType = info["insType"]
         obj = info["obj"]
-
         while True:
             async with aiohttp.ClientSession() as session:
                 async with session.get(info["url"]) as response:
-
                     data =  await response.text()
-                    
                     try:
                         with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
                             d = json.load(json_file)
                     except (FileNotFoundError, json.JSONDecodeError):
                         d = []
-
                     new_data = { 
                             "exchange" : exchange,
                             "instrument" : instrument,
@@ -248,12 +235,9 @@ class btcproducer():
                             "timestamp" : time.time(),  
                             "data" : json.loads(data) 
                             }
-                    
                     d.append(new_data)
-
                     with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                         json.dump(d, file, indent=2)
-
                     await asyncio.sleep(info["updateSpeed"])
 
 

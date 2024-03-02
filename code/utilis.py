@@ -15,6 +15,7 @@ import hmac
 import base64
 import random
 import string
+import aiohttp
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from config import crypto_panic_token, coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinPass, kucoinSecret
@@ -42,9 +43,63 @@ async def websocket_fetcher(link, headers):
         response = await websocket.recv()
         return response
 
-def bingx_AaWSnap(APIURL, path, paramsMap):
+
+async def bingx_AaWSnap_aiohttp(APIURL, path, paramsMap, obj=None, maximum_retries=None):
+
     APIKEY = ""
     SECRETKEY = ""
+
+    if obj == "depth":
+        async def demo():
+            p = [1000, 500, 100, 50, 20, 10, 5]
+            for i, _ in enumerate(range(maximum_retries)):
+                paramsMap["limit"] = p[i]
+                payload = {}
+                method = "GET"
+                paramsStr = parseParam(paramsMap)
+                response = await send_request(method, path, paramsStr, payload)
+                response = json.loads(response)
+                if response["code"] == 0:
+                    break
+                time.sleep(3)
+            return response
+    else:
+        async def demo():
+            payload = {}
+            method = "GET"
+            paramsStr = parseParam(paramsMap)
+            return await json.loads(send_request(method, path, paramsStr, payload))  
+
+    async def get_sign(api_secret, payload):
+        signature = hmac.new(
+            api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=hashlib.sha256
+        ).hexdigest()
+        return signature
+
+    async def send_request(method, path, urlpa, payload):
+        url = f"{APIURL}{path}?{urlpa}&signature={await get_sign(SECRETKEY, urlpa)}"
+
+        async with aiohttp.ClientSession() as session:
+            async with session.request(
+                method, url, headers={"X-BX-APIKEY": APIKEY}, json=payload
+            ) as response:
+                response.raise_for_status()  # Raise an exception for error responses
+                return await response.text()
+
+    def parseParam(paramsMap):
+        sortedKeys = sorted(paramsMap)
+        paramsStr = "&".join([f"{x}={paramsMap[x]}" for x in sortedKeys])
+        timestamp = str(int(time.time() * 1000))
+        return f"{paramsStr}{'&' if paramsStr else ''}timestamp={timestamp}"
+
+    return await demo()
+
+
+def bingx_AaWSnap(APIURL, path, paramsMap):
+    
+    APIKEY = ""
+    SECRETKEY = ""
+
     def demo():
         payload = {}
         method = "GET"
@@ -71,6 +126,7 @@ def bingx_AaWSnap(APIURL, path, paramsMap):
             return paramsStr+"&timestamp="+str(int(time.time() * 1000))
         else:
             return paramsStr+"timestamp="+str(int(time.time() * 1000))
+
     return demo()
 
 
@@ -184,3 +240,5 @@ def retrieve_dictionary_by2_values(list_of_dicts, key1, value1, key2, value2):
             if dictionary[key1] == value1 and dictionary[key2] == value2:
                 return dictionary
     return None  
+
+

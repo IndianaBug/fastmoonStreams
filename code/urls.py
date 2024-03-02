@@ -295,7 +295,7 @@ AaWS = [
         "id" : "bingx_perpetual_btcusdt_OI",  
         "exchange":"bingx", 
         "insType":"perpetual", 
-        "obj":"depth", 
+        "obj":"OI", 
         "instrument":"btcusdt", 
         "updateSpeed": 5,
         "url" : "https://open-api.bingx.com",  
@@ -342,7 +342,7 @@ AaWS = [
         "id" : "bingx_perpetual_btcusdt_fundingRate",  
         "exchange":"bingx", 
         "insType":"perpetual", 
-        "obj":"depth", 
+        "obj":"fundingRate", 
         "instrument":"btcusdt", 
         "updateSpeed": 1000,
         "url" : "https://open-api.bingx.com",  
@@ -1213,7 +1213,7 @@ AaWS = [
           "exchange":"kucoin", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
-          "obj":"trades", 
+          "obj":"depth", 
           "updateSpeed" : 0, 
           "url" : build_kucoin_wsendpoint(),
           "msg" : {
@@ -1568,7 +1568,7 @@ AaWS = [
           "exchange":"bybit", 
           "instrument": "btcusdt", 
           "insType":"perpetual", 
-          "obj":"fundingRate_OI", 
+          "obj":"fundingOI", 
           "updateSpeed" : 0, 
           "url" : "wss://stream.bybit.com/v5/public/linear",
           "msg" : {
@@ -1584,7 +1584,7 @@ AaWS = [
           "exchange":"bybit", 
           "instrument": "btcusd", 
           "insType":"perpetual", 
-          "obj":"fundingRate_OI", 
+          "obj":"fundingOI", 
           "updateSpeed" : 0, 
           "url" : "wss://stream.bybit.com/v5/public/linear",
           "msg" : {
@@ -1635,7 +1635,7 @@ AaWS = [
             "id" : "deribit_perpetual_btcusd_ticker",
             "exchange":"deribit", 
             "insType":"perpetual", 
-            "obj":"ticker", 
+            "obj":"fundingOI", 
             "instrument":"btcusd", 
             "updateSpeed":0,
             "url" : "wss://test.deribit.com/ws/api/v2",  
@@ -1650,7 +1650,7 @@ AaWS = [
         # HEARTBEAT # Coibase requires to use heartbeats to keep all connections opened
         {
           "type" : "websocket",   
-            "id" : "coinbase_heartbeat",
+          "id" : "coinbase_heartbeat",
           "exchange":"coinbase", 
           "instrument": "btcusd", 
           "insType":"spot", 

@@ -1,24 +1,22 @@
+from utilis import get_dict_by_key_value, bingx_AaWSnap_aiohttp
 from urls import AaWS
-from utilis2 import AllStreamsByInstrumentS
-streams = [
-    ["gateio", "perpetual", "btcusdt"],
-    ["htx", "perpetual", "btcusdt"],
-    ["bingx", "perpetual", "btcusdt"],
-    ["bitget", "perpetual", "btcusdt"],
-    ["bitget", "spot", "btcusdt"],
-    ["mexc", "spot", "btcusdt"],
-    ["gateio", "spot", "btcusdt"],
-    ["bitget", "spot", "btcusdt"],
-    ["htx", "spot", "btcusdt"],
-    ["mexc", "perpetual", "btcusdt"],
-    ["kucoin", "perpetual", "btcusdt"],
-    ["kucoin", "spot", "btcusdt"],
-    ["htx", "spot", "btcusdt"],
-    ["bingx", "spot", "btcusdt"],
-    ["bybit", "spot", "btcusdc"],
-    ["deribit", "perpetual", "btcusd"],
-]
+import asyncio
 
-data = AllStreamsByInstrumentS(streams)
+d = get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "bingx_perpetual_btcusdt_OI")
 
-print([x for x in data if x["type"] == "api" and x["obj"] == "depth" and x["exchange"] == "bingx"] + [x for x in data if x["type"] == "api" and x["obj"] != "depth"])
+
+loop = asyncio.get_event_loop()
+asyncio.set_event_loop(loop)
+async def mim():
+    response = await bingx_AaWSnap_aiohttp(d["url"], d["path"], d["params"],"depth", 3)
+
+response = await mim()
+
+print(response)
+
+
+        
+
+
+
+

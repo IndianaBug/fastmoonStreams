@@ -8,8 +8,10 @@ from aiokafka.errors import KafkaStorageError
 import ssl
 import codecs
 import io
-from utilis2 import AllStreamsByInstrumentS, books_snapshot
+from utilis2 import AllStreamsByInstrumentS, books_snapshot, get_initial_books
+from utilis import bingx_AaWSnap_aiohttp 
 import aiohttp
+import requests
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -23,6 +25,9 @@ class btcproducer():
         self.host = host
         self.api = [x for x in data if x["type"] == "api" and x["obj"] == "depth" and x["exchange"] == "bingx"] + [x for x in data if x["type"] == "api" and x["obj"] != "depth"]
         self.ws = [x for x in data if x["type"] == "websocket"]
+        self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
+        self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.
+                                                        # Fetch this now and delete later
 
     async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
@@ -94,56 +99,48 @@ class btcproducer():
                 if obj != "heartbeat":
                     async for message in websocket:
                         try:
+                            if count == 1:
+                                message = self.initial_books.pop(id, None)
+                                count += 1
+                            else:      
+                                message = await websocket.recv()
+                                # Decompressing and dealing with pings
+                                if exchange in ["htx"]:
+                                    try:
+                                        message =  json.loads(gzip.decompress(message).decode('utf-8'))
+                                    except:
+                                        message = {}
+                                if exchange == "bingx":
+                                    compressed_data = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb')
+                                    decompressed_data = compressed_data.read()
+                                    utf8_data = decompressed_data.decode('utf-8')
+                                    try:
+                                        message = json.loads(utf8_data)
+                                    except:
+                                        message = utf8_data
+                                else:
+                                    try:
+                                        message = json.loads(message)
+                                    except:
+                                        message = {}
                             
-                            message = await websocket.recv()
-                            
-                            # Decompressing and dealing with pings
-                            if exchange in ["htx"]:
-                                message =  json.loads(gzip.decompress(message).decode('utf-8'))
-                            if exchange == "bingx":
-                                compressed_data = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb')
-                                decompressed_data = compressed_data.read()
-                                utf8_data = decompressed_data.decode('utf-8')
-                                try:
-                                    message = json.loads(utf8_data)
-                                except:
-                                    message = utf8_data
-                            else:
-                                message = json.loads(message)
-                            if exchange == "deribit":
-                                try:
-                                    if message.get("error", None).get("message") == 'Method not found':
-                                        await websocket.send(json.dumps({"jsonrpc":"2.0", "id":  message.get("id", None), "method": "/api/v2/public/test"}))
-                                except:
-                                    pass
-                            if exchange == "htx":
-                                if message.get("ping"):
-                                    await websocket.send(json.dumps({"pong" : message.get("ping")}))
-                            if exchange == "bingx":
-                                if isinstance(message, dict):
-                                    if message.get("ping") and insType == "spot":
-                                        await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
-                                if insType == "perpetual" and utf8_data == "Ping":
-                                    await websocket.send("Pong")
+                                if exchange == "deribit":
+                                    try:
+                                        if message.get("error", None).get("message") == 'Method not found':
+                                            await websocket.send(json.dumps({"jsonrpc":"2.0", "id":  message.get("id", None), "method": "/api/v2/public/test"}))
+                                    except:
+                                        pass
+                                if exchange == "htx":
+                                    if message.get("ping"):
+                                        await websocket.send(json.dumps({"pong" : message.get("ping")}))
+                                if exchange == "bingx":
+                                    if isinstance(message, dict):
+                                        if message.get("ping") and insType == "spot":
+                                            await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+                                    if insType == "perpetual" and utf8_data == "Ping":
+                                        await websocket.send("Pong")
 
                             # Writing down into a json file
-                                    
-                            if exchange == "binance" and obj == "trades" and insType == "spot" and instrument == "btcusdt":
-                                response = await websocket.recv()
-                                response = json.loads(response)
-                                self.btc_price = float(response['p'])
-
-                            # Some websockets doesn't return the whole book data after the first pull. You need to fetch it via api
-                            if count == 1 and exchange in ["binance", "bybit", "coinbase"] and obj in ["depth"]:
-                                data = books_snapshot(id, snaplength=1000)
-                                data = data["response"]
-                                count += 1   
-                            else:
-                                data = await websocket.recv()
-                                try:
-                                    data = json.loads(data)
-                                except:
-                                    data = {}
                             try:
                                 with open(f"data/{exchange}_{instrument}_{insType}_{obj}.json", 'r') as json_file:
                                     d = json.load(json_file)
@@ -157,7 +154,7 @@ class btcproducer():
                                     "obj" : obj,
                                     "btc_price" : self.btc_price,
                                     "timestamp" : time.time(),  
-                                    "data" : data 
+                                    "data" : message 
                                    }
                             d.append(new_data)
 
@@ -221,40 +218,55 @@ class btcproducer():
 
 
     async def aiohttp_fetcher(self, info):
-
         exchange = info["exchange"]
         instrument = info["instrument"]
         insType = info["insType"]
         obj = info["obj"]
-
-        while True:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(info["url"]) as response:
-
-                    data =  await response.text()
-                    
-                    try:
-                        with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
-                            d = json.load(json_file)
-                    except (FileNotFoundError, json.JSONDecodeError):
-                        d = []
-
-                    new_data = { 
-                            "exchange" : exchange,
-                            "instrument" : instrument,
-                            "insType" : insType,
-                            "obj" : obj,
-                            "btc_price" : self.btc_price,
-                            "timestamp" : time.time(),  
-                            "data" : json.loads(data) 
-                            }
-                    
-                    d.append(new_data)
-
-                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
-                        json.dump(d, file, indent=2)
-
-                    await asyncio.sleep(info["updateSpeed"])
+        if exchange == "bingx":
+            while True:
+                data = await bingx_AaWSnap_aiohttp(info["url"], info["path"], info["params"],"depth", 3)
+                try:
+                    with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
+                        d = json.load(json_file)
+                except (FileNotFoundError, json.JSONDecodeError):
+                    d = []
+                new_data = { 
+                        "exchange" : exchange,
+                        "instrument" : instrument,
+                        "insType" : insType,
+                        "obj" : obj,
+                        "btc_price" : self.btc_price,
+                        "timestamp" : time.time(),  
+                        "data" : data
+                        }
+                d.append(new_data)
+                with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
+                    json.dump(d, file, indent=2)
+                await asyncio.sleep(info["updateSpeed"])
+        else:
+            while True:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(info["url"]) as response:
+                        data =  await response.text()
+                        try:
+                            with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
+                                d = json.load(json_file)
+                        except (FileNotFoundError, json.JSONDecodeError):
+                            d = []
+                        new_data = { 
+                                "exchange" : exchange,
+                                "instrument" : instrument,
+                                "insType" : insType,
+                                "obj" : obj,
+                                "btc_price" : self.btc_price,
+                                "timestamp" : time.time(),  
+                                "data" : json.loads(data) 
+                                }
+                        d.append(new_data)
+                        with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
+                            json.dump(d, file, indent=2)
+                        await asyncio.sleep(info["updateSpeed"])
+        
 
 
     async def main(self):
@@ -284,22 +296,22 @@ class btcproducer():
         await asyncio.gather(*tasks) 
 
 streams = [
-    ["gateio", "perpetual", "btcusdt"],
+    ["deribit", "perpetual", "btcusd"],
+    # ["gateio", "perpetual", "btcusdt"],
+    # ["gateio", "spot", "btcusdt"],
     ["htx", "perpetual", "btcusdt"],
+    ["htx", "spot", "btcusdt"],
     ["bingx", "perpetual", "btcusdt"],
+    ["bingx", "spot", "btcusdt"],
     ["bitget", "perpetual", "btcusdt"],
     ["bitget", "spot", "btcusdt"],
     ["mexc", "spot", "btcusdt"],
-    ["gateio", "spot", "btcusdt"],
-    ["bitget", "spot", "btcusdt"],
-    ["htx", "spot", "btcusdt"],
     ["mexc", "perpetual", "btcusdt"],
     ["kucoin", "perpetual", "btcusdt"],
     ["kucoin", "spot", "btcusdt"],
-    ["htx", "spot", "btcusdt"],
-    ["bingx", "spot", "btcusdt"],
     ["bybit", "spot", "btcusdc"],
-    ["deribit", "perpetual", "btcusd"],
+    ["bybit", "perpetual", "btcusd"],
+
 ]
 
 data = AllStreamsByInstrumentS(streams)

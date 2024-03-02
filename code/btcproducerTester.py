@@ -75,31 +75,30 @@ class btcproducerTest():
             await websocket.send(json.dumps(msg))
             keep_alive_task = asyncio.create_task(self.keep_alive(websocket, exchange, 30))
             try:
-                if obj != "heartbeat":
-                    async for message in websocket:
-                        try:
-                            start_time = time.time()
-                            if exchange == "binance" and obj == "trades" and insType == "spot" and instrument == "btcusdt":
-                                response = await websocket.recv()
-                                response = json.loads(response)
-                                self.btc_price = float(response['p'])
+                async for message in websocket:
+                    try:
+                        start_time = time.time()
+                        if exchange == "binance" and obj == "trades" and insType == "spot" and instrument == "btcusdt":
+                            response = await websocket.recv()
+                            response = json.loads(response)
+                            self.btc_price = float(response['p'])
 
-                            # Some websockets doesn't return the whole book data after the first pull. You need to fetch it via api
-                            if count == 1 and exchange in ["binance", "bybit", "coinbase"] and obj in ["depth"]:
-                                data = books_snapshot(exchange, instrument, insType, snaplength=1000)
-                                data = data["response"]
-                                count += 1   
-                            else:
-                                data = await websocket.recv()
-                            end_time = time.time()
-                            rtt = end_time - start_time
-                            self.update_rtt_average(index, rtt)
-                            print(f"WebSocket {index} - RTT: {rtt:.4f} seconds (Avg: {self.get_average_rtt(index):.4f} seconds)")
+                        # Some websockets doesn't return the whole book data after the first pull. You need to fetch it via api
+                        if count == 1 and exchange in ["binance", "bybit", "coinbase"] and obj in ["depth"]:
+                            data = books_snapshot(exchange, instrument, insType, snaplength=1000)
+                            data = data["response"]
+                            count += 1   
+                        else:
+                            data = await websocket.recv()
+                        end_time = time.time()
+                        rtt = end_time - start_time
+                        self.update_rtt_average(index, rtt)
+                        print(f"WebSocket {index} - RTT: {rtt:.4f} seconds (Avg: {self.get_average_rtt(index):.4f} seconds)")
 
-                        except KafkaStorageError as e:
-                            print(f"KafkaStorageError: {e}")
-                            await asyncio.sleep(5)
-                            continue
+                    except KafkaStorageError as e:
+                        print(f"KafkaStorageError: {e}")
+                        await asyncio.sleep(5)
+                        continue
             except asyncio.exceptions.TimeoutError:
                 print("WebSocket operation timed out")
                 await asyncio.sleep(5)

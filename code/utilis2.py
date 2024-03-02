@@ -6,6 +6,7 @@ import requests
 import json
 from utilis import bingx_AaWSnap, build_jwt_api, websocket_fetcher, get_dict_by_key_value
 from urls import AaWS
+import concurrent.futures
 
 def books_snapshot(id, snaplength, maximum_retries=10):
     """
@@ -19,7 +20,6 @@ def books_snapshot(id, snaplength, maximum_retries=10):
 
     if exchange in ["binance", "gateio"]:
         url = "&".join([url, f"limit={snaplength}"])
-        print(url)
     if exchange == "coinbase":
         url_1 = stream_data["url_base"]
         url_2 = url
@@ -63,7 +63,17 @@ def books_snapshot(id, snaplength, maximum_retries=10):
         response = response.json()
     
     if exchange == "deribit":
-        response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, headers)))
+        # def run_event_loop():
+        loop = asyncio.get_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            response = loop.run_until_complete(websocket_fetcher(url, headers))
+        finally:
+            loop.close()
+        # with concurrent.futures.ThreadPoolExecutor() as executor:
+        #     future = executor.submit(run_event_loop)
+        #     result = future.result()
+        # response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, headers)))
 
     if exchange == 'bingx':
         path = stream_data["path"]
@@ -121,3 +131,26 @@ def  AllStreamsExceptInstrumentS(list_of_streams):
     data = AllStreamsByInstrumentS(list_of_streams)
     filtered_list = [elem for elem in AaWS if elem not in data]
     return filtered_list 
+
+def get_depth_sockets(urls):
+    exchanges_for_books = ["binance", "bybit", "coinbase", "kucoin", "mexc", "bitget", "deribit", "gateio"] #gateio
+    filtered_urls = []
+    for url in urls:
+        exchange = url["exchange"]
+        type_ = url["type"]
+        obj = url["obj"]
+        if type_ == "websocket" and exchange in exchanges_for_books and obj=="depth":
+            filtered_urls.append(url)
+    return filtered_urls
+
+def get_initial_books(data):
+    fu = get_depth_sockets(data)
+    books_dic = {}
+    for url in fu:
+        id = url["id"]
+        type_ = url["type"]
+        obj = url["obj"]
+        if obj == "depth" and type_ == "websocket":
+            books = books_snapshot(id, snaplength=1000)
+            books_dic[id] = books
+    return books_dic
