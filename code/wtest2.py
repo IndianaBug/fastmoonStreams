@@ -14,10 +14,16 @@ import asyncio
 
 # print(response)
 
-from urls import AaWS
-from utilis import get_dict_by_key_value
-AaWS = [x for x in AaWS if x["type"] == "websocket"]
-streams = [get_dict_by_key_value(AaWS, "id", "htx_spot_btcusdt_trades")]
-print(streams)
+import requests
+
+host = "https://api.gateio.ws"
+prefix = "/api/v4"
+headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+
+url = '/futures/usdt/contracts'
+query_param = ''
+r = requests.request('GET', host + prefix + url, headers=headers)
+print(r.json())
+
 
 # Gateio_btcusdt_perpetual_trades
