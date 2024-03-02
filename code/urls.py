@@ -731,7 +731,7 @@ AaWS = [
           "msg" : {
               "op": 
               "subscribe","args": [
-                  "publicTrade.BTCUSDT"
+                  "publicTrade.BTCUSDC"
                   ]
               }
         },
@@ -763,7 +763,7 @@ AaWS = [
           "msg" : {
               "op": "subscribe",
               "args": [
-                  "publicTrade.BTCUSD"
+                  "publicTrade.BTCPERP"
                   ]
               }
         },
@@ -945,7 +945,7 @@ AaWS = [
           "insType":"spot", 
           "obj":"trades", 
           "updateSpeed" : 0, 
-          "url" : "wss://api.huobi.pro/ws",
+          "url" : "wss://api-aws.huobi.pro/ws",
           "msg" : {
                     "sub" : "market.btcusdt.trade.detail",
                     "id" : generate_random_integer(10)
@@ -1170,7 +1170,7 @@ AaWS = [
           "msg" : {
               "op": 
               "subscribe","args": [
-                  "orderbook.200.BTCUSD"
+                  "orderbook.200.BTCPERP"
                   ]
               }
         },
@@ -1354,9 +1354,9 @@ AaWS = [
           "insType":"spot", 
           "obj":"depth", 
           "updateSpeed" : 0, 
-          "url" : "	wss://api.huobi.pro/feed",
+          "url" : "wss://api-aws.huobi.pro/ws",
           "msg" : {
-                    "sub":"market.btcusdt.mbp.400",
+                    "sub": "market.btcusdt.depth.step0",
                     "id" : generate_random_integer(10)
                     }
         }, 
@@ -1590,7 +1590,7 @@ AaWS = [
           "msg" : {
               "op": 
               "subscribe","args": [
-                  "tickers.BTCUSD"
+                  "tickers.BTCPERP"
                   ]
               }
         },

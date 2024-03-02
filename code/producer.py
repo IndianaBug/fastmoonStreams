@@ -28,6 +28,7 @@ class btcproducer():
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
         self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.
                                                         # Fetch this now and delete later
+        print(self.initial_books.keys())
 
     async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
@@ -53,7 +54,7 @@ class btcproducer():
                     await asyncio.sleep(ping_interval - 27)
                     await websocket.send("Pong")  
                 if exchange in ["deribit"]:
-                    await asyncio.sleep(ping_interval)
+                    await asyncio.sleep(ping_interval-25)
                     await websocket.send(json.dumps({"jsonrpc":"2.0", "id": id, "method": "/api/v2/public/test"}))
                 if exchange == "kucoin":
                     await asyncio.sleep(ping_interval - 10)
@@ -97,20 +98,22 @@ class btcproducer():
                 keep_alive_task = asyncio.create_task(self.keep_alive(websocket, exchange, 30))
             try:
                 if obj != "heartbeat":
-                    async for message in websocket:
+                    #async for message in websocket:
+                    while True:
                         try:
-                            if count == 1:
+
+                            if count == 1 and exchange in ["kucoin", "deribit", "bitget", "bybit", "mexc"] and obj == "depth":
                                 message = self.initial_books.pop(id, None)
                                 count += 1
-                            else:      
+                            else:     
                                 message = await websocket.recv()
                                 # Decompressing and dealing with pings
-                                if exchange in ["htx"]:
+                                if exchange == "htx":
                                     try:
                                         message =  json.loads(gzip.decompress(message).decode('utf-8'))
                                     except:
                                         message = {}
-                                if exchange == "bingx":
+                                elif exchange == "bingx":
                                     compressed_data = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb')
                                     decompressed_data = compressed_data.read()
                                     utf8_data = decompressed_data.decode('utf-8')
@@ -118,7 +121,7 @@ class btcproducer():
                                         message = json.loads(utf8_data)
                                     except:
                                         message = utf8_data
-                                else:
+                                elif exchange not in ["htx", "bingx"]:
                                     try:
                                         message = json.loads(message)
                                     except:
@@ -279,13 +282,9 @@ class btcproducer():
         topic = ''
 
         tasks = []
-        tasks +=  [ 
-                self.websocket_connection(
-                        connection_data=self.ws[x],
-                        producer=producer, 
-                        topic=topic) 
-                        for x in range(0, len(self.ws)-1) 
-                  ]
+
+        for info in self.ws:
+            tasks.append(asyncio.ensure_future(self.websocket_connection(info, producer, topic)))
 
         for info in self.api:
             if info["exchange"] != "deribit":
@@ -315,6 +314,10 @@ streams = [
 ]
 
 data = AllStreamsByInstrumentS(streams)
+from urls import AaWS
+from utilis import get_dict_by_key_value
+# bybit_perpetual_btcusd_liquidations
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "htx_perpetual_btcusdt_depth")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

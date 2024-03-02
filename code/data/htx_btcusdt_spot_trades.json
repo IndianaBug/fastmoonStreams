@@ -1,0 +1,860 @@
+[
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61858.69,
+    "timestamp": 1709403331.9940126,
+    "data": {
+      "id": 9009457487,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403329882
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61858.69,
+    "timestamp": 1709403332.000565,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403324065,
+      "tick": {
+        "id": 169028528695,
+        "ts": 1709403324064,
+        "data": [
+          {
+            "id": 1690285286951015223849519572,
+            "ts": 1709403324064,
+            "tradeId": 102881530720,
+            "amount": 0.007913,
+            "price": 61852.27,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61859.0,
+    "timestamp": 1709403392.5007873,
+    "data": {
+      "id": 9495304528,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403390393
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61859.0,
+    "timestamp": 1709403392.510832,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403389966,
+      "tick": {
+        "id": 169028544898,
+        "ts": 1709403389964,
+        "data": [
+          {
+            "id": 1690285448981015223849363826,
+            "ts": 1709403389964,
+            "tradeId": 102881530757,
+            "amount": 0.000168,
+            "price": 61861.35,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61859.0,
+    "timestamp": 1709403392.5774474,
+    "data": {
+      "ping": 1709403390453
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61859.0,
+    "timestamp": 1709403393.6407955,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403391521,
+      "tick": {
+        "id": 169028545179,
+        "ts": 1709403391519,
+        "data": [
+          {
+            "id": 1690285451791015223849363826,
+            "ts": 1709403391519,
+            "tradeId": 102881530758,
+            "amount": 0.000227,
+            "price": 61861.35,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61859.0,
+    "timestamp": 1709403397.6453688,
+    "data": {
+      "ping": 1709403395533
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403511.3803396,
+    "data": {
+      "id": 3883941030,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403509261
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403511.3903425,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403506582,
+      "tick": {
+        "id": 169028576844,
+        "ts": 1709403506581,
+        "data": [
+          {
+            "id": 1690285768441015223840347606,
+            "ts": 1709403506581,
+            "tradeId": 102881530784,
+            "amount": 0.00207,
+            "price": 61881.56,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403515.0593326,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403512941,
+      "tick": {
+        "id": 169028579683,
+        "ts": 1709403512940,
+        "data": [
+          {
+            "id": 1690285796831015223840445256,
+            "ts": 1709403512940,
+            "tradeId": 102881530785,
+            "amount": 0.001454,
+            "price": 61881.57,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403515.8327084,
+    "data": {
+      "ping": 1709403513715
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403516.7711987,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403514656,
+      "tick": {
+        "id": 169028580389,
+        "ts": 1709403514654,
+        "data": [
+          {
+            "id": 1690285803891015223840445256,
+            "ts": 1709403514654,
+            "tradeId": 102881530786,
+            "amount": 0.005099,
+            "price": 61881.57,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61878.47,
+    "timestamp": 1709403518.2756715,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403516157,
+      "tick": {
+        "id": 169028580940,
+        "ts": 1709403516155,
+        "data": [
+          {
+            "id": 1690285809401015223857715118,
+            "ts": 1709403516155,
+            "tradeId": 102881530787,
+            "amount": 0.008732,
+            "price": 61881.57,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61881.1,
+    "timestamp": 1709403544.201002,
+    "data": {
+      "id": 6605207707,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403542088
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61881.1,
+    "timestamp": 1709403544.2045686,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403539086,
+      "tick": {
+        "id": 169028588313,
+        "ts": 1709403539085,
+        "data": [
+          {
+            "id": 1690285883131015223874688796,
+            "ts": 1709403539085,
+            "tradeId": 102881530790,
+            "amount": 0.000825,
+            "price": 61895.17,
+            "direction": "sell"
+          },
+          {
+            "id": 1690285883131015223866005204,
+            "ts": 1709403539085,
+            "tradeId": 102881530789,
+            "amount": 0.007049,
+            "price": 61895.17,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403776.7751033,
+    "data": {
+      "id": 7059244596,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403774661
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403776.783659,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403773709,
+      "tick": {
+        "id": 169028650901,
+        "ts": 1709403773707,
+        "data": [
+          {
+            "id": 1690286509011015223908176830,
+            "ts": 1709403773707,
+            "tradeId": 102881530885,
+            "amount": 0.003934,
+            "price": 61877.68,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403776.9658635,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403774836,
+      "tick": {
+        "id": 169028651289,
+        "ts": 1709403774834,
+        "data": [
+          {
+            "id": 1690286512891015223908176830,
+            "ts": 1709403774834,
+            "tradeId": 102881530886,
+            "amount": 0.003217,
+            "price": 61877.68,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403777.0092404,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403774888,
+      "tick": {
+        "id": 169028651311,
+        "ts": 1709403774886,
+        "data": [
+          {
+            "id": 1690286513111015223908176830,
+            "ts": 1709403774886,
+            "tradeId": 102881530887,
+            "amount": 0.002594,
+            "price": 61877.68,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403777.7215323,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403775587,
+      "tick": {
+        "id": 169028651524,
+        "ts": 1709403775585,
+        "data": [
+          {
+            "id": 1690286515241015223908144144,
+            "ts": 1709403775585,
+            "tradeId": 102881530888,
+            "amount": 0.003648,
+            "price": 61877.67,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403777.9877074,
+    "data": {
+      "ping": 1709403775861
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403778.1451573,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403776008,
+      "tick": {
+        "id": 169028651658,
+        "ts": 1709403776007,
+        "data": [
+          {
+            "id": 1690286516581015223908176830,
+            "ts": 1709403776007,
+            "tradeId": 102881530889,
+            "amount": 0.00318,
+            "price": 61877.68,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403779.3077211,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403777177,
+      "tick": {
+        "id": 169028652119,
+        "ts": 1709403777176,
+        "data": [
+          {
+            "id": 1690286521191015223908144144,
+            "ts": 1709403777176,
+            "tradeId": 102881530890,
+            "amount": 0.00456,
+            "price": 61877.67,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403779.6325912,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403777511,
+      "tick": {
+        "id": 169028652236,
+        "ts": 1709403777510,
+        "data": [
+          {
+            "id": 1690286522361015223908176830,
+            "ts": 1709403777510,
+            "tradeId": 102881530891,
+            "amount": 0.001388,
+            "price": 61877.68,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403779.780957,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403777656,
+      "tick": {
+        "id": 169028652300,
+        "ts": 1709403777654,
+        "data": [
+          {
+            "id": 1690286523001015223908144144,
+            "ts": 1709403777654,
+            "tradeId": 102881530892,
+            "amount": 0.000178,
+            "price": 61877.67,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61896.71,
+    "timestamp": 1709403779.7997494,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403777675,
+      "tick": {
+        "id": 169028652311,
+        "ts": 1709403777674,
+        "data": [
+          {
+            "id": 1690286523111015223908144144,
+            "ts": 1709403777674,
+            "tradeId": 102881530893,
+            "amount": 0.000174,
+            "price": 61877.67,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61885.64,
+    "timestamp": 1709403837.4835877,
+    "data": {
+      "id": 1139326992,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403835365
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61885.64,
+    "timestamp": 1709403837.4936404,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403820580,
+      "tick": {
+        "id": 169028664622,
+        "ts": 1709403820579,
+        "data": [
+          {
+            "id": 1690286646221015223899194480,
+            "ts": 1709403820579,
+            "tradeId": 102881530937,
+            "amount": 0.001355681717351998,
+            "price": 61872.93,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61885.64,
+    "timestamp": 1709403838.2837434,
+    "data": {
+      "ping": 1709403836155
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403853.094058,
+    "data": {
+      "id": 4239978554,
+      "status": "ok",
+      "subbed": "market.btcusdt.trade.detail",
+      "ts": 1709403850967
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403853.100571,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403820580,
+      "tick": {
+        "id": 169028664622,
+        "ts": 1709403820579,
+        "data": [
+          {
+            "id": 1690286646221015223899194480,
+            "ts": 1709403820579,
+            "tradeId": 102881530937,
+            "amount": 0.001355681717351998,
+            "price": 61872.93,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403856.6173382,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403854499,
+      "tick": {
+        "id": 169028675901,
+        "ts": 1709403854498,
+        "data": [
+          {
+            "id": 1690286759011015223907980261,
+            "ts": 1709403854498,
+            "tradeId": 102881530938,
+            "amount": 0.000942,
+            "price": 61872.92,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403857.2440042,
+    "data": {
+      "ping": 1709403855120
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403857.7581737,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403855644,
+      "tick": {
+        "id": 169028676233,
+        "ts": 1709403855643,
+        "data": [
+          {
+            "id": 1690286762331015223907852900,
+            "ts": 1709403855643,
+            "tradeId": 102881530944,
+            "amount": 0.104785,
+            "price": 61872.92,
+            "direction": "sell"
+          },
+          {
+            "id": 1690286762331015223908046753,
+            "ts": 1709403855643,
+            "tradeId": 102881530943,
+            "amount": 0.09,
+            "price": 61872.92,
+            "direction": "sell"
+          },
+          {
+            "id": 1690286762331015223908046730,
+            "ts": 1709403855643,
+            "tradeId": 102881530942,
+            "amount": 0.016157,
+            "price": 61872.92,
+            "direction": "sell"
+          },
+          {
+            "id": 1690286762331015223916500421,
+            "ts": 1709403855643,
+            "tradeId": 102881530941,
+            "amount": 0.1,
+            "price": 61872.92,
+            "direction": "sell"
+          },
+          {
+            "id": 1690286762331015223899232199,
+            "ts": 1709403855643,
+            "tradeId": 102881530940,
+            "amount": 0.09,
+            "price": 61872.92,
+            "direction": "sell"
+          },
+          {
+            "id": 1690286762331015223907980261,
+            "ts": 1709403855643,
+            "tradeId": 102881530939,
+            "amount": 0.099058,
+            "price": 61872.92,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403862.3455856,
+    "data": {
+      "ping": 1709403860224
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403862.619733,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403860500,
+      "tick": {
+        "id": 169028677705,
+        "ts": 1709403860498,
+        "data": [
+          {
+            "id": 1690286777051015223907722230,
+            "ts": 1709403860498,
+            "tradeId": 102881530945,
+            "amount": 0.001842809125089114,
+            "price": 61872.93,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403866.8761966,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403864751,
+      "tick": {
+        "id": 169028679165,
+        "ts": 1709403864750,
+        "data": [
+          {
+            "id": 1690286791651015223907722230,
+            "ts": 1709403864750,
+            "tradeId": 102881530946,
+            "amount": 0.0033,
+            "price": 61872.93,
+            "direction": "buy"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403867.3178043,
+    "data": {
+      "ch": "market.btcusdt.trade.detail",
+      "ts": 1709403865198,
+      "tick": {
+        "id": 169028679337,
+        "ts": 1709403865196,
+        "data": [
+          {
+            "id": 1690286793371015223907852900,
+            "ts": 1709403865196,
+            "tradeId": 102881530947,
+            "amount": 0.004395,
+            "price": 61872.92,
+            "direction": "sell"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61882.76,
+    "timestamp": 1709403867.4447665,
+    "data": {
+      "ping": 1709403865316
+    }
+  }
+]
