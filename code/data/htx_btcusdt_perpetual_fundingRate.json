@@ -1,0 +1,27 @@
+[
+  {
+    "exchange": "htx",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "fundingRate",
+    "btc_price": 61842.56,
+    "timestamp": 1709416038.1834903,
+    "data": {
+      "ch": "market.BTC-USDT.estimated_rate.1min",
+      "data": [
+        {
+          "amount": "0",
+          "close": "0.0005916930243932",
+          "count": "0",
+          "high": "0.0005916930243932",
+          "id": 1709416020,
+          "low": "0.0005915175892323",
+          "open": "0.0005915175892323",
+          "vol": "0"
+        }
+      ],
+      "status": "ok",
+      "ts": 1709416038072
+    }
+  }
+]

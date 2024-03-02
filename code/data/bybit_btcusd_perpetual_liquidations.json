@@ -1,0 +1,32 @@
+[
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "liquidations",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.2101068,
+    "data": {
+      "success": true,
+      "ret_msg": "",
+      "conn_id": "657a2bed-31a9-4845-a211-b3eec59602eb",
+      "req_id": "",
+      "op": "subscribe"
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "liquidations",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0115745,
+    "data": {
+      "success": true,
+      "ret_msg": "pong",
+      "conn_id": "657a2bed-31a9-4845-a211-b3eec59602eb",
+      "req_id": "",
+      "op": "ping"
+    }
+  }
+]
