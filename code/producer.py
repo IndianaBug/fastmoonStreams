@@ -107,8 +107,9 @@ class btcproducer():
                                 count += 1
                                 if exchange == "deribit":
                                     message = json.loads(message)
-                            else:     
+                            else:  
                                 message = await websocket.recv()
+                                print(message)   
                                 # Decompressing and dealing with pings
                                 if exchange == "htx":
                                     try:
@@ -227,8 +228,10 @@ class btcproducer():
         instrument = info["instrument"]
         insType = info["insType"]
         obj = info["obj"]
+        id = info["id"]
         if exchange == "bingx":
             while True:
+                
                 data = await bingx_AaWSnap_aiohttp(info["url"], info["path"], info["params"],"depth", 3)
                 try:
                     with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
@@ -248,6 +251,33 @@ class btcproducer():
                 with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                     json.dump(d, file, indent=2)
                 await asyncio.sleep(info["updateSpeed"])
+        if exchange == "gateio" and insType == "perpetual":
+            while True:
+                async with aiohttp.ClientSession() as session:
+                    if id in ["gateio_perpetual_btcusdt_liquidations","gateio_perpetual_btcusdt_trades"]:
+                        headers = info["headers"]
+                        headers["from"] = int(time.time()) - 10
+                        headers["to"] = int(time.time()) 
+                    async with session.get(info["url"], headers=info["headers"], params=info["params"]) as response:
+                        data =  await response.text()
+                        try:
+                            with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
+                                d = json.load(json_file)
+                        except (FileNotFoundError, json.JSONDecodeError):
+                            d = []
+                        new_data = { 
+                                "exchange" : exchange,
+                                "instrument" : instrument,
+                                "insType" : insType,
+                                "obj" : obj,
+                                "btc_price" : self.btc_price,
+                                "timestamp" : time.time(),  
+                                "data" : json.loads(data) 
+                                }
+                        d.append(new_data)
+                        with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
+                            json.dump(d, file, indent=2)
+                        await asyncio.sleep(info["updateSpeed"])
         else:
             while True:
                 async with aiohttp.ClientSession() as session:
@@ -271,7 +301,9 @@ class btcproducer():
                         with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                             json.dump(d, file, indent=2)
                         await asyncio.sleep(info["updateSpeed"])
-        
+
+
+
 
 
     async def main(self):
@@ -316,10 +348,10 @@ streams = [
 ]
 
 data = AllStreamsByInstrumentS(streams)
-# from urls import AaWS
-# from utilis import get_dict_by_key_value
-# # bybit_perpetual_btcusd_liquidations
-# data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
+from urls import AaWS
+from utilis import get_dict_by_key_value
+# bybit_perpetual_btcusd_liquidations
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_trades")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

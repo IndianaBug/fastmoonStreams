@@ -145,8 +145,9 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"depth", 
         "instrument": "btcusdt",
-        "updateSpeed":1,
-        "url" : "https://api.gateio.ws/api/v4/futures/usdt/order_book?contract=BTC_USDT",
+        "updateSpeed":10,
+        "url" : "https://api.gateio.ws/api/v4/futures/usdt/order_book",
+        "params" : {"contract" : "BTC_USDT", "limit" : 300},
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}          
     },
     {
@@ -386,8 +387,32 @@ AaWS = [
         "insType":"perpetual", 
         "obj":"liquidations", 
         "instrument": "btcusdt", 
-        "updateSpeed":3, 
-        "url" : f"https://api.gateio.ws/api/v4/futures/usdt/liq_orders?s=BTC_USDT&from={int(time.time()) - 10}&to={int(time.time())}",
+        "updateSpeed":10, 
+        "url" : "https://api.gateio.ws/api/v4/futures/usdt/liq_orders",
+        "params" : {
+                    "contract" : "BTC_USDT",
+                    "from" : int(time.time()) - 20,
+                    "to" : int(time.time())
+                        },
+        "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    }, 
+    ###
+    # Trades
+    ###
+    {  # https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history
+        "type" : "api",
+        "id" : "gateio_perpetual_btcusdt_trades",
+        "exchange":"gateio", 
+        "insType":"perpetual", 
+        "obj":"liquidations", 
+        "instrument": "btcusdt", 
+        "updateSpeed":10, 
+        "url" : "https://api.gateio.ws/api/v4/futures/usdt/trades",
+        "params" : {
+                    "contract" : "BTC_USDT",
+                    "from" : int(time.time()) - 20,
+                    "to" : int(time.time())
+                        },
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
     },    
     ###
@@ -832,17 +857,17 @@ AaWS = [
                         "payload": ["BTC_USDT"]
                     }
         },
-        { # https://www.gate.io/docs/developers/futures/ws/en/#trades-api
-          "type" : "websocket",
-          "id" : "gateio_perpetual_btcusdt_trades",
-          'exchange':'gateio', 
-          'instrument': 'btcusdt', 
-          'insType':'perpetual', 
-          'obj':'trades', 
-          'updateSpeed' : 0, 
-          'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
-          'msg' : {"event": "subscribe", "channel": "futures.trades", "payload": ["BTC_USD"], "time": int(time.time())}
-        },
+        # { # https://www.gate.io/docs/developers/futures/ws/en/#trades-api
+        #   "type" : "websocket",
+        #   "id" : "gateio_perpetual_btcusdt_trades",
+        #   'exchange':'gateio', 
+        #   'instrument': 'btcusdt', 
+        #   'insType':'perpetual', 
+        #   'obj':'trades', 
+        #   'updateSpeed' : 0, 
+        #   'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
+        #   'msg' : {"event": "subscribe", "channel": "futures.trades", "payload": ["BTC_USD"], "time": int(time.time())}
+        # },
         {
           "type" : "websocket",
           "id" : "mexc_spot_btcusdt_trades",
@@ -1235,23 +1260,23 @@ AaWS = [
                     }
 
         },
-        {
-          "type" : "websocket",
-          "id" : "gateio_perpetual_btcusdt_depth",
-          'exchange':'gateio', 
-          'instrument': 'btcusdt', 
-          'insType':'perpetual', 
-          'obj':'depth', 
-          'updateSpeed' : 0, 
-          'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
-          'msg' : {
-                        "time": int(time.time()),
-                        "channel": "futures.order_book_update",
-                        "event": "subscribe",  
-                        "payload": ["BTC_USD", "1000ms"]
-                    }
+        # {
+        #   "type" : "websocket",
+        #   "id" : "gateio_perpetual_btcusdt_depth",
+        #   'exchange':'gateio', 
+        #   'instrument': 'btcusdt', 
+        #   'insType':'perpetual', 
+        #   'obj':'depth', 
+        #   'updateSpeed' : 0, 
+        #   'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
+        #   'msg' : {
+        #                 "time": int(time.time()),
+        #                 "channel": "futures.order_book_update",
+        #                 "event": "subscribe",  
+        #                 "payload": ["btc_usdt", "1000ms"]
+        #             }
 
-        },
+        # },
         {
           "type" : "websocket",
           "id" : "mexc_spot_btcusdt_depth",
