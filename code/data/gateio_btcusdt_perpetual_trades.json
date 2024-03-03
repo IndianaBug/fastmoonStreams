@@ -4,10 +4,10 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416047.6422567,
+    "btc_price": 61705.5,
+    "timestamp": 1709433449.5069895,
     "data": {
-      "time": 1709416040,
+      "time": 1709433449,
       "time_ms": 0,
       "channel": "futures.trades",
       "event": "subscribe",
@@ -24,10 +24,10 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416062.478153,
+    "btc_price": 61705.5,
+    "timestamp": 1709433454.512637,
     "data": {
-      "time": 1709416048,
+      "time": 1709433454,
       "time_ms": 0,
       "channel": "",
       "event": "",
@@ -45,10 +45,10 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416073.3832734,
+    "btc_price": 61705.5,
+    "timestamp": 1709433459.5135386,
     "data": {
-      "time": 1709416054,
+      "time": 1709433459,
       "time_ms": 0,
       "channel": "",
       "event": "",
@@ -66,10 +66,10 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416087.0241938,
+    "btc_price": 61705.5,
+    "timestamp": 1709433464.5225167,
     "data": {
-      "time": 1709416062,
+      "time": 1709433464,
       "time_ms": 0,
       "channel": "",
       "event": "",
@@ -87,10 +87,10 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6369789,
+    "btc_price": 61705.5,
+    "timestamp": 1709433469.5205762,
     "data": {
-      "time": 1709416077,
+      "time": 1709433469,
       "time_ms": 0,
       "channel": "",
       "event": "",
@@ -104,21 +104,87 @@
     }
   },
   {
-    "channel": "futures.trades",
-    "event": "update",
-    "time": 1541503698,
-    "time_ms": 1541503698123,
-    "result": [
-      {
-        "size": -108,
-        "id": 27753479,
-        "create_time": 1545136464,
-        "create_time_ms": 1545136464123,
-        "price": "96.4",
-        "contract": "BTC_USD",
-        "is_internal": true
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433474.5154169,
+    "data": {
+      "time": 1709433474,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
       }
-    ]
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433479.5162086,
+    "data": {
+      "time": 1709433479,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433484.517888,
+    "data": {
+      "time": 1709433484,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433489.517224,
+    "data": {
+      "time": 1709433489,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
   }
-  
 ]

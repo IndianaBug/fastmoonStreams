@@ -297,29 +297,29 @@ class btcproducer():
         await asyncio.gather(*tasks) 
 
 streams = [
-    ["deribit", "perpetual", "btcusd"],
+    # ["deribit", "perpetual", "btcusd"],
     ["gateio", "perpetual", "btcusdt"],
     ["gateio", "spot", "btcusdt"],
-    ["htx", "perpetual", "btcusdt"],
-    ["htx", "spot", "btcusdt"],
-    ["bingx", "perpetual", "btcusdt"],
-    ["bingx", "spot", "btcusdt"],
-    ["bitget", "perpetual", "btcusdt"],
-    ["bitget", "spot", "btcusdt"],
-    ["mexc", "spot", "btcusdt"],
-    ["mexc", "perpetual", "btcusdt"],
-    ["kucoin", "perpetual", "btcusdt"],
-    ["kucoin", "spot", "btcusdt"],
-    ["bybit", "spot", "btcusdc"],
-    ["bybit", "perpetual", "btcusd"],
+    # ["htx", "perpetual", "btcusdt"],
+    # ["htx", "spot", "btcusdt"],
+    # ["bingx", "perpetual", "btcusdt"],
+    # ["bingx", "spot", "btcusdt"],
+    # ["bitget", "perpetual", "btcusdt"],
+    # ["bitget", "spot", "btcusdt"],
+    # ["mexc", "spot", "btcusdt"],
+    # ["mexc", "perpetual", "btcusdt"],
+    # ["kucoin", "perpetual", "btcusdt"],
+    # ["kucoin", "spot", "btcusdt"],
+    # ["bybit", "spot", "btcusdc"],
+    # ["bybit", "perpetual", "btcusd"],
 
 ]
 
 data = AllStreamsByInstrumentS(streams)
-from urls import AaWS
-from utilis import get_dict_by_key_value
-# bybit_perpetual_btcusd_liquidations
-data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
+# from urls import AaWS
+# from utilis import get_dict_by_key_value
+# # bybit_perpetual_btcusd_liquidations
+# data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

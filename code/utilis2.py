@@ -18,10 +18,10 @@ def books_snapshot(id, snaplength, maximum_retries=10):
     instrument = stream_data.get("instrument")
     insType= stream_data.get("insType")
 
-    if exchange in ["binance", "gateio"]:
+    if exchange == "binance":
         url = "&".join([url, f"limit={snaplength}"])
-        if exchange == "gateio":
-            url = "&".join([url, f"limit={300}"])
+    if exchange == "gateio":
+        url = "&".join([url, f"limit={300}"])
     if exchange == "coinbase":
         url_1 = stream_data["url_base"]
         url_2 = url

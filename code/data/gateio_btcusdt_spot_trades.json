@@ -4,11 +4,11 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416047.6416843,
+    "btc_price": 61705.5,
+    "timestamp": 1709433449.5137243,
     "data": {
-      "time": 1709416040,
-      "time_ms": 1709416040605,
+      "time": 1709433449,
+      "time_ms": 1709433449383,
       "channel": "spot.trades",
       "event": "subscribe",
       "payload": [
@@ -17,7 +17,7 @@
       "result": {
         "status": "success"
       },
-      "requestId": "a924248b6b4145c4614991a9d1a19cd5"
+      "requestId": "24349c6a0ccd473d90f8f1b2a695e4c9"
     }
   },
   {
@@ -25,22 +25,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416047.6419451,
+    "btc_price": 61705.5,
+    "timestamp": 1709433451.4366684,
     "data": {
-      "time": 1709416041,
-      "time_ms": 1709416041802,
+      "time": 1709433451,
+      "time_ms": 1709433451307,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669110977,
-        "create_time": 1709416041,
-        "create_time_ms": "1709416041792.0",
+        "id": 7671961030,
+        "create_time": 1709433451,
+        "create_time_ms": "1709433451299.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00007",
-        "price": "61843.3",
-        "range": "27197779-27197779"
+        "amount": "0.0026",
+        "price": "61734",
+        "range": "27210953-27210953"
       }
     }
   },
@@ -49,22 +49,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416062.8423505,
+    "btc_price": 61705.5,
+    "timestamp": 1709433458.8710816,
     "data": {
-      "time": 1709416050,
-      "time_ms": 1709416050784,
+      "time": 1709433458,
+      "time_ms": 1709433458741,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669112563,
-        "create_time": 1709416050,
-        "create_time_ms": "1709416050773.0",
-        "side": "buy",
+        "id": 7671961971,
+        "create_time": 1709433458,
+        "create_time_ms": "1709433458732.0",
+        "side": "sell",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00108",
-        "price": "61843.3",
-        "range": "27197780-27197780"
+        "amount": "0.00004",
+        "price": "61733.9",
+        "range": "27210954-27210954"
       }
     }
   },
@@ -73,22 +73,70 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416074.1307635,
+    "btc_price": 61705.5,
+    "timestamp": 1709433459.2762573,
     "data": {
-      "time": 1709416059,
-      "time_ms": 1709416059566,
+      "time": 1709433459,
+      "time_ms": 1709433459146,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669113783,
-        "create_time": 1709416059,
-        "create_time_ms": "1709416059555.0",
+        "id": 7671962012,
+        "create_time": 1709433459,
+        "create_time_ms": "1709433459137.0",
+        "side": "buy",
+        "currency_pair": "BTC_USDT",
+        "amount": "0.00029",
+        "price": "61734",
+        "range": "27210955-27210955"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433460.5042427,
+    "data": {
+      "time": 1709433460,
+      "time_ms": 1709433460374,
+      "channel": "spot.trades",
+      "event": "update",
+      "result": {
+        "id": 7671962153,
+        "create_time": 1709433460,
+        "create_time_ms": "1709433460365.0",
+        "side": "buy",
+        "currency_pair": "BTC_USDT",
+        "amount": "0.00148",
+        "price": "61734",
+        "range": "27210956-27210956"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433465.3978565,
+    "data": {
+      "time": 1709433465,
+      "time_ms": 1709433465268,
+      "channel": "spot.trades",
+      "event": "update",
+      "result": {
+        "id": 7671962718,
+        "create_time": 1709433465,
+        "create_time_ms": "1709433465258.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
         "amount": "0.00081",
-        "price": "61843.3",
-        "range": "27197781-27197781"
+        "price": "61734",
+        "range": "27210957-27210957"
       }
     }
   },
@@ -97,46 +145,94 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416088.8630028,
+    "btc_price": 61705.5,
+    "timestamp": 1709433465.4191442,
     "data": {
-      "time": 1709416066,
-      "time_ms": 1709416066255,
+      "time": 1709433465,
+      "time_ms": 1709433465289,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669114561,
-        "create_time": 1709416066,
-        "create_time_ms": "1709416066245.0",
+        "id": 7671962726,
+        "create_time": 1709433465,
+        "create_time_ms": "1709433465280.0",
+        "side": "buy",
+        "currency_pair": "BTC_USDT",
+        "amount": "0.00081",
+        "price": "61734",
+        "range": "27210958-27210958"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433467.3708487,
+    "data": {
+      "time": 1709433467,
+      "time_ms": 1709433467240,
+      "channel": "spot.trades",
+      "event": "update",
+      "result": {
+        "id": 7671962887,
+        "create_time": 1709433467,
+        "create_time_ms": "1709433467229.0",
+        "side": "buy",
+        "currency_pair": "BTC_USDT",
+        "amount": "0.00012",
+        "price": "61734",
+        "range": "27210959-27210959"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433467.3877764,
+    "data": {
+      "time": 1709433467,
+      "time_ms": 1709433467258,
+      "channel": "spot.trades",
+      "event": "update",
+      "result": {
+        "id": 7671962893,
+        "create_time": 1709433467,
+        "create_time_ms": "1709433467251.0",
+        "side": "buy",
+        "currency_pair": "BTC_USDT",
+        "amount": "0.00027",
+        "price": "61734",
+        "range": "27210960-27210960"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "spot",
+    "obj": "trades",
+    "btc_price": 61705.5,
+    "timestamp": 1709433479.8543851,
+    "data": {
+      "time": 1709433479,
+      "time_ms": 1709433479724,
+      "channel": "spot.trades",
+      "event": "update",
+      "result": {
+        "id": 7671964107,
+        "create_time": 1709433479,
+        "create_time_ms": "1709433479715.0",
         "side": "sell",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00008",
-        "price": "61843.2",
-        "range": "27197782-27197782"
-      }
-    }
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "spot",
-    "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.63752,
-    "data": {
-      "time": 1709416081,
-      "time_ms": 1709416081035,
-      "channel": "spot.trades",
-      "event": "update",
-      "result": {
-        "id": 7669116158,
-        "create_time": 1709416081,
-        "create_time_ms": "1709416081026.0",
-        "side": "buy",
-        "currency_pair": "BTC_USDT",
         "amount": "0.00002",
-        "price": "61843.3",
-        "range": "27197783-27197783"
+        "price": "61733.9",
+        "range": "27210961-27210961"
       }
     }
   },
@@ -145,22 +241,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6380148,
+    "btc_price": 61705.5,
+    "timestamp": 1709433482.8759992,
     "data": {
-      "time": 1709416081,
-      "time_ms": 1709416081036,
+      "time": 1709433482,
+      "time_ms": 1709433482746,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669116159,
-        "create_time": 1709416081,
-        "create_time_ms": "1709416081026.0",
-        "side": "buy",
+        "id": 7671964602,
+        "create_time": 1709433482,
+        "create_time_ms": "1709433482734.0",
+        "side": "sell",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00551",
-        "price": "61844.2",
-        "range": "27197784-27197784"
+        "amount": "0.00007",
+        "price": "61733.9",
+        "range": "27210962-27210962"
       }
     }
   },
@@ -169,22 +265,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6385813,
+    "btc_price": 61705.5,
+    "timestamp": 1709433484.7245069,
     "data": {
-      "time": 1709416084,
-      "time_ms": 1709416084485,
+      "time": 1709433484,
+      "time_ms": 1709433484594,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669116913,
-        "create_time": 1709416084,
-        "create_time_ms": "1709416084474.0",
+        "id": 7671965030,
+        "create_time": 1709433484,
+        "create_time_ms": "1709433484586.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.08883",
-        "price": "61847.3",
-        "range": "27197785-27197785"
+        "amount": "0.00222",
+        "price": "61734",
+        "range": "27210963-27210963"
       }
     }
   },
@@ -193,22 +289,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6391566,
+    "btc_price": 61705.5,
+    "timestamp": 1709433487.140578,
     "data": {
-      "time": 1709416085,
-      "time_ms": 1709416085551,
+      "time": 1709433487,
+      "time_ms": 1709433487011,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669117132,
-        "create_time": 1709416085,
-        "create_time_ms": "1709416085529.0",
+        "id": 7671965640,
+        "create_time": 1709433487,
+        "create_time_ms": "1709433487000.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.004",
-        "price": "61851.3",
-        "range": "27197786-27197786"
+        "amount": "0.0077",
+        "price": "61734",
+        "range": "27210964-27210964"
       }
     }
   },
@@ -217,22 +313,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6397572,
+    "btc_price": 61705.5,
+    "timestamp": 1709433487.1855464,
     "data": {
-      "time": 1709416085,
-      "time_ms": 1709416085552,
+      "time": 1709433487,
+      "time_ms": 1709433487056,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669117133,
-        "create_time": 1709416085,
-        "create_time_ms": "1709416085530.0",
+        "id": 7671965654,
+        "create_time": 1709433487,
+        "create_time_ms": "1709433487045.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00094",
-        "price": "61851.3",
-        "range": "27197787-27197787"
+        "amount": "0.00006",
+        "price": "61734",
+        "range": "27210965-27210965"
       }
     }
   },
@@ -241,22 +337,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6403806,
+    "btc_price": 61705.5,
+    "timestamp": 1709433487.1866083,
     "data": {
-      "time": 1709416085,
-      "time_ms": 1709416085552,
+      "time": 1709433487,
+      "time_ms": 1709433487056,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669117134,
-        "create_time": 1709416085,
-        "create_time_ms": "1709416085533.0",
+        "id": 7671965655,
+        "create_time": 1709433487,
+        "create_time_ms": "1709433487045.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.00147",
-        "price": "61854.9",
-        "range": "27197788-27197788"
+        "amount": "0.00484",
+        "price": "61734.7",
+        "range": "27210966-27210966"
       }
     }
   },
@@ -265,22 +361,22 @@
     "instrument": "btcusdt",
     "insType": "spot",
     "obj": "trades",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.6411705,
+    "btc_price": 61705.5,
+    "timestamp": 1709433491.177982,
     "data": {
-      "time": 1709416085,
-      "time_ms": 1709416085814,
+      "time": 1709433491,
+      "time_ms": 1709433491048,
       "channel": "spot.trades",
       "event": "update",
       "result": {
-        "id": 7669117198,
-        "create_time": 1709416085,
-        "create_time_ms": "1709416085803.0",
+        "id": 7671966195,
+        "create_time": 1709433491,
+        "create_time_ms": "1709433491037.0",
         "side": "buy",
         "currency_pair": "BTC_USDT",
-        "amount": "0.002",
-        "price": "61856.3",
-        "range": "27197789-27197789"
+        "amount": "0.0002",
+        "price": "61738.1",
+        "range": "27210967-27210967"
       }
     }
   }
