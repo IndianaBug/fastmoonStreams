@@ -20,6 +20,8 @@ def books_snapshot(id, snaplength, maximum_retries=10):
 
     if exchange in ["binance", "gateio"]:
         url = "&".join([url, f"limit={snaplength}"])
+        if exchange == "gateio":
+            url = "&".join([url, f"limit={300}"])
     if exchange == "coinbase":
         url_1 = stream_data["url_base"]
         url_2 = url
@@ -150,7 +152,8 @@ def get_initial_books(data):
         id = url["id"]
         type_ = url["type"]
         obj = url["obj"]
-        if obj == "depth" and type_ == "websocket":
+        exchange = url["exchange"]
+        if obj == "depth" and type_ == "websocket" and exchange not in ["htx", "deribit"]:
             books = books_snapshot(id, snaplength=1000)
             books_dic[id] = books
     return books_dic

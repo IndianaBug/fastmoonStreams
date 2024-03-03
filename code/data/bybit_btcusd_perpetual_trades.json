@@ -1,0 +1,32 @@
+[
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.210358,
+    "data": {
+      "success": true,
+      "ret_msg": "",
+      "conn_id": "4655328e-ab1f-4a48-843e-b1a01665468b",
+      "req_id": "",
+      "op": "subscribe"
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0119176,
+    "data": {
+      "success": true,
+      "ret_msg": "pong",
+      "conn_id": "4655328e-ab1f-4a48-843e-b1a01665468b",
+      "req_id": "",
+      "op": "ping"
+    }
+  }
+]

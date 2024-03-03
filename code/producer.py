@@ -28,7 +28,6 @@ class btcproducer():
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
         self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.
                                                         # Fetch this now and delete later
-        print(self.initial_books.keys())
 
     async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
@@ -89,7 +88,7 @@ class btcproducer():
 
 
         async for websocket in websockets.connect(endpoint, ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-                    
+
             await websocket.send(json.dumps(msg))
 
             if connection_data["id"] in ["deribit_hearbeat"]:
@@ -102,9 +101,12 @@ class btcproducer():
                     while True:
                         try:
 
-                            if count == 1 and exchange in ["kucoin", "deribit", "bitget", "bybit", "mexc"] and obj == "depth":
+                            if count == 1 and exchange in ["kucoin", "deribit", "bitget", "bybit", "mexc", "gateio"] and obj == "depth":
                                 message = self.initial_books.pop(id, None)
+                                message = message.get("response")
                                 count += 1
+                                if exchange == "deribit":
+                                    message = json.loads(message)
                             else:     
                                 message = await websocket.recv()
                                 # Decompressing and dealing with pings
@@ -296,8 +298,8 @@ class btcproducer():
 
 streams = [
     ["deribit", "perpetual", "btcusd"],
-    # ["gateio", "perpetual", "btcusdt"],
-    # ["gateio", "spot", "btcusdt"],
+    ["gateio", "perpetual", "btcusdt"],
+    ["gateio", "spot", "btcusdt"],
     ["htx", "perpetual", "btcusdt"],
     ["htx", "spot", "btcusdt"],
     ["bingx", "perpetual", "btcusdt"],
@@ -317,7 +319,7 @@ data = AllStreamsByInstrumentS(streams)
 from urls import AaWS
 from utilis import get_dict_by_key_value
 # bybit_perpetual_btcusd_liquidations
-data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "gateio_perpetual_btcusdt_depth")]
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

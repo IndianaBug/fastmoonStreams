@@ -1,0 +1,27 @@
+[
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "liquidations",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.487916,
+    "data": []
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "liquidations",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.487916,
+    "data":   {
+      "time": 1548654951,
+      "contract": "BTC_USDT",
+      "size": 600,
+      "order_price": "3405",
+      "fill_price": "3424",
+      "left": 0
+    }
+  }
+]

@@ -1,0 +1,661 @@
+[
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.4128065,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "snapshot",
+      "data": {
+        "symbol": "BTCPERP",
+        "tickDirection": "PlusTick",
+        "price24hPcnt": "-0.011216",
+        "lastPrice": "61938.40",
+        "prevPrice24h": "62641.00",
+        "highPrice24h": "62794.00",
+        "lowPrice24h": "61672.10",
+        "prevPrice1h": "61977.70",
+        "markPrice": "61938.40",
+        "indexPrice": "61908.59",
+        "openInterest": "730.098",
+        "openInterestValue": "45221101.96",
+        "turnover24h": "24562485.5201",
+        "volume24h": "395.2230",
+        "nextFundingTime": "1709424000000",
+        "fundingRate": "0.000185",
+        "bid1Price": "61962.00",
+        "bid1Size": "0.050",
+        "ask1Price": "61962.10",
+        "ask1Size": "0.026"
+      },
+      "cs": 15152765641,
+      "ts": 1709416037917
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.413095,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61909.81",
+        "fundingRate": "0.000185",
+        "bid1Price": "61962.00",
+        "bid1Size": "0.050",
+        "ask1Price": "61962.10",
+        "ask1Size": "0.026"
+      },
+      "cs": 15152765700,
+      "ts": 1709416038016
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.4134607,
+    "data": {
+      "success": true,
+      "ret_msg": "",
+      "conn_id": "b2b9a2d4-2d2f-4169-aeb7-22091fea5655",
+      "req_id": "",
+      "op": "subscribe"
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416043.3501208,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "turnover24h": "24565582.4401",
+        "volume24h": "395.2730",
+        "fundingRate": "0.000185",
+        "bid1Price": "61962.00",
+        "bid1Size": "0.050",
+        "ask1Price": "61962.10",
+        "ask1Size": "0.394"
+      },
+      "cs": 15152766086,
+      "ts": 1709416039416
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416043.3505688,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61904.70",
+        "fundingRate": "0.000185",
+        "bid1Price": "61962.00",
+        "bid1Size": "0.050",
+        "ask1Price": "61962.10",
+        "ask1Size": "0.651"
+      },
+      "cs": 15152766325,
+      "ts": 1709416040117
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.6940436,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.00",
+        "bid1Size": "0.055",
+        "ask1Price": "61956.10",
+        "ask1Size": "0.074"
+      },
+      "cs": 15152766801,
+      "ts": 1709416041817
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.694547,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61955.30",
+        "bid1Size": "0.025",
+        "ask1Price": "61955.40",
+        "ask1Size": "0.351"
+      },
+      "cs": 15152766971,
+      "ts": 1709416042017
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.6951058,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61903.12",
+        "fundingRate": "0.000185",
+        "bid1Price": "61955.30",
+        "bid1Size": "0.025",
+        "ask1Price": "61955.40",
+        "ask1Size": "0.426"
+      },
+      "cs": 15152767005,
+      "ts": 1709416042216
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.920222,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.50",
+        "bid1Size": "0.011",
+        "ask1Price": "61953.60",
+        "ask1Size": "0.333"
+      },
+      "cs": 15152767206,
+      "ts": 1709416043316
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416053.787017,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.30",
+        "bid1Size": "0.023",
+        "ask1Price": "61953.40",
+        "ask1Size": "0.342"
+      },
+      "cs": 15152767336,
+      "ts": 1709416043616
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416053.7878878,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61903.22",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.30",
+        "bid1Size": "0.023",
+        "ask1Price": "61953.40",
+        "ask1Size": "0.267"
+      },
+      "cs": 15152767493,
+      "ts": 1709416044316
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416053.7885573,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61907.20",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.30",
+        "bid1Size": "0.023",
+        "ask1Price": "61953.40",
+        "ask1Size": "0.267"
+      },
+      "cs": 15152767962,
+      "ts": 1709416046417
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416062.7407923,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61907.82",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.30",
+        "bid1Size": "0.023",
+        "ask1Price": "61953.40",
+        "ask1Size": "0.010"
+      },
+      "cs": 15152768459,
+      "ts": 1709416048516
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416062.7417455,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61902.45",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.30",
+        "bid1Size": "0.048",
+        "ask1Price": "61953.40",
+        "ask1Size": "0.010"
+      },
+      "cs": 15152768904,
+      "ts": 1709416050616
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416062.7427955,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.50",
+        "bid1Size": "0.050",
+        "ask1Price": "61953.60",
+        "ask1Size": "0.019"
+      },
+      "cs": 15152769391,
+      "ts": 1709416052616
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9789636,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61902.47",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.50",
+        "bid1Size": "0.050",
+        "ask1Price": "61953.60",
+        "ask1Size": "0.009"
+      },
+      "cs": 15152769712,
+      "ts": 1709416054817
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9798646,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.60",
+        "bid1Size": "0.238",
+        "ask1Price": "61953.70",
+        "ask1Size": "0.029"
+      },
+      "cs": 15152769988,
+      "ts": 1709416056616
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9808,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.01",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.60",
+        "bid1Size": "0.199",
+        "ask1Price": "61953.70",
+        "ask1Size": "0.029"
+      },
+      "cs": 15152770092,
+      "ts": 1709416056916
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9817643,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.59",
+        "fundingRate": "0.000185",
+        "bid1Price": "61953.60",
+        "bid1Size": "0.160",
+        "ask1Price": "61953.70",
+        "ask1Size": "0.029"
+      },
+      "cs": 15152770633,
+      "ts": 1709416059017
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9827852,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61954.70",
+        "bid1Size": "0.050",
+        "ask1Price": "61954.80",
+        "ask1Size": "0.020"
+      },
+      "cs": 15152770721,
+      "ts": 1709416059217
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.9837885,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.071",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152771114,
+      "ts": 1709416060717
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.986384,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.49",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.071",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152771265,
+      "ts": 1709416061117
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0137079,
+    "data": {
+      "success": true,
+      "ret_msg": "pong",
+      "conn_id": "b2b9a2d4-2d2f-4169-aeb7-22091fea5655",
+      "req_id": "",
+      "op": "ping"
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.014835,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.51",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.063",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152771949,
+      "ts": 1709416063216
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0159492,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.58",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.063",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152772952,
+      "ts": 1709416067416
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0171123,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.61",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.013",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152773480,
+      "ts": 1709416069516
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0183077,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61911.39",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.013",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152774418,
+      "ts": 1709416073716
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 61842.56,
+    "timestamp": 1709416093.1133773,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "-0.011216",
+        "indexPrice": "61904.83",
+        "fundingRate": "0.000185",
+        "bid1Price": "61956.10",
+        "bid1Size": "0.013",
+        "ask1Price": "61956.20",
+        "ask1Size": "0.322"
+      },
+      "cs": 15152774847,
+      "ts": 1709416075817
+    }
+  }
+]

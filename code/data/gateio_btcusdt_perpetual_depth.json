@@ -1,0 +1,739 @@
+[
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416040.4786487,
+    "data": {
+      "exchange": "gateio",
+      "instrument": "btcusdt",
+      "insType": "perpetual",
+      "response": {
+        "label": "TOO_BIG",
+        "message": "limit 300"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.60833,
+    "data": {
+      "time": 1709416040,
+      "time_ms": 0,
+      "channel": "futures.order_book_update",
+      "event": "subscribe",
+      "payload": [
+        "BTC_USD",
+        "1000ms"
+      ],
+      "result": {
+        "status": "success"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416047.6087117,
+    "data": {
+      "time": 1709416041,
+      "time_ms": 1709416041174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416040579,
+        "s": "BTC_USD",
+        "U": 111193073,
+        "u": 111193073,
+        "b": [
+          {
+            "p": "29082.1",
+            "s": 27
+          },
+          {
+            "p": "18203.5",
+            "s": 1775942
+          },
+          {
+            "p": "9800",
+            "s": 870
+          },
+          {
+            "p": "7500.1",
+            "s": 4000
+          },
+          {
+            "p": "29339.5",
+            "s": 2
+          },
+          {
+            "p": "2800",
+            "s": 100
+          },
+          {
+            "p": "7680",
+            "s": 1
+          },
+          {
+            "p": "5500",
+            "s": 10
+          },
+          {
+            "p": "29340.5",
+            "s": 15
+          },
+          {
+            "p": "29204.4",
+            "s": 14
+          },
+          {
+            "p": "7200.1",
+            "s": 10
+          },
+          {
+            "p": "7000",
+            "s": 1000
+          },
+          {
+            "p": "3211",
+            "s": 10
+          },
+          {
+            "p": "3068",
+            "s": 7392
+          },
+          {
+            "p": "3052",
+            "s": 13777
+          },
+          {
+            "p": "2817",
+            "s": 3000
+          },
+          {
+            "p": "29348.8",
+            "s": 5
+          },
+          {
+            "p": "7060.2",
+            "s": 100
+          },
+          {
+            "p": "16600",
+            "s": 271
+          },
+          {
+            "p": "12365.1",
+            "s": 356237
+          },
+          {
+            "p": "8800",
+            "s": 885
+          },
+          {
+            "p": "6980",
+            "s": 730
+          },
+          {
+            "p": "29314.5",
+            "s": 26
+          },
+          {
+            "p": "9603",
+            "s": 160000
+          },
+          {
+            "p": "9501",
+            "s": 10
+          },
+          {
+            "p": "9388",
+            "s": 20
+          },
+          {
+            "p": "7500.3",
+            "s": 12000
+          },
+          {
+            "p": "29330.6",
+            "s": 4
+          },
+          {
+            "p": "3080",
+            "s": 40
+          },
+          {
+            "p": "3011",
+            "s": 10
+          },
+          {
+            "p": "29359.1",
+            "s": 23
+          },
+          {
+            "p": "18205",
+            "s": 64260
+          },
+          {
+            "p": "10666",
+            "s": 15471
+          },
+          {
+            "p": "6882.7",
+            "s": 200000
+          },
+          {
+            "p": "6000",
+            "s": 10
+          },
+          {
+            "p": "5000",
+            "s": 10
+          },
+          {
+            "p": "4580",
+            "s": 10
+          },
+          {
+            "p": "2617",
+            "s": 3000
+          },
+          {
+            "p": "29190.6",
+            "s": 5
+          },
+          {
+            "p": "29130.5",
+            "s": 25
+          },
+          {
+            "p": "10222",
+            "s": 211421
+          },
+          {
+            "p": "4000",
+            "s": 110
+          },
+          {
+            "p": "3160",
+            "s": 10000
+          },
+          {
+            "p": "2717",
+            "s": 3000
+          },
+          {
+            "p": "29143.3",
+            "s": 12
+          },
+          {
+            "p": "7045",
+            "s": 730
+          },
+          {
+            "p": "5852",
+            "s": 150000
+          },
+          {
+            "p": "29134.3",
+            "s": 4
+          },
+          {
+            "p": "4101",
+            "s": 3763
+          },
+          {
+            "p": "3373",
+            "s": 1000
+          },
+          {
+            "p": "3000",
+            "s": 70797
+          },
+          {
+            "p": "29279.1",
+            "s": 5
+          },
+          {
+            "p": "8000",
+            "s": 20
+          },
+          {
+            "p": "7280.2",
+            "s": 727
+          },
+          {
+            "p": "6536.4",
+            "s": 100000
+          },
+          {
+            "p": "6382.7",
+            "s": 1000
+          },
+          {
+            "p": "5280",
+            "s": 50
+          },
+          {
+            "p": "3050",
+            "s": 99955
+          },
+          {
+            "p": "29114.6",
+            "s": 26
+          },
+          {
+            "p": "29199.3",
+            "s": 6
+          },
+          {
+            "p": "18205.1",
+            "s": 85163
+          },
+          {
+            "p": "3765",
+            "s": 12048
+          },
+          {
+            "p": "3611",
+            "s": 10000
+          },
+          {
+            "p": "3500",
+            "s": 10
+          },
+          {
+            "p": "3254",
+            "s": 100
+          },
+          {
+            "p": "29322.3",
+            "s": 5
+          },
+          {
+            "p": "29069.5",
+            "s": 6
+          },
+          {
+            "p": "12333",
+            "s": 162576
+          },
+          {
+            "p": "9250",
+            "s": 120
+          },
+          {
+            "p": "6937.2",
+            "s": 100
+          },
+          {
+            "p": "4193.4",
+            "s": 10
+          },
+          {
+            "p": "2811",
+            "s": 15000
+          },
+          {
+            "p": "29128",
+            "s": 16
+          },
+          {
+            "p": "18203.4",
+            "s": 37962
+          },
+          {
+            "p": "7400",
+            "s": 1000
+          },
+          {
+            "p": "4100",
+            "s": 50000
+          },
+          {
+            "p": "29198.6",
+            "s": 15
+          }
+        ],
+        "a": [
+          {
+            "p": "29504.7",
+            "s": 8
+          },
+          {
+            "p": "29529.9",
+            "s": 27
+          },
+          {
+            "p": "29570.3",
+            "s": 7
+          },
+          {
+            "p": "29575.2",
+            "s": 1
+          },
+          {
+            "p": "29580.7",
+            "s": 13
+          },
+          {
+            "p": "29421.4",
+            "s": 20
+          },
+          {
+            "p": "29458.2",
+            "s": 24
+          },
+          {
+            "p": "29522",
+            "s": 2
+          },
+          {
+            "p": "29565",
+            "s": 9
+          },
+          {
+            "p": "29573.9",
+            "s": 1
+          },
+          {
+            "p": "35000",
+            "s": 985332
+          },
+          {
+            "p": "29418.5",
+            "s": 11
+          },
+          {
+            "p": "29480.3",
+            "s": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416062.4761577,
+    "data": {
+      "time": 1709416048,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416062.4771671,
+    "data": {
+      "time": 1709416051,
+      "time_ms": 1709416051174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416050514,
+        "s": "BTC_USD",
+        "U": 111193074,
+        "u": 111193074,
+        "b": [
+          {
+            "p": "29314.5",
+            "s": 0
+          }
+        ],
+        "a": []
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.3808305,
+    "data": {
+      "time": 1709416054,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416073.382149,
+    "data": {
+      "time": 1709416056,
+      "time_ms": 1709416056174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416055465,
+        "s": "BTC_USD",
+        "U": 111193075,
+        "u": 111193075,
+        "b": [
+          {
+            "p": "29198.6",
+            "s": 15
+          },
+          {
+            "p": "18205",
+            "s": 64260
+          },
+          {
+            "p": "9501",
+            "s": 10
+          },
+          {
+            "p": "29206",
+            "s": 12
+          },
+          {
+            "p": "5852",
+            "s": 150000
+          }
+        ],
+        "a": []
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.020521,
+    "data": {
+      "time": 1709416062,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0217,
+    "data": {
+      "time": 1709416063,
+      "time_ms": 1709416063174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416062984,
+        "s": "BTC_USD",
+        "U": 111193076,
+        "u": 111193077,
+        "b": [
+          {
+            "p": "5852",
+            "s": 150000
+          },
+          {
+            "p": "29210.7",
+            "s": 30
+          },
+          {
+            "p": "29199.3",
+            "s": 0
+          },
+          {
+            "p": "29198.6",
+            "s": 15
+          },
+          {
+            "p": "18205",
+            "s": 64260
+          },
+          {
+            "p": "9501",
+            "s": 10
+          }
+        ],
+        "a": []
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416087.0229805,
+    "data": {
+      "time": 1709416072,
+      "time_ms": 1709416072175,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416071358,
+        "s": "BTC_USD",
+        "U": 111193078,
+        "u": 111193078,
+        "b": [
+          {
+            "p": "29359.1",
+            "s": 0
+          }
+        ],
+        "a": []
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416093.6328456,
+    "data": {
+      "time": 1709416077,
+      "time_ms": 0,
+      "channel": "",
+      "event": "",
+      "error": {
+        "code": 1,
+        "message": "request payload does not follow json schema"
+      },
+      "result": {
+        "status": "fail"
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416093.634181,
+    "data": {
+      "time": 1709416081,
+      "time_ms": 1709416081174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416080505,
+        "s": "BTC_USD",
+        "U": 111193079,
+        "u": 111193079,
+        "b": [
+          {
+            "p": "29243.5",
+            "s": 2
+          },
+          {
+            "p": "29198.6",
+            "s": 15
+          },
+          {
+            "p": "18205",
+            "s": 64260
+          },
+          {
+            "p": "9501",
+            "s": 10
+          },
+          {
+            "p": "5852",
+            "s": 150000
+          }
+        ],
+        "a": []
+      }
+    }
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "depth",
+    "btc_price": 61842.56,
+    "timestamp": 1709416093.6355765,
+    "data": {
+      "time": 1709416087,
+      "time_ms": 1709416087174,
+      "channel": "futures.order_book_update",
+      "event": "update",
+      "result": {
+        "t": 1709416086668,
+        "s": "BTC_USD",
+        "U": 111193080,
+        "u": 111193081,
+        "b": [
+          {
+            "p": "29085.4",
+            "s": 23
+          },
+          {
+            "p": "18205.1",
+            "s": 85163
+          },
+          {
+            "p": "9603",
+            "s": 160000
+          },
+          {
+            "p": "6000",
+            "s": 10
+          }
+        ],
+        "a": [
+          {
+            "p": "29529.9",
+            "s": 0
+          }
+        ]
+      }
+    }
+  }
+]

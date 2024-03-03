@@ -841,12 +841,7 @@ AaWS = [
           'obj':'trades', 
           'updateSpeed' : 0, 
           'url' : "wss://fx-ws-testnet.gateio.ws/v4/ws/btc",
-          'msg' : {
-                        "time": int(time.time()),
-                        "channel": "futures.trades",
-                        "event": "subscribe",  
-                        "payload": ["BTC_USDT"]
-                    }
+          'msg' : {"event": "subscribe", "channel": "futures.trades", "payload": ["BTC_USD"], "time": int(time.time())}
         },
         {
           "type" : "websocket",
@@ -1253,7 +1248,7 @@ AaWS = [
                         "time": int(time.time()),
                         "channel": "futures.order_book_update",
                         "event": "subscribe",  
-                        "payload": ["BTC_USDT", "1000ms"]
+                        "payload": ["BTC_USD", "1000ms"]
                     }
 
         },
@@ -1555,7 +1550,7 @@ AaWS = [
           "msg" : {
               "op": 
               "subscribe","args": [
-                  "liquidation.BTCUSD"
+                  "liquidation.BTCPERP"
                   ]
               }
         },
