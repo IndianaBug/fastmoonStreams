@@ -363,6 +363,7 @@ AaWS = [
         "obj":"fundingOI", 
         "instrument": "btcusdt", 
         "updateSpeed":1500, 
+        "params" : {},
         "url" : "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
     },

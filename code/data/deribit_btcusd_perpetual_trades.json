@@ -528,5 +528,24 @@
       "usDiff": 130,
       "testnet": true
     }
+  },
+  {
+    "exchange": "deribit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 66517.13,
+    "timestamp": 1709576049.5134199,
+    "data": {
+      "jsonrpc": "2.0",
+      "id": 8147923161,
+      "result": [
+        "trades.BTC-PERPETUAL.100ms"
+      ],
+      "usIn": 1709576049513514,
+      "usOut": 1709576049513754,
+      "usDiff": 240,
+      "testnet": true
+    }
   }
 ]

@@ -1573,5 +1573,79 @@
       "cs": 15208313146,
       "ts": 1709570535116
     }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.24944,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "snapshot",
+      "data": {
+        "symbol": "BTCPERP",
+        "tickDirection": "MinusTick",
+        "price24hPcnt": "0.06011",
+        "lastPrice": "66627.50",
+        "prevPrice24h": "62849.60",
+        "highPrice24h": "67687.30",
+        "lowPrice24h": "62347.70",
+        "prevPrice1h": "66717.50",
+        "markPrice": "66627.50",
+        "indexPrice": "66597.24",
+        "openInterest": "821.89",
+        "openInterestValue": "54760475.98",
+        "turnover24h": "100082021.8509",
+        "volume24h": "1545.2480",
+        "nextFundingTime": "1709596800000",
+        "fundingRate": "0.000664",
+        "bid1Price": "66681.90",
+        "bid1Size": "0.025",
+        "ask1Price": "66683.50",
+        "ask1Size": "0.021"
+      },
+      "cs": 15212084036,
+      "ts": 1709576049917
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.252409,
+    "data": {
+      "topic": "tickers.BTCPERP",
+      "type": "delta",
+      "data": {
+        "symbol": "BTCPERP",
+        "price24hPcnt": "0.06011",
+        "fundingRate": "0.000664",
+        "bid1Price": "66683.30",
+        "bid1Size": "0.026",
+        "ask1Price": "66683.50",
+        "ask1Size": "0.021"
+      },
+      "cs": 15212084163,
+      "ts": 1709576050117
+    }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.2555127,
+    "data": {
+      "success": true,
+      "ret_msg": "",
+      "conn_id": "979f30cc-255e-46fe-867c-08bdc84b2c14",
+      "req_id": "",
+      "op": "subscribe"
+    }
   }
 ]

@@ -793,5 +793,18 @@
       "channel": "push.ticker",
       "ts": 1709416075087
     }
+  },
+  {
+    "exchange": "mexc",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "fundingOI",
+    "btc_price": 66517.13,
+    "timestamp": 1709576049.9654639,
+    "data": {
+      "channel": "rs.sub.ticker",
+      "data": "success",
+      "ts": 1709576049825
+    }
   }
 ]

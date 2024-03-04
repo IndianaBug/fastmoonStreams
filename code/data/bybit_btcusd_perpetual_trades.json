@@ -73,5 +73,20 @@
       "req_id": "",
       "op": "subscribe"
     }
+  },
+  {
+    "exchange": "bybit",
+    "instrument": "btcusd",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.248612,
+    "data": {
+      "success": true,
+      "ret_msg": "",
+      "conn_id": "8fafb6ef-d3ea-4b5d-9b0a-411fa344fd0c",
+      "req_id": "",
+      "op": "subscribe"
+    }
   }
 ]

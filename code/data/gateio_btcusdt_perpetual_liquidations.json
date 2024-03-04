@@ -94,5 +94,14 @@
         "long_liq_usd": 0
       }
     ]
+  },
+  {
+    "exchange": "gateio",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "liquidations",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.5031664,
+    "data": []
   }
 ]

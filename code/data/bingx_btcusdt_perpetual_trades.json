@@ -950,5 +950,97 @@
         }
       ]
     }
+  },
+  {
+    "exchange": "bingx",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.2439342,
+    "data": {
+      "id": "z0m1i1Zv1mD3mxjifDPS",
+      "code": 0,
+      "msg": "",
+      "dataType": "",
+      "data": null
+    }
+  },
+  {
+    "exchange": "bingx",
+    "instrument": "btcusdt",
+    "insType": "perpetual",
+    "obj": "trades",
+    "btc_price": 66517.13,
+    "timestamp": 1709576051.2459548,
+    "data": {
+      "code": 0,
+      "dataType": "BTC-USDT@trade",
+      "data": [
+        {
+          "q": "0.2209",
+          "p": "66614.6",
+          "T": 1709576049845,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.2000",
+          "p": "66620.2",
+          "T": 1709576049789,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.0089",
+          "p": "66619.2",
+          "T": 1709576049788,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.2234",
+          "p": "66608.2",
+          "T": 1709576049672,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.0013",
+          "p": "66610.8",
+          "T": 1709576049672,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.0052",
+          "p": "66605.9",
+          "T": 1709576049521,
+          "m": false,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.0078",
+          "p": "66606.3",
+          "T": 1709576049341,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.0115",
+          "p": "66605.9",
+          "T": 1709576049069,
+          "m": true,
+          "s": "BTC-USDT"
+        },
+        {
+          "q": "0.2254",
+          "p": "66605.5",
+          "T": 1709576049068,
+          "m": true,
+          "s": "BTC-USDT"
+        }
+      ]
+    }
   }
 ]
