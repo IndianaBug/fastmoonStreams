@@ -357,15 +357,31 @@ AaWS = [
     ###
     {
         "type" : "api",
-        "id" : "gateio_perpetual_btcusdt_fundingOI",
+        "id" : "gateio_perpetual_btcusdt_fundingRate",
         "exchange":"gateio", 
         "insType":"perpetual", 
         "obj":"fundingOI", 
         "instrument": "btcusdt", 
-        "updateSpeed":3, 
+        "updateSpeed":1500, 
         "url" : "https://api.gateio.ws/api/v4/futures/usdt/contracts/BTC_USDT",
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
     },
+    {  # https://www.gate.io/docs/developers/apiv4/en/#retrieve-liquidation-history
+        "type" : "api",
+        "id" : "gateio_perpetual_btcusdt_OI",
+        "exchange":"gateio", 
+        "insType":"perpetual", 
+        "obj":"OI", 
+        "instrument": "btcusdt", 
+        "updateSpeed":3, 
+        "url" : "https://api.gateio.ws/api/v4/futures/usdt/contract_stats",
+        "params" : {
+                    "contract" : "BTC_USDT",
+                    "from" : int(time.time()) - 20,
+                    "to" : int(time.time())
+                        },
+        "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    }, 
     {
         "type" : "api",
         "id" : "kucoin_perpetual_btcusdt_fundingOI",

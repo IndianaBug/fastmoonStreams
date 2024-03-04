@@ -154,12 +154,15 @@ def get_initial_books(data):
     except:
         pass
     books_dic = {}
-    for url in fu:
-        id = url["id"]
-        type_ = url["type"]
-        obj = url["obj"]
-        exchange = url["exchange"]
-        if obj == "depth" and type_ == "websocket" and exchange not in ["htx", "deribit"]:
-            books = books_snapshot(id, snaplength=1000)
-            books_dic[id] = books
-    return books_dic
+    try:
+        for url in fu:
+            id = url["id"]
+            type_ = url["type"]
+            obj = url["obj"]
+            exchange = url["exchange"]
+            if obj == "depth" and type_ == "websocket" and exchange not in ["htx", "deribit"]:
+                books = books_snapshot(id, snaplength=1000)
+                books_dic[id] = books
+        return books_dic
+    except:
+        return {}

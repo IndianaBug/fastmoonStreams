@@ -365,7 +365,7 @@ class btcproducer():
 
 streams = [
     # ["deribit", "perpetual", "btcusd"],
-    # ["gateio", "perpetual", "btcusdt"],
+    ["gateio", "perpetual", "btcusdt"],
     # ["gateio", "spot", "btcusdt"],
     # ["htx", "perpetual", "btcusdt"],
     # ["htx", "spot", "btcusdt"],
@@ -378,7 +378,7 @@ streams = [
     # ["kucoin", "perpetual", "btcusdt"],
     # ["kucoin", "spot", "btcusdt"],
     # ["bybit", "spot", "btcusdc"],
-    ["bybit", "perpetual", "btcusd"],
+    # ["bybit", "perpetual", "btcusd"],
 
 ]
 
@@ -386,7 +386,7 @@ data = AllStreamsByInstrumentS(streams)
 from urls import AaWS
 from utilis import get_dict_by_key_value
 # bybit_perpetual_btcusd_liquidations
-# data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_OI")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)
