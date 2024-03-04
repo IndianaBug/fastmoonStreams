@@ -8,10 +8,12 @@ from aiokafka.errors import KafkaStorageError
 import ssl
 import codecs
 import io
-from utilis2 import AllStreamsByInstrumentS, books_snapshot, get_initial_books
+from utilis2 import AllStreamsByInstrumentS, get_dict_by_key_value, get_initial_books
 from utilis import bingx_AaWSnap_aiohttp 
 import aiohttp
 import requests
+import httpx
+
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -24,6 +26,10 @@ class btcproducer():
     def __init__ (self, host, data):
         self.host = host
         self.api = [x for x in data if x["type"] == "api" and x["obj"] == "depth" and x["exchange"] == "bingx"] + [x for x in data if x["type"] == "api" and x["obj"] != "depth"]
+        
+        if "gateio_perpetual_btcusdt_depth" in [x["id"] for x in data]:
+            self.api.append(get_dict_by_key_value([x for x in data if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_depth"))
+
         self.ws = [x for x in data if x["type"] == "websocket"]
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
         self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.
@@ -71,6 +77,7 @@ class btcproducer():
                 print(message)
         except asyncio.exceptions.TimeoutError:
             print("WebSocket operation timed out")
+            
 
     async def websocket_connection(self, connection_data, producer, topic):
 
@@ -222,6 +229,24 @@ class btcproducer():
                 
                 await asyncio.sleep(info["updateSpeed"])
 
+    async def fetch_data_gate(self, info):
+        url = info["url"]
+        headers = info["headers"]
+        params = info["params"]
+
+        while True:
+            try:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(url, params=params, headers=headers)
+                    response.raise_for_status()
+                    data = response.json()
+                    print(f"Received data: {data}")
+
+            except httpx.HTTPError as e:
+                print(f"HTTP error: {e}")
+
+            # Optionally, introduce a delay before the next fetch
+            await asyncio.sleep(5)  # 5 seconds delay (adjust as needed)
 
     async def aiohttp_fetcher(self, info):
         exchange = info["exchange"]
@@ -251,15 +276,26 @@ class btcproducer():
                 with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'w') as file:
                     json.dump(d, file, indent=2)
                 await asyncio.sleep(info["updateSpeed"])
+
+
+
         if exchange == "gateio" and insType == "perpetual":
             while True:
                 async with aiohttp.ClientSession() as session:
-                    if id in ["gateio_perpetual_btcusdt_liquidations","gateio_perpetual_btcusdt_trades"]:
-                        headers = info["headers"]
-                        headers["from"] = int(time.time()) - 10
-                        headers["to"] = int(time.time()) 
+
+                    headers = info["headers"]
+                    headers["from"] = f"{int(time.time()) - 10}"
+                    headers["to"] = f"{int(time.time())}" 
+
                     async with session.get(info["url"], headers=info["headers"], params=info["params"]) as response:
+                        
                         data =  await response.text()
+
+                        # Check for an error in the received data and raise an exception if needed
+                        if "error" in data:
+                            raise aiohttp.ClientResponseError(status=400, message="Error in websocket data")
+
+                        
                         try:
                             with open(f'data/{info["exchange"]}_{info["instrument"]}_{info["insType"]}_{info["obj"]}.json', 'r') as json_file:
                                 d = json.load(json_file)
@@ -315,10 +351,12 @@ class btcproducer():
         producer = ''
         topic = ''
 
+        print(self.api)
+
         tasks = []
 
         for info in self.ws:
-            tasks.append(asyncio.ensure_future(self.websocket_connection(info, producer, topic)))
+            tasks.append(asyncio.ensure_future(self.main_gate(info, producer, topic)))
 
         for info in self.api:
             if info["exchange"] != "deribit":
@@ -351,7 +389,9 @@ data = AllStreamsByInstrumentS(streams)
 from urls import AaWS
 from utilis import get_dict_by_key_value
 # bybit_perpetual_btcusd_liquidations
-data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_trades")]
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_depth")]
+
+print(data)
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

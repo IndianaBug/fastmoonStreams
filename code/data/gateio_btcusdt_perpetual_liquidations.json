@@ -4,8 +4,8 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433449.2843642,
+    "btc_price": 65141.09,
+    "timestamp": 1709550505.2862067,
     "data": []
   },
   {
@@ -13,105 +13,8 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433453.1992817,
+    "btc_price": 65141.09,
+    "timestamp": 1709550516.2107544,
     "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433457.1198733,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433461.0403597,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433464.9581234,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433468.8857708,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433472.8034427,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433476.7132883,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433480.628535,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433484.5462003,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61705.5,
-    "timestamp": 1709433488.4684575,
-    "data": []
-  },
-  {
-    "exchange": "gateio",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "liquidations",
-    "btc_price": 61842.56,
-    "timestamp": 1709416040.487916,
-    "data":   {
-      "time": 1548654951,
-      "contract": "BTC_USDT",
-      "size": 600,
-      "order_price": "3405",
-      "fill_price": "3424",
-      "left": 0
-    }
   }
 ]

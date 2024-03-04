@@ -147,7 +147,7 @@ AaWS = [
         "instrument": "btcusdt",
         "updateSpeed":10,
         "url" : "https://api.gateio.ws/api/v4/futures/usdt/order_book",
-        "params" : {"contract" : "BTC_USDT", "limit" : 300},
+        "params" : {"contract" : "BTC_USDT", "limit" : "300"},
         "headers" : {'Accept': 'application/json', 'Content-Type': 'application/json'}          
     },
     {
@@ -404,7 +404,7 @@ AaWS = [
         "id" : "gateio_perpetual_btcusdt_trades",
         "exchange":"gateio", 
         "insType":"perpetual", 
-        "obj":"liquidations", 
+        "obj":"trades", 
         "instrument": "btcusdt", 
         "updateSpeed":10, 
         "url" : "https://api.gateio.ws/api/v4/futures/usdt/trades",
