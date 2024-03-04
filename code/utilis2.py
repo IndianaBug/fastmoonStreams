@@ -4,7 +4,7 @@ import asyncio
 from urllib.parse import urlencode
 import requests
 import json
-from utilis import bingx_AaWSnap, build_jwt_api, websocket_fetcher, get_dict_by_key_value
+from utilis import bingx_AaWSnap, build_jwt_api, websocket_fetcher, get_dict_by_key_value, move_dict_to_beginning
 from urls import AaWS
 import concurrent.futures
 
@@ -68,6 +68,7 @@ def books_snapshot(id, snaplength, maximum_retries=10):
         # def run_event_loop():
         loop = asyncio.get_event_loop()
         asyncio.set_event_loop(loop)
+        headers = stream_data.get("headers")
         try:
             response = loop.run_until_complete(websocket_fetcher(url, headers))
         finally:
@@ -135,7 +136,7 @@ def  AllStreamsExceptInstrumentS(list_of_streams):
     return filtered_list 
 
 def get_depth_sockets(urls):
-    exchanges_for_books = ["binance", "bybit", "coinbase", "kucoin", "mexc", "bitget", "deribit", "gateio"] #gateio
+    exchanges_for_books = ["binance", "bybit", "coinbase", "kucoin", "mexc", "bitget", "gateio"] 
     filtered_urls = []
     for url in urls:
         exchange = url["exchange"]
@@ -147,6 +148,11 @@ def get_depth_sockets(urls):
 
 def get_initial_books(data):
     fu = get_depth_sockets(data)
+    try:
+        fu = move_dict_to_beginning(fu, "kucoin_spot_btcusdt_depth")       # Put those at the beggining
+        fu = move_dict_to_beginning(fu, "kucoin_perpetual_btcusdt_depth")
+    except:
+        pass
     books_dic = {}
     for url in fu:
         id = url["id"]

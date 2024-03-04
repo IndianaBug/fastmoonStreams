@@ -9,7 +9,7 @@ import ssl
 import codecs
 import io
 from utilis2 import AllStreamsByInstrumentS, get_dict_by_key_value, get_initial_books
-from utilis import bingx_AaWSnap_aiohttp 
+from utilis import bingx_AaWSnap_aiohttp
 import aiohttp
 import requests
 import httpx
@@ -32,8 +32,8 @@ class btcproducer():
 
         self.ws = [x for x in data if x["type"] == "websocket"]
         self.btc_price = float(requests.get("https://api.binance.com/api/v3/trades?symbol=BTCUSDT").json()[0]["price"])
-        self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.
-                                                        # Fetch this now and delete later
+        self.initial_books = get_initial_books(self.ws) # Some websockets require to fetch books via API for the first time. Some apis can only be fetched via websocket method.# Fetch this now and delete later
+        print(self.initial_books.keys())
 
     async def keep_alive(self, websocket, exchange, id=None, ping_interval=30):
         while True:
@@ -108,7 +108,7 @@ class btcproducer():
                     while True:
                         try:
 
-                            if count == 1 and exchange in ["kucoin", "deribit", "bitget", "bybit", "mexc", "gateio"] and obj == "depth":
+                            if count == 1 and exchange in ["binance", "bybit", "coinbase", "kucoin", "mexc", "bitget", "gateio"]  and obj == "depth":
                                 message = self.initial_books.pop(id, None)
                                 message = message.get("response")
                                 count += 1
@@ -116,7 +116,6 @@ class btcproducer():
                                     message = json.loads(message)
                             else:  
                                 message = await websocket.recv()
-                                print(message)   
                                 # Decompressing and dealing with pings
                                 if exchange == "htx":
                                     try:
@@ -351,12 +350,10 @@ class btcproducer():
         producer = ''
         topic = ''
 
-        print(self.api)
-
         tasks = []
 
         for info in self.ws:
-            tasks.append(asyncio.ensure_future(self.main_gate(info, producer, topic)))
+            tasks.append(asyncio.ensure_future(self.websocket_connection(info, producer, topic)))
 
         for info in self.api:
             if info["exchange"] != "deribit":
@@ -368,8 +365,8 @@ class btcproducer():
 
 streams = [
     # ["deribit", "perpetual", "btcusd"],
-    ["gateio", "perpetual", "btcusdt"],
-    ["gateio", "spot", "btcusdt"],
+    # ["gateio", "perpetual", "btcusdt"],
+    # ["gateio", "spot", "btcusdt"],
     # ["htx", "perpetual", "btcusdt"],
     # ["htx", "spot", "btcusdt"],
     # ["bingx", "perpetual", "btcusdt"],
@@ -381,7 +378,7 @@ streams = [
     # ["kucoin", "perpetual", "btcusdt"],
     # ["kucoin", "spot", "btcusdt"],
     # ["bybit", "spot", "btcusdc"],
-    # ["bybit", "perpetual", "btcusd"],
+    ["bybit", "perpetual", "btcusd"],
 
 ]
 
@@ -389,9 +386,7 @@ data = AllStreamsByInstrumentS(streams)
 from urls import AaWS
 from utilis import get_dict_by_key_value
 # bybit_perpetual_btcusd_liquidations
-data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_depth")]
-
-print(data)
+# data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "deribit_perpetual_btcusd_depth")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)

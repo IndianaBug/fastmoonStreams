@@ -241,4 +241,10 @@ def retrieve_dictionary_by2_values(list_of_dicts, key1, value1, key2, value2):
                 return dictionary
     return None  
 
-
+def move_dict_to_beginning(lst, target_id):
+    for i, dictionary in enumerate(lst):
+        if dictionary['id'] == target_id and dictionary['type'] == "api":
+            # Pop the dictionary and insert it at the beginning
+            lst.insert(0, lst.pop(i))
+            break
+        return lst
