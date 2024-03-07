@@ -383,10 +383,10 @@ streams = [
 ]
 
 data = AllStreamsByInstrumentS(streams)
-# from urls import AaWS
-# from utilis import get_dict_by_key_value
-# # bybit_perpetual_btcusd_liquidations
-# data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "api"], "id", "gateio_perpetual_btcusdt_OI")]
+from urls import AaWS
+from utilis import get_dict_by_key_value
+# bybit_perpetual_btcusd_liquidations
+data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "kucoin_spot_btcusdt_depth")]
 
 if __name__ == '__main__':
     client = btcproducer('localhost:9092', data)
