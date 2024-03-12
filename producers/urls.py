@@ -5,16 +5,6 @@ deribit_ws_connId_heartbeat = generate_random_integer(10)
 deribit_ws_connId_ticker = generate_random_integer(10)
 
 AaWS = [
-    # updateSpeed in seconds
-
-    # Binance APIs : https://binance-docs.github.io/apidocs/spot/en/#change-log
-    #                 https://binance-docs.github.io/apidocs/futures/en/#change-log
-    #                 https://binance-docs.github.io/apidocs/delivery/en/#change-log
-    # OKEx APIs:     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-instruments
-    # Bybit APIs:    https://bybit-exchange.github.io/docs/v5/intro
-    # Deribit APIs:  https://docs.deribit.com/#deribit-api-v2-1-1
-    # Kucoin APIs :  https://www.kucoin.com/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-
-
     ###
     # Depth
     ###

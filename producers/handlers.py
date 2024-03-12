@@ -389,8 +389,10 @@ class APIClient():
     
 class booksFetcher():
 
-    def __init__ (self, books_data):
+    def __init__ (self, books_data, snaplength):
         pass
+
+
 
     def books_snapshot(self, id, snaplength, maximum_retries=10):
         """
