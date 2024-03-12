@@ -65,7 +65,6 @@ def books_snapshot(id, snaplength, maximum_retries=10):
         response = response.json()
     
     if exchange == "deribit":
-        # def run_event_loop():
         loop = asyncio.get_event_loop()
         asyncio.set_event_loop(loop)
         headers = stream_data.get("headers")
@@ -73,10 +72,6 @@ def books_snapshot(id, snaplength, maximum_retries=10):
             response = loop.run_until_complete(websocket_fetcher(url, headers))
         finally:
             loop.close()
-        # with concurrent.futures.ThreadPoolExecutor() as executor:
-        #     future = executor.submit(run_event_loop)
-        #     result = future.result()
-        # response = json.loads(asyncio.get_event_loop().run_until_complete(websocket_fetcher(url, headers)))
 
     if exchange == 'bingx':
         path = stream_data["path"]
