@@ -67,6 +67,9 @@ class btcproducer():
                 if exchange == "gateio":
                     await asyncio.sleep(ping_interval - 25)
                     await websocket.send("ping")
+                if exchange == "bitget":
+                    await asyncio.sleep(ping_interval)
+                    await websocket.send("ping")
             except websockets.exceptions.ConnectionClosed:
                 print(f"Connection closed. Stopping keep-alive of {exchange}.")
                 break

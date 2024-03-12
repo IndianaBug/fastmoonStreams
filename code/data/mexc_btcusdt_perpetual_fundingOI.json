@@ -4,12 +4,12 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416042.7006423,
+    "btc_price": 68157.08,
+    "timestamp": 1710005752.8960435,
     "data": {
       "channel": "rs.sub.ticker",
       "data": "success",
-      "ts": 1709416039015
+      "ts": 1710005751279
     }
   },
   {
@@ -17,45 +17,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416047.2175558,
+    "btc_price": 68157.08,
+    "timestamp": 1710005753.567299,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61908.5,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61909.6,
-        "indexPrice": 61838,
-        "volume24": 372223025,
-        "amount24": 2315595426.39746,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416040098,
-        "bid1": 61908.5,
-        "ask1": 61908.8,
-        "holdVol": 45221589,
-        "riseFallValue": 73.9,
-        "fundingRate": 0.000576,
+        "lastPrice": 68230,
+        "riseFallRate": -0.0016,
+        "fairPrice": 68228.8,
+        "indexPrice": 68170.6,
+        "volume24": 366881307,
+        "amount24": 2510344287.7701,
+        "maxBidPrice": 74987.6,
+        "minAskPrice": 61353.5,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005751105,
+        "bid1": 68229.9,
+        "ask1": 68230,
+        "holdVol": 44967541,
+        "riseFallValue": -111.2,
+        "fundingRate": 0.00028,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.0011,
-          0.2109,
-          0.4566,
-          0.5571,
-          1.3991,
-          1.7731
+          -0.0016,
+          0.1034,
+          0.5026,
+          0.5526,
+          1.718,
+          2.4126
         ],
         "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0083,
-          0.0011
+          0.0053,
+          0.0007,
+          -0.0016
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416040098
+      "ts": 1710005751105
     }
   },
   {
@@ -63,45 +63,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416047.2179537,
+    "btc_price": 68157.08,
+    "timestamp": 1710005755.8058376,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61903.3,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61903.3,
-        "indexPrice": 61838.1,
-        "volume24": 372225200,
-        "amount24": 2315608892.79127,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416042085,
-        "bid1": 61903.3,
-        "ask1": 61903.4,
-        "holdVol": 45226991,
-        "riseFallValue": 68.7,
-        "fundingRate": 0.000576,
+        "lastPrice": 68230.1,
+        "riseFallRate": -0.0016,
+        "fairPrice": 68228.9,
+        "indexPrice": 68170.6,
+        "volume24": 366882698,
+        "amount24": 2510353777.22617,
+        "maxBidPrice": 74987.6,
+        "minAskPrice": 61353.5,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005753096,
+        "bid1": 68230.1,
+        "ask1": 68230.2,
+        "holdVol": 44970985,
+        "riseFallValue": -111.1,
+        "fundingRate": 0.00028,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.5569,
-          1.3989,
-          1.7729
+          -0.0016,
+          0.1034,
+          0.5026,
+          0.5526,
+          1.718,
+          2.4126
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.0011
+          0.0053,
+          0.0007,
+          -0.0016
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416042085
+      "ts": 1710005753096
     }
   },
   {
@@ -109,45 +109,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416053.9890862,
+    "btc_price": 68157.08,
+    "timestamp": 1710005758.0404265,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.5,
-        "riseFallRate": 0.001,
-        "fairPrice": 61902.4,
-        "indexPrice": 61838,
-        "volume24": 372226615,
-        "amount24": 2315617653.103,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416044094,
-        "bid1": 61900.4,
-        "ask1": 61900.6,
-        "holdVol": 45230315,
-        "riseFallValue": 65.9,
-        "fundingRate": 0.000576,
+        "lastPrice": 68239,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68233.3,
+        "indexPrice": 68175.5,
+        "volume24": 366883962,
+        "amount24": 2510362404.9992,
+        "maxBidPrice": 74993,
+        "minAskPrice": 61357.9,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005756084,
+        "bid1": 68240.4,
+        "ask1": 68240.7,
+        "holdVol": 44975618,
+        "riseFallValue": -102.2,
+        "fundingRate": 0.00028,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1035,
+          0.5028,
+          0.5528,
+          1.7184,
+          2.4131
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0055,
+          0.0008,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416044094
+      "ts": 1710005756084
     }
   },
   {
@@ -155,45 +155,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416053.989632,
+    "btc_price": 68157.08,
+    "timestamp": 1710005760.2878604,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.5,
-        "riseFallRate": 0.001,
-        "fairPrice": 61900.4,
-        "indexPrice": 61838,
-        "volume24": 372226821,
-        "amount24": 2315618925.77534,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416046158,
-        "bid1": 61900.4,
-        "ask1": 61900.5,
-        "holdVol": 45230315,
-        "riseFallValue": 65.9,
-        "fundingRate": 0.000576,
+        "lastPrice": 68240.7,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68234,
+        "indexPrice": 68177.7,
+        "volume24": 366887351,
+        "amount24": 2510385530.38554,
+        "maxBidPrice": 74995.4,
+        "minAskPrice": 61359.9,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005758091,
+        "bid1": 68241.5,
+        "ask1": 68241.6,
+        "holdVol": 44970985,
+        "riseFallValue": -100.5,
+        "fundingRate": 0.00028,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1036,
+          0.5028,
+          0.5528,
+          1.7184,
+          2.4132
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0055,
+          0.0008,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416046158
+      "ts": 1710005758091
     }
   },
   {
@@ -201,45 +201,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416062.8314428,
+    "btc_price": 68157.08,
+    "timestamp": 1710005762.5542545,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.5,
-        "riseFallRate": 0.001,
-        "fairPrice": 61900.4,
-        "indexPrice": 61838,
-        "volume24": 372230178,
-        "amount24": 2315639704.52069,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416049090,
-        "bid1": 61900.4,
-        "ask1": 61900.5,
-        "holdVol": 45234917,
-        "riseFallValue": 65.9,
-        "fundingRate": 0.000576,
+        "lastPrice": 68241.5,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68236.2,
+        "indexPrice": 68177.9,
+        "volume24": 366888120,
+        "amount24": 2510390776.79942,
+        "maxBidPrice": 74995.6,
+        "minAskPrice": 61360.1,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005760200,
+        "bid1": 68241.5,
+        "ask1": 68241.6,
+        "holdVol": 44975748,
+        "riseFallValue": -99.7,
+        "fundingRate": 0.00028,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1036,
+          0.5029,
+          0.5528,
+          1.7185,
+          2.4132
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0055,
+          0.0008,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416049090
+      "ts": 1710005760200
     }
   },
   {
@@ -247,45 +247,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416062.832157,
+    "btc_price": 68157.08,
+    "timestamp": 1710005764.7951553,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.4,
-        "riseFallRate": 0.001,
-        "fairPrice": 61900.5,
-        "indexPrice": 61838,
-        "volume24": 372230582,
-        "amount24": 2315642207.77688,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416051084,
-        "bid1": 61900.4,
-        "ask1": 61900.5,
-        "holdVol": 45235917,
-        "riseFallValue": 65.8,
-        "fundingRate": 0.000576,
+        "lastPrice": 68241.5,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68239.2,
+        "indexPrice": 68180.8,
+        "volume24": 366890582,
+        "amount24": 2510407580.60976,
+        "maxBidPrice": 74998.8,
+        "minAskPrice": 61362.7,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005762087,
+        "bid1": 68241.5,
+        "ask1": 68241.6,
+        "holdVol": 44980848,
+        "riseFallValue": -99.7,
+        "fundingRate": 0.000282,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1036,
+          0.5029,
+          0.5528,
+          1.7185,
+          2.4132
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0055,
+          0.0008,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416051084
+      "ts": 1710005762087
     }
   },
   {
@@ -293,45 +293,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416062.8329132,
+    "btc_price": 68157.08,
+    "timestamp": 1710005767.045754,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.4,
-        "riseFallRate": 0.001,
-        "fairPrice": 61900.5,
-        "indexPrice": 61838,
-        "volume24": 372230674,
-        "amount24": 2315642774.78507,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416053096,
-        "bid1": 61900.4,
-        "ask1": 61900.5,
-        "holdVol": 45236110,
-        "riseFallValue": 65.8,
-        "fundingRate": 0.000576,
+        "lastPrice": 68243,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68239.7,
+        "indexPrice": 68181.4,
+        "volume24": 366891685,
+        "amount24": 2510415106.44635,
+        "maxBidPrice": 74999.5,
+        "minAskPrice": 61363.2,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005765099,
+        "bid1": 68244.9,
+        "ask1": 68245,
+        "holdVol": 44981721,
+        "riseFallValue": -98.2,
+        "fundingRate": 0.000282,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1036,
+          0.5029,
+          0.5529,
+          1.7185,
+          2.4133
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0055,
+          0.0009,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416053096
+      "ts": 1710005765099
     }
   },
   {
@@ -339,472 +339,45 @@
     "instrument": "btcusdt",
     "insType": "perpetual",
     "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416074.0779953,
+    "btc_price": 68157.08,
+    "timestamp": 1710005769.2962646,
     "data": {
       "symbol": "BTC_USDT",
       "data": {
         "symbol": "BTC_USDT",
-        "lastPrice": 61900.4,
-        "riseFallRate": 0.001,
-        "fairPrice": 61900.5,
-        "indexPrice": 61838,
-        "volume24": 372230680,
-        "amount24": 2315642814.40135,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416055093,
-        "bid1": 61900.4,
-        "ask1": 61900.5,
-        "holdVol": 45236110,
-        "riseFallValue": 65.8,
-        "fundingRate": 0.000576,
+        "lastPrice": 68245.5,
+        "riseFallRate": -0.0014,
+        "fairPrice": 68239.8,
+        "indexPrice": 68181.4,
+        "volume24": 366892260,
+        "amount24": 2510419034.63005,
+        "maxBidPrice": 74999.5,
+        "minAskPrice": 61363.2,
+        "lower24Price": 67725.7,
+        "high24Price": 69447,
+        "timestamp": 1710005767118,
+        "bid1": 68245.5,
+        "ask1": 68245.6,
+        "holdVol": 44981738,
+        "riseFallValue": -95.7,
+        "fundingRate": 0.000282,
         "zone": "UTC+8",
         "riseFallRates": [
-          0.001,
-          0.2107,
-          0.4564,
-          0.5569,
-          1.3988,
-          1.7728
+          -0.0014,
+          0.1036,
+          0.5029,
+          0.5529,
+          1.7186,
+          2.4134
         ],
         "riseFallRatesOfTimezone": [
-          -0.0164,
-          -0.0084,
-          0.001
+          0.0056,
+          0.0009,
+          -0.0014
         ]
       },
       "channel": "push.ticker",
-      "ts": 1709416055093
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416074.0790093,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838,
-        "volume24": 372230780,
-        "amount24": 2315643430.93222,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416058093,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45236148,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416058093
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416074.0800517,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61904,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838,
-        "volume24": 372235044,
-        "amount24": 2315669831.74567,
-        "maxBidPrice": 68021.8,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416060101,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45237952,
-        "riseFallValue": 69.4,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416060101
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.2914445,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838.1,
-        "volume24": 372239290,
-        "amount24": 2315696111.23162,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416062095,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45248534,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416062095
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.293001,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838.1,
-        "volume24": 372239301,
-        "amount24": 2315696180.56406,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416064085,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45248534,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416064085
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.2944245,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61904,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61903.9,
-        "indexPrice": 61838.1,
-        "volume24": 372239306,
-        "amount24": 2315696212.75411,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416066094,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45248534,
-        "riseFallValue": 69.4,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416066094
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.2958663,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838.1,
-        "volume24": 372241960,
-        "amount24": 2315712642.07564,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416069091,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45255138,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416069091
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.2972329,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838.1,
-        "volume24": 372241969,
-        "amount24": 2315712699.02727,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416071100,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45255138,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416071100
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416077.2987595,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61903.9,
-        "indexPrice": 61838.1,
-        "volume24": 372242014,
-        "amount24": 2315712973.88062,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416073097,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45255138,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416073097
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 61842.56,
-    "timestamp": 1709416093.1341825,
-    "data": {
-      "symbol": "BTC_USDT",
-      "data": {
-        "symbol": "BTC_USDT",
-        "lastPrice": 61903.9,
-        "riseFallRate": 0.0011,
-        "fairPrice": 61904,
-        "indexPrice": 61838.1,
-        "volume24": 372242021,
-        "amount24": 2315713020.92762,
-        "maxBidPrice": 68021.9,
-        "minAskPrice": 55654.2,
-        "lower24Price": 61607.6,
-        "high24Price": 62959.5,
-        "timestamp": 1709416075087,
-        "bid1": 61903.9,
-        "ask1": 61904,
-        "holdVol": 45255142,
-        "riseFallValue": 69.3,
-        "fundingRate": 0.000576,
-        "zone": "UTC+8",
-        "riseFallRates": [
-          0.0011,
-          0.2108,
-          0.4565,
-          0.557,
-          1.399,
-          1.7729
-        ],
-        "riseFallRatesOfTimezone": [
-          -0.0163,
-          -0.0084,
-          0.0011
-        ]
-      },
-      "channel": "push.ticker",
-      "ts": 1709416075087
-    }
-  },
-  {
-    "exchange": "mexc",
-    "instrument": "btcusdt",
-    "insType": "perpetual",
-    "obj": "fundingOI",
-    "btc_price": 66517.13,
-    "timestamp": 1709576049.9654639,
-    "data": {
-      "channel": "rs.sub.ticker",
-      "data": "success",
-      "ts": 1709576049825
+      "ts": 1710005767118
     }
   }
 ]

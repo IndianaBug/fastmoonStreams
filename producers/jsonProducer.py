@@ -3,7 +3,6 @@ import gzip
 import time
 import websockets 
 import asyncio
-from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaStorageError
 import ssl
 import codecs
@@ -19,9 +18,7 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-# Bingx Websocket for Depth is useless, do API calls instead as it contains more as much as 1000 peaces
-
-class btcproducer():
+class jsonBTCproducer():
 
     def __init__ (self, host, data):
         self.host = host
@@ -389,7 +386,7 @@ from utilis import get_dict_by_key_value
 data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "mexc_perpetual_btcusdt_fundingOI")]
 
 if __name__ == '__main__':
-    client = btcproducer('localhost:9092', data)
+    client = jsonBTCproducer('localhost:9092', data)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(client.main())
