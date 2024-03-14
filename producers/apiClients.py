@@ -486,6 +486,8 @@ class coinbase(CommunicationsManager):
         response = CommunicationsManager.make_httpRequest(connection_data)
         return response
 
+# Fix instType Kucoin
+
 class kucoin(CommunicationsManager):
     """
         Abstraction of kucoin api calls
