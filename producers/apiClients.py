@@ -21,6 +21,15 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+# All symbols must come from this format "btc-usdt", "btc-usdt-perp", "btc" (if applicable)
+# All symbols must be compatible across every exchnage
+# All methods must be compatible across all exchanges rather than to mess around every 
+# Calling must be as easy as it goes
+
+instType = ["derivate", "spot"]
+derivateType = ["perp", "future", "option"]
+marginType = ["coin-m", "coin-c"]
+
 
 class CommunicationsManager:
 
@@ -532,9 +541,10 @@ class kucoin(CommunicationsManager):
         insTypeName = instType
         endpoint = self.endpoints.get(instType)
         basepoint = self.basepoints.get(instType).get(objective)
-        basepoint_headers = "?".join([basepoint, urllib.parse.urlencode(params)])
+        # basepoint_headers = "?".join([basepoint, urllib.parse.urlencode(params)])
+        # basepoint_headers = self.parse_basepoint_params(basepoint, params)
         payload = ''
-        headers = self.build_headers(basepoint_headers)
+        headers = self.build_headers(basepoint, params)
         return {
             "url" : endpoint + basepoint,
             "endpoint" : endpoint, 
@@ -550,13 +560,18 @@ class kucoin(CommunicationsManager):
             "books_dercemet" : books_dercemet,
             "payload" : payload
             }
+    
+    def parse_basepoint_params(self, basepoint, params):
+        return "?".join([basepoint, urllib.parse.urlencode(params) if params else ""])
+        # return basepoint + ("?" + urllib.parse.urlencode(params) if params else "")
 
-    def build_headers(self, basepoint):
+    def build_headers(self, basepoint, params):
+        basepoint_headers = self.parse_basepoint_params(basepoint, params)
         apikey = self.apikey 
         secretkey = self.secretkey
         password = self.password 
         now = int(time.time() * 1000)
-        str_to_sign = str(now) + "GET" + basepoint
+        str_to_sign = str(now) + "GET" + basepoint_headers
         signature = base64.b64encode(hmac.new(secretkey.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
         headers = {
             "KC-API-SIGN": signature,
@@ -792,28 +807,27 @@ class deribit(CommunicationsManager):
     """
     repeat_response_code = -1130
     endpoint = "wss://test.deribit.com/ws/api/v2"
-    create_header = {
-        "perp" : {
-            "depth" : lambda limit, symbol : {
-                        "jsonrpc": "2.0", "id": generate_random_integer(10), 
-                        "method": "public/get_order_book",
-                        "params": { 
-                            "depth": limit,     # 1000. the call will adjust automatically
-                            "instrument_name": symbol # BTC-PERPETUAL
-                            }
-                        }
-                },
+    endpoints = {
+        "derivate" : {
+            "derivate" : { 
+                "depth" : "get_order_book",
+            }
+        },
         "option" : {
-            "summary" : lambda kind, currency : {
-                        "jsonrpc": "2.0", "id": generate_random_integer(10), 
-                        "method": "public/get_book_summary_by_currency",
-                        "params": { 
-                                "currency": currency,  # BTC
-                                "kind": kind           # option
-                                }
-                        }
-                }
+            "oifunding" : "get_book_summary_by_currency"
         }
+    }
+    params = {
+        "derivate" : {
+            "derivate" : { 
+                "depth" : {"get_order_book" : ["limit", "symbol"]},
+            }
+        },
+        "option" : {
+            "oifunding" : {"get_book_summary_by_currency" : ["currency", "kind"]},
+        }
+    }
+
 
     @classmethod
     def create_payload(cls, basepoint, params):
@@ -829,11 +843,19 @@ class deribit(CommunicationsManager):
     def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
             instType : derivative, option
-            objective :  depth, oi
+            objective :  depth, oifunding
             **kwargs : limit, symbol for  depth
                         currency, kind for oi
         """
         params = dict(kwargs)
+        # Some logic here
+        if None:
+            pass
+        instrument = params
+
+
+
+
 
         if instType == "option":
             instrument = params.get("symbol").lower()
@@ -878,25 +900,6 @@ class deribit(CommunicationsManager):
         response = await cls.make_aiohttpRequest(connection_data)
         return response
 
-
-    {   # Can only be called with websockets
-        "type" : "api",
-        "id" : "deribit_option_btc_OI",
-        "exchange":"deribit", 
-        "insType":"option", 
-        "obj":"OI", 
-        "instrument":"btcusd", 
-        "updateSpeed":1800,
-        "url" : "wss://test.deribit.com/ws/api/v2",  
-        "msg" : {
-            "jsonrpc": "2.0", "id": generate_random_integer(10), 
-            "method": "public/get_book_summary_by_currency",
-            "params": { 
-                "currency": "BTC", 
-                "kind": "option"
-                }
-            }
-    },
 
 # print(bitget.buildRequest("derivate", "depth", symbol="BTCUSDT", limit=150))
 
