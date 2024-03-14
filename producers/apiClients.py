@@ -816,6 +816,16 @@ class deribit(CommunicationsManager):
         }
 
     @classmethod
+    def create_payload(cls, basepoint, params):
+        payload =  {
+            "jsonrpc": "2.0", "id": generate_random_integer(10), 
+            "method": f"public/{basepoint}",
+            "params": params,
+        }
+        return payload
+
+
+    @classmethod
     def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
             instType : derivative, option
