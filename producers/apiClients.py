@@ -11,15 +11,15 @@ from cryptography.hazmat.primitives import serialization
 import jwt
 import secrets
 import urllib.parse
-
-
-
+import base64
+import hashlib
+import hmac
+from hashlib import sha256 
+from utilis import generate_random_integer
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
-
-# Exchnages than require to fetch books before : binance, bybit
 
 
 class CommunicationsManager:
@@ -32,8 +32,8 @@ class CommunicationsManager:
             response = requests.get(connection_data.get("url"), params=connection_data.get("params"), headers=connection_data.get("headers"))
             if response.status_code == 200:
                 return {
-                    "instrument" : connection_data.get("instrumentName"),
-                    "exchange" : connection_data.get("exchange"),
+                    "instrument" : connection_data.get("instrumentName").lower(),
+                    "exchange" : connection_data.get("exchange").lower(),
                     "insType" : connection_data.get("insTypeName").lower(),
                     "response" : response.json() ,
                 }
@@ -43,6 +43,19 @@ class CommunicationsManager:
             if index == len(connection_data.get("maximum_retries")):
                 print(response.status_code)
     
+    @classmethod
+    def make_request_v2(cls, connection_data:dict):
+        url = connection_data.get("url")
+        headers = connection_data.get("headers")
+        payload = connection_data.get("payload")
+        response = requests.request("GET", url, headers=headers, data=payload)
+        return {
+            "instrument" : connection_data.get("instrumentName").lower(),
+            "exchange" : connection_data.get("exchange").lower(),
+            "insType" : connection_data.get("insTypeName").lower(),
+            "response" : response.json() ,
+        }
+
     @classmethod
     def make_httpRequest(cls, connection_data):
         conn = http.client.HTTPSConnection(connection_data.get("endpoint"))
@@ -69,13 +82,6 @@ class CommunicationsManager:
 # headers["from"] = f"{int(time.time()) - 10}"
 # headers["to"] = f"{int(time.time())}" 
 
-# Bingx   
-# async with aiohttp.ClientSession() as session:
-#     async with session.request(
-#         method, url, headers={"X-BX-APIKEY": APIKEY}, json=payload
-#     ) as response:
-#         response.raise_for_status()  # Raise an exception for error responses
-#         return await response.text()
 
 
     @classmethod
@@ -112,9 +118,6 @@ class CommunicationsManager:
             "objective" : connection_data.get("objective").lower(),
             "response" : response,
         } 
-
-
-# Binance
 
 class binance(CommunicationsManager):
     """
@@ -229,10 +232,7 @@ class binance(CommunicationsManager):
     async def aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
-        return response
-
-### Bybit ###
-    
+        return response    
 
 class bybit(CommunicationsManager):
     """
@@ -323,9 +323,6 @@ class bybit(CommunicationsManager):
         response = await cls.make_aiohttpRequest(connection_data)
         return response
     
-
-### OKX ###
-
 class okx(CommunicationsManager):
     """
         Abstraction of bybit api calls
@@ -405,10 +402,6 @@ class okx(CommunicationsManager):
         response = await cls.make_aiohttpRequest(connection_data)
         return response
     
-
-### COINBASE ###
-
-
 class coinbase(CommunicationsManager):
     """
         Abstraction of bybit api calls
@@ -493,43 +486,423 @@ class coinbase(CommunicationsManager):
         response = CommunicationsManager.make_httpRequest(connection_data)
         return response
 
+class kucoin(CommunicationsManager):
+    """
+        Abstraction of kucoin api calls
+    """
+
+    def __init__ (self, apikey, secretkey, password):
+        self.repeat_response_code = -1130
+        self.apikey = apikey
+        self.secretkey = secretkey
+        self.password = password
+        self.repeat_response_code = -1130
+        self.endpoints = {
+            "spot" : "https://api.kucoin.com",
+            "perp" : "https://api-futures.kucoin.com",
+        }
+        self.basepoints = {
+            "spot" : {
+                "depth" : "/api/v3/market/orderbook/level2"
+            },
+            "perp" : {
+                "depth" : "/api/v1/level2/snapshot"
+            }
+        }
+        self.default_params  = {
+            "spot" :  { "depth" : {"symbol": {"type": str, "default": "BTC-USDT"}}},
+            "perp" :  { "depth" :  {"symbol": {"type": str, "default": "XBTUSDTM"}}},
+                }
+
+    def buildRequest(self, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            instType : spot, perp
+            objective :  depth
+            Maxium retries of an API with different parameters in case API call is impossible. Useful when you cant catch the limit
+            books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
+            **kwargs : request parameters like symbol
+        """
+        params = dict(kwargs)
+        if instType == "spot":
+            instrument = params.get("symbol")
+        if instType == "perp":
+            instrument = params.get("symbol").replace("XBT", "BTC").replace("USDTM", "USDT")
+        insTypeName = instType
+        endpoint = self.endpoints.get(instType)
+        basepoint = self.basepoints.get(instType).get(objective)
+        basepoint_headers = "?".join([basepoint, urllib.parse.urlencode(params)])
+        payload = ''
+        headers = self.build_headers(basepoint_headers)
+        return {
+            "url" : endpoint + basepoint,
+            "endpoint" : endpoint, 
+            "basepoint" : basepoint,
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : instrument.replace("-", ""),
+            "insTypeName" : insTypeName, 
+            "exchange" : "kucoin", 
+            "repeat_code" : self.repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : payload
+            }
+
+    def build_headers(self, basepoint):
+        apikey = self.apikey 
+        secretkey = self.secretkey
+        password = self.password 
+        now = int(time.time() * 1000)
+        str_to_sign = str(now) + "GET" + basepoint
+        signature = base64.b64encode(hmac.new(secretkey.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
+        headers = {
+            "KC-API-SIGN": signature,
+            "KC-API-TIMESTAMP": str(now),
+            "KC-API-KEY": apikey,
+            "KC-API-PASSPHRASE": password,
+        }
+        return headers
+
+    def fetch(self, *args, **kwargs):
+        connection_data = self.buildRequest(*args, **kwargs)
+        response = CommunicationsManager.make_request(connection_data)
+        return response
+
+class bingx(CommunicationsManager):
+    """
+        Abstraction of kucoin api calls
+    """
+    default_params  = {
+        "spot" :  { 
+            "depth" : {
+                    "symbol": {"type": str, "default": "BTC-USDT"},
+                    "limit": {"type": int, "default": 1000}, # p = [5, 10, 20, 50, 100, 500, 1000]
+                },
+        "perp": {  
+                "depth" : {
+                        "symbol": {"type": str, "default": "BTC-USDT"},
+                        "limit": {"type": int, "default": 1000}, # p = [5, 10, 20, 50, 100, 500, 1000]
+                    },
+                "oi" : {
+                        "symbol": {"type": str, "default": "BTC-USDT"},
+                },
+                "funding" : {
+                        "symbol": {"type": str, "default": "BTC-USDT"},
+                }
+            }
+        }
+    }
+
+    def __init__ (self, apikey, secretkey):
+        self.repeat_response_code = -1130
+        self.apikey = apikey
+        self.secretkey = secretkey
+        self.endpoint = "https://open-api.bingx.com"
+        self.basepoints = {
+            "spot" : {
+                "depth" : "/openApi/spot/v1/market/depth"
+            },
+            "perp" : {
+                "depth" : "/openApi/swap/v2/quote/depth",
+                "oi" : "/openApi/swap/v2/quote/openInterest",
+                "funding" : "/openApi/swap/v2/quote/premiumIndex",
+            }
+        }
 
 
+    def buildRequest(self, instType:str, objective:str, 
+                     possible_limits:list=[1000, 500, 100, 50, 20, 10, 5], books_dercemet:int=100, **kwargs)->dict: 
+        """
+            instType : spot, derivate
+            objective :  depth, funding, oi
+            Maxium retries of an API with different parameters in case API call is impossible. Useful when you cant catch the limit
+            books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
+            **kwargs : request parameters like symbol
+        """
+        params = dict(kwargs)
+        instrument = params.get("symbol").replace("-", "").lower()
+        if instType == "derivate":
+            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
+        if instType == "spot":
+            insTypeName = "spot"
+        endpoint = self.endpoint
+        basepoint = self.basepoints.get(insTypeName).get(objective)
+        payload = {}
+        url, headers = self.get_url_headers(endpoint, basepoint, params, self.apikey, self.secretkey)
+        return {
+            "url" : url,
+            "endpoint" : endpoint, 
+            "basepoint" : url,
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : instrument,
+            "insTypeName" : insTypeName, 
+            "exchange" : "bingx", 
+            "repeat_code" : self.repeat_response_code,
+            "maximum_retries" : 1, 
+            "books_dercemet" : books_dercemet,
+            "payload" : payload,
+            "possible_limits" : possible_limits
+            }
+
+    @classmethod
+    def get_url_headers(cls, endpoint, basepoint, params, api, secret):
+        parsed_params = cls.parseParam(params)
+        url = "%s%s?%s&signature=%s" % (endpoint, basepoint, parsed_params, cls.get_sign(secret, parsed_params))
+        headers = {
+            'X-BX-APIKEY': api,
+        }
+        return url, headers
+
+    @classmethod
+    def parseParam(cls, params):
+        sortedKeys = sorted(params)
+        paramsStr = "&".join(["%s=%s" % (x, params[x]) for x in sortedKeys])
+        if paramsStr != "": 
+            return paramsStr+"&timestamp="+str(int(time.time() * 1000))
+        else:
+            return paramsStr+"timestamp="+str(int(time.time() * 1000))
+    
+    @classmethod
+    def get_sign(cls, api_secret, payload):
+        signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
+        return signature
+
+    def fetch(self, *args, **kwargs):
+        connection_data = self.buildRequest(*args, **kwargs)
+        if "limit" in connection_data:
+            possible_limits = connection_data.get("possible_limits")
+            possible_limits = sorted(possible_limits, reverse=True)
+            for limit in possible_limits:
+                try:
+                    connection_data["limit"] = limit
+                    response = CommunicationsManager.make_request_v2(connection_data)
+                    return response
+                except Exception as e:
+                    print(f"Connection failed with limit {limit}: {e}")
+                    continue
+        else:
+            return CommunicationsManager.make_request_v2(connection_data)
+
+    async def aiohttpFetch(self, *args, **kwargs):
+        connection_data = self.buildRequest(*args, **kwargs)
+        if "limit" in connection_data:
+            possible_limits = connection_data.get("possible_limits")
+            possible_limits = sorted(possible_limits, reverse=True)
+            for limit in possible_limits:
+                try:
+                    connection_data["limit"] = limit
+                    response = await CommunicationsManager.make_aiohttpRequest(connection_data)
+                    return response
+                except Exception as e:
+                    print(f"Connection failed with limit {limit}: {e}")
+                    time.sleep(2)
+                    continue
+        else:
+            return CommunicationsManager.make_request_v2(connection_data)
+    
+class bitget(CommunicationsManager):
+    """
+        Abstraction of bybit api calls
+    """
+    repeat_response_code = -1130
+    endpoint = "https://api.bitget.com"
+    basepoints = {
+        "spot" : {
+            "depth" : "/api/v2/spot/market/orderbook",
+        },
+        "perp" : {
+            "depth" : "/api/v2/mix/market/merge-depth",
+        }
+    }
+    default_params  = {
+        "spot" : {
+            "depth" :  {
+                "symbol" : { "type" : str},
+                "type" : { "type" : str, "default": "step0"}, # no aggregation
+                "limit" : { "type" : int, "max": 150},
+                }
+        },
+        "perp" : {
+            "depth" : {
+                "symbol" : { "type" : str},
+                "limit" : { "type" : int, "max": 1000},
+                "productType" : {"type" : str, "default" : "usdt-futures"}
+            }
+        }
+    }
+            
+
+        # "url" : "https://api.bitget.com/api/v2/spot/market/orderbook?symbol=BTCUSDT&type=step0&limit=150" , # simple get request
+        # "url" : "https://api.bitget.com/api/v2/mix/market/merge-depth?productType=usdt-futures&symbol=BTCUSDT&limit=1000", 
+
+    @classmethod
+    def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            objective :  depth
+            **kwargs : request parameters
+        """
+        params = dict(kwargs)
+        instrument = params.get("symbol").replace("-", "")
+        if instType == "derivate":
+            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
+        if instType == "spot":
+            insTypeName = "spot"
+        if insTypeName == "perp":
+            params["productType"] = "usdt-futures"
+        endpoint = cls.endpoint
+        basepoint = cls.basepoints.get(insTypeName).get(objective)
+        url = endpoint + basepoint
+        headers = {}
+        return {
+            "url" : url,
+            "basepoint" : basepoint,  
+            "endpoint" : endpoint,  
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : instrument.lower(), 
+            "insTypeName" : insTypeName.lower(), 
+            "exchange" : "bitget", 
+            "repeat_code" : cls.repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : "",
+            }
+
+    @classmethod
+    def fetch(cls, *args, **kwargs):
+        connection_data = cls.buildRequest(*args, **kwargs)
+        response = cls.make_request(connection_data)
+        return response
+
+    @classmethod
+    async def aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.buildRequest(*args, **kwargs)
+        response = await cls.make_aiohttpRequest(connection_data)
+        return response
+
+class deribit(CommunicationsManager):
+    """
+        Abstraction of bybit api calls
+    """
+    repeat_response_code = -1130
+    endpoint = "wss://test.deribit.com/ws/api/v2"
+    create_header = {
+        "perp" : {
+            "depth" : lambda limit, symbol : {
+                        "jsonrpc": "2.0", "id": generate_random_integer(10), 
+                        "method": "public/get_order_book",
+                        "params": { 
+                            "depth": limit,     # 1000. the call will adjust automatically
+                            "instrument_name": symbol # BTC-PERPETUAL
+                            }
+                        }
+                },
+        "option" : {
+            "summary" : lambda kind, currency : {
+                        "jsonrpc": "2.0", "id": generate_random_integer(10), 
+                        "method": "public/get_book_summary_by_currency",
+                        "params": { 
+                                "currency": currency,  # BTC
+                                "kind": kind           # option
+                                }
+                        }
+                }
+        }
+
+    @classmethod
+    def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            instType : derivative, option
+            objective :  depth, oi
+            **kwargs : limit, symbol for  depth
+                        currency, kind for oi
+        """
+        params = dict(kwargs)
+
+        if instType == "option":
+            instrument = params.get("symbol").lower()
 
 
+        instrument = params.get("symbol").replace("-", "")
+        if instType == "derivate":
+            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
+        if instType == "spot":
+            insTypeName = "spot"
+        if insTypeName == "perp":
+            params["productType"] = "usdt-futures"
+        endpoint = cls.endpoint
+        basepoint = cls.basepoints.get(insTypeName).get(objective)
+        url = endpoint + basepoint
+        headers = {}
+        return {
+            "url" : url,
+            "basepoint" : basepoint,  
+            "endpoint" : endpoint,  
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : instrument.lower(), 
+            "insTypeName" : insTypeName.lower(), 
+            "exchange" : "bitget", 
+            "repeat_code" : cls.repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : "",
+            }
+
+    @classmethod
+    def fetch(cls, *args, **kwargs):
+        connection_data = cls.buildRequest(*args, **kwargs)
+        response = cls.make_request(connection_data)
+        return response
+
+    @classmethod
+    async def aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.buildRequest(*args, **kwargs)
+        response = await cls.make_aiohttpRequest(connection_data)
+        return response
 
 
-# c = coinbase(coinbaseAPI, coinbaseSecret)
+    {   # Can only be called with websockets
+        "type" : "api",
+        "id" : "deribit_option_btc_OI",
+        "exchange":"deribit", 
+        "insType":"option", 
+        "obj":"OI", 
+        "instrument":"btcusd", 
+        "updateSpeed":1800,
+        "url" : "wss://test.deribit.com/ws/api/v2",  
+        "msg" : {
+            "jsonrpc": "2.0", "id": generate_random_integer(10), 
+            "method": "public/get_book_summary_by_currency",
+            "params": { 
+                "currency": "BTC", 
+                "kind": "option"
+                }
+            }
+    },
 
-# print(c.fetch("depth", product_id="BTC-USD"))
+# print(bitget.buildRequest("derivate", "depth", symbol="BTCUSDT", limit=150))
 
+# print(bitget.fetch("derivate", "depth", symbol="BTCUSDT", limit=25))
+
+# b = bingx("", "")
 # async def example():
-#     a = await okx.aiohttpFetch("gta", period="5m", ccy="BTC")
+#     a = await b.aiohttpFetch("derivate", "depth", symbol="BTC-USDT")
 #     print(a)
 
 # asyncio.run(example())
     
-    # @classmethod
-    # @APIClientDecorator.api_request_decorato
-    # def fetch(cls, instrument:str, insType:str, objective:str, maximum_retries:int=10, books_dercemet:int=500):
-    #     url, params, headers, cls.repeat_response_code, maximum_retries, books_dercemet, insTypeName, exchange = cls.buildRequest(
-    #         instrument, insType, objective, maximum_retries, books_dercemet
-    #         )
-    #     return url, params, headers, cls.repeat_response_code, maximum_retries, books_dercemet, insTypeName, exchange
- 
 
 
 
 
 
 
-
-
-
-#     "kucoin" : {
-#         "spot" : "https://api.kucoin.com", 
-#         "perp" : "https://api-futures.kucoin.com",
-#     },
 #     "mexc" : {
 #         "spot" : "https://api.mexc.com", 
 #         "perp" : "https://contract.mexc.com",
@@ -538,12 +911,9 @@ class coinbase(CommunicationsManager):
 #         "spot" : "https://api.huobi.pro",
 #         "perp" : "https://api.hbdm.com",
 #     },
-#     "coinbase" : "api.coinbase.com",
 #     "gateio" : "https://api.gateio.ws",
-#     "bitget" : "https://api.bitget.com",7
 #     "deribit" : "wss://test.deribit.com",
-#     "bingx" : "https://open-api.bingx.com",
-#     "okx" : "https://www.okx.com",
+
 # }
 
 # APIbasepoints = {
@@ -568,25 +938,3 @@ class coinbase(CommunicationsManager):
 #     "bingx" : "https://open-api.bingx.com",
 # }
 
-
-
-
-# APIparams = {
-#     "binance" : {
-#         "spot" : {
-#             "depth" : {
-#                 "symbol" : "",
-#                 "limit" : int("")
-#             }
-#         },
-#         "perp" : {
-#             "mfutures" : {
-#                 "depth" : "/fapi/v1/depth"
-#             },
-#             "cfutures" : {
-#                 "depth" : "/dapi/v1/depth",
-
-#             },
-#         }
-#     },
-# }
