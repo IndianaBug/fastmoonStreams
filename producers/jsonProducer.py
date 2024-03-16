@@ -8,7 +8,7 @@ import ssl
 import codecs
 import io
 from producers.utilis_extended import AllStreamsByInstrumentS, get_dict_by_key_value, get_initial_books
-from producers.utilis_core import bingx_AaWSnap_aiohttp
+from producers.utilis import bingx_AaWSnap_aiohttp
 import aiohttp
 import requests
 import httpx
@@ -381,7 +381,7 @@ streams = [
 
 data = AllStreamsByInstrumentS(streams)
 from urls import AaWS
-from producers.utilis_core import get_dict_by_key_value
+from producers.utilis import get_dict_by_key_value
 data = [get_dict_by_key_value([x for x in AaWS if x["type"] == "websocket"], "id", "mexc_perpetual_btcusdt_fundingOI")]
 
 if __name__ == '__main__':

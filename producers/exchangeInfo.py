@@ -284,7 +284,6 @@ class kucoinInfo(requestHandler):
             di[isntType] = data
         return di
 
-
 def iterate_dict(d):
     v = []
     if isinstance(d, dict):
@@ -297,7 +296,6 @@ def iterate_dict(d):
     else:
         v.append(d)
     return v
-
 
 def unnest_list(lst):
     result = []
@@ -556,14 +554,41 @@ class coinbaseInfo(requestHandler):
         self.secret = secret
         self.payload = ''
         self.endpoint = "api.coinbase.com"
-        self.basepoint = "/api/v3/brokerage/products"
+        self.basepoints = {
+        "spot" : "/api/v3/brokerage/products?product_type=SPOT",
+        "future" : "/api/v3/brokerage/products?product_type=FUTURE"
+                            }
+        coinbase_call_example = {
+        "spot" : "SNX-BTC",
+        "future" : "BIT-29MAR24-CDE" # Which is bitcoin
+            }
 
-    def info_coinbase(self):
+    def coinbase_symbols_by_instType(self, instType):
         """
             spot, future
         """
+        info = self.info_coinbase(instType)
+        prdocut_ids = set([x["product_id"] for x in info])
+        return prdocut_ids
+
+    def coinbase_symbols(self):
+        """
+            spot, future
+        """
+        d= {}
+        for key in self.basepoints:
+            symbols = self.coinbase_symbols_by_instType(key)
+            d[key] = symbols
+        return d
+
+    def info_coinbase(self, instType):
+        """
+            spot, perpetual
+        """
         headers = self.build_headers()
-        return self.http_call(self.endpoint, self.basepoint, self.payload, headers)
+        return self.http_call(self.endpoint, self.basepoints.get(instType), self.payload, headers).get("products")
+    
+
 
     def build_headers(self):
         key_name       =  self.api
@@ -596,63 +621,100 @@ class coinbaseInfo(requestHandler):
         return headers
 
 
-
 class htxInfo(requestHandler):
-    pass
+    htx_endpoints = {
+        "spot" : "https://api.huobi.pro",
+        "perpetual" : {
+            "LinearPerpetual" : "https://api.hbdm.com",
+            "InversePerpetual" : "https://api.hbdm.com"
+        },
+        "future" : {
+            "InverseFuture" : "https://api.hbdm.com"
+        }
+
+    }
+    htx_basepoints = {
+        "spot" : "/v1/settings/common/market-symbols",
+        "perpetual" : {
+            "LinearPerpetual" : "/linear-swap-api/v1/swap_contract_info",
+            "InversePerpetual" : "/swap-api/v1/swap_contract_info"
+
+        },
+        "future" : {
+            "InversePerpetual" : "/api/v1/contract_contract_info"
+        }
+    }
+    coinbase_call_example = {
+        "spot" : "btcusdt",
+        "perpetual" : "LTC-USD, LTC-USDT",
+        "future" : "TRX240329" # Which is bitcoin
+        }
+    
+    @classmethod
+    def htx_symbols_by_instType(cls, instType):
+        """
+            spot, future
+        """
+        basepoint = iterate_dict(cls.htx_endpoints.get(instType))
+        endpoint = iterate_dict(cls.htx_basepoints.get(instType))
+        links = [f"{y}{x}" for x, y in zip(endpoint, basepoint)]
+        d = []
+        for url in links:
+            data = cls.simple_request(url).get("data")
+            try:
+                symbols = [d["contract_code"] for d in data]
+            except:
+                symbols = [d["symbol"] for d in data]
+            d.append(symbols)
+        return unnest_list(d)
+    
+    @classmethod
+    def htx_symbols(cls):
+        """
+            spot, future
+        """
+        d= {}
+        for key in cls.htx_endpoints:
+            symbols = cls.htx_symbols_by_instType(key)
+            d[key] = symbols
+        return d
+    
+    @classmethod
+    def info_htx(cls, instType):
+        """
+            perpetual.LinearPerpetual, ....
+        """
+        endpoint = recursive_dict_access(cls.htx_endpoints, instType)
+        basepoint = recursive_dict_access(cls.htx_basepoints, instType)
+        url = f"{endpoint}{basepoint}"
+        return cls.simple_request(url).get("data")
+
 
 class gateioInfo(requestHandler):
+    gateio_endpoint = "https://api.gateio.ws"
+    gateio_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    gateio_basepoints = {
+        "spot" : "/api/v4/futures/usdt/contracts",
+        "perpetual" : "/api/v4/spot/currencies",
+        "future" : "/api/v4/delivery/usdt/contracts",
+    }
     pass
 
-coinbaseSecret = '-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIDOVctxJpAI/hHtbUN9VrHej4bWPRuT9um9FoBlTgiyaoAoGCCqGSM49\nAwEHoUQDQgAEJt8JWIh8CHm045POImBF0ZvVuX5FbQjIDhIT82hE5r1+vb8cSQ3M\nfEjriBy1/ZD3EywPNxyGe6nO/Wsq0M8hXQ==\n-----END EC PRIVATE KEY-----\n'
-coinbaseAPI = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8516-f2e2-4ec9-a593-464338d96f21'
-
-cbase = coinbaseInfo(coinbaseAPI, coinbaseSecret)
-print(cbase.info_coinbase())
 
 
 
 
 
+# coinbaseSecret = '-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIDOVctxJpAI/hHtbUN9VrHej4bWPRuT9um9FoBlTgiyaoAoGCCqGSM49\nAwEHoUQDQgAEJt8JWIh8CHm045POImBF0ZvVuX5FbQjIDhIT82hE5r1+vb8cSQ3M\nfEjriBy1/ZD3EywPNxyGe6nO/Wsq0M8hXQ==\n-----END EC PRIVATE KEY-----\n'
+# coinbaseAPI = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8516-f2e2-4ec9-a593-464338d96f21'
+
+# cbase = coinbaseInfo(coinbaseAPI, coinbaseSecret)
+# data = cbase.coinbase_symbols()
+# # print(data.keys())
+# # prdocut_types = set([x["product_id"] for x in data.get("products")])
+# # print(data.get("products")[0])
+# print(data)
 
 
-# def build_jwt():
-#     key_name       =  coinbaseAPI
-#     key_secret     =  coinbaseSecret
-#     request_method = "GET"
-#     request_host   = "api.coinbase.com"
-#     request_path   = "/api/v3/brokerage/products"
-#     service_name   = "retail_rest_api_proxy"
-#     private_key_bytes = key_secret.encode('utf-8')
-#     private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
-#     uri = f"{request_method} {request_host}{request_path}"
-#     jwt_payload = {
-#         'sub': key_name,
-#         'iss': "coinbase-cloud",
-#         'nbf': int(time.time()),
-#         'exp': int(time.time()) + 120,
-#         'aud': [service_name],
-#         'uri': uri,
-#     }
-#     jwt_token = jwt.encode(
-#         jwt_payload,
-#         private_key,
-#         algorithm='ES256',
-#         headers={'kid': key_name, 'nonce': secrets.token_hex()},
-#     )
-#     return jwt_token
 
-# payload = ''
-# headers = {
-#     "Authorization": f"Bearer {build_jwt()}",
-#     'Content-Type': 'application/json'
-# }
 
-# import http.client
-# import json
-
-# conn = http.client.HTTPSConnection("api.coinbase.com")
-# conn.request("GET", "/api/v3/brokerage/products?product_type=SPOT", payload, headers)
-# res = conn.getresponse()
-# data = res.read()
-# #data = json.loads(data)
-# data

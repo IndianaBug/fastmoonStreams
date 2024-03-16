@@ -1,4 +1,4 @@
-from producers.utilis_core import *
+from producers.utilis import *
 
 
 deribit_ws_connId_heartbeat = generate_random_integer(10)

@@ -4,7 +4,7 @@ import asyncio
 from urllib.parse import urlencode
 import requests
 import json
-from producers.utilis_core import bingx_AaWSnap, build_jwt_api, websocket_fetcher, get_dict_by_key_value, move_dict_to_beginning
+from producers.utilis import bingx_AaWSnap, build_jwt_api, websocket_fetcher, get_dict_by_key_value, move_dict_to_beginning
 from urls import AaWS
 import concurrent.futures
 
