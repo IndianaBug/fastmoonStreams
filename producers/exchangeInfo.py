@@ -694,12 +694,44 @@ class gateioInfo(requestHandler):
     gateio_endpoint = "https://api.gateio.ws"
     gateio_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
     gateio_basepoints = {
-        "spot" : "/api/v4/futures/usdt/contracts",
-        "perpetual" : "/api/v4/spot/currencies",
+        "spot" : "/api/v4/spot/currency_pairs",
+        "perpetual" : "/api/v4/futures/usdt/contracts",
         "future" : "/api/v4/delivery/usdt/contracts",
     }
-    pass
+    gateio_call_example = {
+        "spot" : "BTC_USDT",
+        "perpetual" : "",
+        "future" : "BIT-29MAR24-CDE" # Which is bitcoin
+        }
 
+    @classmethod
+    def gateio_symbols_by_instType(cls, instType):
+        """
+            spot, future
+        """
+        info = cls.info_gateio(instType)
+        key = "id" if instType=="spot" else "name"
+        prdocut_ids = set([x[key] for x in info])
+        return prdocut_ids
+
+    @classmethod
+    def gateio_symbols(cls):
+        """
+            spot, future
+        """
+        d= {}
+        for key in cls.gateio_basepoints:
+            symbols = cls.gateio_symbols_by_instType(key)
+            d[key] = symbols
+        return d
+
+    @classmethod
+    def info_gateio(cls, instType):
+        """
+            spot, perpetual
+        """
+        return cls.request_full(url=f"{cls.gateio_endpoint}{cls.gateio_basepoints.get(instType)}", headers=cls.gateio_headers, params={})
+    
 
 
 
