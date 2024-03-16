@@ -71,3 +71,39 @@ def move_dict_to_beginning(lst, target_id):
             lst.insert(0, lst.pop(i))
             break
         return lst
+
+def iterate_dict(d):
+    v = []
+    if isinstance(d, dict):
+        for key, value in d.items():
+            if isinstance(value, dict):
+                iterate_dict(value)
+                v.extend(iterate_dict(value))
+            else:
+                v.append(value)
+    else:
+        v.append(d)
+    return v
+
+def unnest_list(lst):
+    result = []
+    for item in lst:
+        if isinstance(item, list):
+            result.extend(unnest_list(item))
+        else:
+            result.append(item)
+    return result
+
+def recursive_dict_access(dictionary, keys):
+    if "." in keys:
+        keys = keys.split(".")
+    else:
+        pass
+    key = keys[0]
+    if key in dictionary:
+        if isinstance(dictionary[key], dict):
+            return recursive_dict_access(dictionary[key], keys[1:])
+        else:
+            return dictionary[key]    
+    else:
+        return None
