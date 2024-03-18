@@ -15,7 +15,7 @@ import hashlib
 import hmac
 from hashlib import sha256 
 from utilis import iterate_dict, unnest_list, recursive_dict_access
-
+import re
 
 
 
@@ -52,11 +52,11 @@ class bybitInfo(requestHandler):
                         "spot" : "https://api.bybit.com/v5/market/instruments-info?category=spot",
                         "perpetual" : {
                             "LinearPerpetual" : "https://api.bybit.com/v5/market/instruments-info?category=linear",
-                            "InverseFutures" : "https://api.bybit.com/v5/market/instruments-info?category=inverse"
+                            "InversePerpetual" : "https://api.bybit.com/v5/market/instruments-info?category=inverse"
                         },
                         "future" : {
-                            "LinearPerpetual" : "https://api.bybit.com/v5/market/instruments-info?category=linear",
-                            "InverseFutures" : "https://api.bybit.com/v5/market/instruments-info?category=inverse"
+                            "LinearFuture" : "https://api.bybit.com/v5/market/instruments-info?category=linear",
+                            "InverseFuture" : "https://api.bybit.com/v5/market/instruments-info?category=inverse"
                         },
                         "option" : "https://api.bybit.com/v5/market/instruments-info?category=option"
                     }
@@ -72,26 +72,24 @@ class bybitInfo(requestHandler):
                 },
                 "option" : "ETH-3JAN23-1250-P"
             }
-
+        
     @classmethod
-    def bybit_symbols_by_instType(cls, isntType):
+    def bybit_symbols_by_instType(cls, instType):
         """ 
-            spot, perpetual, future, option
+            spot, perpetual
         """
-        urls = cls.bybit_info_url.get(isntType)
-        if isinstance(urls, dict):
-            symbols_by_type = {}
-            for productType, url in urls.items():
-                data = cls.simple_request(url).get("result").get("list")
-                symbols = [d.get("symbol")  for d in data if d.get("contractType") == productType]
-                symbols_by_type[productType] = symbols
-                time.sleep(1)
-            return symbols_by_type
-        else:
-            data = cls.simple_request(urls).get("result").get("list")
-            symbols = [d.get("symbol")  for d in data]
-            return symbols
-    
+        links = iterate_dict(cls.bybit_info_url.get(instType))
+        d = []
+        for url in links:
+            data = cls.simple_request(url).get("result").get("list")
+            symbols = [d["symbol"] for d in data]
+            if instType == "future":
+                symbols = [d for d in symbols if "-" in d]
+            if instType == "perpetual":
+                symbols = [d for d in symbols if "-" not in d]
+            d.append(symbols)
+        return unnest_list(d)
+
     @classmethod
     def bybit_symbols(cls) -> dict:
         """
@@ -119,13 +117,13 @@ class binanceInfo(requestHandler):
                         "spot" : "https://api.binance.com/api/v3/exchangeInfo",
                         "perpetual" : {
                             "LinearPerpetual" : "https://fapi.binance.com/fapi/v1/exchangeInfo",
-                            "InverseFutures" : "https://dapi.binance.com/dapi/v1/exchangeInfo"
+                            "InversePerpetual" : "https://dapi.binance.com/dapi/v1/exchangeInfo"
                         },
                         "future" : {
-                            "LinearPerpetual" : "https://fapi.binance.com/fapi/v1/exchangeInfo",
+                            "LinearFuture" : "https://fapi.binance.com/fapi/v1/exchangeInfo",
                             "InverseFutures" : "https://dapi.binance.com/dapi/v1/exchangeInfo"
                         },
-                        "option" : "https://eapi.binance.com/eapi/v1/exchangeInfo "
+                        "option" : "https://eapi.binance.com/eapi/v1/exchangeInfo"
                     }
     binance_call_example = {
                 "spot" : "BTCUSDT",
@@ -140,20 +138,31 @@ class binanceInfo(requestHandler):
                 "option" : "ETH-3JAN23-1250-P"
             }
 
+    binance_future_types = ['CURRENT_QUARTER', 'NEXT_QUARTER']
+    binance_perpetual_types = ["PERPETUAL"]
     
     @classmethod
     def binance_symbols_by_instType(cls, instType):
         """ 
-            spot, perpetual
+            spot, perpetual, future, option
         """
         links = iterate_dict(cls.binance_info_url.get(instType))
-        print(links)
         d = []
         for url in links:
-            data = cls.simple_request(url) #.get("symbols")
-            # symbols = [d["symbol"] for d in data]
-            d.append(data)
-        return unnest_list(d)
+            try:
+                data = cls.simple_request(url).get("symbols")
+                symbols = [d["symbol"] for d in data]
+                d.append(symbols)
+            except:
+                data = cls.simple_request(url)
+                symbols = [d["symbol"] for d in data["optionSymbols"]]
+                d.append(symbols)
+        d = unnest_list(d)
+        if instType == "future":
+            d = [symbol for symbol in d if re.search(r'_[0-9]+', symbol)]
+        if instType == "perpetual":
+            d = [symbol for symbol in d if not re.search(r'_[0-9]+', symbol)]
+        return d
     
     @classmethod
     def binance_symbols(cls) -> dict:
@@ -162,8 +171,11 @@ class binanceInfo(requestHandler):
         """
         di = {}
         for isntType in cls.binance_info_url.keys():
-            data = cls.binance_symbols_by_instType(isntType)
-            di[isntType] = data
+            try:
+                data = cls.binance_symbols_by_instType(isntType)
+                di[isntType] = data
+            except:
+                print("Binance options data unavailabe")
         return di
     
     @classmethod
@@ -173,8 +185,11 @@ class binanceInfo(requestHandler):
         """
         url = recursive_dict_access(cls.binance_info_url, instType)
         info = cls.simple_request(url)
-        return info.get("symbols")
-    
+        if instType != "option":
+            return info.get("symbols")
+        else:
+            return info
+
 class okxInfo(requestHandler):
 
     okx_info_url = {  
@@ -187,11 +202,11 @@ class okxInfo(requestHandler):
                 "spot" : "BTCUSDT",
                 "perpetual" : {
                     "LinearPerpetual" : 'BTC-USDT-SWAP',
-                    "InverseFutures" : 'BTC-USD-SWAP',
+                    "InversePerpetual" : 'BTC-USD-SWAP',
                 },
                 "future" : {
-                    "LinearPerpetual" : "BTC-USD-240315",
-                    "InverseFutures" : "BTC-USD-240315",
+                    "LinearFuture" : "BTC-USD-240315",
+                    "InverseFuture" : "BTC-USD-240315",
                 },
                 "option" : "BTC-USD-241227-30000-P"
             }
@@ -293,7 +308,7 @@ class bitgetInfo(requestHandler):
                 "spot" : "BTCUSDT",
                 "perpetual" : {
                     "LinearPerpetual" : ['BTCUSDT', "BTCPERP"],
-                    "InverseFutures" : 'BTCUSD',
+                    "InversePerpetual" : 'BTCUSD',
                 },
             }
 
@@ -323,7 +338,7 @@ class bitgetInfo(requestHandler):
         return di
     
     @classmethod
-    def info_bitget(cls, instType):
+    def bitget_info(cls, instType):
         """
             Check the bitget_info_url
             Ex:
@@ -397,7 +412,7 @@ class bingxInfo(requestHandler):
         return di
     
     @classmethod
-    def info_bingex(cls, instType):
+    def bingx_info(cls, instType):
         """
             "spot" "perp"
         """
@@ -439,11 +454,15 @@ class mexcInfo(requestHandler):
         return di
     
     @classmethod
-    def info_mexc(cls, instType):
+    def mexc_info(cls, instType):
         """
             "spot" "perp"
         """
         data = cls.simple_request(cls.mexc_urls.get(instType))
+        try:
+            data = data["symbols"]
+        except:
+            data = data["data"]
         return data
 
 class deribitInfo(requestHandler):
@@ -489,7 +508,7 @@ class deribitInfo(requestHandler):
         return di
     
     @classmethod
-    def info_deribit(cls, instType):
+    def deribit_info(cls, instType):
         """
             kind : spot, future, option
             currency : ["BTC", "ETH", "USDC", "USDT", "EURR"]
@@ -521,7 +540,7 @@ class coinbaseInfo(requestHandler):
             spot, future
         """
         info = self.info_coinbase(instType)
-        prdocut_ids = set([x["product_id"] for x in info])
+        prdocut_ids = list(set([x["product_id"] for x in info]))
         return prdocut_ids
 
     def coinbase_symbols(self):
@@ -534,7 +553,7 @@ class coinbaseInfo(requestHandler):
             d[key] = symbols
         return d
 
-    def info_coinbase(self, instType):
+    def coinbase_info(self, instType):
         """
             spot, perpetual
         """
@@ -632,7 +651,7 @@ class htxInfo(requestHandler):
         return d
     
     @classmethod
-    def info_htx(cls, instType):
+    def htx_info(cls, instType):
         """
             perpetual.LinearPerpetual, ....
         """
@@ -662,7 +681,7 @@ class gateioInfo(requestHandler):
         """
         info = cls.info_gateio(instType)
         key = "id" if instType=="spot" else "name"
-        prdocut_ids = set([x[key] for x in info])
+        prdocut_ids = list(set([x[key] for x in info]))
         return prdocut_ids
 
     @classmethod
@@ -677,27 +696,12 @@ class gateioInfo(requestHandler):
         return d
 
     @classmethod
-    def info_gateio(cls, instType):
+    def gateio_info(cls, instType):
         """
             spot, perpetual
         """
         return cls.request_full(url=f"{cls.gateio_endpoint}{cls.gateio_basepoints.get(instType)}", headers=cls.gateio_headers, params={})
     
 
-binanceInfo.binance_symbols_by_instType("option")
 
-
-
-# coinbaseSecret = '-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIDOVctxJpAI/hHtbUN9VrHej4bWPRuT9um9FoBlTgiyaoAoGCCqGSM49\nAwEHoUQDQgAEJt8JWIh8CHm045POImBF0ZvVuX5FbQjIDhIT82hE5r1+vb8cSQ3M\nfEjriBy1/ZD3EywPNxyGe6nO/Wsq0M8hXQ==\n-----END EC PRIVATE KEY-----\n'
-# coinbaseAPI = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8516-f2e2-4ec9-a593-464338d96f21'
-
-# cbase = coinbaseInfo(coinbaseAPI, coinbaseSecret)
-# data = cbase.coinbase_symbols()
-# # print(data.keys())
-# # prdocut_types = set([x["product_id"] for x in data.get("products")])
-# # print(data.get("products")[0])
-# print(data)
-
-
-
-
+# print(binanceInfo.binance_symbols_by_instType("spot"))

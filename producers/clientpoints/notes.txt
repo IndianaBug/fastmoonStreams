@@ -1,0 +1,7 @@
+Binance:
+-api - allupper
+-websocket : - alllower
+Bybit:
+-api : alluppper
+-websocket : -alluppper
+usually symbol for option: baseCoin

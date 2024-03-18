@@ -106,4 +106,13 @@ def recursive_dict_access(dictionary, keys):
         else:
             return dictionary[key]    
     else:
-        return None
+        return dictionary.get(keys)
+    
+
+def filter_nested_dict(nested_dict, condition):
+    for key, value in nested_dict.items():
+        if isinstance(value, dict):
+            nested_dict[key] = filter_nested_dict(value, condition)
+        elif isinstance(value, list):
+            nested_dict[key] = [item for item in value if condition(item)]
+    return nested_dict
