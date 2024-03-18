@@ -24,15 +24,18 @@ ssl_context.verify_mode = ssl.CERT_NONE
 
 from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
-# from producers.clientpoints.okx import *
-# from producers.clientpoints.coinbase import *
+from producers.clientpoints.okx import *
+from producers.clientpoints.coinbase import *
 # from producers.clientpoints.deribit import *
-# from producers.clientpoints.kucoin import *
+from producers.clientpoints.kucoin import *
 # from producers.clientpoints.htx import *
 # from producers.clientpoints.bitget import *
 # from producers.clientpoints.gateio import *
 # from producers.clientpoints.mexc import *
 # from producers.clientpoints.bingx import *
+
+# TODO
+# Fix the orders of the wscall for both binance and Bybit xD
 
 
 # BNB-240320-545-C
@@ -97,7 +100,6 @@ class CommunicationsManager:
     def make_httpRequest(cls, connection_data):
         conn = http.client.HTTPSConnection(connection_data.get("endpoint"))
         basepoint = "?".join([connection_data.get("basepoint"), urllib.parse.urlencode(connection_data.get("params"))])
-        print(basepoint)
         conn.request(
             "GET", 
             basepoint, 
@@ -123,8 +125,25 @@ class CommunicationsManager:
 
     @classmethod
     async def make_aiohttpRequest(cls, connection_data):
+        print(connection_data)
+
         async with aiohttp.ClientSession() as session:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
+                response =  await response.text()
+                return {
+                    "instrument" : connection_data.get("instrumentName").lower(),
+                    "exchange" : connection_data.get("exchange").lower(),
+                    "insType" : connection_data.get("insTypeName").lower(),
+                    "objective" : connection_data.get("objective").lower(),
+                    "response" : response,
+                } 
+            
+    @classmethod
+    async def make_aiohttpRequest_v2(cls, connection_data):
+        print(connection_data)
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"], json={}) as response:
                 response =  await response.text()
                 return {
                     "instrument" : connection_data.get("instrumentName").lower(),
@@ -218,7 +237,8 @@ class binance(CommunicationsManager, binanceInfo):
             "exchange" : "binance", 
             "repeat_code" : cls.binance_repeat_response_code,
             "maximum_retries" : maximum_retries, 
-            "books_dercemet" : books_dercemet
+            "books_dercemet" : books_dercemet,
+            "marginType" : marginType
             }
     
     @classmethod
@@ -288,7 +308,7 @@ class binance(CommunicationsManager, binanceInfo):
                 "objective": "oi", 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : cls.binance_retrive_option_oi,
-                "args" : symbol
+                "args" : symbol.upper()
                 }
         
         return data
@@ -324,7 +344,8 @@ class binance(CommunicationsManager, binanceInfo):
                                 "updateSpeed" : None,
                                 "url" : endpoint,
                                 "msg" : message,
-                                "sbmethod" : None
+                                "sbmethod" : None,
+                                "marginType" : marginType
                             }
         
         if needSnap is True:
@@ -356,7 +377,7 @@ class binance(CommunicationsManager, binanceInfo):
                 "instType": insType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "connectionData" : connectionData,
+                "apicallData" : connectionData,
                 "aiohttpMethod" : partial(cls.binance_aiohttpFetch, insType=insType, objective=objective),
                 "params" : dict(**kwargs)
                 }
@@ -370,12 +391,6 @@ class bybit(CommunicationsManager):
     bybit_stream_keys = bybit_stream_keys
     bybit_repeat_response_code = -1130
     bybit_api_category_map = bybit_api_category_map
-# {
-#             "op": 
-#             "subscribe","args": [
-#                 "publicTrade.BTCUSDT" if depth there is something else
-#                 ]
-#             }
 
     @classmethod
     def bybit_buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
@@ -402,6 +417,7 @@ class bybit(CommunicationsManager):
             params["category"] = cls.bybit_api_category_map.get(instType).get(marginCoin)
         except:
             params["category"] = cls.bybit_api_category_map.get(instType)
+        
         endpoint = cls.bybit_api_endpoint
         basepoint = cls.bybit_api_basepoints.get(objective)
 
@@ -417,7 +433,8 @@ class bybit(CommunicationsManager):
             "exchange" : "bybit", 
             "repeat_code" : cls.bybit_repeat_response_code,
             "maximum_retries" : maximum_retries, 
-            "books_dercemet" : books_dercemet
+            "books_dercemet" : books_dercemet,
+            "marginType" : marginCoin
             }
 
     @classmethod
@@ -486,22 +503,24 @@ class bybit(CommunicationsManager):
             Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
         """
         params = dict(kwargs)
-        message, insType, standart_objective_name = cls.bybit_build_api_connectionData(insType, **params)
+        message, insType, standart_objective_name = cls.bybit_build_ws_method(insType, **params)
         # Find marginType
         marginType=""
         if insType == "perpetual":
             marginType = "LinearPerpetual" if "USDT" in  params["symbol"].upper() else "InversePerpetual"
         if insType == "future":
-            marginType = "LinearFuture" if "USDT" in  params["symbol"].upper() else "InverseFuture"
+            marginType = "LinearFuture" if "USDT" not in  params["symbol"].upper() else "InverseFuture"
+        
+        try:
+            endpoint = cls.bybit_ws_endpoints.get(insType).get(marginType)
+        except:
+            endpoint = cls.bybit_ws_endpoints.get(insType)
 
-        endpoint = cls.binance_ws_endpoints.get(insType)
-        if insType in ["perpetual", "future"]:
-            endpoint = endpoint.get(insType)
-            
+        
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
-                                "exchange":"binance", 
+                                "id_ws" : f"bybit_ws_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
+                                "exchange":"bybit", 
                                 "instrument": params['symbol'].lower(),
                                 "instType": insType,
                                 "objective":standart_objective_name, 
@@ -512,155 +531,212 @@ class bybit(CommunicationsManager):
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"binance_api_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
-            connection_data["sbmethod"] = cls.binance_fetch 
-            connection_data["sbPar"] = {
-                "symbol": params['symbol'].upper(), 
-                "limit" : int(snaplimit)
-            }
+            connection_data["id_api"] = f"bybit_api_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
+            connection_data["sbmethod"] = cls.bybit_fetch 
+            if "symbol" in params:
+                connection_data["sbPar"] = {
+                    "symbol": params['symbol'].upper(), 
+                    "limit" : int(snaplimit)
+                }
+            else:
+                connection_data["sbPar"] = {
+                    "baseCoin": params['baseCoin'].upper(), 
+                    "limit" : int(snaplimit)
+                }
 
         return connection_data
     
-print(bybit.fetch("perpetual", "depth", symbol="btcusd", limit=100))
+# print(bybit.bybit_build_api_connectionData("perpetual", objective="depth", pullTimeout="100", symbol="btcusd"))
     
 class okx(CommunicationsManager):
     """
-        Abstraction of bybit api calls
+        OKX apis and websockets wrapper
     """
-    repeat_response_code = -1130
-    endpoint = "https://www.okx.com"
-    basepoints = {
-        "gta" : "/api/v5/rubik/stat/contracts/long-short-account-ratio",
-        "oi" : "/api/v5/public/open-interest"
-    }
-    default_params  = {
-        "gta" : {
-            "ccy": {"type": str, "default": "BTC"},
-            "period": {"type": str, "default": "5m"},
-                },
-        "oi": {
-            "instType" : {"type": str, "default": "OPTION"},
-            "instFamily" : {"type": str, "default": "BTC-USD"},
-        }
-        }
+    okx_repeat_response_code = okx_repeat_response_code
+    okx_api_endpoint = okx_api_endpoint
+    okx_api_instType_map = okx_api_instType_map
+    okx_api_basepoints = okx_api_basepoints
+    okx_ws_endpoint = okx_ws_endpoint
+    okx_stream_keys = okx_stream_keys
 
     @classmethod
-    def buildRequest(cls, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def okx_buildRequest(cls, insType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            objective :  gta, oi 
-            **kwargs : request parameters
+            objective :  in the okx_api_basepoint
+            # insType ---  the same as instType for previous modules. OKX contains arg instType threfore needs to be renamed
         """
-        params = dict(kwargs)
-        if objective == "gta":
-            insTypeName = "perp"
-        if objective != "gta":
-            if params["instType"].upper() == "SWAP":
-                insTypeName = "perp"
-            if params["instType"].upper() == "OPTION":
-                insTypeName = "option"
-            if params["instType"].upper() == "FUTURES":
-                insTypeName = "future"
-            if params["instType"].upper() == "SPOT":
-                insTypeName = "spot"
-        
-        for key in ["ccy", "instType", "instFamily"]:
-            if key in params:
-                params[key] = params[key].upper()
-        
-        if objective == "gta":
-            instrument = params.get("ccy")
-        if objective == "oi":
-            instrument = "".join(params.get("instFamily").split("-"))
-
-   
-        endpoint = cls.endpoint
-        basepoint = cls.basepoints.get(objective)
+        params = dict(**kwargs)
+        symbol_name = okx_get_symbol_name(params)
+        # endpoint
+        endpoint = cls.okx_api_endpoint
+        basepoint = cls.okx_api_basepoints.get(objective)
         url = endpoint + basepoint
         headers = {}
+        # Margin Type / even htough unnecessary
+        marginType = ""
+        if insType!="spot":
+            marginType = f"Linear{insType.capitalize()}" if "USDT" in symbol_name else f"Inverse{insType.capitalize()}"
         return {
             "url" : url, 
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument.lower(), 
-            "insTypeName" : insTypeName.lower(), 
+            "instrumentName" : symbol_name.lower(), 
+            "insTypeName" : insType.lower(), 
             "exchange" : "okx", 
-            "repeat_code" : cls.repeat_response_code,
+            "repeat_code" : cls.okx_repeat_response_code,
             "maximum_retries" : maximum_retries, 
-            "books_dercemet" : books_dercemet
+            "books_dercemet" : books_dercemet,
+            "marginType" : marginType,
             }
 
     @classmethod
-    def fetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
+    def okx_fetch(cls, *args, **kwargs):
+        connection_data = cls.okx_buildRequest(*args, **kwargs)
         response = cls.make_request(connection_data)
         return response
 
     @classmethod
-    async def aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
+    async def okx_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.okx_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
     
+    @classmethod
+    def okx_build_ws_method(cls, insType, **kwargs):
+        """
+            objective : depth, trades, liquidations, oi, funding
+        """
+        params = dict(kwargs)
+        standart_objective_name = params["objective"]
+        params["objective"] = cls.okx_stream_keys.get(params["objective"])
+        message =  {
+            "op": "subscribe", 
+            "args": [{'channel': params.get("objective"), 'instId': params.get("symbol")}
+            ]
+            }
+
+        return message, insType, standart_objective_name   
+
+    @classmethod
+    def okx_build_ws_connectionData(cls, insType, needSnap=False, snaplimit=1000, **kwargs):
+        """
+            You do not need to fetch ordeBook with okx websockets, it's done upon connection
+            insType : perpetual, option, spot, future
+        """
+        params = dict(kwargs)
+        message, insType, standart_objective_name = cls.okx_build_ws_method(insType, **params)
+        symbol_name = okx_get_symbol_name(params)
+        endpoint = okx_ws_endpoint    
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"okx_ws_{insType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"okx", 
+                                "instrument": symbol_name,
+                                "instType": insType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None
+                            }
+        return connection_data
+
+    @classmethod
+    def okx_build_api_connectionData(cls, insType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot, future, option
+            objective : oi, gta
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+        """
+        connectionData = cls.okx_buildRequest(insType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = okx_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_ws" : f"okx_api_{insType}_{objective}_{symbol_name}",
+                "exchange":"bybit", 
+                "instrument": symbol_name,
+                "instType": insType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(cls.okx_aiohttpFetch, insType=insType, objective=objective),
+                "params" : dict(**kwargs)
+                }
+        
+        return data
+
+# #Test
+# # print(okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD"))
+# okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
+# async def main():
+#     # Your asynchronous code here
+#     okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
+#     result = await okxx['aiohttpMethod'](**okxx.get("params"))
+#     print(result)
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
+
+
 class coinbase(CommunicationsManager):
     """
         Abstraction of bybit api calls
     """
 
-    def __init__ (self, apikey, secretkey):
-        self.apikey = apikey
-        self.secretkey = secretkey
-        self.repeat_response_code = -1130
-        self.endpoint = "api.coinbase.com"
-        self.basepoints = {
-            "depth" : "/api/v3/brokerage/product_book",
-        }
-        self.default_params  = {
-            "depth" : {
-                "product_id": {"type": str, "default": "BTC-USD"},
-                    },
-            }
-    def buildRequest(self, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def __init__ (self, api_coinbase, secret_coinbase):
+        self.api_coinbase = api_coinbase
+        self.secret_coinbase = secret_coinbase
+        self.coinbase_repeat_response_code = coinbase_repeat_response_code
+        self.coinbase_api_product_type_map = coinbase_api_product_type_map
+        self.coinbase_api_endpoint = coinbase_api_endpoint
+        self.coinbase_api_basepoints = coinbase_api_basepoints
+        self.coinbase_ws_endpoint = coinbase_ws_endpoint
+        self.coinbase_stream_keys = coinbase_stream_keys
+
+    def coinbase_buildRequest(self, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            instrument : ex: BTC-USD
-            objective :  depth
-            # OMIT Maxium retries of an API with different parameters in case API call is impossible. Useful when you cant catch the limit
-            # OMIT books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
-            **kwargs : request parameters
+            do not pass argument product_type
+            omit maximum_retries and books_dercemet as coinbase handles it for you :)
+            instType : spot, perpetual
         """
         params = dict(kwargs)
-        instrument = params.get("product_id")
-        insTypeName = "spot"
-        endpoint = self.endpoint
-        basepoint = self.basepoints.get(objective)
+        symbol = coinbase_get_symbol_name(params)
+        product_type = self.coinbase_api_product_type_map.get(instType)
+        print(product_type)
+        params["product_type"] = product_type
+        endpoint = self.coinbase_api_endpoint
+        basepoint = self.coinbase_api_basepoints.get(objective)
+        url = endpoint+basepoint
         payload = ''
-        headers = {
-            "Authorization": f"Bearer {self.build_jwt(objective)}",
-            'Content-Type': 'application/json'
-        }
+        headers = self.coinbase_build_headers(basepoint)
+        print(basepoint)
         return {
+            "url" : url,
             "endpoint" : endpoint, 
             "basepoint" : basepoint,
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument.replace("-", ""),
-            "insTypeName" : insTypeName, 
+            "instrumentName" : symbol,
+            "insTypeName" : instType, 
             "exchange" : "coinbase", 
-            "repeat_code" : self.repeat_response_code,
+            "repeat_code" : self.coinbase_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : payload
             }
     
-    def build_jwt(self, objective):
-        if objective == "depth":
-            objectiveCoinbase = "product_book"
-        key_name       =  self.apikey
-        key_secret     =  self.secretkey
+    def coinbase_build_headers(self, basepoint):
+        key_name       =  self.api_coinbase
+        key_secret     =  self.secret_coinbase
         request_method = "GET"
-        request_host   = "api.coinbase.com"
-        request_path   = f"/api/v3/brokerage/{objectiveCoinbase}"
+        request_host   = self.coinbase_api_endpoint
+        request_path   = basepoint
         service_name   = "retail_rest_api_proxy"
         private_key_bytes = key_secret.encode('utf-8')
         private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
@@ -679,42 +755,133 @@ class coinbase(CommunicationsManager):
             algorithm='ES256',
             headers={'kid': key_name, 'nonce': secrets.token_hex()},
         )
-        return jwt_token
+        headers = {
+            "Authorization": f"Bearer {jwt_token}",
+            'Content-Type': 'application/json'
+        }
+        return headers
 
-    def fetch(self, *args, **kwargs):
-        connection_data = self.buildRequest(*args, **kwargs)
+    def coinbase_fetch(self, *args, **kwargs):
+        connection_data = self.coinbase_buildRequest(*args, **kwargs)
         response = CommunicationsManager.make_httpRequest(connection_data)
         return response
+    
+    def coinbase_aiohttpFetch(self, *args, **kwargs):
+        connection_data = self.coinbase_buildRequest(*args, **kwargs)
+        response = CommunicationsManager.make_aiohttpRequest_v2(connection_data)
+        return response
+    
+    def build_jwt(self):
+        key_name = self.api_coinbase
+        key_secret = self.secret_coinbase
+        service_name = "public_websocket_api"
+        private_key_bytes = key_secret.encode('utf-8')
+        private_key = serialization.load_pem_private_key(private_key_bytes, password=None)
+        jwt_payload = {
+            'sub': key_name,
+            'iss': "coinbase-cloud",
+            'nbf': int(time.time()),
+            'exp': int(time.time()) + 60,
+            'aud': [service_name],
+        }
+        jwt_token = jwt.encode(
+            jwt_payload,
+            private_key,
+            algorithm='ES256',
+            headers={'kid': key_name, 'nonce': secrets.token_hex()},
+        )
+        return jwt_token
 
-# Fix instType Kucoin
+    def coinbase_build_ws_method(self, instType, **kwargs):
+        """
+            objective : depth, trades, liquidations, oi, funding
+        """
+        params = dict(kwargs)
+        standart_objective_name = params["objective"]
+        params["objective"] = self.coinbase_stream_keys.get(params["objective"])
+        message =  {
+                "type": "subscribe",
+                "product_ids": [params["product_id"]],
+                "channel": params["objective"],
+                "jwt": self.build_jwt(),
+                "timestamp": int(time.time())
+            }     
+
+        return message, instType, standart_objective_name   
+
+    def coinbase_build_ws_connectionData(self, instType, needSnap=False, snaplimit=1000, **kwargs):
+        """
+            insType : spot, future
+            snapLimit. Coinbase manages it for you :)
+            for books, needSnap should be = True
+            **kwargs : only product_id, instrument type is handled automatically
+        """
+        params = dict(kwargs)
+        message, instType, standart_objective_name = self.coinbase_build_ws_method(instType, **params)
+        symbol_name = coinbase_get_symbol_name(params)
+        endpoint = okx_ws_endpoint    
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"coinbase_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"coinbase", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"coinbase_api_{instType}_{standart_objective_name}_{symbol_name}",
+            connection_data["sbmethod"] = self.coinbase_fetch 
+            connection_data["sbPar"] = {
+                    "product_id": params['product_id'], 
+                        }
+        return connection_data
+
+    def coinbase_build_api_connectionData(self, instType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot, future, option
+            objective : oi, gta
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+            books don't work with aiohttp, only with http request method
+        """
+        connectionData = self.coinbase_buildRequest(instType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = coinbase_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_ws" : f"coinbase_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"bybit", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(self.coinbase_aiohttpFetch, instType=instType, objective=objective),
+                "params" : dict(**kwargs)
+                }
+        
+        return data
+
 
 class kucoin(CommunicationsManager):
     """
         Abstraction of kucoin api calls
     """
 
-    def __init__ (self, apikey, secretkey, password):
-        self.repeat_response_code = -1130
-        self.apikey = apikey
-        self.secretkey = secretkey
-        self.password = password
-        self.repeat_response_code = -1130
-        self.endpoints = {
-            "spot" : "https://api.kucoin.com",
-            "perp" : "https://api-futures.kucoin.com",
-        }
-        self.basepoints = {
-            "spot" : {
-                "depth" : "/api/v3/market/orderbook/level2"
-            },
-            "perp" : {
-                "depth" : "/api/v1/level2/snapshot"
-            }
-        }
-        self.default_params  = {
-            "spot" :  { "depth" : {"symbol": {"type": str, "default": "BTC-USDT"}}},
-            "perp" :  { "depth" :  {"symbol": {"type": str, "default": "XBTUSDTM"}}},
-                }
+    def __init__ (self, api_kucoin, secret_kucoin, pass_kucoin):
+        self.kucoin_repeat_response_code = kucoin_repeat_response_code
+        self.api_kucoin = api_kucoin
+        self.secret_kucoin = secret_kucoin
+        self.pass_kucoin = pass_kucoin
+        self.kucoin_api_endpoints = kucoin_api_endpoints
+        self.kucoin_api_basepoints = kucoin_api_basepoints
+
 
     def buildRequest(self, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
@@ -751,6 +918,22 @@ class kucoin(CommunicationsManager):
             "books_dercemet" : books_dercemet,
             "payload" : payload
             }
+    
+    def kucoin_build_ws_method(self, instType, **kwargs):
+        """
+            objective : depth, trades, liquidations, oi, funding
+        """
+        params = dict(kwargs)
+        standart_objective_name = params["objective"]
+        params["objective"] = self.kucoin_stream_keys.get(params["objective"])
+        message =  {
+                "id": generate_random_integer(10),   
+                "type": "subscribe",
+                "topic": "/market/match:BTC-USDT",
+                "response": True
+                }
+
+        return message, instType, standart_objective_name   
     
     def parse_basepoint_params(self, basepoint, params):
         return "?".join([basepoint, urllib.parse.urlencode(params) if params else ""])

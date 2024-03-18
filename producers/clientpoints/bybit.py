@@ -4,7 +4,7 @@ bybit_api_endpoint = "https://api.bybit.com"
 
 
 bybit_api_category_map = {
-                        "spot" : "category=spot",
+                        "spot" : "spot",
                         "perpetual" : {
                             "LinearPerpetual" : "linear",
                             "InversePerpetual" : "inverse"
@@ -19,7 +19,6 @@ bybit_api_category_map = {
 bybit_api_basepoint = {
                         "depth" : "/v5/market/orderbook",
                         "gta" : "/v5/market/account-ratio",
-                        "oi" : "/v5/market/tickers",
                         }
 
 
@@ -44,6 +43,9 @@ bybit_stream_keys = {
     "liquidations" : "liquidation",
     "trades" : "publicTrade",
     "depth" : "orderbook",
+    "oifunding" : "tickers",
+    "oi" : "tickers",
+    "funding" : "tickers"
 }
 
 

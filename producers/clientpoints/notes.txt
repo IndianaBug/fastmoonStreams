@@ -5,3 +5,14 @@ Bybit:
 -api : alluppper
 -websocket : -alluppper
 usually symbol for option: baseCoin
+
+
+# in websockets you have to pass arg objective="your_objective" othervise the uncesuccesss
+# ALL websocket builders symbols and objectives are standarized to symbol
+# YOU MUST pass symbol and objective arguments
+# For websocket connection, deribit and okx need to establish hearbeat websocket to keep the connection stable
+# Single websocket for single stream, bulk connection not supported 
+# Coinbase futures have weird unrecognizable names, getch all futures symbols and investingate what to input use coinbase.info()
+
+okx docs:      https://www.okx.com/docs-v5/en
+coinbase docs: https://docs.cloud.coinbase.com/advanced-trade-api/docs/welcome
