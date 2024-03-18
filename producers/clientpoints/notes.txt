@@ -14,5 +14,15 @@ usually symbol for option: baseCoin
 # Single websocket for single stream, bulk connection not supported 
 # Coinbase futures have weird unrecognizable names, getch all futures symbols and investingate what to input use coinbase.info()
 
-okx docs:      https://www.okx.com/docs-v5/en
-coinbase docs: https://docs.cloud.coinbase.com/advanced-trade-api/docs/welcome
+### DOCS ###
+okx      https://www.okx.com/docs-v5/en
+coinbase https://docs.cloud.coinbase.com/advanced-trade-api/docs/welcome
+binance  https://binance-docs.github.io/apidocs/spot/en/#change-log
+bybit    https://bybit-exchange.github.io/docs/v5/intro
+kucoin   https://www.kucoin.com/docs/beginners/introduction
+bitget   https://www.bitget.com/api-doc/common/intro
+bingx    https://bingx-api.github.io/docs/#/en-us/swapV2/changelog
+mexc     https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction
+htx      https://www.htx.com/en-us/opend/newApiPages/
+deribit  https://docs.deribit.com/#market-data
+gateio   https://www.gate.io/docs/developers/apiv4/en/
