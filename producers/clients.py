@@ -122,7 +122,7 @@ class CommunicationsManager:
                 } 
 
     @classmethod
-    def make_wsRequest(cls, connection_data):
+    def make_wsRequest_http(cls, connection_data):
         print(connection_data.get("headers"))
         async def wsClient(connection_data):
             async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
@@ -141,7 +141,13 @@ class CommunicationsManager:
             "insType" : connection_data.get("insTypeName").lower(),
             "objective" : connection_data.get("objective").lower(),
             "response" : response,
-        } 
+        }
+
+    async def make_wsRequest(connection_data):
+        async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
+            await websocket.send(json.dumps(connection_data.get("headers")))
+            response = await websocket.recv()
+            return response 
 
 class binance(CommunicationsManager, binanceInfo):
     """
@@ -1345,13 +1351,13 @@ class deribit(CommunicationsManager):
     @classmethod
     def deribit_fetch(cls, *args, **kwargs):
         connection_data = cls.deribit_buildRequest(*args, **kwargs)
-        response = cls.make_wsRequest(connection_data)
+        response = cls.make_wsRequest_http(connection_data)
         return response
 
     @classmethod
     async def deribit_aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.deribit_buildRequest(*args, **kwargs)
-        response = await cls.make_aiohttpRequest(connection_data)
+        response = await cls.make_wsRequest(connection_data)
         return response
     
     @classmethod
@@ -1364,7 +1370,7 @@ class deribit(CommunicationsManager):
             if "symbol" in params:
                 params["instrument_name"] = params.pop("symbol")
             if "instrument_name" in params and params["instrument_name"] in cls.deribit_marginCoins:
-                params["currrency"] = params.pop("instrument_name")
+                params["currency"] = params.pop("instrument_name")
             if "currrency" in params:
                 params["kind"] = cls.deribit_instType_keys.get(instType)
         if method == "ws":
@@ -1382,20 +1388,94 @@ class deribit(CommunicationsManager):
         }
         return api_headers
 
+    @classmethod
+    def deribit_build_api_connectionData(cls, instType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot, future, option
+            objective : oi, gta
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+            books don't work with aiohttp, only with http request method
+        """
+        connectionData = cls.deribit_buildRequest(instType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = kucoin_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_ws" : f"kucoin_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"kucoin", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(cls.deribit_aiohttpFetch, instType=instType, objective=objective),
+                "params" : dict(**kwargs)
+                }
+        
+        return data
+
+    @classmethod
+    def deribit_build_ws_connectionData(cls, instType, needSnap=True, snaplimit=1000, **kwargs):
+        """
+            insType : spot, perpetual
+            needSnap = True for books
+            for books, needSnap should be = True if you for depth websocket
+            **kwargs : symbol, objective, pullSpeed (if applicable)
+        """
+        params = dict(kwargs)
+        symbol = params["symbol"]
+        standart_objective_name = params["objective"]
+        message = cls.deribit_build_headers(instType, "ws", **params)
+        symbol_name = deribit_get_symbol_name(params)
+        endpoint = cls.deribit_endpoint 
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"deribit_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"deribit", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"deribit_api_{instType}_{standart_objective_name}_{symbol_name}",
+            connection_data["sbmethod"] = cls.deribit_fetch 
+            connection_data["sbPar"] = {
+                    "symbol": symbol, 
+                        }
+        return connection_data
+
 
 class clientTest(binance, bybit, bitget, deribit, okx):
     
     @classmethod
-    def test_deribit_aiohttpFetch(cls, **kwargs):
-        a = cls.deribit_fetch("option", "oifunding", symbol="BTC")
-        print(a)
-        # async def example():
-        #     a = await cls.deribit_fetch("option", "oifunding", symbol="BTC-PERPETUAL", limit=1000)
-        #     print(a)
+    def test_deribit_apiData(cls, **kwargs):
+        # a = cls.deribit_fetch("option", "oifunding", symbol="BTC")
+        # print(a)
+        async def example():
+            d = cls.deribit_build_api_connectionData("option", "oifunding", 100, symbol="BTC", limit=1000)
+            result = await d['aiohttpMethod'](**d["params"])
+            # a = await cls.deribit_aiohttpFetch("option", "oifunding", symbol="BTC", limit=1000) # works even with unnecessary arguments
+            print(result)
 
-        # asyncio.run(example())
+        asyncio.run(example())
 
-clientTest.test_deribit_aiohttpFetch()
+    @classmethod
+    def test_deribit_wsData(cls, **kwargs):
+        async def example():
+            d = cls.deribit_build_ws_connectionData("option", "oifunding", symbol="BTC", limit=1000)
+            result =  d['sbmethod'](**d["sbPar"])
+            print(result)
+
+        asyncio.run(example())
+
+clientTest.test_deribit_wsData()
 
 
     #         }

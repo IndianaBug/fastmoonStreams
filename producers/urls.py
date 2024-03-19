@@ -544,7 +544,7 @@ AaWS = [
                 "currency": "BTC", 
                 "kind": "option"
                 }
-            }
+            }    
     },
     {
         "type" : "api",
