@@ -112,6 +112,7 @@ class bybitInfo(requestHandler):
         info = cls.simple_request(url)
         return info.get("result").get("list")
     
+
 class binanceInfo(requestHandler):
     binance_info_url = {
                         "spot" : "https://api.binance.com/api/v3/exchangeInfo",

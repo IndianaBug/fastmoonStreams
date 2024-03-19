@@ -94,7 +94,7 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.bybit_symbols()
+a = info.bitget_info("perpetual.InversePerpetual.usdc")
 
 
 print(a)

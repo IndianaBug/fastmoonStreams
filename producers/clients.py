@@ -16,12 +16,13 @@ import base64
 import hashlib
 import hmac
 from hashlib import sha256 
-from utilis import generate_random_integer
+from utilis import generate_random_integer, generate_random_id
 from functools import partial
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+from exchangeinfo import binanceInfo
 from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
 from producers.clientpoints.okx import *
@@ -29,38 +30,13 @@ from producers.clientpoints.coinbase import *
 # from producers.clientpoints.deribit import *
 from producers.clientpoints.kucoin import *
 # from producers.clientpoints.htx import *
-# from producers.clientpoints.bitget import *
+from producers.clientpoints.bitget import *
 # from producers.clientpoints.gateio import *
 # from producers.clientpoints.mexc import *
-# from producers.clientpoints.bingx import *
+from producers.clientpoints.bingx import *
 
 # TODO
 # Fix the orders of the wscall for both binance and Bybit xD
-
-
-# BNB-240320-545-C
-
-
-# Use for Binance
-# a = binance.binance_build_ws_connectionData("spot", needSnap=True, symbol="btcfdusd", objective="depth", pullSpeed="500ms")
-# #print(a.get("sbPar"))
-# books = a.get("sbmethod")(a.get("instType"), a.get("objective"), **a.get("sbPar"))
-# result = d['aiohttpMethod'](**kwargs)
-# print(books)
-
-
-# import asyncio
-
-# async def main():
-#     # Your asynchronous code here
-#     a = binance.binance_build_api_connectionData("perpetual", "oi", 1, symbol="BTCUSDT")
-#     result = await a['aiohttpMethod'](**a.get("params"))
-#     print(result)
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
-
-from exchangeinfo import binanceInfo
 
 class CommunicationsManager:
 
@@ -115,18 +91,9 @@ class CommunicationsManager:
             "response" : response,
         }
         
-
-# For gate
-# headers = info["headers"]
-# headers["from"] = f"{int(time.time()) - 10}"
-# headers["to"] = f"{int(time.time())}" 
-
-
-
     @classmethod
     async def make_aiohttpRequest(cls, connection_data):
         print(connection_data)
-
         async with aiohttp.ClientSession() as session:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
@@ -140,10 +107,9 @@ class CommunicationsManager:
             
     @classmethod
     async def make_aiohttpRequest_v2(cls, connection_data):
-        print(connection_data)
-
+        connection_data["headers"] = {str(key): str(value) for key, value in connection_data["headers"].items()}
         async with aiohttp.ClientSession() as session:
-            async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"], json={}) as response:
+            async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
                 return {
                     "instrument" : connection_data.get("instrumentName").lower(),
@@ -545,9 +511,7 @@ class bybit(CommunicationsManager):
                 }
 
         return connection_data
-    
-# print(bybit.bybit_build_api_connectionData("perpetual", objective="depth", pullTimeout="100", symbol="btcusd"))
-    
+        
 class okx(CommunicationsManager):
     """
         OKX apis and websockets wrapper
@@ -658,7 +622,7 @@ class okx(CommunicationsManager):
         data =  {
                 "type" : "api",
                 "id_ws" : f"okx_api_{insType}_{objective}_{symbol_name}",
-                "exchange":"bybit", 
+                "exchange":"okx", 
                 "instrument": symbol_name,
                 "instType": insType,
                 "objective": objective, 
@@ -669,19 +633,6 @@ class okx(CommunicationsManager):
                 }
         
         return data
-
-# #Test
-# # print(okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD"))
-# okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
-# async def main():
-#     # Your asynchronous code here
-#     okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
-#     result = await okxx['aiohttpMethod'](**okxx.get("params"))
-#     print(result)
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
-
 
 class coinbase(CommunicationsManager):
     """
@@ -856,7 +807,7 @@ class coinbase(CommunicationsManager):
         data =  {
                 "type" : "api",
                 "id_ws" : f"coinbase_api_{instType}_{objective}_{symbol_name}",
-                "exchange":"bybit", 
+                "exchange":"coinbase", 
                 "instrument": symbol_name,
                 "instType": instType,
                 "objective": objective, 
@@ -867,7 +818,6 @@ class coinbase(CommunicationsManager):
                 }
         
         return data
-
 
 class kucoin(CommunicationsManager):
     """
@@ -881,28 +831,29 @@ class kucoin(CommunicationsManager):
         self.pass_kucoin = pass_kucoin
         self.kucoin_api_endpoints = kucoin_api_endpoints
         self.kucoin_api_basepoints = kucoin_api_basepoints
+        self.kucoin_stream_keys = kucoin_stream_keys
+        self.kucoin_ws_endpoint = kucoin_ws_endpoint
 
 
-    def buildRequest(self, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def kucoin_buildRequest(self, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            instType : spot, perp
-            objective :  depth
-            Maxium retries of an API with different parameters in case API call is impossible. Useful when you cant catch the limit
-            books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
-            **kwargs : request parameters like symbol
+            instType : spot, perpetual
+            objective :  depth, oifunding
+            omit maximum_retries and books_dercemet, kucoin handles it for you
+            **kwargs : request parameters, check kucoin API docs
         """
         params = dict(kwargs)
-        if instType == "spot":
-            instrument = params.get("symbol")
-        if instType == "perp":
-            instrument = params.get("symbol").replace("XBT", "BTC").replace("USDTM", "USDT")
-        insTypeName = instType
-        endpoint = self.endpoints.get(instType)
-        basepoint = self.basepoints.get(instType).get(objective)
-        # basepoint_headers = "?".join([basepoint, urllib.parse.urlencode(params)])
-        # basepoint_headers = self.parse_basepoint_params(basepoint, params)
+        symbol_name = kucoin_get_symbol_name(params)
+        endpoint = self.kucoin_api_endpoints.get(instType)
+        basepoint = self.kucoin_api_basepoints.get(instType).get(objective)
+
+        # Unstandarized api 
+        if objective == "oifunding":
+            symbol = params.pop("symbol")
+            basepoint = f"{basepoint}{symbol}"
+        
         payload = ''
-        headers = self.build_headers(basepoint, params)
+        headers = self.kucoin_build_headers(basepoint, params)
         return {
             "url" : endpoint + basepoint,
             "endpoint" : endpoint, 
@@ -910,10 +861,10 @@ class kucoin(CommunicationsManager):
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument.replace("-", ""),
-            "insTypeName" : insTypeName, 
+            "instrumentName" : symbol_name,
+            "insTypeName" : instType, 
             "exchange" : "kucoin", 
-            "repeat_code" : self.repeat_response_code,
+            "repeat_code" : self.kucoin_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : payload
@@ -925,25 +876,25 @@ class kucoin(CommunicationsManager):
         """
         params = dict(kwargs)
         standart_objective_name = params["objective"]
-        params["objective"] = self.kucoin_stream_keys.get(params["objective"])
+        topic = self.kucoin_stream_keys.get(instType).get(standart_objective_name)
+        symbol = params.get("symbol")
         message =  {
                 "id": generate_random_integer(10),   
                 "type": "subscribe",
-                "topic": "/market/match:BTC-USDT",
+                "topic": f"{topic}{symbol}",
                 "response": True
                 }
 
         return message, instType, standart_objective_name   
     
-    def parse_basepoint_params(self, basepoint, params):
+    def kucoin_parse_basepoint_params(self, basepoint, params):
         return "?".join([basepoint, urllib.parse.urlencode(params) if params else ""])
-        # return basepoint + ("?" + urllib.parse.urlencode(params) if params else "")
 
-    def build_headers(self, basepoint, params):
-        basepoint_headers = self.parse_basepoint_params(basepoint, params)
-        apikey = self.apikey 
-        secretkey = self.secretkey
-        password = self.password 
+    def kucoin_build_headers(self, basepoint, params):
+        basepoint_headers = self.kucoin_parse_basepoint_params(basepoint, params)
+        apikey = self.api_kucoin 
+        secretkey = self.secret_kucoin
+        password = self.pass_kucoin 
         now = int(time.time() * 1000)
         str_to_sign = str(now) + "GET" + basepoint_headers
         signature = base64.b64encode(hmac.new(secretkey.encode("utf-8"), str_to_sign.encode("utf-8"), hashlib.sha256).digest())
@@ -955,54 +906,100 @@ class kucoin(CommunicationsManager):
         }
         return headers
 
-    def fetch(self, *args, **kwargs):
-        connection_data = self.buildRequest(*args, **kwargs)
+    def build_kucoin_ws_endpoint(self):
+        """
+            Returns kucoin token and endpoint
+        """
+        kucoin_api = self.kucoin_ws_endpoint
+        response = requests.post(kucoin_api)
+        kucoin_token = response.json().get("data").get("token")
+        kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
+        kucoin_connectId = generate_random_id(20)
+        return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
+
+    def kucoin_fetch(self, *args, **kwargs):
+        connection_data = self.kucoin_buildRequest(*args, **kwargs)
         response = CommunicationsManager.make_request(connection_data)
         return response
+    
+    async def kucoin_aiohttpFetch(self, *args, **kwargs):
+        connection_data = self.kucoin_buildRequest(*args, **kwargs)
+        response = await self.make_aiohttpRequest_v2(connection_data)
+        return response
 
-class bingx(CommunicationsManager):
-    """
-        Abstraction of kucoin api calls
-    """
-    default_params  = {
-        "spot" :  { 
-            "depth" : {
-                    "symbol": {"type": str, "default": "BTC-USDT"},
-                    "limit": {"type": int, "default": 1000}, # p = [5, 10, 20, 50, 100, 500, 1000]
-                },
-        "perp": {  
-                "depth" : {
-                        "symbol": {"type": str, "default": "BTC-USDT"},
-                        "limit": {"type": int, "default": 1000}, # p = [5, 10, 20, 50, 100, 500, 1000]
-                    },
-                "oi" : {
-                        "symbol": {"type": str, "default": "BTC-USDT"},
-                },
-                "funding" : {
-                        "symbol": {"type": str, "default": "BTC-USDT"},
+    def kucoin_build_ws_connectionData(self, instType, needSnap=False, snaplimit=1000, **kwargs):
+        """
+            insType : spot, perpetual
+            needSnap = True for books
+            omit snap limit
+            for books, needSnap should be = True
+            **kwargs : only product_id, instrument type is handled automatically
+        """
+        params = dict(kwargs)
+        message, instType, standart_objective_name = self.kucoin_build_ws_method(instType, **params)
+        symbol_name = kucoin_get_symbol_name(params)
+        endpoint = self.build_kucoin_ws_endpoint()    
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"kucoin_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"kucoin", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"kucoin_api_{instType}_{standart_objective_name}_{symbol_name}",
+            connection_data["sbmethod"] = self.kucoin_fetch 
+            connection_data["sbPar"] = {
+                    "symbol": params['symbol'], 
+                        }
+        return connection_data
+
+    def kucoin_build_api_connectionData(self, instType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot, future, option
+            objective : oi, gta
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+            books don't work with aiohttp, only with http request method
+        """
+        connectionData = self.kucoin_buildRequest(instType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = kucoin_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_ws" : f"kucoin_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"kucoin", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(self.kucoin_aiohttpFetch, instType=instType, objective=objective),
+                "params" : dict(**kwargs)
                 }
-            }
-        }
-    }
+        
+        return data
+    
+class bingx(CommunicationsManager):
 
-    def __init__ (self, apikey, secretkey):
-        self.repeat_response_code = -1130
-        self.apikey = apikey
-        self.secretkey = secretkey
-        self.endpoint = "https://open-api.bingx.com"
-        self.basepoints = {
-            "spot" : {
-                "depth" : "/openApi/spot/v1/market/depth"
-            },
-            "perp" : {
-                "depth" : "/openApi/swap/v2/quote/depth",
-                "oi" : "/openApi/swap/v2/quote/openInterest",
-                "funding" : "/openApi/swap/v2/quote/premiumIndex",
-            }
-        }
+    def __init__ (self, api_bingx="", secret_bingx=""):
+        self.api_bingx = api_bingx
+        self.secret_bingx = secret_bingx
+        self.bingx_api_endpoint = bingx_api_endpoint
+        self.bingx_api_basepoints = bingx_api_basepoints
+        self.bingx_ws_endpoints = bingx_ws_endpoints
+        self.bingx_stream_keys = bingx_stream_keys
+        self.bingx_repeat_response_code = bingx_repeat_response_code
 
 
-    def buildRequest(self, instType:str, objective:str, 
+    def bingx_buildRequest(self, instType:str, objective:str, 
                      possible_limits:list=[1000, 500, 100, 50, 20, 10, 5], books_dercemet:int=100, **kwargs)->dict: 
         """
             instType : spot, derivate
@@ -1012,15 +1009,11 @@ class bingx(CommunicationsManager):
             **kwargs : request parameters like symbol
         """
         params = dict(kwargs)
-        instrument = params.get("symbol").replace("-", "").lower()
-        if instType == "derivate":
-            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
-        if instType == "spot":
-            insTypeName = "spot"
-        endpoint = self.endpoint
-        basepoint = self.basepoints.get(insTypeName).get(objective)
+        symbol_name = bingx_get_symbol_name(params)
+        endpoint = self.bingx_api_endpoint
+        basepoint = self.bingx_api_basepoints.get(instType).get(objective)
         payload = {}
-        url, headers = self.get_url_headers(endpoint, basepoint, params, self.apikey, self.secretkey)
+        url, headers = self.bingx_get_url_headers(endpoint, basepoint, params, self.api_bingx, self.secret_bingx)
         return {
             "url" : url,
             "endpoint" : endpoint, 
@@ -1028,27 +1021,25 @@ class bingx(CommunicationsManager):
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument,
-            "insTypeName" : insTypeName, 
+            "instrumentName" : symbol_name,
+            "insTypeName" : instType, 
             "exchange" : "bingx", 
-            "repeat_code" : self.repeat_response_code,
+            "repeat_code" : self.bingx_repeat_response_code,
             "maximum_retries" : 1, 
             "books_dercemet" : books_dercemet,
             "payload" : payload,
             "possible_limits" : possible_limits
             }
 
-    @classmethod
-    def get_url_headers(cls, endpoint, basepoint, params, api, secret):
-        parsed_params = cls.parseParam(params)
-        url = "%s%s?%s&signature=%s" % (endpoint, basepoint, parsed_params, cls.get_sign(secret, parsed_params))
+    def bingx_get_url_headers(self, endpoint, basepoint, params, api, secret):
+        parsed_params = self.bingx_parseParam(params)
+        url = "%s%s?%s&signature=%s" % (endpoint, basepoint, parsed_params, self.bingx_get_sign(secret, parsed_params))
         headers = {
             'X-BX-APIKEY': api,
         }
         return url, headers
 
-    @classmethod
-    def parseParam(cls, params):
+    def bingx_parseParam(self, params):
         sortedKeys = sorted(params)
         paramsStr = "&".join(["%s=%s" % (x, params[x]) for x in sortedKeys])
         if paramsStr != "": 
@@ -1056,13 +1047,12 @@ class bingx(CommunicationsManager):
         else:
             return paramsStr+"timestamp="+str(int(time.time() * 1000))
     
-    @classmethod
-    def get_sign(cls, api_secret, payload):
+    def bingx_get_sign(self, api_secret, payload):
         signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
         return signature
 
-    def fetch(self, *args, **kwargs):
-        connection_data = self.buildRequest(*args, **kwargs)
+    def bingx_fetch(self, *args, **kwargs):
+        connection_data = self.bingx_buildRequest(*args, **kwargs)
         if "limit" in connection_data:
             possible_limits = connection_data.get("possible_limits")
             possible_limits = sorted(possible_limits, reverse=True)
@@ -1077,8 +1067,8 @@ class bingx(CommunicationsManager):
         else:
             return CommunicationsManager.make_request_v2(connection_data)
 
-    async def aiohttpFetch(self, *args, **kwargs):
-        connection_data = self.buildRequest(*args, **kwargs)
+    async def bingx_aiohttpFetch(self, *args, **kwargs):
+        connection_data = self.bingx_buildRequest(*args, **kwargs)
         if "limit" in connection_data:
             possible_limits = connection_data.get("possible_limits")
             possible_limits = sorted(possible_limits, reverse=True)
@@ -1092,59 +1082,108 @@ class bingx(CommunicationsManager):
                     time.sleep(2)
                     continue
         else:
-            return CommunicationsManager.make_request_v2(connection_data)
+            return await CommunicationsManager.make_aiohttpRequest(connection_data)
+
+    def bingx_build_api_connectionData(self, instType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot, future, option
+            objective : oi, gta
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+            books don't work with aiohttp, only with http request method
+        """
+        connectionData = self.bingx_buildRequest(instType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = bingx_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_ws" : f"bingx_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"bingx", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(self.bingx_aiohttpFetch, instType=instType, objective=objective),
+                "params" : dict(**kwargs)
+                }
+        
+        return data
+
+    def bingx_build_ws_method(self, instType, **kwargs):
+        """
+            objective : depth, trades, liquidations, oi, funding
+        """
+        params = dict(kwargs)
+        standart_objective_name = params["objective"]
+        topic = self.bingx_stream_keys.get(standart_objective_name)
+        symbol = params.get("symbol")
+        pullSpeed = "" if "pullSpeed" not in params else f"@{params['pullSpeed']}"
+        message =  {
+                "id" : generate_random_id(20),
+                "reqType": "sub",
+                "dataType":f"{symbol}@{topic}{pullSpeed}"
+                }
+
+        return message, instType, standart_objective_name   
     
+    def bingx_build_ws_connectionData(self, instType, needSnap=False, snaplimit=1000, **kwargs):
+        """
+            insType : spot, perpetual
+            omit snap limit, needSnap
+            **kwargs : symbol, objective, pullSpeed
+        """
+        params = dict(kwargs)
+        message, instType, standart_objective_name = self.bingx_build_ws_method(instType, **params)
+        symbol_name = bingx_get_symbol_name(params)
+        endpoint = self.bingx_ws_endpoints.get(instType)  
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"bingx_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"bingx", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None
+                            }
+        return connection_data
+
+
 class bitget(CommunicationsManager):
     """
         Abstraction of bybit api calls
     """
-    repeat_response_code = -1130
-    endpoint = "https://api.bitget.com"
-    basepoints = {
-        "spot" : {
-            "depth" : "/api/v2/spot/market/orderbook",
-        },
-        "perp" : {
-            "depth" : "/api/v2/mix/market/merge-depth",
-        }
-    }
-    default_params  = {
-        "spot" : {
-            "depth" :  {
-                "symbol" : { "type" : str},
-                "type" : { "type" : str, "default": "step0"}, # no aggregation
-                "limit" : { "type" : int, "max": 150},
-                }
-        },
-        "perp" : {
-            "depth" : {
-                "symbol" : { "type" : str},
-                "limit" : { "type" : int, "max": 1000},
-                "productType" : {"type" : str, "default" : "usdt-futures"}
-            }
-        }
-    }
-            
+    bitget_repeat_response_code = bitget_repeat_response_code
+    bitget_api_endpoint = bitget_api_endpoint
+    bitget_productType_map = bitget_productType_map
+    bitget_api_basepoints = bitget_api_basepoints
+    bitget_ws_endpoint = bitget_ws_endpoint
+    bitget_stream_keys = bitget_stream_keys
 
-        # "url" : "https://api.bitget.com/api/v2/spot/market/orderbook?symbol=BTCUSDT&type=step0&limit=150" , # simple get request
-        # "url" : "https://api.bitget.com/api/v2/mix/market/merge-depth?productType=usdt-futures&symbol=BTCUSDT&limit=1000", 
 
     @classmethod
-    def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def bitget_buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            objective :  depth
-            **kwargs : request parameters
+            objective :  depth, trades. oifunding
+            **kwargs : request parameters. Verify with bitget api
         """
         params = dict(kwargs)
-        instrument = params.get("symbol").replace("-", "")
-        if instType == "derivate":
-            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
-        if instType == "spot":
-            insTypeName = "spot"
-        if insTypeName == "perp":
-            params["productType"] = "usdt-futures"
-        endpoint = cls.endpoint
-        basepoint = cls.basepoints.get(insTypeName).get(objective)
+        # marginType, marginCoin mapping
+        instrument = bitget_get_instrument(params)
+        symbol_name = bitget_get_symbol_name(params)
+        marginType = bitget_get_marginType(instrument)
+        marginCoin = bitget_get_marginCoin(instrument)
+        productType = bitget_get_productType(instType, marginType, marginCoin)
+        if instType != "spot":
+            params["productType"] = productType
+        #  url
+        endpoint = cls.bitget_api_endpoint
+        basepoint = cls.bitget_api_basepoints.get(instType).get(objective)
         url = endpoint + basepoint
         headers = {}
         return {
@@ -1154,26 +1193,45 @@ class bitget(CommunicationsManager):
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument.lower(), 
-            "insTypeName" : insTypeName.lower(), 
+            "instrumentName" : symbol_name, 
+            "insTypeName" : instType, 
             "exchange" : "bitget", 
-            "repeat_code" : cls.repeat_response_code,
+            "repeat_code" : cls.bitget_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : "",
+            "marginType" : marginType,
+            "marginCoin" : marginCoin
             }
 
     @classmethod
-    def fetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
+    def bitget_fetch(cls, *args, **kwargs):
+        connection_data = cls.bitget_buildRequest(*args, **kwargs)
         response = cls.make_request(connection_data)
         return response
 
     @classmethod
-    async def aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
+    async def bitget_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.bitget_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
+
+    @classmethod
+    def build(cls):
+# {
+#                 "op": "subscribe",
+#                 "args": [
+#                     {
+#                         "instType": "SPOT",
+#                         "channel": "trade",
+#                         "instId": "BTCUSDT"
+#                     }
+#                 ]    
+        pass
+
+
+print(bitget.bitget_fetch("perpetual", "depth", symbol="BTCUSDT", type="step0"))
+
 
 class deribit(CommunicationsManager):
     """
@@ -1275,55 +1333,7 @@ class deribit(CommunicationsManager):
         return response
 
 
-# print(bitget.buildRequest("derivate", "depth", symbol="BTCUSDT", limit=150))
-
-# print(bitget.fetch("derivate", "depth", symbol="BTCUSDT", limit=25))
-
-# b = bingx("", "")
-# async def example():
-#     a = await b.aiohttpFetch("derivate", "depth", symbol="BTC-USDT")
-#     print(a)
-
-# asyncio.run(example())
-    
 
 
 
-
-
-
-#     "mexc" : {
-#         "spot" : "https://api.mexc.com", 
-#         "perp" : "https://contract.mexc.com",
-#     },
-#     "htx" : {
-#         "spot" : "https://api.huobi.pro",
-#         "perp" : "https://api.hbdm.com",
-#     },
-#     "gateio" : "https://api.gateio.ws",
-#     "deribit" : "wss://test.deribit.com",
-
-# }
-
-# APIbasepoints = {
-#     "kucoin" : {
-#         "spot" : "https://api.kucoin.com", 
-#         "perp" : "https://api-futures.kucoin.com",
-#     },
-#     "mexc" : {
-#         "spot" : "https://api.mexc.com", 
-#         "perp" : "https://contract.mexc.com",
-#     },
-#     "htx" : {
-#         "spot" : "https://api.huobi.pro",
-#         "perp" : "https://api.hbdm.com",
-#     },
-#     "bybit" :  {
-#         "depth" : "/v5/market/orderbook",
-#     },
-#     "gateio" : "https://api.gateio.ws",
-#     "bitget" : "https://api.bitget.com",
-#     "deribit" : "wss://test.deribit.com",
-#     "bingx" : "https://open-api.bingx.com",
-# }
 

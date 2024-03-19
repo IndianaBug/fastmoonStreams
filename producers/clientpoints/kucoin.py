@@ -6,16 +6,12 @@ kucoin_api_endpoints = {
             "perpetual" : "https://api-futures.kucoin.com",
         }
 
-kucoin_api_product_type_map = {
-        "spot" : "SPOT",
-        "future" : "FUTURE"
-                            }
 
 kucoin_api_basepoints = {
             "spot" : {
                 "depth" : "/api/v3/market/orderbook/level2"
             },
-            "perp" : {
+            "perpetual" : {
                 "depth" : "/api/v1/level2/snapshot",
                 "oifunding" : "/api/v1/contracts/",
             }
@@ -25,16 +21,22 @@ kucoin_api_basepoints = {
 # ws # 
 
 
-kucoin_ws_endpoint = "wss://advanced-trade-ws.coinbase.com" 
+kucoin_ws_endpoint = "https://api.kucoin.com/api/v1/bullet-public"
 
 
 kucoin_stream_keys = {
-            "trades" : "market_trades",
-            "depth" : "product_book",
-            }
+    "spot" : {
+        "trades" : "/market/match:",
+        "depth" : "/market/level2:",
+    },
+    "perpetual" : {
+        "trades" : "/contractMarket/execution:",
+        "depth" : "/contractMarket/level2:",
+    },
+}
 
 
 def kucoin_get_symbol_name(d):
-    if "product_id" in d:
-        symbol = d.get("product_id")
+    if "symbol" in d:
+        symbol = d.get("symbol")
     return symbol.replace("-", "").lower()

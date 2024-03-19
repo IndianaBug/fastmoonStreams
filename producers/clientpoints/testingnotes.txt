@@ -1,0 +1,83 @@
+Important gate aioHTTTP
+
+# For gate
+# headers = info["headers"]
+# headers["from"] = f"{int(time.time()) - 10}"
+# headers["to"] = f"{int(time.time())}" 
+
+
+# Bingx api spot depth snap has some problems
+
+
+
+
+
+# #Test
+# # print(okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD"))
+# okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
+# async def main():
+#     # Your asynchronous code here
+#     okxx = okx.okx_build_api_connectionData("perpetual", "oi", 100, instType="OPTION", instFamily="BTC-USD")
+#     result = await okxx['aiohttpMethod'](**okxx.get("params"))
+#     print(result)
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
+
+# kucoinAPI = "65d92cc0291aa2000118b67b"
+# kucoinSecret = "3d449464-ab5e-4415-9950-ae31648fe90c"
+# kucoinPass = "sN038-(!UK}4"
+# kucoins = kucoin(kucoinAPI, kucoinSecret, kucoinPass)
+# # print(kucoins.kucoin_fetch("perpetual", "oifunding", symbol="XBTUSDTM"))
+
+
+# kkk = kucoins.kucoin_build_ws_connectionData("perpetual", needSnap=True, symbol="XBTUSDTM", objective="depth")
+# print(kkk)
+
+
+
+# print(bybit.bybit_build_api_connectionData("perpetual", objective="depth", pullTimeout="100", symbol="btcusd"))
+
+
+
+
+# TODO
+# Fix the orders of the wscall for both binance and Bybit xD
+
+
+# BNB-240320-545-C
+
+
+# Use for Binance
+# a = binance.binance_build_ws_connectionData("spot", needSnap=True, symbol="btcfdusd", objective="depth", pullSpeed="500ms")
+# #print(a.get("sbPar"))
+# books = a.get("sbmethod")(a.get("instType"), a.get("objective"), **a.get("sbPar"))
+# result = d['aiohttpMethod'](**kwargs)
+# print(books)
+
+
+# import asyncio
+
+# async def main():
+#     # Your asynchronous code here
+#     a = binance.binance_build_api_connectionData("perpetual", "oi", 1, symbol="BTCUSDT")
+#     result = await a['aiohttpMethod'](**a.get("params"))
+#     print(result)
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
+
+
+
+
+# print(bitget.buildRequest("derivate", "depth", symbol="BTCUSDT", limit=150))
+
+# print(bitget.fetch("derivate", "depth", symbol="BTCUSDT", limit=25))
+
+# b = bingx("", "")
+# async def example():
+#     a = await b.aiohttpFetch("derivate", "depth", symbol="BTC-USDT")
+#     print(a)
+
+# asyncio.run(example())
+    
