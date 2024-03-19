@@ -28,3 +28,5 @@ mexc     https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction
 htx      https://www.htx.com/en-us/opend/newApiPages/
 deribit  https://docs.deribit.com/#market-data
 gateio   https://www.gate.io/docs/developers/apiv4/en/
+
+

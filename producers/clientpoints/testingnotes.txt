@@ -80,4 +80,14 @@ Important gate aioHTTTP
 #     print(a)
 
 # asyncio.run(example())
-    
+
+
+
+
+
+
+
+########## BITGET ###############
+
+d = bitget.bitget_build_ws_connectionData("perpetual", symbol="BTCUSDT", objective="depth", snaplimit=1000)
+print(d)

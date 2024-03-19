@@ -27,7 +27,7 @@ from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
 from producers.clientpoints.okx import *
 from producers.clientpoints.coinbase import *
-# from producers.clientpoints.deribit import *
+from producers.clientpoints.deribit import *
 from producers.clientpoints.kucoin import *
 # from producers.clientpoints.htx import *
 from producers.clientpoints.bitget import *
@@ -37,6 +37,8 @@ from producers.clientpoints.bingx import *
 
 # TODO
 # Fix the orders of the wscall for both binance and Bybit xD
+# Add get all available ws methods and api methods per exchange
+# add deribitcoinbase heartbeats
 
 class CommunicationsManager:
 
@@ -121,8 +123,9 @@ class CommunicationsManager:
 
     @classmethod
     def make_wsRequest(cls, connection_data):
+        print(connection_data.get("headers"))
         async def wsClient(connection_data):
-            async with websockets.connect(connection_data.get("url"),  ssl=ssl_context) as websocket:
+            async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
                 await websocket.send(json.dumps(connection_data.get("headers")))
                 response = await websocket.recv()
                 return response
@@ -1174,11 +1177,7 @@ class bitget(CommunicationsManager):
         """
         params = dict(kwargs)
         # marginType, marginCoin mapping
-        instrument = bitget_get_instrument(params)
-        symbol_name = bitget_get_symbol_name(params)
-        marginType = bitget_get_marginType(instrument)
-        marginCoin = bitget_get_marginCoin(instrument)
-        productType = bitget_get_productType(instType, marginType, marginCoin)
+        instrument, symbol_name, marginType, marginCoin, productType = bitget_get_variables(params, instType)
         if instType != "spot":
             params["productType"] = productType
         #  url
@@ -1217,120 +1216,201 @@ class bitget(CommunicationsManager):
         return response
 
     @classmethod
-    def build(cls):
-# {
-#                 "op": "subscribe",
-#                 "args": [
-#                     {
-#                         "instType": "SPOT",
-#                         "channel": "trade",
-#                         "instId": "BTCUSDT"
-#                     }
-#                 ]    
-        pass
+    def bitget_build_api_connectionData(cls, instType:str, objective:str, pullTimeout:int, **kwargs):
+        """
+            insType : perpetual, spot
+            objective : depth
+            **kwargs - those in okx ducumentations
+            pullTimeout : how many seconds to wait before you make another call
+            How to call : result = d['aiohttpMethod'](**kwargs)
+            books don't work with aiohttp, only with http request method
+        """
+        connectionData = cls.bitget_buildRequest(instType, objective, **kwargs)
+        params = dict(**kwargs)
+        symbol_name = bitget_get_symbol_name(params)
+            
+        data =  {
+                "type" : "api",
+                "id_api" : f"bitget_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"bitget", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : partial(cls.bitget_aiohttpFetch, instType=instType, objective=objective),
+                "params" : dict(**kwargs)
+                }
+        
+        return data
 
+    @classmethod
+    def bitget_build_ws_method(cls, instType, **kwargs):
+        """
+            objective : depth, trades, liquidations, oi, funding
+        """
+        params = dict(kwargs)
+        standart_objective_name = params["objective"]
+        topic = cls.bitget_stream_keys.get(standart_objective_name)
+        symbol = params.get("symbol")
+        bitgetInstType = get_bitget_instType(params, instType)
+        message =  {
+                "op": "subscribe",
+                "args": [
+                    {
+                        "instType": bitgetInstType,
+                        "channel": topic,
+                        "instId": symbol,
+                    }
+                ] 
+        }
 
-print(bitget.bitget_fetch("perpetual", "depth", symbol="BTCUSDT", type="step0"))
+        return message, instType, standart_objective_name   
+
+    @classmethod    
+    def bitget_build_ws_connectionData(cls, instType, needSnap=True, snaplimit=None, **kwargs):
+        """
+            insType : spot, perpetual
+            omit snap limit, needSnap
+            **kwargs : symbol, objective, pullSpeed (if applicable) Inspect bitget API docs
+        """
+        params = dict(kwargs)
+        message, instType, standart_objective_name = cls.bitget_build_ws_method(instType, **params)
+        symbol_name = bitget_get_symbol_name(params)
+        endpoint = cls.bitget_ws_endpoint
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"bitget_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"bitget", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None,
+                                "marginCoin" : message.get("args")[0].get("instType"),
+                                "marginType" : "InversePerpetual" if "COIN" in message.get("args")[0].get("instType") else "LinearPerpetual"
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"bitget_api_{instType}_{standart_objective_name}_{symbol_name}"
+            connection_data["sbmethod"] = cls.bitget_fetch 
+            connection_data["sbPar"] = {
+                    "symbol": params['symbol'], 
+                        }
+            if "snaplimit" != None:
+                connection_data["snaplimit"] = snaplimit
+        return connection_data
 
 
 class deribit(CommunicationsManager):
     """
         Abstraction of bybit api calls
     """
-    repeat_response_code = -1130
-    endpoint = "wss://test.deribit.com/ws/api/v2"
-    endpoints = {
-        "derivate" : {
-            "derivate" : { 
-                "depth" : "get_order_book",
-            }
-        },
-        "option" : {
-            "oifunding" : "get_book_summary_by_currency"
-        }
-    }
-    params = {
-        "derivate" : {
-            "derivate" : { 
-                "depth" : {"get_order_book" : ["limit", "symbol"]},
-            }
-        },
-        "option" : {
-            "oifunding" : {"get_book_summary_by_currency" : ["currency", "kind"]},
-        }
-    }
-
+    deribit_repeat_response_code = deribit_repeat_response_code
+    deribit_endpoint = deribit_endpoint
+    deribit_marginCoins = deribit_marginCoins
+    deribit_methods = deribit_methods
+    deribit_stream_keys = deribit_stream_keys
+    deribit_instType_keys = deribit_instType_keys
 
     @classmethod
-    def create_payload(cls, basepoint, params):
-        payload =  {
-            "jsonrpc": "2.0", "id": generate_random_integer(10), 
-            "method": f"public/{basepoint}",
-            "params": params,
-        }
-        return payload
-
-
-    @classmethod
-    def buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def deribit_buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            instType : derivative, option
-            objective :  depth, oifunding
-            **kwargs : limit, symbol for  depth
-                        currency, kind for oi
+            instType : spot, perpetual, future, option
+            objective : depth, oi. Please check available methods by exchange
+            **kwargs : see the deribit api docs for params. They are identical
+            ** you may use limit instead of depth argument if you need to snap orderbooks
+            omit maximum_retries and books_dercemet as deribit handles this for you
+
         """
-        params = dict(kwargs)
-        # Some logic here
-        if None:
-            pass
-        instrument = params
-
-
-
-
-
-        if instType == "option":
-            instrument = params.get("symbol").lower()
-
-
-        instrument = params.get("symbol").replace("-", "")
-        if instType == "derivate":
-            insTypeName = "future" if bool(re.search(r'\d', instrument)) else "perp"
-        if instType == "spot":
-            insTypeName = "spot"
-        if insTypeName == "perp":
-            params["productType"] = "usdt-futures"
-        endpoint = cls.endpoint
-        basepoint = cls.basepoints.get(insTypeName).get(objective)
-        url = endpoint + basepoint
-        headers = {}
+        params = dict(**kwargs)
+        symbol_name = deribit_get_symbol_name(params)
+        headers = cls.deribit_build_headers(instType, objective, **kwargs)
+        endpoint = cls.deribit_endpoint
         return {
-            "url" : url,
-            "basepoint" : basepoint,  
             "endpoint" : endpoint,  
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument.lower(), 
-            "insTypeName" : insTypeName.lower(), 
-            "exchange" : "bitget", 
-            "repeat_code" : cls.repeat_response_code,
+            "instrumentName" : symbol_name,
+            "insTypeName" : instType,
+            "exchange" : "deribit", 
+            "repeat_code" : cls.deribit_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : "",
             }
 
     @classmethod
-    def fetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
-        response = cls.make_request(connection_data)
+    def deribit_fetch(cls, *args, **kwargs):
+        connection_data = cls.deribit_buildRequest(*args, **kwargs)
+        response = cls.make_wsRequest(connection_data)
         return response
 
     @classmethod
-    async def aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.buildRequest(*args, **kwargs)
+    async def deribit_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.deribit_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
+    
+    @classmethod
+    def deribit_build_headers(cls, instType, objective, **kwargs):
+        method = cls.deribit_methods.get(objective)
+        params = dict(**kwargs)
+        if method != "ws":
+            if "limit" in params:
+                params["depth"] = params.pop("limit")
+            if "symbol" in params:
+                params["instrument_name"] = params.pop("symbol")
+            if "instrument_name" in params and params["instrument_name"] in cls.deribit_marginCoins:
+                params["currrency"] = params.pop("instrument_name")
+            if "currrency" in params:
+                params["kind"] = cls.deribit_instType_keys.get(instType)
+        if method == "ws":
+            obj = cls.deribit_stream_keys.get("objective")
+            s = params.get("symbol")
+            ps = "" if "pullSpeed" not in params else params["pullSpeed"]
+            params = {
+                "channels" : [f"{obj}.{s}.{ps}"] if ps != "" else [f"{obj}.{s}"]
+            }
+        api_headers = {
+                    "jsonrpc": "2.0", 
+                    "id": generate_random_integer(10),
+                    "method": method,
+                    "params": params
+        }
+        return api_headers
+
+
+class clientTest(binance, bybit, bitget, deribit, okx):
+    
+    @classmethod
+    def test_deribit_aiohttpFetch(cls, **kwargs):
+        a = cls.deribit_fetch("option", "oifunding", symbol="BTC")
+        print(a)
+        # async def example():
+        #     a = await cls.deribit_fetch("option", "oifunding", symbol="BTC-PERPETUAL", limit=1000)
+        #     print(a)
+
+        # asyncio.run(example())
+
+clientTest.test_deribit_aiohttpFetch()
+
+
+    #         }
+
+    # @classmethod
+    # def fetch(cls, *args, **kwargs):
+    #     connection_data = cls.buildRequest(*args, **kwargs)
+    #     response = cls.make_request(connection_data)
+    #     return response
+
+    # @classmethod
+    # async def aiohttpFetch(cls, *args, **kwargs):
+    #     connection_data = cls.buildRequest(*args, **kwargs)
+    #     response = await cls.make_aiohttpRequest(connection_data)
+    #     return response
 
 
 

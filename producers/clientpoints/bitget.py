@@ -74,3 +74,25 @@ def bitget_get_productType(instType, marginType, marginCoin):
         if marginCoin == "any_except_usdc_usdt":
             productType = bitget_productType_map.get(marginType)
     return productType
+
+
+def bitget_get_variables(params, instType):
+    instrument = bitget_get_instrument(params)
+    symbol_name = bitget_get_symbol_name(params)
+    marginType = bitget_get_marginType(instrument)
+    marginCoin = bitget_get_marginCoin(instrument)
+    productType = bitget_get_productType(instType, marginType, marginCoin)
+    return instrument, symbol_name, marginType, marginCoin, productType
+
+
+def get_bitget_instType(params, instType):
+    instrument, symbol_name, marginType, marginCoin, productType = bitget_get_variables(params, instType)
+    if instType == "spot" :
+        bitgetInstType = "SPOT"
+    if instType == "perpetual" and marginType=="LinearPerpetual" and marginCoin == "usdt":
+        bitgetInstType = "USDT-FUTURES"
+    if instType == "perpetual" and marginType=="LinearPerpetual" and marginCoin == "usdc":
+        bitgetInstType = "USDC-FUTURES"
+    if instType == "perpetual" and marginType=="InversePerpetual":
+        bitgetInstType = "COIN-FUTURES"
+    return bitgetInstType
