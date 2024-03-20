@@ -13,7 +13,11 @@ gateio_api_endpoint_alt = "https://fx-api-testnet.gateio.ws/api/v4"
 
 gateio_api_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-# settle : btc/usdt/usd
+
+gateio_settle_currencis = {
+    "future" : ["usdt"],
+    "perpetual" : ["btc", "usdt", "usd"]
+}
 
 gateio_api_basepoints = {
      "spot" : {
@@ -28,25 +32,40 @@ gateio_api_basepoints = {
           "tta" : lambda settle : f"/futures/{settle}/contract_stats",
           "liquidations" : lambda settle : f"/futures/{settle}/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
      },
-     "future" : "",
-     "option" : ""
+     "future" : {
+         "depth" : lambda settle : f"/delivery/{settle}/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
+         "trades" : lambda settle : f"/delivery/{settle}/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
+         "oifunding" : lambda settle : f"/delivery/{settle}/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
+     },
+     "option" : {
+         "depth" : lambda settle : f"/delivery/{settle}/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
+         "trades" : lambda settle : f"/delivery/{settle}/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
+         "oi" : lambda settle : f"/delivery/{settle}/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
+     },
 }
 
 
 gateio_ws_endpoint = {
     "spot" : "https://api.gateio.ws/api/v4",
     "spot_2" : "https://fx-api-testnet.gateio.ws/api/v4",
-    "perpetual" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/{settle}"
+    "perpetual" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/{settle}",
+    "future" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/delivery/{settle}"
     }
 
 gateio_ws_map = {
     "spot" : {
         "trades" : "spot.trades",
-        "depth" : "spot.order_book_update"
+        "depth" : "spot.order_book_update" # 2 args
     },
     "perpetual" : {
+        "trades" : "futures.trades",       # just symbol
+        "depth" : "futures.order_book_update",   # not only, 3 args
+        "oifunding" : "futures.tickers"        # just symbol
+    },
+    "future" : {
         "trades" : "futures.trades",
-        "depth" : "futures.order_book_update"
+        "depth" : "futures.order_book_update",
+        "oifunding" : "futures.tickers"
     }
 }
 
