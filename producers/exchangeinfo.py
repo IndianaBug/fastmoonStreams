@@ -601,7 +601,7 @@ class htxInfo(requestHandler):
             "InversePerpetual" : "https://api.hbdm.com"
         },
         "future" : {
-            "InverseFuture" : "https://api.hbdm.com"
+            "InverseFuture" : "https://api.hbdm.com",
         }
 
     }
@@ -613,10 +613,10 @@ class htxInfo(requestHandler):
 
         },
         "future" : {
-            "InversePerpetual" : "/api/v1/contract_contract_info"
+            "InverseFuture" : "/api/v1/contract_contract_info",
         }
     }
-    coinbase_call_example = {
+    htx_call_example = {
         "spot" : "btcusdt",
         "perpetual" : "LTC-USD, LTC-USDT",
         "future" : "TRX240329" # Which is bitcoin

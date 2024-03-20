@@ -46,9 +46,3 @@ api_headers = {
 def deribit_get_symbol_name(params):
     return params.get("symbol")
 
-
-async def websocket_fetcher(link, headers):
-    async with websockets.connect(link,  ssl=ssl_context) as websocket:
-        await websocket.send(json.dumps(headers))
-        response = await websocket.recv()
-        return response

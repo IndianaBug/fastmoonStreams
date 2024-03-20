@@ -30,3 +30,20 @@ deribit  https://docs.deribit.com/#market-data
 gateio   https://www.gate.io/docs/developers/apiv4/en/
 
 
+
+### HEARTBEATS ###
+
+htx         https://www.htx.com/en-us/opend/newApiPages/?id=578
+
+
+# Important Notes
+
+- htx future.InverseFuture pass only coin (BTC) for any api/ws
+
+
+
+
+
+# Streaming Notes
+
+htx perpetual depth may not work due to the params order

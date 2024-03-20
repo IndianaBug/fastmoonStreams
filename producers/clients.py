@@ -29,7 +29,7 @@ from producers.clientpoints.okx import *
 from producers.clientpoints.coinbase import *
 from producers.clientpoints.deribit import *
 from producers.clientpoints.kucoin import *
-# from producers.clientpoints.htx import *
+from producers.clientpoints.htx import *
 from producers.clientpoints.bitget import *
 # from producers.clientpoints.gateio import *
 # from producers.clientpoints.mexc import *
@@ -95,7 +95,6 @@ class CommunicationsManager:
         
     @classmethod
     async def make_aiohttpRequest(cls, connection_data):
-        print(connection_data)
         async with aiohttp.ClientSession() as session:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
@@ -1162,7 +1161,6 @@ class bingx(CommunicationsManager):
                             }
         return connection_data
 
-
 class bitget(CommunicationsManager):
     """
         Abstraction of bybit api calls
@@ -1308,7 +1306,6 @@ class bitget(CommunicationsManager):
                 connection_data["snaplimit"] = snaplimit
         return connection_data
 
-
 class deribit(CommunicationsManager):
     """
         Abstraction of bybit api calls
@@ -1332,7 +1329,7 @@ class deribit(CommunicationsManager):
         """
         params = dict(**kwargs)
         symbol_name = deribit_get_symbol_name(params)
-        headers = cls.deribit_build_headers(instType, objective, **kwargs)
+        headers = cls.deribit_build_api_headers(instType, objective, **kwargs)
         endpoint = cls.deribit_endpoint
         return {
             "endpoint" : endpoint,  
@@ -1361,7 +1358,7 @@ class deribit(CommunicationsManager):
         return response
     
     @classmethod
-    def deribit_build_headers(cls, instType, objective, **kwargs):
+    def deribit_build_api_headers(cls, instType, objective, **kwargs):
         method = cls.deribit_methods.get(objective)
         params = dict(**kwargs)
         if method != "ws":
@@ -1373,13 +1370,25 @@ class deribit(CommunicationsManager):
                 params["currency"] = params.pop("instrument_name")
             if "currrency" in params:
                 params["kind"] = cls.deribit_instType_keys.get(instType)
-        if method == "ws":
-            obj = cls.deribit_stream_keys.get("objective")
-            s = params.get("symbol")
-            ps = "" if "pullSpeed" not in params else params["pullSpeed"]
-            params = {
-                "channels" : [f"{obj}.{s}.{ps}"] if ps != "" else [f"{obj}.{s}"]
+        api_headers = {
+                "jsonrpc": "2.0", 
+                "id": generate_random_integer(10),
+                "method": method,
+                "params": params
             }
+        return api_headers
+    
+    @classmethod
+    def deribit_build_ws_headers(cls, instType, objective, **kwargs):
+        # standart_objective = cls.deribit_methods.get(objective)
+        method="public/subscribe"
+        params = dict(**kwargs)
+        obj = cls.deribit_stream_keys.get(objective)
+        s = params.get("symbol")
+        ps = "" if "pullSpeed" not in params else params["pullSpeed"]
+        params = {
+            "channels" : [f"{obj}.{s}.{ps}"] if ps != "" else [f"{obj}.{s}"]
+        }
         api_headers = {
                     "jsonrpc": "2.0", 
                     "id": generate_random_integer(10),
@@ -1392,8 +1401,8 @@ class deribit(CommunicationsManager):
     def deribit_build_api_connectionData(cls, instType:str, objective:str, pullTimeout:int, **kwargs):
         """
             insType : perpetual, spot, future, option
-            objective : oi, gta
-            **kwargs - those in okx ducumentations
+            objective : oifunding, depth
+            **kwargs - those in deribit ducumentations
             pullTimeout : how many seconds to wait before you make another call
             How to call : result = d['aiohttpMethod'](**kwargs)
             books don't work with aiohttp, only with http request method
@@ -1427,8 +1436,8 @@ class deribit(CommunicationsManager):
         """
         params = dict(kwargs)
         symbol = params["symbol"]
-        standart_objective_name = params["objective"]
-        message = cls.deribit_build_headers(instType, "ws", **params)
+        standart_objective_name = params.pop("objective")
+        message = cls.deribit_build_ws_headers(instType, standart_objective_name, **params)
         symbol_name = deribit_get_symbol_name(params)
         endpoint = cls.deribit_endpoint 
         connection_data =     {
@@ -1447,19 +1456,190 @@ class deribit(CommunicationsManager):
             connection_data["id_api"] = f"deribit_api_{instType}_{standart_objective_name}_{symbol_name}",
             connection_data["sbmethod"] = cls.deribit_fetch 
             connection_data["sbPar"] = {
+                    "instType" : instType,
+                    "objective" : standart_objective_name,
                     "symbol": symbol, 
                         }
         return connection_data
 
+class htx(CommunicationsManager):
+    """
+        Abstraction of bybit api calls
+    """
+    htx_repeat_response_code = htx_repeat_response_code
+    htx_api_endpoints = htx_api_endpoints
+    htx_ws_endpoints = htx_ws_endpoints
+    htx_api_basepoints = htx_api_basepoints
+    htx_ws_stream_map = htx_ws_stream_map
 
-class clientTest(binance, bybit, bitget, deribit, okx):
+
+    @classmethod
+    def htx_buildRequest(cls, instType:str, objective:str, symbol:str, futuresTimeHorizeon:int=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            available objectives :  depth, oi, funding, tta, ttp, liquidations
+            symbol is the one fetched from info
+        """
+        symbol_name = htx_symbol_name(symbol)
+        marginType = htx_get_marginType(symbol)
+        params = htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon)
+        endpoint = cls.htx_api_endpoints.get(instType)
+        try:
+            basepoint = cls.htx_api_basepoints.get(instType).get(marginType).get(objective)
+        except:
+            basepoint = cls.htx_api_basepoints.get(instType).get(objective)
+        url = endpoint + basepoint
+        headers = {}
+        return {
+            "url" : url,
+            "basepoint" : basepoint,  
+            "endpoint" : endpoint,  
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : symbol_name, 
+            "insTypeName" : instType, 
+            "exchange" : "htx", 
+            "repeat_code" : cls.htx_repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : "",
+            "marginType" : marginType,
+            }
+
+    @classmethod
+    def htx_fetch(cls, *args, **kwargs):
+        connection_data = cls.htx_buildRequest(*args, **kwargs)
+        response = cls.make_request(connection_data)
+        return response
+
+    @classmethod
+    async def htx_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.htx_buildRequest(*args, **kwargs)
+        response = await cls.make_aiohttpRequest(connection_data)
+        return response
+
+    @classmethod
+    async def htx_aiohttpFetch_futureDepth(cls):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="depth", symbol="BTC", futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
+    async def htx_aiohttpFetch_futureOI(cls):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="oi", symbol="BTC", futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
+    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+        """
+            insType : perpetual, spot, future
+            objective : depth, oi, tta, ttp
+            symbol : from htx symbols
+            pullTimeout : how many seconds to wait before you make another call
+            special : futureDepth, futureOI
+        """
+        connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
+        symbol_name = htx_symbol_name(symbol)
+        
+        if special == "futuredepth":
+            call = partial(cls.htx_aiohttpFetch_futureOI)
+        if special == "futureoi":
+            call = partial(cls.htx_aiohttpFetch_futureOI)
+        else:
+            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+
+        data =  {
+                "type" : "api",
+                "id_api" : f"htx_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"htx", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : call,
+                }
+        
+        return data
+
+    @classmethod
+    def htx_build_ws_method(cls, instType, objective, symbol, **kwargs):
+        """
+            objectives : trades, depth ,liquidations, funding
+            instType : spot, future, perpetual
+            symbol : the one from htx info
+        """
+        topic = 
+        standart_objective_name = params["objective"]
+        topic = cls.bitget_stream_keys.get(standart_objective_name)
+        symbol = params.get("symbol")
+        bitgetInstType = get_bitget_instType(params, instType)
+        message =  {
+                "op": "subscribe",
+                "args": [
+                    {
+                        "instType": bitgetInstType,
+                        "channel": topic,
+                        "instId": symbol,
+                    }
+                ] 
+        }
+
+        return message, instType, standart_objective_name   
+
+    @classmethod    
+    def bitget_build_ws_connectionData(cls, instType, needSnap=True, snaplimit=None, **kwargs):
+        """
+            insType : spot, perpetual
+            omit snap limit, needSnap
+            **kwargs : symbol, objective, pullSpeed (if applicable) Inspect bitget API docs
+        """
+        params = dict(kwargs)
+        message, instType, standart_objective_name = cls.bitget_build_ws_method(instType, **params)
+        symbol_name = bitget_get_symbol_name(params)
+        endpoint = cls.bitget_ws_endpoint
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"bitget_ws_{instType}_{standart_objective_name}_{symbol_name}",
+                                "exchange":"bitget", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":standart_objective_name, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None,
+                                "marginCoin" : message.get("args")[0].get("instType"),
+                                "marginType" : "InversePerpetual" if "COIN" in message.get("args")[0].get("instType") else "LinearPerpetual"
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"bitget_api_{instType}_{standart_objective_name}_{symbol_name}"
+            connection_data["sbmethod"] = cls.bitget_fetch 
+            connection_data["sbPar"] = {
+                    "symbol": params['symbol'], 
+                        }
+            if "snaplimit" != None:
+                connection_data["snaplimit"] = snaplimit
+        return connection_data
+
+
+
+
+class clientTest(binance, bybit, bitget, deribit, okx, htx):
     
     @classmethod
     def test_deribit_apiData(cls, **kwargs):
         # a = cls.deribit_fetch("option", "oifunding", symbol="BTC")
         # print(a)
         async def example():
-            d = cls.deribit_build_api_connectionData("option", "oifunding", 100, symbol="BTC", limit=1000)
+            d = cls.deribit_build_api_connectionData("option", "depth", 100, symbol="BTC-PERPETUAL", limit=1000)
             result = await d['aiohttpMethod'](**d["params"])
             # a = await cls.deribit_aiohttpFetch("option", "oifunding", symbol="BTC", limit=1000) # works even with unnecessary arguments
             print(result)
@@ -1468,14 +1648,25 @@ class clientTest(binance, bybit, bitget, deribit, okx):
 
     @classmethod
     def test_deribit_wsData(cls, **kwargs):
-        async def example():
-            d = cls.deribit_build_ws_connectionData("option", "oifunding", symbol="BTC", limit=1000)
-            result =  d['sbmethod'](**d["sbPar"])
-            print(result)
+        #async def example():
+        d = cls.deribit_build_ws_connectionData("option", symbol="BTC", objective="oifunding", limit=1000)
+        result =  d['sbmethod'](**d["sbPar"])
+        print(result)
+        #asyncio.run(example())
 
+    @classmethod
+    def test_htx_api(cls):
+        print(cls.htx_fetch(instType="perpetual", objective="tta", symbol="BTC-USD"))
+
+    @classmethod
+    def test_htx_ws(cls):
+        ht = cls.htx_build_api_connectionData("perpetual", "tta", "BTC-USD", 10)
+        async def example():
+            d = await ht["aiohttpMethod"]()
+            print(d)
         asyncio.run(example())
 
-clientTest.test_deribit_wsData()
+clientTest.test_htx_ws()
 
 
     #         }
