@@ -8,7 +8,7 @@ from utilis import filter_nested_dict
 class infoexchange(
     binanceInfo, bybitInfo, okxInfo, kucoinInfo,
     bitgetInfo, bingxInfo, mexcInfo, deribitInfo, 
-    coinbaseInfo, htxInfo, # gateioInfo
+    coinbaseInfo, htxInfo, gateioInfo
     ):
     """
         Coinbase have completely different sybols for futures
@@ -94,8 +94,7 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.mexc_info()
+a = info.gateio_symbols_by_instType("perpetual")
 
-# a = [x["symbol"] for x in a]
 
 print(a)

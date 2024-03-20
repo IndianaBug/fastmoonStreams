@@ -1,10 +1,6 @@
-Binance:
--api - allupper
--websocket : - alllower
-Bybit:
--api : alluppper
--websocket : -alluppper
-usually symbol for option: baseCoin
+TO DO:
+gateio API keys
+
 
 
 # in websockets you have to pass arg objective="your_objective" othervise the uncesuccesss
@@ -34,6 +30,7 @@ gateio   https://www.gate.io/docs/developers/apiv4/en/
 ### HEARTBEATS ###
 
 htx         https://www.htx.com/en-us/opend/newApiPages/?id=578
+gateio      https://www.gate.io/docs/developers/apiv4/ws/en/
 
 
 # Important Notes

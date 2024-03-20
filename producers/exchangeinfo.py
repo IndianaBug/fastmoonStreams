@@ -680,7 +680,7 @@ class gateioInfo(requestHandler):
         """
             spot, future
         """
-        info = cls.info_gateio(instType)
+        info = cls.gateio_info(instType)
         key = "id" if instType=="spot" else "name"
         prdocut_ids = list(set([x[key] for x in info]))
         return prdocut_ids
