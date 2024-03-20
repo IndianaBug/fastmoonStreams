@@ -50,9 +50,9 @@ class CommunicationsManager:
             response = requests.get(connection_data.get("url"), params=connection_data.get("params"), headers=connection_data.get("headers"))
             if response.status_code == 200:
                 return {
-                    "instrument" : connection_data.get("instrumentName").lower(),
+                    "instrument" : connection_data.get("instrument").lower(),
                     "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insTypeName").lower(),
+                    "insType" : connection_data.get("insType").lower(),
                     "response" : response.json() ,
                 }
             if response.get('code', None) == connection_data.get("repeat_response_code"):
@@ -68,9 +68,9 @@ class CommunicationsManager:
         payload = connection_data.get("payload")
         response = requests.request("GET", url, headers=headers, data=payload)
         return {
-            "instrument" : connection_data.get("instrumentName").lower(),
+            "instrument" : connection_data.get("instrument").lower(),
             "exchange" : connection_data.get("exchange").lower(),
-            "insType" : connection_data.get("insTypeName").lower(),
+            "insType" : connection_data.get("insType").lower(),
             "response" : response.json() ,
         }
 
@@ -87,9 +87,9 @@ class CommunicationsManager:
         res = conn.getresponse()
         response = json.loads(res.read())
         return {
-            "instrument" : connection_data.get("instrumentName"),
+            "instrument" : connection_data.get("instrument"),
             "exchange" : connection_data.get("exchange"),
-            "insType" : connection_data.get("insTypeName").lower(),
+            "insType" : connection_data.get("insType").lower(),
             "response" : response,
         }
         
@@ -99,9 +99,9 @@ class CommunicationsManager:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
                 return {
-                    "instrument" : connection_data.get("instrumentName").lower(),
+                    "instrument" : connection_data.get("instrument").lower(),
                     "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insTypeName").lower(),
+                    "insType" : connection_data.get("insType").lower(),
                     "objective" : connection_data.get("objective").lower(),
                     "response" : response,
                 } 
@@ -113,9 +113,9 @@ class CommunicationsManager:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
                 return {
-                    "instrument" : connection_data.get("instrumentName").lower(),
+                    "instrument" : connection_data.get("instrument").lower(),
                     "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insTypeName").lower(),
+                    "insType" : connection_data.get("insType").lower(),
                     "objective" : connection_data.get("objective").lower(),
                     "response" : response,
                 } 
@@ -135,9 +135,9 @@ class CommunicationsManager:
         finally:
             loop.close()
         return {
-            "instrument" : connection_data.get("instrumentName").lower(),
+            "instrument" : connection_data.get("instrument").lower(),
             "exchange" : connection_data.get("exchange").lower(),
-            "insType" : connection_data.get("insTypeName").lower(),
+            "insType" : connection_data.get("insType").lower(),
             "objective" : connection_data.get("objective").lower(),
             "response" : response,
         }
@@ -1645,34 +1645,28 @@ class htx(CommunicationsManager):
             connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
         return connection_data
 
-
-
 class mexc(CommunicationsManager):
     """
         Abstraction of bybit api calls
     """
-    htx_repeat_response_code = htx_repeat_response_code
-    htx_api_endpoints = htx_api_endpoints
-    htx_ws_endpoints = htx_ws_endpoints
-    htx_api_basepoints = htx_api_basepoints
-    htx_ws_stream_map = htx_ws_stream_map
-    htx_InverseFuture_quarters_map = htx_InverseFuture_quarters_map
+    mexc_repeat_response_code = mexc_repeat_response_code
+    mexc_api_endpoints = mexc_api_endpoints
+    mexc_ws_endpoints = mexc_ws_endpoints
+    mexc_api_basepoints = mexc_api_basepoints
+    mexc_ws_stream_map = mexc_ws_stream_map
 
 
     @classmethod
-    def htx_buildRequest(cls, instType:str, objective:str, symbol:str, futuresTimeHorizeon:int=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def mexc_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            available objectives :  depth, oi, funding, tta, ttp, liquidations
+            available objectives :  depth
             symbol is the one fetched from info
+            omit maximum_retries and books_decrement
         """
-        symbol_name = htx_symbol_name(symbol)
-        marginType = htx_get_marginType(symbol)
-        params = htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon)
-        endpoint = cls.htx_api_endpoints.get(instType)
-        try:
-            basepoint = cls.htx_api_basepoints.get(instType).get(marginType).get(objective)
-        except:
-            basepoint = cls.htx_api_basepoints.get(instType).get(objective)
+        symbol_name = mexc_get_symbol_name(symbol)
+        params = mexc_api_parseParams(instType, objective, symbol)
+        endpoint = cls.mexc_api_endpoints.get(instType)
+        basepoint = cls.mexc_api_basepoints.get(instType).get(objective)
         url = endpoint + basepoint
         headers = {}
         return {
@@ -1682,78 +1676,44 @@ class mexc(CommunicationsManager):
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : symbol_name, 
-            "insTypeName" : instType, 
-            "exchange" : "htx", 
-            "repeat_code" : cls.htx_repeat_response_code,
+            "instrument" : symbol_name, 
+            "insType" : instType, 
+            "exchange" : "mexc", 
+            "repeat_code" : cls.mexc_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : "",
-            "marginType" : marginType,
+            "marginType" : None if instType == "spot" else "usdt",
             }
 
     @classmethod
-    def htx_fetch(cls, *args, **kwargs):
-        connection_data = cls.htx_buildRequest(*args, **kwargs)
+    def mexc_fetch(cls, *args, **kwargs):
+        connection_data = cls.mexc_buildRequest(*args, **kwargs)
         response = cls.make_request(connection_data)
         return response
 
     @classmethod
-    async def htx_aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.htx_buildRequest(*args, **kwargs)
+    async def mexc_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.mexc_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
 
     @classmethod
-    async def htx_aiohttpFetch_futureDepth(cls, symbol):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="depth", symbol=symbol, futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
-
-    @classmethod
-    async def htx_aiohttpFetch_futureTrades(cls, symbol):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="trades", symbol=symbol, futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
-
-    @classmethod
-    async def htx_aiohttpFetch_futureOI(cls, symbol):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="oi", symbol=symbol, futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
-
-    @classmethod
-    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+    def mexc_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
         """
-            insType : perpetual, spot, future
-            objective : depth, oi, tta, ttp
-            symbol : from htx symbols
+            insType : perpetual, spot
+            objective : depth
+            symbol : from mexc symbols
             pullTimeout : how many seconds to wait before you make another call
-            special : futureDepth, futureOI
+            special : No special methods for mexc
         """
-        connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
-        symbol_name = htx_symbol_name(symbol)
-        
-        if special == "futuredepth":
-            call = partial(cls.htx_aiohttpFetch_futureOI)
-        if special == "futureoi":
-            call = partial(cls.htx_aiohttpFetch_futureOI)
-        else:
-            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
-
+        connectionData = cls.mexc_buildRequest(instType, objective, symbol, **kwargs)
+        symbol_name = mexc_get_symbol_name(symbol)
+        call = partial(cls.mexc_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         data =  {
                 "type" : "api",
-                "id_api" : f"htx_api_{instType}_{objective}_{symbol_name}",
-                "exchange":"htx", 
+                "id_api" : f"mexc_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"mexc", 
                 "instrument": symbol_name,
                 "instType": instType,
                 "objective": objective, 
@@ -1765,56 +1725,44 @@ class mexc(CommunicationsManager):
         return data
 
     @classmethod
-    def htx_parse_ws_objective(cls, instType, objective, symbol):
+    def mexc_build_ws_msg(cls, instType, objective, symbol):
         """
             objectives : trades, depth, liquidations, funding
         """
-        parsed_objective = cls.htx_ws_stream_map.get(objective).split(".")
-        parsed_objective[1] = symbol
-        parsed_objective = ".".join(parsed_objective)
-        if instType == "spot" and objective=="depth":
-            msg = {
-                "sub": f"market.{symbol}.depth.size_20.high_freq",
-                "data_type":"incremental",
-                "id": generate_random_integer(10)
+        obj = cls.mexc_ws_stream_map.get(objective) if objective!="trades" else cls.mexc_ws_stream_map.get(objective).get(instType)
+        if instType == "spot":
+                if obj == "depth":
+                    obj = f"increase.{obj}"
+                msg = {
+                    "method": "SUBSCRIPTION",
+                    "params": [
+                        f"spot@public.{obj}.v3.api@{symbol}"
+                    ]
                 }
-        else:
-            topic = htx_ws_stream_map.get(objective).split(".")
-            topic[1] = symbol
-            msg = {
-                "sub": parsed_objective,
-                "id": generate_random_integer(10)
+        if instType == "perpetual":
+                msg = {
+                "method": f"sub.{obj}",
+                "param":{
+                    "symbol": symbol
                 }
+            }
         return msg
 
-    @classmethod
-    def htx_build_ws_method(cls, instType, objective, symbol, **kwargs):
-        """
-            objectives : trades, depth ,liquidations, funding
-            instType : spot, future, perpetual
-            symbol : the one from htx info
-        """
-        message = cls.htx_parse_ws_objective(instType, objective, symbol)
-        marginType = htx_get_marginType(symbol)
-        url = htx_get_ws_url(instType, objective, marginType)
-
-        return message, instType, marginType, url, symbol
-
     @classmethod    
-    def htx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
+    def mexc_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
         """
-            objectives : trades, depth ,liquidations, funding
-            instType : spot, future, perpetual
-            symbol : the one from htx info
-            needSnap = True for books, you need to take the first snapshot.
-            do not use snaplimit more than 100
+            objectives : trades, oifunding, depth
+            instType : spot, perpetual
+            symbol : the one from mexc info
+            needSnap must be true for depth
         """
-        message, instType, marginType, url, symbol = cls.htx_build_ws_method(instType, objective, symbol)
-        symbol_name = htx_symbol_name(symbol)
+        message = cls.mexc_build_ws_msg(instType, objective, symbol)
+        symbol_name = mexc_get_symbol_name(symbol)
+        url = cls.mexc_ws_endpoints.get(instType)
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"htx_ws_{instType}_{objective}_{symbol_name}",
-                                "exchange":"htx", 
+                                "id_ws" : f"mexc_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"mexc", 
                                 "instrument": symbol_name,
                                 "instType": instType,
                                 "objective":objective, 
@@ -1822,18 +1770,150 @@ class mexc(CommunicationsManager):
                                 "address" : url,
                                 "msg" : message,
                                 "kickoffMethod" : None,
-                                "marginType" : marginType,
+                                "marginType" : None if instType == "spot" else "usdt",
                                 "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"htx_api_{instType}_{objective}_{symbol_name}"
-            connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
+            connection_data["id_api"] = f"mexc_api_{instType}_{objective}_{symbol_name}"
+            connection_data["kickoffMethod"] = partial(cls.mexc_fetch, instType, objective, symbol) 
+        return connection_data
+
+class gateio(CommunicationsManager):
+    """
+        Abstraction of bybit api calls
+    """
+    mexc_repeat_response_code = mexc_repeat_response_code
+    mexc_api_endpoints = mexc_api_endpoints
+    mexc_ws_endpoints = mexc_ws_endpoints
+    mexc_api_basepoints = mexc_api_basepoints
+    mexc_ws_stream_map = mexc_ws_stream_map
+
+
+    @classmethod
+    def mexc_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            available objectives :  depth
+            symbol is the one fetched from info
+            omit maximum_retries and books_decrement
+        """
+        symbol_name = mexc_get_symbol_name(symbol)
+        params = mexc_api_parseParams(instType, objective, symbol)
+        endpoint = cls.mexc_api_endpoints.get(instType)
+        basepoint = cls.mexc_api_basepoints.get(instType).get(objective)
+        url = endpoint + basepoint
+        headers = {}
+        return {
+            "url" : url,
+            "basepoint" : basepoint,  
+            "endpoint" : endpoint,  
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrument" : symbol_name, 
+            "insType" : instType, 
+            "exchange" : "mexc", 
+            "repeat_code" : cls.mexc_repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : "",
+            "marginType" : None if instType == "spot" else "usdt",
+            }
+
+    @classmethod
+    def mexc_fetch(cls, *args, **kwargs):
+        connection_data = cls.mexc_buildRequest(*args, **kwargs)
+        response = cls.make_request(connection_data)
+        return response
+
+    @classmethod
+    async def mexc_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.mexc_buildRequest(*args, **kwargs)
+        response = await cls.make_aiohttpRequest(connection_data)
+        return response
+
+    @classmethod
+    def mexc_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+        """
+            insType : perpetual, spot
+            objective : depth
+            symbol : from mexc symbols
+            pullTimeout : how many seconds to wait before you make another call
+            special : No special methods for mexc
+        """
+        connectionData = cls.mexc_buildRequest(instType, objective, symbol, **kwargs)
+        symbol_name = mexc_get_symbol_name(symbol)
+        call = partial(cls.mexc_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        data =  {
+                "type" : "api",
+                "id_api" : f"mexc_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"mexc", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : call,
+                }
+        
+        return data
+
+    @classmethod
+    def mexc_build_ws_msg(cls, instType, objective, symbol):
+        """
+            objectives : trades, depth, liquidations, funding
+        """
+        obj = cls.mexc_ws_stream_map.get(objective) if objective!="trades" else cls.mexc_ws_stream_map.get(objective).get(instType)
+        if instType == "spot":
+                if obj == "depth":
+                    obj = f"increase.{obj}"
+                msg = {
+                    "method": "SUBSCRIPTION",
+                    "params": [
+                        f"spot@public.{obj}.v3.api@{symbol}"
+                    ]
+                }
+        if instType == "perpetual":
+                msg = {
+                "method": f"sub.{obj}",
+                "param":{
+                    "symbol": symbol
+                }
+            }
+        return msg
+
+    @classmethod    
+    def mexc_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
+        """
+            objectives : trades, oifunding, depth
+            instType : spot, perpetual
+            symbol : the one from mexc info
+            needSnap must be true for depth
+        """
+        message = cls.mexc_build_ws_msg(instType, objective, symbol)
+        symbol_name = mexc_get_symbol_name(symbol)
+        url = cls.mexc_ws_endpoints.get(instType)
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"mexc_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"mexc", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":objective, 
+                                "updateSpeed" : None,
+                                "address" : url,
+                                "msg" : message,
+                                "kickoffMethod" : None,
+                                "marginType" : None if instType == "spot" else "usdt",
+                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"mexc_api_{instType}_{objective}_{symbol_name}"
+            connection_data["kickoffMethod"] = partial(cls.mexc_fetch, instType, objective, symbol) 
         return connection_data
 
 
 
-
-class clientTest(binance, bybit, bitget, deribit, okx, htx):
+class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc):
     
     @classmethod
     def test_deribit_apiData(cls, **kwargs):
@@ -1880,7 +1960,11 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx):
             print(d)
         asyncio.run(example())
 
-clientTest.test()
+    @classmethod
+    def test_mexc_ws(cls):
+        connData = cls.mexc_build_ws_connectionData("spot", "depth", "BTCUSDT")
+        print(connData["kickoffMethod"]())
+clientTest.test_mexc_ws()
 
 
 
