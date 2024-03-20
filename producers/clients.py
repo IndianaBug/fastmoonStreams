@@ -32,7 +32,7 @@ from producers.clientpoints.kucoin import *
 from producers.clientpoints.htx import *
 from producers.clientpoints.bitget import *
 # from producers.clientpoints.gateio import *
-# from producers.clientpoints.mexc import *
+from producers.clientpoints.mexc import *
 from producers.clientpoints.bingx import *
 
 # TODO
@@ -1471,6 +1471,7 @@ class htx(CommunicationsManager):
     htx_ws_endpoints = htx_ws_endpoints
     htx_api_basepoints = htx_api_basepoints
     htx_ws_stream_map = htx_ws_stream_map
+    htx_InverseFuture_quarters_map = htx_InverseFuture_quarters_map
 
 
     @classmethod
@@ -1528,6 +1529,15 @@ class htx(CommunicationsManager):
         return data
 
     @classmethod
+    async def htx_aiohttpFetch_futureTrades(cls):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="trades", symbol="BTC", futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
     async def htx_aiohttpFetch_futureOI(cls):
         data = {}
         for t in range(4):
@@ -1570,63 +1580,254 @@ class htx(CommunicationsManager):
         return data
 
     @classmethod
+    def htx_parse_ws_objective(cls, instType, objective, symbol):
+        """
+            objectives : trades, depth, liquidations, funding
+        """
+        parsed_objective = cls.htx_ws_stream_map.get(objective).split(".")
+        parsed_objective[1] = symbol
+        parsed_objective = ".".join(parsed_objective)
+        if instType == "spot" and objective=="depth":
+            msg = {
+                "sub": f"market.{symbol}.depth.size_20.high_freq",
+                "data_type":"incremental",
+                "id": generate_random_integer(10)
+                }
+        else:
+            topic = htx_ws_stream_map.get(objective).split(".")
+            topic[1] = symbol
+            msg = {
+                "sub": parsed_objective,
+                "id": generate_random_integer(10)
+                }
+        return msg
+
+    @classmethod
     def htx_build_ws_method(cls, instType, objective, symbol, **kwargs):
         """
             objectives : trades, depth ,liquidations, funding
             instType : spot, future, perpetual
             symbol : the one from htx info
         """
-        topic = 
-        standart_objective_name = params["objective"]
-        topic = cls.bitget_stream_keys.get(standart_objective_name)
-        symbol = params.get("symbol")
-        bitgetInstType = get_bitget_instType(params, instType)
-        message =  {
-                "op": "subscribe",
-                "args": [
-                    {
-                        "instType": bitgetInstType,
-                        "channel": topic,
-                        "instId": symbol,
-                    }
-                ] 
-        }
+        message = cls.htx_parse_ws_objective(instType, objective, symbol)
+        marginType = htx_get_marginType(symbol)
+        url = htx_get_ws_url(instType, objective, marginType)
 
-        return message, instType, standart_objective_name   
+        return message, instType, marginType, url, symbol
 
     @classmethod    
-    def bitget_build_ws_connectionData(cls, instType, needSnap=True, snaplimit=None, **kwargs):
+    def htx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
         """
-            insType : spot, perpetual
-            omit snap limit, needSnap
-            **kwargs : symbol, objective, pullSpeed (if applicable) Inspect bitget API docs
+            objectives : trades, depth ,liquidations, funding
+            instType : spot, future, perpetual
+            symbol : the one from htx info
+            needSnap = True for books, you need to take the first snapshot.
+            do not use snaplimit more than 100
         """
-        params = dict(kwargs)
-        message, instType, standart_objective_name = cls.bitget_build_ws_method(instType, **params)
-        symbol_name = bitget_get_symbol_name(params)
-        endpoint = cls.bitget_ws_endpoint
+        message, instType, marginType, url, symbol = cls.htx_build_ws_method(instType, objective, symbol)
+        symbol_name = htx_symbol_name(symbol)
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bitget_ws_{instType}_{standart_objective_name}_{symbol_name}",
-                                "exchange":"bitget", 
+                                "id_ws" : f"htx_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"htx", 
                                 "instrument": symbol_name,
                                 "instType": instType,
-                                "objective":standart_objective_name, 
+                                "objective":objective, 
                                 "updateSpeed" : None,
-                                "url" : endpoint,
+                                "address" : url,
                                 "msg" : message,
-                                "sbmethod" : None,
-                                "marginCoin" : message.get("args")[0].get("instType"),
-                                "marginType" : "InversePerpetual" if "COIN" in message.get("args")[0].get("instType") else "LinearPerpetual"
+                                "kickoffMethod" : None,
+                                "marginType" : marginType,
+                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"bitget_api_{instType}_{standart_objective_name}_{symbol_name}"
-            connection_data["sbmethod"] = cls.bitget_fetch 
-            connection_data["sbPar"] = {
-                    "symbol": params['symbol'], 
-                        }
-            if "snaplimit" != None:
-                connection_data["snaplimit"] = snaplimit
+            connection_data["id_api"] = f"htx_api_{instType}_{objective}_{symbol_name}"
+            connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
+        return connection_data
+
+
+
+class mexc(CommunicationsManager):
+    """
+        Abstraction of bybit api calls
+    """
+    htx_repeat_response_code = htx_repeat_response_code
+    htx_api_endpoints = htx_api_endpoints
+    htx_ws_endpoints = htx_ws_endpoints
+    htx_api_basepoints = htx_api_basepoints
+    htx_ws_stream_map = htx_ws_stream_map
+    htx_InverseFuture_quarters_map = htx_InverseFuture_quarters_map
+
+
+    @classmethod
+    def htx_buildRequest(cls, instType:str, objective:str, symbol:str, futuresTimeHorizeon:int=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+        """
+            available objectives :  depth, oi, funding, tta, ttp, liquidations
+            symbol is the one fetched from info
+        """
+        symbol_name = htx_symbol_name(symbol)
+        marginType = htx_get_marginType(symbol)
+        params = htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon)
+        endpoint = cls.htx_api_endpoints.get(instType)
+        try:
+            basepoint = cls.htx_api_basepoints.get(instType).get(marginType).get(objective)
+        except:
+            basepoint = cls.htx_api_basepoints.get(instType).get(objective)
+        url = endpoint + basepoint
+        headers = {}
+        return {
+            "url" : url,
+            "basepoint" : basepoint,  
+            "endpoint" : endpoint,  
+            "objective" : objective,
+            "params" : params, 
+            "headers" : headers, 
+            "instrumentName" : symbol_name, 
+            "insTypeName" : instType, 
+            "exchange" : "htx", 
+            "repeat_code" : cls.htx_repeat_response_code,
+            "maximum_retries" : maximum_retries, 
+            "books_dercemet" : books_dercemet,
+            "payload" : "",
+            "marginType" : marginType,
+            }
+
+    @classmethod
+    def htx_fetch(cls, *args, **kwargs):
+        connection_data = cls.htx_buildRequest(*args, **kwargs)
+        response = cls.make_request(connection_data)
+        return response
+
+    @classmethod
+    async def htx_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.htx_buildRequest(*args, **kwargs)
+        response = await cls.make_aiohttpRequest(connection_data)
+        return response
+
+    @classmethod
+    async def htx_aiohttpFetch_futureDepth(cls, symbol):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="depth", symbol=symbol, futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
+    async def htx_aiohttpFetch_futureTrades(cls, symbol):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="trades", symbol=symbol, futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
+    async def htx_aiohttpFetch_futureOI(cls, symbol):
+        data = {}
+        for t in range(4):
+            connection_data = cls.htx_buildRequest(instType="future", objective="oi", symbol=symbol, futuresTimeHorizeon=t)
+            response = await cls.make_aiohttpRequest(connection_data)
+            data[t] = response
+        return data
+
+    @classmethod
+    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+        """
+            insType : perpetual, spot, future
+            objective : depth, oi, tta, ttp
+            symbol : from htx symbols
+            pullTimeout : how many seconds to wait before you make another call
+            special : futureDepth, futureOI
+        """
+        connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
+        symbol_name = htx_symbol_name(symbol)
+        
+        if special == "futuredepth":
+            call = partial(cls.htx_aiohttpFetch_futureOI)
+        if special == "futureoi":
+            call = partial(cls.htx_aiohttpFetch_futureOI)
+        else:
+            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+
+        data =  {
+                "type" : "api",
+                "id_api" : f"htx_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"htx", 
+                "instrument": symbol_name,
+                "instType": instType,
+                "objective": objective, 
+                "pullTimeout" : pullTimeout,
+                "connectionData" : connectionData,
+                "aiohttpMethod" : call,
+                }
+        
+        return data
+
+    @classmethod
+    def htx_parse_ws_objective(cls, instType, objective, symbol):
+        """
+            objectives : trades, depth, liquidations, funding
+        """
+        parsed_objective = cls.htx_ws_stream_map.get(objective).split(".")
+        parsed_objective[1] = symbol
+        parsed_objective = ".".join(parsed_objective)
+        if instType == "spot" and objective=="depth":
+            msg = {
+                "sub": f"market.{symbol}.depth.size_20.high_freq",
+                "data_type":"incremental",
+                "id": generate_random_integer(10)
+                }
+        else:
+            topic = htx_ws_stream_map.get(objective).split(".")
+            topic[1] = symbol
+            msg = {
+                "sub": parsed_objective,
+                "id": generate_random_integer(10)
+                }
+        return msg
+
+    @classmethod
+    def htx_build_ws_method(cls, instType, objective, symbol, **kwargs):
+        """
+            objectives : trades, depth ,liquidations, funding
+            instType : spot, future, perpetual
+            symbol : the one from htx info
+        """
+        message = cls.htx_parse_ws_objective(instType, objective, symbol)
+        marginType = htx_get_marginType(symbol)
+        url = htx_get_ws_url(instType, objective, marginType)
+
+        return message, instType, marginType, url, symbol
+
+    @classmethod    
+    def htx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
+        """
+            objectives : trades, depth ,liquidations, funding
+            instType : spot, future, perpetual
+            symbol : the one from htx info
+            needSnap = True for books, you need to take the first snapshot.
+            do not use snaplimit more than 100
+        """
+        message, instType, marginType, url, symbol = cls.htx_build_ws_method(instType, objective, symbol)
+        symbol_name = htx_symbol_name(symbol)
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"htx_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"htx", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":objective, 
+                                "updateSpeed" : None,
+                                "address" : url,
+                                "msg" : message,
+                                "kickoffMethod" : None,
+                                "marginType" : marginType,
+                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
+                            }
+        if needSnap is True:
+            connection_data["id_api"] = f"htx_api_{instType}_{objective}_{symbol_name}"
+            connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
         return connection_data
 
 
@@ -1665,23 +1866,23 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx):
             d = await ht["aiohttpMethod"]()
             print(d)
         asyncio.run(example())
+    
+    @classmethod
+    def test_ws(cls):
+        connData = htx.htx_build_ws_connectionData("perpetual", "depth", "BTC-USD")
+        print(connData.get("kickoffMethod")())
+        print(connData)
 
-clientTest.test_htx_ws()
+    @classmethod
+    def test(cls):
+        async def example():
+            d = await cls.htx_aiohttpFetch_futureTrades()
+            print(d)
+        asyncio.run(example())
+
+clientTest.test()
 
 
-    #         }
-
-    # @classmethod
-    # def fetch(cls, *args, **kwargs):
-    #     connection_data = cls.buildRequest(*args, **kwargs)
-    #     response = cls.make_request(connection_data)
-    #     return response
-
-    # @classmethod
-    # async def aiohttpFetch(cls, *args, **kwargs):
-    #     connection_data = cls.buildRequest(*args, **kwargs)
-    #     response = await cls.make_aiohttpRequest(connection_data)
-    #     return response
 
 
 

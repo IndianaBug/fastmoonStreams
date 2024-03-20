@@ -10,7 +10,11 @@ htx_ws_endpoints = {
     "not_incremental" : {
         "spot" : "wss://api-aws.huobi.pro/ws",
         "perpetual" : {
-            "LinearPerpetual" : "wss://api.hbdm.vn/linear-swap-ws"
+            "LinearPerpetual" : "wss://api.hbdm.vn/linear-swap-ws",
+            "InversePerpetual" : "wss://api.hbdm.vn/swap-ws"
+        },
+        "future" : {
+            "InverseFuture" : "wss://api.hbdm.vn/ws"
         }
     },
     "incremental" : {
@@ -42,6 +46,7 @@ htx_api_basepoints = {
             "depth" : "/market/depth",                                              # ?symbol=BTC&contract_type=this_week&period=60min&amount_type=2"  Weekly:"this_week", Bi-weekly:"next_week", Quarterly:"quarter" Next Quarterly Contract: "next_quarter"
             "oi" : "/api/v1/contract_his_open_interest",                            # ?symbol=BTC&period=60min"
             "tta" : "/api/v1/contract_elite_account_ratio",                         # ?symbol=BTC&period=60min"
+            "trades" : "/market/history/trade"
         },
         "LinearFuture" : {
             "depth" : "/linear-swap-ex/market/depth",                               # The same but there are nofutures therefore forget it
@@ -71,6 +76,7 @@ def htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeo
     """
     htx_InverseFuture_quarters_map = {
         "depth" : ["CW", "NW", "CQ", "NQ"],
+        "trades" : ["CW", "NW", "CQ", "NQ"],
         "oi" : ["this_week", "next_week", "quarter", "next_quarter"]
     }
     params = {}
@@ -91,12 +97,17 @@ def htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeo
             params["contract_type"] = s
     if objective == "tta" or objective == "ttp":
         params["period"] = "60min"
+    if objective == "trades":
+        if (instType=="future" and marginType =="InverseFuture"):
+            s = htx_InverseFuture_quarters_map.get('trades')[futuresTimeHorizeon]
+            params["symbol"] = f"{params['symbol']}_{s}"
+            params["size"] = 50
     return params
 
 
 htx_ws_stream_map = {
     "trades" : "market.$symbol.trade.detail  ",   
-    "depth" : "market.depth.$symbol.size_20.high_freq ",        
+    "depth" : "market.depth.$symbol.size_20.high_freq",        
     "liquidations" : "public.$contract_code.liquidation_orders",         
     "funding" : "public.$contract_code.funding_rate"  
 }
@@ -104,41 +115,20 @@ htx_ws_stream_map = {
 htx_basecoins = ["BTC", "ETH", "TRX"]   # update via info.htx_info("future.InverseFuture")
 
 htx_InverseFuture_quarters_map = {
+    "note" : "replace the coin for urs",
     "depth" : ["BTC_CW", "BTC_NW", "BTC_CQ," "BTC_NQ"],
+    "trades" : ["BTC_CW", "BTC_NW", "BTC_CQ," "BTC_NQ"],
     "oi" : ["this_week", "next_week", "quarter", "next_quarter"]
 } 
-
 
 def htx_symbol_name(symbol):
     return symbol.lower().replace("-", "")
 
-def htx_get_ws_topic(instType, objective, symbol):
-    if instType == "spot" and objective=="depth":
-        msg = {
-            "sub": f"market.{symbol}.depth.size_20.high_freq",
-            "data_type":"incremental",
-            "id": generate_random_integer(10)
-            }
+
+def htx_get_ws_url(instType, objective, marginType=None):
+    if instType=="spot" and objective == "depth":
+        return htx_ws_endpoints.get("incremental").get(instType)
     else:
-        topic = htx_ws_stream_map.get(objective).split(".")
-        topic[1] = symbol
-        msg = {
-            "sub": f"market.{symbol}.depth.size_20.high_freq",
-            "id": generate_random_integer(10)
-            }
-    return msg
+        return htx_ws_endpoints.get("not_incremental").get(instType).get(marginType)
 
-def kucoin_build_ws_message_f(stream):
-    msg = {
-            "sub": stream,
-            "id":"id1"
-            }
-    return msg
 
-def kucoin_build_ws_message_spot_depth(symbol):
-    msg = {
-            "sub": f"market.{symbol}.depth.size_20.high_freq",
-            "data_type":"incremental",
-            "id": "id1"
-            }
-    return msg

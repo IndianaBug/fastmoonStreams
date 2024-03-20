@@ -94,7 +94,7 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.htx_symbols()
+a = info.mexc_info()
 
 # a = [x["symbol"] for x in a]
 
