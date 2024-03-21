@@ -94,7 +94,7 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.gateio_symbols_by_instType("perpetual")
+a = info.gateio_info("option")
 
 
 print(a)

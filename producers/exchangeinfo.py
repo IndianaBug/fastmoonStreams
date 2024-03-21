@@ -112,7 +112,6 @@ class bybitInfo(requestHandler):
         info = cls.simple_request(url)
         return info.get("result").get("list")
     
-
 class binanceInfo(requestHandler):
     binance_info_url = {
                         "spot" : "https://api.binance.com/api/v3/exchangeInfo",
@@ -666,24 +665,40 @@ class gateioInfo(requestHandler):
     gateio_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
     gateio_basepoints = {
         "spot" : "/api/v4/spot/currency_pairs",
-        "perpetual" : "/api/v4/futures/usdt/contracts",
+        "perpetual" : {
+            "LinearPerpetual" : "/api/v4/futures/usdt/contracts",
+            "InversePerpetual" : "/api/v4/futures/btc/contracts",
+        },
         "future" : "/api/v4/delivery/usdt/contracts",
+        "option" : "/api/v4/options/contracts", 
     }
-    gateio_call_example = {
-        "spot" : "BTC_USDT",
-        "perpetual" : "",
-        "future" : "BIT-29MAR24-CDE" # Which is bitcoin
-        }
 
     @classmethod
     def gateio_symbols_by_instType(cls, instType):
         """
-            spot, future
+            spot, future, perpetual, option
         """
-        info = cls.gateio_info(instType)
-        key = "id" if instType=="spot" else "name"
-        prdocut_ids = list(set([x[key] for x in info]))
-        return prdocut_ids
+        if instType in ["spot", "future"]:
+            info = cls.gateio_info(instType)
+            key = "id" if instType=="spot" else "name"
+            prdocut_ids = list(set([x[key] for x in info]))
+            return prdocut_ids
+        if instType == "perpetual":
+            links = iterate_dict(cls.gateio_basepoints.get(instType))
+            d = []
+            for basepoint in links:
+                data = cls.request_full(cls.gateio_endpoint+basepoint, headers=cls.gateio_headers, params={})
+                prdocut_ids = list(set([x["name"] for x in data]))
+                d.append(prdocut_ids)
+            return unnest_list(d)
+        if instType == "option":
+            underlyings = cls.gateio_option_underlying_assets()
+            d = []
+            for underlying in underlyings:
+                data = cls.request_full(cls.gateio_endpoint+cls.gateio_basepoints.get("option"), headers=cls.gateio_headers, params={"underlying" : underlying})
+                d.append(list(set([x["name"] for x in data])))
+            return unnest_list(d) 
+
 
     @classmethod
     def gateio_symbols(cls):
@@ -697,12 +712,26 @@ class gateioInfo(requestHandler):
         return d
 
     @classmethod
+    def gateio_option_underlying_assets(cls):
+         data = cls.request_full(url=f"{cls.gateio_endpoint}/api/v4/options/underlyings", headers=cls.gateio_headers, params={})
+         return [x["name"] for x in data]
+    
+    @classmethod
     def gateio_info(cls, instType):
         """
-            spot, perpetual
+            ex. perpetual.LinearPerpetual
         """
-        return cls.request_full(url=f"{cls.gateio_endpoint}{cls.gateio_basepoints.get(instType)}", headers=cls.gateio_headers, params={})
+        if instType != "option":
+            basepoint = recursive_dict_access(cls.gateio_basepoints, instType)
+            url = f"{cls.gateio_endpoint}{basepoint}"
+            info = cls.simple_request(url)
+            return info
+        else:
+            underlyings = cls.gateio_option_underlying_assets()
+            d = []
+            for underlying in underlyings:
+                data = cls.request_full(cls.gateio_endpoint+cls.gateio_basepoints.get("option"), headers=cls.gateio_headers, params={"underlying" : underlying})
+                d.append(data)
+            return unnest_list(d) 
+        
     
-
-
-# print(binanceInfo.binance_symbols_by_instType("spot"))
