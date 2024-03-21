@@ -94,7 +94,7 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.gateio_symbols_by_instType("option")
+a = info.gateio_info("option")
 
 
-print(a)
+print(len([x["name"] for x in a if "BTC" in x["underlying"] and x["is_active"] == True]))

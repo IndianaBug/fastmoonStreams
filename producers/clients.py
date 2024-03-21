@@ -16,13 +16,13 @@ import base64
 import hashlib
 import hmac
 from hashlib import sha256 
-from utilis import generate_random_integer, generate_random_id
+from utilis import generate_random_integer, generate_random_id, unnest_list
 from functools import partial
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-from exchangeinfo import binanceInfo
+from exchangeinfo import binanceInfo, gateioInfo
 from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
 from producers.clientpoints.okx import *
@@ -31,7 +31,7 @@ from producers.clientpoints.deribit import *
 from producers.clientpoints.kucoin import *
 from producers.clientpoints.htx import *
 from producers.clientpoints.bitget import *
-# from producers.clientpoints.gateio import *
+from producers.clientpoints.gateio import *
 from producers.clientpoints.mexc import *
 from producers.clientpoints.bingx import *
 
@@ -1778,30 +1778,51 @@ class mexc(CommunicationsManager):
             connection_data["kickoffMethod"] = partial(cls.mexc_fetch, instType, objective, symbol) 
         return connection_data
 
-class gateio(CommunicationsManager):
+class gateio(CommunicationsManager, gateioInfo):
     """
         Abstraction of bybit api calls
     """
-    mexc_repeat_response_code = mexc_repeat_response_code
-    mexc_api_endpoints = mexc_api_endpoints
-    mexc_ws_endpoints = mexc_ws_endpoints
-    mexc_api_basepoints = mexc_api_basepoints
-    mexc_ws_stream_map = mexc_ws_stream_map
-
+    gateio_repeat_response_code = gateio_repeat_response_code
+    gateio_api_endpoint = gateio_api_endpoint
+    gateio_api_headers = gateio_api_headers
+    gateio_basepoints = gateio_basepoints
+    gateio_basepoints_standard_params = gateio_basepoints_standard_params
+    gateio_ws_endpoints = gateio_ws_endpoints
+    gateio_ws_channel_map = gateio_ws_channel_map
+    gateio_ws_payload_map = gateio_ws_payload_map
 
     @classmethod
-    def mexc_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def gateio_get_active_option_instruments(cls, underlying):
+        symbols = gateioInfo.gateio_info("option")
+        symbols = [x["name"] for x in symbols if underlying in x["underlying"] and x["is_active"] == True]
+        return symbols
+
+    @classmethod
+    def gateio_build_ws_message_all_Options(cls, objective, underlying):
+        symbols = cls.gateio_get_active_option_instruments(underlying)
+        channel = gateio_ws_channel_map.get("option").get(objective)
+        payload = [[symbol, "1000", "20"] for symbol in symbols]
+        msg = {
+            "time": int(time.time()),
+            "channel": channel,
+            "event": "subscribe",  
+            "payload": unnest_list(payload)
+            }
+        return msg
+
+    @classmethod
+    def gateio_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, snapLength=20, **kwargs)->dict: 
         """
-            available objectives :  depth
+            available objectives :  depth, trades, funding, oi (containts tta), liquidations 
             symbol is the one fetched from info
-            omit maximum_retries and books_decrement
         """
-        symbol_name = mexc_get_symbol_name(symbol)
-        params = mexc_api_parseParams(instType, objective, symbol)
-        endpoint = cls.mexc_api_endpoints.get(instType)
-        basepoint = cls.mexc_api_basepoints.get(instType).get(objective)
+        symbol_name = gateio_get_symbolname(symbol)
+        marginType = gateio_get_marginType(instType, symbol)
+        basepoint = gateio_get_basepoint(instType, objective, marginType, interval=snapLength)
+        params = gateio_get_api_standard_params(instType, objective)(symbol, snapLength)
+        headers = cls.gateio_api_headers
+        endpoint = cls.gateio_api_endpoint
         url = endpoint + basepoint
-        headers = {}
         return {
             "url" : url,
             "basepoint" : basepoint,  
@@ -1811,42 +1832,41 @@ class gateio(CommunicationsManager):
             "headers" : headers, 
             "instrument" : symbol_name, 
             "insType" : instType, 
-            "exchange" : "mexc", 
+            "exchange" : "gateio", 
             "repeat_code" : cls.mexc_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "payload" : "",
-            "marginType" : None if instType == "spot" else "usdt",
+            "marginType" : marginType
             }
 
     @classmethod
-    def mexc_fetch(cls, *args, **kwargs):
-        connection_data = cls.mexc_buildRequest(*args, **kwargs)
+    def gateio_fetch(cls, *args, **kwargs):
+        connection_data = cls.gateio_buildRequest(*args, **kwargs)
         response = cls.make_request(connection_data)
         return response
 
     @classmethod
-    async def mexc_aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.mexc_buildRequest(*args, **kwargs)
+    async def gateio_aiohttpFetch(cls, *args, **kwargs):
+        connection_data = cls.gateio_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
 
     @classmethod
-    def mexc_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+    def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
         """
-            insType : perpetual, spot
-            objective : depth
-            symbol : from mexc symbols
+            available objectives :  depth, trades, funding, oi (containts tta), liquidations 
+            symbol is the one fetched from info
             pullTimeout : how many seconds to wait before you make another call
-            special : No special methods for mexc
+            special : not for now
         """
-        connectionData = cls.mexc_buildRequest(instType, objective, symbol, **kwargs)
-        symbol_name = mexc_get_symbol_name(symbol)
-        call = partial(cls.mexc_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        connectionData = cls.gateio_buildRequest(instType, objective, symbol, pullTimeout, **kwargs)
+        symbol_name = gateio_get_symbolname(symbol)
+        call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         data =  {
                 "type" : "api",
-                "id_api" : f"mexc_api_{instType}_{objective}_{symbol_name}",
-                "exchange":"mexc", 
+                "id_api" : f"gateio_api_{instType}_{objective}_{symbol_name}",
+                "exchange":"gateio", 
                 "instrument": symbol_name,
                 "instType": instType,
                 "objective": objective, 
@@ -1857,45 +1877,22 @@ class gateio(CommunicationsManager):
         
         return data
 
-    @classmethod
-    def mexc_build_ws_msg(cls, instType, objective, symbol):
-        """
-            objectives : trades, depth, liquidations, funding
-        """
-        obj = cls.mexc_ws_stream_map.get(objective) if objective!="trades" else cls.mexc_ws_stream_map.get(objective).get(instType)
-        if instType == "spot":
-                if obj == "depth":
-                    obj = f"increase.{obj}"
-                msg = {
-                    "method": "SUBSCRIPTION",
-                    "params": [
-                        f"spot@public.{obj}.v3.api@{symbol}"
-                    ]
-                }
-        if instType == "perpetual":
-                msg = {
-                "method": f"sub.{obj}",
-                "param":{
-                    "symbol": symbol
-                }
-            }
-        return msg
-
     @classmethod    
-    def mexc_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
+    def gateio_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
         """
             objectives : trades, oifunding, depth
             instType : spot, perpetual
             symbol : the one from mexc info
             needSnap must be true for depth
         """
-        message = cls.mexc_build_ws_msg(instType, objective, symbol)
-        symbol_name = mexc_get_symbol_name(symbol)
-        url = cls.mexc_ws_endpoints.get(instType)
+        marginType = gateio_get_marginType(instType, symbol)
+        url = gateio_get_ws_url(instType, objective, marginType, symbol)
+        message = gateio_build_ws_message(instType, objective, symbol)
+        symbol_name = gateio_get_symbolname(symbol)
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"mexc_ws_{instType}_{objective}_{symbol_name}",
-                                "exchange":"mexc", 
+                                "id_ws" : f"gateio_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"gateio", 
                                 "instrument": symbol_name,
                                 "instType": instType,
                                 "objective":objective, 
@@ -1903,17 +1900,17 @@ class gateio(CommunicationsManager):
                                 "address" : url,
                                 "msg" : message,
                                 "kickoffMethod" : None,
-                                "marginType" : None if instType == "spot" else "usdt",
-                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
+                                "marginType" : marginType,
+                                "marginCoin" : "btc" if marginType == "InversePerpetual" else "usdt"
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"mexc_api_{instType}_{objective}_{symbol_name}"
-            connection_data["kickoffMethod"] = partial(cls.mexc_fetch, instType, objective, symbol) 
+            connection_data["id_api"] = f"gateio_api_{instType}_{objective}_{symbol_name}"
+            connection_data["kickoffMethod"] = partial(cls.gateio_fetch, instType, objective, symbol) 
         return connection_data
 
 
 
-class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc):
+class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
     
     @classmethod
     def test_deribit_apiData(cls, **kwargs):
@@ -1964,7 +1961,26 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc):
     def test_mexc_ws(cls):
         connData = cls.mexc_build_ws_connectionData("spot", "depth", "BTCUSDT")
         print(connData["kickoffMethod"]())
-clientTest.test_mexc_ws()
+
+    @classmethod
+    def gate_test_api(cls):
+        async def example():
+            connData =  cls.gateio_build_api_connectionData("perpetual", "funding", "BTC_USDT", 100)
+            r = await connData["aiohttpMethod"]()
+            print(r)
+        asyncio.run(example())
+
+    @classmethod
+    def gate_test_ws(cls):
+        connData =  cls.gateio_build_ws_connectionData("option", "trades", "BTC_USDT")
+        print(connData["kickoffMethod"]())
+    #     asyncio.run(example())
+
+    @classmethod
+    def gate_option_msg(cls):
+        print(cls.gateio_build_ws_message_all_Options("depth", "BTC_USDT"))
+
+clientTest.gate_option_msg()
 
 
 

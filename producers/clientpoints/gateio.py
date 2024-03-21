@@ -11,107 +11,177 @@ gateio_api_headers = {'Accept': 'application/json', 'Content-Type': 'application
 
 gateio_basepoints = {
     "spot" : {
-        "depth" : "",
-        "trades" : "",
+        "depth" : "/spot/order_book",
+        "trades" : "/spot/trades",
     },
     "perpetual" : {
         "LinearPerpetual" : {
-          "depth" : "/futures/usdt/order_book",   # not only usdt may be another coin  # contract=BTC_USDT" limit=1000
-          "trades" : "/futures/usdt/trades",      # contract , limit=1000max
-          "funding" : "/futures/usdt/funding_rate", # contract limit=1
-          "oi" : "/futures/usdt/contract_stats",       # https://www.gate.io/docs/developers/apiv4/en/#futures-insurance-balance-history
-          "tta" : "/futures/usdt/contract_stats",
-          "liquidations" : "/futures/usdt/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
+          "depth" : "/futures/usdt/order_book",   
+          "trades" : "/futures/usdt/trades",     
+          "funding" : "/futures/usdt/funding_rate", 
+          "oi" : "/futures/usdt/contract_stats",           # the same as tta 
+          "tta" : "/futures/usdt/contract_stats",          # the same as oi
+          "liquidations" : "/futures/usdt/liq_orders"     
         },
         "InversePerpetual" : {
-          "depth" : "/futures/usdt/order_book",   # not only usdt may be another coin  # contract=BTC_USDT" limit=1000
-          "trades" : "/futures/usdt/trades",      # contract , limit=1000max
-          "funding" : "/futures/usdt/funding_rate", # contract limit=1
-          "oi" : "/futures/usdt/contract_stats",       # https://www.gate.io/docs/developers/apiv4/en/#futures-insurance-balance-history
-          "tta" : "/futures/usdt/contract_stats",
-          "liquidations" : "/futures/usdt/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
+          "depth" : "/futures/btc/order_book",   
+          "trades" : "/futures/btc/trades",      
+          "funding" : "/futures/btc/funding_rate",
+          "oi" : "/futures/btc/contract_stats",       # the same as tta 
+          "tta" : "/futures/btc/contract_stats",      # the same as oi
+          "liquidations" : "/futures/usdt/liq_orders"    
         },
     },
      "future" : {
-         "depth" : "/delivery/usdt/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
-         "trades" : "/delivery/usdt/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
-         "oifunding" : "/delivery/usdt/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
+         "depth" : "/delivery/usdt/order_book",  
+         "trades" : "/delivery/usdt/trades",      
+         "oifunding" : "/delivery/usdt/tickers",   
      },
      "option" : {
-         "depth" : "/options/order_book",   # contract interval limit string string intereger
-         "trades" : "/options/trades",      # contract type, limit, from to (int64)
-         "oi" : "/options/tickers",         # lists all open interests per underlying asset   underlying=BTC_USDT
+         "depth" : "/options/order_book",   
+         "trades" : "/options/trades",      
+         "oi" : "/options/tickers",     
      },
 }
 
 
-gateio_ws_endpoint = {
-    "spot" : "https://api.gateio.ws/api/v4",
-    "perpetual" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/{settle}",
-    "future" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/delivery/{settle}"
-    }
-
-gateio_ws_map = {
+gateio_basepoints_standard_params = {
     "spot" : {
-        "trades" : "spot.trades",
-        "depth" : "spot.order_book_update" # 2 args
+        "depth" : lambda symbol, interval : {"currency_pair" : symbol, "limit" : 300},
+        "trades" : lambda symbol, interval : {"currency_pair" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
     },
     "perpetual" : {
-        "trades" : "futures.trades",       # just symbol
-        "depth" : "futures.order_book_update",   # not only, 3 args
-        "oifunding" : "futures.tickers"        # just symbol
+          "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
+          "trades" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
+          "funding" : lambda symbol, interval : {"contract" : symbol, "limit" : 1},
+          "oi" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
+          "tta" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
+          "liquidations" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
+    },
+     "future" : {
+         "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
+         "trades" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
+         "oi" :lambda symbol : {"contract" : symbol}, # if no params provided, fetches for everyone
+     },
+     "option" : {
+         "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
+         "trades" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())},    # if not provided, fetches every trades
+         "oi" : lambda symbol, interval : {"underlying" : symbol},   # ticker snap of all options belonging to underlying asset
+     },
+}
+
+
+def gateio_get_api_standard_params(instType, objective, symbol, interval=None):
+    params = gateio_ws_endpoint.get(instType).get(objective)(symbol, interval)
+    return params
+
+
+gateio_ws_endpoints = {
+    "spot" : "https://api.gateio.ws/api/v4",
+    "perpetual" : {
+        "LinearPerpetual" : "wss://fx-ws.gateio.ws/v4/ws/usdt",
+        "InversePerpetual" : "wss://fx-ws.gateio.ws/v4/ws/btc",
+    },
+    "future" : "wss://fx-ws.gateio.ws/v4/ws/delivery/usdt",
+    "option" : "wss://op-ws.gateio.live/v4/ws"
+    }
+
+gateio_ws_channel_map = {
+    "spot" : {
+        "trades" : "spot.trades",
+        "depth" : "spot.order_book_update" 
+    },
+    "perpetual" : {
+        "trades" : "futures.trades",       
+        "depth" : "futures.order_book_update",  
+        "oifunding" : "futures.tickers",
+        "liquidations" : "futures.trades",          # the same as for tradeds       
     },
     "future" : {
         "trades" : "futures.trades",
         "depth" : "futures.order_book_update",
-        "oifunding" : "futures.tickers"
-    }
+        "oifunding" : "futures.tickers",
+        "liquidations" : "futures.trades",          # Expiry futures have no liquidations
+    },
+    "option" : {
+        "trades" : "options.ul_trades", 
+        "depth" : "futures.order_book_update",
+        "oi" : "options.ul_tickers"
+    },
 }
 
-# SPOT 
-# ws.send(json.dumps({
-#     "time": int(time.time()),
-#     "channel": "spot.order_book_update",
-#     "event": "subscribe",  # "unsubscribe" for unsubscription
-#     "payload": ["BTC_USDT", "100ms"]
-# }))
+gateio_ws_payload_map = {
+    "spot" : {
+        "trades" : lambda symbol : [symbol],
+        "depth" : lambda symbol : [symbol, "1000ms"]
+    },
+    "perpetual" : {
+        "trades" : lambda symbol : [symbol],             
+        "depth" : lambda symbol : [symbol, "1000ms", "20"], 
+        "oifunding" : lambda symbol : [symbol],  
+        "liquidations" : lambda symbol : [symbol],    
+    },
+    "future" : {
+        "trades" : lambda symbol : [symbol],             
+        "depth" : lambda symbol : [symbol, "1000ms", "20"],                     # MAYBE IN BULK
+        "oifunding" : lambda symbol : [symbol],   
+    },
+    "option" : {
+        "trades" : lambda symbol : [symbol],                                     # use this for all trades
+        "depth" : lambda symbol : [symbol, "1000ms", "20"],                                    # MAYBE IN BULK
+        "oi" : lambda symbol : [symbol],     # use this for all          
+    },
+}
 
-# Perpetual
-# ws.send('{"time" : 123456, "channel" : "futures.order_book_update",
-#         "event": "subscribe", "payload" : ["BTC_USD", "1000ms", "20"]}')
+def gateio_get_basepoint(instType, objective, marginType, interval=None):
+    """
+        interval : seconds of the data to snap on
+    """
+    if marginType != None:
+        basepoint = gateio_basepoints.get(instType).get(marginType).get(objective)
+    else:
+        basepoint = gateio_basepoints.get(instType).get(objective)
+    return basepoint
+
+def gateio_get_api_standard_params(instType, objective):
+    params = gateio_basepoints_standard_params.get(instType).get(objective)
+    return params
 
 def gateio_build_ws_message(instType, objective, symbol):
-    obj = gateio_ws_map.get(instType).get(objective)
+    channel = gateio_ws_channel_map.get(instType).get(objective)
+    payload = gateio_ws_payload_map.get(instType).get(objective)
     msg = {
         "time": int(time.time()),
-        "channel": obj,
+        "channel": channel,
         "event": "subscribe",  
-        "payload": [symbol]
+        "payload": payload(symbol)
         }
     return msg
 
+def gateio_get_ws_url(instType, objective, marginType, symbol):
+    if marginType != None:
+        url = gateio_ws_endpoints.get(instType).get(marginType)
+    else:
+        url = gateio_ws_endpoints.get(instType)
+    return url
 
+def gateio_get_marginType(instType, symbol):
+    if instType == "perpetual":
+        marginType = "LinearPerpetual" if "USDT" in symbol else "InversePerpetual"
+    else:
+        marginType = None
+    return marginType
 
+def gateio_get_symbolname(symbol):
+    return symbol.replace("_", "").lower()
 
-
-# # example WebSocket signature calculation implementation in Python
-# import hmac, hashlib, json, time
-# def gen_sign(channel, event, timestamp):
-#     # GateAPIv4 key pair
-#     api_key = 'YOUR_API_KEY'
-#     api_secret = 'YOUR_API_SECRET'
-
-#     s = 'channel=%s&event=%s&time=%d' % (channel, event, timestamp)
-#     sign = hmac.new(api_secret.encode('utf-8'), s.encode('utf-8'), hashlib.sha512).hexdigest()
-#     return {'method': 'api_key', 'KEY': api_key, 'SIGN': sign}
-
-
-# request = {
-#     'id': int(time.time() * 1e6),
-#     'time': int(time.time()),
-#     'channel': 'spot.orders',
-#     'event': 'subscribe',
-#     'payload': ["BTC_USDT", "GT_USDT"]
-# }
-# request['auth'] = gen_sign(request['channel'], request['event'], request['time'])
-# print(json.dumps(request))
+def gateio_build_ws_message_all_Options(instType, objective, symbols):
+    channel = gateio_ws_channel_map.get(instType).get(objective)
+    payload = [[symbol, "1000", "20"] for symbol in symbols]
+    msg = {
+        "time": int(time.time()),
+        "channel": channel,
+        "event": "subscribe",  
+        "payload": payload
+        }
+    return msg
