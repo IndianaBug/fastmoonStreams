@@ -703,7 +703,7 @@ class gateioInfo(requestHandler):
     @classmethod
     def gateio_symbols(cls):
         """
-            spot, future
+            spot, option, perpetual, future
         """
         d= {}
         for key in cls.gateio_basepoints:

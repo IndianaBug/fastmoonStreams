@@ -3,51 +3,50 @@ import time
 
 gateio_repeat_response_code = 0
 
-gateio_api_endpoint = {
-    "spot" : "https://api.gateio.ws/api/v4",
-    "perpetual" : "https://api.gateio.ws/api/v4",
-    "future" : "https://api.gateio.ws"
-}
+gateio_api_endpoint =  "https://api.gateio.ws/api/v4"
 
 gateio_api_endpoint_alt = "https://fx-api-testnet.gateio.ws/api/v4"
 
 gateio_api_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-
-gateio_settle_currencis = {
-    "future" : ["usdt"],
-    "perpetual" : ["btc", "usdt", "usd"]
-}
-
-gateio_api_basepoints = {
-     "spot" : {
-          "depth" : "/api/v4/spot/order_book", # currency_pair=BTC_USDT" limit=1000
-          "trades" : "/spot/trades",           # currency_pair , limit=1000max
-     },
-     "perpetual" : {
-          "depth" : lambda settle : f"/futures/{settle}/order_book",   # not only usdt may be another coin  # contract=BTC_USDT" limit=1000
-          "trades" : lambda settle : f"/futures/{settle}/trades",      # contract , limit=1000max
-          "funding" : lambda settle : f"/futures/{settle}/funding_rate", # contract limit=1
-          "oi" : lambda settle : f"/futures/{settle}/contract_stats",       # https://www.gate.io/docs/developers/apiv4/en/#futures-insurance-balance-history
-          "tta" : lambda settle : f"/futures/{settle}/contract_stats",
-          "liquidations" : lambda settle : f"/futures/{settle}/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
-     },
+gateio_basepoints = {
+    "spot" : {
+        "depth" : "",
+        "trades" : "",
+    },
+    "perpetual" : {
+        "LinearPerpetual" : {
+          "depth" : "/futures/usdt/order_book",   # not only usdt may be another coin  # contract=BTC_USDT" limit=1000
+          "trades" : "/futures/usdt/trades",      # contract , limit=1000max
+          "funding" : "/futures/usdt/funding_rate", # contract limit=1
+          "oi" : "/futures/usdt/contract_stats",       # https://www.gate.io/docs/developers/apiv4/en/#futures-insurance-balance-history
+          "tta" : "/futures/usdt/contract_stats",
+          "liquidations" : "/futures/usdt/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
+        },
+        "InversePerpetual" : {
+          "depth" : "/futures/usdt/order_book",   # not only usdt may be another coin  # contract=BTC_USDT" limit=1000
+          "trades" : "/futures/usdt/trades",      # contract , limit=1000max
+          "funding" : "/futures/usdt/funding_rate", # contract limit=1
+          "oi" : "/futures/usdt/contract_stats",       # https://www.gate.io/docs/developers/apiv4/en/#futures-insurance-balance-history
+          "tta" : "/futures/usdt/contract_stats",
+          "liquidations" : "/futures/usdt/liq_orders"     # https://www.gate.io/docs/developers/apiv4/en/#futures-stats
+        },
+    },
      "future" : {
-         "depth" : lambda settle : f"/delivery/{settle}/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
-         "trades" : lambda settle : f"/delivery/{settle}/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
-         "oifunding" : lambda settle : f"/delivery/{settle}/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
+         "depth" : "/delivery/usdt/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
+         "trades" : "/delivery/usdt/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
+         "oifunding" : "/delivery/usdt/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
      },
      "option" : {
-         "depth" : lambda settle : f"/delivery/{settle}/order_book",  # 'contract=BTC_USDT_20200814' limit=1000
-         "trades" : lambda settle : f"/delivery/{settle}/trades",      # https://www.gate.io/docs/developers/apiv4/en/#futures-trading-history-2
-         "oi" : lambda settle : f"/delivery/{settle}/tickers",   # https://www.gate.io/docs/developers/apiv4/en/#get-futures-candlesticks-2
+         "depth" : "/options/order_book",   # contract interval limit string string intereger
+         "trades" : "/options/trades",      # contract type, limit, from to (int64)
+         "oi" : "/options/tickers",         # lists all open interests per underlying asset   underlying=BTC_USDT
      },
 }
 
 
 gateio_ws_endpoint = {
     "spot" : "https://api.gateio.ws/api/v4",
-    "spot_2" : "https://fx-api-testnet.gateio.ws/api/v4",
     "perpetual" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/{settle}",
     "future" : lambda settle : f"wss://fx-ws.gateio.ws/v4/ws/delivery/{settle}"
     }
