@@ -121,7 +121,7 @@ class binanceInfo(requestHandler):
                         },
                         "future" : {
                             "LinearFuture" : "https://fapi.binance.com/fapi/v1/exchangeInfo",
-                            "InverseFutures" : "https://dapi.binance.com/dapi/v1/exchangeInfo"
+                            "InverseFuture" : "https://dapi.binance.com/dapi/v1/exchangeInfo"
                         },
                         "option" : "https://eapi.binance.com/eapi/v1/exchangeInfo"
                     }
@@ -171,11 +171,8 @@ class binanceInfo(requestHandler):
         """
         di = {}
         for isntType in cls.binance_info_url.keys():
-            try:
-                data = cls.binance_symbols_by_instType(isntType)
-                di[isntType] = data
-            except:
-                print("Binance options data unavailabe")
+            data = cls.binance_symbols_by_instType(isntType)
+            di[isntType] = data
         return di
     
     @classmethod
@@ -189,6 +186,8 @@ class binanceInfo(requestHandler):
             return info.get("symbols")
         else:
             return info
+        # if "Inverse" in instType:
+        #     return info
 
 class okxInfo(requestHandler):
 

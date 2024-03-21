@@ -94,9 +94,19 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.binance_info("future.")
 
-print(len(a.get("optionSymbols")))
+def binance_get_futures_symbols(underlying_symbol):
+    """
+        underlying_symbol : BTC, ETH
+    """
+    a = info.binance_symbols_by_instType("future")
+    symbols = [aa for aa in a if underlying_symbol.upper() in aa]
+    return symbols
 
-# print([x["symbol"] for x in a.get("optionSymbols") if "BTC" in  x["symbol"]])
+    # print([x["symbol"] for x in a.get("optionSymbols") if "BTC" in  x["symbol"]])
 
+# print(binance_get_futures_symbols("BTC"))
+
+
+a = info.binance_info("future.LinearFuture")
+print([aa["symbol"] for aa in a])
