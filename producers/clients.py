@@ -152,62 +152,42 @@ class binance(CommunicationsManager, binanceInfo):
     """
         Abstraction for binance API calls for depth, funding, oi, tta, ttp and gta
     """
-    binance_api_endpoints = binance_api_endpoints
-    binance_api_basepoints = binance_api_basepoints
-    binance_api_basepoints_params = binance_api_basepoints_params
-    binance_ws_endpoints = binance_ws_endpoints
-    binance_ws_basepoints = binance_ws_basepoints
-    binance_ws_request_params = binance_ws_request_params
-    binance_repeat_response_code = -1130
-    binance_stream_keys = binance_stream_keys
+    # binance_api_endpoints = binance_api_endpoints
+    # binance_api_basepoints = binance_api_basepoints
+    # binance_api_basepoints_params = binance_api_basepoints_params
+    # binance_ws_endpoints = binance_ws_endpoints
+    # binance_ws_basepoints = binance_ws_basepoints
+    # binance_ws_request_params = binance_ws_request_params
+    # binance_repeat_response_code = -1130
+    # binance_stream_keys = binance_stream_keys
 
     def __init__(self):
         pass
 
     @classmethod
-    def binance_buildRequest(cls, insType:str, objective:str, maximum_retries:int=10, books_dercemet:int=500, **kwargs)->dict: 
+    def binance_buildRequest(cls, insType:str, objective:str, symbol:str, special=None, maximum_retries:int=10, books_dercemet:int=500, **kwargs)->dict: 
         """
             insType : spot, perpetual, future, option
             objective : depth, funding, oi, tta, ttp, gta
             maximum_retries : if the request was unsuccessufl because of the length
             books_decremet : length of the books to decrease for the next request
-            @@kwargs : depends on the request
-        """
-        # Strandarize names name
-        params = dict(kwargs)
-        params["symbol"] = params["symbol"].upper()
-        instrument_name = params["symbol"].lower().replace("_", "")
-
-        # Find marginType
-        marginType=""
-        if insType == "perpetual":
-            marginType = "LinearPerpetual" if "USDT" in  params["symbol"].upper() else "InversePerpetual"
-        if insType == "future":
-            marginType = "LinearFuture" if "USDT" not in  params["symbol"].upper() else "InverseFuture"
-
-        # this apis are not standarize, correct it
-        if objective in "tta_ttp_gta" and "Inverse" in marginType:
-            params["pair"] = params.pop("symbol").split("_")[0]
-        if insType == "option":
-            params["underlyingAsset"] = params.pop("symbol").split("_")[0]
-        objective = "tta_ttp_gta" if objective in "tta_ttp_gta" else objective
-
-        # Get url
-        if insType in ["perpetual", "future"]:
-            endpoint = cls.binance_api_endpoints.get(insType).get(marginType)
-            basepoint = cls.binance_api_basepoints.get(insType).get(marginType).get(objective)
-        else:
-            endpoint = cls.binance_api_endpoints.get(insType)
-            basepoint = cls.binance_api_basepoints.get(insType).get(objective)
+            special : oioption, oifutures
+        """ 
+        symbol_name = binance_get_symbol_name(symbol)
+        marginType = binance_get_marginType(instType, symbol)
+        params = binance_api_params_map.get(insType).get(marginType).get(objective)(symbol)
+        endpoint = binance_api_endpoints.get(insType).get(marginType).get(objective)
+        basepoint = binance_api_basepoints.get(insType).get(marginType).get(objective)
         url = f"{endpoint}{basepoint}"
         headers = {}
+        payload = ""
         return {
             "url" : url, 
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : instrument_name, 
-            "insTypeName" : insType, 
+            "instrument" : symbol_name, 
+            "insType" : insType, 
             "exchange" : "binance", 
             "repeat_code" : cls.binance_repeat_response_code,
             "maximum_retries" : maximum_retries, 
@@ -228,25 +208,17 @@ class binance(CommunicationsManager, binanceInfo):
         return response   
     
     @classmethod
-    def binance_build_ws_method(cls, insType, **kwargs):
-        """
-            insType : spot, perpetual, option, future
-            kwargs order: symbol, objective, everything else
-        """
-        params = dict(kwargs)
-        standart_objective_name = params["objective"]
-        params["objective"] = cls.binance_stream_keys.get(params["objective"])
-        params["symbol"] = params["symbol"].lower()
-        values = list(params.values())
-        message = {
-            "method": "SUBSCRIBE", 
-            "params": [f"{'@'.join(values)}"], 
-            "id": generate_random_integer(10)
-        }
-        return message, insType, standart_objective_name    
-    
-    @classmethod
     def binance_option_expiration(cls, symbol):
+        """
+            Looks for unexpired onption
+        """
+        data = cls.binance_info("option").get("optionSymbols")
+        symbols = [x["symbol"] for x in data if symbol.upper() in x["symbol"].upper() and  datetime.fromtimestamp(int(x["expiryDate"]) / 1000) > datetime.now()]
+        expirations = list(set([x.split("-")[1] for x in symbols]))
+        return expirations
+
+    @classmethod
+    def binance_future_expiration(cls, symbol):
         """
             Looks for unexpired onption
         """
@@ -1801,7 +1773,10 @@ class gateio(CommunicationsManager, gateioInfo):
     def gateio_build_ws_message_all_Options(cls, objective, underlying):
         symbols = cls.gateio_get_active_option_instruments(underlying)
         channel = gateio_ws_channel_map.get("option").get(objective)
-        payload = [[symbol, "1000", "20"] for symbol in symbols]
+        if objective == "depth":
+            payload = [[symbol, "1000", "20"] for symbol in symbols]
+        else:
+            payload = [[symbol] for symbol in symbols]
         msg = {
             "time": int(time.time()),
             "channel": channel,
@@ -1901,11 +1876,13 @@ class gateio(CommunicationsManager, gateioInfo):
                                 "msg" : message,
                                 "kickoffMethod" : None,
                                 "marginType" : marginType,
-                                "marginCoin" : "btc" if marginType == "InversePerpetual" else "usdt"
+                                "marginCoin" : "btc" if marginType == "InversePerpetual" else "usdt",
                             }
         if needSnap is True:
             connection_data["id_api"] = f"gateio_api_{instType}_{objective}_{symbol_name}"
-            connection_data["kickoffMethod"] = partial(cls.gateio_fetch, instType, objective, symbol) 
+            connection_data["kickoffMethod"] = partial(cls.gateio_fetch, instType, objective, symbol)
+        if instType == "option":
+            connection_data["get_option_instruments_Method"] = partial(cls.gateio_get_active_option_instruments(cls, symbol)) 
         return connection_data
 
 
@@ -1980,7 +1957,7 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
     def gate_option_msg(cls):
         print(cls.gateio_build_ws_message_all_Options("depth", "BTC_USDT"))
 
-clientTest.gate_option_msg()
+print(binance.binance_option_expiration("BTC"))
 
 
 

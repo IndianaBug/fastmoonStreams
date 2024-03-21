@@ -94,7 +94,9 @@ class infoexchange(
 
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
-a = info.gateio_info("option")
+a = info.binance_info("future.")
 
+print(len(a.get("optionSymbols")))
 
-print(len([x["name"] for x in a if "BTC" in x["underlying"] and x["is_active"] == True]))
+# print([x["symbol"] for x in a.get("optionSymbols") if "BTC" in  x["symbol"]])
+
