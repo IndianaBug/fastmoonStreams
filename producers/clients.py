@@ -152,47 +152,52 @@ class binance(CommunicationsManager, binanceInfo):
     """
         Abstraction for binance API calls for depth, funding, oi, tta, ttp and gta
     """
-    # binance_api_endpoints = binance_api_endpoints
-    # binance_api_basepoints = binance_api_basepoints
-    # binance_api_basepoints_params = binance_api_basepoints_params
-    # binance_ws_endpoints = binance_ws_endpoints
-    # binance_ws_basepoints = binance_ws_basepoints
-    # binance_ws_request_params = binance_ws_request_params
-    # binance_repeat_response_code = -1130
-    # binance_stream_keys = binance_stream_keys
+    binance_repeat_response_code = binance_repeat_response_code
+    binance_api_endpoints = binance_api_endpoints
+    binance_api_basepoints = binance_api_basepoints
+    binance_api_params_map = binance_api_params_map
+    binance_ws_endpoints = binance_ws_endpoints
+    binance_ws_basepoints = binance_ws_basepoints
+    binance_future_contract_types = binance_future_contract_types
+    binance_ws_payload_map = binance_ws_payload_map
 
     def __init__(self):
         pass
 
     @classmethod
-    def binance_buildRequest(cls, insType:str, objective:str, symbol:str, special=None, maximum_retries:int=10, books_dercemet:int=500, **kwargs)->dict: 
+    def binance_buildRequest(cls, instType:str, objective:str, symbol:str, specialParam=None, special_method=None, 
+                             maximum_retries:int=10, books_dercemet:int=500, **kwargs)->dict: 
         """
-            insType : spot, perpetual, future, option
+            insType : spot, perpetual, future, option, oisum
             objective : depth, funding, oi, tta, ttp, gta
             maximum_retries : if the request was unsuccessufl because of the length
             books_decremet : length of the books to decrease for the next request
-            special : oioption, oifutures
+            special_method : oioption, oifuture
         """ 
         symbol_name = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
-        params = binance_api_params_map.get(insType).get(marginType).get(objective)(symbol)
-        endpoint = binance_api_endpoints.get(insType).get(marginType).get(objective)
-        basepoint = binance_api_basepoints.get(insType).get(marginType).get(objective)
+        params =  binance_api_params_map.get(instType).get(marginType).get(objective)(symbol) if marginType != None else binance_api_params_map.get(instType).get(objective)(symbol)
+        endpoint = binance_api_endpoints.get(instType).get(marginType) if marginType != None else binance_api_endpoints.get(instType)
+        basepoint = binance_api_basepoints.get(instType).get(marginType).get(objective) if marginType != None else binance_api_basepoints.get(instType).get(objective)
         url = f"{endpoint}{basepoint}"
         headers = {}
         payload = ""
+        if specialParam is not None:
+            params["expiration"] = specialParam
         return {
             "url" : url, 
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
             "instrument" : symbol_name, 
-            "insType" : insType, 
+            "insType" : instType, 
             "exchange" : "binance", 
             "repeat_code" : cls.binance_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
-            "marginType" : marginType
+            "marginType" : marginType,
+            "payload" : payload,
+            "special_method" : special_method
             }
     
     @classmethod
@@ -208,7 +213,7 @@ class binance(CommunicationsManager, binanceInfo):
         return response   
     
     @classmethod
-    def binance_option_expiration(cls, symbol):
+    def binance_get_option_expiries(cls, symbol):
         """
             Looks for unexpired onption
         """
@@ -218,43 +223,64 @@ class binance(CommunicationsManager, binanceInfo):
         return expirations
 
     @classmethod
-    def binance_future_expiration(cls, symbol):
+    def binance_get_future_instruments(cls, underlying_symbol):
         """
-            Looks for unexpired onption
+            underlying_symbol : BTC, ETH ....
         """
-        data = cls.binance_info("option").get("optionSymbols")
-        symbols = [x["symbol"] for x in data if symbol.upper() in x["symbol"].upper() and  datetime.fromtimestamp(int(x["expiryDate"]) / 1000) > datetime.now()]
-        expirations = list(set([x.split("-")[1] for x in symbols]))
-        return expirations
+        a = binance.binance_symbols_by_instType("future")
+        symbols = [aa for aa in a if underlying_symbol.upper() in aa]
+        return symbols
 
     @classmethod
-    async def binance_retrive_option_oi(cls, symbol):
+    async def binance_build_oifuture_method(cls, underlying_asset):
         """
             BTC, ETH ...
         """
-        expirations =  cls.binance_option_expiration(symbol)
+        symbols =  cls.binance_get_future_instruments(underlying_asset)
         full = []
-        for expiration in expirations:
-            data = await cls.binance_aiohttpFetch("option", "oi", expiration=expiration, symbol=symbol)
+        for symbol in symbols:
+            data = await cls.binance_aiohttpFetch("future", "oi", symbol=symbol, special_method="oifuture")
             full.append(data)
         return full
 
     @classmethod
-    def binance_build_option_api_connectionData(cls, symbol, pullTimeout):
+    async def binance_build_oioption_method(cls, symbol):
         """
-            call aiohttp method with args
+            BTC, ETH ...
         """
-    
+        expiries =  cls.binance_get_option_expiries(symbol)
+        full = []
+        for expiration in expiries:
+            data = await cls.binance_aiohttpFetch("option", "oi", symbol=symbol, specialParam=expiration,  special_method="oioption")
+            full.append(data)
+        return unnest_list(full)
+
+    @classmethod
+    def binance_build_api_connectionData(cls, insType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
+        """
+            insType : deptj, funding, oi, tta, ttp, gta
+            **kwargs, symbol limit, period. Order doesnt matter
+            result = d['aiohttpMethod'](**kwargs)
+            pullTimeout : how many seconds to wait before you make another call
+        """
+        call = partial(cls.binance_aiohttpFetch, insType=insType, objective=objective, symbol=symbol)
+        if special_method == "oioption":
+            call = partial(cls.binance_build_oifuture_method, symbol)
+        if special_method == "oioption":
+            call = partial(cls.binance_build_oioption_method, symbol)
+        connectionData = cls.binance_buildRequest(insType, objective, symbol, specialParam, special_method, **kwargs)
         data =  {
                 "type" : "api",
-                "id_ws" : f"binance_ws_option_oi_{symbol.lower()}",
+                "id_ws" : f"binance_api_{insType}_{objective}_{connectionData.get('instrument')}",
                 "exchange":"binance", 
-                "instrument": symbol.lower(),
-                "instType": "option",
-                "objective": "oi", 
+                "instrument": connectionData.get("instrument"),
+                "instType": insType,
+                "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : cls.binance_retrive_option_oi,
-                "args" : symbol.upper()
+                "apicallData" : connectionData,
+                "aiohttpMethod" : call, 
+                "marginType" : connectionData.get("marginType"),
+                "is_special" : special_method,
                 }
         
         return data
@@ -303,32 +329,6 @@ class binance(CommunicationsManager, binanceInfo):
             }
 
         return connection_data
-
-    @classmethod
-    def binance_build_api_connectionData(cls, insType:str, objective:str, pullTimeout:int, **kwargs):
-        """
-            insType : deptj, funding, oi, tta, ttp, gta
-            **kwargs, symbol limit, period. Order doesnt matter
-            result = d['aiohttpMethod'](**kwargs)
-            pullTimeout : how many seconds to wait before you make another call
-        """
-        connectionData = cls.binance_buildRequest(insType, objective, **kwargs)
-        params = dict(**kwargs)
-            
-        data =  {
-                "type" : "api",
-                "id_ws" : f"binance_api_{insType}_{objective}_{params['symbol'].lower()}",
-                "exchange":"binance", 
-                "instrument": params['symbol'].lower(),
-                "instType": insType,
-                "objective": objective, 
-                "pullTimeout" : pullTimeout,
-                "apicallData" : connectionData,
-                "aiohttpMethod" : partial(cls.binance_aiohttpFetch, insType=insType, objective=objective),
-                "params" : dict(**kwargs)
-                }
-        
-        return data
 
 class bybit(CommunicationsManager):
     bybit_api_endpoint = bybit_api_endpoint
@@ -1957,7 +1957,13 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
     def gate_option_msg(cls):
         print(cls.gateio_build_ws_message_all_Options("depth", "BTC_USDT"))
 
-print(binance.binance_option_expiration("BTC"))
+    @classmethod
+    def binance_instruments(cls):
+        async def example():
+            data =  await cls.binance_build_oioption_method("BTC")
+            print(data)
+        asyncio.run(example())
+clientTest.binance_instruments()
 
 
 

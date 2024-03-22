@@ -1,3 +1,5 @@
+binance_repeat_response_code = -1130
+
 binance_api_endpoints = {
                     "spot" : "https://api.binance.com",
                     "perpetual" : {
@@ -40,7 +42,7 @@ binance_api_basepoints = {
                     },
                     "future" : {
                         "LinearFuture" : binance_api_linear_types,
-                        "InverseFutures" : binance_api_inverse_types
+                        "InverseFuture" : binance_api_inverse_types
                     },
                     "option" : {
                         "oi" : "/eapi/v1/openInterest"
@@ -53,7 +55,7 @@ binance_api_linear_params = {
                         "oi" : lambda symbol: {"symbol" : symbol},
                         "tta" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},
                         "ttp" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},
-                        "gta" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},
+                        "gta" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},    # do also for expiry futures
                         }
 binance_api_inverse_params = {
                         "depth" : lambda symbol: {"symbol" : symbol, "limit" : 999},
@@ -62,7 +64,6 @@ binance_api_inverse_params = {
                         "tta" : lambda symbol: {"pair" : symbol, "period" : "5m", "limit" : 1},
                         "ttp" : lambda symbol: {"pair" : symbol, "period" : "5m", "limit" : 1},
                         "gta" : lambda symbol: {"pair" : symbol, "period" : "5m", "limit" : 1},
-                        "oisum" : lambda symbol: {"pair" : symbol, contractType : "contractType", "period" : "5m", "limit" : 1},
                         }
 
 
@@ -76,15 +77,14 @@ binance_api_params_map = {
                     },
                     "future" : {
                         "LinearFuture" : binance_api_linear_params,
-                        "InverseFutures" : binance_api_inverse_params
+                        "InverseFuture" : binance_api_inverse_params
                     },
                     "option" : {
-                        "oi" : lambda underlyingAsset, expiration: {"underlyingAsset" : underlyingAsset, "expiration" : expiration},
-                                }                
+                        "oi" : lambda underlyingAsset: {"underlyingAsset" : underlyingAsset, "expiration" : None},
+                                },                
                     }
 
 binance_future_contract_types = ["CURRENT_QUARTER", "NEXT_QUARTER"] # for the sum of open interest
-
 
 # WS # 
 
@@ -96,7 +96,7 @@ binance_ws_endpoints = {
                     },
                     "future" : {
                         "LinearFuture" : "wss://fstream.binance.com/ws",
-                        "InverseFutures" : "wss://dstream.binancefuture.com/ws"
+                        "InverseFuture" : "wss://dstream.binancefuture.com/ws"
                     },
                     "option" : "wss://nbstream.binance.com/eoptions/ws"
                 }
@@ -123,7 +123,7 @@ binance_ws_basepoints = {
                     },
                     "future" : {
                         "LinearFuture" : binance_ws_linear_types,
-                        "InverseFutures" : binance_ws_inverse_types
+                        "InverseFuture" : binance_ws_inverse_types
                     },
                     "option" : {  
                                 }                
@@ -138,8 +138,22 @@ binance_ws_payload_map = {
         "trades" : lambda symbol : f"{symbol}@aggTrade",
         "depth" : lambda symbol : f"{symbol}@depth@500ms",
         "liquidations" : lambda symbol : f"{symbol}@forceOrder",
+    },
+    "option" : {
+        "trades" : lambda underlyingAsset : f"{underlyingAsset}@trade",
     }
 }
+
+def binance_get_symbol_name(symbol):
+    return symbol.lower()
+
+def binance_get_marginType(instType, symbol):
+    marginType=None
+    if instType == "perpetual":
+        marginType = "LinearPerpetual" if "USDT" in  symbol.upper() else "InversePerpetual"
+    if instType == "future":
+        marginType = "LinearFuture" if "USDT" in  symbol.upper() else "InverseFuture"
+    return marginType
 
 
 def generate_random_integer(n):
@@ -149,17 +163,6 @@ def generate_random_integer(n):
     upper_bound = (10 ** n) - 1
     random_integer = random.randint(lower_bound, upper_bound)
     return random_integer
-
-def binance_get_symbol_name(n):
-    return symbol.lower()
-
-def binance_get_marginType(instType, symbol):
-    marginType=None
-    if instType == "perpetual":
-        marginType = "LinearPerpetual" if "USDT" in  params["symbol"].upper() else "InversePerpetual"
-    if instType == "future":
-        marginType = "LinearFuture" if "USDT" not in  params["symbol"].upper() else "InverseFuture"
-    return marginType
 
 
 
@@ -171,7 +174,6 @@ def binance_build_ws_message(insType, objective, symbol):
         "id": generate_random_integer(10)
     }
     return message
-
 
 
 def split_list(lst, n):
