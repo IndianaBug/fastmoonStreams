@@ -127,7 +127,6 @@ class binance(CommunicationsManager, binanceInfo):
     binance_api_basepoints = binance_api_basepoints
     binance_api_params_map = binance_api_params_map
     binance_ws_endpoints = binance_ws_endpoints
-    binance_ws_basepoints = binance_ws_basepoints
     binance_future_contract_types = binance_future_contract_types
     binance_ws_payload_map = binance_ws_payload_map
     
@@ -143,7 +142,7 @@ class binance(CommunicationsManager, binanceInfo):
             objective : depth, funding, oi, tta, ttp, gta
             maximum_retries : if the request was unsuccessufl because of the length
             books_decremet : length of the books to decrease for the next request
-            special_method : oioption, oifutureperp, posfutureperp
+            special_method : oioption, oifutureperp, posfutureperp, fundfutureperp
         """ 
         symbol_name = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
@@ -213,6 +212,20 @@ class binance(CommunicationsManager, binanceInfo):
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
             data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
             full.append(data)
+        return full
+    
+    @classmethod
+    async def binance_build_fundfutureperp_method(cls, underlying_asset):
+        """
+            BTC, ETH ...
+        """
+        symbols =  cls.binance_perpfut_instruments(underlying_asset)
+        full = []
+        for symbol in symbols:
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            if not bool(re.search(r'\d', symbol.split("_")[-1])):
+                data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
+                full.append(data)
         return full
 
     @classmethod
@@ -292,7 +305,7 @@ class binance(CommunicationsManager, binanceInfo):
         return message
 
     @classmethod
-    def binance_build_ws_perpfutureTrade(cls, underlyingInstrument):
+    def binance_build_ws_perpfutureTrade(cls, instType, underlyingInstrument):
         symbols = cls.binance_perpfut_instruments(underlyingInstrument)
         message = {
             "method": "SUBSCRIBE", 
@@ -300,29 +313,31 @@ class binance(CommunicationsManager, binanceInfo):
             "id": generate_random_integer(10)
         }
         for symbol in symbols:
-            instType, marginType = binance_get_futperphelp(symbol)
-            m = cls.binance_build_ws_message(instType, objective, symbol)
-            message["params"] = message["params"].append(m.get("params")[0])
+            if "DOMU" not in symbol:
+                trueInstType, marginType = binance_get_futperphelp(symbol)
+                if instType in marginType:
+                    m = cls.binance_build_ws_message(trueInstType, "trades", symbol)
+                    message["params"].append(m.get("params")[0])
         return message
     
     @classmethod
-    def binance_build_ws_connectionData(cls, instType:str, objective:str, symbol:str, needSnap=False, snaplimit=999,  special=False, **kwargs):
+    def binance_build_ws_connectionData(cls, instType:str, objective:str, symbol:str, needSnap=False, snaplimit=999,  special=None, **kwargs):
         """
+            instType : spot, future, perpetual, option
+                        Linear, Inverse for special methods
             needSnap and snap limit: you need to fetch the full order book, use these
             Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
             special streams : perpfutureTrade
-        """
+        """        
         symbol_name = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
-        print(symbol_name, marginType)
         endpoint = binance_ws_endpoints.get(instType).get(marginType) if marginType != None else binance_ws_endpoints.get(instType)
-        basepoint = binance_ws_basepoints.get(instType).get(marginType).get(objective) if marginType != None else binance_ws_basepoints.get(instType).get(objective)
-        url = f"{endpoint}{basepoint}"
-        
-        if specia == None:
-            message = cls.binance_build_ws_message(instType, objective, symbol) 
+
+        if special == None:
+            message = cls.binance_build_ws_message(instType, objective, symbol)
+            url = "" 
         if special == "perpfutureTrade":
-            message = cls.binance_build_ws_perpfutureTrade(symbol) 
+            message = cls.binance_build_ws_perpfutureTrade(instType, symbol) 
 
             
         connection_data =     {
@@ -333,7 +348,7 @@ class binance(CommunicationsManager, binanceInfo):
                                 "instType": instType,
                                 "objective":objective, 
                                 "updateSpeed" : None,
-                                "url" : url,
+                                "url" : endpoint,
                                 "msg" : message,
                                 "1stBooksSnapMethod" : None,
                                 "marginType" : marginType
@@ -345,12 +360,12 @@ class binance(CommunicationsManager, binanceInfo):
         return connection_data
 
 class bybit(CommunicationsManager):
-    bybit_api_endpoint = bybit_api_endpoint
-    bybit_api_basepoints = bybit_api_basepoint
-    bybit_ws_endpoints = bybit_ws_endpoints
-    bybit_stream_keys = bybit_stream_keys
-    bybit_repeat_response_code = -1130
-    bybit_api_category_map = bybit_api_category_map
+    # bybit_api_endpoint = bybit_api_endpoint
+    # bybit_api_basepoints = bybit_api_basepoint
+    # bybit_ws_endpoints = bybit_ws_endpoints
+    # bybit_stream_keys = bybit_stream_keys
+    # bybit_repeat_response_code = -1130
+    # bybit_api_category_map = bybit_api_category_map
 
     @classmethod
     def bybit_buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
@@ -1974,13 +1989,13 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
     @classmethod
     def binance_instruments(cls):
         async def example():
-            data =  await cls.binance_build_posfutureperp_method("BTC", latency=0)
+            data =  await cls.binance_build_fundfutureperp_method("BTC")
             print(data)
         asyncio.run(example())
         
     @classmethod
     def binance_ws(cls):
-        data = cls.binance_build_ws_connectionData("perpetual", "depth", "BTCUSD_PERP", needSnap=True)
+        data = cls.binance_build_ws_connectionData("perpetual", "trades", "BTCUSDT") #, special="perpfutureTrade")
         print(data)
         # print(data["1stBooksSnapMethod"]())
 clientTest.binance_instruments()

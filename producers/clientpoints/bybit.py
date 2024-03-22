@@ -19,10 +19,29 @@ bybit_api_category_map = {
 bybit_api_basepoint = {
                         "depth" : "/v5/market/orderbook",
                         "gta" : "/v5/market/account-ratio",
+                        "oi" : "/v5/market/tickers",  # only for option
+                        "funding" : "/v5/market/funding/history", # linear inverse
                         }
 
+
+
+bybit_api_params_map_derivates = {
+    "gta" : lambda category, symbol : {"category" : category, "symbol" : symbol, "startTime" : time.time()-20, "endTime" : time.time(), "limit" : 1},
+    "funding" : lambda category, symbol : {"category" : category, "symbol" : symbol, "period" : "1h", "limit" : 1},
+    "depth" : lambda category, symbol : {"category" : category, "symbol" : symbol, "limit" : 500},
+    "tickers" : lambda category, symbol : {"category" : category, "symbol" : symbol},
+    "oi" : lambda category, symbol : {"category" : category, "symbol" : symbol, "intervalTime" : "5min"}, # Call
+}
+
 bybit_api_params_map = {
-    "gta" : lambda category, symbol : {"category" : category, "symbol" : symbol, "period" : "1d", "limit" : 50},
+    "spot" : {
+         "depth" : lambda category, symbol : {"category" : category, "symbol" : symbol, "limit" : 200},
+    },
+    "perpetual" : bybit_api_params_map_derivates,
+    "future" : bybit_api_params_map_derivates, 
+    "option" : {
+        "oi" : lambda category, baseCoin : {"category" : category, "baseCoin" : baseCoin},
+    }
 }
 
 # ws # 
@@ -42,19 +61,43 @@ bybit_ws_endpoints = {
                 }
 
 
-bybit_stream_keys = {
-    "liquidations" : "liquidation",
-    "trades" : "publicTrade",
-    "depth" : "orderbook",
-    "oifunding" : "tickers",
-    "oi" : "tickers",
-    "funding" : "tickers"
+def build_ws_message(symbol, objective):
+    arg = 
+    msg = {
+    "req_id": "test", 
+    "op": "subscribe",
+    "args": [arg]
+    }
+
+
+bybit_ws_payload_map = {
+    "spot" : {
+        "depth" : "",
+        "trades" : "", 
+    },
+    "perpetual" : {
+        "depth" : "",
+        "trades" : "", 
+        "oifunding" : "",
+    },
+    "future" : {
+        "depth" : "",
+        "trades" : "", 
+    },
+    "option" : {
+        "oi" : 
+    },
 }
 
 
 
-bybit_ws_request_params  = {
-        "depth" : ["symbol", "depth", "1000ms" ], # 500ms for futures and 1000ms for spot
-        "trades" : ["symbol", "aggTrade"],
-        "liquidations" : ["symbol", "forceOrder"],
+bybit_ws_params_map  = {
+
     }
+
+
+
+
+# WS methods
+
+# ticker for OI, trades (unserlyingAsset for options)/ fetches everything

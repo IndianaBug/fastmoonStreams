@@ -1,3 +1,5 @@
+import re
+
 binance_repeat_response_codes = [-1130, -4021]
 
 binance_api_endpoints = {
@@ -98,47 +100,25 @@ binance_ws_endpoints = {
                         "LinearFuture" : "wss://fstream.binance.com/ws",
                         "InverseFuture" : "wss://dstream.binancefuture.com/ws"
                     },
-                    "option" : "wss://nbstream.binance.com/eoptions/ws"
+                    "option" : "wss://nbstream.binance.com/eoptions/ws",
+                    "Linear" : "wss://fstream.binance.com/ws",
+                    "Inverse" :  "wss://dstream.binancefuture.com/ws"
                 }
 
-binance_ws_linear_types = {
-                        "depth" : "/fapi/v1/depth",
-                        "trades" : "/fapi/v1/fundingRate",
-                        "liquidations" : "/fapi/v1/openInterest",
-                        }
-binance_ws_inverse_types = {
-                        "depth" : "/fapi/v1/depth",
-                        "trades" : "/fapi/v1/fundingRate",
-                        "liquidations" : "/fapi/v1/openInterest",
-                        }
 
-
-binance_ws_basepoints = {
-                    "spot" :  {
-                        "depth" : "/api/v3/depth",
-                    },
-                    "perpetual" : {
-                        "LinearPerpetual" : binance_ws_linear_types,
-                        "InversePerpetual" : binance_ws_inverse_types,
-                    },
-                    "future" : {
-                        "LinearFuture" : binance_ws_linear_types,
-                        "InverseFuture" : binance_ws_inverse_types
-                    },
-                    "option" : {  
-                                }                
-                    }
+ws_derivatepayload = {
+            "trades" : lambda symbol : f"{symbol}@aggTrade",
+        "depth" : lambda symbol : f"{symbol}@depth@500ms",
+        "liquidations" : lambda symbol : f"{symbol}@forceOrder",
+}
 
 binance_ws_payload_map = {
     "spot" : {
         "trades" : lambda symbol : f"{symbol}@aggTrade",
         "depth" : lambda symbol : f"{symbol}@depth@1000ms",
     },
-    "perpetual" : {
-        "trades" : lambda symbol : f"{symbol}@aggTrade",
-        "depth" : lambda symbol : f"{symbol}@depth@500ms",
-        "liquidations" : lambda symbol : f"{symbol}@forceOrder",
-    },
+    "perpetual" : ws_derivatepayload,
+    "future" : ws_derivatepayload,
     "option" : {
         "trades" : lambda underlyingAsset : f"{underlyingAsset}@trade",
     }
@@ -163,7 +143,7 @@ def binance_get_futperphelp(symbol):
     """
         helper for special we method
     """
-    instType == "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+    instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
     marginType = binance_get_marginType(instType, symbol)
     return instType, marginType
 
