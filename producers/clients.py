@@ -49,17 +49,15 @@ class CommunicationsManager:
         for index, _ in enumerate(range(connection_data.get("maximum_retries"))):
             response = requests.get(connection_data.get("url"), params=connection_data.get("params"), headers=connection_data.get("headers"))
             if response.status_code == 200:
-                return {
-                    "instrument" : connection_data.get("instrument").lower(),
-                    "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insType").lower(),
-                    "response" : response.json() ,
-                }
-            if response.get('code', None) == connection_data.get("repeat_response_code"):
-                connection_data["params"]["limit"] = connection_data["params"]["limit"] - connection_data.get("books_decrement")
-                time.sleep(1)
-            if index == len(connection_data.get("maximum_retries")):
-                print(response.status_code)
+                return response.json() 
+            try:
+                if response.get('code', None) in connection_data.get("repeat_code"):
+                    connection_data["params"]["limit"] = connection_data["params"]["limit"] - connection_data.get("books_decrement")
+                    time.sleep(1)
+                if index == len(connection_data.get("maximum_retries")):
+                    print(response.status_code)
+            except:
+                pass
     
     @classmethod
     def make_request_v2(cls, connection_data:dict):
@@ -67,12 +65,7 @@ class CommunicationsManager:
         headers = connection_data.get("headers")
         payload = connection_data.get("payload")
         response = requests.request("GET", url, headers=headers, data=payload)
-        return {
-            "instrument" : connection_data.get("instrument").lower(),
-            "exchange" : connection_data.get("exchange").lower(),
-            "insType" : connection_data.get("insType").lower(),
-            "response" : response.json() ,
-        }
+        return response.json() 
 
     @classmethod
     def make_httpRequest(cls, connection_data):
@@ -86,25 +79,14 @@ class CommunicationsManager:
             )
         res = conn.getresponse()
         response = json.loads(res.read())
-        return {
-            "instrument" : connection_data.get("instrument"),
-            "exchange" : connection_data.get("exchange"),
-            "insType" : connection_data.get("insType").lower(),
-            "response" : response,
-        }
+        return response
         
     @classmethod
     async def make_aiohttpRequest(cls, connection_data):
         async with aiohttp.ClientSession() as session:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
-                return {
-                    "instrument" : connection_data.get("instrument").lower(),
-                    "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insType").lower(),
-                    "objective" : connection_data.get("objective").lower(),
-                    "response" : response,
-                } 
+                return response
             
     @classmethod
     async def make_aiohttpRequest_v2(cls, connection_data):
@@ -112,13 +94,7 @@ class CommunicationsManager:
         async with aiohttp.ClientSession() as session:
             async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
                 response =  await response.text()
-                return {
-                    "instrument" : connection_data.get("instrument").lower(),
-                    "exchange" : connection_data.get("exchange").lower(),
-                    "insType" : connection_data.get("insType").lower(),
-                    "objective" : connection_data.get("objective").lower(),
-                    "response" : response,
-                } 
+                return response
 
     @classmethod
     def make_wsRequest_http(cls, connection_data):
@@ -134,13 +110,7 @@ class CommunicationsManager:
             response = loop.run_until_complete(wsClient(connection_data))
         finally:
             loop.close()
-        return {
-            "instrument" : connection_data.get("instrument").lower(),
-            "exchange" : connection_data.get("exchange").lower(),
-            "insType" : connection_data.get("insType").lower(),
-            "objective" : connection_data.get("objective").lower(),
-            "response" : response,
-        }
+        return response
 
     async def make_wsRequest(connection_data):
         async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
@@ -152,7 +122,7 @@ class binance(CommunicationsManager, binanceInfo):
     """
         Abstraction for binance API calls for depth, funding, oi, tta, ttp and gta
     """
-    binance_repeat_response_code = binance_repeat_response_code
+    binance_repeat_response_codes = binance_repeat_response_codes
     binance_api_endpoints = binance_api_endpoints
     binance_api_basepoints = binance_api_basepoints
     binance_api_params_map = binance_api_params_map
@@ -160,6 +130,7 @@ class binance(CommunicationsManager, binanceInfo):
     binance_ws_basepoints = binance_ws_basepoints
     binance_future_contract_types = binance_future_contract_types
     binance_ws_payload_map = binance_ws_payload_map
+    
 
     def __init__(self):
         pass
@@ -172,7 +143,7 @@ class binance(CommunicationsManager, binanceInfo):
             objective : depth, funding, oi, tta, ttp, gta
             maximum_retries : if the request was unsuccessufl because of the length
             books_decremet : length of the books to decrease for the next request
-            special_method : oioption, oifuture
+            special_method : oioption, oifutureperp, posfutureperp
         """ 
         symbol_name = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
@@ -192,7 +163,7 @@ class binance(CommunicationsManager, binanceInfo):
             "instrument" : symbol_name, 
             "insType" : instType, 
             "exchange" : "binance", 
-            "repeat_code" : cls.binance_repeat_response_code,
+            "repeat_code" : cls.binance_repeat_response_codes,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "marginType" : marginType,
@@ -223,24 +194,47 @@ class binance(CommunicationsManager, binanceInfo):
         return expirations
 
     @classmethod
-    def binance_get_future_instruments(cls, underlying_symbol):
-        """
-            underlying_symbol : BTC, ETH ....
-        """
-        a = binance.binance_symbols_by_instType("future")
-        symbols = [aa for aa in a if underlying_symbol.upper() in aa]
-        return symbols
+    def binance_perpfut_instruments(cls, underlying_instrument):
+        all_info = []
+        for instType in ["perpetual.LinearPerpetual", "perpetual.InversePerpetual"]:
+            symbols = binance.binance_info(instType)
+            all_info.append([x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")])
+        all_info = unnest_list(all_info)
+        return all_info 
 
     @classmethod
-    async def binance_build_oifuture_method(cls, underlying_asset):
+    async def binance_build_oifutureperp_method(cls, underlying_asset):
         """
             BTC, ETH ...
         """
-        symbols =  cls.binance_get_future_instruments(underlying_asset)
+        symbols =  cls.binance_perpfut_instruments(underlying_asset)
         full = []
         for symbol in symbols:
-            data = await cls.binance_aiohttpFetch("future", "oi", symbol=symbol, special_method="oifuture")
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
             full.append(data)
+        return full
+
+    @classmethod
+    async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=1):
+        """
+            BTC, ETH ...
+            latency : seconds to wait before api call
+        """
+        symbols = binance.binance_info("perpetual.LinearPerpetual")
+        symbols = [x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")]
+        full = {}
+        for symbol in symbols:
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            for objective in ["tta", "ttp", "gta"]:
+                marginType = binance_instType_help(symbol)
+                symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
+                data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
+                full[f"{symbol}_{objective}"] = data
+                time.sleep(latency)
+        coinm_symbol = underlying_instrument+"USD"
+        data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
+        full[coinm_symbol+"coinmAgg"] = data
         return full
 
     @classmethod
@@ -265,9 +259,11 @@ class binance(CommunicationsManager, binanceInfo):
         """
         call = partial(cls.binance_aiohttpFetch, insType=insType, objective=objective, symbol=symbol)
         if special_method == "oioption":
-            call = partial(cls.binance_build_oifuture_method, symbol)
-        if special_method == "oioption":
             call = partial(cls.binance_build_oioption_method, symbol)
+        if special_method == "oifutureperp":
+            call = partial(cls.binance_build_oifutureperp_method, symbol)
+        if special_method == "posfutureperp":
+            call = partial(cls.binance_build_posfutureperp_method, symbol)
         connectionData = cls.binance_buildRequest(insType, objective, symbol, specialParam, special_method, **kwargs)
         data =  {
                 "type" : "api",
@@ -286,48 +282,66 @@ class binance(CommunicationsManager, binanceInfo):
         return data
     
     @classmethod
-    def binance_build_ws_connectionData(cls, insType, needSnap=False, snaplimit=1000, **kwargs):
+    def binance_build_ws_message(cls, insType, objective, symbol):
+        payload = binance_ws_payload_map.get(insType).get(objective)(symbol)
+        message = {
+            "method": "SUBSCRIBE", 
+            "params": [payload], 
+            "id": generate_random_integer(10)
+        }
+        return message
+
+    @classmethod
+    def binance_build_ws_perpfutureTrade(cls, underlyingInstrument):
+        symbols = cls.binance_perpfut_instruments(underlyingInstrument)
+        message = {
+            "method": "SUBSCRIBE", 
+            "params": [], 
+            "id": generate_random_integer(10)
+        }
+        for symbol in symbols:
+            instType, marginType = binance_get_futperphelp(symbol)
+            m = cls.binance_build_ws_message(instType, objective, symbol)
+            message["params"] = message["params"].append(m.get("params")[0])
+        return message
+    
+    @classmethod
+    def binance_build_ws_connectionData(cls, instType:str, objective:str, symbol:str, needSnap=False, snaplimit=999,  special=False, **kwargs):
         """
-            insType : deptj, trades, liquidations
-            order : symbol, objective, everything else
             needSnap and snap limit: you need to fetch the full order book, use these
             Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
+            special streams : perpfutureTrade
         """
-        params = dict(kwargs)
-        message, insType, standart_objective_name = cls.binance_build_ws_method(insType, **params)
-        # Find marginType
-        marginType=""
-        if insType == "perpetual":
-            marginType = "LinearPerpetual" if "USDT" in  params["symbol"].upper() else "InversePerpetual"
-        if insType == "future":
-            marginType = "LinearFuture" if "USDT" in  params["symbol"].upper() else "InverseFuture"
+        symbol_name = binance_get_symbol_name(symbol)
+        marginType = binance_get_marginType(instType, symbol)
+        print(symbol_name, marginType)
+        endpoint = binance_ws_endpoints.get(instType).get(marginType) if marginType != None else binance_ws_endpoints.get(instType)
+        basepoint = binance_ws_basepoints.get(instType).get(marginType).get(objective) if marginType != None else binance_ws_basepoints.get(instType).get(objective)
+        url = f"{endpoint}{basepoint}"
+        
+        if specia == None:
+            message = cls.binance_build_ws_message(instType, objective, symbol) 
+        if special == "perpfutureTrade":
+            message = cls.binance_build_ws_perpfutureTrade(symbol) 
 
-        endpoint = cls.binance_ws_endpoints.get(insType)
-        if insType in ["perpetual", "future"]:
-            endpoint = endpoint.get(insType)
             
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
+                                "id_ws" : f"binance_ws_{instType}_{objective}_{symbol_name}",
                                 "exchange":"binance", 
-                                "instrument": params['symbol'].lower(),
-                                "instType": insType,
-                                "objective":standart_objective_name, 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":objective, 
                                 "updateSpeed" : None,
-                                "url" : endpoint,
+                                "url" : url,
                                 "msg" : message,
-                                "sbmethod" : None,
+                                "1stBooksSnapMethod" : None,
                                 "marginType" : marginType
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"binance_api_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
-            connection_data["sbmethod"] = cls.binance_fetch 
-            connection_data["sbPar"] = {
-                "symbol": params['symbol'].upper(), 
-                "limit" : int(snaplimit)
-            }
-
+            connection_data["id_api"] = f"binance_api_{instType}_{objective}_{symbol_name}",
+            connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instType, objective, symbol)
         return connection_data
 
 class bybit(CommunicationsManager):
@@ -1960,9 +1974,15 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
     @classmethod
     def binance_instruments(cls):
         async def example():
-            data =  await cls.binance_build_oioption_method("BTC")
+            data =  await cls.binance_build_posfutureperp_method("BTC", latency=0)
             print(data)
         asyncio.run(example())
+        
+    @classmethod
+    def binance_ws(cls):
+        data = cls.binance_build_ws_connectionData("perpetual", "depth", "BTCUSD_PERP", needSnap=True)
+        print(data)
+        # print(data["1stBooksSnapMethod"]())
 clientTest.binance_instruments()
 
 

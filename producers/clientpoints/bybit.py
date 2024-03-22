@@ -21,6 +21,9 @@ bybit_api_basepoint = {
                         "gta" : "/v5/market/account-ratio",
                         }
 
+bybit_api_params_map = {
+    "gta" : lambda category, symbol : {"category" : category, "symbol" : symbol, "period" : "1d", "limit" : 50},
+}
 
 # ws # 
 

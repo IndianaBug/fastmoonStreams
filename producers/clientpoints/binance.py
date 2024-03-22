@@ -1,4 +1,4 @@
-binance_repeat_response_code = -1130
+binance_repeat_response_codes = [-1130, -4021]
 
 binance_api_endpoints = {
                     "spot" : "https://api.binance.com",
@@ -50,7 +50,7 @@ binance_api_basepoints = {
                     }
 
 binance_api_linear_params = {
-                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 999},
+                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 1000},
                         "funding" : lambda symbol: {"symbol" : symbol, "limit" : 1},
                         "oi" : lambda symbol: {"symbol" : symbol},
                         "tta" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},
@@ -58,7 +58,7 @@ binance_api_linear_params = {
                         "gta" : lambda symbol: {"symbol" : symbol, "period" : "5m", "limit" : 1},    # do also for expiry futures
                         }
 binance_api_inverse_params = {
-                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 999},
+                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 1000},
                         "funding" : lambda symbol: {"symbol" : symbol, "limit" : 1},
                         "oi" : lambda symbol: {"symbol" : symbol},
                         "tta" : lambda symbol: {"pair" : symbol, "period" : "5m", "limit" : 1},
@@ -69,7 +69,7 @@ binance_api_inverse_params = {
 
 binance_api_params_map = {
                     "spot" :  {
-                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 999},
+                        "depth" : lambda symbol: {"symbol" : symbol, "limit" : 1000},
                     },
                     "perpetual" : {
                         "LinearPerpetual" : binance_api_linear_params,
@@ -110,7 +110,7 @@ binance_ws_inverse_types = {
                         "depth" : "/fapi/v1/depth",
                         "trades" : "/fapi/v1/fundingRate",
                         "liquidations" : "/fapi/v1/openInterest",
-                        },
+                        }
 
 
 binance_ws_basepoints = {
@@ -144,6 +144,9 @@ binance_ws_payload_map = {
     }
 }
 
+def binance_instType_help(symbol):
+    return "Linear" if "USDT" in symbol else "Inverse"
+
 def binance_get_symbol_name(symbol):
     return symbol.lower()
 
@@ -156,25 +159,13 @@ def binance_get_marginType(instType, symbol):
     return marginType
 
 
-def generate_random_integer(n):
-    if n <= 0:
-        raise ValueError("Length should be a positive integer")
-    lower_bound = 10 ** (n - 1)
-    upper_bound = (10 ** n) - 1
-    random_integer = random.randint(lower_bound, upper_bound)
-    return random_integer
-
-
-
-def binance_build_ws_message(insType, objective, symbol):
-    payload = binance_ws_payload_map.get(insType).get(objective)(symbol)
-    message = {
-        "method": "SUBSCRIBE", 
-        "params": [payload], 
-        "id": generate_random_integer(10)
-    }
-    return message
-
+def binance_get_futperphelp(symbol):
+    """
+        helper for special we method
+    """
+    instType == "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+    marginType = binance_get_marginType(instType, symbol)
+    return instType, marginType
 
 def split_list(lst, n):
     quotient = len(lst) // n

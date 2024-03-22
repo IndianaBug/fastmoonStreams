@@ -105,8 +105,14 @@ def binance_get_futures_symbols(underlying_symbol):
 
     # print([x["symbol"] for x in a.get("optionSymbols") if "BTC" in  x["symbol"]])
 
-print(binance_get_futures_symbols("BTC"))
 
+def binance_perpfut_instruments(underlying_instrument):
+    all_info = []
+    for instType in ["perpetual.LinearPerpetual", "perpetual.InversePerpetual"]:
+        symbols = info.binance_info(instType)
+        all_info.append([x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")])
+    all_info = unnest_list(all_info)
+    print(all_info)
+    return all_info 
 
-# a = info.binance_info("future.LinearFuture")
-# print([aa["symbol"] for aa in a])
+binance_get_position_instruments("BTC")
