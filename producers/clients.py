@@ -22,7 +22,7 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
-from exchangeinfo import binanceInfo, gateioInfo
+from exchangeinfo import *
 from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
 from producers.clientpoints.okx import *
@@ -280,7 +280,7 @@ class binance(CommunicationsManager, binanceInfo):
         connectionData = cls.binance_buildRequest(insType, objective, symbol, specialParam, special_method, **kwargs)
         data =  {
                 "type" : "api",
-                "id_ws" : f"binance_api_{insType}_{objective}_{connectionData.get('instrument')}",
+                "id_api" : f"binance_api_{insType}_{objective}_{connectionData.get('instrument')}",
                 "exchange":"binance", 
                 "instrument": connectionData.get("instrument"),
                 "instType": insType,
@@ -321,13 +321,29 @@ class binance(CommunicationsManager, binanceInfo):
         return message
     
     @classmethod
+    def binance_build_ws_perpfutureLiquidations(cls, instType, underlyingInstrument):
+        symbols = cls.binance_perpfut_instruments(underlyingInstrument)
+        message = {
+            "method": "SUBSCRIBE", 
+            "params": [], 
+            "id": generate_random_integer(10)
+        }
+        for symbol in symbols:
+            if "DOMU" not in symbol:
+                trueInstType, marginType = binance_get_futperphelp(symbol)
+                if instType in marginType:
+                    m = cls.binance_build_ws_message(trueInstType, "liquidations", symbol)
+                    message["params"].append(m.get("params")[0])
+        return message
+    
+    @classmethod
     def binance_build_ws_connectionData(cls, instType:str, objective:str, symbol:str, needSnap=False, snaplimit=999,  special=None, **kwargs):
         """
             instType : spot, future, perpetual, option
                         Linear, Inverse for special methods
             needSnap and snap limit: you need to fetch the full order book, use these
             Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
-            special streams : perpfutureTrade
+            special streams : perpfutureTrades, perpfutureLiquidations
         """        
         symbol_name = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
@@ -335,9 +351,10 @@ class binance(CommunicationsManager, binanceInfo):
 
         if special == None:
             message = cls.binance_build_ws_message(instType, objective, symbol)
-            url = "" 
-        if special == "perpfutureTrade":
+        if special == "perpfutureTrades":
             message = cls.binance_build_ws_perpfutureTrade(instType, symbol) 
+        if special == "perpfutureLiquidations":
+            message = cls.binance_build_ws_perpfutureLiquidations(instType, symbol) 
 
             
         connection_data =     {
@@ -359,43 +376,31 @@ class binance(CommunicationsManager, binanceInfo):
             connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instType, objective, symbol)
         return connection_data
 
-class bybit(CommunicationsManager):
-    # bybit_api_endpoint = bybit_api_endpoint
-    # bybit_api_basepoints = bybit_api_basepoint
-    # bybit_ws_endpoints = bybit_ws_endpoints
-    # bybit_stream_keys = bybit_stream_keys
-    # bybit_repeat_response_code = -1130
-    # bybit_api_category_map = bybit_api_category_map
+class bybit(CommunicationsManager, bybitInfo):
+    bybit_api_endpoint = bybit_api_endpoint
+    bybit_api_category_map = bybit_api_category_map
+    bybit_api_basepoints = bybit_api_basepoints
+    bybit_api_params_map = bybit_api_params_map
+    bybit_ws_endpoints = bybit_ws_endpoints
+    bybit_ws_payload_map = bybit_ws_payload_map
+    bybit_repeat_response_code = bybit_repeat_response_code
 
     @classmethod
-    def bybit_buildRequest(cls, instType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def bybit_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, special_method=None, **kwargs)->dict: 
         """ 
             instType : "perpetual", "spot", "option", "future"
+            objective : depth, gta, funding, oioption, oi
             Maxium retries of an API with different parameters in case API call is impossible. Useful when you cant catch the limit
             books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
+            special_method: oifutureperp, posfutureperp, fundfutureperp
             **kwargs : request parameters
         """
-        params = dict(kwargs)
-        params["symbol"] = params["symbol"].upper()
-
-        symbol_name = params["symbol"]
-        if instType == "option":
-            params["baseCoin"] = params.pop("symbol")
-
-        marginCoin = ""
-        if instType == "perpetual":
-            marginCoin = "LinearPerpetual" if "USDT" in params["symbol"] else "InversePerpetual"
-        if instType == "future":
-            marginCoin = "LinearFuture" if "USDT" in params["symbol"] else "InverseFuture"
-
-        try:
-            params["category"] = cls.bybit_api_category_map.get(instType).get(marginCoin)
-        except:
-            params["category"] = cls.bybit_api_category_map.get(instType)
-        
+        symbol_name = bybit_get_instrument_name(symbol)
+        marginType = bybit_get_marginType(instType, symbol)
+        category = bybit_api_category_map.get(instType).get(marginType) if marginType is not None else bybit_api_category_map.get(instType)
+        params = bybit_api_params_map.get(instType).get(objective)(category, symbol) 
         endpoint = cls.bybit_api_endpoint
         basepoint = cls.bybit_api_basepoints.get(objective)
-
         url = f"{endpoint}{basepoint}"
         headers = {}
         return {
@@ -403,13 +408,15 @@ class bybit(CommunicationsManager):
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : symbol_name,
-            "insTypeName" : instType,
+            "instrument" : symbol_name,
+            "insType" : instType,
             "exchange" : "bybit", 
             "repeat_code" : cls.bybit_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
-            "marginType" : marginCoin
+            "marginType" : marginType,
+            "special_method" : special_method,
+            "payload" : ""
             }
 
     @classmethod
@@ -421,104 +428,183 @@ class bybit(CommunicationsManager):
     @classmethod
     async def bybit_aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.bybit_buildRequest(*args, **kwargs)
-        response = await cls.make_aiohttpRequest(connection_data)
+        response = await cls.make_aiohttpRequest_v2(connection_data)
         return response
 
     @classmethod
-    def bybit_build_ws_method(cls, insType, **kwargs):
-        """
-            insType : spot, perpetual, option, future
-            you must pass pullinterval to books
-            kwargs order: symbol is the last
-        """
-        params = dict(kwargs)
-        standart_objective_name = params["objective"]
-        params["objective"] = cls.bybit_stream_keys.get(params["objective"])
-        params["symbol"] = params["symbol"]
-        values = list(params.values())
-        message = {
-            "op": 
-            "subscribe","args": [f"{'.'.join(values)}"]
-            }
-
-        return message, insType, standart_objective_name    
-
-    @classmethod
-    def bybit_build_api_connectionData(cls, insType:str, objective:str, pullTimeout:int, **kwargs):
+    def bybit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None,  **kwargs):
         """
             insType : depth, gta
-            **kwargs, symbol limit ...  Order doesnt matter
-            result = d['aiohttpMethod'](**kwargs)
+            result = d['aiohttpMethod']()
             pullTimeout : how many seconds to wait before you make another call
         """
-        connectionData = cls.bybit_buildRequest(insType, objective, **kwargs)
-        params = dict(**kwargs)
-            
+        instrument = bybit_get_instrument_name(symbol)
+        # connectionData = cls.bybit_buildRequest(instType, objective, symbol, special_method, **kwargs)
+        if special_method == "oifutureperp":
+            call = partial(cls.bybit_build_oifutureperp_method, symbol)
+        if special_method == "posfutureperp":
+            call = partial(cls.bybit_build_posfutureperp_method, symbol)
+        if special_method == "fundfutureperp":
+            call = partial(cls.bybit_build_fundfutureperp_method, symbol)
+        if special_method == None:
+            call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)        
         data =  {
                 "type" : "api",
-                "id_ws" : f"bybit_api_{insType}_{objective}_{params['symbol'].lower()}",
+                "id_api" : f"bybit_api_{instType}_{objective}_{instrument}",
                 "exchange":"bybit", 
-                "instrument": params['symbol'].lower(),
-                "instType": insType,
+                "instrument": instrument,
+                "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "connectionData" : connectionData,
-                "aiohttpMethod" : partial(cls.bybit_aiohttpFetch, insType=insType, objective=objective),
-                "params" : dict(**kwargs)
+                # "connectionData" : connectionData,
+                "aiohttpMethod" :call,
                 }
         
         return data
+    
+    @classmethod
+    def bybit_get_instruments_by_marginType(cls, instType, underlying_asset):
+        info = cls.bybit_info(f"future.{instType}Future")
+        symbols = [symbol["symbol"] for symbol in info if instType in symbol["contractType"] and underlying_asset in symbol["symbol"]]
+        return symbols
+
+    # oifutureperp, posfutureperp, fundfutureperp
 
     @classmethod
-    def bybit_build_ws_connectionData(cls, insType, needSnap=False, snaplimit=1000, **kwargs):
+    async def bybit_build_oifutureperp_method(cls, underlying_asset):
         """
-            insType : depth, trades, oifunding
-            order : symbol, objective, everything else
-            needSnap and snap limit: you need to fetch the full order book, use these
-            Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
+        "Linear", "Inverse"
         """
-        params = dict(kwargs)
-        message, insType, standart_objective_name = cls.bybit_build_ws_method(insType, **params)
-        # Find marginType
-        marginType=""
-        if insType == "perpetual":
-            marginType = "LinearPerpetual" if "USDT" in  params["symbol"].upper() else "InversePerpetual"
-        if insType == "future":
-            marginType = "LinearFuture" if "USDT" not in  params["symbol"].upper() else "InverseFuture"
+        full = {}
+        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+            full[symbol] = data
+        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+            full[symbol] = data
+        return full
         
-        try:
-            endpoint = cls.bybit_ws_endpoints.get(insType).get(marginType)
-        except:
-            endpoint = cls.bybit_ws_endpoints.get(insType)
 
-        
+    @classmethod
+    async def bybit_build_posfutureperp_method(cls, underlying_asset):
+        """
+        "Linear", "Inverse"
+        """
+        full = {}
+        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+            full[symbol] = data
+        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+            full[symbol] = data
+        return full
+
+    @classmethod
+    async def bybit_build_fundfutureperp_method(cls, underlying_asset):
+        """
+        "Linear", "Inverse"
+        """
+        full = {}
+        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            if instType == "perpetual":
+                data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
+                full[symbol] = data
+        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        for symbol in symbols:
+            instType = "future" if "-" in symbol else "perpetual"
+            if instType == "perpetual":
+                data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
+                full[symbol] = data
+        return full
+
+    @classmethod
+    def build_ws_message(cls, symbol, instType, objective):
+        arg = bybit_ws_payload_map.get(instType).get(objective)(symbol)
+        msg = {
+            "req_id": generate_random_id(10), 
+            "op": "subscribe",
+            "args": [arg]
+        }
+        return msg
+
+    @classmethod
+    def build_ws_aggTrade_message(cls, underlying_asset, instType):
+        """
+            instType : Linear, Inverse
+        """
+        msg = {
+                "req_id": generate_random_id(10), 
+                "op": "subscribe",
+                "args": []
+            }
+        symbols = cls.bybit_get_instruments_by_marginType(instType, underlying_asset)
+        for symbol in symbols:
+            trueinstType = "future" if "-" in symbol else "perpetual"
+            arg = bybit_ws_payload_map.get(trueinstType).get("trades")(symbol)
+            msg["args"].append(arg)
+        return msg
+    
+    @classmethod
+    def build_ws_aggLiquidations_message(cls, underlying_asset, instType):
+        """
+            instType : Linear, Inverse
+        """
+        msg = {
+                "req_id": generate_random_id(10), 
+                "op": "subscribe",
+                "args": []
+            }
+        symbols = cls.bybit_get_instruments_by_marginType(instType, underlying_asset)
+        for symbol in symbols:
+            trueinstType = "future" if "-" in symbol else "perpetual"
+            arg = bybit_ws_payload_map.get(trueinstType).get("liquidations")(symbol)
+            msg["args"].append(arg)
+        return msg
+
+
+    @classmethod
+    def bybit_build_ws_connectionData(cls, instType, objective, symbol, needSnap=False, snaplimit=1000, special_method=None, **kwargs):
+        """
+            insType : spot, perpetual, future, option, Linear, Inverse (for special methods)
+            needSnap and snap limit: you need to fetch the full order book, use these
+            special_method : perpfutureTrades, perpfutureLiquidations
+        """
+        symbol_name = bybit_get_instrument_name(symbol)
+        marginType = bybit_get_marginType(instType, symbol)
+        url = bybit_ws_endpoints.get(instType).get(marginType) if marginType != None else bybit_ws_endpoints.get(instType)
+        if special_method == "perpfutureTrades":
+            msg = cls.build_ws_aggTrade_message(symbol, instType)
+        if special_method == "perpfutureLiquidations":
+            msg = cls.build_ws_aggLiquidations_message(symbol, instType)
+        if special_method == None: 
+            msg = cls.build_ws_message(symbol, instType, objective)
+
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
+                                "id_ws" : f"bybit_ws_{instType}_{objective}_{symbol_name}",
                                 "exchange":"bybit", 
-                                "instrument": params['symbol'].lower(),
-                                "instType": insType,
-                                "objective":standart_objective_name, 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":objective, 
                                 "updateSpeed" : None,
-                                "url" : endpoint,
-                                "msg" : message,
-                                "sbmethod" : None
+                                "url" : url,
+                                "msg" : msg,
+                                "1stBooksSnapMethod" : None
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"bybit_api_{insType}_{standart_objective_name}_{params['symbol'].lower()}",
-            connection_data["sbmethod"] = cls.bybit_fetch 
-            if "symbol" in params:
-                connection_data["sbPar"] = {
-                    "symbol": params['symbol'].upper(), 
-                    "limit" : int(snaplimit)
-                }
-            else:
-                connection_data["sbPar"] = {
-                    "baseCoin": params['baseCoin'].upper(), 
-                    "limit" : int(snaplimit)
-                }
-
+            connection_data["id_api"] = f"bybit_api_{instType}_{objective}_{symbol_name}",
+            connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instType, objective=objective, symbol=symbol)
         return connection_data
         
 class okx(CommunicationsManager):
@@ -529,38 +615,38 @@ class okx(CommunicationsManager):
     okx_api_endpoint = okx_api_endpoint
     okx_api_instType_map = okx_api_instType_map
     okx_api_basepoints = okx_api_basepoints
+    okx_api_params_map = okx_api_params_map
     okx_ws_endpoint = okx_ws_endpoint
-    okx_stream_keys = okx_stream_keys
+    okx_ws_objective_map = okx_ws_objective_map
 
     @classmethod
-    def okx_buildRequest(cls, insType:str, objective:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def okx_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
-            objective :  in the okx_api_basepoint
-            # insType ---  the same as instType for previous modules. OKX contains arg instType threfore needs to be renamed
+            objective :  gta oifutperp oioption funding depth, 
+            instType is symbolic
         """
-        params = dict(**kwargs)
-        symbol_name = okx_get_symbol_name(params)
-        # endpoint
+        symbol_name = okx_get_instrument_name(symbol)
         endpoint = cls.okx_api_endpoint
         basepoint = cls.okx_api_basepoints.get(objective)
-        url = endpoint + basepoint
+        url = f"{endpoint}{basepoint}"
+        instTypeOKX = okx_api_instType_map.get(instType)
+        params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oioption" else cls.okx_api_params_map.get(objective)(instTypeOKX, symbol)
         headers = {}
-        # Margin Type / even htough unnecessary
-        marginType = ""
-        if insType!="spot":
-            marginType = f"Linear{insType.capitalize()}" if "USDT" in symbol_name else f"Inverse{insType.capitalize()}"
+
         return {
-            "url" : url, 
+            "url" : url,
+            "basepoint" : basepoint,
+            "endpoint" : endpoint, 
             "objective" : objective,
             "params" : params, 
             "headers" : headers, 
-            "instrumentName" : symbol_name.lower(), 
-            "insTypeName" : insType.lower(), 
+            "instrument" : symbol_name, 
+            "insType" : instType, 
             "exchange" : "okx", 
             "repeat_code" : cls.okx_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
-            "marginType" : marginType,
+            "marginType" : "any",
             }
 
     @classmethod
@@ -574,74 +660,78 @@ class okx(CommunicationsManager):
         connection_data = cls.okx_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
-    
-    @classmethod
-    def okx_build_ws_method(cls, insType, **kwargs):
-        """
-            objective : depth, trades, liquidations, oi, funding
-        """
-        params = dict(kwargs)
-        standart_objective_name = params["objective"]
-        params["objective"] = cls.okx_stream_keys.get(params["objective"])
-        message =  {
-            "op": "subscribe", 
-            "args": [{'channel': params.get("objective"), 'instId': params.get("symbol")}
-            ]
-            }
-
-        return message, insType, standart_objective_name   
 
     @classmethod
-    def okx_build_ws_connectionData(cls, insType, needSnap=False, snaplimit=1000, **kwargs):
+    def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
         """
-            You do not need to fetch ordeBook with okx websockets, it's done upon connection
-            insType : perpetual, option, spot, future
+            objective :  gta oi oioption funding depth
+            instType is symbolic
         """
-        params = dict(kwargs)
-        message, insType, standart_objective_name = cls.okx_build_ws_method(insType, **params)
-        symbol_name = okx_get_symbol_name(params)
-        endpoint = okx_ws_endpoint    
-        connection_data =     {
-                                "type" : "ws",
-                                "id_ws" : f"okx_ws_{insType}_{standart_objective_name}_{symbol_name}",
-                                "exchange":"okx", 
-                                "instrument": symbol_name,
-                                "instType": insType,
-                                "objective":standart_objective_name, 
-                                "updateSpeed" : None,
-                                "url" : endpoint,
-                                "msg" : message,
-                                "sbmethod" : None
-                            }
-        return connection_data
-
-    @classmethod
-    def okx_build_api_connectionData(cls, insType:str, objective:str, pullTimeout:int, **kwargs):
-        """
-            insType : perpetual, spot, future, option
-            objective : oi, gta
-            **kwargs - those in okx ducumentations
-            pullTimeout : how many seconds to wait before you make another call
-            How to call : result = d['aiohttpMethod'](**kwargs)
-        """
-        connectionData = cls.okx_buildRequest(insType, objective, **kwargs)
-        params = dict(**kwargs)
-        symbol_name = okx_get_symbol_name(params)
-            
+        connectionData = cls.okx_buildRequest(instType, objective, symbol, **kwargs)
         data =  {
                 "type" : "api",
-                "id_ws" : f"okx_api_{insType}_{objective}_{symbol_name}",
+                "id_api" : f"okx_api_{instType}_{objective}_{connectionData.get('instrument')}",
                 "exchange":"okx", 
-                "instrument": symbol_name,
-                "instType": insType,
+                "instrument": connectionData.get('instrument'),
+                "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
-                "aiohttpMethod" : partial(cls.okx_aiohttpFetch, insType=insType, objective=objective),
-                "params" : dict(**kwargs)
+                "aiohttpMethod" : partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 }
         
         return data
+
+    
+    @classmethod
+    def okx_build_ws_message(cls, objective, instType=None, instFamily=None, symbol=None):
+        parsed_objective = okx_ws_objective_map.get(objective)
+        msg = {
+                "op": "subscribe",
+                "args": [{
+                    "channel": parsed_objective,
+                }]
+            }
+        if instType != None:
+            parsef_instType = okx_api_instType_map.get(instType)
+            msg["args"][0]["instType"] = parsef_instType
+        if instFamily != None:
+            msg["args"][0]["instFamily"] = instFamily
+        if symbol != None:
+            msg["args"][0]["instId"] = symbol
+        return msg
+
+    @classmethod
+    def okx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=False, snaplimit=1000, **kwargs):
+        """
+            You do not need to fetch ordeBook with okx websockets, it's done upon connection
+            objective : liquidations trades depth oi funding optionTrades
+            "though websockket of depth fetches first snapshot, its better to manually fetch the firstDEpth
+        """
+        symbol_name = okx_get_instrument_name(symbol)
+        endpoint = cls.okx_ws_endpoint
+        if objective == "liquidations":
+            message =  cls.okx_build_ws_message(objective, instType=instType)
+        elif objective == "optionTrades":
+            message =  cls.okx_build_ws_message(objective, instFamily=symbol, instType=instType)
+        else:
+            message =  cls.okx_build_ws_message(objective, symbol=symbol)
+        connection_data =     {
+                                "type" : "ws",
+                                "id_ws" : f"okx_ws_{instType}_{objective}_{symbol_name}",
+                                "exchange":"okx", 
+                                "instrument": symbol_name,
+                                "instType": instType,
+                                "objective":objective, 
+                                "updateSpeed" : None,
+                                "url" : endpoint,
+                                "msg" : message,
+                                "sbmethod" : None,
+                                "1stBooksSnapMethod" : None
+                            }
+        if needSnap == True:
+            connection_data["1stBooksSnapMethod"] = partial(cls.okx_fetch, instType=instType, objective=objective, symbol=symbol)
+        return connection_data
 
 class coinbase(CommunicationsManager):
     """
@@ -1995,11 +2085,40 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio):
         
     @classmethod
     def binance_ws(cls):
-        data = cls.binance_build_ws_connectionData("perpetual", "trades", "BTCUSDT") #, special="perpfutureTrade")
+        data = cls.binance_build_ws_connectionData("Linear", "liquidations", "BTC", special="perpfutureLiquidations")
         print(data)
         # print(data["1stBooksSnapMethod"]())
-clientTest.binance_instruments()
 
+    @classmethod
+    def bybit_aiohttp(cls):
+        async def example():
+            data = cls.bybit_build_api_connectionData("Linear", "oi", "BTC", 100, special_method="oifutureperp")
+            d = await data["aiohttpMethod"]()
+            print(d)
+        asyncio.run(example())
+
+    @classmethod
+    def bybit_ws(cls):
+        data = cls.bybit_build_ws_connectionData("Linear", "trades", "BTC", special_method="perpfutureTrades")
+        print(data)
+        # print(data["1stBooksSnapMethod"]())
+
+    @classmethod
+    def okx_aiohttp(cls):
+        async def example():
+            data = cls.okx_build_api_connectionData("option", "gta", "BTC", 100)
+            d = await data["aiohttpMethod"]()
+            print(d)
+        asyncio.run(example())
+
+    @classmethod
+    def okx_ws(cls):
+        async def example():
+            data = cls.okx_build_ws_connectionData("perpetual", "depth", "BTC-USD-SWAP", needSnap=True)
+            # d = await data["aiohttpMethod"]()
+            print(data["1stBooksSnapMethod"]())
+        asyncio.run(example())
+clientTest.okx_ws()
 
 
 

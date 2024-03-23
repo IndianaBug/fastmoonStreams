@@ -60,18 +60,6 @@ class bybitInfo(requestHandler):
                         },
                         "option" : "https://api.bybit.com/v5/market/instruments-info?category=option"
                     }
-    bybit_call_example = {
-                "spot" : "BTCUSDT",
-                "perpetual" : {
-                    "LinearPerpetual" : "BTCUSDT",
-                    "LinearFutures" : "BTCUSD",
-                },
-                "future" : {
-                    "InverseFutures" : "BTCUSD",
-                    "InverseFutures" : "ETHUSDH24",
-                },
-                "option" : "ETH-3JAN23-1250-P"
-            }
         
     @classmethod
     def bybit_symbols_by_instType(cls, instType):

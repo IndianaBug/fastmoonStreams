@@ -95,24 +95,15 @@ class infoexchange(
 
 info = infoexchange(coinbaseAPI, coinbaseSecret)
 
-def binance_get_futures_symbols(underlying_symbol):
-    """
-        underlying_symbol : BTC, ETH
-    """
-    a = info.binance_symbols_by_instType("future")
-    symbols = [aa for aa in a if underlying_symbol.upper() in aa]
+a = infoexchange.bybit_info("future.LinearFuture")
+
+# print([symbol["symbol"] for symbol in a if "Linear" in symbol["contractType"]])
+
+
+def bybit_get_linear_instruments(instType, underlying_asset):
+    info = infoexchange.bybit_info(f"future.{instType}Future")
+    symbols = [symbol["symbol"] for symbol in info if instType in symbol["contractType"] and underlying_asset in symbol["symbol"]]
     return symbols
 
-    # print([x["symbol"] for x in a.get("optionSymbols") if "BTC" in  x["symbol"]])
+print(bybit_get_linear_instruments("Linear", "BTC"))
 
-
-def binance_perpfut_instruments(underlying_instrument):
-    all_info = []
-    for instType in ["perpetual.LinearPerpetual", "perpetual.InversePerpetual"]:
-        symbols = info.binance_info(instType)
-        all_info.append([x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")])
-    all_info = unnest_list(all_info)
-    print(all_info)
-    return all_info 
-
-binance_get_position_instruments("BTC")
