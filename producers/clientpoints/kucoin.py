@@ -13,12 +13,14 @@ kucoin_api_basepoints = {
             },
             "perpetual" : {
                 "depth" : "/api/v1/level2/snapshot",
-                "oifunding" : "/api/v1/contracts/",
+                "oifunding" : "/api/v1/contracts/",  # oifunding attech symbol to basepoiint
             }
         }
 
-
-# ws # 
+kucoin_api_params_map = {
+    "depth" : lambda symbol : {"symbol" : symbol},
+    "oifunding" : lambda symbol : {} # call is different
+}
 
 
 kucoin_ws_endpoint = "https://api.kucoin.com/api/v1/bullet-public"
@@ -37,6 +39,4 @@ kucoin_stream_keys = {
 
 
 def kucoin_get_symbol_name(d):
-    if "symbol" in d:
-        symbol = d.get("symbol")
-    return symbol.replace("-", "").lower()
+    return d.replace("-", "").lower()

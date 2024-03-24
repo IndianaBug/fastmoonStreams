@@ -44,36 +44,6 @@ okx_ws_objective_map = {
     "funding" : "funding-rate",
     "optionTrades" : "option-trades"           # single channel for all option trades
 }
-def okx_build_ws_message(instType=None, objective=None, instFamily=None, symbol=None):
-    parsed_objective = okx_ws_objective_map.get(objective)
-    if instType != None and instFamily != None:
-        parsef_instType = okx_api_instType_map.get(instType)
-        msg = {
-                "op": "subscribe",
-                "args": [{
-                    "channel": parsed_objective,
-                    "instType": parsef_instType, 
-                    "instFamily": instFamily,    
-                }]
-            }
-    if instType != None and instFamily == None:
-        parsef_instType = okx_api_instType_map.get(instType)
-        msg = {
-                "op": "subscribe",
-                "args": [{
-                    "channel": parsed_objective,
-                    "instType": parsef_instType, 
-                }]
-            }
-    if symbol !=  None:
-        msg = {
-                "op": "subscribe",
-                "args": [{
-                    "channel": parsed_objective,
-                    "instId": symbol, 
-                }]
-            }
-    return msg
 
 def okx_get_instrument_name(symbol):
     return symbol.replace("-", "").lower()

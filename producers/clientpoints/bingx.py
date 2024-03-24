@@ -14,6 +14,11 @@ bingx_api_basepoints = {
             }
         }
 
+bingx_pi_param_map = {
+    "depth" : lambda symbol : {"symbol" : symbol, "limit" : "1000"},
+    "oi" : lambda symbol : {"symbol" : symbol},
+    "funding" : lambda symbol : {"symbol" : symbol},
+}
 
 # ws # 
 
@@ -26,12 +31,23 @@ bingx_ws_endpoints = {
 
 
 bingx_stream_keys = {
+    "spot" : {
+        "trades" : "trade",
+        "depth" : "depth100@1000ms",
+    },
+    "perpetual" : {
         "trades" : "trade",
         "depth" : "depth100",
+    }
 }
 
 
-def bingx_get_symbol_name(d):
-    if "symbol" in d:
-        symbol = d.get("symbol")
+def bingx_get_symbol_name(symbol):
     return symbol.replace("-", "").lower()
+
+
+def build_bingx_ws_message(instType, objective, symbol):
+    channel = bingx_stream_keys.get(instType).get(objective)
+    msg =  {"id":generate_random_id(20),
+            "reqType": "sub",
+            "dataType":f"{symbol}@{channel}"}

@@ -105,5 +105,10 @@ def bybit_get_linear_instruments(instType, underlying_asset):
     symbols = [symbol["symbol"] for symbol in info if instType in symbol["contractType"] and underlying_asset in symbol["symbol"]]
     return symbols
 
-print(bybit_get_linear_instruments("Linear", "BTC"))
+# print(bybit_get_linear_instruments("Linear", "BTC"))
 
+
+print([x["symbol"] for x in info.bitget_info("perpetual.InversePerpetual") if "BTC" in x["symbol"]])
+
+
+# print(info.bitget_info("perpetual.InversePerpetual"))

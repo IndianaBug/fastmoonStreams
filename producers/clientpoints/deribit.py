@@ -4,45 +4,32 @@ deribit_endpoint = "wss://test.deribit.com/ws/api/v2"
 
 deribit_marginCoins = ["BTC", "ETH", "USDC", "USDT", "EURR"]
 
-deribit_methods = {
+
+deribit_jsonrpc_params_map = {
+    "depth" : lambda symbol, kind : {"instrument_name" : symbol, "depth" : 1000},
+    "oifunding" : lambda currency, kind : {"currency" : currency, "kind" : kind}
+}
+
+deribit_jsonrpc_channel_map = {
     "depth" : "public/get_order_book",
     "oifunding" : "public/get_book_summary_by_currency",
     "ws" : "public/subscribe",
 }
 
-deribit_stream_keys = {
-        "trades" : "trades",    
-        "liquidations" : "trades", # Trades Channel contains liquidations https://docs.deribit.com/#trades-instrument_name-interval
-        "depth" : "book",
-        "oifunding" : "ticker"
-}
-
-deribit_instType_keys = {
+deribit_instType_map = {
     "spot" : "spot",
     "perpetual" : "future",
     "future" : "future",
     "option" : "option"
 }
 
-ws = {
-    "liquidations" : "https://docs.deribit.com/#trades-instrument_name-interval"
+deribit_ws_params_map = {
+    "depth" : lambda symbol, kind: {"channels": [f"book.{symbol}.none.20.agg2"]},
+    "trades" : lambda symbol, kind: {"channels": [f"trades.{symbol}.agg2"]},
+    "tradesagg" : lambda symbol, kind: {"channels": [f"trades.{kind}.{symbol}.agg2"]}
 }
 
 
-api_headers = {
-    "jsonrpc": "2.0", "id": "generate_random_integer(10)",
-    "method": "public/get_order_book",
-    "params": { 
-        "depth": 1000, 
-        "instrument_name": "BTC-PERPETUAL"
-        }
-    }
-            # "params": { 
-            #     "currency": "BTC", 
-            #     "kind": "option"
-            #     }
-            # }
-
-def deribit_get_symbol_name(params):
-    return params.get("symbol")
+def deribit_get_symbol_name(symbol):
+    return symbol.replace("-", "").lower()
 

@@ -3,27 +3,41 @@ bitget_repeat_response_code = -1130
 bitget_api_endpoint = "https://api.bitget.com"
 
 bitget_productType_map = {
-    "LinearPerpetual" : {
-        "usdt" : "USDT-FUTURES", # productType=
-        "usdc" : "USDC-FUTURES"
+    "perpetual" : {
+        "LinearPerpetual" : {
+            "usdt" : "USDT-FUTURES", 
+            "usdc" : "USDC-FUTURES"
+        },
+        "InversePerpetual" : "COIN-FUTURES"
     },
-    "InversePerpetual" : "COIN-FUTURES"
+    "spot" : "SPOT"
 }
 
 bitget_api_basepoints = {
     "spot" : {  
-        "depth" : "/api/v2/spot/market/orderbook",  # symbol=BTCUSDT&type=step0&limit=150"
+        "depth" : "/api/v2/spot/market/merge-depth",  # symbol=BTCUSDT&type=step0&limit=150"
     },
     "perpetual" : {  
         "depth" : "/api/v2/mix/market/merge-depth", # ?productType=usdt-futures&symbol=BTCUSDT&limit=1000
+        "oi" : "/api/v2/mix/market/open-interest",
+        "funding" : "/api/v2/mix/market/history-fund-rate",
     },
         }
 
+bitget_api_params_map = {
+    "perpetual" : {
+        "depth" : lambda symbol, productType: {"symbol" : symbol, "productType" :  productType, "precision" : "scale0", "limit" : "max"},  
+        "oi" : lambda symbol, productType: {"symbol" : symbol, "productType" :  productType},  
+        "funding" : lambda symbol, productType: {"symbol" : symbol, "productType" :  productType, "pageSize" : "1"},   
+    },
+    "spot" : {
+        "depth" : lambda symbol, productType=None: {"symbol" : symbol, "precision" : "scale0", "limit" : "max"},  
+    },
+        }
 # ws # 
 
 
 bitget_ws_endpoint = "wss://ws.bitget.com/v2/ws/public"
-
 
 
 bitget_stream_keys = {
@@ -34,21 +48,21 @@ bitget_stream_keys = {
 
 # Symbol and margin type mapping
 
-def bitget_get_instrument(d):
-    if "instId" in d:
-        symbol = d.get("instId")
-    if "symbol" in d:
-        symbol = d.get("symbol")
-    return symbol
+def bitget_get_productType(instType, marginType, marginCoin):
+    if instType == "spot":
+        productType = bitget_productType_map.get(instType) 
+    if instType == "perpetual" and marginType=="InversePerpetual":
+        productType = bitget_productType_map.get(instType).get(marginType) 
+    if instType == "perpetual" and marginType=="LinearPerpetual":
+        productType = bitget_productType_map.get(instType).get(marginType).get(marginCoin)  
+    return productType
 
-def bitget_get_symbol_name(d):
-    if "instId" in d:
-        symbol = d.get("instId")
-    if "symbol" in d:
-        symbol = d.get("symbol")
+
+def bitget_get_symbol_name(symbol):
     return symbol.replace("-", "").lower()
 
 def bitget_get_marginType(instrument):
+    marginType = ""
     if "USDT" in instrument:
         marginType = "LinearPerpetual"
     if "PERP" in instrument:
@@ -58,31 +72,26 @@ def bitget_get_marginType(instrument):
     return marginType
 
 def bitget_get_marginCoin(instrument):
+    marginCoin = "coinM"
     if "USDT" in instrument:
         marginCoin = "usdt"
     if "PERP" in instrument:
         marginCoin = "usdc"
-    if "USD" in instrument and "USDT" not in instrument:
-        marginCoin = "any_except_usdc_usdt"
     return marginCoin
 
-def bitget_get_productType(instType, marginType, marginCoin):
-    productType = ""
-    if instType == "perpetual":
-        if marginCoin != "any_except_usdc_usdt":
-            productType = bitget_productType_map.get(marginType).get(marginCoin)
-        if marginCoin == "any_except_usdc_usdt":
-            productType = bitget_productType_map.get(marginType)
-    return productType
+bitget_productType_map = {
+    "perpetual" : {
+        "LinearPerpetual" : {
+            "usdt" : "USDT-FUTURES", 
+            "usdc" : "USDC-FUTURES"
+        },
+        "InversePerpetual" : "COIN-FUTURES"
+    },
+    "spot" : "SPOT"
+}
 
 
-def bitget_get_variables(params, instType):
-    instrument = bitget_get_instrument(params)
-    symbol_name = bitget_get_symbol_name(params)
-    marginType = bitget_get_marginType(instrument)
-    marginCoin = bitget_get_marginCoin(instrument)
-    productType = bitget_get_productType(instType, marginType, marginCoin)
-    return instrument, symbol_name, marginType, marginCoin, productType
+
 
 
 def get_bitget_instType(params, instType):

@@ -271,7 +271,7 @@ class kucoinInfo(requestHandler):
     @classmethod
     def kucoin_info(cls, instType):
         """
-            ex: spot, perpetual, option, future
+            ex: spot, perpetual
         """
         endpoint = cls.kucoin_endpoints.get(instType)
         basepoint = cls.kucoin_basepoints.get(instType)
@@ -517,18 +517,21 @@ class coinbaseInfo(requestHandler):
         "spot" : "/api/v3/brokerage/products?product_type=SPOT",
         "future" : "/api/v3/brokerage/products?product_type=FUTURE"
                             }
-        self.coinbase_call_example = {
-        "spot" : "SNX-BTC",
-        "future" : "BIT-29MAR24-CDE" # Which is bitcoin
-            }
 
     def coinbase_symbols_by_instType(self, instType):
         """
             spot, future
         """
-        info = self.info_coinbase(instType)
-        prdocut_ids = list(set([x["product_id"] for x in info]))
+        info = self.coinbase_info(instType)
+        prdocut_ids = list(set([x["display_name"] for x in info]))
         return prdocut_ids
+
+    def coinbase_productids_by_instType(self, instType):
+        """
+            future
+        """
+        info = self.coinbase_info(instType)
+        return {x:y for x, y in zip([x["display_name"] for x in info], [x["product_id"] for x in info])}
 
     def coinbase_symbols(self):
         """
@@ -542,7 +545,7 @@ class coinbaseInfo(requestHandler):
 
     def coinbase_info(self, instType):
         """
-            spot, perpetual
+            spot, future
         """
         headers = self.build_headers()
         return self.http_call(self.coinbase_endpoint, self.coinbase_basepoints.get(instType), self.coinbase_payload, headers).get("products")
