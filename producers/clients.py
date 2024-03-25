@@ -312,67 +312,46 @@ class binance(CommunicationsManager, binanceInfo):
             "id": generate_random_integer(10)
         }
         return message
+    
+    @classmethod
+    def binance_build_bulk_ws_message(cls, insTypes, objectives, symbols):
+        message = {
+            "method": "SUBSCRIBE", 
+            "params": [], 
+            "id": generate_random_integer(10)
+        }
+        print(insTypes, objectives, symbols)
+        for i, o, s in zip(insTypes, objectives, symbols):
+            payload = binance_ws_payload_map.get(i).get(o)(s)
+            message["params"].append(payload)
+        return message
 
-    @classmethod
-    def binance_build_ws_perpfutureTrade(cls, instType, underlyingInstrument):
-        symbols = cls.binance_perpfut_instruments(underlyingInstrument)
-        message = {
-            "method": "SUBSCRIBE", 
-            "params": [], 
-            "id": generate_random_integer(10)
-        }
-        for symbol in symbols:
-            if "DOMU" not in symbol:
-                trueInstType, marginType = binance_get_futperphelp(symbol)
-                if instType in marginType:
-                    m = cls.binance_build_ws_message(trueInstType, "trades", symbol)
-                    message["params"].append(m.get("params")[0])
-        return message
+
     
     @classmethod
-    def binance_build_ws_perpfutureLiquidations(cls, instType, underlyingInstrument):
-        symbols = cls.binance_perpfut_instruments(underlyingInstrument)
-        message = {
-            "method": "SUBSCRIBE", 
-            "params": [], 
-            "id": generate_random_integer(10)
-        }
-        for symbol in symbols:
-            if "DOMU" not in symbol:
-                trueInstType, marginType = binance_get_futperphelp(symbol)
-                if instType in marginType:
-                    m = cls.binance_build_ws_message(trueInstType, "liquidations", symbol)
-                    message["params"].append(m.get("params")[0])
-        return message
-    
-    @classmethod
-    def binance_build_ws_connectionData(cls, instType:str, objective:str, symbol:str, needSnap=False, snaplimit=999,  special=None, **kwargs):
+    def binance_build_ws_connectionData(cls, instTypes:list, objectives:list, symbols:list, needSnap=False, snaplimit=999,  **kwargs):
         """
             instType : spot, future, perpetual, option
                         Linear, Inverse for special methods
             needSnap and snap limit: you need to fetch the full order book, use these
             Example of snaping complete books snapshot : connectionData.get("sbmethod")(dic.get("instType"), connectionData.get("objective"), **connectionData.get("sbPar"))
-            special streams : perpfutureTrades, perpfutureLiquidations
-        """        
-        symbol_name = binance_get_symbol_name(symbol)
-        marginType = binance_get_marginType(instType, symbol)
-        endpoint = binance_ws_endpoints.get(instType).get(marginType) if marginType != None else binance_ws_endpoints.get(instType)
-
-        if special == None:
-            message = cls.binance_build_ws_message(instType, objective, symbol)
-        if special == "perpfutureTrades":
-            message = cls.binance_build_ws_perpfutureTrade(instType, symbol) 
-        if special == "perpfutureLiquidations":
-            message = cls.binance_build_ws_perpfutureLiquidations(instType, symbol) 
+        """       
+        sss = [] 
+        for ss in symbols:
+            symbol_name = binance_get_symbol_name(ss)
+            sss.append(symbol_name)
+        marginType = binance_get_marginType(instTypes[0], symbols[0])
+        endpoint = binance_ws_endpoints.get(instTypes[0]).get(marginType) if marginType != None else binance_ws_endpoints.get(instTypes[0])
+        message = cls.binance_build_bulk_ws_message(instTypes, objectives, symbols)
 
             
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{instType}_{objective}_{symbol_name}",
+                                "id_ws" : f"binance_ws_{'_'.join(instTypes)}_{'_'.join(objectives)}_{'_'.join(sss)}",
                                 "exchange":"binance", 
                                 "instrument": symbol_name,
-                                "instType": instType,
-                                "objective":objective, 
+                                "instType": '_'.join(instTypes),
+                                "objective":'_'.join(objectives), 
                                 "updateSpeed" : None,
                                 "url" : endpoint,
                                 "msg" : message,
@@ -381,8 +360,8 @@ class binance(CommunicationsManager, binanceInfo):
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"binance_api_{instType}_{objective}_{symbol_name}",
-            connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instType, objective, symbol)
+            connection_data["id_api"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}",
+            connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], {sss[0]})
         return connection_data
 
 class bybit(CommunicationsManager, bybitInfo):
@@ -2109,7 +2088,10 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx)
         
     @classmethod
     def binance_ws(cls):
-        data = cls.binance_build_ws_connectionData("Linear", "liquidations", "BTC", special="perpfutureLiquidations")
+        s = ["spot", "spot"]
+        o = ["liquidations", "liquidations"]
+        ss= ["BTCUSDT", "BTCUSDT"]
+        data = cls.binance_build_ws_connectionData(s,o,ss)
         print(data)
         # print(data["1stBooksSnapMethod"]())
 
@@ -2191,7 +2173,7 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx)
             # = await data["1stBooksSnapMethod"]()
             print(data)
         asyncio.run(example())
-clientTest.deribit_ws()
+clientTest.binance_ws()
 
 
 # bing = bingx("", "")
