@@ -5,8 +5,16 @@ cd C:\coding\SatoshiVault
 C:\coding\SatoshiVaultEnv\api_stream\Scripts\activate
 
 
-
-
+# Deribit Heartbeats
+    # Task to handle incoming messages
+    async def handle_messages():
+      async for message in websocket:
+        if message == "test_request":
+          # Respond to test request with appropriate API call
+          await websocket.send("/api/v2/public/test")
+        else:
+          # Handle other messages as usual
+          # ...
 
 
 
