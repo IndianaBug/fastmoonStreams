@@ -21,6 +21,7 @@ websockets = {
         "perpetual" : {
             "depth" : ["BTCUSD_PERP", "BTCUSDT"],
             "trades" : ["BTCUSD_PERP", "BTCUSDT", "BTCUSDC"],
+            "liquidations" : ["BTCUSD_PERP", "BTCUSDT", "BTCUSDC"],
         },
         "option" : {
             "trades" : ["BTC"]
@@ -29,24 +30,27 @@ websockets = {
     "bybit" :  {
         "spot" : {
             "depth" : ["BTCUSDT"],
-            "trades" : [],
+            "trades" : ["BTCUSDT", "BTCUSDC"],
         },
         "perpetual" : {
-            "depth" : [],
-            "trades" : [],
+            "depth" : ["BTCUSDT"],
+            "trades" : ["BTCPERP", "BTCUSD", "BTCUSDT"],
+            "liquidations" : ["BTCPERP", "BTCUSD", "BTCUSDT"],
         },
         "option" : {
-            "trades" : ["BTC"]
+            "trades" : ["BTC"],
+            "oi" : ["BTC"]
         }
     },
     "okx" :  {
         "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
+            "depth" : ["BTC-USDT"],
+            "trades" : ["BTC-USDT", "BTC-USDC"],
         },
         "perpetual" : {
-            "depth" : [],
-            "trades" : [],
+            "depth" : ["BTC-USDT-SWAP"],
+            "trades" : ["BTC-USD-SWAP", "BTC-USDT-SWAP", "BTC-USDC-SWAP"],
+            "liquidations" : ["SWAP", "FUTURES", "OPTION"]
         },
         "option" : {
             "trades" : ["BTC"]
@@ -54,15 +58,16 @@ websockets = {
     },
     "deribit" :  {
         "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
         },
         "perpetual" : {
-            "depth" : [],
-            "trades" : [],
+            "depth" : ["BTC-PERPETUAL"],
+            "tradesagg" : ["BTC-PERPETUAL", "BTC-4JUN21"],
         },
         "option" : {
             "trades" : ["BTC"]
+        },
+        "heartbeats" : {
+            "heartbeats" : ["BTC-PERPETUAL"]
         }
     },
     "bitget" :  {
@@ -72,11 +77,8 @@ websockets = {
         },
         "perpetual" : {
             "depth" : ["BTCUSDT"],
-            "trades" : ["BTCUSDT", "BTCUSDC"],
+            "trades" : ["BTCUSDT", "BTCPERP", "BTCUSD"],
         },
-        "option" : {
-            "trades" : ["BTC"]
-        }
     },
     "bingx" :  {
         "spot" : {
@@ -89,67 +91,45 @@ websockets = {
     },
     "kucoin" :  {
         "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
+            "depth" : ["BTC-USDT"],
+            "trades" : ["BTC-USDT"],
         },
         "perpetual" : {
-            "depth" : [],
-            "trades" : [],
+            "depth" : ["XBTUSDTM"],
+            "trades" : ["XBTUSDTM"],
         },
-        "option" : {
-            "trades" : ["BTC"]
-        }
     },
     "gateio" :  {
         "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
+            "depth" : ["BTC_USDT"],
+            "trades" : ["BTC_USDT"],
         },
         "perpetual" : {
-            "depth" : [],
-            "trades" : [],
+            "depth" : ["BTC_USDT"],
+            "trades" : ["BTC_USDT"],
         },
         "option" : {
-            "trades" : ["BTC"]
+            "trades" : ["BTC"],
+            "oi" : ["BTC"]
         }
     },
     "htx" :  {
-        "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
-        },
-        "perpetual" : {
-            "depth" : [],
-            "trades" : [],
-        },
-        "option" : {
-            "trades" : ["BTC"]
-        }
     },
     "mexc" :  {
         "spot" : {
             "depth" : ["BTCUSDT"],
-            "trades" : [],
+            "trades" : ["BTCUSDT"],
         },
         "perpetual" : {
             "depth" : [],
-            "trades" : [],
+            "trades" : ["BTC_USDT"],
         },
-        "option" : {
-            "trades" : ["BTC"]
-        }
     },
     "coinbase" :  {
         "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : [],
-        },
-        "perpetual" : {
-            "depth" : [],
-            "trades" : [],
-        },
-        "option" : {
-            "trades" : ["BTC"]
+            "depth" : ["BTC-USD"],
+            "trades" : ["BTC-USD"],
+            "heartbeats":["BTC-USD"]
         }
     },
 }
@@ -157,14 +137,11 @@ websockets = {
 
 aiohttp = {
     "binance" : {
-        "spot" : {
-            
-        },
         "perpetual" : {
             
         },
         "option" : {
-            
+            "oi" : ["BTC", ]
         }
     },
     "bybit" : {

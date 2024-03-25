@@ -273,6 +273,7 @@ class binance(CommunicationsManager, binanceInfo):
             **kwargs, symbol limit, period. Order doesnt matter
             result = d['aiohttpMethod'](**kwargs)
             pullTimeout : how many seconds to wait before you make another call
+            special_methods : oioption oifutureperp posfutureperp
         """
         call = partial(cls.binance_aiohttpFetch, insType=insType, objective=objective, symbol=symbol)
         if special_method == "oioption":
