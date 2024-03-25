@@ -21,6 +21,8 @@ from functools import partial
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
+from typing import List, Union
+from utilis import filter_nested_dict
 
 from exchangeinfo import *
 from producers.clientpoints.binance import *
@@ -35,10 +37,6 @@ from producers.clientpoints.gateio import *
 from producers.clientpoints.mexc import *
 from producers.clientpoints.bingx import *
 
-# TODO
-# Fix the orders of the wscall for both binance and Bybit xD
-# Add get all available ws methods and api methods per exchange
-# add deribitcoinbase heartbeats
 
 class CommunicationsManager:
 
@@ -139,9 +137,6 @@ class binance(CommunicationsManager, binanceInfo):
     binance_future_contract_types = binance_future_contract_types
     binance_ws_payload_map = binance_ws_payload_map
     
-
-    def __init__(self):
-        pass
 
     @classmethod
     def binance_buildRequest(cls, instType:str, objective:str, symbol:str, specialParam=None, special_method=None, 
@@ -325,9 +320,7 @@ class binance(CommunicationsManager, binanceInfo):
             payload = binance_ws_payload_map.get(i).get(o)(s)
             message["params"].append(payload)
         return message
-
-
-    
+ 
     @classmethod
     def binance_build_ws_connectionData(cls, instTypes:list, objectives:list, symbols:list, needSnap=False, snaplimit=999,  **kwargs):
         """
@@ -361,7 +354,7 @@ class binance(CommunicationsManager, binanceInfo):
         
         if needSnap is True:
             connection_data["id_api"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}",
-            connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], {sss[0]})
+            connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
 class bybit(CommunicationsManager, bybitInfo):
@@ -516,7 +509,7 @@ class bybit(CommunicationsManager, bybitInfo):
         return full
 
     @classmethod
-    def build_ws_message(cls, symbol, instType, objective):
+    def bybit_build_ws_message(cls, symbol, instType, objective):
         arg = bybit_ws_payload_map.get(instType).get(objective)(symbol)
         msg = {
             "req_id": generate_random_id(10), 
@@ -526,76 +519,51 @@ class bybit(CommunicationsManager, bybitInfo):
         return msg
 
     @classmethod
-    def build_ws_aggTrade_message(cls, underlying_asset, instType):
-        """
-            instType : Linear, Inverse
-        """
+    def bybit_build_bulk_ws_message(cls, instTypes, objectives, symbols):
         msg = {
-                "req_id": generate_random_id(10), 
-                "op": "subscribe",
-                "args": []
-            }
-        symbols = cls.bybit_get_instruments_by_marginType(instType, underlying_asset)
-        for symbol in symbols:
-            trueinstType = "future" if "-" in symbol else "perpetual"
-            arg = bybit_ws_payload_map.get(trueinstType).get("trades")(symbol)
-            msg["args"].append(arg)
-        return msg
-    
-    @classmethod
-    def build_ws_aggLiquidations_message(cls, underlying_asset, instType):
-        """
-            instType : Linear, Inverse
-        """
-        msg = {
-                "req_id": generate_random_id(10), 
-                "op": "subscribe",
-                "args": []
-            }
-        symbols = cls.bybit_get_instruments_by_marginType(instType, underlying_asset)
-        for symbol in symbols:
-            trueinstType = "future" if "-" in symbol else "perpetual"
-            arg = bybit_ws_payload_map.get(trueinstType).get("liquidations")(symbol)
+            "req_id": generate_random_id(10), 
+            "op": "subscribe",
+            "args": []
+        }
+        for s, i, obj in zip(symbols, instTypes, objectives):
+            arg = bybit_ws_payload_map.get(i).get(obj)(s)
             msg["args"].append(arg)
         return msg
 
 
+
     @classmethod
-    def bybit_build_ws_connectionData(cls, instType, objective, symbol, needSnap=False, snaplimit=1000, special_method=None, **kwargs):
+    def bybit_build_ws_connectionData(cls, instTypes, objectives, symbols, needSnap=False, snaplimit=1000, special_method=None, **kwargs):
         """
             insType : spot, perpetual, future, option, Linear, Inverse (for special methods)
             needSnap and snap limit: you need to fetch the full order book, use these
             special_method : perpfutureTrades, perpfutureLiquidations
         """
-        symbol_name = bybit_get_instrument_name(symbol)
-        marginType = bybit_get_marginType(instType, symbol)
-        url = bybit_ws_endpoints.get(instType).get(marginType) if marginType != None else bybit_ws_endpoints.get(instType)
-        if special_method == "perpfutureTrades":
-            msg = cls.build_ws_aggTrade_message(symbol, instType)
-        if special_method == "perpfutureLiquidations":
-            msg = cls.build_ws_aggLiquidations_message(symbol, instType)
-        if special_method == None: 
-            msg = cls.build_ws_message(symbol, instType, objective)
+        symbol_names = [bybit_get_instrument_name(symbol) for symbol in symbols]
+        marginType = bybit_get_marginType(instTypes[0], symbols[0])
+        url = bybit_ws_endpoints.get(instTypes[0]).get(marginType) if marginType != None else bybit_ws_endpoints.get(instTypes[0])
+        msg = cls.bybit_build_bulk_ws_message(instTypes, objectives, symbols)
 
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{instType}_{objective}_{symbol_name}",
+                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
                                 "exchange":"bybit", 
-                                "instrument": symbol_name,
-                                "instType": instType,
-                                "objective":objective, 
+                                "instrument": "".join(symbol_names),
+                                "instType": "".join(instTypes),
+                                "objective":"".join(objectives), 
                                 "updateSpeed" : None,
                                 "url" : url,
                                 "msg" : msg,
-                                "1stBooksSnapMethod" : None
+                                "1stBooksSnapMethod" : None,
+                                "marginType" : marginType
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"bybit_api_{instType}_{objective}_{symbol_name}",
-            connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instType, objective=objective, symbol=symbol)
+            connection_data["id_api"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
         return connection_data
         
-class okx(CommunicationsManager):
+class okx(CommunicationsManager, okxInfo):
     """
         OKX apis and websockets wrapper
     """
@@ -618,7 +586,7 @@ class okx(CommunicationsManager):
         basepoint = cls.okx_api_basepoints.get(objective)
         url = f"{endpoint}{basepoint}"
         instTypeOKX = okx_api_instType_map.get(instType)
-        params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oioption" else cls.okx_api_params_map.get(objective)(instTypeOKX, symbol)
+        params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oi" else cls.okx_api_params_map.get(objective)(instTypeOKX, symbol)
         headers = {}
 
         return {
@@ -650,12 +618,43 @@ class okx(CommunicationsManager):
         return response
 
     @classmethod
-    def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
+    async def okx_build_fundfutureperp_method(cls, underlying_symbol):
+        symbols = [x for x in info.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
+        data = {}
+        for symbol in symbols:
+            response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
+            data["symbol"] = response
+        return data
+    
+    @classmethod
+    async def okx_build_oifutureperp_method(cls, underlying_symbol):
+        marginCoinsF = [x for x in cls.okx_symbols_by_instType("future") if underlying_symbol in x]
+        marginCoinsF = list(set([x.split("-")[1] for x in marginCoins]))
+        marginCoinsP = [x for x in cls.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
+        marginCoinsP = list(set([x.split("-")[1] for x in marginCoins]))
+        data = []
+        for marginCoin in marginCoinsF:
+            futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
+            data.append(futures)
+        for marginCoin in marginCoinsP:
+            perp = await cls.okx_aiohttpFetch("perpetual", "oi", f"{underlying_symbol}-{marginCoin}")
+            data.append(perp)
+        return data
+
+    @classmethod
+    def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None, **kwargs):
         """
             objective :  gta oi oioption funding depth
             instType is symbolic
+            special_method : fundfutureperp
         """
         connectionData = cls.okx_buildRequest(instType, objective, symbol, **kwargs)
+        if special_method == None:
+            call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        if special_method == "fundfutureperp":
+            call = partial(cls.okx_build_fundfutureperp_method, underlying_symbol=symbol)
+        if special_method == "oifutureperp":
+            call = partial(cls.okx_build_oifutureperp_method, underlying_symbol=symbol)
         data =  {
                 "type" : "api",
                 "id_api" : f"okx_api_{instType}_{objective}_{connectionData.get('instrument')}",
@@ -665,7 +664,7 @@ class okx(CommunicationsManager):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
-                "aiohttpMethod" : partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
+                "aiohttpMethod" : call,
                 }
         
         return data
@@ -673,11 +672,10 @@ class okx(CommunicationsManager):
     
     @classmethod
     def okx_build_ws_message(cls, objective, instType=None, instFamily=None, symbol=None):
-        parsed_objective = okx_ws_objective_map.get(objective)
         msg = {
                 "op": "subscribe",
                 "args": [{
-                    "channel": parsed_objective,
+                    "channel": objective,
                 }]
             }
         if instType != None:
@@ -690,35 +688,63 @@ class okx(CommunicationsManager):
         return msg
 
     @classmethod
-    def okx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=False, snaplimit=1000, **kwargs):
+    def okx_build_bulk_ws_message(cls, objectives, instTypes, instFamilys, symbols):
+        msg = {
+                "op": "subscribe",
+                "args": []
+            }
+        for o, it, iff, s in zip(objectives, instTypes, instFamilys, symbols):
+            parsed_objective = okx_ws_objective_map.get(o)
+            m = cls.okx_build_ws_message(parsed_objective, it, iff, s)
+            msg["args"].append(m.get("args")[0])
+        return msg
+
+    @classmethod
+    def okx_build_ws_connectionData(cls, instTypes, objectives, symbols, needSnap=False, snaplimit=1000, **kwargs):
         """
             You do not need to fetch ordeBook with okx websockets, it's done upon connection
             objective : liquidations trades depth oi funding optionTrades
             "though websockket of depth fetches first snapshot, its better to manually fetch the firstDEpth
         """
-        symbol_name = okx_get_instrument_name(symbol)
+        symbol_names = [okx_get_instrument_name(symbol) for symbol in symbols]
         endpoint = cls.okx_ws_endpoint
-        if objective == "liquidations":
-            message =  cls.okx_build_ws_message(objective, instType=instType)
-        elif objective == "optionTrades":
-            message =  cls.okx_build_ws_message(objective, instFamily=symbol, instType=instType)
-        else:
-            message =  cls.okx_build_ws_message(objective, symbol=symbol)
+        
+        parsed_instTypes = []
+        parsed_instFamilys = []
+        parsed_symbols = []
+        
+        for i, o, s in zip(instTypes, objectives, symbols):
+            if o == "liquidations":
+                parsed_instTypes.append(i)
+                parsed_instFamilys.append(None)
+                parsed_symbols.append(None)
+            if o == "optionTrades":
+                parsed_instTypes.append(i)
+                parsed_instFamilys.append(s)
+                parsed_symbols.append(None)
+            else:
+                parsed_instTypes.append(None)
+                parsed_instFamilys.append(None)
+                parsed_symbols.append(s)
+        
+        message = cls.okx_build_bulk_ws_message(objectives, parsed_instTypes, parsed_instFamilys, parsed_symbols)
+                
+            
+        
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"okx_ws_{instType}_{objective}_{symbol_name}",
+                                "id_ws" : f"okx_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
                                 "exchange":"okx", 
-                                "instrument": symbol_name,
-                                "instType": instType,
-                                "objective":objective, 
+                                "instrument": "_".join(symbol_names),
+                                "instType": "_".join(instTypes),
+                                "objective":"_".join(objectives), 
                                 "updateSpeed" : None,
                                 "url" : endpoint,
                                 "msg" : message,
-                                "sbmethod" : None,
                                 "1stBooksSnapMethod" : None
                             }
         if needSnap == True:
-            connection_data["1stBooksSnapMethod"] = partial(cls.okx_fetch, instType=instType, objective=objective, symbol=symbol)
+            connection_data["1stBooksSnapMethod"] = partial(cls.okx_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
         return connection_data
 
 class coinbase(CommunicationsManager):
@@ -932,7 +958,7 @@ class coinbase(CommunicationsManager):
             connection_data["1stBooksSnapMethod"] = partial(self.coinbase_fetch, instType, objective, symbol)
         return connection_data
 
-class kucoin(CommunicationsManager):
+class kucoin(CommunicationsManager, kucoinInfo):
     """
         Abstraction of kucoin api calls
     """
@@ -1093,7 +1119,7 @@ class kucoin(CommunicationsManager):
         
         return data
     
-class bingx(CommunicationsManager):
+class bingx(CommunicationsManager, bingxInfo):
 
     def __init__ (self, api_bingx="", secret_bingx=""):
         self.api_bingx = api_bingx
@@ -1496,10 +1522,18 @@ class deribit(CommunicationsManager, deribitInfo):
                 "method": channel,
                 "params": {"channels" : []}
         }
-        for par in paramss:
-            msg = cls.deribit_build_jsonrpc_msg(channel, par)
-            full["params"]["channels"].append(msg["params"]["channels"])
-        return msg
+        if channel == "heartbeats":
+            full = {
+                    "jsonrpc": "2.0", 
+                    "id": generate_random_integer(10),
+                    "method": "/public/set_heartbeat",
+                    "params": {"interval" : 5}
+            }
+        if channel != "heartbeats":
+            for par in paramss:
+                msg = cls.deribit_build_jsonrpc_msg(channel, par)
+                full["params"]["channels"].append(msg["params"]["channels"])
+        return full
 
     @classmethod
     def deribit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
@@ -1556,7 +1590,7 @@ class deribit(CommunicationsManager, deribitInfo):
             connection_data["1stBooksSnapMethod"] = partial(cls.deribit_fetch, instTypes[0], objectives[0], symbols[0]) 
         return connection_data
 
-class htx(CommunicationsManager):
+class htx(CommunicationsManager, htxInfo):
     """
         Abstraction of bybit api calls
     """
@@ -1739,7 +1773,7 @@ class htx(CommunicationsManager):
             connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
         return connection_data
 
-class mexc(CommunicationsManager):
+class mexc(CommunicationsManager, mexcInfo):
     """
         Abstraction of bybit api calls
     """
@@ -2006,213 +2040,3 @@ class gateio(CommunicationsManager, gateioInfo):
         if instType == "option":
             connection_data["get_option_instruments_Method"] = partial(cls.gateio_get_active_option_instruments(cls, symbol)) 
         return connection_data
-
-
-
-class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx):
-    
-    @classmethod
-    def test_deribit_apiData(cls, **kwargs):
-        # a = cls.deribit_fetch("option", "oifunding", symbol="BTC")
-        # print(a)
-        async def example():
-            d = cls.deribit_build_api_connectionData("option", "depth", 100, symbol="BTC-PERPETUAL", limit=1000)
-            result = await d['aiohttpMethod'](**d["params"])
-            # a = await cls.deribit_aiohttpFetch("option", "oifunding", symbol="BTC", limit=1000) # works even with unnecessary arguments
-            print(result)
-
-        asyncio.run(example())
-
-    @classmethod
-    def test_deribit_wsData(cls, **kwargs):
-        #async def example():
-        d = cls.deribit_build_ws_connectionData("option", symbol="BTC", objective="oifunding", limit=1000)
-        result =  d['sbmethod'](**d["sbPar"])
-        print(result)
-        #asyncio.run(example())
-
-    @classmethod
-    def test_htx_api(cls):
-        print(cls.htx_fetch(instType="perpetual", objective="tta", symbol="BTC-USD"))
-
-    @classmethod
-    def test_htx_ws(cls):
-        ht = cls.htx_build_api_connectionData("perpetual", "tta", "BTC-USD", 10)
-        async def example():
-            d = await ht["aiohttpMethod"]()
-            print(d)
-        asyncio.run(example())
-    
-    @classmethod
-    def test_ws(cls):
-        connData = htx.htx_build_ws_connectionData("perpetual", "depth", "BTC-USD")
-        print(connData.get("kickoffMethod")())
-        print(connData)
-
-    @classmethod
-    def test(cls):
-        async def example():
-            d = await cls.htx_aiohttpFetch_futureTrades()
-            print(d)
-        asyncio.run(example())
-
-    @classmethod
-    def test_mexc_ws(cls):
-        connData = cls.mexc_build_ws_connectionData("spot", "depth", "BTCUSDT")
-        print(connData["kickoffMethod"]())
-
-    @classmethod
-    def gate_test_api(cls):
-        async def example():
-            connData =  cls.gateio_build_api_connectionData("perpetual", "funding", "BTC_USDT", 100)
-            r = await connData["aiohttpMethod"]()
-            print(r)
-        asyncio.run(example())
-
-    @classmethod
-    def gate_test_ws(cls):
-        connData =  cls.gateio_build_ws_connectionData("option", "trades", "BTC_USDT")
-        print(connData["kickoffMethod"]())
-    #     asyncio.run(example())
-
-    @classmethod
-    def gate_option_msg(cls):
-        print(cls.gateio_build_ws_message_all_Options("depth", "BTC_USDT"))
-
-    @classmethod
-    def binance_instruments(cls):
-        async def example():
-            data =  await cls.binance_build_fundfutureperp_method("BTC")
-            print(data)
-        asyncio.run(example())
-        
-    @classmethod
-    def binance_ws(cls):
-        s = ["spot", "spot"]
-        o = ["liquidations", "liquidations"]
-        ss= ["BTCUSDT", "BTCUSDT"]
-        data = cls.binance_build_ws_connectionData(s,o,ss)
-        print(data)
-        # print(data["1stBooksSnapMethod"]())
-
-    @classmethod
-    def bybit_aiohttp(cls):
-        async def example():
-            data = cls.bybit_build_api_connectionData("Linear", "oi", "BTC", 100, special_method="oifutureperp")
-            d = await data["aiohttpMethod"]()
-            print(d)
-        asyncio.run(example())
-
-    @classmethod
-    def bybit_ws(cls):
-        data = cls.bybit_build_ws_connectionData("Linear", "trades", "BTC", special_method="perpfutureTrades")
-        print(data)
-        # print(data["1stBooksSnapMethod"]())
-
-    @classmethod
-    def okx_aiohttp(cls):
-        async def example():
-            data = cls.okx_build_api_connectionData("option", "gta", "BTC", 100)
-            d = await data["aiohttpMethod"]()
-            print(d)
-        asyncio.run(example())
-
-    @classmethod
-    def okx_ws(cls):
-        async def example():
-            data = cls.okx_build_ws_connectionData("perpetual", "depth", "BTC-USD-SWAP", needSnap=True)
-            # d = await data["aiohttpMethod"]()
-            print(data["1stBooksSnapMethod"]())
-        asyncio.run(example())
-
-    @classmethod
-    def bingx_api(cls):
-        async def example():
-            data = cls.bingx_build_api_connectionData("perpetual", "depth", "BTC-USDT", 100, needSnap=True)
-            d = await data["aiohttpMethod"]()
-            # print(data["1stBooksSnapMethod"]())
-            print(d)
-        asyncio.run(example())
-
-
-    @classmethod
-    def bitget_api(cls):
-        async def example():
-            data = cls.bitget_build_api_connectionData("perpetual", "oi", "BTC", 100, special_method="oifutureperp")
-            d = await data["aiohttpMethod"]()
-            # print(data["1stBooksSnapMethod"]())
-            print(d)
-        asyncio.run(example())
-
-    @classmethod
-    def bitget_ws(cls):
-        async def example():
-            instTypes = ["spot"]
-            objs = ["depth"]
-            symbls = ["BTCUSDT"]
-            data = cls.bitget_build_ws_connectionData(instTypes, objs, symbls, True)
-            print(data["1stBooksSnapMethod"]())
-        asyncio.run(example())
-
-    @classmethod
-    def deribit_api(cls):
-        async def example():
-            data = cls.deribit_build_api_connectionData("option", "oifunding", "BTC", 100)
-            d = await data["aiohttpMethod"]()
-            # print(data["1stBooksSnapMethod"]())
-            print(d)
-        asyncio.run(example())
-
-    @classmethod
-    def deribit_ws(cls):
-        async def example():
-            instTypes = ["perpetual"]
-            objs = ["depth"]
-            symbls = ["BTC-PERPETUAL"]
-            data = cls.deribit_build_ws_connectionData(instTypes, objs, symbls, True)
-            # = await data["1stBooksSnapMethod"]()
-            print(data)
-        asyncio.run(example())
-clientTest.binance_ws()
-
-
-# bing = bingx("", "")
-# def bingx_api():
-#     async def example():
-#         data = bing.bingx_build_api_connectionData("perpetual", "oi", "BTC-USDT", 100, needSnap=True)
-#         d = await data["aiohttpMethod"]()
-#         # print(data["1stBooksSnapMethod"]())
-#         print(d)
-#     asyncio.run(example())
-# bingx_api()
-
-
-# coinbaseSecret = '-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIDOVctxJpAI/hHtbUN9VrHej4bWPRuT9um9FoBlTgiyaoAoGCCqGSM49\nAwEHoUQDQgAEJt8JWIh8CHm045POImBF0ZvVuX5FbQjIDhIT82hE5r1+vb8cSQ3M\nfEjriBy1/ZD3EywPNxyGe6nO/Wsq0M8hXQ==\n-----END EC PRIVATE KEY-----\n'
-# coinbaseAPI = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8516-f2e2-4ec9-a593-464338d96f21'
-
-# coinb = coinbase(coinbaseAPI, coinbaseSecret)
-
-# # print(coinb.coinbase_productids_by_instType("future"))
-
-# data = coinb.coinbase_build_api_connectionData("future", "depth", "BIT-26APR24-CDE", 10)
-
-# async def example():
-#     data = coinb.coinbase_build_ws_connectionData("spot", "depth", "BTC-USD")
-#     print(data)
-# asyncio.run(example())
-
-
-
-# kucoinAPI = "65d92cc0291aa2000118b67b"
-# kucoinSecret = "3d449464-ab5e-4415-9950-ae31648fe90c"
-# kucoinPass = "sN038-(!UK}4"
-
-# kuk = kucoin(kucoinAPI, kucoinSecret, kucoinPass)
-
-# # print(coinb.coinbase_productids_by_instType("future"))
-
-# async def example():
-#     data = kuk.kucoin_build_api_connectionData("perpetual", "oifunding", "XBTUSDTM", 100)
-#     d = await data["aiohttpMethod"]()
-#     print(d)
-# asyncio.run(example())

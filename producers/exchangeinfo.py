@@ -182,28 +182,16 @@ class okxInfo(requestHandler):
     okx_info_url = {  
         "spot" : "https://www.okx.com/api/v5/public/instruments?instType=SPOT",
         "perpetual" : "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
-        "futures" : "https://www.okx.com/api/v5/public/instruments?instType=FUTURES",
-        "option" : "https://www.okx.com/api/v5/public/instruments?instType=OPTION&instFamily=BTC-USD",
+        "future" : "https://www.okx.com/api/v5/public/instruments?instType=FUTURES",
+        "option" : "https://www.okx.com/api/v5/public/instruments?instType=OPTION",
     }
-    okx_call_example = {
-                "spot" : "BTCUSDT",
-                "perpetual" : {
-                    "LinearPerpetual" : 'BTC-USDT-SWAP',
-                    "InversePerpetual" : 'BTC-USD-SWAP',
-                },
-                "future" : {
-                    "LinearFuture" : "BTC-USD-240315",
-                    "InverseFuture" : "BTC-USD-240315",
-                },
-                "option" : "BTC-USD-241227-30000-P"
-            }
-
     @classmethod
-    def okx_symbols_by_instType(cls, isntType):
+    def okx_symbols_by_instType(cls, isntType, instFamily="BTC-USD"):
         """ 
             spot, perpetual, future, option
+            &instFamily=BTC-USD
         """
-        urls = cls.okx_info_url.get(isntType)
+        urls = cls.okx_info_url.get(isntType) if isntType != "option" else f"{cls.okx_info_url.get(isntType)}instFamily={instFamily}"
         data = cls.simple_request(urls).get("data")
         symbols = [d["instId"] for d in data]
         return symbols
@@ -651,9 +639,9 @@ class htxInfo(requestHandler):
         return cls.simple_request(url).get("data")
 
 class gateioInfo(requestHandler):
-    gateio_endpoint = "https://api.gateio.ws"
-    gateio_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-    gateio_basepoints = {
+    gateio_endpointtt = "https://api.gateio.ws"
+    gateio_headerssss = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    gateio_basepointsss = {
         "spot" : "/api/v4/spot/currency_pairs",
         "perpetual" : {
             "LinearPerpetual" : "/api/v4/futures/usdt/contracts",
@@ -674,10 +662,10 @@ class gateioInfo(requestHandler):
             prdocut_ids = list(set([x[key] for x in info]))
             return prdocut_ids
         if instType == "perpetual":
-            links = iterate_dict(cls.gateio_basepoints.get(instType))
+            links = iterate_dict(cls.gateio_basepointsss.get(instType))
             d = []
             for basepoint in links:
-                data = cls.request_full(cls.gateio_endpoint+basepoint, headers=cls.gateio_headers, params={})
+                data = cls.request_full(cls.gateio_endpointtt+basepoint, headers=cls.gateio_headerssss, params={})
                 prdocut_ids = list(set([x["name"] for x in data]))
                 d.append(prdocut_ids)
             return unnest_list(d)
@@ -685,7 +673,7 @@ class gateioInfo(requestHandler):
             underlyings = cls.gateio_option_underlying_assets()
             d = []
             for underlying in underlyings:
-                data = cls.request_full(cls.gateio_endpoint+cls.gateio_basepoints.get("option"), headers=cls.gateio_headers, params={"underlying" : underlying})
+                data = cls.request_full(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
                 d.append(list(set([x["name"] for x in data])))
             return unnest_list(d) 
 
@@ -696,14 +684,14 @@ class gateioInfo(requestHandler):
             spot, option, perpetual, future
         """
         d= {}
-        for key in cls.gateio_basepoints:
+        for key in cls.gateio_basepointsss:
             symbols = cls.gateio_symbols_by_instType(key)
             d[key] = symbols
         return d
 
     @classmethod
     def gateio_option_underlying_assets(cls):
-         data = cls.request_full(url=f"{cls.gateio_endpoint}/api/v4/options/underlyings", headers=cls.gateio_headers, params={})
+         data = cls.request_full(url=f"{cls.gateio_endpointtt}/api/v4/options/underlyings", headers=cls.gateio_headerssss, params={})
          return [x["name"] for x in data]
     
     @classmethod
@@ -712,15 +700,15 @@ class gateioInfo(requestHandler):
             ex. perpetual.LinearPerpetual
         """
         if instType != "option":
-            basepoint = recursive_dict_access(cls.gateio_basepoints, instType)
-            url = f"{cls.gateio_endpoint}{basepoint}"
+            basepoint = recursive_dict_access(cls.gateio_basepointsss, instType)
+            url = f"{cls.gateio_endpointtt}{basepoint}"
             info = cls.simple_request(url)
             return info
         else:
             underlyings = cls.gateio_option_underlying_assets()
             d = []
             for underlying in underlyings:
-                data = cls.request_full(cls.gateio_endpoint+cls.gateio_basepoints.get("option"), headers=cls.gateio_headers, params={"underlying" : underlying})
+                data = cls.request_full(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
                 d.append(data)
             return unnest_list(d) 
         

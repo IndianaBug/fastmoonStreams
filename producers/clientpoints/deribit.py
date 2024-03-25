@@ -14,6 +14,7 @@ deribit_jsonrpc_channel_map = {
     "depth" : "public/get_order_book",
     "oifunding" : "public/get_book_summary_by_currency",
     "ws" : "public/subscribe",
+    "heartbeats" : "/public/set_heartbeat"
 }
 
 deribit_instType_map = {

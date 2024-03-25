@@ -31,8 +31,12 @@ coinbase_ws_endpoint = "wss://advanced-trade-ws.coinbase.com"
 coinbase_stream_keys = {
             "trades" : "market_trades",
             "depth" : "product_book",
+            "heartbeats" : "heartbeats"
             }
 
 
 def coinbase_get_symbol_name(symbol):
     return symbol.replace("-", "").lower()
+
+
+

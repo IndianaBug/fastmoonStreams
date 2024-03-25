@@ -7,23 +7,23 @@ okx_api_endpoint = "https://www.okx.com"
 okx_api_instType_map = {
                         "spot" : "SPOT",
                         "perpetual" : "SWAP",
-                        "future" : "FUTURE",
+                        "future" : "FUTURES",
                         "option" : "OPTION",
                         "margin" : "MARGIN"
                     }
 
 okx_api_basepoints = {
                         "gta" : "/api/v5/rubik/stat/contracts/long-short-account-ratio", 
-                        "oifutperp" : "/api/v5/rubik/stat/contracts/open-interest-volume",
-                        "oioption" : "/api/v5/public/open-interest",
+                        "oitotal" : "/api/v5/rubik/stat/contracts/open-interest-volume",
+                        "oi" : "/api/v5/public/open-interest",
                         "funding" : "/api/v5/public/funding-rate",
                         "depth" : "/api/v5/market/books-full",                            
                     }
 
 okx_api_params_map = {
                         "gta" : lambda ccy: {"ccy" : ccy,  "period" : "5m"},
-                        "oifutperp" : lambda ccy: {"ccy" : ccy, "period" : "5m"},   
-                        "oioption" : lambda instType, instFamily: {"instType" : instType, "instFamily" : instFamily},   
+                        "oitotal" : lambda ccy: {"ccy" : ccy, "period" : "5m"},   
+                        "oi" : lambda instType, instFamily: {"instType" : instType, "instFamily" : instFamily},   
                         "funding" : lambda instId: {"instId" : instId},
                         "depth" : lambda instId: {"instId" : instId, "sz" : "1000"},                    
                     }
