@@ -90,7 +90,7 @@ Notes:
 | trades                | Stream of trades per instrument |
 | liquidations          | Streams all liquidations per instrument type. Available types: SWAP, FUTURES, OPTION, MARGIN which must be inputed instead of the symbol  |
 | funding             | Stream of funding for certain instrument  |
-| oi             | Stream of open interest for certain instrument |
+| oi             | Retrieve the total open interest for contracts on OKX. Can be called with the exact name of an instrument or with instrument Type (SWAP, FUTURES, OPTION) |
 | optionTrades             |  Streams trades for all options with underlying instrument Ex. BTC-USD |
 
 
@@ -106,6 +106,7 @@ Notes:
 | oitotal | Retrieve the open interest and trading volume for Expiry Futures and Perpetual Futures. |
 | gta | Retrieve the ratio of users with net long vs net short positions for Expiry Futures and Perpetual Futures. |
 | oi, special_method="oifutureperp" | Queries oi for Expiry Futures and Perpetual Futures in a single call |
+| oi, special_method="oiption" | Queries oi for all options |
 | funding, special_method="fundfutureperp" | Queries fundings for Expiry Futures and Perpetual Futures in a single call |
 
 

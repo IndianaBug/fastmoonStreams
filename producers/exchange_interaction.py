@@ -24,6 +24,21 @@ class ExchangeAPIClient():
             for method_name in dir(client):
                 if not method_name.startswith("__") and callable(getattr(client, method_name)):
                     setattr(self, method_name, getattr(client, method_name))
+    
+    def get_method_of_exchnage(self, type_, exchange, connStr):
+        """
+            type : ws, api
+        """
+        method_str = f"{exchange}_build_{type_}_connectionData"
+        function = getattr(self, method_str)
+        connStr = connStr.split(".")
+        instType = connStr.pop(0)
+        needSnap = True if connStr.pop(connStr.index("snap"))=="snap" else False
+        special_method = True if connStr.pop(connStr.index("spec"))=="spec" else False
+        objective = connStr.pop(1)
+        symbols = 
+        
+        
                     
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]

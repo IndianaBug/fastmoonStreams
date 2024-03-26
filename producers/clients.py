@@ -643,6 +643,16 @@ class okx(CommunicationsManager, okxInfo):
         return data
 
     @classmethod
+    async def okx_build_oioption_method(cls, underlying_symbol):
+        marginCoinsF = [x for x in cls.okx_symbols_by_instType("option") if underlying_symbol in x]
+        marginCoinsF = list(set([x.split("-")[1] for x in marginCoins]))
+        data = []
+        for marginCoin in marginCoinsF:
+            futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
+            data.append(futures)
+        return data
+
+    @classmethod
     def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None, **kwargs):
         """
             objective :  gta oi oioption funding depth

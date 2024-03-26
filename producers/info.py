@@ -12,248 +12,88 @@ client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret,
 all_instruments = client.retrieve_all_instruments()
 symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
 
-websockets = {
-    "binance" : {
-        "spot" : {
-            "depth" : ["BTCUSDT", "BTCFDUSD"],
-            "trades" : ["BTCUSDT", "BTCTUSD", "BTCUSDC", "BTCUSDS", "BTCBUSD", "BTCFDUSD"],
-        },
-        "perpetual" : {
-            "depth" : ["BTCUSD_PERP", "BTCUSDT"],
-            "trades" : ["BTCUSD_PERP", "BTCUSDT", "BTCUSDC"],
-            "liquidations" : ["BTCUSD_PERP", "BTCUSDT", "BTCUSDC"],
-        },
-        "option" : {
-            "trades" : ["BTC"]
-        }
-    },
-    "bybit" :  {
-        "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : ["BTCUSDT", "BTCUSDC"],
-        },
-        "perpetual" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : ["BTCPERP", "BTCUSD", "BTCUSDT"],
-            "liquidations" : ["BTCPERP", "BTCUSD", "BTCUSDT"],
-        },
-        "option" : {
-            "trades" : ["BTC"],
-            "oi" : ["BTC"]
-        }
-    },
-    "okx" :  {
-        "spot" : {
-            "depth" : ["BTC-USDT"],
-            "trades" : ["BTC-USDT", "BTC-USDC"],
-        },
-        "perpetual" : {
-            "depth" : ["BTC-USDT-SWAP"],
-            "trades" : ["BTC-USD-SWAP", "BTC-USDT-SWAP", "BTC-USDC-SWAP"],
-            "liquidations" : ["SWAP", "FUTURES", "OPTION"]
-        },
-        "option" : {
-            "trades" : ["BTC"]
-        }
-    },
-    "deribit" :  {
-        "spot" : {
-        },
-        "perpetual" : {
-            "depth" : ["BTC-PERPETUAL"],
-            "tradesagg" : ["BTC-PERPETUAL", "BTC-4JUN21"],
-        },
-        "option" : {
-            "trades" : ["BTC"]
-        },
-        "heartbeats" : {
-            "heartbeats" : ["BTC-PERPETUAL"]
-        }
-    },
-    "bitget" :  {
-        "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : ["BTCUSDT", "BTCUSDC"],
-        },
-        "perpetual" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : ["BTCUSDT", "BTCPERP", "BTCUSD"],
-        },
-    },
-    "bingx" :  {
-        "spot" : {
-            "trades" : ["BTC-USDT"],
-        },
-        "perpetual" : {
-            "trades" : ["BTC-USDT"],
-        },
+# The Instruments must be of the same format (upper lower with hiphens) as in API calls
+ws = {
+    "binance" : [
+        "spot.depth.BTCUSDT.snap", "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", # if you want to mix different channels "spot.trades.BTCUSDT.liquidations.BTCTUSD,
+        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSD_PERP.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP.BTCUSDT.BTCUSDC",
+        "option.trades.BTC",
+        ],
+    "bybit" : [
+        "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
+        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", "perpetual.trades.BTCUSDT.BTCUSD.BTCPERP", "perpetual.liquidations.BTCUSDT.BTCUSD.BTCPERP",
+        "option.trades.BTC", "option.oi.BTC",
+        ],
+    "okx" : [
+        "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT.BTC-USDC",
+        "perpetual.depth.BTC-USDT-SWAP.snap", "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", "perpetual.liquidations.SWAP.FUTURES.OPTION",
+        "option.trades.BTC",
+        ],
+    "deribit" : [
+        "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL",
+        "option.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL"
+        ],
+    "bitget" : [
+        "spot.depth.BTCUSDT.snap", "future.trades.BTCUSDT.BTCUSDC",
+        "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
+        ],
+    "bingx" : [
+        "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT",
+        ],
+    "kucoin" : [
+        "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
+        "perpetual.depth.XBTUSDTM.snap", "perpetual.trades.XBTUSDTM",
+        ],
+    "gateio" : [
+        "spot.depth.BTC_USDT.snap", "spot.trades.BTC_USDT",
+        "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT", 
+        "option.trades.BTC", "option.oi.BTC",
+        ],
+    "mexc" : [
+        "spot.depth.BTCUSDT.snap", "spot.trades.BTCUSDT",
+        "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT",
+        ],
+    "coinbase" : [
+        "spot.depth.BTC-USD.snap", "spot.trades.BTC-USD", "spot.heartbeats.BTC-USD",
+        ],
+}
 
-    },
-    "kucoin" :  {
-        "spot" : {
-            "depth" : ["BTC-USDT"],
-            "trades" : ["BTC-USDT"],
-        },
-        "perpetual" : {
-            "depth" : ["XBTUSDTM"],
-            "trades" : ["XBTUSDTM"],
-        },
-    },
-    "gateio" :  {
-        "spot" : {
-            "depth" : ["BTC_USDT"],
-            "trades" : ["BTC_USDT"],
-        },
-        "perpetual" : {
-            "depth" : ["BTC_USDT"],
-            "trades" : ["BTC_USDT"],
-        },
-        "option" : {
-            "trades" : ["BTC"],
-            "oi" : ["BTC"]
-        }
-    },
-    "htx" :  {
-    },
-    "mexc" :  {
-        "spot" : {
-            "depth" : ["BTCUSDT"],
-            "trades" : ["BTCUSDT"],
-        },
-        "perpetual" : {
-            "depth" : [],
-            "trades" : ["BTC_USDT"],
-        },
-    },
-    "coinbase" :  {
-        "spot" : {
-            "depth" : ["BTC-USD"],
-            "trades" : ["BTC-USD"],
-            "heartbeats":["BTC-USD"]
-        }
-    },
+api = {
+    "binance" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+        "option.oi.BTC.15.spec",
+        ],
+    "bybit" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+        "option.oifunding.15.BTC",
+        ],
+    "okx" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
+        "option.oi.BTC.15.spec",
+        ],
+    "deribit" : [
+        "future.oifunding.BTC.15", "option.oifunding.BTC.15",
+        ],
+    "bitget" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", 
+    ],
+    "bingx" : [
+        "spot.depth.BTC-USDT.30", "perpetual.depth.BTC-USDT.30",
+        ],
+    "kucoin" : [
+        "perpetual.oifunding.XBTUSDTM.15",
+        ],
+    "gateio" : [
+        "perpetual.tta.BTC.300", "perpetual.oifunding.BTC.15", 
+        "option.oi.BTC.15",
+        ],
+    "mexc" : [
+        "perpetual.oifunding.BTC.15",
+        ],
+    "htx" : [
+        "perpetual.oi.BTC.spec", "future.ttp.BTC", "future.tta.BTC",
+        ],
 }
 
 
-aiohttp = {
-    "binance" : {
-        "perpetual" : {
-            "oi" : "",
-            "oi" : "",
-            "oi" : "",
-        },
-        "option" : {
-            "oi" : ["BTC", ]
-        }
-    },
-    "bybit" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "okx" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "deribit" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "bitget" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "bingx" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "kucoin" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "gateio" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "htx" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "mexc" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-    "coinbase" : {
-        "spot" : {
-            
-        },
-        "perpetual" : {
-            
-        },
-        "option" : {
-            
-        }
-    },
-}
+
