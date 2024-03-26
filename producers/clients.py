@@ -1682,15 +1682,17 @@ class htx(CommunicationsManager, htxInfo):
             objective : depth, oi, tta, ttp
             symbol : from htx symbols
             pullTimeout : how many seconds to wait before you make another call
-            special : futureDepth, futureOI
+            special : oifutureperp, depthfutureperp, tradesfutureperp
         """
-        connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
+        # connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
         symbol_name = htx_symbol_name(symbol)
         
-        if special == "futuredepth":
+        if special == "depthfutureperp":
+            call = partial(cls.htx_aiohttpFetch_futureDepth)
+        if special == "oifutureperp":
             call = partial(cls.htx_aiohttpFetch_futureOI)
-        if special == "futureoi":
-            call = partial(cls.htx_aiohttpFetch_futureOI)
+        if special == "tradesfutureperp":
+            call = partial(cls.htx_aiohttpFetch_futureTrades)
         else:
             call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
 
@@ -1702,7 +1704,6 @@ class htx(CommunicationsManager, htxInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "connectionData" : connectionData,
                 "aiohttpMethod" : call,
                 }
         

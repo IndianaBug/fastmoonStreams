@@ -18,6 +18,7 @@ mexc_api_basepoints = {
     },
     "perpetual" : {
         "depth" : "/api/v1/contract/depth", #?symbol=BTC_USDT
+        "oifunding" : "api/v1/contract/ticker", #?symbol=BTC_USDT
     }
 }
 

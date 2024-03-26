@@ -229,7 +229,7 @@ Notes:
 |-----------------------|------------------------------------------------------------------------------------------------------------------------|
 | depth                 | Streams updates to orderbook in absolute amounts                                                            |
 | depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
-| trades, needSnap=True  | Stream of trades of an instrument                                   |
+| trades  | Stream of trades of an instrument                                   |
 
 
 
@@ -247,8 +247,10 @@ Notes:
 ### Gate.io
 
 - Bulk streams not allowed. You need to create separated ws connection for every stream.
+- Only runs on the cloud, use Japan as the location for optimal performance
+- Only USDT marginated futures available
 - FAQs : None
-- API FAQs : https://www.kucoin.com/docs/beginners/introduction
+- API FAQs : https://www.gate.io/docs/developers/apiv4/en/
 
 #### Websockets
 
@@ -257,9 +259,8 @@ Notes:
 | depth                 | Streams updates to order books in absolute amount                                                                      |
 | depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
 | trades (liquidations)               | Streams trades for an instrument. Every trade will be marked weather it was a liquidaiton or not. |
-| oifunding             | Stream of funding for certain instrument  |
-| oi             | Stream of open interest for certain instrument |
-
+| oifunding             | Streams oi, funding by an underlying_instrument or an instrument https://www.gate.io/docs/developers/apiv4/en/#list-futures-tickers  |
+| oi             | Only for options. Streams open interest for every option instrument by an underlying instrument (BTC) |
 
 
 #### Aiohttp
@@ -269,9 +270,71 @@ Notes:
 | Method Name          | Description                                                                                                            |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------|
 | depth   | Not recommended to use due to limit rates |
-| trades   | Not recommended to use due to limit rates |
-| oifunding () | Queries of funding per instrument     |
-| liquidations | Retrieve the ratio of users with net long vs net short positions for Expiry Futures and Perpetual Futures. |
+| trades (liquidations)  | Queries trades for an instrument. Every trade will be marked weather it was a liquidaiton or not|
+| oifunding | Queries this oi, funding for an instrument or an underlying instrument (ex. BTC) https://www.gate.io/docs/developers/apiv4/en/#list-futures-tickers    |
+| liquidations | Retrives liquidation history of an instrument |
+| tta (oi)| Queries, oi, tta by an instrument or an underlying_instrument (ex. BTC) https://www.gate.io/docs/developers/apiv4/en/#futures-stats 
 
 
 
+### HTX
+
+- Bulk streams not allowed. You need to create separated ws connection for every stream.
+- FAQs : None
+- API FAQs : https://www.htx.com/en-us/opend/newApiPages/
+
+#### Websockets
+
+| Method Name           | Description                                                                                                            |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| depth                 | Streams updates to order books in absolute amount                                                                      |
+| depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
+| trades                | Streams trades for an instrument |
+| liquidations             |Streams liquidations for an underlying instrument  |
+| funding            | Streams funding for an underlying instrument |
+
+
+#### Aiohttp
+
+- pullTimeout need to be passed to every method, which is the intreval between every pull
+
+| Method Name           | Description                                                                                                            |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| depth                 | Queries updates to order books in absolute amount                                                                      |
+| oi                | Queries trades for an instrument. Every trade will be marked weather it was a liquidaiton or not. |
+| tta             | 	Query Top Trader Sentiment Index Function-Account by an underlying Instrument (use future as the instType)|
+| ttp            | 	Query Top Trader Sentiment Index Function-Position, only for Linear Margin Types by an underlying Instrument (use future as the instType)|
+| depth     special_method="depthfutureperp"           | Queries the depth snapshot of all Expiry Futures and Perpetual Futures for an underlying instrument  (use future and the instType) |
+| trades   special_method="tradesfutureperp"          | Queries last trades of all Expiry Futures and Perpetual Futures for an underlying instrument  (use future and the instType) |
+| oi        special_method="oifutureperp"     | Queries current open interest for all Expiry Futures and Perpetual Futures for an underlying instrument  (use future and the instType) |
+
+
+
+
+
+### MEXC
+
+- Bulk streams not allowed. You need to create separated ws connection for every stream.
+- Overall, api support is poor and unfriendly.
+- I wouldn't use perpetual depth streams.
+- API FAQs : https://mexcdevelop.github.io/apidocs/contract_v1_en
+
+#### Websockets
+
+| Method Name           | Description                                                                                                            |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| depth                 | Streams updates to orderbook in absolute amounts                                                            |
+| depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
+| trades  | Stream of trades of an instrument                                   |
+| oifunding | The real-time ticker includes this https://www.kucoin.com/docs/rest/futures-trading/market-data/get-symbol-detail |
+
+
+
+#### Aiohttp
+
+- pullTimeout need to be passed to every method, which is the intreval between every pull
+
+| Method Name          | Description                                                                                                            |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------|
+| depth   | not recommended to use due to weigted rate limits|
+| oifunding | The real-time ticker includes this https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels |
