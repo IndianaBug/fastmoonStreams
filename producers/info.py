@@ -138,7 +138,9 @@ websockets = {
 aiohttp = {
     "binance" : {
         "perpetual" : {
-            
+            "oi" : "",
+            "oi" : "",
+            "oi" : "",
         },
         "option" : {
             "oi" : ["BTC", ]
