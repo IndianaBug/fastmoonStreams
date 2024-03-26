@@ -35,6 +35,7 @@ Notes:
 | gta | The proportion of net long and net short accounts to total accounts of the top 20% users with the highest margin balance. Each account is counted once only. Long Account % = Accounts of top traders with net long positions / Total accounts of top traders with open positions. Short Account % = Accounts of top traders with net short positions / Total accounts of top traders with open positions. Long/Short Ratio (Accounts) = Long Account % / Short Account %. For inverse types of contracts, the call is the same for all symbols (e.g., BTCUSD, not BTCUSD_PERP)|
 | funding, special_method="fundfutureperp" | Queries fundings for Expiry Futures and Perpetual Futures in a single call |
 | oi, special_method="oifutureperp" | Queries oi for Expiry Futures and Perpetual Futures in a single call |
+| oi, special_method="oioption" | Queries oi for all options instruments in a single call |
 | gta, special_method="posfutureperp" | Queries tta, ttp, gta for Expiry Futures and Perpetual Futures in a single call |
 
 
@@ -328,7 +329,7 @@ Notes:
 | depth                 | Streams updates to orderbook in absolute amounts                                                            |
 | depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
 | trades  | Stream of trades of an instrument                                   |
-| oifunding | The real-time ticker includes this https://www.kucoin.com/docs/rest/futures-trading/market-data/get-symbol-detail |
+| oifunding | The real-time ticker includes this https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels |
 
 
 
