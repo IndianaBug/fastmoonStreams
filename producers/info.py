@@ -9,13 +9,13 @@ kucoinPass = "sN038-(!UK}4"
 
 
 client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret, kucoinPass)
-all_instruments = client.retrieve_all_instruments()
-symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
+# all_instruments = client.retrieve_all_instruments()
+# symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
 
 # The Instruments must be of the same format (upper lower with hiphens) as in API calls
 ws = {
     "binance" : [
-        "spot.depth.BTCUSDT.snap", "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", # if you want to mix different channels "spot.trades.BTCUSDT.liquidations.BTCTUSD,
+        "spot.depth.BTCUSDT.snap", "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
         "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSD_PERP.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP.BTCUSDT.BTCUSDC",
         "option.trades.BTC",
         ],
@@ -96,4 +96,10 @@ api = {
 }
 
 
+
+data = client.build_connection_data_test(ws, api)
+
+
+for e in data:
+    print(e)
 

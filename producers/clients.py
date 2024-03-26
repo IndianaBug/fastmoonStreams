@@ -316,7 +316,6 @@ class binance(CommunicationsManager, binanceInfo):
             "params": [], 
             "id": generate_random_integer(10)
         }
-        print(insTypes, objectives, symbols)
         for i, o, s in zip(insTypes, objectives, symbols):
             payload = binance_ws_payload_map.get(i).get(o)(s)
             message["params"].append(payload)
