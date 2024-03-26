@@ -149,6 +149,8 @@ Notes:
 | depth                 | Streams updates to order books in absolute amount                                                                      |
 | depth, needSnap=True  | The same as depth but will snap the order books with the length of 1000 levels                                         |
 | trades                | Stream of trades per instrument |
+| heartbeats                | Needs to be called for every trading instrument in order to support a stable connection |
+
 
 #### Aiohttp
 
