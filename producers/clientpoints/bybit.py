@@ -96,12 +96,15 @@ inversequotes = ["USD", "USDH", "USDM", "USDU"]
 
 def bybit_get_marginType(instType, symbol):
     marginType = None
-    isLinear = [x for x in linearquotes if x in symbol]
-    isInverse = [x for x in inversequotes if x in symbol]
-    marginType = "Linear" if len(isLinear) > 0 else "Inverse"
-    marginType = "Linear" if len(isLinear) == 0 and len(isInverse)==0 else marginType
-    instType = instType[0].upper() + instType[1:]
-    return f"{marginType}{instType}"
+    if instType in ["perpetual", "future"]:
+        isLinear = [x for x in linearquotes if x in symbol]
+        isInverse = [x for x in inversequotes if x in symbol]
+        marginType = "Linear" if len(isLinear) > 0 else "Inverse"
+        marginType = "Linear" if len(isLinear) == 0 and len(isInverse)==0 else marginType
+        instType = instType[0].upper() + instType[1:]
+        return f"{marginType}{instType}"
+    else:
+        return marginType
 
 
 def bybit_get_instrument_name(symbol):

@@ -27,7 +27,8 @@ deribit_instType_map = {
 deribit_ws_params_map = {
     "depth" : lambda symbol, kind: {"channels": [f"book.{symbol}.none.20.agg2"]},
     "trades" : lambda symbol, kind: {"channels": [f"trades.{symbol}.agg2"]},
-    "tradesagg" : lambda symbol, kind: {"channels": [f"trades.{kind}.{symbol}.agg2"]}
+    "tradesagg" : lambda symbol, kind: {"channels": [f"trades.{kind}.{symbol}.agg2"]},
+    "heartbeats": lambda symbol, kind: {},
 }
 
 

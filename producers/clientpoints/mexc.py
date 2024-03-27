@@ -14,11 +14,11 @@ mexc_ws_endpoints = {
 # Symbols as in mexc.info
 mexc_api_basepoints = {
     "spot" : {
-        "depth" : "/api/v3/depth",     #?symbol=BTCUSDT&limit=5000
+        "depth" : "/api/v3/depth",     
     },
     "perpetual" : {
-        "depth" : "/api/v1/contract/depth", #?symbol=BTC_USDT
-        "oifunding" : "api/v1/contract/ticker", #?symbol=BTC_USDT
+        "depth" : "/api/v1/contract/depth", 
+        "oifunding" : "api/v1/contract/ticker", 
     }
 }
 

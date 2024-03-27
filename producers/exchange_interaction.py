@@ -37,8 +37,10 @@ class ExchangeAPIClient():
         for exchange in apis:
             for api in apis[exchange]:
                 try:
-                    connData = self.get_method_connData("api", exchange, ws)
-                except:
+                    connData = self.get_method_connData("api", exchange, api)
+                except Exception as e:
+                    print(exchange + " " + api +" is fucked")
+                    print(e)
                     connData = exchange + " " + api +" is fucked"
                 d.append(connData)
         return d
@@ -66,12 +68,25 @@ class ExchangeAPIClient():
         connStr = connStr.split(".")
         instType = connStr.pop(0)
         objective = connStr.pop(0)
+
+        derivate_smd = {
+            "oi" : "oifutureperp",
+            "gta" : "posfutureperp",
+            "funding" : "fundperp",
+        }
+        special_methods = {
+            "perpetual" : derivate_smd,
+            "future" : derivate_smd,
+            "option" : {
+                "oi" : "oioption"
+            }
+        }
         
         needSnap = True if "snap" in connStr else False
         if needSnap:
             connStr.pop(connStr.index("snap"))
 
-        special_method = True if  "spec" in connStr else False
+        special_method = special_methods.get(instType).get(objective) if "spec" in connStr else False
         if special_method:
             connStr.pop(connStr.index("spec"))
         

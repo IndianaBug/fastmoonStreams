@@ -7,8 +7,6 @@ coinbase_api_endpoint = "api.coinbase.com"
 coinbase_api_basepoints = {
                 "depth" : "/api/v3/brokerage/product_book",
                 "info" : "/api/v3/brokerage/products",
-                "position" : "/api/v3/brokerage/cfm/balance_summary",
-                "position_2" : "/api/v3/brokerage/cfm/positions"
                     }
 
 coinbase_api_product_types_map = {

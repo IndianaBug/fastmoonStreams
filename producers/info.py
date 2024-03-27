@@ -14,7 +14,7 @@ client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret,
 # all_instruments = client.retrieve_all_instruments()
 # symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
 
-# The Instruments must be of the same format (upper lower with hiphens) as in API calls
+# The Instruments must be of the same format (upper lower with hiphens) as in API calls. You may merge streams with the same channels (objectives). Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
 ws = {
     # "binance" : [
@@ -23,22 +23,25 @@ ws = {
     #     "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
     #     "option.trades.BTC",
     #     ],
-    "bybit" : [
-        "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
-        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", "perpetual.trades.BTCUSDT.BTCUSD.BTCPERP", "perpetual.liquidations.BTCUSDT.BTCUSD.BTCPERP",
-        "option.trades.BTC", "option.oioption.BTC",
-        ],
+    # "bybit" : [
+    #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
+    #     "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", 
+    #     "perpetual.trades.BTCUSDT.BTCPERP", "perpetual.trades.BTCUSD", 
+    #     "perpetual.liquidations.BTCUSDT.BTCPERP", "perpetual.liquidations.BTCUSD", 
+    #     "option.trades.BTC", "option.oioption.BTC",
+    #     ],
     # "okx" : [
     #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT.BTC-USDC",
     #     "perpetual.depth.BTC-USDT-SWAP.snap", "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", "perpetual.liquidations.SWAP.FUTURES.OPTION",
     #     "option.trades.BTC",
     #     ],
+    
     # "deribit" : [
-    #     "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL",
+    #     "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC",
     #     "option.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL"
     #     ],
     # "bitget" : [
-    #     "spot.depth.BTCUSDT.snap", "future.trades.BTCUSDT.BTCUSDC",
+    #     "spot.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCUSDC",
     #     "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
     #     ],
     # "bingx" : [
@@ -67,10 +70,10 @@ api = {
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
     #     "option.oi.BTC.15.spec",
     #     ],
-    # "bybit" : [
-    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-    #     "option.oifunding.15.BTC",
-    #     ],
+    "bybit" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+        # "option.oioption.BTC.15"
+        ],
     # "okx" : [
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
     #     "option.oi.BTC.15.spec",
@@ -100,20 +103,36 @@ api = {
 }
 
 
-print(bybit_get_marginType("perpetual", "BTCPERP"))
 
-# data = client.build_connection_data_test(ws, api)
+data = client.build_connection_data_test(ws, api)
 
+import time
+import asyncio
+for i, e in enumerate(data):
+    try:
+        print("------")
+        print(e)
+    except Exception as e:
+        print(e)
+    async def returns():
+        data = await e["aiohttpMethod"]()
+        print(data)
+    asyncio.run(returns())
+    time.sleep(2)
+    
+    # if "1stBooksSnapMethod" in e:
+    #     try:
+    #         print("ok")
+    #         print(e["1stBooksSnapMethod"]())
+    #         time.sleep(2)
+    #     except Exception as e:
+    #         print("somethings fucked")
+    #         print(e)
 
-# for i, e in enumerate(data):
-#     print("------")
-#     print(e)
-    # if e["1stBooksSnapMethod"]:
-        # try:
-        #     e["1stBooksSnapMethod"]()
-        #     print("ok")
-        # except:
-        #     print("somethings fucked")
+# async def printt():
+#     a = await method()
+#     print(a)
+# asyncio.run(printt())
 
 # Binance
 # LinearDerivates : ["USDT", "USDC"]
