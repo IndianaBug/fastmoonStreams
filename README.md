@@ -68,6 +68,7 @@ Notes:
 | funding  | Stream of funding per instrument     |
 | oi | Open interest of a specific symbol. |
 | oifunding | Queries the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours. https://bybit-exchange.github.io/docs/v5/market/tickers |
+| oioption | Queries the latest oi for all options instruments |
 | gta | The ratio of users with net long and short positions (not the volume of positions)|
 | funding, special_method="fundfutureperp" | Queries fundings for all possible derivatives in a single call |
 | oi, special_method="oifutureperp" | Queries oi for Expiry Futures and Perpetual Futures in a single call |
