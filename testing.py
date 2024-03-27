@@ -1,3 +1,6 @@
+from producers.clients import *
+from producers import utilis
+
 class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx):
     
     @classmethod
@@ -165,6 +168,20 @@ class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx)
             # = await data["1stBooksSnapMethod"]()
             print(data)
         asyncio.run(example())
+
+
+    @classmethod
+    def coinbase_ws(cls):
+        async def example():
+            instTypes = ["spot"]
+            objs = ["depth"]
+            symbls = ["BTC-USD"]
+            data = cls.coinbase_build_ws_connectionData(instTypes, objs, symbls, True)
+            # = await data["1stBooksSnapMethod"]()
+            print(data)
+        asyncio.run(example())
+        
+print(clientTest.coinbase_ws())
         
 
 # bing = bingx("", "")
