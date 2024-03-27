@@ -128,14 +128,16 @@ def binance_instType_help(symbol):
     return "Linear" if "USDT" in symbol else "Inverse"
 
 def binance_get_symbol_name(symbol):
-    return symbol.lower()
+    return symbol.lower().replace("_", "")
+
+usdMarginCoins = ["USDT", "USDC"]
 
 def binance_get_marginType(instType, symbol):
     marginType=None
     if instType == "perpetual":
-        marginType = "LinearPerpetual" if "USDT" in  symbol.upper() else "InversePerpetual"
+        marginType = "LinearPerpetual" if len([element for element in usdMarginCoins if element in symbol]) > 0 else "InversePerpetual"
     if instType == "future":
-        marginType = "LinearFuture" if "USDT" in  symbol.upper() else "InverseFuture"
+        marginType = "LinearFuture" if len([element for element in usdMarginCoins if element in symbol]) > 0  else "InverseFuture"
     return marginType
 
 

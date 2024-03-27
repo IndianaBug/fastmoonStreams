@@ -82,10 +82,11 @@ class ExchangeAPIClient():
         symbols = connStr
         instTypes = [instType for _ in range(len(symbols))]
         objectives = [objective for _ in range(len(symbols))]
-        if type_ == "api":
-            return  function(instTypes[0], objectives[0], symbols[0], needSnap)
+
         if type_ == "ws":
-            return  function(instTypes, objectives, symbols, pullTimeout, special_method)
+            return  function(instTypes, objectives, symbols, needSnap)
+        if type_ == "api":
+            return  function(instTypes[0], objectives[0], symbols[0], pullTimeout, special_method)
         
         
         

@@ -340,15 +340,14 @@ class binance(CommunicationsManager, binanceInfo):
             
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{'_'.join(instTypes)}_{'_'.join(objectives)}_{'_'.join(sss)}",
+                                "id_ws" : f"binance_ws_{instTypes[0]}_{objectives[0]}_{sss[0] if len(sss) == 1 else 'bulk'}",
                                 "exchange":"binance", 
-                                "instrument": symbol_name,
-                                "instType": '_'.join(instTypes),
-                                "objective":'_'.join(objectives), 
-                                "updateSpeed" : None,
+                                "instruments": "_".join(sss),
+                                "instType": instTypes[0],
+                                "objective": objectives[0], 
                                 "url" : endpoint,
                                 "msg" : message,
-                                "1stBooksSnapMethod" : None,
+                                "msg_method" : partial(cls.binance_build_bulk_ws_message, instTypes, objectives, symbols),
                                 "marginType" : marginType
                             }
         
@@ -533,7 +532,7 @@ class bybit(CommunicationsManager, bybitInfo):
 
 
     @classmethod
-    def bybit_build_ws_connectionData(cls, instTypes, objectives, symbols, needSnap=False, snaplimit=1000, special_method=None, **kwargs):
+    def bybit_build_ws_connectionData(cls, instTypes, objectives, symbols, needSnap=False, snaplimit=1000, **kwargs):
         """
             insType : spot, perpetual, future, option, Linear, Inverse (for special methods)
             needSnap and snap limit: you need to fetch the full order book, use these
@@ -546,15 +545,14 @@ class bybit(CommunicationsManager, bybitInfo):
 
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
                                 "exchange":"bybit", 
-                                "instrument": "".join(symbol_names),
-                                "instType": "".join(instTypes),
-                                "objective":"".join(objectives), 
-                                "updateSpeed" : None,
+                                "instruments": "".join(symbol_names),
+                                "instType": instTypes[0],
+                                "objective": objectives[0], 
                                 "url" : url,
                                 "msg" : msg,
-                                "1stBooksSnapMethod" : None,
+                                "msg_method" : partial(cls.bybit_build_bulk_ws_message, instTypes, objectives, symbols),
                                 "marginType" : marginType
                             }
         

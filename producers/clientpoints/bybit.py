@@ -88,17 +88,20 @@ bybit_ws_payload_map = {
     },
 }
 
+exLinear = ['BTC-05APR24', 'BTC-12APR24', 'BTC-26APR24', 'BTC-27SEP24', 'BTC-28JUN24', 'BTC-29MAR24', 'BTC-31MAY24', 'BTCPERP', 'BTCUSDT']
+exInverse = ['BTCUSD', 'BTCUSDH24', 'BTCUSDM24', 'BTCUSDU24']
+
+linearquotes = ["PERP", "USDT"]
+inversequotes = ["USD", "USDH", "USDM", "USDU"]
+
 def bybit_get_marginType(instType, symbol):
     marginType = None
-    if instType == "perpetual" and "USDT" not in symbol:    
-        marginType = "InversePerpetual"
-    if instType == "perpetual" and "USDT" in symbol: 
-        marginType = "LinearPerpetual"
-    if instType == "future" and "USDT" not in symbol:    
-        marginType = "InverseFuture"
-    if instType == "future" and "USDT" in symbol: 
-        marginType = "LinearFuture"
-    return marginType
+    isLinear = [x for x in linearquotes if x in symbol]
+    isInverse = [x for x in inversequotes if x in symbol]
+    marginType = "Linear" if len(isLinear) > 0 else "Inverse"
+    marginType = "Linear" if len(isLinear) == 0 and len(isInverse)==0 else marginType
+    instType = instType[0].upper() + instType[1:]
+    return f"{marginType}{instType}"
 
 
 def bybit_get_instrument_name(symbol):
