@@ -92,18 +92,18 @@ api = {
     #     ],
 
 
-    # "gateio" : [
-    #     "perpetual.tta.BTC.300", "perpetual.oifunding.BTC.15", 
-    #     "option.oi.BTC.15",
-    #     ],
+    "gateio" : [
+        "perpetual.tta.BTC.300", "perpetual.oifunding.BTC.15", 
+        "option.oi.BTC.15",
+        ],
 
 
     # "mexc" : [
     #     "perpetual.oifunding.BTC_USDT.15",
     #     ],
-    "htx" : [
-        "perpetual.oi.BTC.spec", "perpetual.tta.BTC", "perpetual.tta.BTC",
-        ],
+    # "htx" : [
+    #     "perpetual.oi.BTC.15.spec", "perpetual.funding.BTC.3600.spec", "perpetual.gta.BTC.300.spec",
+    #     ],
 }
 
 

@@ -72,7 +72,7 @@ gateio_basepoints_standard_params = {
 
 
 def gateio_get_api_standard_params(instType, objective, symbol, interval=None):
-    params = gateio_ws_endpoint.get(instType).get(objective)(symbol, interval)
+    params = gateio_basepoints_standard_params.get(instType).get(objective)(symbol, interval)
     return params
 
 

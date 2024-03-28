@@ -30,30 +30,38 @@ htx_api_basepoints = {
     },
     "perpetual" : {
         "LinearPerpetual" : {
+            "depth" : "/linear-swap-ex/market/depth",
             "info" : "/linear-swap-api/v1/swap_contract_info",
-            "oi" : "/linear-swap-api/v1/swap_his_open_interest",
+            "oi" : "/linear-swap-api/v1/swap_open_interest",
+            "oiall" : "/linear-swap-api/v1/swap_open_interest",
             "tta" : "/linear-swap-api/v1/swap_elite_account_ratio",              
             "ttp" : "/linear-swap-api/v1/swap_elite_position_ratio",
             "funding" : "/linear-swap-api/v1/swap_batch_funding_rate"             
         },
         "InversePerpetual" : {
+            "depth" : "/swap-ex/market/depth",
             "info" : "/swap-api/v1/swap_contract_info",
-            "oi" : "/swap-api/v1/swap_open_interest",                           
+            "oi" : "/swap-api/v1/swap_open_interest",
+            "oiall" :"/swap-api/v1/swap_open_interest",                        
             "tta" : "/swap-api/v1/swap_elite_account_ratio",                  
             "ttp" : "/swap-api/v1/swap_elite_position_ratio",                  
-            "funding" : "/swap-api/v1/swap_batch_funding_rat"             
+            "funding" : "/swap-api/v1/swap_batch_funding_rate"             
         },
     },
     "future" : {     
         "LinearFuture" : {
+            "depth" : "/linear-swap-ex/market/depth",
             "info" : "/linear-swap-api/v1/swap_contract_info",
-            "oi" : "/linear-swap-api/v1/swap_his_open_interest",
+            "oi" : "/linear-swap-api/v1/swap_open_interest",
+            "oiall" : "/linear-swap-api/v1/swap_open_interest",
             "tta" : "/linear-swap-api/v1/swap_elite_account_ratio",              
             "ttp" : "/linear-swap-api/v1/swap_elite_position_ratio",
         },                                                              
         "InverseFuture" : {   
+            "depth" : "/market/depth",
             "info" : "/linear-swap-api/v1/swap_contract_info",                                                    
-            "oi" : "/api/v1/contract_his_open_interest",                           
+            "oi" : "/api/v1/contract_open_interest",      
+            "oiall" : "/api/v1/contract_his_open_interest",                      
             "tta" : "/api/v1/contract_elite_account_ratio",                      
             "ttp" : "/api/v1/contract_elite_position_ratio"
         },
@@ -64,52 +72,61 @@ inverse_future_contract_types = ["this_week","next_week","quarter"]
 
 htx_api_params = {
     "spot" : {
-        "depth" : lambda symbol : {"symbol" : symbol, "depth" : 20, "type" : "spet0"},      
+        "depth" : lambda symbol,contract_type  : {"symbol" : symbol, "depth" : 20, "type" : "spet0"},      
     },
     "perpetual" : {
         "LinearPerpetual" : {
-            "info" : {"business_type" : "all"},  
-            "oi" :  lambda symbol : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures            
-            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
-            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
-            "funding" : lambda symbol : {"contract_code" : symbol}                
+            "info" : lambda symbol,contract_type : {"business_type" : "all"},
+            "depth" : lambda symbol, contract_type : {"contract_code" : symbol, "depth" : 20, "type" : "spet0"},  
+            "oiall" :  lambda symbol, contract_type : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures 
+            "oi" :  lambda symbol, contract_type : {"contract_code" : symbol},      # gets all OIs of Linear Futures             
+            "tta" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
+            "ttp" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
+            "funding" : lambda symbol, contract_type : {"contract_code" : symbol}                
         },
         "InversePerpetual" : {
-            "info" : {},
-            "oi" :  lambda symbol : {"contract_code" : symbol},                    
-            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD                 
-            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD
-            "funding" : lambda symbol : {"contract_code" : symbol}          
+            "info" : lambda symbol,contract_type : {},
+            "depth" : lambda symbol, contract_type : {"contract_code" : symbol, "depth" : 20, "type" : "spet0"},
+            "oi" :  lambda symbol, contract_type : {"contract_code" : symbol},                    
+            "tta" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD                 
+            "ttp" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD
+            "funding" : lambda symbol, contract_type : {"contract_code" : symbol}          
         },
     },
     "future" : {
         "LinearFuture" : {   
-            "info" : {"business_type" : "all"},  
-            "oi" :  lambda symbol : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures            
-            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
-            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
+            "info" : lambda symbol,contract_type : {"business_type" : "all"},  
+            "depth" : lambda symbol, contract_type : {"contract_code" : symbol, "depth" : 20, "type" : "spet0"},
+            "oiall" :  lambda symbol, contract_type : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures 
+            "oi" :  lambda symbol, contract_type : {"contract_code" : symbol},           
+            "tta" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
+            "ttp" : lambda symbol, contract_type : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
         },                                                                 
         "InverseFuture" : { 
-            "info" : {},                                                        
+            "info" : lambda symbol,contract_type : {}, 
+            "depth" : lambda symbol,contract_type : {"contract_code" : symbol, "depth" : 20, "type" : "spet0"},                                                       
             "oi" :  lambda symbol, contract_type : {"symbol" : symbol, "contract_type" : contract_type},                    
-            "tta" : lambda symbol : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC)       
-            "ttp" : lambda symbol : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC) 
+            "tta" : lambda symbol,contract_type  : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC)       
+            "ttp" : lambda symbol,contract_type  : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC) 
         },
     }
 }
 
 def htx_get_marginType(instType, instrument):
-    if instType == "perpetual":
-        marginType = "LinearPerpetual" if "USDT" in instrument else "InversePerpetual"
-    if instType == "future":
-        marginType = "LinearFuture" if "USDT" in instrument else "InverseFuture"
+    marginType = ""
+    if len(instrument.split(".")) == 1:
+        if instType == "perpetual":
+            marginType = "LinearPerpetual" if "USDT" in instrument else "InversePerpetual"
+        if instType == "future":
+            marginType = "LinearFuture" if "USDT" in instrument else "InverseFuture"
+    if len(instrument.split(".")) == 2:
+        marginType = instrument.split(".")[1]
     return marginType
 
 htx_ws_stream_map = {
     "trades" : "market.$symbol.trade.detail  ",   
     "depth" : "market.depth.$symbol.size_20.high_freq",        
     "liquidations" : "public.$contract_code.liquidation_orders",         
-    "funding" : "public.$contract_code.funding_rate"  
 }
 
 

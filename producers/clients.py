@@ -1615,25 +1615,21 @@ class htx(CommunicationsManager, htxInfo):
     htx_ws_endpoints = htx_ws_endpoints
     htx_api_basepoints = htx_api_basepoints
     htx_ws_stream_map = htx_ws_stream_map
-    htx_InverseFuture_quarters_map = htx_InverseFuture_quarters_map
 
 
     @classmethod
-    def htx_buildRequest(cls, instType:str, objective:str, symbol:str, futuresTimeHorizeon:int=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def htx_buildRequest(cls, instType:str, objective:str, symbol:str, contract_type:str=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
             available objectives :  depth, oi, funding, tta, ttp, liquidations
             symbol is the one fetched from info
         """
         symbol_name = htx_symbol_name(symbol)
-        marginType = htx_get_marginType(symbol)
-        print(marginType)
-        params = htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon)
+        marginType = htx_get_marginType(instType, symbol)
+        symbol = symbol.split(".")[0] if len(symbol.split(".")[0]) > 1 else symbol
         endpoint = cls.htx_api_endpoints.get(instType)
-        try:
-            basepoint = cls.htx_api_basepoints.get(instType).get(marginType).get(objective)
-        except:
-            basepoint = cls.htx_api_basepoints.get(instType).get(objective)
+        basepoint = cls.htx_api_basepoints.get(instType).get(marginType).get(objective) if instType != "spot" else cls.htx_api_basepoints.get(instType).get(objective)
         url = endpoint + basepoint
+        params = htx_api_params.get(instType).get(marginType).get(objective)(symbol, contract_type) if instType != "spot" else htx_api_params.get(instType).get(objective)(symbol, contract_type)
         headers = {}
         return {
             "url" : url,
@@ -1664,53 +1660,59 @@ class htx(CommunicationsManager, htxInfo):
         response = await cls.make_aiohttpRequest(connection_data)
         return response
 
-    @classmethod
-    async def htx_aiohttpFetch_futureDepth(cls):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="depth", symbol="BTC", futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
 
     @classmethod
-    async def htx_aiohttpFetch_futureTrades(cls):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="trades", symbol="BTC", futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
+    async def htx_oifutureperp(cls, underlying_asset):
+        ois = []
+        response = await cls.htx_aiohttpFetch("perpetual", "oiall", f"{underlying_asset}-USDT.LinearPerpetual")
+        ois.append(response)
+        response = await cls.htx_aiohttpFetch("perpetual", "oi", f"{underlying_asset}-USD")
+        ois.append(response)
+        for ctype in inverse_future_contract_types:
+            response = await cls.htx_aiohttpFetch("future", "oi", f"{underlying_asset}.InverseFuture", contract_type=ctype)
+            ois.append(response)
+        return ois
 
     @classmethod
-    async def htx_aiohttpFetch_futureOI(cls):
-        data = {}
-        for t in range(4):
-            connection_data = cls.htx_buildRequest(instType="future", objective="oi", symbol="BTC", futuresTimeHorizeon=t)
-            response = await cls.make_aiohttpRequest(connection_data)
-            data[t] = response
-        return data
+    async def htx_fundperp(cls, underlying_asset):
+        l = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USDT")
+        i = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USD")
+        return [l, i]
 
     @classmethod
-    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
+    async def htx_posfutureperp(cls, underlying_asset):
+        pos = {}
+        for ltype in ["USDT", "USD", "USDT-FUTURES"]:
+            tta = await cls.htx_aiohttpFetch("perpetual", "tta", f"{underlying_asset}-{ltype}")
+            ttp = await cls.htx_aiohttpFetch("perpetual", "ttp", f"{underlying_asset}-{ltype}")
+            pos[f"{underlying_asset}_{ltype}_tta"] = tta
+            pos[f"{underlying_asset}_{ltype}_ttp"] = tta
+        tta = await cls.htx_aiohttpFetch("future", "tta", f"{underlying_asset}.InverseFuture")
+        ttp = await cls.htx_aiohttpFetch("future", "ttp", f"{underlying_asset}.InverseFuture")
+        pos[f"{underlying_asset}_InverseFuture_tta"] = tta
+        pos[f"{underlying_asset}_InverseFuture_ttp"] = tta
+        return pos
+
+    @classmethod
+    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, contract_type=None, **kwargs):
         """
             insType : perpetual, spot, future
             objective : depth, oi, tta, ttp
             symbol : from htx symbols
             pullTimeout : how many seconds to wait before you make another call
-            special : oifutureperp, depthfutureperp, tradesfutureperp
+            special : oifutureperp, fundperp, posfutureperp
         """
         # connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
         symbol_name = htx_symbol_name(symbol)
         
-        if special_method == "depthfutureperp":
-            call = partial(cls.htx_aiohttpFetch_futureDepth)
-        elif special_method == "oifutureperp":
-            call = partial(cls.htx_aiohttpFetch_futureOI)
-        elif special_method == "tradesfutureperp":
-            call = partial(cls.htx_aiohttpFetch_futureTrades)
+        if special_method == "oifutureperp":
+            call = partial(cls.htx_oifutureperp, symbol)
+        elif special_method == "posfutureperp":
+            call = partial(cls.htx_posfutureperp, symbol)
+        elif special_method == "fundperp":
+            call = partial(cls.htx_fundperp, symbol)
         else:
-            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol, contract_type=contract_type)
 
         data =  {
                 "type" : "api",
@@ -1970,8 +1972,8 @@ class gateio(CommunicationsManager, gateioInfo):
         """
         symbol_name = gateio_get_symbolname(symbol)
         marginType = gateio_get_marginType(instType, symbol)
-        basepoint = gateio_get_basepoint(instType, objective, marginType, interval=snapLength)
-        params = gateio_get_api_standard_params(instType, objective)(symbol, snapLength)
+        basepoint = gateio_basepoints.get(instType).get(marginType).get(objective) if objective not in ["spot", "future", "option"] else gateio_basepoints.get(instType).get(objective) 
+        params = gateio_basepoints_standard_params.get(instType).get(objective)
         headers = cls.gateio_api_headers
         endpoint = cls.gateio_api_endpoint
         url = endpoint + basepoint
@@ -2003,18 +2005,39 @@ class gateio(CommunicationsManager, gateioInfo):
         connection_data = cls.gateio_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response
+    
+    @classmethod
+    async def gateio_posfutureperp(cls, underlying_symbol):
+        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
+        fut_symbols = [x.get("name") for x in gateioInfo.gateio_info("future.LinearFuture") if underlying_symbol in x.get("name")]
+        d = {}
+        print(perpl_symbols, perpi_symbols, fut_symbols)
+        for s in perpl_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
+            d[f"{s}"] = data
+        for s in perpi_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
+            d[f"{s}"] = data
+        for s in fut_symbols:
+            data = await cls.gateio_aiohttpFetch("future", "tta", s)
+            d[f"{s}"] = data
+        return d
+        
 
     @classmethod
-    def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+    def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
         """
             available objectives :  depth, trades, funding, oi (containts tta), liquidations 
             symbol is the one fetched from info
             pullTimeout : how many seconds to wait before you make another call
             special : not for now
         """
-        connectionData = cls.gateio_buildRequest(instType, objective, symbol, pullTimeout, **kwargs)
         symbol_name = gateio_get_symbolname(symbol)
-        call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        if special_method == "posfutureperp":
+            call = partial(cls.gateio_posfutureperp, underlying_symbol=symbol)
+        else:
+            call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         data =  {
                 "type" : "api",
                 "id_api" : f"gateio_api_{instType}_{objective}_{symbol_name}",
@@ -2023,7 +2046,6 @@ class gateio(CommunicationsManager, gateioInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "connectionData" : connectionData,
                 "aiohttpMethod" : call,
                 }
         
@@ -2058,8 +2080,13 @@ class gateio(CommunicationsManager, gateioInfo):
             connection_data["id_api"] = f"gateio_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
-    
-    
+
+async def main():
+    connData = gateio.gateio_build_api_connectionData("perpetual", "tta", "BTC", 15, special_method="posfutureperp")
+    result = await connData['aiohttpMethod']()
+    print(result)
+
+asyncio.run(main())    
 # class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx):
     
 #     @classmethod
