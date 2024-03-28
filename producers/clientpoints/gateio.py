@@ -34,8 +34,8 @@ gateio_basepoints = {
     },
      "future" : {
          "depth" : "/delivery/usdt/order_book",  
-         "trades" : "/delivery/usdt/trades",      
-         "oifunding" : "/delivery/usdt/tickers",   
+         "trades" : "/delivery/usdt/trades",
+         "oi" : "/delivery/usdt/tickers",      
      },
      "option" : {
          "depth" : "/options/order_book",   
@@ -61,7 +61,7 @@ gateio_basepoints_standard_params = {
      "future" : {
          "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
          "trades" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())}, 
-         "oi" :lambda symbol : {"contract" : symbol}, # if no params provided, fetches for everyone
+         "oi" :lambda symbol, interval : {"contract" : symbol}, # if no params provided, fetches for everyone
      },
      "option" : {
          "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
@@ -169,7 +169,7 @@ def gateio_get_marginType(instType, symbol):
     if instType == "perpetual":
         marginType = "LinearPerpetual" if "USDT" in symbol else "InversePerpetual"
     else:
-        marginType = None
+        marginType = ""
     return marginType
 
 def gateio_get_symbolname(symbol):

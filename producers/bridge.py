@@ -72,6 +72,7 @@ class ExchangeAPIClient():
         derivate_smd = {
             "oi" : "oifutureperp",
             "gta" : "posfutureperp",
+            "tta" : "posfutureperp",
             "funding" : "fundperp",
         }
         special_methods = {

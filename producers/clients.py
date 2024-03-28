@@ -24,7 +24,7 @@ ssl_context.verify_mode = ssl.CERT_NONE
 from typing import List, Union
 from utilis import filter_nested_dict
 
-from exchangeinfo import *
+from infopulse import *
 from producers.clientpoints.binance import *
 from producers.clientpoints.bybit import *
 from producers.clientpoints.okx import *
@@ -462,7 +462,6 @@ class bybit(CommunicationsManager, bybitInfo):
         """
         full = {}
         symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        print(symbols)
         for symbol in symbols:
             instType = "future" if "-" in symbol else "perpetual"
             data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
@@ -1965,15 +1964,15 @@ class gateio(CommunicationsManager, gateioInfo):
         return msg
 
     @classmethod
-    def gateio_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, snapLength=20, **kwargs)->dict: 
+    def gateio_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, snapLength=20, interval=30, **kwargs)->dict: 
         """
             available objectives :  depth, trades, funding, oi (containts tta), liquidations 
             symbol is the one fetched from info
         """
         symbol_name = gateio_get_symbolname(symbol)
         marginType = gateio_get_marginType(instType, symbol)
-        basepoint = gateio_basepoints.get(instType).get(marginType).get(objective) if objective not in ["spot", "future", "option"] else gateio_basepoints.get(instType).get(objective) 
-        params = gateio_basepoints_standard_params.get(instType).get(objective)
+        basepoint = gateio_basepoints.get(instType).get(marginType).get(objective) if instType =="perpetual" else gateio_basepoints.get(instType).get(objective) 
+        params = gateio_basepoints_standard_params.get(instType).get(objective)(symbol, interval)
         headers = cls.gateio_api_headers
         endpoint = cls.gateio_api_endpoint
         url = endpoint + basepoint
@@ -2003,24 +2002,50 @@ class gateio(CommunicationsManager, gateioInfo):
     @classmethod
     async def gateio_aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.gateio_buildRequest(*args, **kwargs)
-        response = await cls.make_aiohttpRequest(connection_data)
+        response = await cls.make_aiohttpRequest_v2(connection_data)
         return response
     
     @classmethod
     async def gateio_posfutureperp(cls, underlying_symbol):
         perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
         perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
-        fut_symbols = [x.get("name") for x in gateioInfo.gateio_info("future.LinearFuture") if underlying_symbol in x.get("name")]
         d = {}
-        print(perpl_symbols, perpi_symbols, fut_symbols)
         for s in perpl_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
             d[f"{s}"] = data
         for s in perpi_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
             d[f"{s}"] = data
-        for s in fut_symbols:
-            data = await cls.gateio_aiohttpFetch("future", "tta", s)
+        return d
+
+    @classmethod
+    async def gateio_oifutureperp(cls, underlying_symbol):
+        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
+        f_symbols = [x.get("name") for x in gateioInfo.gateio_info("future.InverseFuture") if underlying_symbol in x.get("name")]
+        d = {}
+        for s in perpl_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
+            d[f"{s}"] = data
+        for s in perpi_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
+            d[f"{s}"] = data
+        for s in f_symbols:
+            data = await cls.gateio_aiohttpFetch("future", "oi", s)
+            d[f"{s}"] = data
+        return d
+
+
+    @classmethod
+    async def gateio_fundperp(cls, underlying_symbol):
+        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
+        d = {}
+        for s in perpl_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
+            d[f"{s}"] = data
+        for s in perpi_symbols:
+            data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
             d[f"{s}"] = data
         return d
         
@@ -2036,6 +2061,10 @@ class gateio(CommunicationsManager, gateioInfo):
         symbol_name = gateio_get_symbolname(symbol)
         if special_method == "posfutureperp":
             call = partial(cls.gateio_posfutureperp, underlying_symbol=symbol)
+        elif special_method == "fundperp":
+            call = partial(cls.gateio_fundperp, underlying_symbol=symbol)
+        elif special_method == "oifutureperp":
+            call = partial(cls.gateio_oifutureperp, underlying_symbol=symbol)
         else:
             call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         data =  {
@@ -2086,7 +2115,7 @@ async def main():
     result = await connData['aiohttpMethod']()
     print(result)
 
-asyncio.run(main())    
+# asyncio.run(main())    
 # class clientTest(binance, bybit, bitget, deribit, okx, htx, mexc, gateio, bingx):
     
 #     @classmethod
