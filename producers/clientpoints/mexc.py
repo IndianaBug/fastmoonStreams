@@ -18,7 +18,7 @@ mexc_api_basepoints = {
     },
     "perpetual" : {
         "depth" : "/api/v1/contract/depth", 
-        "oifunding" : "api/v1/contract/ticker", 
+        "oifunding" : "/api/v1/contract/ticker", 
     }
 }
 

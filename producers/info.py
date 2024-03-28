@@ -45,7 +45,7 @@ ws = {
     #     "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
     #     ],
     # "bingx" : [
-    #     "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT",
+    #     "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
     #     ],
     # "kucoin" : [
     #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
@@ -70,36 +70,40 @@ api = {
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
     #     "option.oi.BTC.15.spec",
     #     ],
-    "bybit" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-        # "option.oioption.BTC.15"
-        ],
+    # "bybit" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+    #     # "option.oioption.BTC.15"
+    #     ],
     # "okx" : [
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
-    #     "option.oi.BTC.15.spec",
+    #     "option.oi.BTC-USD.15",
     #     ],
     # "deribit" : [
-    #     "future.oifunding.BTC.15", "option.oifunding.BTC.15",
+    #     "future.oifunding.BTC.15",  "option.oifunding.BTC.15",
     #     ],
     # "bitget" : [
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", 
     # ],
     # "bingx" : [
-    #     "spot.depth.BTC-USDT.30", "perpetual.depth.BTC-USDT.30",
+    #     "perpetual.funding.BTC-USDT.30", "perpetual.oi.BTC-USDT.30",  "perpetual.depth.BTC-USDT.30", 
     #     ],
     # "kucoin" : [
     #     "perpetual.oifunding.XBTUSDTM.15",
     #     ],
+
+
     # "gateio" : [
     #     "perpetual.tta.BTC.300", "perpetual.oifunding.BTC.15", 
     #     "option.oi.BTC.15",
     #     ],
+
+
     # "mexc" : [
-    #     "perpetual.oifunding.BTC.15",
+    #     "perpetual.oifunding.BTC_USDT.15",
     #     ],
-    # "htx" : [
-    #     "perpetual.oi.BTC.spec", "future.ttp.BTC", "future.tta.BTC",
-    #     ],
+    "htx" : [
+        "perpetual.oi.BTC.spec", "perpetual.tta.BTC", "perpetual.tta.BTC",
+        ],
 }
 
 

@@ -5,7 +5,7 @@ bingx_api_endpoint = "https://open-api.bingx.com"
 
 bingx_api_basepoints = {
             "spot" : {
-                "depth" : "/openApi/spot/v1/market/depth"
+                "depth" : "/openApi/spot/v2/market/depth"
             },
             "perpetual" : {
                 "depth" : "/openApi/swap/v2/quote/depth",
@@ -13,11 +13,15 @@ bingx_api_basepoints = {
                 "funding" : "/openApi/swap/v2/quote/premiumIndex",
             }
         }
-
 bingx_pi_param_map = {
-    "depth" : lambda symbol : {"symbol" : symbol, "limit" : "1000"},
-    "oi" : lambda symbol : {"symbol" : symbol},
-    "funding" : lambda symbol : {"symbol" : symbol},
+    "spot" : {
+        "depth" : lambda symbol : {"symbol" : symbol.replace("-", "_"), "depth" : 20, "type" : "step3"},
+    },
+    "perpetual" : {
+        "depth" : lambda symbol : {"symbol" : symbol, "limit" : "1000"},
+        "oi" : lambda symbol : {"symbol" : symbol},
+        "funding" : lambda symbol : {"symbol" : symbol},
+    }
 }
 
 # ws # 

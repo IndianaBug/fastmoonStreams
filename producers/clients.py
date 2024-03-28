@@ -50,7 +50,7 @@ class CommunicationsManager:
                 try:
                     return response.json() 
                 except Exception as e:
-                    priint(e)
+                    print(e)
                     
             try:
                 if response.get('code', None) in connection_data.get("repeat_code"):
@@ -271,7 +271,7 @@ class binance(CommunicationsManager, binanceInfo):
         return unnest_list(full)
 
     @classmethod
-    def binance_build_api_connectionData(cls, insType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
+    def binance_build_api_connectionData(cls, instType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
         """
             insType : deptj, funding, oi, tta, ttp, gta
             **kwargs, symbol limit, period. Order doesnt matter
@@ -279,27 +279,28 @@ class binance(CommunicationsManager, binanceInfo):
             pullTimeout : how many seconds to wait before you make another call
             special_methods : oioption oifutureperp posfutureperp
         """
-        call = partial(cls.binance_aiohttpFetch, insType=insType, objective=objective, symbol=symbol)
         if special_method == "oioption":
             call = partial(cls.binance_build_oioption_method, symbol)
-        if special_method == "oifutureperp":
+        elif special_method == "oifutureperp":
             call = partial(cls.binance_build_oifutureperp_method, symbol)
-        if special_method == "posfutureperp":
+        elif special_method == "posfutureperp":
             call = partial(cls.binance_build_posfutureperp_method, symbol)
-        if special_method == "fundperp":
+        elif special_method == "fundperp":
             call = partial(cls.binance_build_fundfutureperp_method, symbol)
-        connectionData = cls.binance_buildRequest(insType, objective, symbol, specialParam, special_method, **kwargs)
+        else:
+            call = partial(cls.binance_aiohttpFetch, insType=instType, objective=objective, symbol=symbol)
+        instrument = binance_get_symbol_name(symbol)
+        marginType = binance_get_marginType(instType, symbol)
         data =  {
                 "type" : "api",
-                "id_api" : f"binance_api_{insType}_{objective}_{connectionData.get('instrument')}",
+                "id_api" : f"binance_api_{instType}_{objective}_{instrument}",
                 "exchange":"binance", 
-                "instrument": connectionData.get("instrument"),
-                "instType": insType,
+                "instrument": instrument,
+                "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "apicallData" : connectionData,
                 "aiohttpMethod" : call, 
-                "marginType" : connectionData.get("marginType"),
+                "marginType" : marginType,
                 "is_special" : special_method,
                 }
         
@@ -441,7 +442,6 @@ class bybit(CommunicationsManager, bybitInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                # "connectionData" : connectionData,
                 "aiohttpMethod" :call,
                 }
         
@@ -483,15 +483,16 @@ class bybit(CommunicationsManager, bybitInfo):
         full = {}
         symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
         for symbol in symbols:
+            symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
             instType = "future" if "-" in symbol else "perpetual"
             data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-            full[symbol] = data
+            full["Linear_"+symbol] = data
         symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
         for symbol in symbols:
+            symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
             instType = "future" if "-" in symbol else "perpetual"
             data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-            full[symbol] = data
-        full[symbol] = await cls.bybit_aiohttpFetch("perpetual", "gta", symbol="BTC", special_method="posfutureperp")
+            full["Inverse_"+symbol] = data
         return full
 
     @classmethod
@@ -625,18 +626,18 @@ class okx(CommunicationsManager, okxInfo):
     @classmethod
     async def okx_build_fundfutureperp_method(cls, underlying_symbol):
         symbols = [x for x in okxInfo.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
-        data = {}
+        data = []
         for symbol in symbols:
             response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
-            data["symbol"] = response
+            data.append(response)
         return data
     
     @classmethod
     async def okx_build_oifutureperp_method(cls, underlying_symbol):
         marginCoinsF = [x for x in cls.okx_symbols_by_instType("future") if underlying_symbol in x]
-        marginCoinsF = list(set([x.split("-")[1] for x in marginCoins]))
+        marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
         marginCoinsP = [x for x in cls.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
-        marginCoinsP = list(set([x.split("-")[1] for x in marginCoins]))
+        marginCoinsP = list(set([x.split("-")[1] for x in marginCoinsP]))
         data = []
         for marginCoin in marginCoinsF:
             futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
@@ -649,7 +650,8 @@ class okx(CommunicationsManager, okxInfo):
     @classmethod
     async def okx_build_oioption_method(cls, underlying_symbol):
         marginCoinsF = [x for x in cls.okx_symbols_by_instType("option") if underlying_symbol in x]
-        marginCoinsF = list(set([x.split("-")[1] for x in marginCoins]))
+        marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
+        print(marginCoinsF)
         data = []
         for marginCoin in marginCoinsF:
             futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
@@ -663,23 +665,24 @@ class okx(CommunicationsManager, okxInfo):
             instType is symbolic
             special_method : fundfutureperp
         """
-        if special_method == None:
-            call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
-        elif special_method == "fundperp":
+
+        if special_method == "fundperp":
             call = partial(cls.okx_build_fundfutureperp_method, underlying_symbol=symbol)
         elif special_method == "oifutureperp":
             call = partial(cls.okx_build_oifutureperp_method, underlying_symbol=symbol)
+        elif special_method == "oioption":
+            call = partial(cls.okx_build_oioption_method, underlying_symbol=symbol)
         else:
-            connectionData = cls.okx_buildRequest(instType, objective, symbol, **kwargs)
+            call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        symbol_name = okx_get_instrument_name(symbol)
         data =  {
                 "type" : "api",
-                "id_api" : f"okx_api_{instType}_{objective}_{connectionData.get('instrument')}",
+                "id_api" : f"okx_api_{instType}_{objective}_{symbol_name}",
                 "exchange":"okx", 
-                "instrument": connectionData.get('instrument'),
+                "instrument": symbol_name,
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "connectionData" : connectionData,
                 "aiohttpMethod" : call,
                 }
         
@@ -1105,7 +1108,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
             connection_data["1stBooksSnapMethod"] = partial(self.kucoin_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
-    def kucoin_build_api_connectionData(self, instType:str, objective:str, symbol, pullTimeout:int, **kwargs):
+    def kucoin_build_api_connectionData(self, instType:str, objective:str, symbol, pullTimeout:int, special_method=None, **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oi, gta
@@ -1152,12 +1155,16 @@ class bingx(CommunicationsManager, bingxInfo):
             books_dercemet : the derement of books length in case of api call being unsuccessful. If applicable
             **kwargs : request parameters like symbol
         """
-        params = bingx_pi_param_map.get(objective)(symbol)
+        params = bingx_pi_param_map.get(instType).get(objective)(symbol)
         symbol_name = bingx_get_symbol_name(symbol)
         endpoint = self.bingx_api_endpoint
         basepoint = self.bingx_api_basepoints.get(instType).get(objective)
         payload = {}
-        url, headers = self.bingx_get_url_headers(endpoint, basepoint, params, self.api_bingx, self.secret_bingx)
+        if instType != "spot":
+            url, headers = self.bingx_get_url_headers(endpoint, basepoint, params, self.api_bingx, self.secret_bingx)
+        if instType == "spot":
+            headers = {}
+            url = endpoint + basepoint + f"?{'&'.join([f'{key}={value}' for key, value in params.items()])}"
         return {
             "url" : url,
             "endpoint" : endpoint, 
@@ -1228,7 +1235,7 @@ class bingx(CommunicationsManager, bingxInfo):
         else:
             return await CommunicationsManager.make_aiohttpRequest(connection_data)
 
-    def bingx_build_api_connectionData(self, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
+    def bingx_build_api_connectionData(self, instType:str, objective:str, symbol:str, pullTimeout:int, special_method, **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oi, gta
@@ -1474,7 +1481,7 @@ class deribit(CommunicationsManager, deribitInfo):
     deribit_instType_map = deribit_instType_map
 
     @classmethod
-    def deribit_buildRequest(cls, instType:str, objective:str, symbol:str, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
+    def deribit_buildRequest(cls, instType:str, objective:str, symbol:str, special_method=None, maximum_retries:int=10, books_dercemet:int=100, **kwargs)->dict: 
         """
             instType : spot, perpetual, future, option
             objective : depth, oi. Please check available methods by exchange
@@ -1546,7 +1553,7 @@ class deribit(CommunicationsManager, deribitInfo):
         return full
 
     @classmethod
-    def deribit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
+    def deribit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oifunding, depth
@@ -1619,6 +1626,7 @@ class htx(CommunicationsManager, htxInfo):
         """
         symbol_name = htx_symbol_name(symbol)
         marginType = htx_get_marginType(symbol)
+        print(marginType)
         params = htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon)
         endpoint = cls.htx_api_endpoints.get(instType)
         try:
@@ -1684,7 +1692,7 @@ class htx(CommunicationsManager, htxInfo):
         return data
 
     @classmethod
-    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
         """
             insType : perpetual, spot, future
             objective : depth, oi, tta, ttp
@@ -1695,11 +1703,11 @@ class htx(CommunicationsManager, htxInfo):
         # connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
         symbol_name = htx_symbol_name(symbol)
         
-        if special == "depthfutureperp":
+        if special_method == "depthfutureperp":
             call = partial(cls.htx_aiohttpFetch_futureDepth)
-        if special == "oifutureperp":
+        elif special_method == "oifutureperp":
             call = partial(cls.htx_aiohttpFetch_futureOI)
-        if special == "tradesfutureperp":
+        elif special_method == "tradesfutureperp":
             call = partial(cls.htx_aiohttpFetch_futureTrades)
         else:
             call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
@@ -1810,6 +1818,7 @@ class mexc(CommunicationsManager, mexcInfo):
         if instType == "perpetual" and objective == "depth":
             url = url + "/" + symbol
             params = {}
+        print(url, params)
         return {
             "url" : url,
             "basepoint" : basepoint,  
@@ -2246,3 +2255,4 @@ class gateio(CommunicationsManager, gateioInfo):
 #         print(data)
 #     asyncio.run(example())
 # coinbase_ws()
+    

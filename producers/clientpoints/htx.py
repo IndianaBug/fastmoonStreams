@@ -14,6 +14,7 @@ htx_ws_endpoints = {
             "InversePerpetual" : "wss://api.hbdm.vn/swap-ws"
         },
         "future" : {
+            "LinearFuture" : "wss://api.hbdm.vn/linear-swap-ws",
             "InverseFuture" : "wss://api.hbdm.vn/ws"
         }
     },
@@ -21,89 +22,88 @@ htx_ws_endpoints = {
         "spot" : "wss://api-aws.huobi.pro/feed"
     }
 }
-# depth, funding, oi
+
+
 htx_api_basepoints = {
     "spot" : {
-        "depth" : "/market/depth",      # symbol, depth=20 type="step0"
+        "depth" : "/market/depth",      
     },
     "perpetual" : {
         "LinearPerpetual" : {
-            "depth" : "/linear-swap-ex/market/depth",                            # ?contract_code=BTC-USDT&type=step0"
-            "oi" : "/linear-swap-api/v1/swap_his_open_interest",                 # ?contract_code=BTC-USDT&period=60min&amount_type=2" 1:-cont，2:- cryptocurrency
-            "tta" : "/linear-swap-api/v1/swap_elite_account_ratio",              # contract_code period=5m, 
-            "ttp" : "/linear-swap-api/v1/swap_elite_position_ratio",             # contract_code period=5m, 
-        },
-        "InversePerpetual" : {
-            "depth" : "/swap-ex/market/depth",                                  # contract_code=BTC-USD &type=step0"
-            "oi" : "/swap-api/v1/swap_open_interest",                           # ?contract_code=BTC-USD" period=60min amount_type=2
-            "tta" : "/swap-api/v1/swap_elite_account_ratio",                    # ?contract_code=BTC-USDT&period=1min&size=1,
-            "ttp" : "/swap-api/v1/swap_elite_position_ratio",                   # ?contract_code=BTC-USDT&period=1min&size=1,
-
-        },
-    },
-    "future" : {                                                                    # Contract code is supported to query data. e.g.: "BTC200918"(weekly), "BTC200925"(Bi-weekly),"BTC201225"(quarterly),"BTC210326"(next quarterly)
-        "InverseFuture" : {                                                         # symbol "BTC_CW" BTC_NW BTC_CQ BTC_NQ type=step0
-            "depth" : "/market/depth",                                              # ?symbol=BTC&contract_type=this_week&period=60min&amount_type=2"  Weekly:"this_week", Bi-weekly:"next_week", Quarterly:"quarter" Next Quarterly Contract: "next_quarter"
-            "oi" : "/api/v1/contract_his_open_interest",                            # ?symbol=BTC&period=60min"
-            "tta" : "/api/v1/contract_elite_account_ratio",                         # ?symbol=BTC&period=60min"
-            "trades" : "/market/history/trade"
-        },
-        "LinearFuture" : {
-            "depth" : "/linear-swap-ex/market/depth",                               # The same but there are nofutures therefore forget it
-            "oi" : "/linear-swap-api/v1/swap_his_open_interest",                 
+            "info" : "/linear-swap-api/v1/swap_contract_info",
+            "oi" : "/linear-swap-api/v1/swap_his_open_interest",
             "tta" : "/linear-swap-api/v1/swap_elite_account_ratio",              
             "ttp" : "/linear-swap-api/v1/swap_elite_position_ratio",
+            "funding" : "/linear-swap-api/v1/swap_batch_funding_rate"             
+        },
+        "InversePerpetual" : {
+            "info" : "/swap-api/v1/swap_contract_info",
+            "oi" : "/swap-api/v1/swap_open_interest",                           
+            "tta" : "/swap-api/v1/swap_elite_account_ratio",                  
+            "ttp" : "/swap-api/v1/swap_elite_position_ratio",                  
+            "funding" : "/swap-api/v1/swap_batch_funding_rat"             
+        },
+    },
+    "future" : {     
+        "LinearFuture" : {
+            "info" : "/linear-swap-api/v1/swap_contract_info",
+            "oi" : "/linear-swap-api/v1/swap_his_open_interest",
+            "tta" : "/linear-swap-api/v1/swap_elite_account_ratio",              
+            "ttp" : "/linear-swap-api/v1/swap_elite_position_ratio",
+        },                                                              
+        "InverseFuture" : {   
+            "info" : "/linear-swap-api/v1/swap_contract_info",                                                    
+            "oi" : "/api/v1/contract_his_open_interest",                           
+            "tta" : "/api/v1/contract_elite_account_ratio",                      
+            "ttp" : "/api/v1/contract_elite_position_ratio"
         },
     }
 }
 
-def htx_get_marginType(instrument):
-    if "USD" in instrument and "USDT" not in instrument:
-        return "InversePerpetual"
-    if "USDT" in instrument :
-        return "LinearPerpetual"
-    if "USD" not in instrument :
-        return "InverseFuture"
+inverse_future_contract_types = ["this_week","next_week","quarter"]
 
-
-def htx_parse_params(objective, instType, marginType, symbol, futuresTimeHorizeon:int=None):
-    """
-        futuresTimeHorizeon :
-            0 thisweek
-            1- nex week
-            2- this quarter
-            3-next quarter
-    """
-    htx_InverseFuture_quarters_map = {
-        "depth" : ["CW", "NW", "CQ", "NQ"],
-        "trades" : ["CW", "NW", "CQ", "NQ"],
-        "oi" : ["this_week", "next_week", "quarter", "next_quarter"]
+htx_api_params = {
+    "spot" : {
+        "depth" : lambda symbol : {"symbol" : symbol, "depth" : 20, "type" : "spet0"},      
+    },
+    "perpetual" : {
+        "LinearPerpetual" : {
+            "info" : {"business_type" : "all"},  
+            "oi" :  lambda symbol : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures            
+            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
+            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
+            "funding" : lambda symbol : {"contract_code" : symbol}                
+        },
+        "InversePerpetual" : {
+            "info" : {},
+            "oi" :  lambda symbol : {"contract_code" : symbol},                    
+            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD                 
+            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},    # BTC-USD
+            "funding" : lambda symbol : {"contract_code" : symbol}          
+        },
+    },
+    "future" : {
+        "LinearFuture" : {   
+            "info" : {"business_type" : "all"},  
+            "oi" :  lambda symbol : {"pair" : symbol, "business_type" : "all"},      # gets all OIs of Linear Futures            
+            "tta" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES           
+            "ttp" : lambda symbol : {"contract_code" : symbol, "period" : "5min"},   # availabe BTC-USDT, BTC-USDT-FUTURES 
+        },                                                                 
+        "InverseFuture" : { 
+            "info" : {},                                                        
+            "oi" :  lambda symbol, contract_type : {"symbol" : symbol, "contract_type" : contract_type},                    
+            "tta" : lambda symbol : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC)       
+            "ttp" : lambda symbol : {"symbol" : symbol, "period" : "5min"},         # Only Underlying symbol (BTC) 
+        },
     }
-    params = {}
-    if instType == "spot" or (instType=="future" and marginType =="InverseFuture"):
-        params["symbol"] = symbol
-    if (instType=="perpetual" and marginType =="LinearPerpetual") or (instType=="future" and marginType =="LinearFuture") or (instType=="perpetual" and marginType =="InversePerpetual"):
-        params["contract_code"] = symbol
-    if objective == "depth":
-        params["type"] = "step0"
-        if (instType=="future" and marginType =="InverseFuture"):
-            s = htx_InverseFuture_quarters_map.get('depth')[futuresTimeHorizeon]
-            params["symbol"] = f"{params['symbol']}_{s}"
-    if objective == "oi":
-        params["period"] = "60min"
-        params["amount_type"] = "2"
-        if (instType=="future" and marginType =="InverseFuture"):
-            s = htx_InverseFuture_quarters_map.get('oi')[futuresTimeHorizeon]
-            params["contract_type"] = s
-    if objective == "tta" or objective == "ttp":
-        params["period"] = "60min"
-    if objective == "trades":
-        if (instType=="future" and marginType =="InverseFuture"):
-            s = htx_InverseFuture_quarters_map.get('trades')[futuresTimeHorizeon]
-            params["symbol"] = f"{params['symbol']}_{s}"
-            params["size"] = 50
-    return params
+}
 
+def htx_get_marginType(instType, instrument):
+    if instType == "perpetual":
+        marginType = "LinearPerpetual" if "USDT" in instrument else "InversePerpetual"
+    if instType == "future":
+        marginType = "LinearFuture" if "USDT" in instrument else "InverseFuture"
+    return marginType
 
 htx_ws_stream_map = {
     "trades" : "market.$symbol.trade.detail  ",   
@@ -112,14 +112,6 @@ htx_ws_stream_map = {
     "funding" : "public.$contract_code.funding_rate"  
 }
 
-htx_basecoins = ["BTC", "ETH", "TRX"]   # update via info.htx_info("future.InverseFuture")
-
-htx_InverseFuture_quarters_map = {
-    "note" : "replace the coin for urs",
-    "depth" : ["BTC_CW", "BTC_NW", "BTC_CQ," "BTC_NQ"],
-    "trades" : ["BTC_CW", "BTC_NW", "BTC_CQ," "BTC_NQ"],
-    "oi" : ["this_week", "next_week", "quarter", "next_quarter"]
-} 
 
 def htx_symbol_name(symbol):
     return symbol.lower().replace("-", "")

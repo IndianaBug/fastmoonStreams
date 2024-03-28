@@ -191,7 +191,7 @@ class okxInfo(requestHandler):
             spot, perpetual, future, option
             &instFamily=BTC-USD
         """
-        urls = cls.okx_info_url.get(isntType) if isntType != "option" else f"{cls.okx_info_url.get(isntType)}instFamily={instFamily}"
+        urls = cls.okx_info_url.get(isntType) if isntType != "option" else f"{cls.okx_info_url.get(isntType)}&instFamily={instFamily}"
         data = cls.simple_request(urls).get("data")
         symbols = [d["instId"] for d in data]
         return symbols
