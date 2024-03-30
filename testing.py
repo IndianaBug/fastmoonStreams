@@ -223,15 +223,15 @@
 #     print(d)
 # asyncio.run(example())
 
-import requests
-# url = "https://open-api.bingx.com/openApi/spot/v2/market/depth?symbol=BTC_USDT&depth=1000&type=step3"
-url = "https://api.hbdm.com/swap-api/v1/swap_contract_info"
-response = requests.get(url).json()
+# import requests
+# # url = "https://open-api.bingx.com/openApi/spot/v2/market/depth?symbol=BTC_USDT&depth=1000&type=step3"
+# url = "https://api.hbdm.com/swap-api/v1/swap_contract_info"
+# response = requests.get(url).json()
 
-print(response.keys())
+# print(response.keys())
 
 
-print(response)
+# print(response)
 # No perp, replace for USD # I you willl need to add inverse linear
 
 
@@ -239,3 +239,34 @@ print(response)
 # tta, 
 # ttp, 
 # funding
+
+
+# curl -X GET http://127.0.0.1:5985/_all_dbs -u Pasha:8fN22kDNB8Es
+
+import couchdb
+
+# Set up authentication credentials
+username = 'Pasha'
+password = '8fN22kDNB8Es'
+
+server = couchdb.Server('http://127.0.0.1:5985')
+server.resource.credentials = (username, password)
+
+if server:
+    print("Connection successful!")
+else:
+    print("Failed to connect to CouchDB.")
+
+db_name = 'assad'
+
+try:
+    server[db_name]
+    print("Database exists.")
+except couchdb.http.ResourceNotFound:
+    print("Database doesn't exist. Creating...")
+    db = server.create(db_name)
+    print("Database created.")
+
+
+doc = {'name': 'John', 'age': 30}
+db.save(doc)
