@@ -22,6 +22,7 @@ import aiohttp
 from utilis import generate_random_id
 import aiocouchdb
 import zlib
+import re
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -37,14 +38,14 @@ class keepalive():
         "binance" : 30,   
         "bybit" : 20,       
         "okx" : 15,         
-        "deribit" : None,
-        "kucoin" : 1,       
+        "deribit" : None, # heartbeats mechanism
+        "kucoin" : None,  # defined by kucoin server
         "bitget" : 30,
-        "bingx" : 1,
-        "mexc" : 1, 
-        "gateio" : 1,
-        "htx" : 1,
-        "coinbase" : None # Uses websocket heartbeat stream to keep the connection alive
+        "bingx" : 5,
+        "mexc" : 15, 
+        "gateio" : 15,
+        "htx" : 5,
+        "coinbase" : None # heartbeats mechanism
     }
     
     @classmethod
@@ -143,78 +144,133 @@ class keepalive():
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
             await asyncio.sleep(ping_interval)
 
-    async def bingx_keep_alive(self, websocket, data=None):
-        exchange = data.get("exchange", None)
-        insType = data.get("exchange", None)
-        instrument = data.get("instrument", None)
-        while True:
-            try:
-                await asyncio.sleep(self.intervals.get("bingx") )
-                await websocket.send("Pong")  
-            except websockets.exceptions.ConnectionClosed:
-                if exchange != None:
-                    print(f"Connection closed of {exchange}, {insType}, {instrument}. Stopping keep-alive.")
-                else:
-                    print(f"Connection closed of Bingx stream. Stopping keep-alive.")
-
-    async def kucoin_keep_alive(self, websocket, conn_id, data=None):
+    async def bingx_keep_alive(self, websocket, connection_data=None, ping_interval:int=5):
         """
-            conn_id : id of the deribit stream with which the websocket was initiated
+            https://bingx-api.github.io/docs/#/en-us/swapV2/socket/
+
+            Once the Websocket Client and Websocket Server get connected, the server will send a heartbeat- Ping message every 5 seconds (the frequency might change).
+            When the Websocket Client receives this heartbeat message, it should return Pong message.
         """
-        exchange = data.get("exchange", None)
-        insType = data.get("exchange", None)
-        instrument = data.get("instrument", None)
+        id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                await asyncio.sleep(self.intervals.get("kucoin"))
-                await websocket.send(json.dumps({"type": "ping", "id":conn_id}))   
-            except websockets.exceptions.ConnectionClosed:
-                if exchange != None:
-                    print(f"Connection closed of {exchange}, {insType}, {instrument}. Stopping keep-alive.")
-                else:
-                    print(f"Connection closed of Kucoin stream. Stopping keep-alive.")
+                print("Sending pong (optional)")
+                await websocket.ping("ping") 
+            except websockets.ConnectionClosed:
+                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
+            await asyncio.sleep(ping_interval)
 
-    async def mexc_keep_alive(self, websocket, data=None):
-        exchange = data.get("exchange", None)
-        insType = data.get("exchange", None)
-        instrument = data.get("instrument", None)
+    async def kucoin_keep_alive(self, websocket, connection_data=None, ping_interval=None):
+        """
+            https://www.kucoin.com/docs/websocket/basic-info/ping
+            {
+            "id": "1545910590801",
+            "type": "ping"
+            }
+            To prevent the TCP link being disconnected by the server, the client side needs to send ping messages every pingInterval time to the server to keep alive the link.
+            After the ping message is sent to the server, the system would return a pong message to the client side.
+            If the server has not received any message from the client for a long time, the connection will be disconnected.
+            {
+            "id": "1545910590801",
+            "type": "pong"
+            }
+        """
+        connection_id = connection_data.get("connect_id")
+        ping_interval = connection_data.get("ping_interval")
+        id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                await websocket.send(json.dumps({"method": "PING"}))
-                await asyncio.sleep(self.intervals.get("mexc"))
-            except websockets.exceptions.ConnectionClosed:
-                if exchange != None:
-                    print(f"Connection closed of {exchange}, {insType}, {instrument}. Stopping keep-alive.")
-                else:
-                    print(f"Connection closed of MEXC stream. Stopping keep-alive.")
+                print("Sending pong")
+                await websocket.send({
+                                        "id": str(connection_id),
+                                        "type": "pong"
+                                        })
+            except websockets.ConnectionClosed:
+                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
+            await asyncio.sleep(int(ping_interval))
+        
+    async def mexc_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
+        """
+            https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-the-stop-limit-price-of-trigger-orders
+            Detailed data interaction commands
+            Send ping message
+            {
+            "method": "ping"
+            }
+            Server return
+            {
+            "channel": "pong",
+            "data": 1587453241453
+            }
+            List of subscribe/unsubscribe data commands ( ws identification is not required except the list of personal related commands)
+            If no ping is received within 1 minute, the connection will be disconnected. It is recommended to send a ping for 10-20 seconds
+            The ping message and server return are shown on the right
 
-    async def gateio_keep_alive(self, websocket, data=None):
-        exchange = data.get("exchange", None)
-        insType = data.get("exchange", None)
-        instrument = data.get("instrument", None)
+            https://mexcdevelop.github.io/apidocs/spot_v3_en/#live-subscribing-unsubscribing-to-streams
+            PING/PONG
+            Request
+            {"method":"PING"}
+            PING/PONG Response
+            {
+            "id":0,
+            "code":0,
+            "msg":"PONG"
+            }
+        """
+        id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                await asyncio.sleep(self.intervals.get("gateio"))
-                await websocket.send("ping")
-            except websockets.exceptions.ConnectionClosed:
-                if exchange != None:
-                    print(f"Connection closed of {exchange}, {insType}, {instrument}. Stopping keep-alive.")
+                if connection_data.get("instType") == "spot":
+                    await websocket.send("PING") 
                 else:
-                    print(f"Connection closed of Gate.io stream. Stopping keep-alive.")
+                    await websocket.send("ping") 
+            except websockets.ConnectionClosed:
+                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
+            await asyncio.sleep(ping_interval)
 
-    async def htx_keep_alive(self, websocket, data=None):
-        exchange = data.get("exchange", None)
-        insType = data.get("exchange", None)
-        instrument = data.get("instrument", None)
+    async def gateio_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
+        """
+            https://www.gate.io/docs/developers/apiv4/ws/en/#system-ap
+            spot.ping
+
+            https://www.gate.io/docs/developers/futures/ws/en/#ping-and-pong
+            gate.io futures contract use the protocol layer ping/pong message.The server will initiate a ping message actively. If the client does not reply, the client will be disconnected.
+            channel : futures.ping
+
+            https://www.gate.io/docs/developers/apiv4/ws/en/#system-api
+            options.ping
+        """
+        id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                await asyncio.sleep(self.intervals.get("htx"))
-                await websocket.send("ping")
-            except websockets.exceptions.ConnectionClosed:
-                if exchange != None:
-                    print(f"Connection closed of {exchange}, {insType}, {instrument}. Stopping keep-alive.")
-                else:
-                    print(f"Connection closed of HTX stream. Stopping keep-alive.")
+                if connection_data.get("instType") == "spot":
+                    await websocket.send({"channel" : "spot.ping"}) 
+                if connection_data.get("instType") in ["future", "perpetual"]:
+                    await websocket.send({"channel" : "futures.ping"}) 
+                if connection_data.get("instType") == "option":
+                    await websocket.send({"channel" : "options.ping"}) 
+            except websockets.ConnectionClosed:
+                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
+            await asyncio.sleep(ping_interval)
+
+    async def htx_keep_alive(self, websocket, connection_data=None, ping_interval:int=5):
+        """
+            https://www.htx.com/en-us/opend/newApiPages/?id=662
+            Heartbeat and Connection
+            {"ping": 1492420473027}
+            After connected to Huobi's Websocket server, the server will send heartbeat periodically (currently at 5s interval). The heartbeat message will have an integer in it, e.g.
+            {"pong": 1492420473027}
+            When client receives this heartbeat message, it should respond with a matching "pong" message which has the same integer in it, e.g.
+        """
+        pass
+
+    async def coinbase_keep_alive(self, websocket, connection_data=None, ping_interval:int=5):
+        """
+            https://docs.cloud.coinbase.com/advanced-trade-api/docs/ws-channels#heartbeats-channel
+            Subscribe to the heartbeats channel to receive heartbeats messages for specific products every second. Heartbeats include a heartbeat_counter which verifies that no messages were missed..
+            Note, 1 hearbeat for a specific product
+        """
+        pass
 
 
 class producer(keepalive):
@@ -223,6 +279,9 @@ class producer(keepalive):
     """
 
     def __init__(self, couch_host, couch_username, couch_password, connection_data, ws_timestamp_keys=None, mode="production"):
+        """
+            ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
+        """
         self.couch_server = aiocouchdb.Server(couch_host)
         self.couch_server.resource.credentials = (couch_username, couch_password)
         self.ws_latencies = {}
@@ -299,7 +358,7 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
-        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
             while websocket.open:
@@ -320,7 +379,7 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
-        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bybit_keep_alive(websocket, connection_data))
             while websocket.open:
@@ -340,7 +399,7 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
-        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.okx_keep_alive(websocket, connection_data))
             while websocket.open:
@@ -362,7 +421,7 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
         if type_ == "heartbeats":
-            async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
                 while websocket.open:
                     try:
@@ -400,7 +459,7 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
-        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
             while websocket.open:
@@ -416,18 +475,27 @@ class producer(keepalive):
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
-    async def bingex_ws(self, connection_data, producer=None, topic=None):
+    async def kucoin_ws(self, connection_data, producer=None, topic=None):
         """
             producer and topic are reserved for kafka integration
         """
-        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            await websocket.send(json.dumps(connection_data.get("msg_method")()))
-            keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
+        just_created_method = connection_data.get("msg_method")()
+        connect_id = re.search(r'connectId=([^&\]]+)', just_created_method.get("url")).group(1)
+        ping_interval = just_created_method.get("ping_data").get("pingInterval")
+        just_created_method["ping_interval"] = ping_interval
+        just_created_method["connect_id"] = connect_id
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(just_created_method))
+            keep_alive_task = asyncio.create_task(self.kucoin_keep_alive(websocket, just_created_method))
             while websocket.open:
                 try:
                     message = websocket.recv()
-                    if message == b'\x89\x00':
+                    if message.get("type", None) == "ping":
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                        await websocket.send({
+                                        "id": str(connect_id),
+                                        "type": "pong"
+                                        })
                     if self.mode == "production":
                         self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
@@ -435,6 +503,115 @@ class producer(keepalive):
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
+    
+    async def bingx_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    if message == b'\x89\x00':
+                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                        await websocket.pong(message)
+                        await websocket.send("Pong")
+                        await websocket.send("pong")
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+    
+    async def mexc_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            keep_alive_task = asyncio.create_task(self.mexc_keep_alive(websocket, connection_data))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if "pong" in message:
+                        await websocket.send("ping")
+                    if "PONG" in message:
+                        await websocket.send("PONG")
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+
+    async def gateio_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if "ping" in message.get("channel"):
+                        await websocket.send({"channel" : message.get("channel").repalce("ping", "pong")})
+                    if "pong" in message.get("channel"):
+                        await websocket.send({"channel" : message.get("channel").repalce("pong", "ping")})
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+
+    async def htx_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    message =  json.loads(gzip.decompress(message).decode('utf-8'))
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if "ping" in message:
+                        await websocket.send(json.dumps({"pong": message.get("ping")}))
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+
+    async def coinbase_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        objective = connection_data.get("objective")
+        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            while websocket.open:
+                try:
+                    if objective != "heartbeats":
+                        message = websocket.recv()
+                        if self.mode == "production":
+                            self.insert_into_database(connection_data, message)
+                        if self.mode == "testing":
+                            self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+
+    async def aiohttp_socket(self, connection_data, producer=None, topic=None):
+        data = await connection_data.get("aiohttpMethod")()
 
     async def main(self, ):
         tasks = []

@@ -1,4 +1,4 @@
-from exchange_interaction import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
+from bridge import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 
 # binance_get_marginType(instType, symbol)
 # binance_get_marginType(instType, symbol)
@@ -47,10 +47,10 @@ ws = {
     # "bingx" : [
     #     "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
     #     ],
-    # "kucoin" : [
-    #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
-    #     "perpetual.depth.XBTUSDTM.snap", "perpetual.trades.XBTUSDTM",
-    #     ],
+    "kucoin" : [
+        "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
+        "perpetual.depth.XBTUSDTM.snap", "perpetual.trades.XBTUSDTM",
+        ],
     # "gateio" : [
     #     "spot.depth.BTC_USDT.snap", "spot.trades.BTC_USDT",
     #     "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT", 
@@ -66,48 +66,50 @@ ws = {
 }
 
 api = {
-    "binance" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-        "option.oi.BTC.15.spec",
-        ],
-    "bybit" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-        "option.oioption.BTC.15"
-        ],
-    "okx" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
-        "option.oi.BTC-USD.15",
-        ],
-    "deribit" : [
-        "future.oifunding.BTC.15",  "option.oifunding.BTC.15",
-        ],
-    "bitget" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", 
-    ],
-    "bingx" : [
-        "perpetual.funding.BTC-USDT.30", "perpetual.oi.BTC-USDT.30",  "perpetual.depth.BTC-USDT.30", 
-        ],
-    "kucoin" : [
-        "perpetual.oifunding.XBTUSDTM.15",
-        ],
+    # "binance" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+    #     "option.oi.BTC.15.spec",
+    #     ],
+    # "bybit" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+    #     "option.oioption.BTC.15"
+    #     ],
+    # "okx" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
+    #     "option.oi.BTC-USD.15",
+    #     ],
+    # "deribit" : [
+    #     "future.oifunding.BTC.15",  "option.oifunding.BTC.15",
+    #     ],
+    # "bitget" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", 
+    # ],
+    # "bingx" : [
+    #     "perpetual.funding.BTC-USDT.30", "perpetual.oi.BTC-USDT.30",  "perpetual.depth.BTC-USDT.30", 
+    #     ],
+    # "kucoin" : [
+    #     "perpetual.oifunding.XBTUSDTM.15",
+    #     ],
 
 
-    "gateio" : [
-        "perpetual.tta.BTC.300.spec", "perpetual.funding.BTC.15.spec",  "perpetual.oi.BTC.15.spec", 
-        "option.oi.BTC_USDT.15",
-        ],
+    # "gateio" : [
+    #     "perpetual.tta.BTC.300.spec", "perpetual.funding.BTC.15.spec",  "perpetual.oi.BTC.15.spec", 
+    #     "option.oi.BTC_USDT.15",
+    #     ],
 
-    "mexc" : [
-        "perpetual.oifunding.BTC_USDT.15",
-        ],
-    "htx" : [
-        "perpetual.oi.BTC.15.spec", "perpetual.funding.BTC.3600.spec", "perpetual.gta.BTC.300.spec",
-        ],
+    # "mexc" : [
+    #     "perpetual.oifunding.BTC_USDT.15",
+    #     ],
+    # "htx" : [
+    #     "perpetual.oi.BTC.15.spec", "perpetual.funding.BTC.3600.spec", "perpetual.gta.BTC.300.spec",
+    #     ],
 }
 
 
 
 data = client.build_connection_data_test(ws, api)
+
+print(data)
 
 # import time
 # import asyncio

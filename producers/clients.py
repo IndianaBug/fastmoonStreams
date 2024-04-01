@@ -1068,7 +1068,8 @@ class kucoin(CommunicationsManager, kucoinInfo):
         kucoin_token = response.json().get("data").get("token")
         kucoin_endpoint = response.json().get("data").get("instanceServers")[0].get("endpoint")
         kucoin_connectId = generate_random_id(20)
-        return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]"
+        kucoin_ping_data = response.json().get("data").get("instanceServers")[0]
+        return f"{kucoin_endpoint}?token={kucoin_token}&[connectId={kucoin_connectId}]", kucoin_ping_data
 
     def kucoin_fetch(self, *args, **kwargs):
         connection_data = self.kucoin_buildRequest(*args, **kwargs)
@@ -1090,7 +1091,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
         """
         symbol_names = [kucoin_get_symbol_name(symbol) for symbol in symbols]
         message  = self.kucoin_build_ws_method(instTypes[0], objectives[0], symbols[0])
-        endpoint = self.build_kucoin_ws_endpoint()    
+        endpoint, ping_data = self.build_kucoin_ws_endpoint()    
         connection_data =     {
                                 "type" : "ws",
                                 "id_ws" : f"kucoin_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
@@ -1100,7 +1101,8 @@ class kucoin(CommunicationsManager, kucoinInfo):
                                 "objective":objectives[0], 
                                 "url" : endpoint,
                                 "msg" : message,
-                                "msg_method" : partial(self.kucoin_build_ws_method, instTypes, objectives, symbols)
+                                "msg_method" : partial(self.kucoin_build_ws_method, instTypes, objectives, symbols),
+                                "ping_data" : ping_data
                             }
         if needSnap is True:
             connection_data["id_api"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
