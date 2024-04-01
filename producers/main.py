@@ -1,4 +1,5 @@
 from bridge import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
+from WSConnectionManager import producer
 
 # binance_get_marginType(instType, symbol)
 # binance_get_marginType(instType, symbol)
@@ -17,52 +18,52 @@ client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret,
 # The Instruments must be of the same format (upper lower with hiphens) as in API calls. You may merge streams with the same channels (objectives). Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
 ws = {
-    # "binance" : [
-    #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
-    #     "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
-    #     "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
-    #     "option.trades.BTC",
-    #     ],
-    # "bybit" : [
-    #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
-    #     "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", 
-    #     "perpetual.trades.BTCUSDT.BTCPERP", "perpetual.trades.BTCUSD", 
-    #     "perpetual.liquidations.BTCUSDT.BTCPERP", "perpetual.liquidations.BTCUSD", 
-    #     "option.trades.BTC", "option.oioption.BTC",
-    #     ],
-    # "okx" : [
-    #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT.BTC-USDC",
-    #     "perpetual.depth.BTC-USDT-SWAP.snap", "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", "perpetual.liquidations.SWAP.FUTURES.OPTION",
-    #     "option.trades.BTC",
-    #     ],
+    "binance" : [
+        "spot.depth.BTCUSDT.snap", "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
+        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
+        "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
+        "option.trades.BTC",
+        ],
+    "bybit" : [
+        "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
+        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", 
+        "perpetual.trades.BTCUSDT.BTCPERP", "perpetual.trades.BTCUSD", 
+        "perpetual.liquidations.BTCUSDT.BTCPERP", "perpetual.liquidations.BTCUSD", 
+        "option.trades.BTC", "option.oioption.BTC",
+        ],
+    "okx" : [
+        "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT.BTC-USDC",
+        "perpetual.depth.BTC-USDT-SWAP.snap", "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", "perpetual.liquidations.SWAP.FUTURES.OPTION",
+        "option.trades.BTC",
+        ],
     
-    # "deribit" : [
-    #     "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC",
-    #     "option.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL"
-    #     ],
-    # "bitget" : [
-    #     "spot.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCUSDC",
-    #     "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
-    #     ],
-    # "bingx" : [
-    #     "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
-    #     ],
+    "deribit" : [
+        "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC",
+        "option.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL"
+        ],
+    "bitget" : [
+        "spot.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCUSDC",
+        "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
+        ],
+    "bingx" : [
+        "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
+        ],
     "kucoin" : [
         "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
         "perpetual.depth.XBTUSDTM.snap", "perpetual.trades.XBTUSDTM",
         ],
-    # "gateio" : [
-    #     "spot.depth.BTC_USDT.snap", "spot.trades.BTC_USDT",
-    #     "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT", 
-    #     "option.trades.BTC", "option.oi.BTC",
-    #     ],
-    # "mexc" : [
-    #     "spot.depth.BTCUSDT.snap", "spot.trades.BTCUSDT",
-    #     "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT",
-    #     ],
-    # "coinbase" : [
-    #     "spot.depth.BTC-USD.snap", "spot.trades.BTC-USD", "spot.heartbeats.BTC-USD",
-    #     ],
+    "gateio" : [
+        "spot.depth.BTC_USDT.snap", "spot.trades.BTC_USDT",
+        "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT", 
+        "option.trades.BTC", "option.oi.BTC",
+        ],
+    "mexc" : [
+        "spot.depth.BTCUSDT.snap", "spot.trades.BTCUSDT",
+        "perpetual.depth.BTC_USDT.snap", "perpetual.trades.BTC_USDT",
+        ],
+    "coinbase" : [
+        "spot.depth.BTC-USD.snap", "spot.trades.BTC-USD", "spot.heartbeats.BTC-USD",
+        ],
 }
 
 api = {
@@ -105,11 +106,12 @@ api = {
     #     ],
 }
 
+connectionData = client.build_connection_data_test(ws, api)
 
+# print(connectionData)
 
-data = client.build_connection_data_test(ws, api)
+cryptoProducer = producer(connectionData)
 
-print(data)
 
 # import time
 # import asyncio

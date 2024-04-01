@@ -359,7 +359,7 @@ class binance(CommunicationsManager, binanceInfo):
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}",
+            connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}",
             connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -564,7 +564,7 @@ class bybit(CommunicationsManager, bybitInfo):
                             }
         
         if needSnap is True:
-            connection_data["id_api"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
             connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
         return connection_data
         
@@ -970,7 +970,7 @@ class coinbase(CommunicationsManager):
                                 "msg_method" : partial(self.coinbase_build_ws_method, instTypes[0], objectives[0], symbols[0]),
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}",
+            connection_data["id_api_2"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}",
             connection_data["1stBooksSnapMethod"] = partial(self.coinbase_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -1105,7 +1105,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
                                 "ping_data" : ping_data
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
             connection_data["1stBooksSnapMethod"] = partial(self.kucoin_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -1466,7 +1466,7 @@ class bitget(CommunicationsManager, bitgetInfo):
                                 "marginTypes" : '_'.join(marginTypes),
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"bitget_api_{instType}_{objectives[0]}_{symbol_names[0]}"
+            connection_data["id_api_2"] = f"bitget_api_{instType}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.bitget_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -1603,7 +1603,7 @@ class deribit(CommunicationsManager, deribitInfo):
                                 "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss)
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
             connection_data["1stBooksSnapMethod"] = partial(cls.deribit_fetch, instTypes[0], objectives[0], symbols[0]) 
         return connection_data
 
@@ -1790,7 +1790,7 @@ class htx(CommunicationsManager, htxInfo):
                                 "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"htx_api_{instType}_{objective}_{symbol_name}"
+            connection_data["id_api_2"] = f"htx_api_{instType}_{objective}_{symbol_name}"
             connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
         return connection_data
 
@@ -1926,7 +1926,7 @@ class mexc(CommunicationsManager, mexcInfo):
                                 "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"mexc_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
+            connection_data["id_api_2"] = f"mexc_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(cls.mexc_fetch, instTypes[0], objectives[0], symbols[0]) 
         return connection_data
 
@@ -2108,7 +2108,7 @@ class gateio(CommunicationsManager, gateioInfo):
                                 "marginCoin" : "btc" if marginType == "InversePerpetual" else "usdt",
                             }
         if needSnap is True:
-            connection_data["id_api"] = f"gateio_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
+            connection_data["id_api_2"] = f"gateio_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 

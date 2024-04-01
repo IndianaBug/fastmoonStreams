@@ -20,7 +20,8 @@ import random
 import string
 import aiohttp
 from utilis import generate_random_id
-import aiocouchdb
+import aiocouch
+from tinydb import TinyDB, Query
 import zlib
 import re
 
@@ -278,19 +279,28 @@ class producer(keepalive):
         2 modes: production, testing
     """
 
-    def __init__(self, couch_host, couch_username, couch_password, connection_data, ws_timestamp_keys=None, mode="production"):
+    def __init__(self, connection_data, database="tinydb", couch_host="", 
+                 couch_username="", couch_password="", ws_timestamp_keys=None,
+                 mode="production", shelve_database_path=None):
         """
+            databases : couchdb, tinydb
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
         """
-        self.couch_server = aiocouchdb.Server(couch_host)
-        self.couch_server.resource.credentials = (couch_username, couch_password)
+        self.database_name = database
+        if self.database_name == "couchdb":
+            self.db = aiocouch.Server(couch_host)
+            self.db.resource.credentials = (couch_username, couch_password)
         self.ws_latencies = {}
         self.connection_data = connection_data
         self.ws_timestamp_keys = ws_timestamp_keys
         self.ws_failed_connections = {}
         self.mode = mode
-        self.verify_databases() 
+        self.set_databases() 
         self.populate_ws_latencies()
+        if self.database_name == "tinydb":
+            self.insert_into_database = self.insert_into_tinydb
+        if self.database_name == "couchdb":
+            self.insert_into_database = self.insert_into_couchdb
 
     def onInterrupt_write_to_json(self):
         """
@@ -302,30 +312,36 @@ class producer(keepalive):
         if self.ws_failed_connections:
             with open(f"ws_failed_connections.json", 'w') as file:
                 json.dump(self.ws_failed_connections, file)
-    
-    def verify_databases(self):
-        connection_data = self.connection_data
-        ws_ids = [conndict.get("id_ws") for conndict in connection_data if conndict.get("id_ws") in conndict]
-        api_ids = [conndict.get("id_api") for conndict in connection_data if conndict.get("id_api") in conndict]
+
+    def set_databases(self):
+        ws_ids = [di.get("id_ws") for di in self.connection_data if "id_ws" in di]
+        api_ids = [di.get("id_api") for di in self.connection_data if "id_api" in di]
         list_of_databases = ws_ids + api_ids
         existing_databases = []
-        for databse in list_of_databases:
-            try:
-                self.couch_server[databse]
+        if self.database_name == "couch":
+            for databse in list_of_databases:
+                setattr(self, f"db_{databse}", self.db.create(databse))
                 existing_databases.append(databse)
-            except aiocouchdb.http.ResourceNotFound:
-                print(f"Database {databse} doesn't exist. Creating...")
-                self.couch_server[databse].create(databse)
+            print(f"Couch server with {len(existing_databases)} databases is ready!!!")
+        if self.database_name == "tinydb":
+            for databse in list_of_databases:
+                setattr(self, f"db_{databse}", TinyDB(databse))
                 existing_databases.append(databse)
-        print(f"CouchDB server with {len(existing_databases)} databases is ready!!!")
+            print(f"Shelve server with {len(existing_databases)} databases is ready!!!")
 
-    def insert_into_database(self, connection_data, json_data):
+    def insert_into_couch(self, connection_dict, json_data):
         """
             Inserts into couch database
         """
-        db = self.couch_server[connection_data.get("id_ws")]
         data = zlib.compress(json_data.encode('utf-8'))
-        db.save(data)
+        getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
+        
+    def insert_into_tinydb(self, connection_dict, json_data):
+        """
+            Inserts into couch database
+        """
+        data = zlib.compress(json_data.encode('utf-8'))
+        getattr(self, f"db_{connection_dict.get('id_ws')}").insert(data)
 
     def populate_ws_latencies(self):
         for data in self.connection_data:
@@ -358,6 +374,9 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
@@ -379,6 +398,7 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+            
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bybit_keep_alive(websocket, connection_data))
@@ -399,6 +419,9 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.okx_keep_alive(websocket, connection_data))
@@ -415,12 +438,16 @@ class producer(keepalive):
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
-    async def deribit_ws(self, connection_data, producer=None, topic=None, type_="production"):
+    async def deribit_ws(self, connection_data, producer=None, topic=None):
         """
             types : production, heartbeats
             producer and topic are reserved for kafka integration
         """
-        if type_ == "heartbeats":
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+
+        if connection_data.get("objective") == "heartbeats":
             async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
                 while websocket.open:
@@ -440,8 +467,7 @@ class producer(keepalive):
                     except websockets.ConnectionClosed:
                         print(f"Connection closed of {connection_data.get('id_ws')}")
                         break
-
-        if type_ == "production":
+        else:
             async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
                 while websocket.open:
@@ -459,6 +485,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
@@ -479,6 +509,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+
         just_created_method = connection_data.get("msg_method")()
         connect_id = re.search(r'connectId=([^&\]]+)', just_created_method.get("url")).group(1)
         ping_interval = just_created_method.get("ping_data").get("pingInterval")
@@ -508,6 +542,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
@@ -531,6 +569,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.mexc_keep_alive(websocket, connection_data))
@@ -553,6 +595,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
@@ -575,6 +621,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             while websocket.open:
@@ -595,6 +645,10 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+
+        if connection_data.get("objective") == "depth":
+            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())    
+    
         objective = connection_data.get("objective")
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -612,24 +666,18 @@ class producer(keepalive):
 
     async def aiohttp_socket(self, connection_data, producer=None, topic=None):
         data = await connection_data.get("aiohttpMethod")()
+        self.insert_into_database(connection_data, message)
 
-    async def main(self, ):
+    async def run_producer(self):
         tasks = []
-
-        # Implement that connections between exchanges must have 1 second timeout
-
-        # Establish WebSocket connections
-        for info in self.connection_data:
-            tasks.append(asyncio.ensure_future(self.connection_data(info)))
-
-        # Handle WebSocket connections and other tasks concurrently
-        for info in self.connection_data:
-            if info["exchange"] != "deribit":
-                tasks.append(asyncio.ensure_future(self.connection_data(info)))
-            if info["exchange"] == "deribit":
-                tasks.append(asyncio.ensure_future(self.connection_data(info)))
-
-        # Run all tasks concurrently
+        for connection_dict in self.connection_data:
+            if "id_ws" in connection_dict:
+                id_ = connection_dict.get("id_ws")
+                exchange = connection_dict.get("exchange")
+                ws_method = getattr(self, f"{exchange}_ws", None)
+                tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
+            if "id_ws" not in connection_dict and "id_api" in connection_dict:
+                tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
         try:
             await asyncio.gather(*tasks)
         except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
