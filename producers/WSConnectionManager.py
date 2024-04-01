@@ -368,7 +368,7 @@ class producer(keepalive):
                     try:
                         message = websocket.recv()
                         if message.get("method") == "heartbeat":
-                            print(f"Received heartbeat from server.")
+                            print(f"Received heartbeat from Deribit server.")
                         elif message.get("result") == "ok":
                             test_response = {
                                 "jsonrpc": "2.0",
@@ -396,6 +396,45 @@ class producer(keepalive):
                         print(f"Connection closed of {connection_data.get('id_ws')}")
                         break
 
+    async def bitget_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    if message == b'\x89\x00':
+                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
+
+    async def bingex_ws(self, connection_data, producer=None, topic=None):
+        """
+            producer and topic are reserved for kafka integration
+        """
+        async for websocket in websockets.connect(connection_data.get("url"), ping_interval=30, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
+            while websocket.open:
+                try:
+                    message = websocket.recv()
+                    if message == b'\x89\x00':
+                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                    if self.mode == "production":
+                        self.insert_into_database(connection_data, message)
+                    if self.mode == "testing":
+                        self.get_latency(connection_data, message)
+                except websockets.ConnectionClosed:
+                    print(f"Connection closed of {connection_data.get('id_ws')}")
+                    break
 
     async def main(self, ):
         tasks = []
