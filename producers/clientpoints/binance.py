@@ -107,20 +107,20 @@ binance_ws_endpoints = {
 
 
 ws_derivatepayload = {
-            "trades" : lambda symbol : f"{symbol}@aggTrade",
-        "depth" : lambda symbol : f"{symbol}@depth@500ms",
-        "liquidations" : lambda symbol : f"{symbol}@forceOrder",
+            "trades" : lambda symbol : f"{symbol.lower()}@aggTrade",
+        "depth" : lambda symbol : f"{symbol.lower()}@depth@500ms",
+        "liquidations" : lambda symbol : f"{symbol.lower()}@forceOrder",
 }
 
 binance_ws_payload_map = {
     "spot" : {
-        "trades" : lambda symbol : f"{symbol}@aggTrade",
-        "depth" : lambda symbol : f"{symbol}@depth@1000ms",
+        "trades" : lambda symbol : f"{symbol.lower()}@aggTrade",
+        "depth" : lambda symbol : f"{symbol.lower()}@depth@1000ms",
     },
     "perpetual" : ws_derivatepayload,
     "future" : ws_derivatepayload,
     "option" : {
-        "trades" : lambda underlyingAsset : f"{underlyingAsset}@trade",
+        "trades" : lambda underlyingAsset : f"{underlyingAsset.lower()}@trade",
     }
 }
 

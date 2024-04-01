@@ -153,5 +153,4 @@ class ExchangeAPIClient():
                             merged_dict[key][sub_key] = sub_value
                         else:
                             merged_dict[key][sub_key] += sub_value
-        print(json.dumps(merged_dict, indent=4))
         return merged_dict

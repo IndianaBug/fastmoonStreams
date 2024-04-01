@@ -2,28 +2,14 @@ import asyncio
 import websockets
 import json
 import time
-from urllib.parse import urlencode
-import requests
 import websockets
 import ssl
-from hashlib import sha256
 import json
-import jwt
-from cryptography.hazmat.primitives import serialization
-import secrets
-import os
-import sys
-import hashlib
-import hmac
-import base64
-import random
-import string
-import aiohttp
-from utilis import generate_random_id
 import aiocouch
 from tinydb import TinyDB, Query
 import zlib
 import re
+import gzip
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -281,10 +267,11 @@ class producer(keepalive):
 
     def __init__(self, connection_data, database="tinydb", couch_host="", 
                  couch_username="", couch_password="", ws_timestamp_keys=None,
-                 mode="production", shelve_database_path=None):
+                 mode="production"):
         """
             databases : couchdb, tinydb
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
+            if using tinydb, you must create a folder tinybase
         """
         self.database_name = database
         if self.database_name == "couchdb":
@@ -299,8 +286,10 @@ class producer(keepalive):
         self.populate_ws_latencies()
         if self.database_name == "tinydb":
             self.insert_into_database = self.insert_into_tinydb
+            self.insert_into_database_2 = self.insert_into_tinydb_2
         if self.database_name == "couchdb":
             self.insert_into_database = self.insert_into_couchdb
+            self.insert_into_database_2 = self.insert_into_couchdb_2
 
     def onInterrupt_write_to_json(self):
         """
@@ -316,7 +305,9 @@ class producer(keepalive):
     def set_databases(self):
         ws_ids = [di.get("id_ws") for di in self.connection_data if "id_ws" in di]
         api_ids = [di.get("id_api") for di in self.connection_data if "id_api" in di]
-        list_of_databases = ws_ids + api_ids
+        api_2_ids = [di.get("id_api_2") for di in self.connection_data if "id_api_2" in di]
+        print(ws_ids)
+        list_of_databases = ws_ids + api_ids + api_2_ids
         existing_databases = []
         if self.database_name == "couch":
             for databse in list_of_databases:
@@ -325,27 +316,57 @@ class producer(keepalive):
             print(f"Couch server with {len(existing_databases)} databases is ready!!!")
         if self.database_name == "tinydb":
             for databse in list_of_databases:
-                setattr(self, f"db_{databse}", TinyDB(databse))
+                setattr(self, f"db_{databse}", TinyDB("tinybase/"+databse+".json"))
                 existing_databases.append(databse)
-            print(f"Shelve server with {len(existing_databases)} databases is ready!!!")
+            print(f"TinyDB server with {len(existing_databases)} databases is ready!!!")
 
-    def insert_into_couch(self, connection_dict, json_data):
+    def insert_into_couchdb(self, connection_dict, data):
         """
             Inserts into couch database
         """
-        data = zlib.compress(json_data.encode('utf-8'))
+        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
+        if not isinstance(data, dict):
+            data = json.loads(data)
         getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
-        
-    def insert_into_tinydb(self, connection_dict, json_data):
+
+    def insert_into_couchdb_2(self, connection_dict, data):
         """
             Inserts into couch database
         """
-        data = zlib.compress(json_data.encode('utf-8'))
-        getattr(self, f"db_{connection_dict.get('id_ws')}").insert(data)
+        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
+        if not isinstance(data, dict):
+            data = json.loads(data)
+        getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data)
+        
+    def insert_into_tinydb(self, connection_dict, data):
+        """
+            Inserts into couch database
+        """
+        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
+        # data = json.loads(json_data)
+        try:
+            if not isinstance(data, dict):
+                data = json.loads(data)
+            getattr(self, f"db_{connection_dict.get('id_ws')}").insert(data)
+        except:
+            print(f'{connection_dict.get("id_ws")} is not working properly' )
+
+    def insert_into_tinydb_2(self, connection_dict, data):
+        """
+            Inserts into couch database
+        """
+        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
+        # data = json.loads(json_data)
+        try:
+            if not isinstance(data, dict):
+                data = json.loads(data)
+            getattr(self, f"db_{connection_dict.get('id_api_2')}").insert(data)
+        except:
+            print(f'{connection_dict.get("id_api_2")} is not working properly' )
 
     def populate_ws_latencies(self):
-        for data in self.connection_data:
-            connection_id = data.get("id_ws", None)
+        for di in self.connection_data:
+            connection_id = di.get("id_ws", None)
             if connection_id is not None:
                 self.ws_latencies[connection_id] = {"process_timestamp" : [], "recieved_timestamp" : []}
     
@@ -375,14 +396,14 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
             
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.pong(message)
@@ -445,7 +466,9 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            books = await connection_data.get("1stBooksSnapMethod")()
+            self.insert_into_database(connection_data, books)
+            del books
 
         if connection_data.get("objective") == "heartbeats":
             async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
@@ -513,14 +536,15 @@ class producer(keepalive):
         if connection_data.get("objective") == "depth":
             self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
 
-        just_created_method = connection_data.get("msg_method")()
-        connect_id = re.search(r'connectId=([^&\]]+)', just_created_method.get("url")).group(1)
-        ping_interval = just_created_method.get("ping_data").get("pingInterval")
-        just_created_method["ping_interval"] = ping_interval
-        just_created_method["connect_id"] = connect_id
-        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            await websocket.send(json.dumps(just_created_method))
-            keep_alive_task = asyncio.create_task(self.kucoin_keep_alive(websocket, just_created_method))
+        connection_message = connection_data.get("msg_method")()
+        endpoint, ping_data = connection_data.get("url_method")()
+        connect_id = re.search(r'connectId=([^&\]]+)', endpoint).group(1)
+        ping_interval = ping_data.get("pingInterval")
+        connection_data["ping_interval"] = ping_interval
+        connection_data["connect_id"] = connect_id
+        async for websocket in websockets.connect(endpoint, timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+            await websocket.send(json.dumps(connection_message))
+            keep_alive_task = asyncio.create_task(self.kucoin_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
                     message = websocket.recv()
@@ -665,7 +689,7 @@ class producer(keepalive):
                     break
 
     async def aiohttp_socket(self, connection_data, producer=None, topic=None):
-        data = await connection_data.get("aiohttpMethod")()
+        message = await connection_data.get("aiohttpMethod")()
         self.insert_into_database(connection_data, message)
 
     async def run_producer(self):

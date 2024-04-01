@@ -99,8 +99,7 @@ class CommunicationsManager:
                 return response
 
     @classmethod
-    def make_wsRequest_http(cls, connection_data):
-        print(connection_data.get("headers"))
+    async def make_wsRequest_http(cls, connection_data):
         async def wsClient(connection_data):
             async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
                 await websocket.send(json.dumps(connection_data.get("headers")))
@@ -120,6 +119,7 @@ class CommunicationsManager:
             await websocket.send(json.dumps(connection_data.get("headers")))
             response = await websocket.recv()
             return response 
+
 
     @classmethod
     def http_call(cls, endpoint, basepoint, payload, headers):
@@ -359,7 +359,7 @@ class binance(CommunicationsManager, binanceInfo):
                             }
         
         if needSnap is True:
-            connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}",
+            connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -650,7 +650,6 @@ class okx(CommunicationsManager, okxInfo):
     async def okx_build_oioption_method(cls, underlying_symbol):
         marginCoinsF = [x for x in cls.okx_symbols_by_instType("option") if underlying_symbol in x]
         marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
-        print(marginCoinsF)
         data = []
         for marginCoin in marginCoinsF:
             futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
@@ -1030,7 +1029,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
         """
             objective : depth, trades, liquidations, oi, funding
         """
-        topic = self.kucoin_stream_keys.get(instType).get(objective)
+        topic = kucoin_stream_keys.get(instType).get(objective)
         message =  {
                 "id": generate_random_integer(10),   
                 "type": "subscribe",
@@ -1100,8 +1099,9 @@ class kucoin(CommunicationsManager, kucoinInfo):
                                 "instType": instTypes[0],
                                 "objective":objectives[0], 
                                 "url" : endpoint,
+                                "url_method" : partial(self.build_kucoin_ws_endpoint),
                                 "msg" : message,
-                                "msg_method" : partial(self.kucoin_build_ws_method, instTypes, objectives, symbols),
+                                "msg_method" : partial(self.kucoin_build_ws_method, instTypes[0], objectives[0], symbols[0]),
                                 "ping_data" : ping_data
                             }
         if needSnap is True:
@@ -1511,15 +1511,15 @@ class deribit(CommunicationsManager, deribitInfo):
             }
 
     @classmethod
-    def deribit_fetch(cls, *args, **kwargs):
+    async def deribit_fetch(cls, *args, **kwargs):
         connection_data = cls.deribit_buildRequest(*args, **kwargs)
-        response = cls.make_wsRequest(connection_data)
+        response = await cls.make_wsRequest(connection_data)
         return response
 
     @classmethod
     async def deribit_aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.deribit_buildRequest(*args, **kwargs)
-        response = await cls.make_wsRequest(connection_data)
+        response = await cls.make_wsRequest_http(connection_data)
         return response
     
     @classmethod
@@ -1600,7 +1600,7 @@ class deribit(CommunicationsManager, deribitInfo):
                                 "objective": objectives[0], 
                                 "url" : deribit_endpoint,
                                 "msg" : msg,
-                                "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss)
+                                "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss, objectives)
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
@@ -1821,7 +1821,6 @@ class mexc(CommunicationsManager, mexcInfo):
         if instType == "perpetual" and objective == "depth":
             url = url + "/" + symbol
             params = {}
-        print(url, params)
         return {
             "url" : url,
             "basepoint" : basepoint,  
