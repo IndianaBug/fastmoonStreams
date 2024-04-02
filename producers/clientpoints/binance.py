@@ -94,22 +94,22 @@ binance_ws_endpoints = {
                     "spot" : "wss://stream.binance.com:9443/ws",
                     "perpetual" : {
                         "LinearPerpetual" : "wss://fstream.binance.com/ws",
-                        "InversePerpetual" : "wss://dstream.binancefuture.com/ws"
+                        "InversePerpetual" : "wss://dstream.binance.com/ws"
                     },
                     "future" : {
                         "LinearFuture" : "wss://fstream.binance.com/ws",
-                        "InverseFuture" : "wss://dstream.binancefuture.com/ws"
+                        "InverseFuture" : "wss://dstream.binance.com/ws"
                     },
                     "option" : "wss://nbstream.binance.com/eoptions/ws",
                     "Linear" : "wss://fstream.binance.com/ws",
-                    "Inverse" :  "wss://dstream.binancefuture.com/ws"
+                    "Inverse" :  "wss://dstream.binance.com/ws"
                 }
 
 
 ws_derivatepayload = {
             "trades" : lambda symbol : f"{symbol.lower()}@aggTrade",
-        "depth" : lambda symbol : f"{symbol.lower()}@depth@500ms",
-        "liquidations" : lambda symbol : f"{symbol.lower()}@forceOrder",
+            "depth" : lambda symbol : f"{symbol.lower()}@depth@500ms",
+            "liquidations" : lambda symbol : f"{symbol.lower()}@forceOrder",
 }
 
 binance_ws_payload_map = {
@@ -120,7 +120,7 @@ binance_ws_payload_map = {
     "perpetual" : ws_derivatepayload,
     "future" : ws_derivatepayload,
     "option" : {
-        "trades" : lambda underlyingAsset : f"{underlyingAsset.lower()}@trade",
+        "trades" : lambda underlyingAsset : f"{underlyingAsset}@trade",
     }
 }
 

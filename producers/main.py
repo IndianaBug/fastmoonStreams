@@ -14,19 +14,21 @@ kucoinPass = "sN038-(!UK}4"
 client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret, kucoinPass)
 # all_instruments = client.retrieve_all_instruments()
 # symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
+# print(binance_get_marginType("perpetual", "BTCUSDC"))
 
 # The Instruments must be of the same format (upper lower with hiphens) as in API calls. You may merge streams with the same channels (objectives). Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
 ws = {
-    "binance" : [
-        "spot.depth.BTCUSDT.snap", 
-        "spot.depth.BTCFDUSD.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
-        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
-        "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
-        "option.trades.BTC",
-        ],
+    # "binance" : [
+    #     "spot.depth.BTCUSDT.snap", 
+    #     "spot.depth.BTCFDUSD.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
+    #     "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
+    #     "perpetual.trades.BTCUSD_PERP", "perpetual.liquidations.BTCUSD_PERP",
+    #     "option.trades.BTC",
+    #     ],
     # "bybit" : [
-    #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
+    #     "spot.trades.BTCUSDT.BTCUSDC",
+    #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", 
     #     "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD.snap", 
     #     "perpetual.trades.BTCUSDT.BTCPERP", "perpetual.trades.BTCUSD", 
     #     "perpetual.liquidations.BTCUSDT.BTCPERP", "perpetual.liquidations.BTCUSD", 
@@ -72,10 +74,10 @@ api = {
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
     #     "option.oi.BTC.15.spec",
     #     ],
-    # "bybit" : [
-    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-    #     "option.oioption.BTC.15"
-    #     ],
+    "bybit" : [
+        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+        "option.oioption.BTC.15"
+        ],
     # "okx" : [
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
     #     "option.oi.BTC-USD.15",
@@ -115,47 +117,10 @@ connectionData = client.build_connection_data_test(ws, api)
 #     print("----")
 #     print(e)
 
-# # with open("connection_data.json", "w") as file:
-# #     file = json.dumps(connectionData)
-
-print(connectionData)
-
-# __name__ = "not_main"
+__name__ = "__main__"
 
 if __name__ == '__main__':
     cryptoProducer = producer(connectionData)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(cryptoProducer.run_producer())
-
-# import time
-# import asyncio
-# for i, e in enumerate(data):
-#     try:
-#         print("------")
-#         print(e)
-#     except Exception as e:
-#         print(e)
-#     async def returns():
-#         data = await e["aiohttpMethod"]()
-#         print(data)
-#     asyncio.run(returns())
-#     time.sleep(2)
-    
-    # if "1stBooksSnapMethod" in e:
-    #     try:
-    #         print("ok")
-    #         print(e["1stBooksSnapMethod"]())
-    #         time.sleep(2)
-    #     except Exception as e:
-    #         print("somethings fucked")
-    #         print(e)
-
-# async def printt():
-#     a = await method()
-#     print(a)
-# asyncio.run(printt())
-
-# Binance
-# LinearDerivates : ["USDT", "USDC"]
-# Inverse derivates : Derivates 

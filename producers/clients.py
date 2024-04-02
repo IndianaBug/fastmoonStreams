@@ -25,17 +25,17 @@ from typing import List, Union
 from utilis import filter_nested_dict
 
 from infopulse import *
-from producers.clientpoints.binance import *
-from producers.clientpoints.bybit import *
-from producers.clientpoints.okx import *
-from producers.clientpoints.coinbase import *
-from producers.clientpoints.deribit import *
-from producers.clientpoints.kucoin import *
-from producers.clientpoints.htx import *
-from producers.clientpoints.bitget import *
-from producers.clientpoints.gateio import *
-from producers.clientpoints.mexc import *
-from producers.clientpoints.bingx import *
+from clientpoints.binance import *
+from clientpoints.bybit import *
+from clientpoints.okx import *
+from clientpoints.coinbase import *
+from clientpoints.deribit import *
+from clientpoints.kucoin import *
+from clientpoints.htx import *
+from clientpoints.bitget import *
+from clientpoints.gateio import *
+from clientpoints.mexc import *
+from clientpoints.bingx import *
 
 
 class CommunicationsManager:
@@ -215,11 +215,13 @@ class binance(CommunicationsManager, binanceInfo):
             BTC, ETH ...
         """
         symbols =  cls.binance_perpfut_instruments(underlying_asset)
-        full = []
+        full = {}
         for symbol in symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
             data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-            full.append(data)
+            if isinstance(data, str):
+                data = json.loads(data)
+            full[f"{symbol}_{instType}"] = data
         return full
     
     @classmethod
@@ -228,12 +230,14 @@ class binance(CommunicationsManager, binanceInfo):
             BTC, ETH ...
         """
         symbols =  cls.binance_perpfut_instruments(underlying_asset)
-        full = []
+        full = {}
         for symbol in symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
             if not bool(re.search(r'\d', symbol.split("_")[-1])):
                 data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
-                full.append(data)
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full[f"{symbol}_{instType}"] = data
         return full
 
     @classmethod
@@ -251,11 +255,16 @@ class binance(CommunicationsManager, binanceInfo):
                 marginType = binance_instType_help(symbol)
                 symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
                 data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
                 full[f"{symbol}_{objective}"] = data
                 time.sleep(latency)
         coinm_symbol = underlying_instrument+"USD"
-        data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-        full[coinm_symbol+"coinmAgg"] = data
+        for objective in ["tta", "ttp", "gta"]:
+            data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
+            if isinstance(data, str):
+                data = json.loads(data)
+            full[coinm_symbol+f"coinmAgg_{objective}"] = data
         return full
 
     @classmethod
@@ -264,11 +273,13 @@ class binance(CommunicationsManager, binanceInfo):
             BTC, ETH ...
         """
         expiries =  cls.binance_get_option_expiries(symbol)
-        full = []
+        full = {}
         for expiration in expiries:
             data = await cls.binance_aiohttpFetch("option", "oi", symbol=symbol, specialParam=expiration,  special_method="oioption")
-            full.append(data)
-        return unnest_list(full)
+            if isinstance(data, str):
+                data = json.loads(data)
+            full[expiration] = unnest_list(data)
+        return full
 
     @classmethod
     def binance_build_api_connectionData(cls, instType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
@@ -465,11 +476,15 @@ class bybit(CommunicationsManager, bybitInfo):
         for symbol in symbols:
             instType = "future" if "-" in symbol else "perpetual"
             data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+            if isinstance(data, str):
+                data = json.loads(data)
             full[symbol] = data
         symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
         for symbol in symbols:
             instType = "future" if "-" in symbol else "perpetual"
             data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+            if isinstance(data, str):
+                data = json.loads(data)
             full[symbol] = data
         return full
         
@@ -482,16 +497,22 @@ class bybit(CommunicationsManager, bybitInfo):
         full = {}
         symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
         for symbol in symbols:
-            symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
-            instType = "future" if "-" in symbol else "perpetual"
-            data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-            full["Linear_"+symbol] = data
+            if not re.search(r'\d', symbol.split("-")[0]):  # unavailable for futures as of april2 2024
+                symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
+                instType = "future" if "-" in symbol else "perpetual"
+                data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full["Linear_"+symbol] = data
         symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
         for symbol in symbols:
-            symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
-            instType = "future" if "-" in symbol else "perpetual"
-            data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-            full["Inverse_"+symbol] = data
+            if not re.search(r'\d', symbol.split("-")[0]):  # unavailable for futures as of april2 2024
+                symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
+                instType = "future" if "-" in symbol else "perpetual"
+                data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full["Inverse_"+symbol] = data
         return full
 
     @classmethod
@@ -505,12 +526,16 @@ class bybit(CommunicationsManager, bybitInfo):
             instType = "future" if "-" in symbol else "perpetual"
             if instType == "perpetual":
                 data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
                 full[symbol] = data
         symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
         for symbol in symbols:
             instType = "future" if "-" in symbol else "perpetual"
             if instType == "perpetual":
                 data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
                 full[symbol] = data
         return full
 
@@ -564,7 +589,7 @@ class bybit(CommunicationsManager, bybitInfo):
                             }
         
         if needSnap is True:
-            connection_data["id_api_2"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
         return connection_data
         

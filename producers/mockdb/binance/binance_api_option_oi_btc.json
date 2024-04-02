@@ -1,0 +1,3773 @@
+[
+  {
+    "240628": [
+      {
+        "symbol": "BTC-240628-36000-P",
+        "sumOpenInterest": "16.160",
+        "sumOpenInterestUsd": "1063378.88680850720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-110000-C",
+        "sumOpenInterest": "11.030",
+        "sumOpenInterestUsd": "725808.73276595510",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-52000-C",
+        "sumOpenInterest": "31.140",
+        "sumOpenInterestUsd": "2049110.05787233380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-75000-C",
+        "sumOpenInterest": "60.510",
+        "sumOpenInterestUsd": "3981748.54212764670",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-24000-P",
+        "sumOpenInterest": "20.260",
+        "sumOpenInterestUsd": "1333171.79744680420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-47000-P",
+        "sumOpenInterest": "17.960",
+        "sumOpenInterestUsd": "1181824.55489361320",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-40000-C",
+        "sumOpenInterest": "47.050000000",
+        "sumOpenInterestUsd": "3096038.15744679850000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-54000-P",
+        "sumOpenInterest": "12.310",
+        "sumOpenInterestUsd": "810036.76340425270",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-28000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-31000-P",
+        "sumOpenInterest": "36.090",
+        "sumOpenInterestUsd": "2374835.64510637530",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-42000-P",
+        "sumOpenInterest": "102.940",
+        "sumOpenInterestUsd": "6773776.15148933980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-70000-C",
+        "sumOpenInterest": "93.850000000",
+        "sumOpenInterestUsd": "6175625.52765955450000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-65000-P",
+        "sumOpenInterest": "19.080",
+        "sumOpenInterestUsd": "1255524.08170212360",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-19000-P",
+        "sumOpenInterest": "25.590",
+        "sumOpenInterestUsd": "1683902.58127659030",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-46000-C",
+        "sumOpenInterest": "63.890",
+        "sumOpenInterestUsd": "4204163.18553190130",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-34000-C",
+        "sumOpenInterest": "1.50",
+        "sumOpenInterestUsd": "98704.7234042550",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-58000-C",
+        "sumOpenInterest": "7.890",
+        "sumOpenInterestUsd": "519186.84510638130",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-105000-C",
+        "sumOpenInterest": "10.250",
+        "sumOpenInterestUsd": "674482.27659574250",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-23000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-95000-P",
+        "sumOpenInterest": "1.950",
+        "sumOpenInterestUsd": "128316.14042553150",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-60000-P",
+        "sumOpenInterest": "4.990",
+        "sumOpenInterestUsd": "328357.71319148830",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-100000-C",
+        "sumOpenInterest": "24.050",
+        "sumOpenInterestUsd": "1582565.73191488850",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-25000-P",
+        "sumOpenInterest": "32.400000000",
+        "sumOpenInterestUsd": "2132022.02553190800000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-48000-P",
+        "sumOpenInterest": "49.880",
+        "sumOpenInterestUsd": "3282261.06893615960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-90000-P",
+        "sumOpenInterest": "1.500",
+        "sumOpenInterestUsd": "98704.72340425500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-41000-C",
+        "sumOpenInterest": "100.330",
+        "sumOpenInterestUsd": "6602029.93276593610",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-37000-P",
+        "sumOpenInterest": "61.800",
+        "sumOpenInterestUsd": "4066634.60425530600",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-53000-C",
+        "sumOpenInterest": "42.240",
+        "sumOpenInterestUsd": "2779525.01106382080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-32000-P",
+        "sumOpenInterest": "33.910",
+        "sumOpenInterestUsd": "2231384.78042552470",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-20000-P",
+        "sumOpenInterest": "7.570000000",
+        "sumOpenInterestUsd": "498129.83744680690000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-55000-P",
+        "sumOpenInterest": "11.000",
+        "sumOpenInterestUsd": "723834.63829787000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-43000-P",
+        "sumOpenInterest": "49.670",
+        "sumOpenInterestUsd": "3268442.40765956390",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-29000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-120000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-85000-P",
+        "sumOpenInterest": "9.380",
+        "sumOpenInterestUsd": "617233.53702127460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-50000-P",
+        "sumOpenInterest": "89.720",
+        "sumOpenInterestUsd": "5903858.52255317240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-24000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-47000-C",
+        "sumOpenInterest": "34.880",
+        "sumOpenInterestUsd": "2295213.83489360960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-35000-C",
+        "sumOpenInterest": "14.710000000",
+        "sumOpenInterestUsd": "967964.32085106070000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-38000-P",
+        "sumOpenInterest": "41.820",
+        "sumOpenInterestUsd": "2751887.68851062940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-54000-C",
+        "sumOpenInterest": "21.880",
+        "sumOpenInterestUsd": "1439772.89872339960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-30000-C",
+        "sumOpenInterest": "3.360000000",
+        "sumOpenInterestUsd": "221098.58042553120000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-26000-P",
+        "sumOpenInterest": "31.820000000",
+        "sumOpenInterestUsd": "2093856.19914892940000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-42000-C",
+        "sumOpenInterest": "111.510",
+        "sumOpenInterestUsd": "7337709.13787231670",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-49000-P",
+        "sumOpenInterest": "58.630",
+        "sumOpenInterestUsd": "3858038.62212764710",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-65000-C",
+        "sumOpenInterest": "55.940000000",
+        "sumOpenInterestUsd": "3681028.15148934980000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-21000-P",
+        "sumOpenInterest": "8.090",
+        "sumOpenInterestUsd": "532347.47489361530",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-33000-P",
+        "sumOpenInterest": "24.930",
+        "sumOpenInterestUsd": "1640472.50297871810",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-95000-C",
+        "sumOpenInterest": "26.680",
+        "sumOpenInterestUsd": "1755628.01361701560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-44000-P",
+        "sumOpenInterest": "18.370",
+        "sumOpenInterestUsd": "1208803.84595744290",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-60000-C",
+        "sumOpenInterest": "65.630000000",
+        "sumOpenInterestUsd": "4318660.66468083710000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-56000-P",
+        "sumOpenInterest": "12.240",
+        "sumOpenInterestUsd": "805430.54297872080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-37000-C",
+        "sumOpenInterest": "8.570",
+        "sumOpenInterestUsd": "563932.98638297690",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-51000-P",
+        "sumOpenInterest": "125.830",
+        "sumOpenInterestUsd": "8280010.23063827110",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-25000-C",
+        "sumOpenInterest": "22.610000000",
+        "sumOpenInterestUsd": "1487809.19744680370000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-36000-C",
+        "sumOpenInterest": "4.00",
+        "sumOpenInterestUsd": "263212.5957446800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-90000-C",
+        "sumOpenInterest": "35.540",
+        "sumOpenInterestUsd": "2338643.91319148180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-48000-C",
+        "sumOpenInterest": "53.380",
+        "sumOpenInterestUsd": "3512572.09021275460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-20000-C",
+        "sumOpenInterest": "13.830000000",
+        "sumOpenInterestUsd": "910057.54978723110000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-39000-P",
+        "sumOpenInterest": "66.060",
+        "sumOpenInterestUsd": "4346956.01872339020",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-31000-C",
+        "sumOpenInterest": "12.850000000",
+        "sumOpenInterestUsd": "845570.46382978450000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-27000-P",
+        "sumOpenInterest": "22.300",
+        "sumOpenInterestUsd": "1467410.22127659100",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-43000-C",
+        "sumOpenInterest": "114.770",
+        "sumOpenInterestUsd": "7552227.40340423090",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-15000-P",
+        "sumOpenInterest": "210.960000000",
+        "sumOpenInterestUsd": "13881832.29957442320000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-55000-C",
+        "sumOpenInterest": "115.380",
+        "sumOpenInterestUsd": "7592367.32425529460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-80000-P",
+        "sumOpenInterest": "13.970",
+        "sumOpenInterestUsd": "919269.99063829490",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-115000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-34000-P",
+        "sumOpenInterest": "20.490",
+        "sumOpenInterestUsd": "1348306.52170212330",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-45000-P",
+        "sumOpenInterest": "45.880",
+        "sumOpenInterestUsd": "3019048.47319147960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-50000-C",
+        "sumOpenInterest": "166.210000000",
+        "sumOpenInterestUsd": "10937141.38468081570000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-19000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-57000-P",
+        "sumOpenInterest": "18.390",
+        "sumOpenInterestUsd": "1210119.90893616630",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-22000-P",
+        "sumOpenInterest": "12.870",
+        "sumOpenInterestUsd": "846886.52680850790",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-120000-C",
+        "sumOpenInterest": "42.400",
+        "sumOpenInterestUsd": "2790053.51489360800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-40000-P",
+        "sumOpenInterest": "163.810000000",
+        "sumOpenInterestUsd": "10779213.82723400770000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-26000-C",
+        "sumOpenInterest": "2.800000000",
+        "sumOpenInterestUsd": "184248.81702127600000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-38000-C",
+        "sumOpenInterest": "5.050",
+        "sumOpenInterestUsd": "332305.90212765850",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-49000-C",
+        "sumOpenInterest": "3.480",
+        "sumOpenInterestUsd": "228994.95829787160",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-75000-P",
+        "sumOpenInterest": "80.320",
+        "sumOpenInterestUsd": "5285308.92255317440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-110000-P",
+        "sumOpenInterest": "1.340",
+        "sumOpenInterestUsd": "88176.21957446780",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-52000-P",
+        "sumOpenInterest": "88.990",
+        "sumOpenInterestUsd": "5855822.22382976830",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-32000-C",
+        "sumOpenInterest": "2.040000000",
+        "sumOpenInterestUsd": "134238.42382978680000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-56000-C",
+        "sumOpenInterest": "51.260",
+        "sumOpenInterestUsd": "3373069.41446807420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-21000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-70000-P",
+        "sumOpenInterest": "47.470",
+        "sumOpenInterestUsd": "3123675.47999998990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-44000-C",
+        "sumOpenInterest": "85.320",
+        "sumOpenInterestUsd": "5614324.66723402440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-28000-P",
+        "sumOpenInterest": "5.540",
+        "sumOpenInterestUsd": "364549.44510638180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-58000-P",
+        "sumOpenInterest": "20.150",
+        "sumOpenInterestUsd": "1325933.45106382550",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-105000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-51000-C",
+        "sumOpenInterest": "29.820",
+        "sumOpenInterestUsd": "1962249.90127658940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-46000-P",
+        "sumOpenInterest": "6.080",
+        "sumOpenInterestUsd": "400083.14553191360",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-35000-P",
+        "sumOpenInterest": "111.230",
+        "sumOpenInterestUsd": "7319284.25617018910",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-85000-C",
+        "sumOpenInterest": "66.320",
+        "sumOpenInterestUsd": "4364064.83744679440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-23000-P",
+        "sumOpenInterest": "20.320",
+        "sumOpenInterestUsd": "1337119.98638297440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-80000-C",
+        "sumOpenInterest": "44.690",
+        "sumOpenInterestUsd": "2940742.72595743730",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-30000-P",
+        "sumOpenInterest": "53.560000000",
+        "sumOpenInterestUsd": "3524416.65702126520000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-53000-P",
+        "sumOpenInterest": "109.160",
+        "sumOpenInterestUsd": "7183071.73787231720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-27000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-100000-P",
+        "sumOpenInterest": "3.630",
+        "sumOpenInterestUsd": "238865.43063829710",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-41000-P",
+        "sumOpenInterest": "96.610",
+        "sumOpenInterestUsd": "6357242.21872338370",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-15000-C",
+        "sumOpenInterest": "2.250000000",
+        "sumOpenInterestUsd": "148057.08510638250000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-39000-C",
+        "sumOpenInterest": "16.500",
+        "sumOpenInterestUsd": "1085751.95744680500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-29000-P",
+        "sumOpenInterest": "23.260",
+        "sumOpenInterestUsd": "1530581.24425531420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-45000-C",
+        "sumOpenInterest": "136.900",
+        "sumOpenInterestUsd": "9008451.08936167300",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-57000-C",
+        "sumOpenInterest": "23.590",
+        "sumOpenInterestUsd": "1552296.28340425030",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-22000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-115000-C",
+        "sumOpenInterest": "14.930",
+        "sumOpenInterestUsd": "982441.01361701810",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240628-33000-C",
+        "sumOpenInterest": "2.040",
+        "sumOpenInterestUsd": "134238.42382978680",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240419": [
+      {
+        "symbol": "BTC-240419-78000-C",
+        "sumOpenInterest": "18.760",
+        "sumOpenInterestUsd": "1234437.20173608240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-73000-C",
+        "sumOpenInterest": "23.390",
+        "sumOpenInterestUsd": "1539098.40877435860",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-96000-C",
+        "sumOpenInterest": "1.910",
+        "sumOpenInterestUsd": "125680.97309786340",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-56000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-62000-C",
+        "sumOpenInterest": "7.100",
+        "sumOpenInterestUsd": "467191.05182975400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-58000-P",
+        "sumOpenInterest": "63.090",
+        "sumOpenInterestUsd": "4151420.20562523660",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-88000-P",
+        "sumOpenInterest": "52.360",
+        "sumOpenInterestUsd": "3445369.50335294640",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-80000-C",
+        "sumOpenInterest": "13.030",
+        "sumOpenInterestUsd": "857394.28244249220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-71000-P",
+        "sumOpenInterest": "23.490",
+        "sumOpenInterestUsd": "1545678.56443393260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-86000-C",
+        "sumOpenInterest": "12.680",
+        "sumOpenInterestUsd": "834363.73763398320",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-65000-P",
+        "sumOpenInterest": "4.380",
+        "sumOpenInterestUsd": "288210.81788934120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-60000-P",
+        "sumOpenInterest": "40.280",
+        "sumOpenInterestUsd": "2650486.69967640720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-58000-C",
+        "sumOpenInterest": "87.630",
+        "sumOpenInterestUsd": "5766190.40448469620",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-71000-C",
+        "sumOpenInterest": "13.480",
+        "sumOpenInterestUsd": "887004.98291057520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-78000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-96000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-73000-P",
+        "sumOpenInterest": "27.570",
+        "sumOpenInterestUsd": "1814148.91534455180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-88000-C",
+        "sumOpenInterest": "32.710",
+        "sumOpenInterestUsd": "2152368.91624665540",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-80000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-65000-C",
+        "sumOpenInterest": "5.280",
+        "sumOpenInterestUsd": "347432.21882550720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-60000-C",
+        "sumOpenInterest": "35.030",
+        "sumOpenInterestUsd": "2305028.52754877220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-56000-P",
+        "sumOpenInterest": "13.200",
+        "sumOpenInterestUsd": "868580.54706376800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-62000-P",
+        "sumOpenInterest": "13.920",
+        "sumOpenInterestUsd": "915957.66781270080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240419-86000-P",
+        "sumOpenInterest": "3.970",
+        "sumOpenInterestUsd": "261232.17968508780",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240406": [
+      {
+        "symbol": "BTC-240406-69500-C",
+        "sumOpenInterest": "1.210",
+        "sumOpenInterestUsd": "79629.58278935990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-72500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-66000-C",
+        "sumOpenInterest": "0.080",
+        "sumOpenInterestUsd": "5264.76580425520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-66750-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-70500-C",
+        "sumOpenInterest": "0.190",
+        "sumOpenInterestUsd": "12503.81878510610",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-61500-P",
+        "sumOpenInterest": "20.050",
+        "sumOpenInterestUsd": "1319481.92969145950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-58500-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-63000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-64000-P",
+        "sumOpenInterest": "0.070",
+        "sumOpenInterestUsd": "4606.67007872330",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-66750-C",
+        "sumOpenInterest": "0.200",
+        "sumOpenInterestUsd": "13161.91451063800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-61500-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-72500-C",
+        "sumOpenInterest": "2.270",
+        "sumOpenInterestUsd": "149387.72969574130",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-76250-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-63000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-70500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-69500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-58500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-64000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-66000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240406-76250-C",
+        "sumOpenInterest": "1.490",
+        "sumOpenInterestUsd": "98056.26310425310",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "241227": [
+      {
+        "symbol": "BTC-241227-46000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-160000-C",
+        "sumOpenInterest": "1.840",
+        "sumOpenInterestUsd": "121089.61349786960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-62000-C",
+        "sumOpenInterest": "0.050",
+        "sumOpenInterestUsd": "3290.47862765950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-85000-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-58000-P",
+        "sumOpenInterest": "1.630",
+        "sumOpenInterestUsd": "107269.60326169970",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-34000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-120000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-50000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-41000-P",
+        "sumOpenInterest": "1.740",
+        "sumOpenInterestUsd": "114508.65624255060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-15000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-80000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-38000-C",
+        "sumOpenInterest": "0.070",
+        "sumOpenInterestUsd": "4606.67007872330",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-52000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-33000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-29000-P",
+        "sumOpenInterest": "1.010",
+        "sumOpenInterestUsd": "66467.66827872190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-115000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-56000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-45000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-47000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-63000-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-35000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-59000-P",
+        "sumOpenInterest": "1.320",
+        "sumOpenInterestUsd": "86868.63577021080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-75000-C",
+        "sumOpenInterest": "0.080",
+        "sumOpenInterestUsd": "5264.76580425520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-51000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-110000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-40000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-39000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-125000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-140000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-54000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-28000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-53000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-65000-P",
+        "sumOpenInterest": "0.000",
+        "sumOpenInterestUsd": "0.00000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-30000-P",
+        "sumOpenInterest": "0.000",
+        "sumOpenInterestUsd": "0.00000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-42000-P",
+        "sumOpenInterest": "0.990",
+        "sumOpenInterestUsd": "65151.47682765810",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-95000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-46000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-60000-P",
+        "sumOpenInterest": "1.290",
+        "sumOpenInterestUsd": "84894.34859361510",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-34000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-120000-C",
+        "sumOpenInterest": "0.180",
+        "sumOpenInterestUsd": "11845.72305957420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-57000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-41000-C",
+        "sumOpenInterest": "1.380",
+        "sumOpenInterestUsd": "90817.21012340220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-36000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-52000-C",
+        "sumOpenInterest": "0.430",
+        "sumOpenInterestUsd": "28298.11619787170",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-25000-P",
+        "sumOpenInterest": "0.060",
+        "sumOpenInterestUsd": "3948.57435319140",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-90000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-48000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-115000-C",
+        "sumOpenInterest": "0.420",
+        "sumOpenInterestUsd": "27640.02047233980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-70000-C",
+        "sumOpenInterest": "0.180",
+        "sumOpenInterestUsd": "11845.72305957420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-20000-P",
+        "sumOpenInterest": "3.460",
+        "sumOpenInterestUsd": "227701.12103403740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-55000-P",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-43000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-31000-P",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-29000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-110000-C",
+        "sumOpenInterest": "0.170",
+        "sumOpenInterestUsd": "11187.62733404230",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-61000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-47000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-35000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-58000-C",
+        "sumOpenInterest": "0.040",
+        "sumOpenInterestUsd": "2632.38290212760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-105000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-37000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-42000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-135000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-53000-C",
+        "sumOpenInterest": "0.070",
+        "sumOpenInterestUsd": "4606.67007872330",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-49000-P",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-65000-C",
+        "sumOpenInterest": "1.010",
+        "sumOpenInterestUsd": "66467.66827872190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-30000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-100000-P",
+        "sumOpenInterest": "0.00",
+        "sumOpenInterestUsd": "0.0000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-56000-P",
+        "sumOpenInterest": "1.020",
+        "sumOpenInterestUsd": "67125.76400425380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-32000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-60000-C",
+        "sumOpenInterest": "1.00",
+        "sumOpenInterestUsd": "65809.5725531900",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-95000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-44000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-130000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-48000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-90000-C",
+        "sumOpenInterest": "1.500",
+        "sumOpenInterestUsd": "98714.35882978500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-59000-C",
+        "sumOpenInterest": "0.060",
+        "sumOpenInterestUsd": "3948.57435319140",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-62000-P",
+        "sumOpenInterest": "0.000",
+        "sumOpenInterestUsd": "0.00000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-85000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-25000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-50000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-36000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-160000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-15000-P",
+        "sumOpenInterest": "4.840",
+        "sumOpenInterestUsd": "318518.33115743960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-80000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-54000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-38000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-43000-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-31000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-125000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-140000-C",
+        "sumOpenInterest": "1.570",
+        "sumOpenInterestUsd": "103321.02890850830",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-61000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-105000-C",
+        "sumOpenInterest": "0.500",
+        "sumOpenInterestUsd": "32904.78627659500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-33000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-45000-P",
+        "sumOpenInterest": "1.20",
+        "sumOpenInterestUsd": "78971.4870638280",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-57000-P",
+        "sumOpenInterest": "0.40",
+        "sumOpenInterestUsd": "26323.8290212760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-63000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-75000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-37000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-40000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-51000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-100000-C",
+        "sumOpenInterest": "0.340",
+        "sumOpenInterestUsd": "22375.25466808460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-135000-C",
+        "sumOpenInterest": "0.480",
+        "sumOpenInterestUsd": "31588.59482553120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-49000-C",
+        "sumOpenInterest": "0.10",
+        "sumOpenInterestUsd": "6580.9572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-70000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-44000-C",
+        "sumOpenInterest": "0.050",
+        "sumOpenInterestUsd": "3290.47862765950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-130000-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-28000-P",
+        "sumOpenInterest": "0.100",
+        "sumOpenInterestUsd": "6580.95725531900",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-32000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-20000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-39000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-241227-55000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240405": [
+      {
+        "symbol": "BTC-240405-82000-C",
+        "sumOpenInterest": "130.390",
+        "sumOpenInterestUsd": "8580072.58978720630",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-69000-C",
+        "sumOpenInterest": "130.190",
+        "sumOpenInterestUsd": "8566911.95999997230",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-58000-C",
+        "sumOpenInterest": "111.150",
+        "sumOpenInterestUsd": "7314020.00425529550",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-84000-P",
+        "sumOpenInterest": "61.760",
+        "sumOpenInterestUsd": "4064002.47829785920",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-60000-P",
+        "sumOpenInterest": "93.470",
+        "sumOpenInterestUsd": "6150620.33106380990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-100000-C",
+        "sumOpenInterest": "23.850",
+        "sumOpenInterestUsd": "1569405.10212765450",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-90000-P",
+        "sumOpenInterest": "68.160",
+        "sumOpenInterestUsd": "4485142.63148934720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-76000-C",
+        "sumOpenInterest": "136.380",
+        "sumOpenInterestUsd": "8974233.45191486460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-67000-P",
+        "sumOpenInterest": "97.820",
+        "sumOpenInterestUsd": "6436864.02893614940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-62000-P",
+        "sumOpenInterest": "133.000",
+        "sumOpenInterestUsd": "8751818.80851061000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-84000-C",
+        "sumOpenInterest": "66.910",
+        "sumOpenInterestUsd": "4402888.69531913470",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-60000-C",
+        "sumOpenInterest": "61.770",
+        "sumOpenInterestUsd": "4064660.50978722090",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-74000-P",
+        "sumOpenInterest": "23.770",
+        "sumOpenInterestUsd": "1564140.85021276090",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-90000-C",
+        "sumOpenInterest": "109.280",
+        "sumOpenInterestUsd": "7190968.11574465760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-92000-P",
+        "sumOpenInterest": "80.280",
+        "sumOpenInterestUsd": "5282676.79659572760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-69000-P",
+        "sumOpenInterest": "75.180",
+        "sumOpenInterestUsd": "4947080.73702126060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-82000-P",
+        "sumOpenInterest": "7.440",
+        "sumOpenInterestUsd": "489575.42808510480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-67000-C",
+        "sumOpenInterest": "54.130",
+        "sumOpenInterestUsd": "3561924.45191488210",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-58000-P",
+        "sumOpenInterest": "338.410",
+        "sumOpenInterestUsd": "22268443.63148928970",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-100000-P",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.06297872340",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-62000-C",
+        "sumOpenInterest": "51.500",
+        "sumOpenInterestUsd": "3388862.17021275500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-74000-C",
+        "sumOpenInterest": "98.470",
+        "sumOpenInterestUsd": "6479636.07574465990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-76000-P",
+        "sumOpenInterest": "30.780",
+        "sumOpenInterestUsd": "2025420.92425531260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240405-92000-C",
+        "sumOpenInterest": "73.440",
+        "sumOpenInterestUsd": "4832583.25787232480",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240426": [
+      {
+        "symbol": "BTC-240426-45000-P",
+        "sumOpenInterest": "8.680",
+        "sumOpenInterestUsd": "571157.51125102320",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-34000-P",
+        "sumOpenInterest": "82.600",
+        "sumOpenInterestUsd": "5435208.57480812400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-50000-C",
+        "sumOpenInterest": "86.000",
+        "sumOpenInterestUsd": "5658933.86723364000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-38000-C",
+        "sumOpenInterest": "28.300",
+        "sumOpenInterestUsd": "1862184.05165944200",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-49000-C",
+        "sumOpenInterest": "50.820",
+        "sumOpenInterestUsd": "3344035.10619550680",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-40000-P",
+        "sumOpenInterest": "33.230",
+        "sumOpenInterestUsd": "2186585.72567644020",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-44000-C",
+        "sumOpenInterest": "25.230",
+        "sumOpenInterestUsd": "1660173.27291052020",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-56000-C",
+        "sumOpenInterest": "20.210",
+        "sumOpenInterestUsd": "1329849.45879990540",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-70000-P",
+        "sumOpenInterest": "71.060",
+        "sumOpenInterestUsd": "4675858.61169328440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-74000-C",
+        "sumOpenInterest": "71.510",
+        "sumOpenInterestUsd": "4705469.31216136740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-46000-P",
+        "sumOpenInterest": "26.530",
+        "sumOpenInterestUsd": "1745715.29648498220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-51000-C",
+        "sumOpenInterest": "13.380",
+        "sumOpenInterestUsd": "880424.82725100120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-80000-C",
+        "sumOpenInterest": "1.780",
+        "sumOpenInterestUsd": "117126.77074041720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-88000-P",
+        "sumOpenInterest": "13.920",
+        "sumOpenInterestUsd": "915957.66781270080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-76000-P",
+        "sumOpenInterest": "28.910",
+        "sumOpenInterestUsd": "1902323.00118284340",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-39000-C",
+        "sumOpenInterest": "23.150",
+        "sumOpenInterestUsd": "1523306.03519138100",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-30000-P",
+        "sumOpenInterest": "142.140",
+        "sumOpenInterestUsd": "9353033.25451848360",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-41000-P",
+        "sumOpenInterest": "57.530",
+        "sumOpenInterestUsd": "3785563.55095292220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-64000-P",
+        "sumOpenInterest": "66.630",
+        "sumOpenInterestUsd": "4384357.71597415620",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-34000-C",
+        "sumOpenInterest": "96.300",
+        "sumOpenInterestUsd": "6336689.90016976200",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-45000-C",
+        "sumOpenInterest": "6.020",
+        "sumOpenInterestUsd": "396125.37070635480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-68000-C",
+        "sumOpenInterest": "111.310",
+        "sumOpenInterestUsd": "7324371.26467181940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-36000-P",
+        "sumOpenInterest": "91.740",
+        "sumOpenInterestUsd": "6036634.80209318760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-47000-P",
+        "sumOpenInterest": "34.280",
+        "sumOpenInterestUsd": "2255677.36010196720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-40000-C",
+        "sumOpenInterest": "21.130",
+        "sumOpenInterestUsd": "1390386.89086798620",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-54000-P",
+        "sumOpenInterest": "44.030",
+        "sumOpenInterestUsd": "2897242.53691043220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-42000-P",
+        "sumOpenInterest": "13.390",
+        "sumOpenInterestUsd": "881082.84281695860",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-66000-P",
+        "sumOpenInterest": "0.270",
+        "sumOpenInterestUsd": "17766.42028084980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-70000-C",
+        "sumOpenInterest": "121.520",
+        "sumOpenInterestUsd": "7996205.15751432480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-60000-P",
+        "sumOpenInterest": "94.660",
+        "sumOpenInterestUsd": "6228775.34735274840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-46000-C",
+        "sumOpenInterest": "0.770",
+        "sumOpenInterestUsd": "50667.19857871980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-72000-P",
+        "sumOpenInterest": "91.820",
+        "sumOpenInterestUsd": "6041898.92662084680",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-88000-C",
+        "sumOpenInterest": "32.840",
+        "sumOpenInterestUsd": "2160923.11860410160",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-64000-C",
+        "sumOpenInterest": "83.960",
+        "sumOpenInterestUsd": "5524698.69177833040",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-76000-C",
+        "sumOpenInterest": "85.110",
+        "sumOpenInterestUsd": "5600370.48186343140",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-90000-P",
+        "sumOpenInterest": "6.000",
+        "sumOpenInterestUsd": "394809.33957444000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-41000-C",
+        "sumOpenInterest": "11.400",
+        "sumOpenInterestUsd": "750137.74519143600",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-48000-P",
+        "sumOpenInterest": "25.320",
+        "sumOpenInterestUsd": "1666095.41300413680",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-43000-P",
+        "sumOpenInterest": "128.310",
+        "sumOpenInterestUsd": "8442997.72679939940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-78000-P",
+        "sumOpenInterest": "31.120",
+        "sumOpenInterestUsd": "2047744.44125942880",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-50000-P",
+        "sumOpenInterest": "51.570",
+        "sumOpenInterestUsd": "3393386.27364231180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-36000-C",
+        "sumOpenInterest": "67.060",
+        "sumOpenInterestUsd": "4412652.38531032440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-47000-C",
+        "sumOpenInterest": "5.360",
+        "sumOpenInterestUsd": "352696.34335316640",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-42000-C",
+        "sumOpenInterest": "14.240",
+        "sumOpenInterestUsd": "937014.16592333760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-80000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-38000-P",
+        "sumOpenInterest": "51.060",
+        "sumOpenInterestUsd": "3359827.47977848440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-54000-C",
+        "sumOpenInterest": "43.810",
+        "sumOpenInterestUsd": "2882766.19445936940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-30000-C",
+        "sumOpenInterest": "2.320",
+        "sumOpenInterestUsd": "152659.61130211680",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-49000-P",
+        "sumOpenInterest": "13.510",
+        "sumOpenInterestUsd": "888979.02960844740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-56000-P",
+        "sumOpenInterest": "116.660",
+        "sumOpenInterestUsd": "7676409.59245902840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-68000-P",
+        "sumOpenInterest": "89.660",
+        "sumOpenInterestUsd": "5899767.56437404840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-60000-C",
+        "sumOpenInterest": "74.750",
+        "sumOpenInterestUsd": "4918666.35553156500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-72000-C",
+        "sumOpenInterest": "73.200",
+        "sumOpenInterestUsd": "4816673.94280816800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-44000-P",
+        "sumOpenInterest": "72.520",
+        "sumOpenInterestUsd": "4771928.88432306480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-51000-P",
+        "sumOpenInterest": "93.040",
+        "sumOpenInterestUsd": "6122176.82566764960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-48000-C",
+        "sumOpenInterest": "38.910",
+        "sumOpenInterestUsd": "2560338.56714024340",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-74000-P",
+        "sumOpenInterest": "43.600",
+        "sumOpenInterestUsd": "2868947.86757426400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-90000-C",
+        "sumOpenInterest": "40.550",
+        "sumOpenInterestUsd": "2668253.11995725700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-39000-P",
+        "sumOpenInterest": "41.170",
+        "sumOpenInterestUsd": "2709050.08504661580",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-43000-C",
+        "sumOpenInterest": "30.190",
+        "sumOpenInterestUsd": "1986548.99362539060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-78000-C",
+        "sumOpenInterest": "73.060",
+        "sumOpenInterestUsd": "4807461.72488476440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240426-66000-C",
+        "sumOpenInterest": "8.380",
+        "sumOpenInterestUsd": "551417.04427230120",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240531": [
+      {
+        "symbol": "BTC-240531-44000-C",
+        "sumOpenInterest": "64.170",
+        "sumOpenInterestUsd": "4222588.06723402890",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-56000-C",
+        "sumOpenInterest": "25.290",
+        "sumOpenInterestUsd": "1664161.63659573930",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-35000-P",
+        "sumOpenInterest": "74.910",
+        "sumOpenInterestUsd": "4929313.88680849470",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-40000-C",
+        "sumOpenInterest": "95.220",
+        "sumOpenInterestUsd": "6265775.84170210740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-75000-C",
+        "sumOpenInterest": "125.820",
+        "sumOpenInterestUsd": "8279352.19914890940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-66000-P",
+        "sumOpenInterest": "67.220",
+        "sumOpenInterestUsd": "4423287.67148934740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-54000-P",
+        "sumOpenInterest": "28.230",
+        "sumOpenInterestUsd": "1857622.89446807910",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-35000-C",
+        "sumOpenInterest": "29.530",
+        "sumOpenInterestUsd": "1943166.98808510010",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-46000-C",
+        "sumOpenInterest": "18.380",
+        "sumOpenInterestUsd": "1209461.87744680460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-44000-P",
+        "sumOpenInterest": "78.120",
+        "sumOpenInterestUsd": "5140541.99489360040",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-85000-P",
+        "sumOpenInterest": "19.750",
+        "sumOpenInterestUsd": "1299612.19148935750",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-62000-P",
+        "sumOpenInterest": "44.990",
+        "sumOpenInterestUsd": "2960483.67063828830",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-80000-P",
+        "sumOpenInterest": "11.380",
+        "sumOpenInterestUsd": "748839.83489361460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-66000-C",
+        "sumOpenInterest": "107.940",
+        "sumOpenInterestUsd": "7102791.89617018980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-54000-C",
+        "sumOpenInterest": "8.180",
+        "sumOpenInterestUsd": "538269.75829787060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-56000-P",
+        "sumOpenInterest": "62.600",
+        "sumOpenInterestUsd": "4119277.12340424200",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-85000-C",
+        "sumOpenInterest": "36.930",
+        "sumOpenInterestUsd": "2430110.29021275810",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-62000-C",
+        "sumOpenInterest": "51.050",
+        "sumOpenInterestUsd": "3359250.75319147850",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-46000-P",
+        "sumOpenInterest": "29.140",
+        "sumOpenInterestUsd": "1917503.75999999380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-80000-C",
+        "sumOpenInterest": "64.850",
+        "sumOpenInterestUsd": "4267334.20851062450",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-40000-P",
+        "sumOpenInterest": "115.400",
+        "sumOpenInterestUsd": "7593683.38723401800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240531-75000-P",
+        "sumOpenInterest": "55.960",
+        "sumOpenInterestUsd": "3682344.21446807320",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240404": [
+      {
+        "symbol": "BTC-240404-71500-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-67500-P",
+        "sumOpenInterest": "3.490",
+        "sumOpenInterestUsd": "229647.43251913260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-73000-C",
+        "sumOpenInterest": "21.050",
+        "sumOpenInterestUsd": "1385122.76634032700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-68000-P",
+        "sumOpenInterest": "3.310",
+        "sumOpenInterestUsd": "217803.15233189940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-63000-P",
+        "sumOpenInterest": "7.570",
+        "sumOpenInterestUsd": "498117.78342975180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-75000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-67000-C",
+        "sumOpenInterest": "8.500",
+        "sumOpenInterestUsd": "559313.23106379000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-65500-C",
+        "sumOpenInterest": "2.960",
+        "sumOpenInterestUsd": "194772.60752339040",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-70000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-68500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-69000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-72500-C",
+        "sumOpenInterest": "1.900",
+        "sumOpenInterestUsd": "125022.95753190600",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-74000-C",
+        "sumOpenInterest": "3.760",
+        "sumOpenInterestUsd": "247413.85279998240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-64000-P",
+        "sumOpenInterest": "14.310",
+        "sumOpenInterestUsd": "941620.27488503940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-66500-C",
+        "sumOpenInterest": "0.680",
+        "sumOpenInterestUsd": "44745.05848510320",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-68000-C",
+        "sumOpenInterest": "8.840",
+        "sumOpenInterestUsd": "581685.76030634160",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-71000-P",
+        "sumOpenInterest": "0.850",
+        "sumOpenInterestUsd": "55931.32310637900",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-69500-P",
+        "sumOpenInterest": "2.150",
+        "sumOpenInterestUsd": "141473.34668084100",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-75000-C",
+        "sumOpenInterest": "4.100",
+        "sumOpenInterestUsd": "269786.38204253400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-63000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-65000-P",
+        "sumOpenInterest": "14.770",
+        "sumOpenInterestUsd": "971888.99091907980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-70000-C",
+        "sumOpenInterest": "0.440",
+        "sumOpenInterestUsd": "28952.68490212560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-72000-P",
+        "sumOpenInterest": "0.030",
+        "sumOpenInterestUsd": "1974.04669787220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-68500-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-70500-P",
+        "sumOpenInterest": "0.90",
+        "sumOpenInterestUsd": "59221.4009361660",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-67500-C",
+        "sumOpenInterest": "0.20",
+        "sumOpenInterestUsd": "13160.3113191480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-69000-C",
+        "sumOpenInterest": "2.100",
+        "sumOpenInterestUsd": "138183.26885105400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-64000-C",
+        "sumOpenInterest": "3.660",
+        "sumOpenInterestUsd": "240833.69714040840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-71000-C",
+        "sumOpenInterest": "6.740",
+        "sumOpenInterestUsd": "443502.49145528760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-66000-P",
+        "sumOpenInterest": "10.040",
+        "sumOpenInterestUsd": "660647.62822122960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-65500-P",
+        "sumOpenInterest": "0.130",
+        "sumOpenInterestUsd": "8554.20235744620",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-69500-C",
+        "sumOpenInterest": "5.210",
+        "sumOpenInterestUsd": "342826.10986380540",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-73000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-71500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-65000-C",
+        "sumOpenInterest": "8.540",
+        "sumOpenInterestUsd": "561945.29332761960",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-66500-P",
+        "sumOpenInterest": "4.260",
+        "sumOpenInterestUsd": "280314.63109785240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-67000-P",
+        "sumOpenInterest": "6.480",
+        "sumOpenInterestUsd": "426394.08674039520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-70500-C",
+        "sumOpenInterest": "6.270",
+        "sumOpenInterestUsd": "412575.75985528980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-72000-C",
+        "sumOpenInterest": "19.810",
+        "sumOpenInterestUsd": "1303528.83616160940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-72500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-74000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240404-66000-C",
+        "sumOpenInterest": "10.750",
+        "sumOpenInterestUsd": "707366.73340420500",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240412": [
+      {
+        "symbol": "BTC-240412-70000-C",
+        "sumOpenInterest": "51.820",
+        "sumOpenInterestUsd": "3409919.17787232940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-54000-P",
+        "sumOpenInterest": "12.220",
+        "sumOpenInterestUsd": "804114.47999999740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-58000-C",
+        "sumOpenInterest": "40.680",
+        "sumOpenInterestUsd": "2676872.09872339560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-84000-P",
+        "sumOpenInterest": "15.710",
+        "sumOpenInterestUsd": "1033767.46978723070",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-76000-C",
+        "sumOpenInterest": "43.750",
+        "sumOpenInterestUsd": "2878887.76595743750",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-78000-P",
+        "sumOpenInterest": "56.010",
+        "sumOpenInterestUsd": "3685634.37191488170",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-94000-C",
+        "sumOpenInterest": "4.320",
+        "sumOpenInterestUsd": "284269.60340425440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-62000-P",
+        "sumOpenInterest": "67.240",
+        "sumOpenInterestUsd": "4424603.73446807080",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-54000-C",
+        "sumOpenInterest": "16.770",
+        "sumOpenInterestUsd": "1103518.80765957090",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-84000-C",
+        "sumOpenInterest": "45.920",
+        "sumOpenInterestUsd": "3021680.59914892640",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-68000-P",
+        "sumOpenInterest": "58.520",
+        "sumOpenInterestUsd": "3850800.27574466840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-60000-C",
+        "sumOpenInterest": "69.300",
+        "sumOpenInterestUsd": "4560158.22127658100",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-56000-P",
+        "sumOpenInterest": "13.210",
+        "sumOpenInterestUsd": "869259.59744680570",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-86000-P",
+        "sumOpenInterest": "25.940",
+        "sumOpenInterestUsd": "1706933.68340424980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-78000-C",
+        "sumOpenInterest": "54.220",
+        "sumOpenInterestUsd": "3567846.73531913740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-70000-P",
+        "sumOpenInterest": "61.660",
+        "sumOpenInterestUsd": "4057422.16340424220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-68000-C",
+        "sumOpenInterest": "21.820",
+        "sumOpenInterestUsd": "1435824.70978722940",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-56000-C",
+        "sumOpenInterest": "0.440",
+        "sumOpenInterestUsd": "28953.38553191480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-62000-C",
+        "sumOpenInterest": "43.720",
+        "sumOpenInterestUsd": "2876913.67148935240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-58000-P",
+        "sumOpenInterest": "37.320",
+        "sumOpenInterestUsd": "2455773.51829786440",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-86000-C",
+        "sumOpenInterest": "38.260",
+        "sumOpenInterestUsd": "2517628.47829786420",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-76000-P",
+        "sumOpenInterest": "16.970",
+        "sumOpenInterestUsd": "1116679.43744680490",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-94000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240412-60000-P",
+        "sumOpenInterest": "71.180",
+        "sumOpenInterestUsd": "4683868.14127658060",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240927": [
+      {
+        "symbol": "BTC-240927-18000-P",
+        "sumOpenInterest": "1.500",
+        "sumOpenInterestUsd": "98714.35882978500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-34000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-23000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-130000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-60000-P",
+        "sumOpenInterest": "3.270",
+        "sumOpenInterestUsd": "215197.30224893130",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-46000-C",
+        "sumOpenInterest": "18.00",
+        "sumOpenInterestUsd": "1184572.3059574200",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-58000-C",
+        "sumOpenInterest": "2.430",
+        "sumOpenInterestUsd": "159917.26130425170",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-95000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-90000-P",
+        "sumOpenInterest": "0.060",
+        "sumOpenInterestUsd": "3948.57435319140",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-25000-P",
+        "sumOpenInterest": "2.770000000",
+        "sumOpenInterestUsd": "182292.51597233630000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-41000-C",
+        "sumOpenInterest": "3.00",
+        "sumOpenInterestUsd": "197428.7176595700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-160000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-37000-P",
+        "sumOpenInterest": "14.500",
+        "sumOpenInterestUsd": "954238.80202125500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-48000-P",
+        "sumOpenInterest": "16.940",
+        "sumOpenInterestUsd": "1114814.15905103860",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-52000-C",
+        "sumOpenInterest": "9.560",
+        "sumOpenInterestUsd": "629139.51360849640",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-140000-C",
+        "sumOpenInterest": "0.830",
+        "sumOpenInterestUsd": "54621.94521914770",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-20000-P",
+        "sumOpenInterest": "1.600",
+        "sumOpenInterestUsd": "105295.31608510400",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-31000-P",
+        "sumOpenInterest": "0.910000000",
+        "sumOpenInterestUsd": "59886.71102340290000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-43000-P",
+        "sumOpenInterest": "7.790",
+        "sumOpenInterestUsd": "512656.57018935010",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-29000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-55000-P",
+        "sumOpenInterest": "29.480",
+        "sumOpenInterestUsd": "1940066.19886804120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-105000-C",
+        "sumOpenInterest": "0.080",
+        "sumOpenInterestUsd": "5264.76580425520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-35000-C",
+        "sumOpenInterest": "3.340000000",
+        "sumOpenInterestUsd": "219803.97232765460000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-50000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-47000-C",
+        "sumOpenInterest": "14.580",
+        "sumOpenInterestUsd": "959503.56782551020",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-59000-C",
+        "sumOpenInterest": "1.500",
+        "sumOpenInterestUsd": "98714.35882978500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-19000-P",
+        "sumOpenInterest": "1.430000000",
+        "sumOpenInterestUsd": "94107.68875106170000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-24000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-30000-C",
+        "sumOpenInterest": "0.880000000",
+        "sumOpenInterestUsd": "57912.42384680720000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-100000-C",
+        "sumOpenInterest": "0.050",
+        "sumOpenInterestUsd": "3290.47862765950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-38000-P",
+        "sumOpenInterest": "5.930",
+        "sumOpenInterestUsd": "390250.76524041670",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-42000-C",
+        "sumOpenInterest": "4.50",
+        "sumOpenInterestUsd": "296143.0764893550",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-53000-C",
+        "sumOpenInterest": "2.330",
+        "sumOpenInterestUsd": "153336.30404893270",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-26000-P",
+        "sumOpenInterest": "3.470",
+        "sumOpenInterestUsd": "228359.21675956930",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-49000-P",
+        "sumOpenInterest": "4.810",
+        "sumOpenInterestUsd": "316544.04398084390",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-65000-C",
+        "sumOpenInterest": "1.510",
+        "sumOpenInterestUsd": "99372.45455531690",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-32000-P",
+        "sumOpenInterest": "1.130",
+        "sumOpenInterestUsd": "74364.81698510470",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-95000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-18000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-44000-P",
+        "sumOpenInterest": "3.610",
+        "sumOpenInterestUsd": "237572.55691701590",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-60000-C",
+        "sumOpenInterest": "1.210",
+        "sumOpenInterestUsd": "79629.58278935990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-125000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-130000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-56000-P",
+        "sumOpenInterest": "0.450",
+        "sumOpenInterestUsd": "29614.30764893550",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-21000-P",
+        "sumOpenInterest": "0.240",
+        "sumOpenInterestUsd": "15794.29741276560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-85000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-36000-C",
+        "sumOpenInterest": "3.00",
+        "sumOpenInterestUsd": "197428.7176595700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-90000-C",
+        "sumOpenInterest": "0.940",
+        "sumOpenInterestUsd": "61860.99819999860",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-48000-C",
+        "sumOpenInterest": "13.000",
+        "sumOpenInterestUsd": "855524.44319147000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-51000-P",
+        "sumOpenInterest": "0.410",
+        "sumOpenInterestUsd": "26981.92474680790",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-120000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-25000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-43000-C",
+        "sumOpenInterest": "1.50",
+        "sumOpenInterestUsd": "98714.3588297850",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-80000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-54000-C",
+        "sumOpenInterest": "4.100",
+        "sumOpenInterestUsd": "269819.24746807900",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-20000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-15000-P",
+        "sumOpenInterest": "4.600000000",
+        "sumOpenInterestUsd": "302724.03374467400000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-31000-C",
+        "sumOpenInterest": "2.010000000",
+        "sumOpenInterestUsd": "132277.24083191190000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-27000-P",
+        "sumOpenInterest": "2.010",
+        "sumOpenInterestUsd": "132277.24083191190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-39000-P",
+        "sumOpenInterest": "7.460",
+        "sumOpenInterestUsd": "490939.41124679740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-19000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-115000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-57000-P",
+        "sumOpenInterest": "8.080",
+        "sumOpenInterestUsd": "531741.34622977520",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-22000-P",
+        "sumOpenInterest": "0.040000000",
+        "sumOpenInterestUsd": "2632.38290212760000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-45000-P",
+        "sumOpenInterest": "20.650000000",
+        "sumOpenInterestUsd": "1358967.67322337350000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-33000-P",
+        "sumOpenInterest": "2.050",
+        "sumOpenInterestUsd": "134909.62373403950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-49000-C",
+        "sumOpenInterest": "11.490",
+        "sumOpenInterestUsd": "756151.98863615310",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-75000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-160000-C",
+        "sumOpenInterest": "9.240",
+        "sumOpenInterestUsd": "608080.45039147560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-110000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-52000-P",
+        "sumOpenInterest": "0.250",
+        "sumOpenInterestUsd": "16452.39313829750",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-26000-C",
+        "sumOpenInterest": "0.020000000",
+        "sumOpenInterestUsd": "1316.19145106380000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-37000-C",
+        "sumOpenInterest": "1.50",
+        "sumOpenInterestUsd": "98714.3588297850",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-70000-P",
+        "sumOpenInterest": "1.530",
+        "sumOpenInterestUsd": "100688.64600638070",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-32000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-56000-C",
+        "sumOpenInterest": "6.430",
+        "sumOpenInterestUsd": "423155.55151701170",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-44000-C",
+        "sumOpenInterest": "3.000",
+        "sumOpenInterestUsd": "197428.71765957000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-55000-C",
+        "sumOpenInterest": "4.340",
+        "sumOpenInterestUsd": "285613.54488084460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-125000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-21000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-28000-P",
+        "sumOpenInterest": "0.510",
+        "sumOpenInterestUsd": "33562.88200212690",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-50000-C",
+        "sumOpenInterest": "10.170000000",
+        "sumOpenInterestUsd": "669283.35286594230000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-120000-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.19145106380",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-46000-P",
+        "sumOpenInterest": "28.880",
+        "sumOpenInterestUsd": "1900580.45533612720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-23000-P",
+        "sumOpenInterest": "0.280",
+        "sumOpenInterestUsd": "18426.68031489320",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-85000-C",
+        "sumOpenInterest": "0.000",
+        "sumOpenInterestUsd": "0.00000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-34000-P",
+        "sumOpenInterest": "0.830",
+        "sumOpenInterestUsd": "54621.94521914770",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-58000-P",
+        "sumOpenInterest": "6.480",
+        "sumOpenInterestUsd": "426446.03014467120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-80000-C",
+        "sumOpenInterest": "0.880",
+        "sumOpenInterestUsd": "57912.42384680720",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-38000-C",
+        "sumOpenInterest": "3.00",
+        "sumOpenInterestUsd": "197428.7176595700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-15000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-27000-C",
+        "sumOpenInterest": "0.030000000",
+        "sumOpenInterestUsd": "1974.28717659570000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-53000-P",
+        "sumOpenInterest": "2.470",
+        "sumOpenInterestUsd": "162549.64420637930",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-41000-P",
+        "sumOpenInterest": "4.490",
+        "sumOpenInterestUsd": "295484.98076382310",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-29000-P",
+        "sumOpenInterest": "0.720",
+        "sumOpenInterestUsd": "47382.89223829680",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-115000-C",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-57000-C",
+        "sumOpenInterest": "3.170",
+        "sumOpenInterestUsd": "208616.34499361230",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-33000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-22000-C",
+        "sumOpenInterest": "0.000000000",
+        "sumOpenInterestUsd": "0.00000000000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-140000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-45000-C",
+        "sumOpenInterest": "10.020000000",
+        "sumOpenInterestUsd": "659411.91698296380000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-59000-P",
+        "sumOpenInterest": "6.190",
+        "sumOpenInterestUsd": "407361.25410424610",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-24000-P",
+        "sumOpenInterest": "0.010",
+        "sumOpenInterestUsd": "658.09572553190",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-35000-P",
+        "sumOpenInterest": "0.870",
+        "sumOpenInterestUsd": "57254.32812127530",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-75000-C",
+        "sumOpenInterest": "0.130",
+        "sumOpenInterestUsd": "8555.24443191470",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-105000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-110000-C",
+        "sumOpenInterest": "0.050",
+        "sumOpenInterestUsd": "3290.47862765950",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-36000-P",
+        "sumOpenInterest": "18.420",
+        "sumOpenInterestUsd": "1212212.32642975980",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-47000-P",
+        "sumOpenInterest": "0.210",
+        "sumOpenInterestUsd": "13820.01023616990",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-51000-C",
+        "sumOpenInterest": "12.990",
+        "sumOpenInterestUsd": "854866.34746593810",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-42000-P",
+        "sumOpenInterest": "7.230",
+        "sumOpenInterestUsd": "475803.20955956370",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-30000-P",
+        "sumOpenInterest": "0.560",
+        "sumOpenInterestUsd": "36853.36062978640",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-54000-P",
+        "sumOpenInterest": "1.920",
+        "sumOpenInterestUsd": "126354.37930212480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-70000-C",
+        "sumOpenInterest": "0.120",
+        "sumOpenInterestUsd": "7897.14870638280",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-65000-P",
+        "sumOpenInterest": "4.940",
+        "sumOpenInterestUsd": "325099.28841275860",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-28000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-100000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240927-39000-C",
+        "sumOpenInterest": "4.50",
+        "sumOpenInterestUsd": "296143.0764893550",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "250328": [
+      {
+        "symbol": "BTC-250328-140000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-220000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-40000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-160000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-70000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-30000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-65000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-220000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-40000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-70000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-160000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-90000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-65000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-30000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-200000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-110000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-140000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-90000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-200000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-250328-110000-C",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "240403": [
+      {
+        "symbol": "BTC-240403-68500-C",
+        "sumOpenInterest": "2.220",
+        "sumOpenInterestUsd": "146079.45564254280",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-71500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-73000-P",
+        "sumOpenInterest": "7.690",
+        "sumOpenInterestUsd": "506013.97022124060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-75750-C",
+        "sumOpenInterest": "21.590",
+        "sumOpenInterestUsd": "1420655.60690202660",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-65000-C",
+        "sumOpenInterest": "3.440",
+        "sumOpenInterestUsd": "226357.35468934560",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67250-P",
+        "sumOpenInterest": "87.530",
+        "sumOpenInterestUsd": "5759610.24882512220",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67000-P",
+        "sumOpenInterest": "2.250",
+        "sumOpenInterestUsd": "148053.50234041500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70500-C",
+        "sumOpenInterest": "8.070",
+        "sumOpenInterestUsd": "531018.56172762180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-71000-C",
+        "sumOpenInterest": "5.140",
+        "sumOpenInterestUsd": "338220.00090210360",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-74000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66250-C",
+        "sumOpenInterest": "17.400",
+        "sumOpenInterestUsd": "1144947.08476587600",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-64750-C",
+        "sumOpenInterest": "8.990",
+        "sumOpenInterestUsd": "591555.99379570260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-69500-C",
+        "sumOpenInterest": "5.160",
+        "sumOpenInterestUsd": "339536.03203401840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70750-C",
+        "sumOpenInterest": "35.660",
+        "sumOpenInterestUsd": "2346483.50820408840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-79250-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66000-C",
+        "sumOpenInterest": "13.500",
+        "sumOpenInterestUsd": "888321.01404249000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66500-P",
+        "sumOpenInterest": "1.550",
+        "sumOpenInterestUsd": "101992.41272339700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-72000-C",
+        "sumOpenInterest": "45.050",
+        "sumOpenInterestUsd": "2964360.12463808700",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-61750-P",
+        "sumOpenInterest": "53.690",
+        "sumOpenInterestUsd": "3532885.57362528060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-71500-C",
+        "sumOpenInterest": "11.880",
+        "sumOpenInterestUsd": "781722.49235739120",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-68000-P",
+        "sumOpenInterest": "9.990",
+        "sumOpenInterestUsd": "657357.55039144260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67250-C",
+        "sumOpenInterest": "16.580",
+        "sumOpenInterestUsd": "1090989.80835736920",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70000-P",
+        "sumOpenInterest": "39.790",
+        "sumOpenInterestUsd": "2618243.93694449460",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67000-C",
+        "sumOpenInterest": "9.080",
+        "sumOpenInterestUsd": "597478.13388931920",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-69000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-73000-C",
+        "sumOpenInterest": "22.690",
+        "sumOpenInterestUsd": "1493037.31915734060",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-79250-C",
+        "sumOpenInterest": "14.220",
+        "sumOpenInterestUsd": "935698.13479142280",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-74500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-68000-C",
+        "sumOpenInterest": "13.570",
+        "sumOpenInterestUsd": "892927.12300419180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66500-C",
+        "sumOpenInterest": "19.520",
+        "sumOpenInterestUsd": "1284446.38474884480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-61750-C",
+        "sumOpenInterest": "0.020",
+        "sumOpenInterestUsd": "1316.03113191480",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-71000-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-74000-C",
+        "sumOpenInterest": "2.250",
+        "sumOpenInterestUsd": "148053.50234041500",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-75750-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-68500-P",
+        "sumOpenInterest": "9.990",
+        "sumOpenInterestUsd": "657357.55039144260",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-65000-P",
+        "sumOpenInterest": "18.660",
+        "sumOpenInterestUsd": "1227857.04607650840",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70750-P",
+        "sumOpenInterest": "48.510",
+        "sumOpenInterestUsd": "3192033.51045934740",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-72000-P",
+        "sumOpenInterest": "39.570",
+        "sumOpenInterestUsd": "2603767.59449343180",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-69000-C",
+        "sumOpenInterest": "26.080",
+        "sumOpenInterestUsd": "1716104.59601689920",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-67500-C",
+        "sumOpenInterest": "8.240",
+        "sumOpenInterestUsd": "542204.82634889760",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-74500-C",
+        "sumOpenInterest": "5.260",
+        "sumOpenInterestUsd": "346116.18769359240",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-69500-P",
+        "sumOpenInterest": "0.0",
+        "sumOpenInterestUsd": "0.000000000",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-64750-P",
+        "sumOpenInterest": "94.200",
+        "sumOpenInterestUsd": "6198506.63131870800",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66250-P",
+        "sumOpenInterest": "25.170",
+        "sumOpenInterestUsd": "1656225.17951477580",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-70000-C",
+        "sumOpenInterest": "65.220",
+        "sumOpenInterestUsd": "4291577.52117416280",
+        "timestamp": "1712070180000"
+      },
+      {
+        "symbol": "BTC-240403-66000-P",
+        "sumOpenInterest": "3.490",
+        "sumOpenInterestUsd": "229647.43251913260",
+        "timestamp": "1712070180000"
+      }
+    ],
+    "_doc": "cb314a2d-abf9-4635-a903-0d0559b691c3"
+  }
+]

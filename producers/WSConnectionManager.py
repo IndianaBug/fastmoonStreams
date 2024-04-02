@@ -5,12 +5,12 @@ import time
 import websockets
 import ssl
 import json
-import aiocouch
-from aiotinydb  import AIOTinyDB as TinyDB
+from utilis import MockCouchDB
 import zlib
 import re
 import gzip
 import uuid
+import aiocouch
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -68,7 +68,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending pong (optional)")
+                print("Sending ping")
                 await websocket.ping(json.dumps({"req_id": connection_data.get('req_id'), "op": "ping"})) 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -266,16 +266,17 @@ class producer(keepalive):
         2 modes: production, testing
     """
 
-    def __init__(self, connection_data, database="tinydb", couch_host="", 
+    def __init__(self, connection_data, database="mockCouchDB", database_folder="mockdb", couch_host="", 
                  couch_username="", couch_password="", ws_timestamp_keys=None,
                  mode="production"):
         """
-            databases : couchdb, tinydb
+            databases : CouchDB, mockCouchDB
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
             if using tinydb, you must create a folder tinybase
         """
         self.database_name = database
-        if self.database_name == "couchdb":
+        self.database_folder = database_folder
+        if self.database_name == "CouchDB":
             self.db = aiocouch.Server(couch_host)
             self.db.resource.credentials = (couch_username, couch_password)
         self.ws_latencies = {}
@@ -285,13 +286,13 @@ class producer(keepalive):
         self.mode = mode
         self.set_databases() 
         self.populate_ws_latencies()
-        if self.database_name == "tinydb":
-            self.insert_into_database = self.insert_into_tinydb
-            self.insert_into_database_2 = self.insert_into_tinydb_2
-        if self.database_name == "couchdb":
-            self.insert_into_database = self.insert_into_couchdb
-            self.insert_into_database_2 = self.insert_into_couchdb_2
-
+        if self.database_name == "mockCouchDB":
+            self.insert_into_database = self.insert_into_mockCouchDB
+            self.insert_into_database_2 = self.insert_into_mockCouchDB_2
+            self.insert_into_database_3 = self.insert_into_mockCouchDB_3
+        if self.database_name == "CouchDB":
+            self.insert_into_database = self.insert_into_CouchDB
+            self.insert_into_database_2 = self.insert_into_CouchDB_2
 
     def onInterrupt_write_to_json(self):
         """
@@ -308,22 +309,20 @@ class producer(keepalive):
         ws_ids = [di.get("id_ws") for di in self.connection_data if "id_ws" in di]
         api_ids = [di.get("id_api") for di in self.connection_data if "id_api" in di]
         api_2_ids = [di.get("id_api_2") for di in self.connection_data if "id_api_2" in di]
-        print(ws_ids)
         list_of_databases = ws_ids + api_ids + api_2_ids
         existing_databases = []
-        if self.database_name == "couch":
+        if self.database_name == "CouchDB":
             for databse in list_of_databases:
                 setattr(self, f"db_{databse}", self.db.create(databse))
                 existing_databases.append(databse)
-            print(f"Couch server with {len(existing_databases)} databases is ready!!!")
-        if self.database_name == "tinydb":
+            print(f"CouchDB server with {len(existing_databases)} databases is ready!!!")
+        if self.database_name == "mockCouchDB":
             for databse in list_of_databases:
-                setattr(self, f"db_{databse}", TinyDB("tinybase/"+databse+".json"))
+                setattr(self, f"db_{databse}", MockCouchDB(databse, self.database_folder))
                 existing_databases.append(databse)
-            print(f"TinyDB server with {len(existing_databases)} databases is ready!!!")
-
+            print(f"mockCouchDB server with {len(existing_databases)} databases is ready!!!")
     # do not forget ids _id : doc1
-    def insert_into_couchdb(self, connection_dict, data):
+    def insert_into_CouchDB(self, connection_dict, data):
         """
             Inserts into couch database
         """
@@ -332,7 +331,7 @@ class producer(keepalive):
             data = json.loads(data)
         getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
 
-    def insert_into_couchdb_2(self, connection_dict, data):
+    def insert_into_CouchDB_2(self, connection_dict, data):
         """
             Inserts into couch database
         """
@@ -341,33 +340,26 @@ class producer(keepalive):
             data = json.loads(data)
         getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data)
         
-    def insert_into_tinydb(self, connection_dict, data):
-        """
-            Inserts into couch database
-        """
-        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
-        # data = json.loads(json_data)
+    async def insert_into_mockCouchDB(self, connection_dict, data):
         try:
-            if not isinstance(data, dict):
-                data = json.loads(data)
-            data["_id"] = str(uuid.uuid4())
-            getattr(self, f"db_{connection_dict.get('id_ws')}").insert(data)
-        except:
+            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
+        except Exception as e:
             print(f'{connection_dict.get("id_ws")} is not working properly' )
+            print(e)
 
-    def insert_into_tinydb_2(self, connection_dict, data):
-        """
-            Inserts into couch database
-        """
-        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
-        # data = json.loads(json_data)
+    async def insert_into_mockCouchDB_2(self, connection_dict, data):
         try:
-            if not isinstance(data, dict):
-                data = json.loads(data)
-            data["_id"] = str(uuid.uuid4())
-            getattr(self, f"db_{connection_dict.get('id_api_2')}").insert(data)
-        except:
+            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data)
+        except Exception as e:
             print(f'{connection_dict.get("id_api_2")} is not working properly' )
+            print(e)
+
+    async def insert_into_mockCouchDB_3(self, connection_dict, data):
+        try:
+            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data)
+        except Exception as e:
+            print(f'{connection_dict.get("id_api")} is not working properly' )
+            print(e)
 
     def populate_ws_latencies(self):
         for di in self.connection_data:
@@ -401,7 +393,10 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
         if connection_data.get("objective") == "depth":
-            self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
             
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -413,8 +408,8 @@ class producer(keepalive):
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.pong(message)
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
-                    if self.mode == "testing":
+                        await self.insert_into_database(connection_data, message)
+                    if self.mode == "testing" and message != b'\x89\x00':
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
@@ -424,17 +419,22 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
-            
+        if connection_data.get("objective") == "depth":
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bybit_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -694,14 +694,14 @@ class producer(keepalive):
                     break
 
     async def aiohttp_socket(self, connection_data, producer=None, topic=None):
-        message = await connection_data.get("aiohttpMethod")()
-        self.insert_into_database(connection_data, message)
+        while True:
+            message = await connection_data.get("aiohttpMethod")()
+            await self.insert_into_database_3(connection_data, message)
 
     async def run_producer(self):
         tasks = []
         for connection_dict in self.connection_data:
             if "id_ws" in connection_dict:
-                id_ = connection_dict.get("id_ws")
                 exchange = connection_dict.get("exchange")
                 ws_method = getattr(self, f"{exchange}_ws", None)
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))

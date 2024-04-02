@@ -1,30 +1,12 @@
-import time
-from urllib.parse import urlencode
-import requests
 import websockets
 import ssl
-from hashlib import sha256
 import json
-import jwt
-from cryptography.hazmat.primitives import serialization
-import secrets
 import os
-import sys
-import hashlib
-import hmac
-import base64
 import random
 import string
-import aiohttp
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from config import crypto_panic_token, coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinPass, kucoinSecret
-
-
-# Notes:
-# To initialize binance, coinbase orderbooks, you should first make an API call and then push updates of orderbooks
-# Okx has only 1 liquidation channel for all liquidations stream /// u need to filter if liquidations belon only to BTC
-# bybit stream OI+funding rate in a single websocket
+import aiofiles
+import uuid
+import asyncio
 
 
 def get_dict_by_key_value(lst, key, value):
@@ -125,28 +107,38 @@ import asyncio
 
 class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
-        self.file_path =  filename
+        self.file_path =  folder_name + "/" + filename + ".json"
         self.buffer_size = buffer_size
-        self._load_data()
 
-    def _load_data(self):
-        if not os.path.exists(self.file_path):
-            with open(self.file_path, 'w') as f:
-                f.write("[]")
 
-    async def update_database(self, data):
+    async def save(self, data):
+        if isinstance(data, dict):
+            pass
+        if isinstance(data, str):
+            data = json.loads(data)
         data["_doc"] = str(uuid.uuid4())
-        async with aiofiles.open(self.file_path ,mode='r') as f: 
-            existing_data =  json.load(await f)
-            existing_data.insert(0, data)
-        async with aiofiles.open( self.file_path ,mode='w') as f: 
-            await f.write(json.dumps(existing_data))
-            await f.close()
+        if not os.path.exists(self.file_path):
+            async with aiofiles.open(self.file_path ,mode='w') as f:
+                content = []
+                content.insert(0, data)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(json.dumps(content, indent=2)) 
+        else:
+            async with aiofiles.open(self.file_path ,mode='r+') as f: 
+                content = await f.read()
+                content = json.loads(content)
+                content.insert(0, data)
+                content = json.dumps(content)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(content) 
+
                 
 
-data_handler = MockCouchDB("large_database.json")
-for i in range(100):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(data_handler.update_database({f"new_key{i}" : str(i)}))
+# data_handler = MockCouchDB("large_database.json", "mochdb")
+# for i in range(100):
+#     loop = asyncio.new_event_loop()
+#     asyncio.set_event_loop(loop)
+#     loop.run_until_complete(data_handler.save({f"new_key{i}" : str(i)}))
 
