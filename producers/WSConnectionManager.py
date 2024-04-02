@@ -6,10 +6,11 @@ import websockets
 import ssl
 import json
 import aiocouch
-from tinydb import TinyDB, Query
+from aiotinydb  import AIOTinyDB as TinyDB
 import zlib
 import re
 import gzip
+import uuid
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -291,6 +292,7 @@ class producer(keepalive):
             self.insert_into_database = self.insert_into_couchdb
             self.insert_into_database_2 = self.insert_into_couchdb_2
 
+
     def onInterrupt_write_to_json(self):
         """
             Writes to json latencies and failed connections on Interrupt keyboard
@@ -320,6 +322,7 @@ class producer(keepalive):
                 existing_databases.append(databse)
             print(f"TinyDB server with {len(existing_databases)} databases is ready!!!")
 
+    # do not forget ids _id : doc1
     def insert_into_couchdb(self, connection_dict, data):
         """
             Inserts into couch database
@@ -347,6 +350,7 @@ class producer(keepalive):
         try:
             if not isinstance(data, dict):
                 data = json.loads(data)
+            data["_id"] = str(uuid.uuid4())
             getattr(self, f"db_{connection_dict.get('id_ws')}").insert(data)
         except:
             print(f'{connection_dict.get("id_ws")} is not working properly' )
@@ -360,6 +364,7 @@ class producer(keepalive):
         try:
             if not isinstance(data, dict):
                 data = json.loads(data)
+            data["_id"] = str(uuid.uuid4())
             getattr(self, f"db_{connection_dict.get('id_api_2')}").insert(data)
         except:
             print(f'{connection_dict.get("id_api_2")} is not working properly' )

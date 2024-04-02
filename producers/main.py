@@ -20,10 +20,10 @@ client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret,
 ws = {
     "binance" : [
         "spot.depth.BTCUSDT.snap", 
-        # "spot.depth.BTCFDUSDT.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
-        # "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
-        # "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
-        # "option.trades.BTC",
+        "spot.depth.BTCFDUSD.snap", "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
+        "perpetual.depth.BTCUSDT.snap", "perpetual.depth.BTCUSD_PERP.snap", "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSDT.BTCUSDC",
+        "perpetual.trades.BTCUSDT.BTCUSDC", "perpetual.liquidations.BTCUSD_PERP",
+        "option.trades.BTC",
         ],
     # "bybit" : [
     #     "spot.depth.BTCUSDT.snap", "spot.depth.BTCUSDC.snap", "spot.trades.BTCUSDT.BTCUSDC",
