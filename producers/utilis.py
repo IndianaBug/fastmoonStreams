@@ -116,3 +116,37 @@ def filter_nested_dict(nested_dict, condition):
         elif isinstance(value, list):
             nested_dict[key] = [item for item in value if condition(item)]
     return nested_dict
+
+import json
+import aiofiles
+import uuid
+import os
+import asyncio
+
+class MockCouchDB:
+    def __init__(self, filename, folder_name="", buffer_size=1024):
+        self.file_path =  filename
+        self.buffer_size = buffer_size
+        self._load_data()
+
+    def _load_data(self):
+        if not os.path.exists(self.file_path):
+            with open(self.file_path, 'w') as f:
+                f.write("[]")
+
+    async def update_database(self, data):
+        data["_doc"] = str(uuid.uuid4())
+        async with aiofiles.open(self.file_path ,mode='r') as f: 
+            existing_data =  json.load(await f)
+            existing_data.insert(0, data)
+        async with aiofiles.open( self.file_path ,mode='w') as f: 
+            await f.write(json.dumps(existing_data))
+            await f.close()
+                
+
+data_handler = MockCouchDB("large_database.json")
+for i in range(100):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(data_handler.update_database({f"new_key{i}" : str(i)}))
+
