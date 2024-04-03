@@ -970,7 +970,7 @@ class coinbase(CommunicationsManager):
             'sub': key_name,
             'iss': "coinbase-cloud",
             'nbf': int(time.time()),
-            'exp': int(time.time()) + 60,
+            'exp': int(time.time()) + 120,
             'aud': [service_name],
         }
         jwt_token = jwt.encode(
@@ -1020,7 +1020,7 @@ class coinbase(CommunicationsManager):
                                 "msg_method" : partial(self.coinbase_build_ws_method, instTypes[0], objectives[0], symbols[0]),
                             }
         if needSnap is True:
-            connection_data["id_api_2"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}",
+            connection_data["id_api_2"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(self.coinbase_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -1156,7 +1156,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
                                 "ping_data" : ping_data
                             }
         if needSnap is True:
-            connection_data["id_api_2"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(self.kucoin_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
@@ -1723,21 +1723,31 @@ class htx(CommunicationsManager, htxInfo):
 
     @classmethod
     async def htx_oifutureperp(cls, underlying_asset):
-        ois = []
+        ois = {}
         response = await cls.htx_aiohttpFetch("perpetual", "oiall", f"{underlying_asset}-USDT.LinearPerpetual")
-        ois.append(response)
+        if isinstance(response, str):
+            response = json.loads(response)
+        ois[f"{underlying_asset}-USDT.LinearPerpetual"] = response
         response = await cls.htx_aiohttpFetch("perpetual", "oi", f"{underlying_asset}-USD")
-        ois.append(response)
+        if isinstance(response, str):
+            response = json.loads(response)
+        ois[f"{underlying_asset}-USD"] = response
         for ctype in inverse_future_contract_types:
             response = await cls.htx_aiohttpFetch("future", "oi", f"{underlying_asset}.InverseFuture", contract_type=ctype)
-            ois.append(response)
+            if isinstance(response, str):
+                response = json.loads(response)
+            ois[f"{underlying_asset}.InverseFuture"] = response
         return ois
 
     @classmethod
     async def htx_fundperp(cls, underlying_asset):
         l = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USDT")
+        if isinstance(l, str):
+            l = json.loads(l)
         i = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USD")
-        return [l, i]
+        if isinstance(i, str):
+            i = json.loads(i)
+        return {"usdt" : l, "usd" : i}
 
     @classmethod
     async def htx_posfutureperp(cls, underlying_asset):
@@ -1745,12 +1755,20 @@ class htx(CommunicationsManager, htxInfo):
         for ltype in ["USDT", "USD", "USDT-FUTURES"]:
             tta = await cls.htx_aiohttpFetch("perpetual", "tta", f"{underlying_asset}-{ltype}")
             ttp = await cls.htx_aiohttpFetch("perpetual", "ttp", f"{underlying_asset}-{ltype}")
+            if isinstance(tta, str):
+                tta = json.loads(tta)
+            if isinstance(ttp, str):
+                ttp = json.loads(ttp)
             pos[f"{underlying_asset}_{ltype}_tta"] = tta
-            pos[f"{underlying_asset}_{ltype}_ttp"] = tta
+            pos[f"{underlying_asset}_{ltype}_ttp"] = ttp
         tta = await cls.htx_aiohttpFetch("future", "tta", f"{underlying_asset}.InverseFuture")
         ttp = await cls.htx_aiohttpFetch("future", "ttp", f"{underlying_asset}.InverseFuture")
+        if isinstance(tta, str):
+            tta = json.loads(tta)
+        if isinstance(ttp, str):
+            ttp = json.loads(ttp)
         pos[f"{underlying_asset}_InverseFuture_tta"] = tta
-        pos[f"{underlying_asset}_InverseFuture_ttp"] = tta
+        pos[f"{underlying_asset}_InverseFuture_ttp"] = ttp
         return pos
 
     @classmethod
@@ -2072,9 +2090,13 @@ class gateio(CommunicationsManager, gateioInfo):
         d = {}
         for s in perpl_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         for s in perpi_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         return d
 
@@ -2086,12 +2108,18 @@ class gateio(CommunicationsManager, gateioInfo):
         d = {}
         for s in perpl_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         for s in perpi_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         for s in f_symbols:
             data = await cls.gateio_aiohttpFetch("future", "oi", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         return d
 
@@ -2103,9 +2131,13 @@ class gateio(CommunicationsManager, gateioInfo):
         d = {}
         for s in perpl_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         for s in perpi_symbols:
             data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
+            if isinstance(data, str):
+                data = json.loads(data)
             d[f"{s}"] = data
         return d
         

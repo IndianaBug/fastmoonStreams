@@ -1,0 +1,412 @@
+[
+    {
+        "BTC-USDT.LinearPerpetual": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 1786920.0,
+                    "amount": 1786.92,
+                    "symbol": "BTC",
+                    "value": 117840047.628,
+                    "contract_code": "BTC-USDT",
+                    "trade_amount": 27053.69,
+                    "trade_volume": 27053690,
+                    "trade_turnover": 1777719862.5802,
+                    "business_type": "swap",
+                    "pair": "BTC-USDT",
+                    "contract_type": "swap",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 570.0,
+                    "amount": 0.57,
+                    "symbol": "BTC",
+                    "value": 37699.458,
+                    "contract_code": "BTC-USDT-240412",
+                    "trade_amount": 178.846,
+                    "trade_volume": 178846,
+                    "trade_turnover": 11844305.5548,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "next_week",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 19654.0,
+                    "amount": 19.654,
+                    "symbol": "BTC",
+                    "value": 1297142.3806,
+                    "contract_code": "BTC-USDT-240405",
+                    "trade_amount": 258.778,
+                    "trade_volume": 258778,
+                    "trade_turnover": 17099699.0246,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "this_week",
+                    "trade_partition": "USDT"
+                }
+            ],
+            "ts": 1712152536525
+        },
+        "BTC-USD": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 337487.0,
+                    "amount": 511.7711907971655,
+                    "symbol": "BTC",
+                    "contract_code": "BTC-USD",
+                    "trade_amount": 657.0881119070671,
+                    "trade_volume": 432462,
+                    "trade_turnover": 43246200.0
+                }
+            ],
+            "ts": 1712152537872
+        },
+        "BTC.InverseFuture": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 15649.0,
+                    "amount": 22.70957817709524,
+                    "symbol": "BTC",
+                    "contract_type": "quarter",
+                    "contract_code": "BTC240628",
+                    "trade_amount": 37.098949573880375,
+                    "trade_volume": 25712,
+                    "trade_turnover": 2571200.0
+                }
+            ],
+            "ts": 1712152538666
+        },
+        "_doc": "1612bdbb-79b0-41b6-85f7-da137a1c6ede"
+    },
+    {
+        "BTC-USDT.LinearPerpetual": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 1786920.0,
+                    "amount": 1786.92,
+                    "symbol": "BTC",
+                    "value": 117840047.628,
+                    "contract_code": "BTC-USDT",
+                    "trade_amount": 27053.69,
+                    "trade_volume": 27053690,
+                    "trade_turnover": 1777719862.5802,
+                    "business_type": "swap",
+                    "pair": "BTC-USDT",
+                    "contract_type": "swap",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 570.0,
+                    "amount": 0.57,
+                    "symbol": "BTC",
+                    "value": 37699.458,
+                    "contract_code": "BTC-USDT-240412",
+                    "trade_amount": 178.846,
+                    "trade_volume": 178846,
+                    "trade_turnover": 11844305.5548,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "next_week",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 19654.0,
+                    "amount": 19.654,
+                    "symbol": "BTC",
+                    "value": 1297142.3806,
+                    "contract_code": "BTC-USDT-240405",
+                    "trade_amount": 258.778,
+                    "trade_volume": 258778,
+                    "trade_turnover": 17099699.0246,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "this_week",
+                    "trade_partition": "USDT"
+                }
+            ],
+            "ts": 1712152536525
+        },
+        "BTC-USD": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 337487.0,
+                    "amount": 511.7711907971655,
+                    "symbol": "BTC",
+                    "contract_code": "BTC-USD",
+                    "trade_amount": 657.0881119070671,
+                    "trade_volume": 432462,
+                    "trade_turnover": 43246200.0
+                }
+            ],
+            "ts": 1712152536801
+        },
+        "BTC.InverseFuture": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 15649.0,
+                    "amount": 22.70957817709524,
+                    "symbol": "BTC",
+                    "contract_type": "quarter",
+                    "contract_code": "BTC240628",
+                    "trade_amount": 37.08442947617754,
+                    "trade_volume": 25702,
+                    "trade_turnover": 2570200.0
+                }
+            ],
+            "ts": 1712152537591
+        },
+        "_doc": "8649e186-9199-4df1-a547-4712c802b0e6"
+    },
+    {
+        "BTC-USDT.LinearPerpetual": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 1786920.0,
+                    "amount": 1786.92,
+                    "symbol": "BTC",
+                    "value": 117817353.744,
+                    "contract_code": "BTC-USDT",
+                    "trade_amount": 27053.69,
+                    "trade_volume": 27053690,
+                    "trade_turnover": 1777719862.5802,
+                    "business_type": "swap",
+                    "pair": "BTC-USDT",
+                    "contract_type": "swap",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 570.0,
+                    "amount": 0.57,
+                    "symbol": "BTC",
+                    "value": 37702.137,
+                    "contract_code": "BTC-USDT-240412",
+                    "trade_amount": 178.838,
+                    "trade_volume": 178838,
+                    "trade_turnover": 11843776.4396,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "next_week",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 19654.0,
+                    "amount": 19.654,
+                    "symbol": "BTC",
+                    "value": 1296696.2348,
+                    "contract_code": "BTC-USDT-240405",
+                    "trade_amount": 258.77,
+                    "trade_volume": 258770,
+                    "trade_turnover": 17099171.0334,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "this_week",
+                    "trade_partition": "USDT"
+                }
+            ],
+            "ts": 1712152532541
+        },
+        "BTC-USD": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 337487.0,
+                    "amount": 511.7711907971655,
+                    "symbol": "BTC",
+                    "contract_code": "BTC-USD",
+                    "trade_amount": 657.0881119070671,
+                    "trade_volume": 432462,
+                    "trade_turnover": 43246200.0
+                }
+            ],
+            "ts": 1712152535469
+        },
+        "BTC.InverseFuture": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 15649.0,
+                    "amount": 22.70957817709524,
+                    "symbol": "BTC",
+                    "contract_type": "quarter",
+                    "contract_code": "BTC240628",
+                    "trade_amount": 37.08442947617754,
+                    "trade_volume": 25702,
+                    "trade_turnover": 2570200.0
+                }
+            ],
+            "ts": 1712152536248
+        },
+        "_doc": "a409fdcd-9a4a-4c73-85bf-81859dc7593d"
+    },
+    {
+        "BTC-USDT.LinearPerpetual": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 1786920.0,
+                    "amount": 1786.92,
+                    "symbol": "BTC",
+                    "value": 117817353.744,
+                    "contract_code": "BTC-USDT",
+                    "trade_amount": 27053.69,
+                    "trade_volume": 27053690,
+                    "trade_turnover": 1777719862.5802,
+                    "business_type": "swap",
+                    "pair": "BTC-USDT",
+                    "contract_type": "swap",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 570.0,
+                    "amount": 0.57,
+                    "symbol": "BTC",
+                    "value": 37702.137,
+                    "contract_code": "BTC-USDT-240412",
+                    "trade_amount": 178.838,
+                    "trade_volume": 178838,
+                    "trade_turnover": 11843776.4396,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "next_week",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 19654.0,
+                    "amount": 19.654,
+                    "symbol": "BTC",
+                    "value": 1296696.2348,
+                    "contract_code": "BTC-USDT-240405",
+                    "trade_amount": 258.77,
+                    "trade_volume": 258770,
+                    "trade_turnover": 17099171.0334,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "this_week",
+                    "trade_partition": "USDT"
+                }
+            ],
+            "ts": 1712152532541
+        },
+        "BTC-USD": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 337487.0,
+                    "amount": 511.7711907971655,
+                    "symbol": "BTC",
+                    "contract_code": "BTC-USD",
+                    "trade_amount": 657.0881119070671,
+                    "trade_volume": 432462,
+                    "trade_turnover": 43246200.0
+                }
+            ],
+            "ts": 1712152534371
+        },
+        "BTC.InverseFuture": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 15641.0,
+                    "amount": 22.710884817001755,
+                    "symbol": "BTC",
+                    "contract_type": "quarter",
+                    "contract_code": "BTC240628",
+                    "trade_amount": 37.08442947617754,
+                    "trade_volume": 25702,
+                    "trade_turnover": 2570200.0
+                }
+            ],
+            "ts": 1712152535152
+        },
+        "_doc": "b6b06f6d-9333-4751-8716-7661db0b6bae"
+    },
+    {
+        "BTC-USDT.LinearPerpetual": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 1786920.0,
+                    "amount": 1786.92,
+                    "symbol": "BTC",
+                    "value": 117817353.744,
+                    "contract_code": "BTC-USDT",
+                    "trade_amount": 27053.69,
+                    "trade_volume": 27053690,
+                    "trade_turnover": 1777719862.5802,
+                    "business_type": "swap",
+                    "pair": "BTC-USDT",
+                    "contract_type": "swap",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 570.0,
+                    "amount": 0.57,
+                    "symbol": "BTC",
+                    "value": 37702.137,
+                    "contract_code": "BTC-USDT-240412",
+                    "trade_amount": 178.838,
+                    "trade_volume": 178838,
+                    "trade_turnover": 11843776.4396,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "next_week",
+                    "trade_partition": "USDT"
+                },
+                {
+                    "volume": 19654.0,
+                    "amount": 19.654,
+                    "symbol": "BTC",
+                    "value": 1296696.2348,
+                    "contract_code": "BTC-USDT-240405",
+                    "trade_amount": 258.77,
+                    "trade_volume": 258770,
+                    "trade_turnover": 17099171.0334,
+                    "business_type": "futures",
+                    "pair": "BTC-USDT",
+                    "contract_type": "this_week",
+                    "trade_partition": "USDT"
+                }
+            ],
+            "ts": 1712152532541
+        },
+        "BTC-USD": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 337487.0,
+                    "amount": 511.7711907971655,
+                    "symbol": "BTC",
+                    "contract_code": "BTC-USD",
+                    "trade_amount": 657.0881119070671,
+                    "trade_volume": 432462,
+                    "trade_turnover": 43246200.0
+                }
+            ],
+            "ts": 1712152532816
+        },
+        "BTC.InverseFuture": {
+            "status": "ok",
+            "data": [
+                {
+                    "volume": 15641.0,
+                    "amount": 22.749787679799464,
+                    "symbol": "BTC",
+                    "contract_type": "quarter",
+                    "contract_code": "BTC240628",
+                    "trade_amount": 37.08442947617754,
+                    "trade_volume": 25702,
+                    "trade_turnover": 2570200.0
+                }
+            ],
+            "ts": 1712152533627
+        },
+        "_doc": "a18cc695-163d-43e2-a2cf-eea9cbe3242d"
+    }
+]

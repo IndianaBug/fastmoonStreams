@@ -1,0 +1,192 @@
+[
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154226,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154226,
+            "makerUserId": "64ca5aa7f83c6b00011220c0",
+            "side": "sell",
+            "size": 35,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965713621057536",
+            "tradeId": "1742312154226",
+            "ts": 1712144098342000000
+        },
+        "_doc": "ebbef3d3-6096-4aea-bbff-78be086b5039"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154223,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154223,
+            "makerUserId": "629085d03760a3000159bcaf",
+            "side": "sell",
+            "size": 31,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965713319071744",
+            "tradeId": "1742312154223",
+            "ts": 1712144098342000000
+        },
+        "_doc": "961d8803-ca85-4eaf-a5da-ba698b2872d4"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154222,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154222,
+            "makerUserId": "61378bbe300d59000687a866",
+            "side": "sell",
+            "size": 58,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965713079975936",
+            "tradeId": "1742312154222",
+            "ts": 1712144098342000000
+        },
+        "_doc": "c6988887-8b9e-49fe-9248-306809372688"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154221,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154221,
+            "makerUserId": "5d1dd67438300c6048d6eade",
+            "side": "sell",
+            "size": 19,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965712589254656",
+            "tradeId": "1742312154221",
+            "ts": 1712144098342000000
+        },
+        "_doc": "2f93ecc1-f35e-48cb-bd1b-a97b20f12f11"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154220,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154220,
+            "makerUserId": "5d1dd67938300c6048d6eae9",
+            "side": "sell",
+            "size": 33,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965711603585027",
+            "tradeId": "1742312154220",
+            "ts": 1712144098342000000
+        },
+        "_doc": "581da02b-0fd9-4fe8-8c29-f32a4f29faad"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154219,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154219,
+            "makerUserId": "64ca5a3daa88b70001dac9c6",
+            "side": "sell",
+            "size": 1,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965707300278272",
+            "tradeId": "1742312154219",
+            "ts": 1712144098342000000
+        },
+        "_doc": "92a89de7-ed64-4c94-87e6-60be0e695931"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154218,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154218,
+            "makerUserId": "5d1dd663134ab71d4fe7e733",
+            "side": "sell",
+            "size": 30,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965707237371904",
+            "tradeId": "1742312154218",
+            "ts": 1712144098342000000
+        },
+        "_doc": "f52c7efb-c1dc-4c3f-98d8-6500dada70d2"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154217,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154217,
+            "makerUserId": "61378bcc230d8d00061082b4",
+            "side": "sell",
+            "size": 5,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965707237310464",
+            "tradeId": "1742312154217",
+            "ts": 1712144098342000000
+        },
+        "_doc": "1bb50630-25be-4647-a2cf-defdf1fac448"
+    },
+    {
+        "topic": "/contractMarket/execution:XBTUSDTM",
+        "type": "message",
+        "subject": "match",
+        "sn": 1742312154216,
+        "data": {
+            "symbol": "XBTUSDTM",
+            "sequence": 1742312154216,
+            "makerUserId": "650855dd88b5b60001dc9407",
+            "side": "sell",
+            "size": 2,
+            "price": "65908.9",
+            "takerOrderId": "164965735817359360",
+            "takerUserId": "61422cbb4b3172000602b038",
+            "makerOrderId": "164965707228962818",
+            "tradeId": "1742312154216",
+            "ts": 1712144098342000000
+        },
+        "_doc": "b3db98b8-9559-4f17-82b2-721cf7a53e5d"
+    },
+    {
+        "id": "2179200564",
+        "type": "ack",
+        "_doc": "b074ee05-9f6d-421d-b1b8-e45384d068d1"
+    },
+    {
+        "id": "qClvzlxgXY",
+        "type": "welcome",
+        "_doc": "5dac905f-f02e-4f39-8c7e-60730ec86df3"
+    }
+]

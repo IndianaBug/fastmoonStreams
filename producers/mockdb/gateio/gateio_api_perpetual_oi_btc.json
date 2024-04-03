@@ -1,0 +1,125 @@
+[
+  {
+    "BTC_USDT": [
+      {
+        "time": 1712148600,
+        "lsr_taker": 0,
+        "lsr_account": 1.9463013698630136,
+        "long_liq_size": 0,
+        "short_liq_size": 0,
+        "open_interest": 103463458,
+        "short_liq_usd": 0,
+        "mark_price": 65857.2,
+        "top_lsr_size": 0.7024245544060275,
+        "short_liq_amount": 0,
+        "long_liq_amount": 0,
+        "open_interest_usd": 681381364.61976,
+        "top_lsr_account": 0.7580645161290323,
+        "long_liq_usd": 0
+      }
+    ],
+    "BTC_USD": [
+      {
+        "time": 1712148600,
+        "lsr_taker": 0,
+        "lsr_account": 2.8324324324324324,
+        "long_liq_size": 0,
+        "short_liq_size": 0,
+        "open_interest": 11906676,
+        "short_liq_usd": 0,
+        "mark_price": 65857.58,
+        "top_lsr_size": 0.9079513263793052,
+        "short_liq_amount": 0,
+        "long_liq_amount": 0,
+        "open_interest_usd": 11906676,
+        "top_lsr_account": 1.8421052631578947,
+        "long_liq_usd": 0
+      }
+    ],
+    "BTC_USDT_20240412": [
+      {
+        "basis_value": "330.68",
+        "total_size": "333",
+        "basis_rate": "0.203467",
+        "volume_24h_quote": "401819",
+        "volume_24h_settle": "401819",
+        "high_24h": "67074.4",
+        "change_percentage": "1.13",
+        "mark_price": "66243",
+        "index_price": "65912.32",
+        "volume_24h": "60610",
+        "highest_bid": "66194.3",
+        "last": "66295.9",
+        "settle_price": "0",
+        "lowest_ask": "66404.1",
+        "contract": "BTC_USDT_20240412",
+        "low_24h": "64806.6",
+        "volume_24h_base": "6"
+      }
+    ],
+    "BTC_USDT_20240405": [
+      {
+        "basis_value": "163.45",
+        "total_size": "10364",
+        "basis_rate": "0.452559",
+        "volume_24h_quote": "413657",
+        "volume_24h_settle": "413657",
+        "high_24h": "66853.3",
+        "change_percentage": "0.89",
+        "mark_price": "66075.77",
+        "index_price": "65912.32",
+        "volume_24h": "62648",
+        "highest_bid": "65950",
+        "last": "66028.9",
+        "settle_price": "0",
+        "lowest_ask": "66104",
+        "contract": "BTC_USDT_20240405",
+        "low_24h": "64761.6",
+        "volume_24h_base": "6"
+      }
+    ],
+    "BTC_USDT_20240628": [
+      {
+        "basis_value": "3432.07",
+        "total_size": "11088",
+        "basis_rate": "0.220996",
+        "volume_24h_quote": "445773",
+        "volume_24h_settle": "445773",
+        "high_24h": "70336.9",
+        "change_percentage": "0.92",
+        "mark_price": "69344.39",
+        "index_price": "65912.32",
+        "volume_24h": "64250",
+        "highest_bid": "69270.8",
+        "last": "69381.1",
+        "settle_price": "0",
+        "lowest_ask": "69492.6",
+        "contract": "BTC_USDT_20240628",
+        "low_24h": "67843.4",
+        "volume_24h_base": "6"
+      }
+    ],
+    "BTC_USDT_20240927": [
+      {
+        "basis_value": "6842.47",
+        "total_size": "8336",
+        "basis_rate": "0.214075",
+        "volume_24h_quote": "537966",
+        "volume_24h_settle": "537966",
+        "high_24h": "73653.9",
+        "change_percentage": "0.95",
+        "mark_price": "72754.79",
+        "index_price": "65912.32",
+        "volume_24h": "74021",
+        "highest_bid": "72525.2",
+        "last": "72677.6",
+        "settle_price": "0",
+        "lowest_ask": "72772.1",
+        "contract": "BTC_USDT_20240927",
+        "low_24h": "70613.7",
+        "volume_24h_base": "7"
+      }
+    ],
+    "_doc": "2d5f3c1c-2a25-4f45-90ee-109748747255"
+  }
+]

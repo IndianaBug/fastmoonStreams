@@ -40,7 +40,7 @@ gateio_basepoints = {
      "option" : {
          "depth" : "/options/order_book",   
          "trades" : "/options/trades",      
-         "oi" : "/options/tickers",     
+         "oi" : "/options/contracts",     
      },
 }
 
@@ -65,7 +65,7 @@ gateio_basepoints_standard_params = {
      },
      "option" : {
          "depth" : lambda symbol, interval : {"contract" : symbol, "limit" : 300},
-         "trades" : lambda symbol, interval : {"contract" : symbol, "from" : int(time.time()-interval), "to" : int(time.time())},    # if not provided, fetches every trades
+         "trades" : lambda symbol, interval : {"from" : int(time.time()-interval), "to" : int(time.time())},    # if not provided, fetches every trades
          "oi" : lambda symbol, interval : {"underlying" : symbol},   # ticker snap of all options belonging to underlying asset
      },
 }
@@ -77,7 +77,7 @@ def gateio_get_api_standard_params(instType, objective, symbol, interval=None):
 
 
 gateio_ws_endpoints = {
-    "spot" : "https://api.gateio.ws/api/v4",
+    "spot" : "wss://api.gateio.ws/ws/v4/",
     "perpetual" : {
         "LinearPerpetual" : "wss://fx-ws.gateio.ws/v4/ws/usdt",
         "InversePerpetual" : "wss://fx-ws.gateio.ws/v4/ws/btc",
@@ -105,7 +105,6 @@ gateio_ws_channel_map = {
     },
     "option" : {
         "trades" : "options.ul_trades", 
-        "depth" : "futures.order_book_update",
         "oi" : "options.ul_tickers"
     },
 }
@@ -159,7 +158,7 @@ def gateio_build_ws_message(instType, objective, symbol):
     return msg
 
 def gateio_get_ws_url(instType, objective, marginType, symbol):
-    if marginType != None:
+    if marginType != "":
         url = gateio_ws_endpoints.get(instType).get(marginType)
     else:
         url = gateio_ws_endpoints.get(instType)

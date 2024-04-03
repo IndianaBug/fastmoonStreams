@@ -104,6 +104,7 @@ import aiofiles
 import uuid
 import os
 import asyncio
+import gzip
 
 class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
@@ -116,9 +117,13 @@ class MockCouchDB:
             pass
         elif isinstance(data, str):
             data = json.loads(data)
-        else:
-            print(type(data))
-            return
+        elif isinstance(data, bytes):
+            try:
+                data = json.loads(gzip.decompress(data).decode('utf-8'))
+            except:
+                return
+        if isinstance(data, list):
+            data = {"list" : data}
         data["_doc"] = str(uuid.uuid4())
         if not os.path.exists(self.file_path):
             async with aiofiles.open(self.file_path ,mode='w') as f:

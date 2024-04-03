@@ -1,0 +1,84 @@
+[
+    {
+        "topic": "/market/match:BTC-USDT",
+        "type": "message",
+        "data": {
+            "makerOrderId": "660d3edc9ce5540007ec9a74",
+            "price": "65917.3",
+            "sequence": "8214653754556420",
+            "side": "sell",
+            "size": "0.1184507",
+            "symbol": "BTC-USDT",
+            "takerOrderId": "660d3edc156b7500071786e7",
+            "time": "1712144092060000000",
+            "tradeId": "8214653754556420",
+            "type": "match"
+        },
+        "subject": "trade.l3match",
+        "_doc": "c04d3036-702c-447b-9799-7c518568335b"
+    },
+    {
+        "topic": "/market/match:BTC-USDT",
+        "type": "message",
+        "data": {
+            "makerOrderId": "660d3edad4b8e20007ff07e7",
+            "price": "65917.3",
+            "sequence": "8214653754556417",
+            "side": "sell",
+            "size": "0.00292187",
+            "symbol": "BTC-USDT",
+            "takerOrderId": "660d3edc156b7500071786e7",
+            "time": "1712144092060000000",
+            "tradeId": "8214653754556417",
+            "type": "match"
+        },
+        "subject": "trade.l3match",
+        "_doc": "5e8cc6c1-0b8e-4799-bcbd-f75580ef17a2"
+    },
+    {
+        "topic": "/market/match:BTC-USDT",
+        "type": "message",
+        "data": {
+            "makerOrderId": "660d3ed8ff17a00007636731",
+            "price": "65905.6",
+            "sequence": "8214653127245828",
+            "side": "buy",
+            "size": "0.11742835",
+            "symbol": "BTC-USDT",
+            "takerOrderId": "660d3ed8b07a10000740d5f4",
+            "time": "1712144088715000000",
+            "tradeId": "8214653127245828",
+            "type": "match"
+        },
+        "subject": "trade.l3match",
+        "_doc": "3ab9b52b-46ee-4411-a1d5-f2190628727f"
+    },
+    {
+        "topic": "/market/match:BTC-USDT",
+        "type": "message",
+        "data": {
+            "makerOrderId": "660d3ed25b86d80007f65ebb",
+            "price": "65905.6",
+            "sequence": "8214653127245825",
+            "side": "buy",
+            "size": "0.00395748",
+            "symbol": "BTC-USDT",
+            "takerOrderId": "660d3ed8b07a10000740d5f4",
+            "time": "1712144088715000000",
+            "tradeId": "8214653127245825",
+            "type": "match"
+        },
+        "subject": "trade.l3match",
+        "_doc": "d22bf501-d251-4e5b-b83e-7567ca072e91"
+    },
+    {
+        "id": "7490439411",
+        "type": "ack",
+        "_doc": "8a3ecca2-4f89-4940-9f6f-6a71bf6a08f6"
+    },
+    {
+        "id": "qClvzlhMGG",
+        "type": "welcome",
+        "_doc": "5f45943a-566f-4451-964d-d42d018bd0dd"
+    }
+]

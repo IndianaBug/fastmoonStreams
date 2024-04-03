@@ -9,9 +9,11 @@ from utilis import MockCouchDB
 import zlib
 import re
 import gzip
-import uuid
 import aiocouch
 from utilis import ws_fetcher_helper
+import io
+
+
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -49,7 +51,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending unsolicited pong")
+                # print("Sending unsolicited pong")
                 await websocket.pong(b"")  # Empty payload for unsolicited pong
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -69,7 +71,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending ping")
+                # print("Sending ping")
                 await websocket.ping(json.dumps({"req_id": connection_data.get('req_id'), "op": "ping"})) 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -89,7 +91,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending ping")
+                # print("Sending ping")
                 await websocket.ping("ping") 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -127,7 +129,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending ping")
+                # print("Sending ping")
                 await websocket.ping("ping") 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -139,12 +141,24 @@ class keepalive():
 
             Once the Websocket Client and Websocket Server get connected, the server will send a heartbeat- Ping message every 5 seconds (the frequency might change).
             When the Websocket Client receives this heartbeat message, it should return Pong message.
+
+            # SPOT
+            Once the Websocket Client and Websocket Server get connected, the server will send a heartbeat- Ping message every 5 seconds (the frequency might change).
+            {"ping":"2177c68e4d0e45679965f482929b59c2","time":"2022-06-07T16:27:36.323+0800"}
+
+            When the Websocket Client receives this heartbeat message, it should return Pong message.
+            {"pong":"2177c68e4d0e45679965f482929b59c2","time":"2022-06-07T16:27:36.323+0800"}
+
+            # PERP
+            send simply Pong
+
+            Yeah, as you get keepalive is useless
         """
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending pong (optional)")
-                await websocket.ping("ping") 
+                # print("Sending ping")
+                await websocket.send("Ping") 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
             await asyncio.sleep(ping_interval)
@@ -539,9 +553,9 @@ class producer(keepalive):
                     message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                    if self.mode == "production":
+                    elif self.mode == "production":
                         await self.insert_into_database(connection_data, message)
-                    if self.mode == "testing":
+                    elif self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
@@ -570,15 +584,16 @@ class producer(keepalive):
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    if json.loads(message).get("type", None) == "ping":
+                    message = json.loads(message)
+                    if message.get("type", None) == "ping":
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.send({
                                         "id": str(connect_id),
                                         "type": "pong"
                                         })
-                    if self.mode == "production":
+                    elif self.mode == "production":
                         await self.insert_into_database(connection_data, message)
-                    if self.mode == "testing":
+                    elif self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
@@ -601,15 +616,17 @@ class producer(keepalive):
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    if message == b'\x89\x00':
-                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                        await websocket.pong(message)
+                    message = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb').read().decode('utf-8')
+                    if message != "Ping":
+                        message = json.loads(message)
+                        if "ping" in message:
+                            await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+                        if self.mode == "production":
+                            await self.insert_into_database(connection_data, message)
+                        if self.mode == "testing":
+                            self.get_latency(connection_data, message)
+                    if message == "Ping":
                         await websocket.send("Pong")
-                        await websocket.send("pong")
-                    if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
@@ -620,20 +637,24 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.mexc_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
-                    if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                    message = await websocket.recv()
+                    message = json.loads(message)
                     if "pong" in message:
                         await websocket.send("ping")
                     if "PONG" in message:
                         await websocket.send("PONG")
+                    if self.mode == "production":
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -646,20 +667,24 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
-                    if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                    message = await websocket.recv()
+                    message = json.loads(message)
                     if "ping" in message.get("channel"):
                         await websocket.send({"channel" : message.get("channel").repalce("ping", "pong")})
                     if "pong" in message.get("channel"):
                         await websocket.send({"channel" : message.get("channel").repalce("pong", "ping")})
+                    if self.mode == "production":
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -672,16 +697,19 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
 
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     message =  json.loads(gzip.decompress(message).decode('utf-8'))
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if "ping" in message:
                         await websocket.send(json.dumps({"pong": message.get("ping")}))
                     if self.mode == "testing":
@@ -696,17 +724,21 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())    
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())  
     
-        objective = connection_data.get("objective")
+        conM, a, b = connection_data.get("msg_method")()
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            await websocket.send(json.dumps(connection_data.get("msg_method")()))
+            await websocket.send(json.dumps(conM))
             while websocket.open:
                 try:
-                    if objective != "heartbeats":
-                        message = websocket.recv()
+                    message = await websocket.recv()
+                    message = json.loads(message)
+                    if message.get("channel") != "heartbeats":
                         if self.mode == "production":
-                            self.insert_into_database(connection_data, message)
+                            await self.insert_into_database(connection_data, message)
                         if self.mode == "testing":
                             self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -717,6 +749,7 @@ class producer(keepalive):
         while True:
             message = await connection_data.get("aiohttpMethod")()
             await self.insert_into_database_3(connection_data, message)
+            time.sleep(connection_data.get("pullTimeout"))
 
     async def run_producer(self):
         tasks = []
