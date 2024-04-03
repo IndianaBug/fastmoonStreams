@@ -114,8 +114,11 @@ class MockCouchDB:
     async def save(self, data):
         if isinstance(data, dict):
             pass
-        if isinstance(data, str):
+        elif isinstance(data, str):
             data = json.loads(data)
+        else:
+            print(type(data))
+            return
         data["_doc"] = str(uuid.uuid4())
         if not os.path.exists(self.file_path):
             async with aiofiles.open(self.file_path ,mode='w') as f:
@@ -134,7 +137,10 @@ class MockCouchDB:
                 await f.truncate() 
                 await f.write(content) 
 
-                
+async def ws_fetcher_helper(function):
+    data = await function()
+    return data
+
 
 # data_handler = MockCouchDB("large_database.json", "mochdb")
 # for i in range(100):

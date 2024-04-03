@@ -101,16 +101,12 @@ class CommunicationsManager:
     @classmethod
     async def make_wsRequest_http(cls, connection_data):
         async def wsClient(connection_data):
-            async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
+            async with websockets.connect(connection_data.get("endpoint"), ssl=ssl_context) as websocket:
                 await websocket.send(json.dumps(connection_data.get("headers")))
                 response = await websocket.recv()
                 return response
-        loop = asyncio.get_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            response = loop.run_until_complete(wsClient(connection_data))
-        finally:
-            loop.close()
+
+        response = await asyncio.run(wsClient(connection_data))
         return response
 
     @classmethod
@@ -358,7 +354,7 @@ class binance(CommunicationsManager, binanceInfo):
             
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{instTypes[0]}_{objectives[0]}_{sss[0] if len(sss) == 1 else 'bulk'}",
+                                "id_ws" : f"binance_ws_{instTypes[0]}_{objectives[0]}_{sss[0] if len(sss) == 1 else f'bulk_{marginType}'}",
                                 "exchange":"binance", 
                                 "instruments": "_".join(sss),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -497,7 +493,11 @@ class bybit(CommunicationsManager, bybitInfo):
         full = {}
         symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
         for symbol in symbols:
-            if not re.search(r'\d', symbol.split("-")[0]):  # unavailable for futures as of april2 2024
+            try:
+                helper = any(char.isdigit() for char in symbol.split("-")[1])
+            except:
+                helper = False
+            if helper is not True:  # unavailable for futures as of april2 2024
                 symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
                 instType = "future" if "-" in symbol else "perpetual"
                 data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
@@ -506,7 +506,11 @@ class bybit(CommunicationsManager, bybitInfo):
                 full["Linear_"+symbol] = data
         symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
         for symbol in symbols:
-            if not re.search(r'\d', symbol.split("-")[0]):  # unavailable for futures as of april2 2024
+            try:
+                helper = any(char.isdigit() for char in symbol.split("-")[1])
+            except:
+                helper = None
+            if helper is not True:  # unavailable for futures as of april2 2024
                 symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
                 instType = "future" if "-" in symbol else "perpetual"
                 data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
@@ -577,7 +581,7 @@ class bybit(CommunicationsManager, bybitInfo):
 
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
+                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else f'bulk_{marginType}'}",
                                 "exchange":"bybit", 
                                 "instruments": "".join(symbol_names),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -650,10 +654,12 @@ class okx(CommunicationsManager, okxInfo):
     @classmethod
     async def okx_build_fundfutureperp_method(cls, underlying_symbol):
         symbols = [x for x in okxInfo.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
-        data = []
+        data = {}
         for symbol in symbols:
             response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
-            data.append(response)
+            if isinstance(response, str):
+                response = json.loads(response)
+            data[symbol] = response
         return data
     
     @classmethod
@@ -662,23 +668,35 @@ class okx(CommunicationsManager, okxInfo):
         marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
         marginCoinsP = [x for x in cls.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
         marginCoinsP = list(set([x.split("-")[1] for x in marginCoinsP]))
-        data = []
+        data = {}
         for marginCoin in marginCoinsF:
             futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
-            data.append(futures)
+            if isinstance(futures, str):
+                futures = json.loads(futures)
+            else:
+                pass
+            data[f"future_{underlying_symbol}-{marginCoin}"] = futures
         for marginCoin in marginCoinsP:
             perp = await cls.okx_aiohttpFetch("perpetual", "oi", f"{underlying_symbol}-{marginCoin}")
-            data.append(perp)
+            if isinstance(perp, str):
+                perp = json.loads(perp)
+            else:
+                pass
+            data[f"perpetual_{underlying_symbol}-{marginCoin}"] = perp
         return data
 
     @classmethod
     async def okx_build_oioption_method(cls, underlying_symbol):
         marginCoinsF = [x for x in cls.okx_symbols_by_instType("option") if underlying_symbol in x]
         marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
-        data = []
+        data = {}
         for marginCoin in marginCoinsF:
             futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
-            data.append(futures)
+            if isinstance(futures, str):
+                futures = json.loads(futures)
+            else:
+                pass
+            data[f"{underlying_symbol}-{marginCoin}"] = futures
         return data
 
     @classmethod
@@ -721,11 +739,14 @@ class okx(CommunicationsManager, okxInfo):
                 }]
             }
         if instType != None:
-            parsef_instType = okx_api_instType_map.get(instType)
+            if objective != "liquidation-orders":
+                parsef_instType = okx_api_instType_map.get(instType)
+            if objective == "liquidation-orders":
+                parsef_instType = symbol
             msg["args"][0]["instType"] = parsef_instType
         if instFamily != None:
             msg["args"][0]["instFamily"] = instFamily
-        if symbol != None:
+        if symbol != None and objective != "liquidation-orders":
             msg["args"][0]["instId"] = symbol
         return msg
 
@@ -757,10 +778,14 @@ class okx(CommunicationsManager, okxInfo):
         
         for i, o, s in zip(instTypes, objectives, symbols):
             if o == "liquidations":
-                parsed_instTypes.append(i)
+                if s == "OPTION":
+                    parsed_instTypes.append("option")
+                else:
+                    parsed_instTypes.append(i)
                 parsed_instFamilys.append(None)
-                parsed_symbols.append(None)
-            if o == "optionTrades":
+                parsed_symbols.append(s)
+
+            elif o == "optionTrades":
                 parsed_instTypes.append(i)
                 parsed_instFamilys.append(s)
                 parsed_symbols.append(None)
@@ -775,7 +800,7 @@ class okx(CommunicationsManager, okxInfo):
         
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"okx_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
+                                "id_ws" : f"okx_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else f'bulk'}",
                                 "exchange":"okx", 
                                 "instruments": "_".join(symbol_names),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -785,6 +810,7 @@ class okx(CommunicationsManager, okxInfo):
                                 "msg_method" : partial(cls.okx_build_bulk_ws_message, objectives, parsed_instTypes, parsed_instFamilys, parsed_symbols)
                             }
         if needSnap == True:
+            connection_data["id_api_2"] = f"okx_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.okx_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
         return connection_data
 
@@ -1378,10 +1404,14 @@ class bitget(CommunicationsManager, bitgetInfo):
             BTC, ETH ...
         """
         symbols =  [x for x in bitgetInfo.bitget_symbols_by_instType("perpetual") if underlying_asset in x]
-        full = []
+        full = {}
         for symbol in symbols:
             data = await cls.bitget_aiohttpFetch("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
-            full.append(data)
+            if isinstance(data, str):
+                data = json.loads(data)
+            else:
+                pass
+            full[symbol] = data
         return full
     
     @classmethod
@@ -1390,10 +1420,14 @@ class bitget(CommunicationsManager, bitgetInfo):
             BTC, ETH ...
         """
         symbols =  [x for x in bitgetInfo.bitget_symbols_by_instType("perpetual") if underlying_asset in x]
-        full = []
+        full = {}
         for symbol in symbols:
                 data = await cls.bitget_aiohttpFetch("perpetual", "funding", symbol=symbol, special_method="fundfutureperp")
-                full.append(data)
+                if isinstance(data, str):
+                    data = json.loads(data)
+                else:
+                    pass
+                full[symbol] = data
         return full
 
 
@@ -1544,7 +1578,7 @@ class deribit(CommunicationsManager, deribitInfo):
     @classmethod
     async def deribit_aiohttpFetch(cls, *args, **kwargs):
         connection_data = cls.deribit_buildRequest(*args, **kwargs)
-        response = await cls.make_wsRequest_http(connection_data)
+        response = await cls.make_wsRequest(connection_data)
         return response
     
     @classmethod
@@ -1628,7 +1662,7 @@ class deribit(CommunicationsManager, deribitInfo):
                                 "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss, objectives)
                             }
         if needSnap is True:
-            connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
+            connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.deribit_fetch, instTypes[0], objectives[0], symbols[0]) 
         return connection_data
 

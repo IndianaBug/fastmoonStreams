@@ -11,6 +11,7 @@ import re
 import gzip
 import uuid
 import aiocouch
+from utilis import ws_fetcher_helper
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -88,7 +89,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending pong (optional)")
+                print("Sending ping")
                 await websocket.ping("ping") 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -126,7 +127,7 @@ class keepalive():
         id_ws = connection_data.get("id_ws", None)
         while True:
             try:
-                print("Sending pong (optional)")
+                print("Sending ping")
                 await websocket.ping("ping") 
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
@@ -293,6 +294,10 @@ class producer(keepalive):
         if self.database_name == "CouchDB":
             self.insert_into_database = self.insert_into_CouchDB
             self.insert_into_database_2 = self.insert_into_CouchDB_2
+        # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
+        deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
+        self.deribit_depths = {x.get("id_api_2") : asyncio.run(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
+        del deribit_depths
 
     def onInterrupt_write_to_json(self):
         """
@@ -446,18 +451,21 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
 
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.okx_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -471,16 +479,19 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            books = await connection_data.get("1stBooksSnapMethod")()
-            self.insert_into_database(connection_data, books)
-            del books
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, self.deribit_depths.get(connection_data.get("id_api_2")))
+            else:
+                await self.insert_into_database(connection_data, self.deribit_depths.get(connection_data.get("id_api_2")))
+            del self.deribit_depths[connection_data.get("id_api_2")]
 
         if connection_data.get("objective") == "heartbeats":
             async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
                 while websocket.open:
                     try:
-                        message = websocket.recv()
+                        message = await websocket.recv()
+                        message = json.loads(message)
                         if message.get("method") == "heartbeat":
                             print(f"Received heartbeat from Deribit server.")
                         elif message.get("result") == "ok":
@@ -500,9 +511,9 @@ class producer(keepalive):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
                 while websocket.open:
                     try:
-                        message = websocket.recv()
+                        message = await websocket.recv()
                         if self.mode == "production":
-                            self.insert_into_database(connection_data, message)
+                            await self.insert_into_database(connection_data, message)
                         if self.mode == "testing":
                             self.get_latency(connection_data, message)
                     except websockets.ConnectionClosed:
@@ -515,18 +526,21 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -539,7 +553,10 @@ class producer(keepalive):
         """
 
         if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
 
         connection_message = connection_data.get("msg_method")()
         endpoint, ping_data = connection_data.get("url_method")()
@@ -552,15 +569,15 @@ class producer(keepalive):
             keep_alive_task = asyncio.create_task(self.kucoin_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
-                    if message.get("type", None) == "ping":
+                    message = await websocket.recv()
+                    if json.loads(message).get("type", None) == "ping":
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.send({
                                         "id": str(connect_id),
                                         "type": "pong"
                                         })
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -572,22 +589,25 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
 
-        if connection_data.get("objective") == "depth":
-            self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+        if connection_data.get("objective") == "depth" and connection_data.get("id_api_2") in connection_data:
+            if self.database_name == "mockCouchDB":
+                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+            else:
+                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
 
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
-                    message = websocket.recv()
+                    message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.pong(message)
                         await websocket.send("Pong")
                         await websocket.send("pong")
                     if self.mode == "production":
-                        self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -707,9 +727,11 @@ class producer(keepalive):
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
             if "id_ws" not in connection_dict and "id_api" in connection_dict:
                 tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
-        try:
-            await asyncio.gather(*tasks)
-        except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
-            if self.mode == "testing":
-                print(f"WebSocket connection interrupted: {e}")
-                self.onInterrupt_write_to_json()
+        # try:
+        await asyncio.gather(*tasks)
+        # except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
+        #     if self.mode == "testing":
+        #         print(f"WebSocket connection interrupted: {e}")
+        #         self.onInterrupt_write_to_json()
+        # except:
+        #     pass

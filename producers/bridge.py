@@ -18,7 +18,7 @@ class ExchangeAPIClient():
             "deribit" : deribit(),
             "htx" : htx(),
             "mexc" : mexc(),
-            "gateio" : gateio(),
+            # "gateio" : gateio(),
         }
         for exchange, client in self.exchanges.items():
             for method_name in dir(client):

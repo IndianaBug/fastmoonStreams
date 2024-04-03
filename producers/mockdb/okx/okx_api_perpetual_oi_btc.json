@@ -1,0 +1,1500 @@
+[
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.906485505923031",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.5090762993535191",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.5551091469130842",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3933063053191619",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.9759913315558153",
+                    "ts": "1712097515195"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.7057964133094708",
+                    "ts": "1712097515195"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097515536"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097515536"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515862"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097515862"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097515862"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097515862"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097515862"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097515862"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419525",
+                    "oiCcy": "14335.0819362771954174",
+                    "ts": "1712097516187"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030625",
+                    "oiCcy": "20306.25",
+                    "ts": "1712097516528"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129198",
+                    "oiCcy": "212.9198",
+                    "ts": "1712097516852"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "605566f5-1070-43e8-aabb-dd7446f6839f"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8924408209969248",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.4965330241432986",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.4447802118377787",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3756689353789784",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.3439510895449033",
+                    "ts": "1712097512540"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.0595799458613118",
+                    "ts": "1712097512540"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097512886"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097512886"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097513217"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097513217"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097513217"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097513217"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097513217"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097513217"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419525",
+                    "oiCcy": "14332.7916421307940797",
+                    "ts": "1712097513533"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030627",
+                    "oiCcy": "20306.27",
+                    "ts": "1712097513856"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129198",
+                    "oiCcy": "212.9198",
+                    "ts": "1712097514185"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "a9efafa0-d610-43cc-a89f-c5a5c5a6dc91"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8925745587340231",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.4966524650030432",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.445830797321972",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3758368837492392",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.349969567863664",
+                    "ts": "1712097509933"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.0657334144856969",
+                    "ts": "1712097509933"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097510268"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097510268"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097510595"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097510595"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097510595"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097510595"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097510595"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097510595"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419521",
+                    "oiCcy": "14332.8073645769933049",
+                    "ts": "1712097510917"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030642",
+                    "oiCcy": "20306.42",
+                    "ts": "1712097511229"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129198",
+                    "oiCcy": "212.9198",
+                    "ts": "1712097511560"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "cba7553d-df49-4de2-a91c-0b2cf5064224"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8995294819431848",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.5028638906304212",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.5004656485297072",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3845709033581476",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.6629556812164079",
+                    "ts": "1712097507273"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.3857395898640793",
+                    "ts": "1712097507273"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097507596"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097507596"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507927"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097507927"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097507927"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097507927"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097507927"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097507927"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419521",
+                    "oiCcy": "14332.8073645769933049",
+                    "ts": "1712097508266"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030642",
+                    "oiCcy": "20306.42",
+                    "ts": "1712097508589"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129198",
+                    "oiCcy": "212.9198",
+                    "ts": "1712097508901"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "bb98a7d2-1c0f-4cc8-8f7c-c863f2da7acf"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8995294819431848",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.5028638906304212",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.5004656485297072",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3845709033581476",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.6629556812164079",
+                    "ts": "1712097504247"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.3857395898640793",
+                    "ts": "1712097504247"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097504785"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097504785"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097505299"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097505299"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097505299"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097505299"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097505299"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097505299"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419528",
+                    "oiCcy": "14333.9521690699811915",
+                    "ts": "1712097505614"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030703",
+                    "oiCcy": "20307.03",
+                    "ts": "1712097505937"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129198",
+                    "oiCcy": "212.9198",
+                    "ts": "1712097506261"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "92efea7b-269f-4d14-8106-5690c42b71df"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8991282064548331",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.5025055124316938",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.4973134028556603",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3840669800395952",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.6448974436621111",
+                    "ts": "1712097501338"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.3672763185325747",
+                    "ts": "1712097501338"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097501661"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097501661"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501975"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097501975"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097501975"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097501975"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097501975"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097501975"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419527",
+                    "oiCcy": "14333.8852105528257585",
+                    "ts": "1712097502290"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030703",
+                    "oiCcy": "20307.03",
+                    "ts": "1712097502608"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129217",
+                    "oiCcy": "212.9217",
+                    "ts": "1712097502937"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "9c7966d2-bc5e-4cee-ae48-456743710b88"
+    },
+    {
+        "future_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240405",
+                    "instType": "FUTURES",
+                    "oi": "57763",
+                    "oiCcy": "87.8991282064548331",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240412",
+                    "instType": "FUTURES",
+                    "oi": "51588",
+                    "oiCcy": "78.5025055124316938",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240426",
+                    "instType": "FUTURES",
+                    "oi": "453761",
+                    "oiCcy": "690.4973134028556603",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240531",
+                    "instType": "FUTURES",
+                    "oi": "72539",
+                    "oiCcy": "110.3840669800395952",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240628",
+                    "instType": "FUTURES",
+                    "oi": "2599456",
+                    "oiCcy": "3955.6448974436621111",
+                    "ts": "1712097498746"
+                },
+                {
+                    "instId": "BTC-USD-240927",
+                    "instType": "FUTURES",
+                    "oi": "2657760",
+                    "oiCcy": "4044.3672763185325747",
+                    "ts": "1712097498746"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240405",
+                    "instType": "FUTURES",
+                    "oi": "9337",
+                    "oiCcy": "93.37",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240412",
+                    "instType": "FUTURES",
+                    "oi": "10008",
+                    "oiCcy": "100.08",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240426",
+                    "instType": "FUTURES",
+                    "oi": "17885",
+                    "oiCcy": "178.85",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240531",
+                    "instType": "FUTURES",
+                    "oi": "3927",
+                    "oiCcy": "39.27",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240628",
+                    "instType": "FUTURES",
+                    "oi": "100221",
+                    "oiCcy": "1002.21",
+                    "ts": "1712097499081"
+                },
+                {
+                    "instId": "BTC-USDT-240927",
+                    "instType": "FUTURES",
+                    "oi": "57807",
+                    "oiCcy": "578.07",
+                    "ts": "1712097499081"
+                }
+            ],
+            "msg": ""
+        },
+        "future_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-240322",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097499398"
+                },
+                {
+                    "instId": "BTC-USDC-240329",
+                    "instType": "FUTURES",
+                    "oi": "0",
+                    "oiCcy": "0",
+                    "ts": "1712097499398"
+                },
+                {
+                    "instId": "BTC-USDC-240405",
+                    "instType": "FUTURES",
+                    "oi": "40714",
+                    "oiCcy": "4.0714",
+                    "ts": "1712097499398"
+                },
+                {
+                    "instId": "BTC-USDC-240412",
+                    "instType": "FUTURES",
+                    "oi": "5464",
+                    "oiCcy": "0.5464",
+                    "ts": "1712097499398"
+                },
+                {
+                    "instId": "BTC-USDC-240628",
+                    "instType": "FUTURES",
+                    "oi": "186706",
+                    "oiCcy": "18.6706",
+                    "ts": "1712097499398"
+                },
+                {
+                    "instId": "BTC-USDC-240927",
+                    "instType": "FUTURES",
+                    "oi": "28467",
+                    "oiCcy": "2.8467",
+                    "ts": "1712097499398"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USD": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USD-SWAP",
+                    "instType": "SWAP",
+                    "oi": "9419527",
+                    "oiCcy": "14333.8852105528257585",
+                    "ts": "1712097499718"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDT": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDT-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2030654",
+                    "oiCcy": "20306.54",
+                    "ts": "1712097500032"
+                }
+            ],
+            "msg": ""
+        },
+        "perpetual_BTC-USDC": {
+            "code": "0",
+            "data": [
+                {
+                    "instId": "BTC-USDC-SWAP",
+                    "instType": "SWAP",
+                    "oi": "2129217",
+                    "oiCcy": "212.9217",
+                    "ts": "1712097500353"
+                }
+            ],
+            "msg": ""
+        },
+        "_doc": "051f3a2f-10f7-4b98-889a-eb6f07925743"
+    }
+]

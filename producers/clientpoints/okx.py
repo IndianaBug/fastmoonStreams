@@ -38,7 +38,7 @@ okx_ws_endpoint = "wss://ws.okx.com:8443/ws/v5/public"
 
 okx_ws_objective_map = {
     "liquidations" : "liquidation-orders",      #  # 'channel': 'liquidation-orders', 'instType': 'SWAP' They have only general stream
-    "trades" : "trades-all",         # no aggregation
+    "trades" : "trades",         # no aggregation
     "depth" : "books",
     "oi" : "open-interest",
     "funding" : "funding-rate",

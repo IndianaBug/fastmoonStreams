@@ -14,7 +14,9 @@ kucoinPass = "sN038-(!UK}4"
 client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret, kucoinPass)
 # all_instruments = client.retrieve_all_instruments()
 # symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
-# print(binance_get_marginType("perpetual", "BTCUSDC"))
+# print(symbols)
+
+# print([x for x in client.okx_symbols_by_instType("future") if "BTC" in x])
 
 # The Instruments must be of the same format (upper lower with hiphens) as in API calls. You may merge streams with the same channels (objectives). Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
@@ -37,20 +39,22 @@ ws = {
     # "okx" : [
     #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT.BTC-USDC",
     #     "perpetual.depth.BTC-USDT-SWAP.snap", "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", "perpetual.liquidations.SWAP.FUTURES.OPTION",
-    #     "option.trades.BTC",
+    #     "option.optionTrades.BTC-USD",
     #     ],
     
     # "deribit" : [
-    #     "perpetual.depth.BTC-PERPETUAL.snap", "future.tradesagg.BTC",
-    #     "option.tradesagg.BTC", "perpetual.heartbeats.BTC.BTC-PERPETUAL"
+    #     "perpetual.depth.BTC-PERPETUAL.snap", 
+    #     "future.tradesagg.BTC",
+    #     "option.tradesagg.BTC", 
+    #     "perpetual.heartbeats.BTC.BTC-PERPETUAL"
     #     ],
     # "bitget" : [
     #     "spot.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCUSDC",
     #     "perpetual.depth.BTCUSDT.snap", "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
     #     ],
-    # "bingx" : [
-    #     "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
-    #     ],
+    "bingx" : [
+        "spot.trades.BTC-USDT", "perpetual.trades.BTC-USDT", "spot.depth.BTC-USDT"
+        ],
     # "kucoin" : [
     #     "spot.depth.BTC-USDT.snap", "spot.trades.BTC-USDT",
     #     "perpetual.depth.XBTUSDTM.snap", "perpetual.trades.XBTUSDTM",
@@ -74,14 +78,16 @@ api = {
     #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
     #     "option.oi.BTC.15.spec",
     #     ],
-    "bybit" : [
-        "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
-        "option.oioption.BTC.15"
-        ],
-    # "okx" : [
-    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300",
-    #     "option.oi.BTC-USD.15",
+    # "bybit" : [
+    #     "perpetual.funding.BTC.3600.spec", "perpetual.oi.BTC.15.spec", "perpetual.gta.BTC.300.spec",
+    #     "option.oioption.BTC.15"
     #     ],
+    # "okx" : [
+    #     "perpetual.oi.BTC.15.spec", 
+        # "perpetual.funding.BTC.3600.spec", 
+        # "perpetual.gta.BTC.300",
+        # "option.oi.BTC-USD.15",
+        # ],
     # "deribit" : [
     #     "future.oifunding.BTC.15",  "option.oifunding.BTC.15",
     #     ],
@@ -113,9 +119,14 @@ import asyncio
 
 connectionData = client.build_connection_data_test(ws, api)
 
-# for e in connectionData:
-#     print("----")
-#     print(e)
+for e in connectionData:
+    print("----")
+    print(e)
+
+# async def rr():
+#     data = await connectionData[0]["1stBooksSnapMethod"]()
+#     print(data)
+# asyncio.run(rr())
 
 __name__ = "__main__"
 
