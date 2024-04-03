@@ -674,7 +674,7 @@ class producer(keepalive):
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
-            keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
+            keep_alive_task = asyncio.create_task(self.gateio_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
                     message = await websocket.recv()
