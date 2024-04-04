@@ -78,8 +78,8 @@ def calculate_option_time_to_expire_okex(date):
     return float(r)
 
 def calculate_option_time_to_expire_bybit(date):
-    target_date = datetime.datetime.strptime(date, '%d%b%y')
-    current_date = datetime.datetime.now()
+    target_date = datetime.strptime(date, '%d%b%y')
+    current_date = datetime.now()
     days_left = (target_date - current_date).days
     return int(days_left)
 
