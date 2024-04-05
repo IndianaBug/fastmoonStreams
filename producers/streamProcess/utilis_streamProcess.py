@@ -1,19 +1,39 @@
-import datetime
+from datetime import datetime
 import numpy as np
-import datetime
 import pandas as pd
 
+# on message ###
 
 def binance_str_to_date(date_str):
     date_format = "%y%m%d"
-    date_obj = datetime.datetime.strptime(date_str, date_format)
+    date_obj = datetime.strptime(date_str, date_format)
     return date_obj  
 
 def binance_option_timedelta(date_str):
     target_date = binance_str_to_date(date_str)
-    today = datetime.datetime.now()
+    today = datetime.now()
     difference = int((target_date - today).days)
     return difference 
+
+def calculate_option_time_to_expire_okx(date):
+    target_date = datetime.strptime(date, '%y%m%d')
+    current_date = datetime.now()
+    days_left = (target_date - current_date).days
+    return int(days_left)
+
+def calculate_option_time_to_expire_bybit(date):
+    target_date = datetime.strptime(date, '%d%b%y')
+    current_date = datetime.now()
+    days_left = (target_date - current_date).days
+    return int(days_left)
+
+def calculate_option_time_to_expire_deribit(date : str):                                  
+    target_date = datetime.strptime(date, "%d%b%y")
+    current_date = datetime.now()
+    days_left = (target_date - current_date).days
+    return int(days_left)
+
+
 
 def booksflow_find_level(price, level_size):
     return np.ceil(price / level_size) * level_size
@@ -52,37 +72,6 @@ def booksflow_datatrim(current_price, dataDict, side, book_ceil_thresh):
             keys_to_remove.append(level)
     for level in keys_to_remove:
         del dataDict[side][level]
-
-def calculate_option_time_to_expire_deribit(date : str):                                  
-    today_day = datetime.datetime.now().timetuple().tm_yday
-    today_year = datetime.datetime.now().year
-    f = datetime.datetime.strptime(date, "%d%b%y")
-    expiration_date = f.timetuple().tm_yday
-    expiration_year = f.year
-    if today_year == expiration_year:
-        r = expiration_date - today_day
-    if today_year == expiration_year + 1:
-        r = 365 + expiration_date - today_day
-    return float(r)
-
-def calculate_option_time_to_expire_okex(date):                                  
-    today_day = datetime.datetime.now().timetuple().tm_yday
-    today_year = datetime.datetime.now().year
-    f = datetime.datetime.strptime(date, "%y%m%d")
-    expiration_date = f.timetuple().tm_yday
-    expiration_year = f.year
-    if today_year == expiration_year:
-        r = expiration_date - today_day
-    if today_year == expiration_year + 1:
-        r = 365 + expiration_date - today_day
-    return float(r)
-
-def calculate_option_time_to_expire_bybit(date):
-    target_date = datetime.strptime(date, '%d%b%y')
-    current_date = datetime.now()
-    days_left = (target_date - current_date).days
-    return int(days_left)
-
 
 def merge_suffixes(n):
     """
