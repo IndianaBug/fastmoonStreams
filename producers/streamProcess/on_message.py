@@ -6,7 +6,9 @@ import json
 import numpy as np
 from utilis_streamProcess import *
 
-timestamp_keys = ["E", "T"]
+timestamp_keys = ["E", "T", "ts", "timestamp", "time"]
+
+# redo binance bybit okx options
 
 class on_message_helper():
 
@@ -167,6 +169,7 @@ class binance_on_message(on_message_helper):
                 amount = self.derivate_multiplier.get(symbol)(float(di.get("openInterest")), price)
                 timestamp = self.process_timestamp(di, ["time"], 1000)
                 l[di.get("symbol")] = [amount, price, timestamp]
+        l["timestamp"] = self.process_timestamp_no_timestamp()
         return l
 
     def binance_api_oioption(self, data:dict, side:str, price:float=None) -> Tuple[np.array, np.array, np.array, float, str]:
@@ -405,8 +408,6 @@ class bybit_on_message(on_message_helper):
         countdowns = np.array([calculate_option_time_to_expire_bybit(d.get("symbol").split("-")[1]) for d in data.get("result").get("list") if d.get("symbol").split("-")[-1] == side])
         return strikes, countdowns, ois, price, timestamp
 
-
-
 class okx_on_message(on_message_helper):
 
     def __init__ (self, derivate_multiplier:Optional[Dict[str, Callable]] = None):
@@ -444,41 +445,33 @@ class okx_on_message(on_message_helper):
         """
         """
         d = {}
-        for subdata in data.values():
-            if isinstance(subdata, dict):
-              for oidata in subdata.get("data"):
-                    symbol = oidata.get("instId")
-                    d[symbol] = float(oidata.get("fundingRate"))
+        for marginType in data:
+            if isinstance(data.get(marginType), dict):
+              for d_per_instrument in data.get(marginType).get("data"):
+                symbol = d_per_instrument.get("instId")
+                d[symbol] = float(d_per_instrument.get("fundingRate"))
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-
-
-    def okx_api_posfutureperp(self, data:dict, *args, **kwargs) -> List[Union[str, float, float, str]]:
+    def okx_api_gta(self, data:dict, *args, **kwargs) -> List[Union[str, float, float, str]]:
         """
         """
-        d = {}
-        for subdata in data.values():
-            if isinstance(subdata, dict):
-              for oidata in subdata.get("data"):
-                    symbol = oidata.get("instId")
-                    d[symbol] = float(oidata.get("oiCcy"))
+        d = {"BTC" : float(data.get("data")[0][1])}
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
-
 
     def okx_api_oifutureperp(self, data:dict, *args, **kwargs) -> List[Union[str, float, float, str]]:
         """
         """
         d = {}
-        for subdata in data.values():
-            if isinstance(subdata, dict):
-              for oidata in subdata.get("data"):
-                    symbol = oidata.get("instId")
-                    d[symbol] = oidata.get("oiCcy")
+        for marginType in data:
+            if isinstance(data.get(marginType), dict):
+                for d_per_instrument in data.get(marginType).get("data"):
+                    if isinstance(d_per_instrument, dict):
+                        symbol = d_per_instrument.get("instId")
+                        d[symbol] = float(d_per_instrument.get("oiCcy"))
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
-
 
     def okx_api_option_oi(self, data : dict, side : str, price:float,  *args, **kwargs) -> Tuple[np.array, np.array, np.array, float, str]:
         """
@@ -490,7 +483,6 @@ class okx_on_message(on_message_helper):
         ois = np.array([float(x["oiCcy"]) for x in data["data"] if x["instId"].split('-')[-1] == side])
         timestamp = self.process_timestamp_no_timestamp()
         return strikes, countdowns, ois, price, timestamp
-
 
     def okx_api_ws_spot_option_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
         """
@@ -506,9 +498,8 @@ class okx_on_message(on_message_helper):
             symbol : the symbol with the exact format fetched from okx api info BUT the instType 
         """
         timestamp = self.process_timestamp(data.get("data")[0], ["ts"], 1000)
-        books = self.books_multiplier(data.get("data")[0].get(side), self.derivate_multiplier.get("-".join(symbol.split("-")[:-1])), 1000)
+        books = self.books_multiplier(data.get("data")[0].get(side), self.derivate_multiplier.get("-".join(symbol.split("-")[:2])), 1000)
         return books, timestamp
-
 
     def okx_ws_option_trades(self, data:dict, *args, **kwargs) -> List[Union[str, float, float, str]]:
         """
@@ -521,7 +512,45 @@ class okx_on_message(on_message_helper):
             amount = float(trade.get('fillVol'))
             l.append([side, price, amount, timestamp])
         return l
+    
+    def okx_ws_spot_trades(self, data, *args, **kwargs)-> List[Union[str, float, float, str]]:
+        l = []
+        for trade in data.get("data"):
+            side = trade.get('side')
+            price =float(trade.get('px'))
+            timestamp = self.process_timestamp(trade, ["ts"], 1000)
+            amount = float(trade.get('sz'))
+            l.append([side, price, amount, timestamp])      
+        return l    
+    
+    def okx_ws_linear_inverse_perpetual_future_trades(self, data, *args, **kwargs)-> List[Union[str, float, float, str]]:
+        l = []
+        for trade in data.get("data"):
+            multiplier_symbol = "-".join(trade.get('instId').split("-")[0:2])
+            side = trade.get('side')
+            price =float(trade.get('px'))
+            timestamp = self.process_timestamp(trade, ["ts"], 1000)
+            amount = self.derivate_multiplier.get(multiplier_symbol)(float(trade.get('sz')), price)
+            l.append([side, price, amount, timestamp])      
+        return l      
 
+    def okx_ws_future_perpetual_option_liquidations(self, data, *args, **kwargs)-> List[Union[str, float, float, str]]:
+        l = []
+        for liquidation in data.get("data"):
+            instType = liquidation.get("instType")
+            instId = liquidation.get("instId")
+            multiplier_symbol = liquidation.get('instFamily')
+            if "BTC" in instId:
+                for l2 in liquidation.get("details"):
+                    side = l2.get('side')
+                    price =float(l2.get('bkPx'))
+                    timestamp = self.process_timestamp(l2, ["ts"], 1000)
+                    if instType != "OPTION":
+                        amount = self.derivate_multiplier.get(multiplier_symbol)(float(l2.get("sz")), price)
+                    if instType == "OPTION":
+                        amount = float(l2.get("sz"))
+                    l.append([side, price, amount, timestamp])     
+        return l    
 
 class deribit_on_message(on_message_helper):
 
@@ -548,28 +577,66 @@ class deribit_on_message(on_message_helper):
         """
         if derivate_multiplier == None:
             self.derivate_multiplier = {
-                "BTC" : lambda amount, price : amount * 10 / price,
-                "BTC_USDC" : lambda amount, price : amount * 0.001,  # any swap or future
-                "BTC_USDT" : lambda amount, price : amount * 0.001,
+                 "BTC" : lambda amount, price=1, objective="",*args, **kwargs: amount  / price / 10 if objective == "oifuture" else amount  / price * 10,    # bullshit deribit api for oi
+                "BTC_USDC" : lambda amount, *args, **kwargs : amount * 0.001,  # any swap or future
+                "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.001,
 
             }
         else:
             self.derivate_multiplier = derivate_multiplier
 
-        
-    def deribit_ws_future_perpetual_linear_inverse_trades_liquidations(self, data:dict, *args, **kwargs)-> List[List[Union[str, float, float ,str]]]:
-        l = []
+    def deribit_api_option_oi(self, data:dict, *args, **kwargs)-> dict:
+        d = {}
+        for side in ["C", "P"]:
+            strikes = np.array([float(x["instrument_name"].split('-')[-2]) for x in data["result"] if x["instrument_name"].split('-')[-1] == side])
+            countdowns = np.array([calculate_option_time_to_expire_deribit(x["instrument_name"].split('-')[1]) for x in data["result"] if x["instrument_name"].split('-')[-1] == side])
+            ois = np.array([float(x["open_interest"]) for x in data["result"] if x["instrument_name"].split('-')[-1] == side])
+            underlying_prices = np.array([float(x["underlying_price"]) for x in data["result"] if x["instrument_name"].split('-')[-1] == side])
+            instruments = np.array([x["instrument_name"] for x in data["result"] if x["instrument_name"].split('-')[-1] == side])
+            d[side] = [{"symbol" : ss, "strike" : s, "countdown" : c, "oi" : o, "underlying_price" : u} for ss, s, c, o, u in zip(instruments, strikes, countdowns, ois, underlying_prices)]
+        timestamp = self.process_timestamp_no_timestamp()
+        d["timestamp"] = timestamp
+        d["price"] = data.get("result")[0].get("estimated_delivery_price")
+        d["index_prices"] = {ins["underlying_index"] : ins["underlying_price"] for ins in data.get("result")}
+        return d
+
+    def deribit_api_perpetual_future_oi_funding(self, data:dict, *args, **kwargs)-> dict:
+        d = {"oi" : {}, "funding" : {}}
+        for inst_data in data.get("result"):
+            price = inst_data.get("mid_price")
+            symbol = inst_data.get("instrument_name")
+            symbol_multiplier = symbol.split("-")[0]
+            oi = self.derivate_multiplier.get(symbol_multiplier)(float(inst_data.get("open_interest")), price, "oifuture")
+            d["oi"][symbol] = oi
+            if "funding_8h" in inst_data:
+                funding = float(inst_data.get("funding_8h"))
+                d["funding"][symbol] = funding
+        d["timestamp"] = self.process_timestamp_no_timestamp()
+        return d
+
+    def deribit_ws_future_perpetual_linear_inverse_option_trades_tradesagg_liquidations(self, data:dict, *args, **kwargs)-> List[List[Union[str, float, float ,str]]]:
+        """
+            Actually returns 2 lists. One is about trades and another about liquidations
+        """
+        trades_list = []
+        liquidations_list = []
         for trade in data.get("params").get("data"):
             symbol = trade.get("instrument_name").split("-")[0]
             side = trade.get("direction")
             price = float(trade.get("price"))
             amount = self.derivate_multiplier.get(symbol)(float(trade.get("amount")), price)
             timestamp = self.process_timestamp(trade, ["timestamp"], 1000)
-            l.append([side, amount, price, timestamp])
-        return l
+            trades_list.append([side, amount, price, timestamp])
+
+            # https://docs.deribit.com/#trades-kind-currency-interval -- contains liquidations
+
+            if "liquidation" in trade:
+                liquidations_list.append([side, amount, price, timestamp])
+        return trades_list, liquidations_list
 
     def deribit_ws_future_perpetual_linear_inverse_get_price(self, data:dict, *args, **kwargs)-> List[List[Union[str, float, float ,str]]]:
         l = []
+        prices = {}
         for trade in data.get("params").get("data"):
             symbol = trade.get("instrument_name").split("-")[0]
             side = trade.get("direction")
@@ -577,6 +644,175 @@ class deribit_on_message(on_message_helper):
             amount = self.derivate_multiplier.get(symbol)(float(trade.get("amount")), price)
             timestamp = self.process_timestamp(trade, ["timestamp"], 1000)
             l.append([side, amount, price, timestamp])
+            if "liquidation" not in trade:
+                prices[trade.get("instrument_name")] = price
+        return prices
+
+    def deribit_api_perpetual_future_depth(self, data:dict, side:str, *args, **kwargs)-> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        price = data.get("result").get("last_price")
+        msymbol = data.get("result").get("instrument_name").split("-")[0]
+        timestamp = self.process_timestamp(data.get("result"), ["timestamp"], 1000)
+        books = self.books_multiplier(data.get("result").get(side), self.derivate_multiplier.get(msymbol), price)
+        return books, timestamp
+
+    def deribit_ws_perpetual_future_depth(self, data:dict, side:str, *args, **kwargs)-> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        data = data.get("params")
+        price = (data.get("data").get("asks")[0][0] + data.get("data").get("bids")[0][0]) / 2
+        msymbol = data.get("data").get("instrument_name").split("-")[0]
+        timestamp = self.process_timestamp(data.get("data"), ["timestamp"], 1000)
+        books = self.books_multiplier(data.get("data").get(side), self.derivate_multiplier.get(msymbol), price)
+        return books, timestamp
+
+class bitget_on_message(on_message_helper):
+
+    def __init__ (self):
+        """
+            Contract multipliers not needed (I couldnt find the documentation for htem)
+        """
+        pass
+
+    def bitget_api_spot_linear_inverse_perpetual_future_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data"), ["ts"], 1000)
+        books = self.convert_books(data.get("data").get(side))
+        return books, timestamp
+
+    def bitget_ws_spot_linear_inverse_perpetual_future_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data")[0], ["ts"], 1000)
+        books = self.convert_books(data.get("data")[0].get(side))
+        return books, timestamp
+
+    def bitget_ws_inverse_perpetual_future_spot_trades(self, data:dict, *args, **kwargs) -> list:
+        """
+            [[side, price, size, timestamp]]
+        """
+        l = []
+        for trade in data.get("data"):
+            timestamp = self.process_timestamp(trade, ["ts"], 1000)
+            side = trade.get("side").lower()
+            price = float(trade.get("price"))
+            size = float(trade.get("size"))
+            l.append([side, price, size, timestamp]) 
+        return l
+
+    def bitget_api_oi_perpetual_oifutureperp(self, data:dict, *args, **kwargs) -> list:
+        """
+            [[side, price, size, timestamp]]
+        """
+        d = {}
+        for instrument_data in data:
+            if isinstance(data.get(instrument_data), dict):
+                d[data.get(instrument_data).get("data").get("openInterestList")[0].get("symbol")] = float(data.get(instrument_data).get("data").get("openInterestList")[0].get("size"))
+        timestamp = self.process_timestamp_no_timestamp()
+        d["timestamp"] = timestamp
+        return d
+
+    def bitget_api_funding_perpetual_fundperp(self, data:dict, *args, **kwargs) -> list:
+        """
+            [[side, price, size, timestamp]]
+        """
+        d = {}
+        for instrument_data in data:
+            if isinstance(data.get(instrument_data), dict) and data.get(instrument_data).get("data") != []:
+                d[data.get(instrument_data).get("data")[0].get("symbol")] = float(data.get(instrument_data).get("data")[0].get("fundingRate"))
+        timestamp = self.process_timestamp_no_timestamp()
+        d["timestamp"] = timestamp
+        return d
+
+class bingx_on_message(on_message_helper):
+
+    def __init__ (self):
+        """
+            Contract multipliers not needed (I couldnt find the documentation for htem)
+        """
+        pass
+
+    def bingx_api_perpetual_linear_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        side = "bidsCoin" if side == "bids" else "asksCoin"
+        timestamp = self.process_timestamp(data.get("data"), ["T"], 1000)
+        books = self.convert_books(data.get("data").get(side))
+        return books, timestamp
+
+    def bingx_ws_spot_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp_no_timestamp()
+        books = self.convert_books(data.get("data").get(side))
+        return books, timestamp
+
+    def bingx_api_perpetual_oi(self, data:dict, price:str, *args, **kwargs) -> dict:
+        timestamp = self.process_timestamp(data.get("data"), ["time"], 1000)
+        openInterest = float(data.get("data").get("openInterest"))
+        s = str(data.get("data").get("symbol"))
+        return {"timestamp" : timestamp, s : openInterest / price}
+
+    def bingx_api_perpetual_funding(self, data:dict, *args, **kwargs) -> dict:
+        timestamp = self.process_timestamp_no_timestamp()
+        funding = float(data.get("data").get("lastFundingRate"))
+        s = str(data.get("data").get("symbol"))
+        return {"timestamp" : timestamp, s : funding}
+
+    def bingx_ws_trades_perpetual(self, data:dict, *args, **kwargs) -> list:
+        """
+            [[side, price, size, timestamp]]
+        """
+        l = []
+        for trade in data.get("data"):
+            timestamp = self.process_timestamp(trade, ["T"], 1000)
+            side = "buy" if trade.get("m") is True else "sell"
+            price = float(trade.get("p"))
+            size = float(trade.get("q"))
+            l.append([side, price, size, timestamp]) 
+        return l
+
+    def bingx_ws_trades_spot(self, data:dict, *args, **kwargs) -> list:
+        """
+            [[side, price, size, timestamp]]
+        """
+        l = []
+        trade = data.get("data")
+        timestamp = self.process_timestamp(trade, ["T"], 1000)
+        side = "buy" if trade.get("m") is True else "sell"
+        price = float(trade.get("p"))
+        size = float(trade.get("q"))
+        l.append([side, price, size, timestamp]) 
+        return l
+
+class htx_on_message(on_message_helper):
+
+    def __init__ (self):
+        """
+            Contract multipliers not needed (I couldnt find the documentation for htem)
+        """
+        pass
+
+    def htx_api_perpetual_oi(self, data:dict, price:str, *args, **kwargs) -> dict:
+        timestamp = self.process_timestamp(data.get("data"), ["time"], 1000)
+        openInterest = float(data.get("data").get("openInterest"))
+        s = str(data.get("data").get("symbol"))
+        return {"timestamp" : timestamp, s : openInterest / price}
+
+    def htx_api_perpetual_funding(self, data:dict, *args, **kwargs) -> dict:
+        timestamp = self.process_timestamp_no_timestamp()
+        funding = float(data.get("data").get("lastFundingRate"))
+        s = str(data.get("data").get("symbol"))
+        return {"timestamp" : timestamp, s : funding}
+
         return {trade.get("instrument_name") : price}
 
 
@@ -839,12 +1075,15 @@ def calculate_option_time_to_expire_bybit(date):
     return int(days_left)
 
 
-filepath = "C:/coding/SatoshiVault/producers/mockdb/binance/binance_api_perpetual_gta_btc.json" 
+filepath = "C:/coding/SatoshiVault/producers/mockdb/bingx/bingx_ws_spot_trades_btcusdt.json" 
+# filepath = "C:/coding/SatoshiVault/producers/mockdb/deribit/deribit_api_future_oifunding_btc.json" 
+
 
 file = json.load(open(filepath))[0]
 
-onn = binance_on_message()
-print(onn.binance_api_posfutureperp(file, 70000))
+
+onn = bingx_on_message()
+print(onn.bingx_ws_trades_spot(file,))
 
 # ! git clone https://github.com/badcoder-cloud/fastmoonStreams
 
