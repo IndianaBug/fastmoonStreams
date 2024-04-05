@@ -137,7 +137,7 @@ api = {
         # "perpetual.tta.BTC.300.spec", 
         # "perpetual.funding.BTC.15.spec",  
         # "perpetual.oi.BTC.15.spec", 
-        # "option.oi.BTC_USDT.15",
+        "option.oi.BTC_USDT.15",
         ],
 
     # "mexc" : [

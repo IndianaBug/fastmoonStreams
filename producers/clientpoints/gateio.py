@@ -40,7 +40,7 @@ gateio_basepoints = {
      "option" : {
          "depth" : "/options/order_book",   
          "trades" : "/options/trades",      
-         "oi" : "/options/contracts",     
+         "oi" : "/options/tickers",     
      },
 }
 

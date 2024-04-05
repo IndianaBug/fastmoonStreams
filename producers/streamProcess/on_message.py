@@ -581,6 +581,250 @@ class deribit_on_message(on_message_helper):
 
 
 
+
+
+
+
+
+from typing import Literal, Dict
+from typing import Dict, List, Tuple, Union, Literal
+from typing import List, Dict, Union, Optional, Literal
+
+
+future_perp_spot_depth_dict: Dict[Literal["bids", "asks", "timestamp"], Union[List[Tuple[Literal["price", "amount"], float, float]], str]]
+future_perp_spot_trades_liquidations_dict: Dict[Literal["trades", "liquidations"], List[Dict[Literal["side", "amount", "price", "timestamp"], Union[str, float, float, str]]]]
+future_perp_oi_funding_pos_dict: List[Dict[Literal["symbol"], str, Union[str, float, None]]]
+option_oi_dict : List[Dict[Literal["symbol", "side" "underlying_price", "index_price", "oi", "strike", "days_left"], Union[str, str, float, float, str, float, int]], [Literal["timestamp"], Union[str]]]
+
+
+
+def calculate_option_time_to_expire_gateio(date):
+    target_date = datetime.strptime(date, '%Y%m%d') 
+    current_date = datetime.now()
+    days_left = (target_date - current_date).days
+    return int(days_left)
+
+class gateio_on_message(on_message_helper):
+
+    def __init__ (self, derivate_multiplier=None):
+        """
+            Fetched via gateio option contracts
+        """
+        if derivate_multiplier == None:
+            self.derivate_multiplier = {
+                "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.01,   # options
+            }
+        else:
+            self.derivate_multiplier = derivate_multiplier
+
+    def gateio_ws_option_oi(self, data:dict, btc_price_data:dict, *args, **kwargs) -> Tuple[list, str]:
+        """
+            btc_price_data : dictionary with all prices of bitcoin instruments from every exchange
+        """
+        data = data.get("list")
+        ddd = []
+        for instData in data:
+            name_data = instData.get("name").split("-")
+            oi = instData.get("position_size")
+            symbol = name_data[0]
+            strike = float(name_data[2])
+            days_left = calculate_option_time_to_expire_gateio(name_data[1])
+            side = name_data[-1]
+            index_price = btc_price_data.get(f"{symbol}@gateio")
+            ddd.append({"symbol" : instData.get("name"), "side" : side, "index_price" : index_price, "strike" : strike, "underlying_price" : index_price, "oi" : oi, "days_left" : days_left})
+        return ddd
+
+
+class htx_on_message(on_message_helper):
+
+    def __init__ (self):
+        """
+            Contract multipliers not needed (I couldnt find the documentation for htem)
+        """
+        pass
+
+    def htx_api_perpetual_oi(self, data:dict, *args, **kwargs) -> dict:
+        d = {}
+        for marginType in data:
+            if isinstance(data.get(marginType), dict): 
+                data_per_marginType = data.get(marginType).get("data")
+                for data_instrument in data_per_marginType:
+                    symbol = data_instrument.get("contract_code")
+                    oi = float(data_instrument.get("amount"))
+                    d[symbol] = oi
+        d["timestamp"] = self.process_timestamp_no_timestamp()
+        return d
+
+
+    def htx_api_perpetual_pos_posfutureperp(self, data:dict, *args, **kwargs) -> dict:
+        d = {}
+        for instrument in data:
+            if isinstance(data.get(instrument), dict):
+                pos_data = data.get(instrument).get("data").get("list")[0]
+                long_ratio = float(pos_data.get("buy_ratio"))
+                short_ratio = float(pos_data.get("sell_ratio"))
+                d[instrument] = {"long_ratio" : long_ratio, "short_ratio" : short_ratio}
+        d["timestamp"] = self.process_timestamp_no_timestamp()
+        return d
+
+    def htx_api_perpetual_funding_fundperp(self, data:dict, *args, **kwargs) -> dict:
+        d = {}
+        for marginCoin in data:
+            if isinstance(data.get(marginCoin), dict):
+                instData = data.get(marginCoin).get("data")[0]
+                funding = float(instData.get("funding_rate"))
+                contract_code = instData.get("contract_code")
+                d[contract_code] = funding
+        d["timestamp"] = self.process_timestamp_no_timestamp()
+        return d
+
+
+class kucoin_on_message(on_message_helper):
+
+    def __init__ (self, derivate_multiplier=None):
+        """
+            https://www.kucoin.com/pt/futures/contract/detail/XBTUSDTM
+        """
+        if derivate_multiplier == None:
+            self.derivate_multiplier = {
+                "XBTUSDTM" : lambda amount, *args, **kwargs : amount * 0.001,  
+            }
+        else:
+            self.derivate_multiplier = derivate_multiplier
+
+    def kucoin_ws_spot_trades(self, data:dict, *args, **kwargs) -> Tuple[list, str]:
+        timestamp = self.process_timestamp(data.get("data"), ["time"], 10**9)
+        price = float(data.get("data").get("price"))
+        side = data.get("data").get("side")
+        amount = float(data.get("data").get("size"))
+        return [[side, amount, price, timestamp]]
+
+    def kucoin_ws_perpetual_trades(self, data:dict, price, *args, **kwargs) -> Tuple[list, str]:
+        timestamp = self.process_timestamp(data.get("data"), ["ts"], 10**9)
+        price = float(data.get("data").get("price"))
+        side = data.get("data").get("side")
+        symbol = data.get("data").get("symbol")
+        amount = self.derivate_multiplier.get(symbol)(float(data.get("data").get("size")), price)
+        return [[side, amount, price, timestamp]]
+    
+    def kucoin_api_perpetual_oi_funding(self, data:dict, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        data = data.get("data")
+        symbol = data.get("symbol")
+        multiplier = float(data.get("multiplier"))
+        timestamp = self.process_timestamp_no_timestamp()
+        oi = float(data.get("openInterest")) * multiplier
+        funding = float(data.get("fundingFeeRate"))
+        return {"symbol" : symbol, "oi" : oi, "timestamp" : timestamp, "funding" : funding}
+
+    def kucoin_api_spot_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data"), ["time"], 1)
+        books = self.convert_books(data.get("data").get(side))
+        return books, timestamp
+
+    def kucoin_api_perpetual_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data"), ["ts"], 10**9)
+        symbol = data.get("data").get("symbol")
+        price = (float(data.get("data").get("bids")[0][0]) + float(data.get("data").get("asks")[0][0])) / 2
+        books = self.books_multiplier(data.get("data").get(side), self.derivate_multiplier.get(symbol), price)
+        return books, timestamp
+
+    def kucoin_ws_spot_depth(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data"), ["time"], 1000)
+        books = [[x[0], x[1]] for x in self.convert_books(data.get("data").get("changes").get(side))]
+        return books, timestamp
+
+    def kucoin_ws_perpetual_depth(self, data:dict, side:str, price, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data, ["data", "timestamp"], 10**3)
+        side = "buy" if side == "bids" else "sell"
+        change = data.get("data").get("change").split(",")
+        symbol = data.get("topic").split(":")[-1]
+        books = [float(change[0]), self.derivate_multiplier.get(symbol)(float(change[-1]), price)] if side == change[1] else [[]]
+        return books, timestamp
+
+
+
+class mexc_on_message(on_message_helper):
+
+    def __init__ (self, derivate_multiplier=None):
+        """
+            https://www.mexc.com/support/articles/17827791509072
+        """
+        if derivate_multiplier == None:
+            self.derivate_multiplier = {
+                "BTC-USDT" : lambda amount, *args, **kwargs : amount * 0.0001,  
+                "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.0001, # some unstandart symbols in API, maybe not needed just in case
+            }
+        else:
+            self.derivate_multiplier = derivate_multiplier
+
+    def mexc_ws_spot_trades(self, data:dict, *args, **kwargs) -> Tuple[list, str]:
+        trades = data.get("d").get("deals")
+        ttt = []
+        lll = []
+        for trade in trades:
+            price = float(trade.get("p"))
+            side = "buy" if int(trade.get("S")) == 1 else "sell"
+            amount = float(trade.get("v"))
+            timestamp = self.process_timestamp(trade, ["t"], 10**3)
+            ttt.append([side, amount, price, timestamp])
+        return {"trades" : trades, "liquidations" : lll}
+
+    def mexc_ws_perpetual_trades(self, data:dict, price, *args, **kwargs) -> Tuple[list, str]:
+        symbol = data.get("symbol") 
+        trade = data.get("data")
+        trades = []
+        liquidations = []
+        price = float(trade.get("p"))
+        side = "buy" if int(trade.get("T")) == 1 else "sell"
+        amount = self.derivate_multiplier.get(symbol)(float(trade.get("v")), price)
+        timestamp = self.process_timestamp(trade, ["t"], 10**3)
+        trades.append([side, amount, price, timestamp])
+        return {"trades" : trades, "liquidations" : []}
+
+    def mexc_api_perpetual_oi_funding_oifunding(self, data:dict, side:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        symbol = data.get("data").get("symbol")
+        oi = self.derivate_multiplier.get(symbol)(float(data.get("data").get("holdVol")))
+        timestamp = self.process_timestamp_no_timestamp()
+        funding = float(data.get("data").get("fundingRate"))
+        return [{"symbol" : symbol, "oi" : oi, "funding" : funding, "timestamp" : timestamp}]
+
+    def mexc_api_perpetual_depth(self, data:dict, side:str, symbol:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        current_price = (data.get("data").get("bids")[0][0] + data.get("data").get("asks")[0][0]) / 2
+        timestamp = self.process_timestamp(data.get("data"), ["timestamp"], 1000)
+        books = self.books_multiplier(data.get("data").get(side), self.derivate_multiplier.get(symbol), current_price)
+        return books, timestamp
+
+    def mexc_api_spot_depth(self, data:dict, side:str, symbol:str, *args, **kwargs) -> Tuple[list, str]:
+        """
+            side : bids, asks
+        """
+        timestamp = self.process_timestamp(data.get("data"), ["timestamp"], 1000)
+        books = self.convert_books(data.get("data").get(side))
+        return books, timestamp
+
+
+
 def calculate_option_time_to_expire_okx(date):
     target_date = datetime.strptime(date, '%y%m%d')
     current_date = datetime.now()
