@@ -39,6 +39,16 @@ def calculate_option_time_to_expire_gateio(date):
     days_left = (target_date - current_date).days
     return int(days_left)
 
+def get_okx_insttype(symbol):
+    if "SWAP" in symbol:
+        instType = "perpetual"
+    elif symbol.split("-")[-1] and len(symbol.split("-"))==3:
+        instType = "future"
+    elif len(symbol) == 5:
+        instType = "option"
+    else:
+        instType = "spot"
+    return instType
 
 
 def booksflow_find_level(price, level_size):
