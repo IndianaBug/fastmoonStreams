@@ -33,6 +33,12 @@ def calculate_option_time_to_expire_deribit(date : str):
     days_left = (target_date - current_date).days
     return int(days_left)
 
+def calculate_option_time_to_expire_gateio(date):
+    target_date = datetime.strptime(date, '%Y%m%d') 
+    current_date = datetime.now()
+    days_left = (target_date - current_date).days
+    return int(days_left)
+
 
 
 def booksflow_find_level(price, level_size):
