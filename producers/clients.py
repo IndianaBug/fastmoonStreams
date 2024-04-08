@@ -22,7 +22,7 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 from typing import List, Union
-from utilis import filter_nested_dict
+from utilis import filter_nested_dict, standarize_marginType
 
 from infopulse import *
 from clientpoints.binance import *
@@ -298,9 +298,10 @@ class binance(CommunicationsManager, binanceInfo):
             call = partial(cls.binance_aiohttpFetch, insType=instType, objective=objective, symbol=symbol)
         instrument = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
+        standarized_margin = standarize_marginType(instType, marginType)
         data =  {
                 "type" : "api",
-                "id_api" : f"binance_api_{instType}_{objective}_{instrument}",
+                "id_api" : f"binance_api_{instType}_{standarized_margin}_{objective}_{instrument}",
                 "exchange":"binance", 
                 "instrument": instrument,
                 "instType": instType,
@@ -309,6 +310,9 @@ class binance(CommunicationsManager, binanceInfo):
                 "aiohttpMethod" : call, 
                 "marginType" : marginType,
                 "is_special" : special_method,
+                "exchange_symbols" : symbol,
+                "standarized_margin" : standarized_margin
+
                 }
         
         return data
@@ -351,10 +355,11 @@ class binance(CommunicationsManager, binanceInfo):
         endpoint = binance_ws_endpoints.get(instTypes[0]).get(marginType) if marginType != None else binance_ws_endpoints.get(instTypes[0])
         message = cls.binance_build_bulk_ws_message(instTypes, objectives, symbols)
 
+        standarized_margin = standarize_marginType(instTypes[0], marginType)
             
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"binance_ws_{instTypes[0]}_{objectives[0]}_{sss[0] if len(sss) == 1 else f'bulk_{marginType}'}",
+                                "id_ws" : f"binance_ws_{instTypes[0]}_{standarized_margin}_{objectives[0]}_{sss[0] if len(sss) == 1 else f'bulk'}",
                                 "exchange":"binance", 
                                 "instruments": "_".join(sss),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -362,7 +367,9 @@ class binance(CommunicationsManager, binanceInfo):
                                 "url" : endpoint,
                                 "msg" : message,
                                 "msg_method" : partial(cls.binance_build_bulk_ws_message, instTypes, objectives, symbols),
-                                "marginType" : marginType
+                                "marginType" : marginType,
+                                "exchange_symbols" : symbols,
+                                "standarized_margin" : standarized_margin
                             }
         
         if needSnap is True:
@@ -440,7 +447,8 @@ class bybit(CommunicationsManager, bybitInfo):
         elif special_method == "fundperp":
             call = partial(cls.bybit_build_fundfutureperp_method, symbol)
         else:
-            call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)        
+            call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        standarized_margin = standarize_marginType(instType, marginType)        
         data =  {
                 "type" : "api",
                 "id_api" : f"bybit_api_{instType}_{objective}_{instrument}",
@@ -450,6 +458,7 @@ class bybit(CommunicationsManager, bybitInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" :call,
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -581,7 +590,7 @@ class bybit(CommunicationsManager, bybitInfo):
 
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else f'bulk_{marginType}'}",
+                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
                                 "exchange":"bybit", 
                                 "instruments": "".join(symbol_names),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -589,7 +598,8 @@ class bybit(CommunicationsManager, bybitInfo):
                                 "url" : url,
                                 "msg" : msg,
                                 "msg_method" : partial(cls.bybit_build_bulk_ws_message, instTypes, objectives, symbols),
-                                "marginType" : marginType
+                                "marginType" : marginType,
+                                "exchange_symbols" : symbols,
                             }
         
         if needSnap is True:
@@ -725,6 +735,7 @@ class okx(CommunicationsManager, okxInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : call,
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -807,7 +818,8 @@ class okx(CommunicationsManager, okxInfo):
                                 "objective":objectives[0], 
                                 "url" : endpoint,
                                 "msg" : message,
-                                "msg_method" : partial(cls.okx_build_bulk_ws_message, objectives, parsed_instTypes, parsed_instFamilys, parsed_symbols)
+                                "msg_method" : partial(cls.okx_build_bulk_ws_message, objectives, parsed_instTypes, parsed_instFamilys, parsed_symbols),
+                                "exchange_symbols" : symbols,
                             }
         if needSnap == True:
             connection_data["id_api_2"] = f"okx_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
@@ -883,6 +895,7 @@ class coinbase(CommunicationsManager):
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.coinbase_aiohttpFetch, instType=instType, symbol=symbol, objective=objective),
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1018,6 +1031,7 @@ class coinbase(CommunicationsManager):
                                 "url" : endpoint,
                                 "msg" : message,
                                 "msg_method" : partial(self.coinbase_build_ws_method, instTypes[0], objectives[0], symbols[0]),
+                                "exchange_symbols" : symbols,
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
@@ -1153,7 +1167,8 @@ class kucoin(CommunicationsManager, kucoinInfo):
                                 "url_method" : partial(self.build_kucoin_ws_endpoint),
                                 "msg" : message,
                                 "msg_method" : partial(self.kucoin_build_ws_method, instTypes[0], objectives[0], symbols[0]),
-                                "ping_data" : ping_data
+                                "ping_data" : ping_data,
+                                "exchange_symbols" : symbols[0],
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
@@ -1182,6 +1197,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.kucoin_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1309,6 +1325,7 @@ class bingx(CommunicationsManager, bingxInfo):
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.bingx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1338,7 +1355,8 @@ class bingx(CommunicationsManager, bingxInfo):
                                 "objectives":objectives[0], 
                                 "url" : endpoint,
                                 "msg" : message,
-                                "msg_method" : partial(self.build_bingx_ws_message, instTypes[0], objectives[0], symbols[0])
+                                "msg_method" : partial(self.build_bingx_ws_message, instTypes[0], objectives[0], symbols[0]),
+                                "exchange_symbols" : symbols[0],
                             }
         return connection_data
 
@@ -1457,7 +1475,8 @@ class bitget(CommunicationsManager, bitgetInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : call,
-                "special_method" : special_method
+                "special_method" : special_method,
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1523,6 +1542,7 @@ class bitget(CommunicationsManager, bitgetInfo):
                                 "msg_method" : partial(cls.bitget_build_bulk_ws_message, objectives, symbols, productTypes),
                                 "marginCoins" : '_'.join(marginCoins),
                                 "marginTypes" : '_'.join(marginTypes),
+                                "exchange_symbols" : symbols,
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"bitget_api_{instType}_{objectives[0]}_{symbol_names[0]}"
@@ -1630,6 +1650,7 @@ class deribit(CommunicationsManager, deribitInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : partial(cls.deribit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1659,7 +1680,8 @@ class deribit(CommunicationsManager, deribitInfo):
                                 "objective": objectives[0], 
                                 "url" : deribit_endpoint,
                                 "msg" : msg,
-                                "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss, objectives)
+                                "msg_method" : partial(cls.deribit_build_bulk_jsonrpc_msg, channel, paramsss, objectives),
+                                "exchange_symbols" : symbols,
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
@@ -1801,6 +1823,7 @@ class htx(CommunicationsManager, htxInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : call,
+                "exchange_symbols" : symbol[0],
                 }
         
         return data
@@ -1864,7 +1887,8 @@ class htx(CommunicationsManager, htxInfo):
                                 "msg" : message,
                                 "kickoffMethod" : None,
                                 "marginType" : marginType,
-                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
+                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt",
+                                "exchange_symbols" : symbols[0],
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"htx_api_{instType}_{objective}_{symbol_name}"
@@ -1949,6 +1973,7 @@ class mexc(CommunicationsManager, mexcInfo):
                 "pullTimeout" : pullTimeout,
                 "connectionData" : connectionData,
                 "aiohttpMethod" : call,
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -1999,7 +2024,8 @@ class mexc(CommunicationsManager, mexcInfo):
                                 "msg" : message,
                                 "msg_method" : partial(cls.mexc_build_ws_msg, instTypes[0], objectives[0], symbols[0]),
                                 "marginType" : None if instTypes[0] == "spot" else "usdt",
-                                "marginCoin" : "any" if "usdt" not in symbol_name and instType != "spot" else "usdt"
+                                "marginCoin" : "any" if "usdt" not in symbol_name and instTypes[0] != "spot" else "usdt",
+                                "exchange_symbols" : symbols[0],
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"mexc_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
@@ -2168,6 +2194,7 @@ class gateio(CommunicationsManager, gateioInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : call,
+                "exchange_symbols" : symbol,
                 }
         
         return data
@@ -2196,6 +2223,7 @@ class gateio(CommunicationsManager, gateioInfo):
                                 "msg_method" : partial(gateio_build_ws_message, instTypes[0], objectives[0], symbols[0]),
                                 "marginType" : marginType,
                                 "marginCoin" : "btc" if marginType == "InversePerpetual" else "usdt",
+                                "exchange_symbols" : symbols[0],
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"gateio_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"

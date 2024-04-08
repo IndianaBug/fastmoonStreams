@@ -1,12 +1,12 @@
 from clients import *
-
+from streamProcess import on_message
 
 class ExchangeAPIClient():
     """ 
     This class encompasses aiohttp and websockets methods for interacting with exchanges. 
     It inherits from ExchangeAPIClient which combines methods from all ofo the exchanges
     """
-    def __init__(self, api_coinbase, secret_coinbase, api_kucoin, secret_kucoin, pass_kucoin):
+    def __init__(self, api_coinbase, secret_coinbase, api_kucoin, secret_kucoin, pass_kucoin, on_message_kwargs=None):
         self.exchanges = {
             "binance" : binance(),
             "bybit" : bybit(),
@@ -24,6 +24,7 @@ class ExchangeAPIClient():
             for method_name in dir(client):
                 if not method_name.startswith("__") and callable(getattr(client, method_name)):
                     setattr(self, method_name, getattr(client, method_name))
+        self.onm = on_message.on_message(**on_message_kwargs) if on_message_kwargs != None else on_message.on_message()
 
     def build_connection_data_test(self, wss={}, apis={}):
         d = []
@@ -40,7 +41,6 @@ class ExchangeAPIClient():
                     connData = self.get_method_connData("api", exchange, api)
                 except Exception as e:
                     print(exchange + " " + api +" is fucked")
-                    print(e)
                     connData = exchange + " " + api +" is fucked"
                 d.append(connData)
         return d
@@ -52,10 +52,17 @@ class ExchangeAPIClient():
         for exchange in wss:
             for ws in wss[exchange]:
                 connData = self.get_method_connData("ws", exchange, ws)
+                meth = self.populate_with_on_message(connData.get("id_ws"))
+                connData["on_message_method_ws"] = meth
+                if "id_api_2" in connData:
+                    meth = self.populate_with_on_message(connData.get("id_api_2"))
+                    connData["on_message_method_api_2"] = meth
                 d.append(connData)
         for exchange in apis:
             for api in apis[exchange]:
-                connData = self.get_method_connData("api", exchange, ws)
+                connData = self.get_method_connData("api", exchange, api)
+                meth = self.populate_with_on_message(connData.get("id_api"))
+                connData["on_message_method_api"] = meth
                 d.append(connData)
         return d
     
@@ -105,8 +112,6 @@ class ExchangeAPIClient():
             return  function(instTypes[0], objectives[0], symbols[0], pullTimeout, special_method)
         
         
-        
-                    
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
 
@@ -154,3 +159,21 @@ class ExchangeAPIClient():
                         else:
                             merged_dict[key][sub_key] += sub_value
         return merged_dict
+
+    def populate_with_on_message(self, id):
+        on_methods = self.onm.get_methods()
+        idlist = id.split("_")[:-1]
+        # print(on_methods)
+        for method in on_methods:
+            for ident in idlist:
+                if ident in method:
+                    T = True
+                if ident not in method:
+                    T = False
+                    break
+                if ident == idlist[-1] and T == True:
+                    return getattr(self.onm, method), method
+
+# c = ExchangeAPIClient("", "", "", "", "")
+
+# print(c.populate_with_on_message("okx_ws_spot_depth_btcusdt"))

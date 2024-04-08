@@ -146,6 +146,15 @@ async def ws_fetcher_helper(function):
     data = await function()
     return data
 
+def standarize_marginType(instType, marginType):
+    if marginType != None:
+        if "inverse" in marginType.lower():
+            return "inverse"
+        if "linear" in marginType.lower():
+            return "linear"
+    else:
+        return instType
+
 
 # data_handler = MockCouchDB("large_database.json", "mochdb")
 # for i in range(100):
