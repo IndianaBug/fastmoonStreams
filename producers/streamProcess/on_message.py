@@ -165,7 +165,7 @@ class binance_on_message(on_message_helper):
         receive_time = float(data.get("E")) / 1000
         return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "receive_time" : receive_time}
 
-    async def binance_api_oifutureperp_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_oifutureperp_perpetual_oi_linear_inverse(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         l = {}
         for di in data.values():
             if "code" in di:
@@ -247,7 +247,7 @@ class binance_on_message(on_message_helper):
                 d[msid][f"{pos_label}_ratio"] = longShortRatio            
         return d
     
-    async def binance_api_fundperp_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_fundperp_perpetual_funding_linear_inverse(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         d = {"timestamp" : self.process_timestamp_no_timestamp()}
         for inst_data in data:
             if isinstance(data.get(inst_data)[0], dict):

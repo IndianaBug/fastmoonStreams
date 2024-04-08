@@ -153,9 +153,9 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-# for e in connectionData:
-#     print("----")
-#     print(e)
+for e in connectionData:
+    print("----")
+    print(e)
 
 # async def rr():
 #     data = await connectionData[0]["1stBooksSnapMethod"]()

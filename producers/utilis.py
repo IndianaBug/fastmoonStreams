@@ -127,7 +127,8 @@ class MockCouchDB:
             data = {"list" : data}
         try:
             data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
-        except:
+        except Exception as e:
+            print(e)
             return
         data["_doc"] = str(uuid.uuid4())
         if not os.path.exists(self.file_path):
