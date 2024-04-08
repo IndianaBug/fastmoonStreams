@@ -172,7 +172,7 @@ class ExchangeAPIClient():
                     T = False
                     break
                 if ident == idlist[-1] and T == True:
-                    return getattr(self.onm, method), method
+                    return getattr(self.onm, method)
 
 # c = ExchangeAPIClient("", "", "", "", "")
 

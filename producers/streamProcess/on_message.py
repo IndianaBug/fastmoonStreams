@@ -588,7 +588,7 @@ class okx_on_message(on_message_helper):
             d[side] = books        
         return d
 
-    async def okx_ws_option_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_ws_option_trades_optionTrades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
         """
         trades = []

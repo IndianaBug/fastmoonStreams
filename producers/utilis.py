@@ -112,7 +112,8 @@ class MockCouchDB:
         self.buffer_size = buffer_size
 
 
-    async def save(self, data):
+    async def save(self, data, market_state, connection_data, on_message:callable):
+
         if isinstance(data, dict):
             pass
         elif isinstance(data, str):
@@ -124,6 +125,10 @@ class MockCouchDB:
                 return
         if isinstance(data, list):
             data = {"list" : data}
+        try:
+            data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
+        except:
+            return
         data["_doc"] = str(uuid.uuid4())
         if not os.path.exists(self.file_path):
             async with aiofiles.open(self.file_path ,mode='w') as f:

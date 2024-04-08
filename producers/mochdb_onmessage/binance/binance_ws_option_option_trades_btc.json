@@ -1,0 +1,15 @@
+[
+  {
+    "trades": [
+      {
+        "side": "sell",
+        "price": 880.0,
+        "quantity": 0.01,
+        "timestamp": "2024-04-08 22:28:16"
+      }
+    ],
+    "liquidations": [],
+    "receive_time": 1712611696.235,
+    "_doc": "9609af22-b491-42bc-94f8-62b48783d665"
+  }
+]

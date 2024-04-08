@@ -448,10 +448,11 @@ class bybit(CommunicationsManager, bybitInfo):
             call = partial(cls.bybit_build_fundfutureperp_method, symbol)
         else:
             call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+        marginType = bybit_get_marginType(instType, symbol)
         standarized_margin = standarize_marginType(instType, marginType)        
         data =  {
                 "type" : "api",
-                "id_api" : f"bybit_api_{instType}_{objective}_{instrument}",
+                "id_api" : f"bybit_api_{instType}_{standarized_margin}_{objective}_{instrument}",
                 "exchange":"bybit", 
                 "instrument": instrument,
                 "instType": instType,
@@ -459,6 +460,7 @@ class bybit(CommunicationsManager, bybitInfo):
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" :call,
                 "exchange_symbols" : symbol,
+                "standarized_margin" : standarized_margin,
                 }
         
         return data
@@ -588,9 +590,10 @@ class bybit(CommunicationsManager, bybitInfo):
         url = bybit_ws_endpoints.get(instTypes[0]).get(marginType) if marginType != None else bybit_ws_endpoints.get(instTypes[0])
         msg = cls.bybit_build_bulk_ws_message(instTypes, objectives, symbols)
 
+        standarized_margin = standarize_marginType(instTypes[0], marginType)       
         connection_data =     {
                                 "type" : "ws",
-                                "id_ws" : f"bybit_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
+                                "id_ws" : f"bybit_ws_{instTypes[0]}_{standarized_margin}_{objectives[0]}_{symbol_names[0] if len(symbol_names) == 1 else 'bulk'}",
                                 "exchange":"bybit", 
                                 "instruments": "".join(symbol_names),
                                 "instTypes": "_".join(list(set(instTypes))),
@@ -600,6 +603,7 @@ class bybit(CommunicationsManager, bybitInfo):
                                 "msg_method" : partial(cls.bybit_build_bulk_ws_message, instTypes, objectives, symbols),
                                 "marginType" : marginType,
                                 "exchange_symbols" : symbols,
+                                "standarized_margin" : standarized_margin
                             }
         
         if needSnap is True:
@@ -725,6 +729,7 @@ class okx(CommunicationsManager, okxInfo):
             call = partial(cls.okx_build_oioption_method, underlying_symbol=symbol)
         else:
             call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+
         symbol_name = okx_get_instrument_name(symbol)
         data =  {
                 "type" : "api",
@@ -736,6 +741,7 @@ class okx(CommunicationsManager, okxInfo):
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : call,
                 "exchange_symbols" : symbol,
+                
                 }
         
         return data

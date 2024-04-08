@@ -280,8 +280,7 @@ class producer(keepalive):
     """
         2 modes: production, testing
     """
-
-    def __init__(self, connection_data, database="mockCouchDB", database_folder="mockdb", couch_host="", 
+    def __init__(self, connection_data, database="mockCouchDB", database_folder="mochdb_onmessage", couch_host="", 
                  couch_username="", couch_password="", ws_timestamp_keys=None,
                  mode="production"):
         """
@@ -309,9 +308,13 @@ class producer(keepalive):
             self.insert_into_database = self.insert_into_CouchDB
             self.insert_into_database_2 = self.insert_into_CouchDB_2
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
-        deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
-        self.deribit_depths = {x.get("id_api_2") : asyncio.run(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
-        del deribit_depths
+        try:
+            deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
+            self.deribit_depths = {x.get("id_api_2") : asyncio.run(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
+            del deribit_depths
+        except:
+            pass
+        self.market_state = {}
 
     def onInterrupt_write_to_json(self):
         """
@@ -341,41 +344,41 @@ class producer(keepalive):
                 existing_databases.append(databse)
             print(f"mockCouchDB server with {len(existing_databases)} databases is ready!!!")
     # do not forget ids _id : doc1
-    def insert_into_CouchDB(self, connection_dict, data):
+    def insert_into_CouchDB(self, data, connection_dict, on_message:callable):
         """
             Inserts into couch database
         """
         # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
         if not isinstance(data, dict):
             data = json.loads(data)
-        getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
+        getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
 
-    def insert_into_CouchDB_2(self, connection_dict, data):
+    def insert_into_CouchDB_2(self, data, connection_dict, on_message:callable):
         """
             Inserts into couch database
         """
         # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
         if not isinstance(data, dict):
             data = json.loads(data)
-        getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data)
+        getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
         
-    async def insert_into_mockCouchDB(self, connection_dict, data):
+    async def insert_into_mockCouchDB(self, data, connection_dict, on_message:callable):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data)
+            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
         except Exception as e:
             print(f'{connection_dict.get("id_ws")} is not working properly' )
             print(e)
 
-    async def insert_into_mockCouchDB_2(self, connection_dict, data):
+    async def insert_into_mockCouchDB_2(self, data, connection_dict, on_message:callable):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data)
+            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
         except Exception as e:
             print(f'{connection_dict.get("id_api_2")} is not working properly' )
             print(e)
 
-    async def insert_into_mockCouchDB_3(self, connection_dict, data):
+    async def insert_into_mockCouchDB_3(self, data, connection_dict, on_message:callable):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data)
+            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
         except Exception as e:
             print(f'{connection_dict.get("id_api")} is not working properly' )
             print(e)
@@ -384,7 +387,7 @@ class producer(keepalive):
         for di in self.connection_data:
             connection_id = di.get("id_ws", None)
             if connection_id is not None:
-                self.ws_latencies[connection_id] = {"process_timestamp" : [], "recieved_timestamp" : []}
+                self.ws_latencies[connection_id] = []
     
     def get_latency(self, connection_data_dic, data):
         """
@@ -411,11 +414,16 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
             
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -427,7 +435,7 @@ class producer(keepalive):
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.pong(message)
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(message, connection_data, on_message_method_ws)
                     if self.mode == "testing" and message != b'\x89\x00':
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -746,9 +754,10 @@ class producer(keepalive):
                     break
 
     async def aiohttp_socket(self, connection_data, producer=None, topic=None):
+        on_message_method_api = connection_data.get("on_message_method_api")
         while True:
             message = await connection_data.get("aiohttpMethod")()
-            await self.insert_into_database_3(connection_data, message)
+            await self.insert_into_database_3(message, connection_data, on_message_method_api)
             time.sleep(connection_data.get("pullTimeout"))
 
     async def run_producer(self):

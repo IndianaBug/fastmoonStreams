@@ -24,18 +24,18 @@ client = ExchangeAPIClient(coinbaseAPI, coinbaseSecret, kucoinAPI, kucoinSecret,
 # The Instruments must be of the same format (upper lower with hiphens) as in API calls. You may merge streams with the same channels (objectives). Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
 ws = {
-    "binance" : [
-        "spot.depth.BTCUSDT.snap", 
-        "spot.depth.BTCFDUSD.snap", 
-        "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
-        "perpetual.depth.BTCUSDT.snap", 
-        "perpetual.depth.BTCUSD_PERP.snap", 
-        "perpetual.trades.BTCUSDT.BTCUSDC", 
-        "perpetual.liquidations.BTCUSDT.BTCUSDC",
-        "perpetual.trades.BTCUSD_PERP", 
-        "perpetual.liquidations.BTCUSD_PERP",
-        "option.trades.BTC",
-        ],
+    # "binance" : [
+    #     "spot.depth.BTCUSDT.snap", 
+    #     "spot.depth.BTCFDUSD.snap", 
+    #     "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
+    #     "perpetual.depth.BTCUSDT.snap", 
+    #     "perpetual.depth.BTCUSD_PERP.snap", 
+    #     "perpetual.trades.BTCUSDT.BTCUSDC", 
+    #     "perpetual.liquidations.BTCUSDT.BTCUSDC",
+    #     "perpetual.trades.BTCUSD_PERP", 
+    #     "perpetual.liquidations.BTCUSD_PERP",
+    #     "option.trades.BTC",
+    #     ],
     # "bybit" : [
     #     "spot.trades.BTCUSDT.BTCUSDC",
     #     "spot.depth.BTCUSDT.snap", 
@@ -46,7 +46,7 @@ ws = {
     #     "perpetual.trades.BTCUSD", 
     #     "perpetual.liquidations.BTCUSDT.BTCPERP", 
     #     "perpetual.liquidations.BTCUSD", 
-    #     "option.trades.BTC", "option.oioption.BTC",
+    #     "option.trades.BTC",
     #     ],
     # "okx" : [
     #     "spot.depth.BTC-USDT.snap", 
@@ -81,31 +81,31 @@ ws = {
     #     "perpetual.trades.XBTUSDTM",
     #     ],
     # "gateio" : [
-        # "spot.depth.BTC_USDT.snap", 
-        # "spot.trades.BTC_USDT",
-        # "perpetual.depth.BTC_USDT.snap", 
-        # "perpetual.trades.BTC_USDT", 
-        # ],
+    #     "spot.depth.BTC_USDT.snap", 
+    #     "spot.trades.BTC_USDT",
+    #     "perpetual.depth.BTC_USDT.snap", 
+    #     "perpetual.trades.BTC_USDT", 
+    #     ],
     # "mexc" : [
     #     "spot.depth.BTCUSDT.snap", 
     #     "spot.trades.BTCUSDT",
-    # #    "perpetual.depth.BTC_USDT.snap",  Too spoofed, i wouldnt use it
+    #    "perpetual.depth.BTC_USDT.snap",  
     #     "perpetual.trades.BTC_USDT",
     #     ],
-    "coinbase" : [
+    # "coinbase" : [
     #     "spot.depth.BTC-USD.snap", 
     #     "spot.trades.BTC-USD", 
     #     "spot.heartbeats.BTC-USD",
-        ],
+    #     ],
 }
 
 api = {
-    # "binance" : [
-    #     "perpetual.funding.BTC.3600.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.300.spec",
-    #     "option.oi.BTC.15.spec",
-    #     ],
+    "binance" : [
+        "perpetual.funding.BTC.3600.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.300.spec",
+        "option.oi.BTC.15.spec",
+        ],
     # "bybit" : [
     #     "perpetual.funding.BTC.3600.spec", 
     #     "perpetual.oi.BTC.15.spec", 
@@ -153,16 +153,16 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-for e in connectionData:
-    print("----")
-    print(e)
+# for e in connectionData:
+#     print("----")
+#     print(e)
 
 # async def rr():
 #     data = await connectionData[0]["1stBooksSnapMethod"]()
 #     print(data)
 # asyncio.run(rr())
 
-__name__ = "__main__1"
+__name__ = "__main__"
 
 if __name__ == '__main__':
     cryptoProducer = producer(connectionData)
