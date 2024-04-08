@@ -102,7 +102,7 @@ ws = {
 api = {
     "binance" : [
         "perpetual.funding.BTC.3600.spec", 
-        "perpetual.oi.BTC.15.spec", 
+        "perpetual.oi.BTC.20.spec", 
         "perpetual.gta.BTC.300.spec",
         "option.oi.BTC.15.spec",
         ],

@@ -174,7 +174,7 @@ class binance_on_message(on_message_helper):
                 symbol = di.get("symbol").split("_")[0]
                 ss = di.get("symbol")
                 instType = "future" if ss.split("_")[-1].isdigit() else "perpetual"
-                price = market_state.get(f"{symbol}@{instType}@binance", {}).get("price", 0)
+                price = market_state.get(f"{symbol}@{instType}@binance", {}).get("price", 100000)
                 amount = self.binance_derivate_multiplier.get(symbol)(float(di.get("openInterest")), price)
 
                 msid = f"{ss}@{instType}@binance"
@@ -1460,3 +1460,21 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
 
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
+    
+
+# ss = binance_on_message()
+
+# market_state = {}
+# connection_data = {}
+
+# import json
+# import asyncio
+# data = "C:/coding/SatoshiVault/producers/mockdb/binance/binance_api_perpetual_oi_btc.json"
+# data = json.load(open(data))[0]
+
+# sda = on_message()
+# async def mmm():
+#     aa = await sda.binance_api_oifutureperp_perpetual_oi_linear_inverse(data, market_state, connection_data)
+#     print(aa)
+
+# asyncio.run(mmm())

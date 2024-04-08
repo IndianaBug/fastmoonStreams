@@ -113,7 +113,7 @@ class MockCouchDB:
 
 
     async def save(self, data, market_state, connection_data, on_message:callable):
-
+        print(data)
         if isinstance(data, dict):
             pass
         elif isinstance(data, str):
