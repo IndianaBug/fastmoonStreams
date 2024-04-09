@@ -57,7 +57,7 @@ class on_message_helper():
   
 class binance_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier:Optional[Dict[str, Callable]] = None):
+    def __init__ (self, binance_derivate_multiplier:Optional[Dict[str, Callable]] = None):
         """
             https://www.binance.com/en/support/faq/binance-coin-margined-futures-contract-specifications-a4470430e3164c13932be8967961aede
 
@@ -65,7 +65,7 @@ class binance_on_message(on_message_helper):
 
             Be cautios with option, as units vary for XRP and DOGE
         """
-        if derivate_multiplier == None:
+        if binance_derivate_multiplier == None:
             self.binance_derivate_multiplier = {
                 "BTCUSD" : lambda amount, price, *args, **kwargs: amount * 100 / price,  # the same for perp and any expiry future
                 "BTCUSDT" : lambda amount, price, *args, **kwargs: amount,
@@ -73,7 +73,7 @@ class binance_on_message(on_message_helper):
                 "BTCUSDC" : lambda amount, price, *args, **kwargs : amount,
             }
         else:
-            self.binance_derivate_multiplier = derivate_multiplier
+            self.binance_derivate_multiplier = binance_derivate_multiplier
     
     async def binance_api_spot_depth(self, data:dict, *args, **kwargs): 
         d = {}
@@ -265,11 +265,11 @@ class binance_on_message(on_message_helper):
 
 class bybit_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier:Optional[Dict[str, Callable]] = None):
+    def __init__ (self, bybit_derivate_multiplier:Optional[Dict[str, Callable]] = None):
         """
             https://www.bybit.com/en/announcement-info/transact-parameters
         """
-        if derivate_multiplier == None:
+        if bybit_derivate_multiplier == None:
             self.bybit_derivate_multiplier = {
                 "BTCUSD" : lambda amount, price : amount / price,  # the same for perp and any expiry future
                 "BTCUSDT" : lambda amount, price : amount,
@@ -280,9 +280,9 @@ class bybit_on_message(on_message_helper):
 
             }
         else:
-            self.bybit_derivate_multiplier = derivate_multiplier
+            self.bybit_derivate_multiplier = bybit_derivate_multiplier
 
-    async def bybit_api_fundperp_perpetual_funding_future(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
         d = {}
         for instrument in data:
             response = data.get(instrument)
@@ -297,7 +297,7 @@ class bybit_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def bybit_api_oifutureperp_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_oifutureperp_linear_inverse_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
         d = {}
         for instrument in data:
             response = data.get(instrument)
@@ -308,7 +308,7 @@ class bybit_on_message(on_message_helper):
                     instType = "future" if len(symbol.split("-")) == 2 else "perpetual"
                     oi = float(response.get("result").get("list")[0].get("openInterest"))
                     msid = f"{symbol}@{instType}@bybit"
-                    price = market_state.get(msid, {}).get("price") if msid in market_state else market_state.get(f"{msid.split('-')[0]}USDT@spot@bybit", {}).get("price")
+                    price = market_state.get(msid, {}).get("price", 1000000) if msid in market_state else market_state.get(f"{msid.split('-')[0]}USDT@spot@bybit", {}).get("price", 100000)
                     oi = self.bybit_derivate_multiplier.get(underlying)(oi, price)
                     d[msid] = {"oi" : oi}
                     if msid not in market_state:
@@ -317,7 +317,7 @@ class bybit_on_message(on_message_helper):
                     d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def bybit_api_posfutureperp_perpetual_future_gta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_posfutureperp_perpetual_linear_inverse_future_gta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
         d = {}
         for instrument in data:
             response = data.get(instrument)
@@ -1456,25 +1456,22 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
                  bingx_on_message, htx_on_message, kucoin_on_message, mexc_on_message, gateio_on_message, coinbase_on_message):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)  
+        bybit_on_message.__init__(self, *args, **kwargs)
+        okx_on_message.__init__(self, *args, **kwargs)
+        deribit_on_message.__init__(self, *args, **kwargs)
+        bitget_on_message.__init__(self, *args, **kwargs)
+        bingx_on_message.__init__(self, *args, **kwargs)
+        htx_on_message.__init__(self, *args, **kwargs)
+        kucoin_on_message.__init__(self, *args, **kwargs)
+        mexc_on_message.__init__(self, *args, **kwargs)
+        gateio_on_message.__init__(self, *args, **kwargs)
+        coinbase_on_message.__init__(self, *args, **kwargs)
 
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
     
 
-# ss = binance_on_message()
-
-# market_state = {}
-# connection_data = {}
-
-# import json
-# import asyncio
-# data = "C:/coding/SatoshiVault/producers/mockdb/binance/binance_api_perpetual_oi_btc.json"
-# data = json.load(open(data))[0]
-
-# sda = on_message()
-# async def mmm():
-#     aa = await sda.binance_api_oifutureperp_perpetual_oi_linear_inverse(data, market_state, connection_data)
-#     print(aa)
-
-# asyncio.run(mmm())
+my_object = on_message()  # Create an object
+attributes = vars(my_object)
+print(attributes)

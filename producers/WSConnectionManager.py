@@ -12,6 +12,7 @@ import gzip
 import aiocouch
 from utilis import ws_fetcher_helper
 import io
+from functools import partial
 
 
 
@@ -760,6 +761,13 @@ class producer(keepalive):
             await self.insert_into_database_3(message, connection_data, on_message_method_api)
             time.sleep(connection_data.get("pullTimeout"))
 
+    async def aiohttp_socket_nested(self, connection_data):
+        on_message_method_api = connection_data.get("on_message_method_api")
+        while True:
+            message = await connection_data.get("api_call_manager").aiomethod()
+            await self.insert_into_database_3(message, connection_data, on_message_method_api)
+            time.sleep(connection_data.get("pullTimeout"))
+
     async def run_producer(self):
         tasks = []
         for connection_dict in self.connection_data:
@@ -768,7 +776,13 @@ class producer(keepalive):
                 ws_method = getattr(self, f"{exchange}_ws", None)
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
             if "id_ws" not in connection_dict and "id_api" in connection_dict:
-                tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
+                if connection_dict.get("symbol_update_task") is True:
+                    on_message_method_api = connection_dict.get("on_message_method_api")
+                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols()))
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3)))
+                else:
+                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
         # try:
         await asyncio.gather(*tasks)
         # except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:

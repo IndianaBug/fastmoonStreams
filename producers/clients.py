@@ -37,6 +37,8 @@ from clientpoints.gateio import *
 from clientpoints.mexc import *
 from clientpoints.bingx import *
 
+from multicallx import *
+
 
 class CommunicationsManager:
 
@@ -225,29 +227,28 @@ class binance(CommunicationsManager, binanceInfo):
         await asyncio.gather(*tasks)
         return full
     
+    @classmethod
+    async def binance_build_fundfutureperp_method(cls, underlying_asset):
+        """
+            BTC, ETH ...
+        """
+        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
+        # symbols = asyncio.ensure_future(cls.binance_perpfut_instruments(underlying_asset))
+        # done, pending = await asyncio.wait([symbols], timeout=2)
 
-    # @classmethod
-    # async def binance_build_fundfutureperp_method(cls, underlying_asset):
-    #     """
-    #         BTC, ETH ...
-    #     """
-    #     # symbols =  await cls.binance_perpfut_instruments(underlying_asset)
-    #     symbols = asyncio.ensure_future(cls.binance_perpfut_instruments(underlying_asset))
-    #     done, pending = await asyncio.wait([symbols], timeout=2)
-
-    #     full = {}
-    #     tasks = []
-    #     for symbol in symbols:
-    #         instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-    #         if not bool(re.search(r'\d', symbol.split("_")[-1])):
-    #             async def fetch_fund_binance_yeye(instType, symbol):
-    #                 data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
-    #                 if isinstance(data, str):
-    #                     data = json.loads(data)
-    #                 full[f"{symbol}_{instType}"] = data
-    #             tasks.append(fetch_fund_binance_yeye(instType, symbol))
-    #     await asyncio.gather(*tasks)    
-    #     return full
+        full = {}
+        tasks = []
+        for symbol in symbols:
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            if not bool(re.search(r'\d', symbol.split("_")[-1])):
+                async def fetch_fund_binance_yeye(instType, symbol):
+                    data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full[f"{symbol}_{instType}"] = data
+                tasks.append(fetch_fund_binance_yeye(instType, symbol))
+        await asyncio.gather(*tasks)    
+        return full
 
     @classmethod
     async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=0):
@@ -309,34 +310,54 @@ class binance(CommunicationsManager, binanceInfo):
             pullTimeout : how many seconds to wait before you make another call
             special_methods : oioption oifutureperp posfutureperp
         """
-        if special_method == "oioption":
-            call = partial(cls.binance_build_oioption_method, symbol)
-        elif special_method == "oifutureperp":
-            call = partial(cls.binance_build_oifutureperp_method, symbol)
-        elif special_method == "posfutureperp":
-            call = partial(cls.binance_build_posfutureperp_method, symbol)
-        elif special_method == "fundperp":
-            call = partial(cls.binance_build_fundfutureperp_method, symbol)
-        else:
-            call = partial(cls.binance_aiohttpFetch, insType=instType, objective=objective, symbol=symbol)
-        instrument = binance_get_symbol_name(symbol)
-        marginType = binance_get_marginType(instType, symbol)
-        standarized_margin = standarize_marginType(instType, marginType)
         data =  {
                 "type" : "api",
-                "id_api" : f"binance_api_{instType}_{standarized_margin}_{objective}_{instrument}",
+                "id_api" : "",
                 "exchange":"binance", 
-                "instrument": instrument,
+                "instrument": "",
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : call, 
-                "marginType" : marginType,
+                "aiohttpMethod" : "", 
+                "marginType" : "",
                 "is_special" : special_method,
                 "exchange_symbols" : symbol,
-                "standarized_margin" : standarized_margin
-
+                "standarized_margin" : "",
+                "api_call_manager" : "",
+                "symbol_update_task" : False
                 }
+        instrument = binance_get_symbol_name(symbol)
+        marginType = binance_get_marginType(instType, symbol)
+        standarized_margin = standarize_marginType(instType, marginType)
+        id_api = f"binance_api_{instType}_{standarized_margin}_{objective}_{instrument}"
+
+        data["instrument"] = instrument
+        data["marginType"] = marginType
+        data["standarized_margin"] = standarized_margin
+        data["id_api"] = id_api
+
+        if special_method == "oioption":
+            data["api_call_manager"] = binance_aoihttp_oioption_manager(symbol, cls.binance_get_option_expiries, cls.binance_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oioption"
+
+        elif special_method == "posfutureperp":
+            data["api_call_manager"] = binance_aoihttp_posfutureperp_manager(symbol, binance.binance_info_async, cls.binance_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "posfutureperp"
+
+        elif special_method == "fundperp":
+            data["api_call_manager"] = binance_aoihttp_fundperp_manager(symbol, binance.binance_perpfut_instruments, cls.binance_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "fundperp"
+
+        elif special_method == "oifutureperp":
+            data["api_call_manager"] = binance_aoihttp_oifutureperp_manager(symbol, binance.binance_perpfut_instruments, cls.binance_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oifutureperp"
+        else:
+            call = partial(cls.binance_aiohttpFetch, insType=instType, objective=objective, symbol=symbol)
+            data["aiohttpMethod"] = call
         
         return data
     
@@ -399,45 +420,6 @@ class binance(CommunicationsManager, binanceInfo):
             connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
-
-
-class binance_funding_fetcher():
-
-    def __init__ (self, underlying_asset, binance_client_class):
-        self.running = True
-        self.underlying_asset = underlying_asset
-        self.symbols = []
-        self.binance_client_class = binance_client_class
-
-        self.loop = asyncio.get_event_loop()
-        self.loop.run_until_complete(self.get_binance_perpfut_instruments())
-
-    async def get_binance_perpfut_instruments(self):
-        try:
-            self.symbols = await self.binance_client_class.binance_perpfut_instruments(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-    
-    async def run_daily_task(self):
-        while self.running:
-            await self.get_binance_perpfut_instruments()
-            await asyncio.sleep(24 * 60 * 60)  
-    
-    async def binance_build_fundfutureperp_method(self):
-        full = {}
-        tasks = []
-        for symbol in self.symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            if not bool(re.search(r'\d', symbol.split("_")[-1])):
-                async def fetch_fund_binance_yeye(instType, symbol):
-                    data = await self.binance_client_class.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full[f"{symbol}_{instType}"] = data
-                tasks.append(fetch_fund_binance_yeye(instType, symbol))
-        await asyncio.gather(*tasks)    
-        return full
-
 
 class bybit(CommunicationsManager, bybitInfo):
     bybit_api_endpoint = bybit_api_endpoint
@@ -505,17 +487,9 @@ class bybit(CommunicationsManager, bybitInfo):
             result = d['aiohttpMethod']()
             pullTimeout : how many seconds to wait before you make another call
         """
-        instrument = bybit_get_instrument_name(symbol)
-        if special_method == "oifutureperp":
-            call = partial(cls.bybit_build_oifutureperp_method, symbol)
-        elif special_method == "posfutureperp":
-            call = partial(cls.bybit_build_posfutureperp_method, symbol)
-        elif special_method == "fundperp":
-            call = partial(cls.bybit_build_fundfutureperp_method, symbol)
-        else:
-            call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         marginType = bybit_get_marginType(instType, symbol)
-        standarized_margin = standarize_marginType(instType, marginType)        
+        standarized_margin = standarize_marginType(instType, marginType)     
+        instrument = bybit_get_instrument_name(symbol)  
         data =  {
                 "type" : "api",
                 "id_api" : f"bybit_api_{instType}_{standarized_margin}_{objective}_{instrument}",
@@ -524,10 +498,31 @@ class bybit(CommunicationsManager, bybitInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" :call,
+                "aiohttpMethod" :"",
                 "exchange_symbols" : symbol,
                 "standarized_margin" : standarized_margin,
+                "exchange_symbols" : symbol,
+                "api_call_manager" : "",
+                "symbol_update_task" : False
                 }
+
+        if special_method == "posfutureperp":
+            data["api_call_manager"] = bybit_aoihttp_posfutureperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "posfutureperp"
+
+        elif special_method == "fundperp":
+            data["api_call_manager"] = bybit_aoihttp_fundperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "fundperp"
+
+        elif special_method == "oifutureperp":
+            data["api_call_manager"] = bybit_aoihttp_oifutureperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oifutureperp"
+        else:
+            call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+            data["aiohttpMethod"] = call
         
         return data
     
@@ -2371,7 +2366,7 @@ class gateio(CommunicationsManager, gateioInfo):
 
 
 # async def main():
-#     connData = gateio.gateio_build_api_connectionData("perpetual", "funding", "BTC", 15, special_method="fundperp")
+#     connData = gateio.gateio_build_api_connectionData("option", "oi", "BTC", 15, special_method="oioption")
 #     result = await connData['aiohttpMethod']()
 #     print(result)
 
