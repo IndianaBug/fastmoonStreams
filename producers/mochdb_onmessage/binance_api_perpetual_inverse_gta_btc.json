@@ -1,0 +1,36 @@
+[
+  {
+    "timestamp": "2024-04-09 13:52:00",
+    "BTCDOMUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.5592,
+      "gta_short_ratio": 0.4408,
+      "gta_ratio": 1.2686
+    },
+    "BTCUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.5813,
+      "gta_short_ratio": 0.4187,
+      "gta_ratio": 1.3883
+    },
+    "BTCUSDC@perpetual@binance": {
+      "gta_long_ratio": 0.5138,
+      "gta_short_ratio": 0.4862,
+      "gta_ratio": 1.0568
+    },
+    "BTCUSDT_240927@future@binance": {
+      "gta_long_ratio": 0.5771,
+      "gta_short_ratio": 0.4229,
+      "gta_ratio": 1.3646
+    },
+    "BTCUSDT_240628@future@binance": {
+      "gta_long_ratio": 0.5485,
+      "gta_short_ratio": 0.4515,
+      "gta_ratio": 1.2148
+    },
+    "BTCUSD@perpetual@binance": {
+      "gta_long_ratio": 0.6904,
+      "gta_short_ratio": 0.3096,
+      "gta_ratio": 2.23
+    },
+    "_doc": "716b1789-2d1f-4fb1-a8f8-383e29aaf893"
+  }
+]

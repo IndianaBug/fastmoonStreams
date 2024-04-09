@@ -103,8 +103,8 @@ api = {
     "binance" : [
         "perpetual.funding.BTC.3600.spec", 
         "perpetual.oi.BTC.20.spec", 
-        "perpetual.gta.BTC.300.spec",
-        "option.oi.BTC.15.spec",
+        # "perpetual.gta.BTC.300.spec",
+        # "option.oi.BTC.15.spec",
         ],
     # "bybit" : [
     #     "perpetual.funding.BTC.3600.spec", 
@@ -153,9 +153,9 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-for e in connectionData:
-    print("----")
-    print(e)
+# for e in connectionData:
+#     print("----")
+#     print(e)
 
 # async def rr():
 #     data = await connectionData[0]["1stBooksSnapMethod"]()

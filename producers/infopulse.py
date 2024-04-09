@@ -17,8 +17,6 @@ from hashlib import sha256
 from utilis import iterate_dict, unnest_list, recursive_dict_access
 import re
 
-
-
 class requestHandler():
 
     @classmethod
@@ -44,7 +42,11 @@ class requestHandler():
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 response.raise_for_status()  # Raise an exception for error status codes
-                return await response.json()
+                try:
+                    return await response.json()  # Assuming JSON for other content types
+                except:
+                    data = await response.text()
+                    return json.loads(data)
 
     @classmethod
     async def request_with_headers_async(cls, url, headers, payload=""):
@@ -123,14 +125,15 @@ class bybitInfo(requestHandler):
         return info.get("result").get("list")
     
     @classmethod
-    def bybit_symbols_by_instType(cls, instType):
+    async def bybit_symbols_by_instType_async(cls, instType):
         """ 
             spot, perpetual
         """
         links = iterate_dict(cls.bybit_info_url.get(instType))
         d = []
         for url in links:
-            data = cls.simple_request(url).get("result").get("list")
+            data = await cls.simple_request_async(url)
+            data = data.get("result").get("list")
             symbols = [d["symbol"] for d in data]
             if instType == "future":
                 symbols = [d for d in symbols if "-" in d]
@@ -140,7 +143,7 @@ class bybitInfo(requestHandler):
         return unnest_list(d)
 
     @classmethod
-    def bybit_symbols(cls) -> dict:
+    async def bybit_symbols_async(cls) -> dict:
         """
             spot, perpetual, future, option
         """
@@ -148,17 +151,17 @@ class bybitInfo(requestHandler):
 
         }
         for isntType in cls.bybit_info_url.keys():
-            data = cls.bybit_symbols_by_instType(isntType)
+            data = await cls.bybit_symbols_by_instType_async(isntType)
             di[isntType] = data
         return di
     
     @classmethod
-    def bybit_info(cls, instType):
+    async def bybit_info_async(cls, instType):
         """
             ex: perpetual.LinearPerpetual
         """
         url = recursive_dict_access(cls.bybit_info_url, instType)
-        info = cls.simple_request(url)
+        info = await cls.simple_request_async(url)
         return info.get("result").get("list")
     
 class binanceInfo(requestHandler):
@@ -235,8 +238,54 @@ class binanceInfo(requestHandler):
             return info.get("symbols")
         else:
             return info
-        # if "Inverse" in instType:
-        #     return info
+
+
+    @classmethod
+    async def binance_symbols_by_instType_async(cls, instType):
+        """ 
+            spot, perpetual, future, option
+        """
+        links = iterate_dict(cls.binance_info_url.get(instType))
+        d = []
+        for url in links:
+            try:
+                data = await cls.simple_request_async(url)
+                data = data.get("symbols")
+                symbols = [d["symbol"] for d in data]
+                d.append(symbols)
+            except:
+                data = await cls.simple_request_async(url)
+                symbols = [d["symbol"] for d in data["optionSymbols"]]
+                d.append(symbols)
+        d = unnest_list(d)
+        if instType == "future":
+            d = [symbol for symbol in d if re.search(r'_[0-9]+', symbol)]
+        if instType == "perpetual":
+            d = [symbol for symbol in d if not re.search(r'_[0-9]+', symbol)]
+        return d
+    
+    @classmethod
+    async def binance_symbols_async(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {}
+        for isntType in cls.binance_info_url.keys():
+            data = await cls.binance_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+    
+    @classmethod
+    async def binance_info_async(cls, instType):
+        """
+            ex: perpetual.LinearPerpetual
+        """
+        url = recursive_dict_access(cls.binance_info_url, instType)
+        info = await cls.simple_request_async(url)
+        if instType != "option":
+            return info.get("symbols")
+        else:
+            return info
 
 class okxInfo(requestHandler):
 
@@ -276,6 +325,40 @@ class okxInfo(requestHandler):
             ex: spot, perpetual, option, future
         """
         info = cls.simple_request(cls.okx_info_url.get(instType))
+        return info.get("data")
+
+    @classmethod
+    async def okx_symbols_by_instType_async(cls, isntType, instFamily="BTC-USD"):
+        """ 
+            spot, perpetual, future, option
+            &instFamily=BTC-USD
+        """
+        urls = cls.okx_info_url.get(isntType) if isntType != "option" else f"{cls.okx_info_url.get(isntType)}&instFamily={instFamily}"
+        data = await cls.simple_request_async(urls)
+        data = data.get("data")
+        symbols = [d["instId"] for d in data]
+        return symbols
+    
+    @classmethod
+    async def okx_symbols_async(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {
+
+        }
+        for isntType in cls.okx_info_url.keys():
+            data = await cls.okx_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+
+    @classmethod
+    async def okx_info_async(cls, instType):
+        """
+            ex: spot, perpetual, option, future
+        """
+        rd = cls.okx_info_url.get(instType)
+        info = await cls.simple_request_async(rd)
         return info.get("data")
 
 class kucoinInfo(requestHandler):
@@ -327,7 +410,42 @@ class kucoinInfo(requestHandler):
         url = endpoint + basepoint
         info = cls.simple_request(url)
         return info.get("data")
+
+    @classmethod
+    async def kucoin_symbols_by_instType_async(cls, isntType):
+        """ 
+            spot, perpetual, future, option
+        """
+        endpoint = cls.kucoin_endpoints.get(isntType)
+        basepoint = cls.kucoin_basepoints.get(isntType)
+        url = endpoint + basepoint
+        r = await cls.simple_request_async(url)
+        data = r.get("data")
+        symbols = [d["symbol"] for d in data]
+        return symbols
     
+    @classmethod
+    async def kucoin_symbols_async(cls) -> dict:
+        """
+            spot, perpetual
+        """
+        di = {}
+        for isntType in cls.kucoin_call_example.keys():
+            data = await cls.kucoin_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+
+    @classmethod
+    async def kucoin_info_async(cls, instType):
+        """
+            ex: spot, perpetual
+        """
+        endpoint = cls.kucoin_endpoints.get(instType)
+        basepoint = cls.kucoin_basepoints.get(instType)
+        url = endpoint + basepoint
+        info = await cls.simple_request_async(url)
+        return info.get("data")
+   
 class bitgetInfo(requestHandler):
 
     bitget_info_url = {  
@@ -383,6 +501,44 @@ class bitgetInfo(requestHandler):
         keys = instType.split(".")
         link = recursive_dict_access(cls.bitget_info_url, keys)
         return cls.simple_request(link).get("data")
+
+    @classmethod
+    async def bitget_symbols_by_instType_async(cls, instType):
+        """ 
+            spot, perpetual
+        """
+        links = iterate_dict(cls.bitget_info_url.get(instType))
+        d = []
+        for url in links:
+            data = await cls.simple_request_async(url)
+            data = data.get("data")
+            symbols = [d["symbol"] for d in data]
+            d.append(symbols)
+        return unnest_list(d)
+    
+    @classmethod
+    async def bitget_symbols_async(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {
+        }
+        for isntType in cls.bitget_info_url.keys():
+            data = await cls.bitget_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+    
+    @classmethod
+    async def bitget_info_async(cls, instType):
+        """
+            Check the bitget_info_url
+            Ex:
+            instType = "perpetual.LinearPerpetual.usdt
+        """
+        keys = instType.split(".")
+        link = recursive_dict_access(cls.bitget_info_url, keys)
+        data = await cls.simple_request_async(link)
+        return data.get("data")
 
 class bingxInfo(requestHandler):
 
@@ -501,6 +657,43 @@ class mexcInfo(requestHandler):
             data = data["data"]
         return data
 
+    @classmethod
+    async def mexc_symbols_by_instType_async(cls, instType):
+        """ 
+            spot, perpetua
+        """
+        rurl = cls.mexc_urls.get(instType)
+        symbols = await cls.simple_request_async(rurl)
+        try:
+            symbols = symbols["symbols"]
+        except:
+            symbols = symbols["data"]
+        return [s["symbol"] for s in symbols]
+    
+    @classmethod
+    async def mexc_symbols_async(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {}
+        for isntType in cls.mexc_urls.keys():
+            data = await cls.mexc_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+    
+    @classmethod
+    async def mexc_info_async(cls, instType):
+        """
+            "spot" "perp"
+        """
+        rurl = cls.mexc_urls.get(instType)
+        data = await cls.simple_request_async(rurl)
+        try:
+            data = data["symbols"]
+        except:
+            data = data["data"]
+        return data
+
 class deribitInfo(requestHandler):
 
     url = "https://test.deribit.com/api/v2/public/get_instruments"
@@ -553,6 +746,55 @@ class deribitInfo(requestHandler):
         """
         cls.params["kind"], cls.params["currency"] = instType.split(".")
         data = cls.request_full(url=cls.url, headers=cls.headers, params=cls.params).get("result")
+        return data
+
+    @classmethod
+    async def deribit_symbols_by_instType_async(cls, instType):
+        """ 
+            perpetual, spot, future, option
+        """
+        if instType == "perpetual":
+            instTypeC = "future"
+        else:
+            instTypeC = instType
+        allsymbols = []
+        for currency in cls.currecies:
+            cls.params["currency"] = currency
+            cls.params["kind"] = instTypeC
+            data = await cls.request_full_async(url=cls.url, headers=cls.headers, params=cls.params)
+            data = data.get("result")
+            symbols = [s["instrument_name"] for s in data]
+            allsymbols.append(symbols)
+        allsymbols = unnest_list(allsymbols)
+        if instType == "perpetual":
+            allsymbols = [x for x in allsymbols if "PERPETUAL" in x]
+        if instType == "future":
+            allsymbols = [x for x in allsymbols if "PERPETUAL" not in x]
+        return allsymbols
+
+    
+    @classmethod
+    async def deribit_symbols_async(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {}
+        for isntType in ["spot", "perpetual", "future", "option"]:
+            data = await cls.deribit_symbols_by_instType_async(isntType)
+            di[isntType] = data
+        return di
+    
+    @classmethod
+    async def deribit_info_async(cls, instType):
+        """
+            kind : spot, future, option
+            currency : ["BTC", "ETH", "USDC", "USDT", "EURR"]
+            so instType = spot.BTC, or option.ETH  .....
+
+        """
+        cls.params["kind"], cls.params["currency"] = instType.split(".")
+        data = await cls.request_full_async(url=cls.url, headers=cls.headers, params=cls.params)
+        data = data.get("result")
         return data
 
 class coinbaseInfo(requestHandler):
@@ -699,6 +941,48 @@ class htxInfo(requestHandler):
         url = f"{endpoint}{basepoint}"
         return cls.simple_request(url).get("data")
 
+    @classmethod
+    async def htx_symbols_by_instType_async(cls, instType):
+        """
+            spot, future
+        """
+        basepoint = iterate_dict(cls.htx_endpoints.get(instType))
+        endpoint = iterate_dict(cls.htx_basepoints.get(instType))
+        links = [f"{y}{x}" for x, y in zip(endpoint, basepoint)]
+        d = []
+        for url in links:
+            data = await cls.simple_request_async(url)
+            data = data.get("data")
+            try:
+                symbols = [d["contract_code"] for d in data]
+            except:
+                symbols = [d["symbol"] for d in data]
+            d.append(symbols)
+        return unnest_list(d)
+    
+    @classmethod
+    async def htx_symbols_async(cls):
+        """
+            spot, future
+        """
+        d= {}
+        for key in cls.htx_endpoints:
+            symbols = await cls.htx_symbols_by_instType_async(key)
+            d[key] = symbols
+        return d
+    
+    @classmethod
+    async def htx_info_async(cls, instType):
+        """
+            perpetual.LinearPerpetual, ....
+        """
+        endpoint = recursive_dict_access(cls.htx_endpoints, instType)
+        basepoint = recursive_dict_access(cls.htx_basepoints, instType)
+        url = f"{endpoint}{basepoint}"
+        data = await cls.simple_request_async(url)
+        data = data.get("data")
+        return data
+
 class gateioInfo(requestHandler):
     gateio_endpointtt = "https://api.gateio.ws"
     gateio_headerssss = {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -772,9 +1056,66 @@ class gateioInfo(requestHandler):
                 data = cls.request_full(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
                 d.append(data)
             return unnest_list(d) 
-        
-    
-import aiohttp
-import asyncio
 
-async def run_dorkisness():
+
+    @classmethod
+    async def gateio_symbols_by_instType_async(cls, instType):
+        """
+            spot, future, perpetual, option
+        """
+        if instType in ["spot", "future"]:
+            info = await cls.gateio_info_async(instType)
+            key = "id" if instType=="spot" else "name"
+            prdocut_ids = list(set([x[key] for x in info]))
+            return prdocut_ids
+        if instType == "perpetual":
+            links = iterate_dict(cls.gateio_basepointsss.get(instType))
+            d = []
+            for basepoint in links:
+                data = await cls.request_full_async(cls.gateio_endpointtt+basepoint, headers=cls.gateio_headerssss, params={})
+                prdocut_ids = list(set([x["name"] for x in data]))
+                d.append(prdocut_ids)
+            return unnest_list(d)
+        if instType == "option":
+            underlyings = await cls.gateio_option_underlying_assets_async()
+            d = []
+            for underlying in underlyings:
+                data = await cls.request_full_async(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
+                d.append(list(set([x["name"] for x in data])))
+            return unnest_list(d) 
+
+
+    @classmethod
+    async def gateio_symbols_async(cls):
+        """
+            spot, option, perpetual, future
+        """
+        d= {}
+        for key in cls.gateio_basepointsss:
+            symbols = await cls.gateio_symbols_by_instType_async(key)
+            d[key] = symbols
+        return d
+
+    @classmethod
+    async def gateio_option_underlying_assets_async(cls):
+         data = await cls.request_full_async(url=f"{cls.gateio_endpointtt}/api/v4/options/underlyings", headers=cls.gateio_headerssss, params={})
+         return [x["name"] for x in data]
+    
+    @classmethod
+    async def gateio_info_async(cls, instType):
+        """
+            ex. perpetual.LinearPerpetual
+        """
+        if instType != "option":
+            basepoint = recursive_dict_access(cls.gateio_basepointsss, instType)
+            url = f"{cls.gateio_endpointtt}{basepoint}"
+            info = await cls.simple_request_async(url)
+            return info
+        else:
+            underlyings = cls.gateio_option_underlying_assets()
+            d = []
+            for underlying in underlyings:
+                data = await cls.request_full_async(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
+                d.append(data)
+            return unnest_list(d) 
+        

@@ -187,20 +187,21 @@ class binance(CommunicationsManager, binanceInfo):
         return response   
     
     @classmethod
-    def binance_get_option_expiries(cls, symbol):
+    async def binance_get_option_expiries(cls, symbol):
         """
             Looks for unexpired onption
         """
-        data = cls.binance_info("option").get("optionSymbols")
+        data = await cls.binance_info_async("option")
+        data = data.get("optionSymbols")
         symbols = [x["symbol"] for x in data if symbol.upper() in x["symbol"].upper() and  datetime.fromtimestamp(int(x["expiryDate"]) / 1000) > datetime.now()]
         expirations = list(set([x.split("-")[1] for x in symbols]))
         return expirations
 
     @classmethod
-    def binance_perpfut_instruments(cls, underlying_instrument):
+    async def binance_perpfut_instruments(cls, underlying_instrument):
         all_info = []
         for instType in ["perpetual.LinearPerpetual", "perpetual.InversePerpetual"]:
-            symbols = binance.binance_info(instType)
+            symbols = await binance.binance_info_async(instType)
             all_info.append([x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")])
         all_info = unnest_list(all_info)
         return all_info 
@@ -210,14 +211,18 @@ class binance(CommunicationsManager, binanceInfo):
         """
             BTC, ETH ...
         """
-        symbols =  cls.binance_perpfut_instruments(underlying_asset)
+        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
         full = {}
+        tasks = []
         for symbol in symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[f"{symbol}_{instType}"] = data
+            async def fetch_oi_binance_yeye(instType, symbol):
+                data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full[f"{symbol}_{instType}"] = data
+            tasks.append(fetch_oi_binance_yeye(instType, symbol))    
+        await asyncio.gather(*tasks)
         return full
     
     @classmethod
@@ -225,86 +230,70 @@ class binance(CommunicationsManager, binanceInfo):
         """
             BTC, ETH ...
         """
-        symbols =  cls.binance_perpfut_instruments(underlying_asset)
+        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
         full = {}
+        tasks = []
         for symbol in symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
             if not bool(re.search(r'\d', symbol.split("_")[-1])):
-                data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[f"{symbol}_{instType}"] = data
+                async def fetch_fund_binance_yeye(instType, symbol):
+                    data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full[f"{symbol}_{instType}"] = data
+                tasks.append(fetch_fund_binance_yeye(instType, symbol))
+        await asyncio.gather(*tasks)    
         return full
 
     @classmethod
-    async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=1):
+    async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=0):
         """
             BTC, ETH ...
             latency : seconds to wait before api call
         """
-        async_api_calls = []
-        symbols = binance.binance_info("perpetual.LinearPerpetual")
+        symbols = await binance.binance_info_async("perpetual.LinearPerpetual")
         symbols = [x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")]
         full = {}
+        tasks = []
         for symbol in symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
             for objective in ["tta", "ttp", "gta"]:
                 marginType = binance_instType_help(symbol)
                 symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
-                data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[f"{symbol}_{objective}"] = data
-                time.sleep(latency)
+                async def pos_one_method(instType, objective, symbol):
+                    data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full[f"{symbol}_{objective}"] = data
+                    time.sleep(latency)
+                tasks.append(pos_one_method(instType, objective, symbol))
         coinm_symbol = underlying_instrument+"USD"
         for objective in ["tta", "ttp", "gta"]:
-            data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[coinm_symbol+f"coinmAgg_{objective}"] = data
-        return full
-
-    @classmethod
-    async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=1):
-        """
-            BTC, ETH ...
-            latency : seconds to wait before api call
-        """
-        async_api_calls = []
-        symbols = binance.binance_info("perpetual.LinearPerpetual")
-        symbols = [x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")]
-        full = {}
-        for symbol in symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            for objective in ["tta", "ttp", "gta"]:
-                marginType = binance_instType_help(symbol)
-                symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
-                data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
+            async def pos_two_method(instType, objective, coinm_symbol):
+                data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
                 if isinstance(data, str):
                     data = json.loads(data)
-                full[f"{symbol}_{objective}"] = data
-                time.sleep(latency)
-        coinm_symbol = underlying_instrument+"USD"
-        for objective in ["tta", "ttp", "gta"]:
-            data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[coinm_symbol+f"coinmAgg_{objective}"] = data
+                full[coinm_symbol+f"coinmAgg_{objective}"] = data
+            tasks.append(pos_two_method(instType, objective, coinm_symbol))
+        await asyncio.gather(*tasks)  
         return full
-
 
     @classmethod
     async def binance_build_oioption_method(cls, symbol):
         """
             BTC, ETH ...
         """
-        expiries =  cls.binance_get_option_expiries(symbol)
+        expiries =  await cls.binance_get_option_expiries(symbol)
         full = {}
+        tasks = []
         for expiration in expiries:
-            data = await cls.binance_aiohttpFetch("option", "oi", symbol=symbol, specialParam=expiration,  special_method="oioption")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[expiration] = unnest_list(data)
+            async def pos_optionoi_method(symbol, expiration):
+                data = await cls.binance_aiohttpFetch("option", "oi", symbol=symbol, specialParam=expiration,  special_method="oioption")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full[expiration] = unnest_list(data)
+            tasks.append(pos_optionoi_method(symbol, expiration))
+        await asyncio.gather(*tasks)  
         return full
 
     @classmethod
@@ -458,9 +447,13 @@ class bybit(CommunicationsManager, bybitInfo):
 
     @classmethod
     async def bybit_aiohttpFetch(cls, *args, **kwargs):
-        connection_data = cls.bybit_buildRequest(*args, **kwargs)
-        response = await cls.make_aiohttpRequest_v2(connection_data)
-        return response
+        try:
+            connection_data = cls.bybit_buildRequest(*args, **kwargs)
+            response = await cls.make_aiohttpRequest_v2(connection_data)
+            return response
+        except Exception as e:
+            print(e)
+            pass
 
     @classmethod
     def bybit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None,  **kwargs):
@@ -496,8 +489,8 @@ class bybit(CommunicationsManager, bybitInfo):
         return data
     
     @classmethod
-    def bybit_get_instruments_by_marginType(cls, instType, underlying_asset):
-        info = cls.bybit_info(f"future.{instType}Future")
+    async def bybit_get_instruments_by_marginType(cls, instType, underlying_asset):
+        info = await cls.bybit_info_async(f"future.{instType}Future")
         symbols = [symbol["symbol"] for symbol in info if instType in symbol["contractType"] and underlying_asset in symbol["symbol"]]
         return symbols
 
@@ -506,34 +499,44 @@ class bybit(CommunicationsManager, bybitInfo):
     @classmethod
     async def bybit_build_oifutureperp_method(cls, underlying_asset):
         """
-        "Linear", "Inverse"
+            "Linear", "Inverse"
         """
         full = {}
-        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        for symbol in symbols:
+        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        tasks = []
+        for symbol in symbols_linear:
             instType = "future" if "-" in symbol else "perpetual"
-            data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[symbol] = data
-        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        for symbol in symbols:
+            async def bybit_oi_async_hihi(instType, symbol):
+                data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full[symbol] = data
+            tasks.append(bybit_oi_async_hihi(instType, symbol))
+
+        for symbol in symbols_inverse:
             instType = "future" if "-" in symbol else "perpetual"
-            data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            full[symbol] = data
+            async def bybit_oi_async_hihihi(instType, symbol):
+                data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                full[symbol] = data
+            tasks.append(bybit_oi_async_hihihi(instType, symbol))
+        
+        await asyncio.gather(*tasks)
         return full
         
-
     @classmethod
     async def bybit_build_posfutureperp_method(cls, underlying_asset):
         """
         "Linear", "Inverse"
         """
         full = {}
-        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        for symbol in symbols:
+        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        tasks = []
+
+        for symbol in symbols_linear:
             try:
                 helper = any(char.isdigit() for char in symbol.split("-")[1])
             except:
@@ -541,12 +544,14 @@ class bybit(CommunicationsManager, bybitInfo):
             if helper is not True:  # unavailable for futures as of april2 2024
                 symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
                 instType = "future" if "-" in symbol else "perpetual"
-                data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full["Linear_"+symbol] = data
-        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        for symbol in symbols:
+                async def boobs_position_one(symbol, instType):
+                    data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full["Linear_"+symbol] = data
+                tasks.append(boobs_position_one(symbol, instType))
+
+        for symbol in symbols_inverse:
             try:
                 helper = any(char.isdigit() for char in symbol.split("-")[1])
             except:
@@ -554,10 +559,14 @@ class bybit(CommunicationsManager, bybitInfo):
             if helper is not True:  # unavailable for futures as of april2 2024
                 symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
                 instType = "future" if "-" in symbol else "perpetual"
-                data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full["Inverse_"+symbol] = data
+                async def boobs_position_two(instType, symbol):
+                    data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full["Inverse_"+symbol] = data
+                tasks.append(boobs_position_two(instType, symbol))
+
+        await asyncio.gather(*tasks)
         return full
 
     @classmethod
@@ -566,22 +575,19 @@ class bybit(CommunicationsManager, bybitInfo):
         "Linear", "Inverse"
         """
         full = {}
-        symbols = cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        for symbol in symbols:
+        tasks = []
+        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
+        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
+        for symbol in symbols_linear + symbols_inverse:
             instType = "future" if "-" in symbol else "perpetual"
             if instType == "perpetual":
-                data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[symbol] = data
-        symbols = cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        for symbol in symbols:
-            instType = "future" if "-" in symbol else "perpetual"
-            if instType == "perpetual":
-                data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[symbol] = data
+                async def big_ass_funded(instType, symbol):
+                    data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full[symbol] = data
+                tasks.append(big_ass_funded(instType, symbol))
+        await asyncio.gather(*tasks)
         return full
 
     @classmethod
@@ -605,8 +611,6 @@ class bybit(CommunicationsManager, bybitInfo):
             arg = bybit_ws_payload_map.get(i).get(obj)(s)
             msg["args"].append(arg)
         return msg
-
-
 
     @classmethod
     def bybit_build_ws_connectionData(cls, instTypes, objectives, symbols, needSnap=False, snaplimit=1000, **kwargs):
@@ -697,50 +701,68 @@ class okx(CommunicationsManager, okxInfo):
 
     @classmethod
     async def okx_build_fundfutureperp_method(cls, underlying_symbol):
-        symbols = [x for x in okxInfo.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
+        okx_symbols = await okxInfo.okx_symbols_by_instType_async("perpetual")
+        symbols = [x for x in okx_symbols if underlying_symbol in x]
         data = {}
+        tasks = []
         for symbol in symbols:
-            response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
-            if isinstance(response, str):
-                response = json.loads(response)
-            data[symbol] = response
+            async def okx_funding_for_silicone(symbol):
+                response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
+                if isinstance(response, str):
+                    response = json.loads(response)
+                data[symbol] = response
+            tasks.append(okx_funding_for_silicone(symbol))
+        await asyncio.gather(*tasks)
         return data
     
     @classmethod
     async def okx_build_oifutureperp_method(cls, underlying_symbol):
-        marginCoinsF = [x for x in cls.okx_symbols_by_instType("future") if underlying_symbol in x]
+        future_coins = await cls.okx_symbols_by_instType_async("future")
+        perpetual_coins = await cls.okx_symbols_by_instType_async("perpetual")
+        marginCoinsF = [x for x in future_coins if underlying_symbol in x]
         marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
-        marginCoinsP = [x for x in cls.okx_symbols_by_instType("perpetual") if underlying_symbol in x]
+        marginCoinsP = [x for x in perpetual_coins if underlying_symbol in x]
         marginCoinsP = list(set([x.split("-")[1] for x in marginCoinsP]))
         data = {}
+        tasks = []
         for marginCoin in marginCoinsF:
-            futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
-            if isinstance(futures, str):
-                futures = json.loads(futures)
-            else:
-                pass
-            data[f"future_{underlying_symbol}-{marginCoin}"] = futures
+            async def okx_oioiioooo(underlying_symbol, marginCoin):
+                futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
+                if isinstance(futures, str):
+                    futures = json.loads(futures)
+                else:
+                    pass
+                data[f"future_{underlying_symbol}-{marginCoin}"] = futures
+            tasks.append(okx_oioiioooo(underlying_symbol, marginCoin))
         for marginCoin in marginCoinsP:
-            perp = await cls.okx_aiohttpFetch("perpetual", "oi", f"{underlying_symbol}-{marginCoin}")
-            if isinstance(perp, str):
-                perp = json.loads(perp)
-            else:
-                pass
-            data[f"perpetual_{underlying_symbol}-{marginCoin}"] = perp
+            async def okx_oioiioooo_two(underlying_symbol, marginCoin):
+                perp = await cls.okx_aiohttpFetch("perpetual", "oi", f"{underlying_symbol}-{marginCoin}")
+                if isinstance(perp, str):
+                    perp = json.loads(perp)
+                else:
+                    pass
+                data[f"perpetual_{underlying_symbol}-{marginCoin}"] = perp
+            tasks.append(okx_oioiioooo_two(underlying_symbol, marginCoin))
+        await asyncio.gather(*tasks)
         return data
 
     @classmethod
     async def okx_build_oioption_method(cls, underlying_symbol):
-        marginCoinsF = [x for x in cls.okx_symbols_by_instType("option") if underlying_symbol in x]
+        option_symbol = await cls.okx_symbols_by_instType_async("option")
+        marginCoinsF = [x for x in option_symbol if underlying_symbol in x]
         marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
         data = {}
+        tasks = []
         for marginCoin in marginCoinsF:
-            futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
-            if isinstance(futures, str):
-                futures = json.loads(futures)
-            else:
-                pass
-            data[f"{underlying_symbol}-{marginCoin}"] = futures
+            async def okx_option_loosers_monitor(underlying_symbol, marginCoin):
+                futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
+                if isinstance(futures, str):
+                    futures = json.loads(futures)
+                else:
+                    pass
+                data[f"{underlying_symbol}-{marginCoin}"] = futures
+            tasks.append(okx_option_loosers_monitor(underlying_symbol, marginCoin))
+        await asyncio.gather(*tasks)
         return data
 
     @classmethod
@@ -776,7 +798,6 @@ class okx(CommunicationsManager, okxInfo):
         
         return data
 
-    
     @classmethod
     def okx_build_ws_message(cls, objective, instType=None, instFamily=None, symbol=None):
         msg = {
@@ -1457,15 +1478,20 @@ class bitget(CommunicationsManager, bitgetInfo):
         """
             BTC, ETH ...
         """
-        symbols =  [x for x in bitgetInfo.bitget_symbols_by_instType("perpetual") if underlying_asset in x]
+        bitget_symbols = await bitgetInfo.bitget_symbols_by_instType_async("perpetual")
+        symbols =  [x for x in bitget_symbols if underlying_asset in x]
         full = {}
+        tasks = []
         for symbol in symbols:
-            data = await cls.bitget_aiohttpFetch("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
-            if isinstance(data, str):
-                data = json.loads(data)
-            else:
-                pass
-            full[symbol] = data
+            async def bitget_kinda_good_but_not(symbol):
+                data = await cls.bitget_aiohttpFetch("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
+                if isinstance(data, str):
+                    data = json.loads(data)
+                else:
+                    pass
+                full[symbol] = data
+            tasks.append(bitget_kinda_good_but_not(symbol))
+        await asyncio.gather(*tasks)
         return full
     
     @classmethod
@@ -1473,15 +1499,20 @@ class bitget(CommunicationsManager, bitgetInfo):
         """
             BTC, ETH ...
         """
-        symbols =  [x for x in bitgetInfo.bitget_symbols_by_instType("perpetual") if underlying_asset in x]
+        bitget_symbols = await bitgetInfo.bitget_symbols_by_instType_async("perpetual")
+        symbols =  [x for x in bitget_symbols if underlying_asset in x]
         full = {}
+        tasks = []
         for symbol in symbols:
+            async def bitget_runs_by_a_woman_and_is_successful_lol(symbol):
                 data = await cls.bitget_aiohttpFetch("perpetual", "funding", symbol=symbol, special_method="fundfutureperp")
                 if isinstance(data, str):
                     data = json.loads(data)
                 else:
                     pass
                 full[symbol] = data
+            tasks.append(bitget_runs_by_a_woman_and_is_successful_lol(symbol))
+        await asyncio.gather(*tasks)
         return full
 
 
@@ -1782,51 +1813,73 @@ class htx(CommunicationsManager, htxInfo):
     @classmethod
     async def htx_oifutureperp(cls, underlying_asset):
         ois = {}
-        response = await cls.htx_aiohttpFetch("perpetual", "oiall", f"{underlying_asset}-USDT.LinearPerpetual")
-        if isinstance(response, str):
-            response = json.loads(response)
-        ois[f"{underlying_asset}-USDT.LinearPerpetual"] = response
-        response = await cls.htx_aiohttpFetch("perpetual", "oi", f"{underlying_asset}-USD")
-        if isinstance(response, str):
-            response = json.loads(response)
-        ois[f"{underlying_asset}-USD"] = response
-        for ctype in inverse_future_contract_types:
-            response = await cls.htx_aiohttpFetch("future", "oi", f"{underlying_asset}.InverseFuture", contract_type=ctype)
+        tasks = []
+
+        async def htx_oiioio(underlying_asset):
+            response = await cls.htx_aiohttpFetch("perpetual", "oiall", f"{underlying_asset}-USDT.LinearPerpetual")
             if isinstance(response, str):
                 response = json.loads(response)
-            ois[f"{underlying_asset}.InverseFuture"] = response
+            ois[f"{underlying_asset}-USDT.LinearPerpetual"] = response
+        tasks.append(htx_oiioio(underlying_asset))
+
+        async def htx_another_aioiooi(underlying_asset):
+            response = await cls.htx_aiohttpFetch("perpetual", "oi", f"{underlying_asset}-USD")
+            if isinstance(response, str):
+                response = json.loads(response)
+            ois[f"{underlying_asset}-USD"] = response
+        tasks.append(htx_another_aioiooi(underlying_asset))
+
+        for ctype in inverse_future_contract_types:
+            async def i_love_htx(ctype):
+                response = await cls.htx_aiohttpFetch("future", "oi", f"{underlying_asset}.InverseFuture", contract_type=ctype)
+                if isinstance(response, str):
+                    response = json.loads(response)
+                ois[f"{underlying_asset}.InverseFuture"] = response
+            tasks.append(i_love_htx(ctype))
+        
+        await asyncio.gather(*tasks)
         return ois
 
     @classmethod
     async def htx_fundperp(cls, underlying_asset):
-        l = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USDT")
-        if isinstance(l, str):
-            l = json.loads(l)
-        i = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USD")
-        if isinstance(i, str):
-            i = json.loads(i)
-        return {"usdt" : l, "usd" : i}
+        d = {}
+        tasks = []
+        async def htxfundone(underlying_asset):
+            l = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USDT")
+            if isinstance(l, str):
+                l = json.loads(l)
+                d["usdt"] = l
+        tasks.append(htxfundone(underlying_asset))
+        async def htxfundonetwo(underlying_asset):
+            i = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USD")
+            if isinstance(i, str):
+                i = json.loads(i)
+                d["usd"] = i
+        tasks.append(htxfundonetwo(underlying_asset))
+        await asyncio.gather(*tasks)
+        return d
 
     @classmethod
     async def htx_posfutureperp(cls, underlying_asset):
         pos = {}
+        tasks = []
         for ltype in ["USDT", "USD", "USDT-FUTURES"]:
-            tta = await cls.htx_aiohttpFetch("perpetual", "tta", f"{underlying_asset}-{ltype}")
-            ttp = await cls.htx_aiohttpFetch("perpetual", "ttp", f"{underlying_asset}-{ltype}")
+            for obj in ["tta", "ttp"]:
+                async def htx_pos_nice(ltype, obj):
+                    tta = await cls.htx_aiohttpFetch("perpetual", obj, f"{underlying_asset}-{ltype}")
+                    if isinstance(tta, str):
+                        tta = json.loads(tta)
+                    pos[f"{underlying_asset}_{ltype}_{obj}"] = tta
+                tasks.append(htx_pos_nice(ltype, obj))
+
+        async def htx_pos_inverse(obj):
+            tta = await cls.htx_aiohttpFetch("future", obj, f"{underlying_asset}.InverseFuture")
             if isinstance(tta, str):
                 tta = json.loads(tta)
-            if isinstance(ttp, str):
-                ttp = json.loads(ttp)
-            pos[f"{underlying_asset}_{ltype}_tta"] = tta
-            pos[f"{underlying_asset}_{ltype}_ttp"] = ttp
-        tta = await cls.htx_aiohttpFetch("future", "tta", f"{underlying_asset}.InverseFuture")
-        ttp = await cls.htx_aiohttpFetch("future", "ttp", f"{underlying_asset}.InverseFuture")
-        if isinstance(tta, str):
-            tta = json.loads(tta)
-        if isinstance(ttp, str):
-            ttp = json.loads(ttp)
-        pos[f"{underlying_asset}_InverseFuture_tta"] = tta
-        pos[f"{underlying_asset}_InverseFuture_ttp"] = ttp
+            pos[f"{underlying_asset}_InverseFuture_tta"] = tta
+        for obj in ["tta", "ttp"]:
+            tasks.append(htx_pos_inverse(obj))
+        await asyncio.gather(*tasks)
         return pos
 
     @classmethod
@@ -2083,7 +2136,7 @@ class gateio(CommunicationsManager, gateioInfo):
 
     @classmethod
     def gateio_get_active_option_instruments(cls, underlying):
-        symbols = gateioInfo.gateio_info("option")
+        symbols = gateioInfo.gateio_info_async("option")
         symbols = [x["name"] for x in symbols if underlying in x["underlying"] and x["is_active"] == True]
         return symbols
 
@@ -2147,63 +2200,70 @@ class gateio(CommunicationsManager, gateioInfo):
     
     @classmethod
     async def gateio_posfutureperp(cls, underlying_symbol):
-        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
+        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
+        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
+        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in perpi_symbols  if underlying_symbol in x.get("name")]
         d = {}
+        tasks = []
+        async def gateio_positioning_useless_or_not(symbol, objective):
+            data = await cls.gateio_aiohttpFetch("perpetual", objective, symbol)
+            if isinstance(data, str): 
+                data = json.loads(data)
+            d[f"{s}"] = data
         for s in perpl_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
+            tasks.append(gateio_positioning_useless_or_not(s, "tta"))
         for s in perpi_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "tta", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
+            tasks.append(gateio_positioning_useless_or_not(s, "tta"))
+        await asyncio.gather(*tasks)
         return d
 
     @classmethod
     async def gateio_oifutureperp(cls, underlying_symbol):
-        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
-        f_symbols = [x.get("name") for x in gateioInfo.gateio_info("future.InverseFuture") if underlying_symbol in x.get("name")]
+        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
+        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
+        f_symbols = await gateioInfo.gateio_info_async("future.InverseFuture")
+        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in perpi_symbols if underlying_symbol in x.get("name")]
+        f_symbols = [x.get("name") for x in f_symbols if underlying_symbol in x.get("name")]
         d = {}
-        for s in perpl_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
-            if isinstance(data, str):
+        tasks = []
+        async def gateio_positioning_useless_or_not(symbol):
+            data = await cls.gateio_aiohttpFetch("perpetual", "oi", symbol)
+            if isinstance(data, str): 
                 data = json.loads(data)
-            d[f"{s}"] = data
-        for s in perpi_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "oi", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
-        for s in f_symbols:
-            data = await cls.gateio_aiohttpFetch("future", "oi", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
-        return d
+            d[f"{symbol}"] = data
+        for sa in perpl_symbols:
+            tasks.append(gateio_positioning_useless_or_not(sa))
+        for saa in perpi_symbols:
+            tasks.append(gateio_positioning_useless_or_not(saa))
+        for saaa in f_symbols:
+            tasks.append(gateio_positioning_useless_or_not(saaa))
 
+        await asyncio.gather(*tasks)
+        
+        return d
 
     @classmethod
     async def gateio_fundperp(cls, underlying_symbol):
-        perpl_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.LinearPerpetual") if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in gateioInfo.gateio_info("perpetual.InversePerpetual") if underlying_symbol in x.get("name")]
+        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
+        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
+        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
+        perpi_symbols = [x.get("name") for x in perpi_symbols if underlying_symbol in x.get("name")]
         d = {}
+        tasks = []
+        async def gatefundplzfunme(symbol):
+            data = await cls.gateio_aiohttpFetch("perpetual", "funding", symbol)
+            if isinstance(data, str): 
+                data = json.loads(data)
+            d[f"{symbol}"] = data
         for s in perpl_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
+            tasks.append(gatefundplzfunme(s))
         for s in perpi_symbols:
-            data = await cls.gateio_aiohttpFetch("perpetual", "funding", s)
-            if isinstance(data, str):
-                data = json.loads(data)
-            d[f"{s}"] = data
+            tasks.append(gatefundplzfunme(s))
+        await asyncio.gather(*tasks)
         return d
         
-
     @classmethod
     def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
         """
@@ -2268,7 +2328,7 @@ class gateio(CommunicationsManager, gateioInfo):
 
 
 # async def main():
-#     connData = binance.binance_build_api_connectionData("perpetual", "oi", "BTC", 15, special_method="posfutureperp")
+#     connData = gateio.gateio_build_api_connectionData("perpetual", "funding", "BTC", 15, special_method="fundperp")
 #     result = await connData['aiohttpMethod']()
 #     print(result)
 
