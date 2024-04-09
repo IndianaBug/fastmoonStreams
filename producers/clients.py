@@ -225,25 +225,29 @@ class binance(CommunicationsManager, binanceInfo):
         await asyncio.gather(*tasks)
         return full
     
-    @classmethod
-    async def binance_build_fundfutureperp_method(cls, underlying_asset):
-        """
-            BTC, ETH ...
-        """
-        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            if not bool(re.search(r'\d', symbol.split("_")[-1])):
-                async def fetch_fund_binance_yeye(instType, symbol):
-                    data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full[f"{symbol}_{instType}"] = data
-                tasks.append(fetch_fund_binance_yeye(instType, symbol))
-        await asyncio.gather(*tasks)    
-        return full
+
+    # @classmethod
+    # async def binance_build_fundfutureperp_method(cls, underlying_asset):
+    #     """
+    #         BTC, ETH ...
+    #     """
+    #     # symbols =  await cls.binance_perpfut_instruments(underlying_asset)
+    #     symbols = asyncio.ensure_future(cls.binance_perpfut_instruments(underlying_asset))
+    #     done, pending = await asyncio.wait([symbols], timeout=2)
+
+    #     full = {}
+    #     tasks = []
+    #     for symbol in symbols:
+    #         instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+    #         if not bool(re.search(r'\d', symbol.split("_")[-1])):
+    #             async def fetch_fund_binance_yeye(instType, symbol):
+    #                 data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
+    #                 if isinstance(data, str):
+    #                     data = json.loads(data)
+    #                 full[f"{symbol}_{instType}"] = data
+    #             tasks.append(fetch_fund_binance_yeye(instType, symbol))
+    #     await asyncio.gather(*tasks)    
+    #     return full
 
     @classmethod
     async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=0):
@@ -395,6 +399,45 @@ class binance(CommunicationsManager, binanceInfo):
             connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.binance_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
+
+
+class binance_funding_fetcher():
+
+    def __init__ (self, underlying_asset, binance_client_class):
+        self.running = True
+        self.underlying_asset = underlying_asset
+        self.symbols = []
+        self.binance_client_class = binance_client_class
+
+        self.loop = asyncio.get_event_loop()
+        self.loop.run_until_complete(self.get_binance_perpfut_instruments())
+
+    async def get_binance_perpfut_instruments(self):
+        try:
+            self.symbols = await self.binance_client_class.binance_perpfut_instruments(self.underlying_asset)
+        except Exception as e:
+            print(f"Error fetching symbols: {e}")
+    
+    async def run_daily_task(self):
+        while self.running:
+            await self.get_binance_perpfut_instruments()
+            await asyncio.sleep(24 * 60 * 60)  
+    
+    async def binance_build_fundfutureperp_method(self):
+        full = {}
+        tasks = []
+        for symbol in self.symbols:
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            if not bool(re.search(r'\d', symbol.split("_")[-1])):
+                async def fetch_fund_binance_yeye(instType, symbol):
+                    data = await self.binance_client_class.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
+                    if isinstance(data, str):
+                        data = json.loads(data)
+                    full[f"{symbol}_{instType}"] = data
+                tasks.append(fetch_fund_binance_yeye(instType, symbol))
+        await asyncio.gather(*tasks)    
+        return full
+
 
 class bybit(CommunicationsManager, bybitInfo):
     bybit_api_endpoint = bybit_api_endpoint

@@ -204,3 +204,4 @@ binance_stream_keys = {
     "trades" : "aggTrade",
     "depth" : "depth",
 }
+
