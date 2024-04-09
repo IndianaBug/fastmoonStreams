@@ -38,7 +38,29 @@ class requestHandler():
         r = requests.get(url, headers=headers, params=params)
         r = r.json()
         return r
-    
+
+    @classmethod
+    async def simple_request_async(cls, url):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                response.raise_for_status()  # Raise an exception for error status codes
+                return await response.json()
+
+    @classmethod
+    async def request_with_headers_async(cls, url, headers, payload=""):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers, data=payload) as response:
+                response.raise_for_status()
+                return await response.json()
+
+    @classmethod
+    async def request_full_async(cls, url, headers, params, payload=""):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers, params=params, data=payload) as response:
+                response.raise_for_status()
+                return await response.json()
+
+
     @classmethod
     def http_call(cls, endpoint, basepoint, payload, headers):
         conn = http.client.HTTPSConnection(endpoint)
@@ -61,6 +83,45 @@ class bybitInfo(requestHandler):
                         "option" : "https://api.bybit.com/v5/market/instruments-info?category=option"
                     }
         
+    @classmethod
+    def bybit_symbols_by_instType(cls, instType):
+        """ 
+            spot, perpetual
+        """
+        links = iterate_dict(cls.bybit_info_url.get(instType))
+        d = []
+        for url in links:
+            data = cls.simple_request(url).get("result").get("list")
+            symbols = [d["symbol"] for d in data]
+            if instType == "future":
+                symbols = [d for d in symbols if "-" in d]
+            if instType == "perpetual":
+                symbols = [d for d in symbols if "-" not in d]
+            d.append(symbols)
+        return unnest_list(d)
+
+    @classmethod
+    def bybit_symbols(cls) -> dict:
+        """
+            spot, perpetual, future, option
+        """
+        di = {
+
+        }
+        for isntType in cls.bybit_info_url.keys():
+            data = cls.bybit_symbols_by_instType(isntType)
+            di[isntType] = data
+        return di
+    
+    @classmethod
+    def bybit_info(cls, instType):
+        """
+            ex: perpetual.LinearPerpetual
+        """
+        url = recursive_dict_access(cls.bybit_info_url, instType)
+        info = cls.simple_request(url)
+        return info.get("result").get("list")
+    
     @classmethod
     def bybit_symbols_by_instType(cls, instType):
         """ 
@@ -713,3 +774,7 @@ class gateioInfo(requestHandler):
             return unnest_list(d) 
         
     
+import aiohttp
+import asyncio
+
+async def run_dorkisness():
