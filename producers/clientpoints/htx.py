@@ -68,7 +68,7 @@ htx_api_basepoints = {
     }
 }
 
-inverse_future_contract_types = ["this_week","next_week","quarter"]
+inverse_future_contract_types_htx = ["this_week","next_week","quarter"]
 
 htx_api_params = {
     "spot" : {

@@ -1,0 +1,78 @@
+[
+    {
+        "BTC240628@perpetual@htx": {
+            "oi": 15.104834695546195
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 525.7470600419515
+        },
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1669.549
+        },
+        "BTC-USDT-240412@future@htx": {
+            "oi": 9.406
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 0.945
+        },
+        "timestamp": "2024-04-10 15:45:40",
+        "_doc": "d9b14f4f-245c-41e4-8b76-bbc2fd72f17f"
+    },
+    {
+        "BTC240412@perpetual@htx": {
+            "oi": 1.6189442414328197
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 525.1444168994718
+        },
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1669.651
+        },
+        "BTC-USDT-240412@future@htx": {
+            "oi": 9.377
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 0.927
+        },
+        "timestamp": "2024-04-10 15:42:39",
+        "_doc": "25f8aa41-495d-449e-965b-d0f5045d9879"
+    },
+    {
+        "BTC240628@perpetual@htx": {
+            "oi": 15.078553180316428
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 524.9918493764773
+        },
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1670.121
+        },
+        "BTC-USDT-240412@future@htx": {
+            "oi": 9.41
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 0.942
+        },
+        "timestamp": "2024-04-10 15:40:19",
+        "_doc": "e45f645b-903a-438b-b827-4e7015d8d875"
+    },
+    {
+        "BTC240419@perpetual@htx": {
+            "oi": 0.5885861262421559
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 525.0241981849542
+        },
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1669.583
+        },
+        "BTC-USDT-240412@future@htx": {
+            "oi": 9.393
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 0.925
+        },
+        "timestamp": "2024-04-10 15:38:49",
+        "_doc": "a4a1ffb6-51b4-45b8-89df-159c530e11ac"
+    }
+]

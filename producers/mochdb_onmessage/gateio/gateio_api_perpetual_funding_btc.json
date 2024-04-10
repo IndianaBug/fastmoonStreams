@@ -1,0 +1,14 @@
+[
+  {
+    "BTC_USD@perpetual@gateio": {
+      "funding": 0.0001
+    },
+    "BTC_USDT@perpetual@gateio": {
+      "funding": 0.000138
+    },
+    "_doc": "481aebb6-bace-4078-b81b-072d2dcb1c8a"
+  },
+  {
+    "_doc": "3a8dd27a-f3cb-4265-8dca-971989a08ed2"
+  }
+]

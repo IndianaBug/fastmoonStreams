@@ -810,17 +810,8 @@ class okx(CommunicationsManager, okxInfo):
             instType is symbolic
             special_method : fundfutureperp
         """
-
-        if special_method == "fundperp":
-            call = partial(cls.okx_build_fundfutureperp_method, underlying_symbol=symbol)
-        elif special_method == "oifutureperp":
-            call = partial(cls.okx_build_oifutureperp_method, underlying_symbol=symbol)
-        elif special_method == "oioption":
-            call = partial(cls.okx_build_oioption_method, underlying_symbol=symbol)
-        else:
-            call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
-
         symbol_name = okx_get_instrument_name(symbol)
+        standart_marginType = get_okx_marginType(instType, symbol)
         data =  {
                 "type" : "api",
                 "id_api" : f"okx_api_{instType}_{objective}_{symbol_name}",
@@ -829,10 +820,26 @@ class okx(CommunicationsManager, okxInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : call,
+                "aiohttpMethod" : "",
                 "exchange_symbols" : symbol,
-                
+                "standarized_margin" : standart_marginType,
+                "exchange_symbols" : symbol,
+                "api_call_manager" : "",
+                "symbol_update_task" : False
                 }
+
+        if special_method == "fundperp":
+            data["api_call_manager"] = okx_aoihttp_fundperp_manager(symbol, cls.okx_symbols_by_instType_async, cls.okx_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "fundperp"
+
+        elif special_method == "oifutureperp":
+            data["api_call_manager"] = okx_aoihttp_oifutureperp_manager(symbol, cls.okx_symbols_by_instType_async, cls.okx_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oifutureperp"
+        else:
+            call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+            data["aiohttpMethod"] = call
         
         return data
 
@@ -1564,13 +1571,6 @@ class bitget(CommunicationsManager, bitgetInfo):
             How to call : result = d['aiohttpMethod'](**kwargs)
             books don't work with aiohttp, only with http request method
         """
-        # connectionData = cls.bitget_buildRequest(instType, objective, symbol)
-        if special_method == False:
-            call =  partial(cls.bitget_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
-        if  special_method == "fundperp":   
-            call = partial(cls.bitget_build_fundfutureperp_method, symbol)  
-        if  special_method == "oifutureperp":   
-            call = partial(cls.bitget_build_oifutureperp_method, symbol)  
         data =  {
                 "type" : "api",
                 "id_api" : f"bitget_api_{instType}_{objective}_{symbol}",
@@ -1579,10 +1579,24 @@ class bitget(CommunicationsManager, bitgetInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : call,
+                "aiohttpMethod" : "",
                 "special_method" : special_method,
                 "exchange_symbols" : symbol,
+                "symbol_update_task" : False,
+                "api_call_manager" : "",
+                "is_special" : "no!"
                 }
+        if special_method == "fundperp":
+            data["api_call_manager"] = bitget_aoihttp_fundperp_manager(symbol, bitgetInfo.bitget_symbols_by_instType_async, cls.bitget_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "fundperp"
+        elif special_method == "oifutureperp":
+            data["api_call_manager"] = bitget_aoihttp_oifutureperp_manager(symbol, bitgetInfo.bitget_symbols_by_instType_async, cls.bitget_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oifutureperp"
+        else:
+            call =  partial(cls.bitget_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+            data["aiohttpMethod"] = call
         
         return data
 
@@ -1802,6 +1816,7 @@ class htx(CommunicationsManager, htxInfo):
     htx_ws_endpoints = htx_ws_endpoints
     htx_api_basepoints = htx_api_basepoints
     htx_ws_stream_map = htx_ws_stream_map
+    inverse_future_contract_types_htx = inverse_future_contract_types_htx
 
 
     @classmethod
@@ -1847,55 +1862,60 @@ class htx(CommunicationsManager, htxInfo):
         response = await cls.make_aiohttpRequest(connection_data)
         return response
 
+    @classmethod
+    async def htx_fetch_oi_helper(cls, instType, objective, underlying_asset, asset_specification, state_dictionary):
+        response = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
+        if isinstance(response, str):
+            response = json.loads(response)
+        state_dictionary[f"{underlying_asset}{asset_specification}"] = response
+
+    @classmethod
+    async def htx_fetch_oi_helper_2(cls, instType, objective, underlying_asset, asset_specification, state_dictionary, ctype):
+        response = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}", contract_type=ctype)
+        if isinstance(response, str):
+            response = json.loads(response)
+        state_dictionary[f"{underlying_asset}{asset_specification}"] = response
 
     @classmethod
     async def htx_oifutureperp(cls, underlying_asset):
         ois = {}
         tasks = []
-
-        async def htx_oiioio(underlying_asset):
-            response = await cls.htx_aiohttpFetch("perpetual", "oiall", f"{underlying_asset}-USDT.LinearPerpetual")
-            if isinstance(response, str):
-                response = json.loads(response)
-            ois[f"{underlying_asset}-USDT.LinearPerpetual"] = response
-        tasks.append(htx_oiioio(underlying_asset))
-
-        async def htx_another_aioiooi(underlying_asset):
-            response = await cls.htx_aiohttpFetch("perpetual", "oi", f"{underlying_asset}-USD")
-            if isinstance(response, str):
-                response = json.loads(response)
-            ois[f"{underlying_asset}-USD"] = response
-        tasks.append(htx_another_aioiooi(underlying_asset))
-
-        for ctype in inverse_future_contract_types:
-            async def i_love_htx(ctype):
-                response = await cls.htx_aiohttpFetch("future", "oi", f"{underlying_asset}.InverseFuture", contract_type=ctype)
-                if isinstance(response, str):
-                    response = json.loads(response)
-                ois[f"{underlying_asset}.InverseFuture"] = response
-            tasks.append(i_love_htx(ctype))
-        
+        tasks.append(cls.htx_fetch_oi_helper("perpetual", "oiall", underlying_asset, "-USDT.LinearPerpetual", ois))
+        tasks.append(cls.htx_fetch_oi_helper("perpetual", "oi", underlying_asset, "-USD", ois))
+        for ctype in inverse_future_contract_types_htx:
+            tasks.append(cls.htx_fetch_oi_helper_2("future", "oi", underlying_asset, ".InverseFuture", ois, ctype))
         await asyncio.gather(*tasks)
         return ois
+
+    @classmethod
+    async def htx_fetch_fundperp_helper(cls, instType, objective, underlying_asset, asset_specification, state_dictionary, marginCoinCoinCoin):
+        l = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
+        if isinstance(l, str):
+            l = json.loads(l)
+        state_dictionary[marginCoinCoinCoin] = l
 
     @classmethod
     async def htx_fundperp(cls, underlying_asset):
         d = {}
         tasks = []
-        async def htxfundone(underlying_asset):
-            l = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USDT")
-            if isinstance(l, str):
-                l = json.loads(l)
-                d["usdt"] = l
-        tasks.append(htxfundone(underlying_asset))
-        async def htxfundonetwo(underlying_asset):
-            i = await cls.htx_aiohttpFetch("perpetual", "funding", f"{underlying_asset}-USD")
-            if isinstance(i, str):
-                i = json.loads(i)
-                d["usd"] = i
-        tasks.append(htxfundonetwo(underlying_asset))
+        tasks.append(cls.htx_fetch_fundperp_helper("perpetual", "funding", underlying_asset, "-USDT", d, "usdt"))
+        tasks.append(cls.htx_fetch_fundperp_helper("perpetual", "funding", underlying_asset, "-USD", d, "usd"))
         await asyncio.gather(*tasks)
         return d
+
+    @classmethod
+    async def htx_fetch_pos_helper(cls, instType, objective, underlying_asset, ltype, state_dictionary):
+        tta = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}-{ltype}")
+        if isinstance(tta, str):
+            tta = json.loads(tta)
+        state_dictionary[f"{underlying_asset}_{ltype}_{objective}"] = tta
+
+    @classmethod
+    async def htx_fetch_pos_helper_2(cls, instType, underlying_asset, obj, state_dictionary):
+        tta = await cls.htx_aiohttpFetch(instType, obj, f"{underlying_asset}.InverseFuture")
+        if isinstance(tta, str):
+            tta = json.loads(tta)
+        state_dictionary[f"{underlying_asset}_InverseFuture_tta"] = tta
 
     @classmethod
     async def htx_posfutureperp(cls, underlying_asset):
@@ -1903,20 +1923,9 @@ class htx(CommunicationsManager, htxInfo):
         tasks = []
         for ltype in ["USDT", "USD", "USDT-FUTURES"]:
             for obj in ["tta", "ttp"]:
-                async def htx_pos_nice(ltype, obj):
-                    tta = await cls.htx_aiohttpFetch("perpetual", obj, f"{underlying_asset}-{ltype}")
-                    if isinstance(tta, str):
-                        tta = json.loads(tta)
-                    pos[f"{underlying_asset}_{ltype}_{obj}"] = tta
-                tasks.append(htx_pos_nice(ltype, obj))
-
-        async def htx_pos_inverse(obj):
-            tta = await cls.htx_aiohttpFetch("future", obj, f"{underlying_asset}.InverseFuture")
-            if isinstance(tta, str):
-                tta = json.loads(tta)
-            pos[f"{underlying_asset}_InverseFuture_tta"] = tta
+                tasks.append(cls.htx_fetch_pos_helper("perpetual", obj, underlying_asset, ltype, pos))
         for obj in ["tta", "ttp"]:
-            tasks.append(htx_pos_inverse(obj))
+            tasks.append(cls.htx_fetch_pos_helper_2("future", underlying_asset, obj, pos))
         await asyncio.gather(*tasks)
         return pos
 
@@ -2311,14 +2320,6 @@ class gateio(CommunicationsManager, gateioInfo):
             special : not for now
         """
         symbol_name = gateio_get_symbolname(symbol)
-        if special_method == "posfutureperp":
-            call = partial(cls.gateio_posfutureperp, underlying_symbol=symbol)
-        elif special_method == "fundperp":
-            call = partial(cls.gateio_fundperp, underlying_symbol=symbol)
-        elif special_method == "oifutureperp":
-            call = partial(cls.gateio_oifutureperp, underlying_symbol=symbol)
-        else:
-            call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
         data =  {
                 "type" : "api",
                 "id_api" : f"gateio_api_{instType}_{objective}_{symbol_name}",
@@ -2327,9 +2328,31 @@ class gateio(CommunicationsManager, gateioInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : call,
+                "aiohttpMethod" : None,
                 "exchange_symbols" : symbol,
+                "api_call_manager" : "",
+                "symbol_update_task" : False,
+                "is_special" : ""
                 }
+        
+        if special_method == "fundperp":
+            data["api_call_manager"] = gateio_aoihttp_fundperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "fundperp"
+
+        elif special_method == "oifutureperp":
+            data["api_call_manager"] = gateio_aoihttp_oifutureperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "oifutureperp"
+
+        elif special_method == "posfutureperp":
+            data["api_call_manager"] = gateio_aoihttp_posfutureperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["symbol_update_task"] = True
+            data["is_special"] = "posfutureperp"
+
+        else:
+            call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
+            data["aiohttpMethod"] = call
         
         return data
 

@@ -1119,3 +1119,9 @@ class gateioInfo(requestHandler):
                 d.append(data)
             return unnest_list(d) 
         
+
+# async def aaa():
+#     d = await gateioInfo.gateio_info_async("future.InverseFuture")
+#     print(d)
+
+# asyncio.run(aaa())

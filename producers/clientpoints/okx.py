@@ -47,3 +47,16 @@ okx_ws_objective_map = {
 
 def okx_get_instrument_name(symbol):
     return symbol.replace("-", "").lower()
+
+
+
+def get_okx_marginType(instType, symbol):
+    marginType = ""
+    if instType in ["future", "perpetual"]:
+        if "USD" in symbol and "USDT" not in symbol and "USDC" not in symbol:
+            marginType = "linear"
+        elif "USD" in symbol:
+            marginType = "inverse"
+        else:
+            marginType = instType
+    return marginType

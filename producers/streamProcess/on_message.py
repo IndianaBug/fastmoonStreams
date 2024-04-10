@@ -497,7 +497,7 @@ class okx_on_message(on_message_helper):
         else:
             self.okx_derivate_multiplier = derivate_multiplier
 
-    async def okx_api_fundperp_perpetual_future_funding(self, data:dict, *args, **kwargs):
+    async def okx_api_fundperp_perpetual_future_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
         """
         d = {}
@@ -835,12 +835,13 @@ class bitget_on_message(on_message_helper):
 
     async def bitget_api_oi_perpetual_oifutureperp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         d = {}
-        for instrument_data in data:
-            if isinstance(data.get(instrument_data), dict):
-                symbol = data.get(instrument_data).get("data").get("openInterestList")[0].get("symbol")
+        for instrument_name in data:
+            if isinstance(data.get(instrument_name), dict):
+                instrument_data = data.get(instrument_name).get("data")
+                symbol = instrument_data.get("openInterestList")[0].get("symbol")
                 msid = f"{symbol}@perpetual@bitget"
                 d[msid] = {}
-                oi = float(data.get(instrument_data).get("data").get("openInterestList")[0].get("size"))
+                oi = float(instrument_data.get("openInterestList")[0].get("size"))
                 d[msid]["oi"] = oi
                 if msid not in market_state:
                     market_state[msid] = {}
@@ -856,16 +857,18 @@ class bitget_on_message(on_message_helper):
         d = {}
         for instrument_data in data:
             if isinstance(data.get(instrument_data), dict) and data.get(instrument_data).get("data") != []:
-                symbol = data.get(instrument_data).get("data")[0].get("symbol")
-                msid = f"{symbol}@perpetual@bitget"
-                funding = float(data.get(instrument_data).get("data")[0].get("fundingRate"))
-                d[msid] = {}
-                d[msid]["funding"] = funding
-                if msid not in market_state:
-                    market_state[msid] = {}
+                if data.get(instrument_data).get("data") != []:
+                    symbol = data.get(instrument_data).get("data")[0].get("symbol")
+                    msid = f"{symbol}@perpetual@bitget"
+                    funding = float(data.get(instrument_data).get("data")[0].get("fundingRate"))
+                    d[msid] = {}
+                    d[msid]["funding"] = funding
+                    if msid not in market_state:
+                        market_state[msid] = {}
                 market_state[msid]["funding"] = funding
         timestamp = self.process_timestamp_no_timestamp()
         d["timestamp"] = timestamp
+        print(d)
         return d
 
 class bingx_on_message(on_message_helper):
@@ -1272,7 +1275,38 @@ class gateio_on_message(on_message_helper):
             ddd[f"{instData.get('name')}@option@gateio"] = {"symbol" : instData.get("name"), "side" : side, "index_price" : index_price, "strike" : strike, "underlying_price" : index_price, "oi" : oi, "days_left" : days_left}
         return ddd
     
-    async def gateio_api_perpetual_future_oi_tta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_api_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        """
+            https://www.gate.io/docs/developers/apiv4/en/#futures-stats
+        """
+        ddd = {}
+        for instrument in data:
+            if isinstance(data.get(instrument)[0], dict):
+                if "open_interest_usd" in data.get(instrument)[0]:
+                    instrument_data = data.get(instrument)[0]
+                    if len(instrument.split("_")) == 2:
+                        price = instrument_data.get("mark_price")
+                        oi = instrument_data.get("open_interest_usd") / price
+                        msid = f"{instrument}@perpetual@gateio"
+                        ddd[msid] = {"price" : price, "oi" : oi}
+                        if msid not in market_state:
+                            market_state[msid] = {}
+                        market_state[msid].update(ddd[msid]) 
+                else:
+                    if "total_size" in data.get(instrument)[0]:
+                        instrument_data = data.get(instrument)[0]
+                        sdm = "_".join(instrument.split("_")[:-1])
+                        price = float(instrument_data.get("mark_price"))
+                        oi = float(instrument_data.get("total_size"))
+                        oi = self.gateio_derivate_multiplier.get("perpetual_future").get(sdm)(oi)
+                        msid = f"{instrument}@future@gateio"
+                        ddd[msid] = {"price" : price, "oi" : oi}
+                        if msid not in market_state:
+                            market_state[msid] = {}
+                        market_state[msid].update(ddd[msid])         
+        return ddd
+
+    async def gateio_api_perpetual_future_tta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
@@ -1280,28 +1314,18 @@ class gateio_on_message(on_message_helper):
         for instrument in data:
             if isinstance(data.get(instrument)[0], dict):
                 instrument_data = data.get(instrument)[0]
-                if len(instrument.split("_")) == 2:
-                    price = instrument_data.get("mark_price")
-                    oi = instrument_data.get("open_interest_usd") / price
-                    lsr_taker = instrument_data.get("lsr_taker") # Long/short taker size ratio
-                    lsr_account = instrument_data.get("lsr_account")   # Long/short account number ratio
-                    top_lsr_account = instrument_data.get("top_lsr_account") # Top trader long/short account ratio
-                    top_lsr_size = instrument_data.get("top_lsr_size")   #  	Top trader long/short position ratio
-                    symbol = instrument
-                    msid = f"{symbol}@perpetual@gateio"
-                    ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "oi" : oi, "price" : price}
-                    if msid not in market_state:
-                        market_state[msid] = {}
-                    market_state[msid].update(ddd[msid]) 
-                if len(instrument.split("_")) == 3:
-                    symbol = instrument_data.get("contract")
-                    price = float(instrument_data.get("mark_price"))
-                    oi = self.derivate_multiplier.get("_".join(symbol.split("_")[:-1]))(float(instrument_data.get("total_size")))
-                    msid = f"{symbol}@perpetual@gateio"
-                    ddd[msid] = {"price" : price, "oi" : oi}
-                    if msid not in market_state:
-                        market_state[msid] = {}
-                    market_state[msid].update(ddd[msid]) 
+                price = instrument_data.get("mark_price")
+                oi = instrument_data.get("open_interest_usd") / price
+                lsr_taker = instrument_data.get("lsr_taker") # Long/short taker size ratio
+                lsr_account = instrument_data.get("lsr_account")   # Long/short account number ratio
+                top_lsr_account = instrument_data.get("top_lsr_account") # Top trader long/short account ratio
+                top_lsr_size = instrument_data.get("top_lsr_size")   #  	Top trader long/short position ratio
+                symbol = instrument
+                msid = f"{symbol}@perpetual@gateio"
+                ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "price" : price}
+                if msid not in market_state:
+                    market_state[msid] = {}
+                market_state[msid].update(ddd[msid]) 
         return ddd
     
     async def gateio_api_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -1471,7 +1495,15 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
     
+import json
+import asyncio
+my_object = on_message() 
+data = json.load(open("/workspaces/fastmoonStreams/producers/mockdb/gateio/gateio_api_perpetual_tta_btc.json"))[0]
 
-my_object = on_message()  # Create an object
-attributes = vars(my_object)
-print(attributes)
+md = {}
+cd = {}
+async def sss():
+    d = await my_object.gateio_api_perpetual_future_tta(data, md, cd)  
+    print(d)
+
+asyncio.run(sss())

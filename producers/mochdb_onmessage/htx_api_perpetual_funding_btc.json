@@ -1,0 +1,42 @@
+[
+    {
+        "BTC-USD@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "BTC-USDT@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "timestamp": "2024-04-10 15:44:40",
+        "_doc": "e488e98b-7552-4ba6-b7fd-c88e3dc5fe4e"
+    },
+    {
+        "BTC-USD@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "BTC-USDT@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "timestamp": "2024-04-10 15:41:39",
+        "_doc": "f5e4d262-0574-426f-8cb0-646cce5cbfc7"
+    },
+    {
+        "BTC-USD@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "BTC-USDT@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "timestamp": "2024-04-10 15:39:49",
+        "_doc": "136e5194-e79b-464b-a15a-ac7f6be0311d"
+    },
+    {
+        "BTC-USD@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "BTC-USDT@perpetual@htx": {
+            "funding": 0.0001
+        },
+        "timestamp": "2024-04-10 15:38:19",
+        "_doc": "4ee2c7ce-1ab4-4726-a988-383d6e34389c"
+    }
+]

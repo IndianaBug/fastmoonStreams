@@ -1,0 +1,25 @@
+[
+    {
+        "BTCUSDT@perpetual@bitget": {
+            "oi": 86292.399
+        },
+        "BTCUSDM24@perpetual@bitget": {
+            "oi": 875.871
+        },
+        "BTCUSDU24@perpetual@bitget": {
+            "oi": 211.292
+        },
+        "BTCUSD@perpetual@bitget": {
+            "oi": 10463.142
+        },
+        "BTCPERP@perpetual@bitget": {
+            "oi": 179.3591
+        },
+        "timestamp": "2024-04-10 11:06:53",
+        "_doc": "fa6020ba-653f-46f3-af0a-c7762a4ef05c"
+    },
+    {
+        "timestamp": "2024-04-10 11:06:37",
+        "_doc": "ee0ac480-a634-4683-ba53-8117c79247de"
+    }
+]
