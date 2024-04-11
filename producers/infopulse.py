@@ -42,26 +42,22 @@ class requestHandler():
     async def simple_request_async(cls, url):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
-                response.raise_for_status()  # Raise an exception for error status codes
-                try:
-                    return await response.json()  # Assuming JSON for other content types
-                except:
-                    data = await response.text()
-                    return json.loads(data)
-
+                response.raise_for_status() 
+                return await response.read()
+    
     @classmethod
     async def request_with_headers_async(cls, url, headers, payload=""):
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers, data=payload) as response:
                 response.raise_for_status()
-                return await json.loads(r)
+                return await response
 
     @classmethod
     async def request_full_async(cls, url, headers, params, payload=""):
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers, params=params, data=payload) as response:
                 response.raise_for_status()
-                return await  json.loads(r)
+                return await response
 
 
     @classmethod
@@ -70,7 +66,7 @@ class requestHandler():
         conn.request("GET", basepoint, payload, headers)
         res = conn.getresponse()
         data = res.read()
-        return json.loads(data.decode("utf-8"))
+        return data.decode("utf-8")
     
 class bybitInfo(requestHandler):
     bybit_info_url = {
@@ -240,7 +236,6 @@ class binanceInfo(requestHandler):
         else:
             return info
 
-
     @classmethod
     async def binance_symbols_by_instType_async(cls, instType):
         """ 
@@ -283,10 +278,8 @@ class binanceInfo(requestHandler):
         """
         url = recursive_dict_access(cls.binance_info_url, instType)
         info = await cls.simple_request_async(url)
-        if instType != "option":
-            return info.get("symbols")
-        else:
-            return info
+        return info
+
 
 class okxInfo(requestHandler):
 
@@ -1120,9 +1113,3 @@ class gateioInfo(requestHandler):
                 d.append(data)
             return unnest_list(d) 
         
-
-# async def aaa():
-#     d = await gateioInfo.gateio_info_async("future.InverseFuture")
-#     print(d)
-
-# asyncio.run(aaa())

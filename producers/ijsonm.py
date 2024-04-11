@@ -54,7 +54,14 @@ async def process_chunk_in_executor(loop, chunk):
 
 json_data = '{"earth":{"europe":[{"name":"Paris","type":"city","info":1},{"name":"Thames","type":"river","info":1},{"name":"Thames","type":"river","info":1},{"name":"Thames","type":"city","info":1}],"america":[{"name":"Texas","type":"state","info":1}]}}'
 
+import ijson
 
+d = {}
+objects = ijson.items(data, 'item')
+open_interests = (o.get("sumOpenInterest") for o in objects)
+symbols = (o.get("symbol") for o in objects)
+for open_interest, symbol in zip(open_interests, symbols):
+    d[symbol] = {"openInterest" : open_interest}
 
 
 asyncio.run(main(json.dumps(data)))
