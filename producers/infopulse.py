@@ -3,7 +3,7 @@ import aiohttp
 import http
 import asyncio
 import time
-import json
+import rapidjson as json
 import re
 import ssl
 from cryptography.hazmat.primitives import serialization

@@ -5,7 +5,7 @@ import asyncio
 import websockets
 import time
 from datetime import datetime
-import json
+import rapidjson as json
 import re
 import ssl
 from cryptography.hazmat.primitives import serialization
@@ -38,6 +38,7 @@ from clientpoints.mexc import *
 from clientpoints.bingx import *
 
 from multicallx import *
+from asyncronious_utilis import *
 
 
 class CommunicationsManager:
@@ -50,7 +51,7 @@ class CommunicationsManager:
             response = requests.get(connection_data.get("url"), params=connection_data.get("params"), headers=connection_data.get("headers"))
             if response.status_code == 200:
                 try:
-                    return response.json() 
+                    return json.load(response)
                 except Exception as e:
                     print(e)
                     
@@ -69,7 +70,7 @@ class CommunicationsManager:
         headers = connection_data.get("headers")
         payload = connection_data.get("payload")
         response = requests.request("GET", url, headers=headers, data=payload)
-        return response.json() 
+        return json.load(response)
 
     @classmethod
     def make_httpRequest(cls, connection_data):
@@ -1863,73 +1864,6 @@ class htx(CommunicationsManager, htxInfo):
         return response
 
     @classmethod
-    async def htx_fetch_oi_helper(cls, instType, objective, underlying_asset, asset_specification, state_dictionary):
-        response = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
-        if isinstance(response, str):
-            response = json.loads(response)
-        state_dictionary[f"{underlying_asset}{asset_specification}"] = response
-
-    @classmethod
-    async def htx_fetch_oi_helper_2(cls, instType, objective, underlying_asset, asset_specification, state_dictionary, ctype):
-        response = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}", contract_type=ctype)
-        if isinstance(response, str):
-            response = json.loads(response)
-        state_dictionary[f"{underlying_asset}{asset_specification}"] = response
-
-    @classmethod
-    async def htx_oifutureperp(cls, underlying_asset):
-        ois = {}
-        tasks = []
-        tasks.append(cls.htx_fetch_oi_helper("perpetual", "oiall", underlying_asset, "-USDT.LinearPerpetual", ois))
-        tasks.append(cls.htx_fetch_oi_helper("perpetual", "oi", underlying_asset, "-USD", ois))
-        for ctype in inverse_future_contract_types_htx:
-            tasks.append(cls.htx_fetch_oi_helper_2("future", "oi", underlying_asset, ".InverseFuture", ois, ctype))
-        await asyncio.gather(*tasks)
-        return ois
-
-    @classmethod
-    async def htx_fetch_fundperp_helper(cls, instType, objective, underlying_asset, asset_specification, state_dictionary, marginCoinCoinCoin):
-        l = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
-        if isinstance(l, str):
-            l = json.loads(l)
-        state_dictionary[marginCoinCoinCoin] = l
-
-    @classmethod
-    async def htx_fundperp(cls, underlying_asset):
-        d = {}
-        tasks = []
-        tasks.append(cls.htx_fetch_fundperp_helper("perpetual", "funding", underlying_asset, "-USDT", d, "usdt"))
-        tasks.append(cls.htx_fetch_fundperp_helper("perpetual", "funding", underlying_asset, "-USD", d, "usd"))
-        await asyncio.gather(*tasks)
-        return d
-
-    @classmethod
-    async def htx_fetch_pos_helper(cls, instType, objective, underlying_asset, ltype, state_dictionary):
-        tta = await cls.htx_aiohttpFetch(instType, objective, f"{underlying_asset}-{ltype}")
-        if isinstance(tta, str):
-            tta = json.loads(tta)
-        state_dictionary[f"{underlying_asset}_{ltype}_{objective}"] = tta
-
-    @classmethod
-    async def htx_fetch_pos_helper_2(cls, instType, underlying_asset, obj, state_dictionary):
-        tta = await cls.htx_aiohttpFetch(instType, obj, f"{underlying_asset}.InverseFuture")
-        if isinstance(tta, str):
-            tta = json.loads(tta)
-        state_dictionary[f"{underlying_asset}_InverseFuture_tta"] = tta
-
-    @classmethod
-    async def htx_posfutureperp(cls, underlying_asset):
-        pos = {}
-        tasks = []
-        for ltype in ["USDT", "USD", "USDT-FUTURES"]:
-            for obj in ["tta", "ttp"]:
-                tasks.append(cls.htx_fetch_pos_helper("perpetual", obj, underlying_asset, ltype, pos))
-        for obj in ["tta", "ttp"]:
-            tasks.append(cls.htx_fetch_pos_helper_2("future", underlying_asset, obj, pos))
-        await asyncio.gather(*tasks)
-        return pos
-
-    @classmethod
     def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, contract_type=None, **kwargs):
         """
             insType : perpetual, spot, future
@@ -1940,15 +1874,6 @@ class htx(CommunicationsManager, htxInfo):
         """
         # connectionData = cls.htx_buildRequest(instType, objective, symbol, **kwargs)
         symbol_name = htx_symbol_name(symbol)
-        
-        if special_method == "oifutureperp":
-            call = partial(cls.htx_oifutureperp, symbol)
-        elif special_method == "posfutureperp":
-            call = partial(cls.htx_posfutureperp, symbol)
-        elif special_method == "fundperp":
-            call = partial(cls.htx_fundperp, symbol)
-        else:
-            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol, contract_type=contract_type)
 
         data =  {
                 "type" : "api",
@@ -1958,10 +1883,25 @@ class htx(CommunicationsManager, htxInfo):
                 "instType": instType,
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
-                "aiohttpMethod" : call,
+                "aiohttpMethod" : "",
                 "exchange_symbols" : symbol[0],
                 }
-        
+
+        if special_method == "oifutureperp":
+            data["api_call_manager"] = htx_aiohttp_oifutureperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
+            data["is_special"] = "oifutureperp"
+            data["is_still_nested"] = True
+        elif special_method == "fundperp":
+            data["api_call_manager"] = htx_aiohttp_fundperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
+            data["is_still_nested"] = True
+            data["is_special"] = "fundperp"
+        elif special_method == "posfutureperp":
+            data["api_call_manager"] = htx_aiohttp_posfutureperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
+            data["is_still_nested"] = True
+            data["is_special"] = "posfutureperp"
+        else:
+            call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol, contract_type=contract_type)
+            data["aiohttpMethod"] = call
         return data
 
     @classmethod
@@ -2001,7 +1941,7 @@ class htx(CommunicationsManager, htxInfo):
         return message, instType, marginType, url, symbol
 
     @classmethod    
-    def htx_build_ws_connectionData(cls, instType, objective, symbol, needSnap=True, snaplimit=None, **kwargs):
+    def htx_build_ws_connectionData(cls, instType, objective, symbols, needSnap=True, snaplimit=None, **kwargs):
         """
             objectives : trades, depth ,liquidations, funding
             instType : spot, future, perpetual
