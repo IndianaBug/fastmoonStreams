@@ -1,6 +1,6 @@
 from bridge import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 from WSConnectionManager import producer
-import json
+import rapidjson as json
 import asyncio
 
 # binance_get_marginType(instType, symbol)
@@ -100,23 +100,23 @@ ws = {
 }
 
 api = {
-    # "binance" : [
-    #     "perpetual.funding.BTC.30.spec", 
-    #     "perpetual.oi.BTC.20.spec", 
-    #     "perpetual.gta.BTC.30.spec",
-    #     "option.oi.BTC.30.spec",
-    #     ],
-    # "bybit" : [
-    #     "perpetual.funding.BTC.30.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.30.spec",
-    #     "option.oioption.BTC.15"
-    #     ],
+    "binance" : [
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
+        "option.oi.BTC.15.spec",
+        ],
+    "bybit" : [
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
+        "option.oioption.BTC.60"
+        ],
     "okx" : [
-        # "perpetual.oi.BTC.15.spec", 
-        # "perpetual.funding.BTC.15.spec", 
-        # "perpetual.gta.BTC.15",
-        # "option.oi.BTC-USD.15",
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.gta.BTC.15",
+        "option.oi.BTC-USD.15",
         ],
     # "deribit" : [
     #     "future.oifunding.BTC.15",  
@@ -143,19 +143,19 @@ api = {
     # "mexc" : [
     #     "perpetual.oifunding.BTC_USDT.15",
     #     ],
-    "htx" : [
-        "perpetual.oi.BTC.60.spec", 
-        "perpetual.funding.BTC.60.spec", 
-        "perpetual.gta.BTC.60.spec",
-        ],
+    # "htx" : [
+    #     "perpetual.oi.BTC.20.spec", 
+    #     "perpetual.funding.BTC.60.spec", 
+    #     "perpetual.gta.BTC.60.spec",
+    #     ],
 }
 
 
 connectionData = client.build_connection_data(ws, api)
 
-for e in connectionData:
-    print("----")
-    print(e)
+# for e in connectionData:
+#     print("----")
+#     print(e)
 
 # async def rr():
 #     data = await connectionData[0]["1stBooksSnapMethod"]()

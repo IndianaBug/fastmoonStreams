@@ -12,6 +12,26 @@ okx_api_instType_map = {
                         "margin" : "MARGIN"
                     }
 
+def create_minimal_query(ccy, period="1H"):
+    current_time = int(round(time.time() * 100))
+    if period == "5m":
+        max_begin = current_time - (2 * 24 * 60 * 60) * 100  # Limit: 2 days
+    elif period == "1H":
+        max_begin = current_time - (30 * 24 * 60 * 60) * 100  # Limit: 30 days
+    elif period == "1D":
+        max_begin = current_time - (180 * 24 * 60 * 60) * 100  # Limit: 180 days
+    else:
+        raise ValueError(f"Invalid period: {period}")
+    begin = min(current_time - 1200 * 100, max_begin)
+
+    return {
+        "ccy": ccy,
+        "begin": begin,
+        "end": current_time,
+        "period": period
+    }
+
+
 okx_api_basepoints = {
                         "gta" : "/api/v5/rubik/stat/contracts/long-short-account-ratio", 
                         "oitotal" : "/api/v5/rubik/stat/contracts/open-interest-volume",
@@ -21,7 +41,7 @@ okx_api_basepoints = {
                     }
 
 okx_api_params_map = {
-                        "gta" : lambda ccy: {"ccy" : ccy,  "period" : "5m"},
+                        "gta" : lambda ccy: {"ccy" : ccy},# "begin" : str(int(round((time.time()-610)*100))), "end" : str(int(round(time.time()*100)))},
                         "oitotal" : lambda ccy: {"ccy" : ccy, "period" : "5m"},   
                         "oi" : lambda instType, instFamily: {"instType" : instType, "instFamily" : instFamily},   
                         "funding" : lambda instId: {"instId" : instId},

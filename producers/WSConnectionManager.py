@@ -1,10 +1,9 @@
 import asyncio
 import websockets
-import json
 import time
 import websockets
 import ssl
-import json
+import rapidjson as json
 from utilis import MockCouchDB
 import zlib
 import re
@@ -447,11 +446,16 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -462,7 +466,7 @@ class producer(keepalive):
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(message, connection_data, on_message_method_ws)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -473,11 +477,16 @@ class producer(keepalive):
         """
             producer and topic are reserved for kafka integration
         """
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
 
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -488,7 +497,7 @@ class producer(keepalive):
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(message, connection_data, on_message_method_ws)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -500,13 +509,16 @@ class producer(keepalive):
             types : production, heartbeats
             producer and topic are reserved for kafka integration
         """
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
 
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, self.deribit_depths.get(connection_data.get("id_api_2")))
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, self.deribit_depths.get(connection_data.get("id_api_2")))
-            del self.deribit_depths[connection_data.get("id_api_2")]
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
 
         if connection_data.get("objective") == "heartbeats":
             async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
@@ -536,7 +548,7 @@ class producer(keepalive):
                     try:
                         message = await websocket.recv()
                         if self.mode == "production":
-                            await self.insert_into_database(connection_data, message)
+                            await self.insert_into_database(message, connection_data, on_message_method_ws)
                         if self.mode == "testing":
                             self.get_latency(connection_data, message)
                     except websockets.ConnectionClosed:
@@ -755,6 +767,7 @@ class producer(keepalive):
                     break
 
     async def aiohttp_socket(self, connection_data, producer=None, topic=None):
+        asyncio.sleep(2)
         on_message_method_api = connection_data.get("on_message_method_api")
         while True:
             message = await connection_data.get("aiohttpMethod")()
@@ -768,6 +781,14 @@ class producer(keepalive):
             await self.insert_into_database_3(message, connection_data, on_message_method_api)
             time.sleep(connection_data.get("pullTimeout"))
 
+    async def delay_task(self, task, delay):
+        async def delayed_task():
+            # Optional logging for debugging
+            # logging.info(f"Task {task.__name__} starting delay...")
+            await asyncio.sleep(delay)
+            return await task()
+
+
     async def run_producer(self):
         tasks = []
         for connection_dict in self.connection_data:
@@ -779,12 +800,28 @@ class producer(keepalive):
                 if connection_dict.get("symbol_update_task") is True:
                     on_message_method_api = connection_dict.get("on_message_method_api")
                     connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols()))
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3)))
+                    await asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(1))
+                    await asyncio.sleep(1)
+                    # tasks.append(self.delay_task(task, 10))
+                    # tasks.append(asyncio.create_task(self.delay_task(task, 1000)))
+                    # tasks.append(task)
+                    await asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 1))
+                    await asyncio.sleep(1)
+                    # tasks.append(self.delay_task(task_2, 10))
+                    # tasks.append(asyncio.create_task(self.delay_task(task_2, 1000)))
+                    # tasks.append(task_2)
+                elif connection_dict.get("is_still_nested") is True:
+                    on_message_method_api = connection_dict.get("on_message_method_api")
+                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                    await asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 1))
+                    await asyncio.sleep(1)
+                    # tasks.append(self.delay_task(task_2, 10))
+                    # tasks.append(asyncio.create_task(self.delay_task(task, 1000)))
+                    # tasks.append(task)
                 else:
                     tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
         # try:
-        await asyncio.gather(*tasks)
+        # await asyncio.gather(*tasks)
         # except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
         #     if self.mode == "testing":
         #         print(f"WebSocket connection interrupted: {e}")

@@ -1,0 +1,12 @@
+[
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-04-10 22:52:04",
+    "_doc": "8ddef6e1-0192-469a-92e6-3b09675c5174"
+  }
+]

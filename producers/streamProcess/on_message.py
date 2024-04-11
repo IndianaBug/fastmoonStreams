@@ -1495,15 +1495,15 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
     
-import json
-import asyncio
-my_object = on_message() 
-data = json.load(open("/workspaces/fastmoonStreams/producers/mockdb/gateio/gateio_api_perpetual_tta_btc.json"))[0]
+# import json
+# import asyncio
+# my_object = on_message() 
+# data = json.load(open("/workspaces/fastmoonStreams/producers/mockdb/gateio/gateio_api_perpetual_tta_btc.json"))[0]
 
-md = {}
-cd = {}
-async def sss():
-    d = await my_object.gateio_api_perpetual_future_tta(data, md, cd)  
-    print(d)
+# md = {}
+# cd = {}
+# async def sss():
+#     d = await my_object.gateio_api_perpetual_future_tta(data, md, cd)  
+#     print(d)
 
-asyncio.run(sss())
+# asyncio.run(sss())

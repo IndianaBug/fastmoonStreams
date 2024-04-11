@@ -1,6 +1,6 @@
 import websockets
 import ssl
-import json
+import rapidjson as json
 import os
 import random
 import string
@@ -99,7 +99,7 @@ def filter_nested_dict(nested_dict, condition):
             nested_dict[key] = [item for item in value if condition(item)]
     return nested_dict
 
-import json
+import rapidjson as json
 import aiofiles
 import uuid
 import os
@@ -114,9 +114,7 @@ class MockCouchDB:
 
     async def save(self, data, market_state, connection_data, on_message:callable):
         print(data)
-        if isinstance(data, dict):
-            pass
-        elif isinstance(data, str):
+        if isinstance(data, str):
             data = json.loads(data)
         elif isinstance(data, bytes):
             try:
