@@ -16,25 +16,26 @@ import hmac
 from hashlib import sha256 
 from utilis import iterate_dict, unnest_list, recursive_dict_access
 import re
+import rapidjson as json
 
 class requestHandler():
 
     @classmethod
     def simple_request(cls, url):
         r = requests.get(url)
-        r = r.json()
+        r = json.loads(r)
         return r
 
     @classmethod
     def request_with_headers(cls, url, headers, payload=""):
         r = requests.get(url, headers=headers, payload=payload)
-        r = r.json()
+        r = json.loads(r)
         return r
 
     @classmethod
     def request_full(cls, url, headers, params, payload=""):
         r = requests.get(url, headers=headers, params=params)
-        r = r.json()
+        r = json.loads(r)
         return r
 
     @classmethod
@@ -53,14 +54,14 @@ class requestHandler():
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers, data=payload) as response:
                 response.raise_for_status()
-                return await response.json()
+                return await json.loads(r)
 
     @classmethod
     async def request_full_async(cls, url, headers, params, payload=""):
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers, params=params, data=payload) as response:
                 response.raise_for_status()
-                return await response.json()
+                return await  json.loads(r)
 
 
     @classmethod
