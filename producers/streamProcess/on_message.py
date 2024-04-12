@@ -9,6 +9,7 @@ from utilis_streamProcess import *
 from typing import Literal, Dict, Any
 from typing import Dict, List, Tuple, Union, Literal, Callable
 from typing import List, Dict, Union, Optional, Literal
+import ijson
 
 
 class on_message_helper():
@@ -189,28 +190,34 @@ class binance_on_message(on_message_helper):
         l["timestamp"] = self.process_timestamp_no_timestamp()
         return l
 
-    async def binance_api_oioption_oi_option(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_oioption_oi_option(self, data:list, market_state:dict, connection_data:dict, *args, **kwargs):
         """
             https://www.binance.com/en/support/faq/binance-options-contract-specifications-cdee5d43b70d4d2386980d41786a8533
         """
-        data = [d for l in data.values() for d in l if isinstance(d, dict)]
-        ddd = {}
-        for instData in data:
-            symbol_list = instData.get("symbol").split("-")
-            symbol = symbol_list[0]
-            oi = float(instData.get("sumOpenInterest"))
-            strike = float(symbol_list[2])
-            days_left = binance_option_timedelta(symbol_list[1])
-            if float(days_left) >= 0 and oi > 0:
-                side = symbol_list[-1]
-                index_price = market_state.get(f"{symbol}USDT@spot@binance")
-                msid = f"{instData.get('symbol')}@option@binance"
-                option_data = {"symbol" : instData.get("symbol"),
-                                                        "side" :  side, "index_price" : index_price, 
-                                                        "strike" : strike, "underlying_price" : index_price, "oi" : oi, "days_left" : days_left}
-                ddd[msid] = option_data
-        ddd["timestamp"] = self.process_timestamp_no_timestamp()
-        return ddd
+        msids = []
+        symbols = []
+        strikes = []
+        days_left = []
+        ois = []
+        for l in data:
+            for prefix, event, value in ijson.parse(l):
+                if prefix == "item.symbol":
+                    option_data = value.split("-")
+                    msids.append(f"{value}@option@binance")
+                    symbols.append(value)
+                    strikes.append(float(option_data[2]))
+                    days_left.append(binance_option_timedelta(option_data[1]))
+                if prefix == "item.sumOpenInterest":
+                    ois.append(float(value))
+        instruments_data = {x : {} for x in msids}
+        for i, msid in enumerate(msids):
+            instruments_data[msid] = {
+                "symbol": symbols[i],
+                "strike": strikes[i],
+                "days_left": days_left[i],
+                "oi": ois[i],
+            }
+        return instruments_data
         
     async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
 

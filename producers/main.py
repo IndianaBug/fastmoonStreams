@@ -101,23 +101,23 @@ ws = {
 
 api = {
     "binance" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
+        # "perpetual.funding.BTC.15.spec", 
+        # "perpetual.oi.BTC.15.spec", 
+        # "perpetual.gta.BTC.15.spec",
         "option.oi.BTC.15.spec",
         ],
-    "bybit" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
-        "option.oioption.BTC.60"
-        ],
-    "okx" : [
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.gta.BTC.15",
-        "option.oi.BTC-USD.15",
-        ],
+    # "bybit" : [
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15.spec",
+    #     "option.oioption.BTC.60"
+    #     ],
+    # "okx" : [
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15",
+    #     "option.oi.BTC-USD.15",
+    #     ],
     # "deribit" : [
     #     "future.oifunding.BTC.15",  
     #     "option.oifunding.BTC.15",
@@ -153,14 +153,10 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-# for e in connectionData:
-#     print("----")
-#     print(e)
+for e in connectionData:
+    print("----")
+    print(e)
 
-# async def rr():
-#     data = await connectionData[0]["1stBooksSnapMethod"]()
-#     print(data)
-# asyncio.run(rr())
 
 __name__ = "__main__"
 

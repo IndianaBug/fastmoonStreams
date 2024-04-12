@@ -113,16 +113,6 @@ class MockCouchDB:
 
 
     async def save(self, data, market_state, connection_data, on_message:callable):
-        print(data)
-        if isinstance(data, str):
-            data = json.loads(data)
-        elif isinstance(data, bytes):
-            try:
-                data = json.loads(gzip.decompress(data).decode('utf-8'))
-            except:
-                return
-        if isinstance(data, list):
-            data = {"list" : data}
         try:
             data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
         except Exception as e:
@@ -158,6 +148,38 @@ def standarize_marginType(instType, marginType):
             return "linear"
     else:
         return instType
+    
+class DynamicFixedSizeList_binanceOptionOI:
+    def __init__(self, initial_expiries, initial_max_size):
+        """
+        Initializes the list with the specified initial_max_size.
+        """
+        self.expiries = initial_expiries
+        self.max_size = initial_max_size
+        self.data = []
+
+    def update_expiries(self, expiries):
+        self.expiries = expiries
+
+    def append(self, item):
+        self.set_max_size(len(self.expiries))
+        if len(self.data) == self.max_size:
+            self.data.pop(0)  
+        self.data.append(item)
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __setitem__(self, index, value):
+        self.data[index] = value
+
+    def set_max_size(self, new_max_size):
+        if new_max_size < len(self.data):
+            self.data = self.data[-new_max_size:]  
+        self.max_size = new_max_size
 
 
 # data_handler = MockCouchDB("large_database.json", "mochdb")

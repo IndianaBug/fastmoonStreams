@@ -1,7 +1,7 @@
 import asyncio
 import rapidjson as json
 import re
-from utilis import unnest_list
+from utilis import unnest_list, DynamicFixedSizeList_binanceOptionOI
 from functools import partial
 
 from clientpoints.binance import binance_instType_help
@@ -10,8 +10,6 @@ from clientpoints.binance import binance_instType_help
     
 class binance_aoihttp_oioption_manager():
 
-    from parsers import binance_option_join_list
-
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
@@ -19,13 +17,14 @@ class binance_aoihttp_oioption_manager():
         self.get_expiries = binance_get_option_expiries_method
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
-        self.data = {}
+        self.container = DynamicFixedSizeList_binanceOptionOI([1, 2, 3], 10) #only for initialization
         self.pullTimeout = 1
 
     async def get_binance_instruments(self):
         try:
             expiries = await self.get_expiries(self.underlying_asset)
             self.expiries = expiries
+            self.container.update_expiries(self.expiries)
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
@@ -41,12 +40,12 @@ class binance_aoihttp_oioption_manager():
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            await insert_method(self.container.data, connection_data, on_message_method_api)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, symbol, expiration, special_method):
         data = await self.fetcher("option", "oi", symbol=symbol, specialParam=expiration,  special_method=special_method)
-        self.data[expiration] = data
+        self.container.append(data)
 
     async def aiomethod(self):
         """
@@ -59,12 +58,17 @@ class binance_aoihttp_oioption_manager():
         await asyncio.gather(*tasks) 
     
 class binance_aoihttp_posfutureperp_manager():
+    """
+        I after examining instruments related to BTC, ETHBTC instrument was present but its not suppoused to be. 
+        So info API has some mistakes on binance side and it was fixed by filtering all of the symbols that doesnt contain USD
+    """
 
-    def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
+    def __init__ (self, underlying_asset, info_linear:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
-        self.symbols = []
-        self.info = info
+        self.linear_symbols = []
+        self.inverse_symbol = underlying_asset + "USD"
+        self.info_linear_method = info_linear
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
         self.data = {}
@@ -72,8 +76,8 @@ class binance_aoihttp_posfutureperp_manager():
 
     async def get_binance_instruments(self):
         try:
-            self.symbols = await self.info("perpetual.LinearPerpetual")
-            self.symbols = [x.get("symbol") for x in self.symbols if self.underlying_asset in x.get("symbol") and "USD" in  x.get("symbol")]
+            self.symbols = await self.info_linear_method(self.underlying_asset)
+            self.symbols = [x.get("symbol") for x in self.symbols if self.underlying_asset in x.get("symbol") and "USD" in  x.get("symbol")] 
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
@@ -94,14 +98,10 @@ class binance_aoihttp_posfutureperp_manager():
 
     async def helper_1(self, instType, objective, symbol):
         data = await self.fetcher(instType, objective, symbol=symbol, special_method="posfutureperp")
-        if isinstance(data, str):
-            data = json.loads(data)
         self.data[f"{symbol}_{objective}"] = data
 
     async def helper_2(self, instType, objective, coinm_symbol):
         data = await self.fetcher(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-        if isinstance(data, str):
-            data = json.loads(data)
         self.data[coinm_symbol+f"coinmAgg_{objective}"] = data
 
     async def aiomethod(self):
@@ -112,10 +112,10 @@ class binance_aoihttp_posfutureperp_manager():
                 marginType = binance_instType_help(symbol)
                 symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
                 tasks.append(self.helper_1(instType, objective, symbol))
-        coinm_symbol = self.underlying_asset + "USD"
         for objective in ["tta", "ttp", "gta"]:
-            tasks.append(self.helper_2("perpetual", objective, coinm_symbol))
-        await asyncio.gather(*tasks)  
+            tasks.append(self.helper_2("perpetual", objective, self.inverse_symbol))
+        await asyncio.gather(*tasks) 
+        print(self.data) 
 
 class binance_aoihttp_oifutureperp_manager():
 
@@ -924,3 +924,4 @@ class htx_aiohttp_posfutureperp_manager():
         for obj in ["tta", "ttp"]:
             tasks.append(self.htx_fetch_pos_helper_2("future", self.underlying_asset, obj, self.data))
         await asyncio.gather(*tasks)
+

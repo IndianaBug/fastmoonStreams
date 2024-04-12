@@ -38,7 +38,6 @@ from clientpoints.mexc import *
 from clientpoints.bingx import *
 
 from multicallx import *
-from asyncronious_utilis import *
 
 
 class CommunicationsManager:
@@ -240,7 +239,6 @@ class binance(CommunicationsManager, binanceInfo):
 
         elif special_method == "posfutureperp":
             data["api_call_manager"] = binance_aoihttp_posfutureperp_manager(symbol, 
-                                                                             binanceInfo.binance_get_inverse_instruments_by_underlying, 
                                                                              binanceInfo.binance_get_linear_instruments_by_underlying,
                                                                              cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
@@ -2232,36 +2230,10 @@ class gateio(CommunicationsManager, gateioInfo):
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
-def join_fetched_api_lists(lists):
-    to_return = []
-    for index, data in enumerate(lists):
-        if index == 0:
-            to_return.append(data[:-1].replace("'", '"'))
-        elif index == len(lists)-1:
-            to_return.append(data[1:].replace("'", '"'))
-        else:
-            to_return.append(data[1:-1].replace("'", '"'))
-    return ",".join(to_return)
 
-def binance_option_join_list(lists):
-    to_return = []
-    for index, data in enumerate(lists):
-        if index == 0:
-            to_return.append(data[:-1].replace("'", '"'))
-        elif index == len(lists)-1:
-            to_return.append(data[1:].replace("'", '"'))
-        else:
-            to_return.append(data[1:-1].replace("'", '"'))
-    return ",".join(to_return)
 
-async def main():
-    result_1 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240419")
-    result_2 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240413")
-    result_3 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240426")
-    l = [result_1, result_2, result_3]
-    data = join_fetched_api_lists(l)
-    data = json.loads(data)[0]
-    print(data)
-
-asyncio.run(main())    
-    
+cd = binance.binance_build_api_connectionData("perpetual", "gta", "BTC", 15, special_method="posfutureperp")
+cd = cd.get("api_call_manager")
+asyncio.run(cd.get_binance_instruments())
+asyncio.run(cd.aiomethod())
+print(cd.container.data)

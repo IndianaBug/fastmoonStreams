@@ -235,7 +235,16 @@ class binanceInfo(requestHandler):
             return info.get("symbols")
         else:
             return info
-
+    
+    @classmethod
+    async def binance_get_option_instruments_by_underlying(cls, underlying_asset):
+        symbols = []
+        data = await cls.binance_info_async("option")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "optionSymbols.item.symbol":
+                symbols.append(value)
+        symbols = list(set([s.split("-")[1] for s in symbols if underlying_asset in s]))
+        return symbols
 
     @classmethod
     async def binance_get_inverse_instruments_by_underlying(cls, underlying_asset):

@@ -2,17 +2,18 @@ import ijson
 from infopulse import binanceInfo
 import asyncio
 
-def json_binance_info_spot_parse(data):
+def binance_get_option_instruments_by_underlying(data, underlying_asset):
     symbols = []
-    objects = ijson.items(data, 'item')
-    symbols = (o.get("symbol") for o in objects)
-    for symbol in symbols:
-        print(symbol)
-
+    for prefix, event, value in ijson.parse(data):
+        if prefix == "optionSymbols.item.symbol":
+            symbols.append(value)
+    symbols = list(set([s.split("-")[1] for s in symbols if underlying_asset in s]))
+    return symbols
+        
 async def aaa():
-    d = await binanceInfo.binance_info_async("spot")
-    # data = json_binance_info_spot_parse(d)
-    print(d[0])
+    d = await binanceInfo.binance_info_async("option")
+    data = binance_get_option_instruments_by_underlying(d, "BTC")
+    print(data)
 
 asyncio.run(aaa())
 
