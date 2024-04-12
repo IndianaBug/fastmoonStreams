@@ -1,22 +1,21 @@
 import requests
 import aiohttp
 import http
-import asyncio
 import time
 import rapidjson as json
 import re
-import ssl
 from cryptography.hazmat.primitives import serialization
 import jwt
 import secrets
-import urllib.parse
-import base64
-import hashlib
 import hmac
 from hashlib import sha256 
 from utilis import iterate_dict, unnest_list, recursive_dict_access
 import re
 import rapidjson as json
+import aiohttp.streams
+import ijson
+import io
+from datetime import datetime
 
 class requestHandler():
 
@@ -39,12 +38,13 @@ class requestHandler():
         return r
 
     @classmethod
-    async def simple_request_async(cls, url):
+    async def simple_request_async(cls, url, json_parser:callable=None):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
-                response.raise_for_status() 
-                return await response.read()
-    
+                response.raise_for_status()  
+                response = await response.text()
+                return response
+
     @classmethod
     async def request_with_headers_async(cls, url, headers, payload=""):
         async with aiohttp.ClientSession() as session:
@@ -236,40 +236,24 @@ class binanceInfo(requestHandler):
         else:
             return info
 
+
     @classmethod
-    async def binance_symbols_by_instType_async(cls, instType):
-        """ 
-            spot, perpetual, future, option
-        """
-        links = iterate_dict(cls.binance_info_url.get(instType))
-        d = []
-        for url in links:
-            try:
-                data = await cls.simple_request_async(url)
-                data = data.get("symbols")
-                symbols = [d["symbol"] for d in data]
-                d.append(symbols)
-            except:
-                data = await cls.simple_request_async(url)
-                symbols = [d["symbol"] for d in data["optionSymbols"]]
-                d.append(symbols)
-        d = unnest_list(d)
-        if instType == "future":
-            d = [symbol for symbol in d if re.search(r'_[0-9]+', symbol)]
-        if instType == "perpetual":
-            d = [symbol for symbol in d if not re.search(r'_[0-9]+', symbol)]
-        return d
-    
+    async def binance_get_inverse_instruments_by_underlying(cls, underlying_asset):
+        symbols = []
+        data = await cls.binance_info_async("perpetual.InversePerpetual")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == 'symbols.item.symbol' and underlying_asset in value:
+                symbols.append(value)
+        return symbols
+
     @classmethod
-    async def binance_symbols_async(cls) -> dict:
-        """
-            spot, perpetual, future, option
-        """
-        di = {}
-        for isntType in cls.binance_info_url.keys():
-            data = await cls.binance_symbols_by_instType_async(isntType)
-            di[isntType] = data
-        return di
+    async def binance_get_linear_instruments_by_underlying(cls, underlying_asset):
+        symbols = []
+        data = await cls.binance_info_async("perpetual.LinearPerpetual")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == 'symbols.item.symbol' and underlying_asset in value:
+                symbols.append(value)
+        return symbols
     
     @classmethod
     async def binance_info_async(cls, instType):

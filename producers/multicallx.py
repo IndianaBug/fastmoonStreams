@@ -10,6 +10,8 @@ from clientpoints.binance import binance_instType_help
     
 class binance_aoihttp_oioption_manager():
 
+    from parsers import binance_option_join_list
+
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
@@ -44,9 +46,7 @@ class binance_aoihttp_oioption_manager():
 
     async def helper(self, symbol, expiration, special_method):
         data = await self.fetcher("option", "oi", symbol=symbol, specialParam=expiration,  special_method=special_method)
-        if isinstance(data, str):
-            data = json.loads(data)
-        self.data[expiration] = unnest_list(data)
+        self.data[expiration] = data
 
     async def aiomethod(self):
         """
