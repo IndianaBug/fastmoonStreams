@@ -101,23 +101,23 @@ ws = {
 
 api = {
     "binance" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
+        # "perpetual.funding.BTC.15.spec", 
+        # "perpetual.oi.BTC.15.spec", 
+        # "perpetual.gta.BTC.15.spec",
         "option.oi.BTC.15.spec",
         ],
-    "bybit" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
-        "option.oioption.BTC.60"
-        ],
-    "okx" : [
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.gta.BTC.15",
-        "option.oi.BTC-USD.15",
-        ],
+    # "bybit" : [
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15.spec",
+        # "option.oioption.BTC.60"
+    #     ],
+    # "okx" : [
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.funding.BTC.15.spec", 
+        # "perpetual.gta.BTC.15",
+        # "option.oi.BTC-USD.15",
+        # ],
     # "deribit" : [
     #     "future.oifunding.BTC.15",  
     #     "option.oifunding.BTC.15",
@@ -129,8 +129,8 @@ api = {
     # "bingx" : [
     #     "perpetual.funding.BTC-USDT.30", 
     #     "perpetual.oi.BTC-USDT.30",  
-    #     "perpetual.depth.BTC-USDT.30",  
-    #     ],
+        # "perpetual.depth.BTC-USDT.30",  
+        # ],
     # "kucoin" : [
     #     "perpetual.oifunding.XBTUSDTM.15",
     #     ],

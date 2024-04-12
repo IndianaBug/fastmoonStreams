@@ -800,31 +800,30 @@ class producer(keepalive):
                 if connection_dict.get("symbol_update_task") is True:
                     on_message_method_api = connection_dict.get("on_message_method_api")
                     connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    await asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(1))
-                    await asyncio.sleep(1)
-                    # tasks.append(self.delay_task(task, 10))
-                    # tasks.append(asyncio.create_task(self.delay_task(task, 1000)))
-                    # tasks.append(task)
-                    await asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 1))
-                    await asyncio.sleep(1)
-                    # tasks.append(self.delay_task(task_2, 10))
-                    # tasks.append(asyncio.create_task(self.delay_task(task_2, 1000)))
-                    # tasks.append(task_2)
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 0)))
                 elif connection_dict.get("is_still_nested") is True:
                     on_message_method_api = connection_dict.get("on_message_method_api")
                     connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    await asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 1))
-                    await asyncio.sleep(1)
-                    # tasks.append(self.delay_task(task_2, 10))
-                    # tasks.append(asyncio.create_task(self.delay_task(task, 1000)))
-                    # tasks.append(task)
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 0)))
                 else:
                     tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
         # try:
-        # await asyncio.gather(*tasks)
+        await asyncio.gather(*tasks)
         # except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
         #     if self.mode == "testing":
         #         print(f"WebSocket connection interrupted: {e}")
         #         self.onInterrupt_write_to_json()
         # except:
         #     pass
+
+
+# async def delayed_task(task, delay):
+#     await asyncio.sleep(delay)
+#     await initialize_task(task)
+
+# async def main():
+#     delays = range(len(task_list))  # Create delays for each task
+#     await asyncio.gather(*(delayed_task(task, delay) for task, delay in zip(task_list, delays)))
+
+# asyncio.run(main())

@@ -188,17 +188,6 @@ class binance(CommunicationsManager, binanceInfo):
         connection_data = cls.binance_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest(connection_data)
         return response   
-    
-    @classmethod
-    async def binance_get_option_expiries(cls, symbol):
-        """
-            Looks for unexpired onption
-        """
-        data = await cls.binance_info_async("option")
-        data = data.get("optionSymbols")
-        symbols = [x["symbol"] for x in data if symbol.upper() in x["symbol"].upper() and  datetime.fromtimestamp(int(x["expiryDate"]) / 1000) > datetime.now()]
-        expirations = list(set([x.split("-")[1] for x in symbols]))
-        return expirations
 
     @classmethod
     async def binance_perpfut_instruments(cls, underlying_instrument):
@@ -208,99 +197,6 @@ class binance(CommunicationsManager, binanceInfo):
             all_info.append([x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")])
         all_info = unnest_list(all_info)
         return all_info 
-
-    @classmethod
-    async def binance_build_oifutureperp_method(cls, underlying_asset):
-        """
-            BTC, ETH ...
-        """
-        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            async def fetch_oi_binance_yeye(instType, symbol):
-                data = await cls.binance_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[f"{symbol}_{instType}"] = data
-            tasks.append(fetch_oi_binance_yeye(instType, symbol))    
-        await asyncio.gather(*tasks)
-        return full
-    
-    @classmethod
-    async def binance_build_fundfutureperp_method(cls, underlying_asset):
-        """
-            BTC, ETH ...
-        """
-        symbols =  await cls.binance_perpfut_instruments(underlying_asset)
-        # symbols = asyncio.ensure_future(cls.binance_perpfut_instruments(underlying_asset))
-        # done, pending = await asyncio.wait([symbols], timeout=2)
-
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            if not bool(re.search(r'\d', symbol.split("_")[-1])):
-                async def fetch_fund_binance_yeye(instType, symbol):
-                    data = await cls.binance_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full[f"{symbol}_{instType}"] = data
-                tasks.append(fetch_fund_binance_yeye(instType, symbol))
-        await asyncio.gather(*tasks)    
-        return full
-
-    @classmethod
-    async def binance_build_posfutureperp_method(cls, underlying_instrument, latency=0):
-        """
-            BTC, ETH ...
-            latency : seconds to wait before api call
-        """
-        symbols = await binance.binance_info_async("perpetual.LinearPerpetual")
-        symbols = [x.get("symbol") for x in symbols if underlying_instrument in x.get("symbol") and "USD" in  x.get("symbol")]
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-            for objective in ["tta", "ttp", "gta"]:
-                marginType = binance_instType_help(symbol)
-                symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
-                async def pos_one_method(instType, objective, symbol):
-                    data = await cls.binance_aiohttpFetch(instType, objective, symbol=symbol, special_method="posfutureperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full[f"{symbol}_{objective}"] = data
-                    time.sleep(latency)
-                tasks.append(pos_one_method(instType, objective, symbol))
-        coinm_symbol = underlying_instrument+"USD"
-        for objective in ["tta", "ttp", "gta"]:
-            async def pos_two_method(instType, objective, coinm_symbol):
-                data = await cls.binance_aiohttpFetch(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[coinm_symbol+f"coinmAgg_{objective}"] = data
-            tasks.append(pos_two_method(instType, objective, coinm_symbol))
-        await asyncio.gather(*tasks)  
-        return full
-
-    @classmethod
-    async def binance_build_oioption_method(cls, symbol):
-        """
-            BTC, ETH ...
-        """
-        expiries =  await cls.binance_get_option_expiries(symbol)
-        full = {}
-        tasks = []
-        for expiration in expiries:
-            async def pos_optionoi_method(symbol, expiration):
-                data = await cls.binance_aiohttpFetch("option", "oi", symbol=symbol, specialParam=expiration,  special_method="oioption")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[expiration] = unnest_list(data)
-            tasks.append(pos_optionoi_method(symbol, expiration))
-        await asyncio.gather(*tasks)  
-        return full
 
     @classmethod
     def binance_build_api_connectionData(cls, instType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
@@ -338,22 +234,31 @@ class binance(CommunicationsManager, binanceInfo):
         data["id_api"] = id_api
 
         if special_method == "oioption":
-            data["api_call_manager"] = binance_aoihttp_oioption_manager(symbol, cls.binance_get_option_expiries, cls.binance_aiohttpFetch)
+            data["api_call_manager"] = binance_aoihttp_oioption_manager(symbol, binanceInfo.binance_get_option_instruments_by_underlying, cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oioption"
 
         elif special_method == "posfutureperp":
-            data["api_call_manager"] = binance_aoihttp_posfutureperp_manager(symbol, binance.binance_info_async, cls.binance_aiohttpFetch)
+            data["api_call_manager"] = binance_aoihttp_posfutureperp_manager(symbol, 
+                                                                             binanceInfo.binance_get_inverse_instruments_by_underlying, 
+                                                                             binanceInfo.binance_get_linear_instruments_by_underlying,
+                                                                             cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "posfutureperp"
 
         elif special_method == "fundperp":
-            data["api_call_manager"] = binance_aoihttp_fundperp_manager(symbol, binance.binance_perpfut_instruments, cls.binance_aiohttpFetch)
+            data["api_call_manager"] = binance_aoihttp_fundperp_manager(symbol, 
+                                                                        binanceInfo.binance_get_inverse_instruments_by_underlying, 
+                                                                            binanceInfo.binance_get_linear_instruments_by_underlying,
+                                                                              cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
-            data["api_call_manager"] = binance_aoihttp_oifutureperp_manager(symbol, binance.binance_perpfut_instruments, cls.binance_aiohttpFetch)
+            data["api_call_manager"] = binance_aoihttp_oifutureperp_manager(symbol, 
+                                                                        binanceInfo.binance_get_inverse_instruments_by_underlying, 
+                                                                            binanceInfo.binance_get_linear_instruments_by_underlying,
+                                                                              cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oifutureperp"
         else:
@@ -2327,11 +2232,36 @@ class gateio(CommunicationsManager, gateioInfo):
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
+def join_fetched_api_lists(lists):
+    to_return = []
+    for index, data in enumerate(lists):
+        if index == 0:
+            to_return.append(data[:-1].replace("'", '"'))
+        elif index == len(lists)-1:
+            to_return.append(data[1:].replace("'", '"'))
+        else:
+            to_return.append(data[1:-1].replace("'", '"'))
+    return ",".join(to_return)
 
-# async def main():
-#     connData = gateio.gateio_build_api_connectionData("option", "oi", "BTC", 15, special_method="oioption")
-#     result = await connData['aiohttpMethod']()
-#     print(result)
+def binance_option_join_list(lists):
+    to_return = []
+    for index, data in enumerate(lists):
+        if index == 0:
+            to_return.append(data[:-1].replace("'", '"'))
+        elif index == len(lists)-1:
+            to_return.append(data[1:].replace("'", '"'))
+        else:
+            to_return.append(data[1:-1].replace("'", '"'))
+    return ",".join(to_return)
 
-# asyncio.run(main())    
+async def main():
+    result_1 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240419")
+    result_2 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240413")
+    result_3 = await binance.binance_aiohttpFetch("option", "oi", "BTC", specialParam="240426")
+    l = [result_1, result_2, result_3]
+    data = join_fetched_api_lists(l)
+    data = json.loads(data)[0]
+    print(data)
+
+asyncio.run(main())    
     
