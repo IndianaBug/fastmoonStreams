@@ -247,7 +247,7 @@ class binance(CommunicationsManager, binanceInfo):
         elif special_method == "fundperp":
             data["api_call_manager"] = binance_aoihttp_fundperp_manager(symbol, 
                                                                         binanceInfo.binance_get_inverse_instruments_by_underlying, 
-                                                                            binanceInfo.binance_get_linear_instruments_by_underlying,
+                                                                        binanceInfo.binance_get_linear_instruments_by_underlying,
                                                                               cls.binance_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
@@ -411,17 +411,26 @@ class bybit(CommunicationsManager, bybitInfo):
                 }
 
         if special_method == "posfutureperp":
-            data["api_call_manager"] = bybit_aoihttp_posfutureperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["api_call_manager"] = bybit_aoihttp_posfutureperp_manager(symbol, 
+                                                                           cls.bybit_get_linear_instruments_by_underlying, 
+                                                                           cls.bybit_get_inverse_instruments_by_underlying,
+                                                                           cls.bybit_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "posfutureperp"
 
         elif special_method == "fundperp":
-            data["api_call_manager"] = bybit_aoihttp_fundperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["api_call_manager"] = bybit_aoihttp_fundperp_manager(symbol, 
+                                                                        cls.bybit_get_linear_instruments_by_underlying, 
+                                                                        cls.bybit_get_inverse_instruments_by_underlying,
+                                                                      cls.bybit_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
-            data["api_call_manager"] = bybit_aoihttp_oifutureperp_manager(symbol, cls.bybit_get_instruments_by_marginType, cls.bybit_aiohttpFetch)
+            data["api_call_manager"] = bybit_aoihttp_oifutureperp_manager(symbol, 
+                                                                           cls.bybit_get_linear_instruments_by_underlying, 
+                                                                           cls.bybit_get_inverse_instruments_by_underlying,
+                                                                          cls.bybit_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oifutureperp"
         else:
@@ -609,8 +618,8 @@ class okx(CommunicationsManager, okxInfo):
         endpoint = cls.okx_api_endpoint
         basepoint = cls.okx_api_basepoints.get(objective)
         url = f"{endpoint}{basepoint}"
-        instTypeOKX = okx_api_instType_map.get(instType)
-        params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oi" else cls.okx_api_params_map.get(objective)(instTypeOKX, symbol)
+        instTypeOkx = okx_api_instType_map.get(instType)
+        params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oi" else cls.okx_api_params_map.get(objective)(instTypeOkx, symbol)
         headers = {}
 
         return {
@@ -642,72 +651,6 @@ class okx(CommunicationsManager, okxInfo):
         return response
 
     @classmethod
-    async def okx_build_fundfutureperp_method(cls, underlying_symbol):
-        okx_symbols = await okxInfo.okx_symbols_by_instType_async("perpetual")
-        symbols = [x for x in okx_symbols if underlying_symbol in x]
-        data = {}
-        tasks = []
-        for symbol in symbols:
-            async def okx_funding_for_silicone(symbol):
-                response = await cls.okx_aiohttpFetch("perpetual", "funding", symbol)
-                if isinstance(response, str):
-                    response = json.loads(response)
-                data[symbol] = response
-            tasks.append(okx_funding_for_silicone(symbol))
-        await asyncio.gather(*tasks)
-        return data
-    
-    @classmethod
-    async def okx_build_oifutureperp_method(cls, underlying_symbol):
-        future_coins = await cls.okx_symbols_by_instType_async("future")
-        perpetual_coins = await cls.okx_symbols_by_instType_async("perpetual")
-        marginCoinsF = [x for x in future_coins if underlying_symbol in x]
-        marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
-        marginCoinsP = [x for x in perpetual_coins if underlying_symbol in x]
-        marginCoinsP = list(set([x.split("-")[1] for x in marginCoinsP]))
-        data = {}
-        tasks = []
-        for marginCoin in marginCoinsF:
-            async def okx_oioiioooo(underlying_symbol, marginCoin):
-                futures = await cls.okx_aiohttpFetch("future", "oi", f"{underlying_symbol}-{marginCoin}")
-                if isinstance(futures, str):
-                    futures = json.loads(futures)
-                else:
-                    pass
-                data[f"future_{underlying_symbol}-{marginCoin}"] = futures
-            tasks.append(okx_oioiioooo(underlying_symbol, marginCoin))
-        for marginCoin in marginCoinsP:
-            async def okx_oioiioooo_two(underlying_symbol, marginCoin):
-                perp = await cls.okx_aiohttpFetch("perpetual", "oi", f"{underlying_symbol}-{marginCoin}")
-                if isinstance(perp, str):
-                    perp = json.loads(perp)
-                else:
-                    pass
-                data[f"perpetual_{underlying_symbol}-{marginCoin}"] = perp
-            tasks.append(okx_oioiioooo_two(underlying_symbol, marginCoin))
-        await asyncio.gather(*tasks)
-        return data
-
-    @classmethod
-    async def okx_build_oioption_method(cls, underlying_symbol):
-        option_symbol = await cls.okx_symbols_by_instType_async("option")
-        marginCoinsF = [x for x in option_symbol if underlying_symbol in x]
-        marginCoinsF = list(set([x.split("-")[1] for x in marginCoinsF]))
-        data = {}
-        tasks = []
-        for marginCoin in marginCoinsF:
-            async def okx_option_loosers_monitor(underlying_symbol, marginCoin):
-                futures = await cls.okx_aiohttpFetch("option", "oi", f"{underlying_symbol}-{marginCoin}")
-                if isinstance(futures, str):
-                    futures = json.loads(futures)
-                else:
-                    pass
-                data[f"{underlying_symbol}-{marginCoin}"] = futures
-            tasks.append(okx_option_loosers_monitor(underlying_symbol, marginCoin))
-        await asyncio.gather(*tasks)
-        return data
-
-    @classmethod
     def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None, **kwargs):
         """
             objective :  gta oi oioption funding depth
@@ -733,12 +676,17 @@ class okx(CommunicationsManager, okxInfo):
                 }
 
         if special_method == "fundperp":
-            data["api_call_manager"] = okx_aoihttp_fundperp_manager(symbol, cls.okx_symbols_by_instType_async, cls.okx_aiohttpFetch)
+            data["api_call_manager"] = okx_aoihttp_fundperp_manager(symbol, 
+                                                                    cls.okx_get_perpetual_instruments_by_underlying,
+                                                                    cls.okx_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
-            data["api_call_manager"] = okx_aoihttp_oifutureperp_manager(symbol, cls.okx_symbols_by_instType_async, cls.okx_aiohttpFetch)
+            data["api_call_manager"] = okx_aoihttp_oifutureperp_manager(symbol, 
+                                                                        cls.okx_get_perpetual_instruments_by_underlying,
+                                                                        cls.okx_get_future_instruments_by_underlying, 
+                                                                        cls.okx_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oifutureperp"
         else:
@@ -1423,49 +1371,6 @@ class bitget(CommunicationsManager, bitgetInfo):
         return response
 
     @classmethod
-    async def bitget_build_oifutureperp_method(cls, underlying_asset):
-        """
-            BTC, ETH ...
-        """
-        bitget_symbols = await bitgetInfo.bitget_symbols_by_instType_async("perpetual")
-        symbols =  [x for x in bitget_symbols if underlying_asset in x]
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            async def bitget_kinda_good_but_not(symbol):
-                data = await cls.bitget_aiohttpFetch("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                else:
-                    pass
-                full[symbol] = data
-            tasks.append(bitget_kinda_good_but_not(symbol))
-        await asyncio.gather(*tasks)
-        return full
-    
-    @classmethod
-    async def bitget_build_fundfutureperp_method(cls, underlying_asset):
-        """
-            BTC, ETH ...
-        """
-        bitget_symbols = await bitgetInfo.bitget_symbols_by_instType_async("perpetual")
-        symbols =  [x for x in bitget_symbols if underlying_asset in x]
-        full = {}
-        tasks = []
-        for symbol in symbols:
-            async def bitget_runs_by_a_woman_and_is_successful_lol(symbol):
-                data = await cls.bitget_aiohttpFetch("perpetual", "funding", symbol=symbol, special_method="fundfutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                else:
-                    pass
-                full[symbol] = data
-            tasks.append(bitget_runs_by_a_woman_and_is_successful_lol(symbol))
-        await asyncio.gather(*tasks)
-        return full
-
-
-    @classmethod
     def bitget_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=False, **kwargs):
         """
             insType : perpetual, spot
@@ -1491,11 +1396,11 @@ class bitget(CommunicationsManager, bitgetInfo):
                 "is_special" : "no!"
                 }
         if special_method == "fundperp":
-            data["api_call_manager"] = bitget_aoihttp_fundperp_manager(symbol, bitgetInfo.bitget_symbols_by_instType_async, cls.bitget_aiohttpFetch)
+            data["api_call_manager"] = bitget_aoihttp_fundperp_manager(symbol, bitgetInfo.bitget_get_perpetual_instruments_by_underlying, cls.bitget_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
         elif special_method == "oifutureperp":
-            data["api_call_manager"] = bitget_aoihttp_oifutureperp_manager(symbol, bitgetInfo.bitget_symbols_by_instType_async, cls.bitget_aiohttpFetch)
+            data["api_call_manager"] = bitget_aoihttp_oifutureperp_manager(symbol, bitgetInfo.bitget_get_perpetual_instruments_by_underlying, cls.bitget_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oifutureperp"
         else:
@@ -2230,10 +2135,13 @@ class gateio(CommunicationsManager, gateioInfo):
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
         return connection_data
 
+# import ijson
+
+# cd = binance.binance_build_api_connectionData("perpetual", "oi", "BTC", 15, special_method="oifutureperp")
+# cd = cd.get("api_call_manager")
+# asyncio.run(cd.get_binance_instruments())
+# asyncio.run(cd.aiomethod())
+# asyncio.run(cd.get_binance_instruments())
+# asyncio.run(cd.aiomethod())
 
 
-cd = binance.binance_build_api_connectionData("perpetual", "gta", "BTC", 15, special_method="posfutureperp")
-cd = cd.get("api_call_manager")
-asyncio.run(cd.get_binance_instruments())
-asyncio.run(cd.aiomethod())
-print(cd.container.data)

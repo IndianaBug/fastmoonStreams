@@ -43,7 +43,7 @@ okx_api_basepoints = {
 okx_api_params_map = {
                         "gta" : lambda ccy: {"ccy" : ccy},# "begin" : str(int(round((time.time()-610)*100))), "end" : str(int(round(time.time()*100)))},
                         "oitotal" : lambda ccy: {"ccy" : ccy, "period" : "5m"},   
-                        "oi" : lambda instType, instFamily: {"instType" : instType, "instFamily" : instFamily},   
+                        "oi" : lambda instType, instId: {"instType" : instType, "instId" : instId},   
                         "funding" : lambda instId: {"instId" : instId},
                         "depth" : lambda instId: {"instId" : instId, "sz" : "1000"},                    
                     }

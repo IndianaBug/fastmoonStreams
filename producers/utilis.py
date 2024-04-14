@@ -152,7 +152,7 @@ def standarize_marginType(instType, marginType):
 class DynamicFixedSizeList_binanceOptionOI:
     def __init__(self, initial_expiries, initial_max_size):
         """
-        Initializes the list with the specified initial_max_size.
+            Initializes the list with the specified initial_max_size.
         """
         self.expiries = initial_expiries
         self.max_size = initial_max_size
@@ -163,8 +163,8 @@ class DynamicFixedSizeList_binanceOptionOI:
 
     def append(self, item):
         self.set_max_size(len(self.expiries))
-        if len(self.data) == self.max_size:
-            self.data.pop(0)  
+        # if len(self.data) == self.max_size:
+        #     self.data.pop(0)  
         self.data.append(item)
 
     def __len__(self):
