@@ -625,38 +625,28 @@ class gateio_aoihttp_fundperp_manager():
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
-        self.symbols_perpetual_inverse = []
-        self.symbols_perpetual_linear = []
-        self.symbols_future = []
+        self.linear_symbols = []
+        self.inverse_symbols = []
         self.info = info
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
 
-    async def get_gateio_perpetual_inverse_symbols(self):
+    async def get_symbols(self):
         try:
-            self.symbols_perpetual_inverse = await self.info("perpetual.LinearPerpetual")
-            self.symbols_perpetual_inverse = [x.get("name") for x in self.symbols_perpetual_inverse if self.underlying_asset in x.get("name")]
+            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+            self.linear_symbols = linear_perpetual
+            self.inverse_symbols = inverse_perpetual
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def get_gateio_perpetual_linear_symbols(self):
-        try:
-            self.symbols_perpetual_linear = await self.info("perpetual.InversePerpetual")
-            self.symbols_perpetual_linear = [x.get("name") for x in self.symbols_perpetual_linear if self.underlying_asset in x.get("name")]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-
-    
-    async def update_symbols(self, lag):
+    async def update_symbols(self, lag, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
-            task = asyncio.create_task(self.get_gateio_perpetual_inverse_symbols())
-            task_2 = asyncio.create_task(self.get_gateio_perpetual_linear_symbols())
+            task = asyncio.create_task(self.get_symbols())
             await task
-            await task_2
-            await asyncio.sleep(24* 60 * 60)  
+            await asyncio.sleep(update_interval)  
 
     async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
         await asyncio.sleep(lag)
@@ -668,66 +658,45 @@ class gateio_aoihttp_fundperp_manager():
 
     async def h1(self, symbol):
         data = await self.fetcher("perpetual", "funding", symbol)
-        if isinstance(data, str): 
-            data = json.loads(data)
         self.data[f"{symbol}"] = data
 
     async def aiomethod(self):
-        d = {}
         tasks = []
-        for s in self.symbols_perpetual_linear:
+        for s in self.inverse_symbols:
             tasks.append(self.h1(s))
-        for s in self.symbols_perpetual_inverse:
+        for s in self.linear_symbols:
             tasks.append(self.h1(s))
         await asyncio.gather(*tasks)
-        self.data = d
 
 class gateio_aoihttp_oifutureperp_manager():
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
-        self.symbols_perpetual_inverse = []
-        self.symbols_perpetual_linear = []
-        self.symbols_future = []
+        self.linear_symbols = []
+        self.inverse_symbols = []
+        self.future_symbols = []
         self.info = info
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
 
-    async def get_gateio_perpetual_inverse_symbols(self):
+    async def get_symbols(self):
         try:
-            self.symbols_perpetual_inverse = await self.info("perpetual.LinearPerpetual")
-            self.symbols_perpetual_inverse = [x.get("name") for x in self.symbols_perpetual_inverse if self.underlying_asset in x.get("name")]
+            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+            self.linear_symbols = linear_perpetual
+            self.inverse_symbols = inverse_perpetual
+            self.future_symbols = futures
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def get_gateio_perpetual_linear_symbols(self):
-        try:
-            self.symbols_perpetual_linear = await self.info("perpetual.InversePerpetual")
-            self.symbols_perpetual_linear = [x.get("name") for x in self.symbols_perpetual_linear if self.underlying_asset in x.get("name")]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-
-    async def get_gateio_future_symbols(self):
-        try:
-            self.symbols_future = await self.info("future.InverseFuture")
-            self.symbols_future = [x.get("name") for x in self.symbols_future if self.underlying_asset in x.get("name")]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-    
-    async def update_symbols(self, lag):
+    async def update_symbols(self, lag, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
-            task = asyncio.create_task(self.get_gateio_perpetual_inverse_symbols())
-            task_2 = asyncio.create_task(self.get_gateio_perpetual_linear_symbols())
-            task_3 = asyncio.create_task(self.get_gateio_future_symbols())
+            task = asyncio.create_task(self.get_symbols())
             await task
-            await task_2
-            await task_3
-            await asyncio.sleep(24* 60 * 60)  
-
+            await asyncio.sleep(update_interval)  
 
     async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
         await asyncio.sleep(lag)
@@ -737,59 +706,60 @@ class gateio_aoihttp_oifutureperp_manager():
             await insert_method(self.data, connection_data, on_message_method_api)
             await asyncio.sleep(self.pullTimeout)
 
-    async def gateio_positioning_useless_or_not(self, symbol, objective, didi, instType):
+    async def helper(self, symbol, objective, didi, instType):
         data = await self.fetcher(instType, objective, symbol)
-        if isinstance(data, str): 
-            data = json.loads(data)
-        didi[f"{symbol}"] = data
+        self.data[f"{symbol}"] = data
         
     async def aiomethod(self):
         d = {}
         tasks = []
-        for sa in self.symbols_perpetual_linear:
-            tasks.append(self.gateio_positioning_useless_or_not(sa, "oi", d, "perpetual"))
-        for saa in self.symbols_perpetual_inverse:
-            tasks.append(self.gateio_positioning_useless_or_not(saa, "oi", d, "perpetual"))
-        for saaa in self.symbols_future:
-            tasks.append(self.gateio_positioning_useless_or_not(saaa, "oi", d, "future"))
+        for sa in self.linear_symbols:
+            tasks.append(self.helper(sa, "oi", d, "perpetual"))
+        for saa in self.inverse_symbols:
+            tasks.append(self.helper(saa, "oi", d, "perpetual"))
+        for saaa in self.future_symbols:
+            tasks.append(self.helper(saaa, "oi", d, "future"))
         await asyncio.gather(*tasks)        
-        self.data = d
+        
+        for key, value in self.data.copy().items():
+            if "total_size" not in value and "open_interest" not in value:
+                del self.data[key]
+                if key.split("_")[-1].isdigit():
+                    self.future_symbols.remove(key)
+                if "USD" in key and "USDT" in key: 
+                    self.linear_symbols.remove(key)
+                if "USD" in key and "USDT" not in key: 
+                    self.inverse_symbols.remove(key)
 
 class gateio_aoihttp_posfutureperp_manager():
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
         self.underlying_asset = underlying_asset
-        self.symbols_perpetual_inverse = []
-        self.symbols_perpetual_linear = []
+        self.linear_symbols = []
+        self.inverse_symbols = []
+        self.future_symbols = []
         self.info = info
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
 
-    async def get_gateio_perpetual_inverse_symbols(self):
+    async def get_symbols(self):
         try:
-            self.symbols_perpetual_inverse = await self.info("perpetual.LinearPerpetual")
-            self.symbols_perpetual_inverse = [x.get("name") for x in self.symbols_perpetual_inverse if self.underlying_asset in x.get("name")]
+            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+            self.linear_symbols = linear_perpetual
+            self.inverse_symbols = inverse_perpetual
+            self.future_symbols = futures
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def get_gateio_perpetual_linear_symbols(self):
-        try:
-            self.symbols_perpetual_linear = await self.info("perpetual.InversePerpetual")
-            self.symbols_perpetual_linear = [x.get("name") for x in self.symbols_perpetual_linear if self.underlying_asset in x.get("name")]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-    
-    async def update_symbols(self, lag):
+    async def update_symbols(self, lag, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
-            task = asyncio.create_task(self.get_gateio_perpetual_inverse_symbols())
-            task_2 = asyncio.create_task(self.get_gateio_perpetual_linear_symbols())
+            task = asyncio.create_task(self.get_symbols())
             await task
-            await task_2
-            await asyncio.sleep(24* 60 * 60)  
+            await asyncio.sleep(update_interval)  
 
     async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
         await asyncio.sleep(lag)
@@ -801,19 +771,18 @@ class gateio_aoihttp_posfutureperp_manager():
 
     async def gateio_positioning_useless_or_not(self, symbol, objective, didi):
         data = await self.fetcher("perpetual", objective, symbol)
-        if isinstance(data, str): 
-            data = json.loads(data)
-        didi[f"{symbol}"] = data
+        self.data[f"{symbol}"] = data
 
     async def aiomethod(self):
         d = {}
         tasks = []
-        for s in self.symbols_perpetual_linear:
+        for s in self.linear_symbols:
             tasks.append(self.gateio_positioning_useless_or_not(s, "tta", d))
-        for s in self.symbols_perpetual_inverse:
+        for s in self.inverse_symbols:
             tasks.append(self.gateio_positioning_useless_or_not(s, "tta", d))
         await asyncio.gather(*tasks)
-        self.data = d
+        
+        print(self.data)
 
 class htx_aiohttp_oifutureperp_manager():
 

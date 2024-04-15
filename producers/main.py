@@ -93,9 +93,9 @@ ws = {
     #     "perpetual.trades.BTC_USDT",
     #     ],
     "coinbase" : [
-        "spot.depth.BTC-USD.snap", 
+        # "spot.depth.BTC-USD.snap", 
         # "spot.trades.BTC-USD", 
-        "spot.heartbeats.BTC-USD",
+        # "spot.heartbeats.BTC-USD",
         ],
 }
 
@@ -135,9 +135,9 @@ api = {
     #     "perpetual.oifunding.XBTUSDTM.15",
         ],
     "gateio" : [
-    #     "perpetual.funding.BTC.20.spec",  
-    #     "perpetual.oi.BTC.20.spec",    
-    #     "perpetual.tta.BTC.20.spec",    
+        # "perpetual.funding.BTC.20.spec",  
+        # "perpetual.oi.BTC.20.spec",    
+        # "perpetual.tta.BTC.20.spec",    
     #     "option.oi.BTC_USDT.20",
         ],
     "mexc" : [

@@ -1,0 +1,44 @@
+[
+    {
+        "BTC_USDT@perpetual@gateio": {
+            "price": 66125.71,
+            "oi": 9857.472099999999
+        },
+        "BTC_USD@perpetual@gateio": {
+            "price": 66218.67,
+            "oi": 178.00863412086048
+        },
+        "BTC_USDT_20240927@future@gateio": {
+            "price": 70561.67,
+            "oi": 0.3902
+        },
+        "BTC_USDT_20240628@future@gateio": {
+            "price": 68059.8,
+            "oi": 0.8287
+        },
+        "BTC_USDT_20240426@future@gateio": {
+            "price": 66351.43,
+            "oi": 0.053700000000000005
+        },
+        "BTC_USDT_20240419@future@gateio": {
+            "price": 66259.22,
+            "oi": 0.1678
+        },
+        "timestamp": "2024-04-15 13:15:16",
+        "_doc": "833aee00-224a-403c-ad97-76b185c70b6a"
+    },
+    {
+        "timestamp": "2024-04-15 13:14:55",
+        "_doc": "0f14992d-5611-4db1-8505-c4eb8ddf7746"
+    },
+    {
+        "timestamp": "2024-04-15 13:13:45",
+        "_doc": "ef2ad471-6ac0-49b1-a0d4-17565537b79d"
+    },
+    {
+        "_doc": "342e1189-331b-4e39-aa88-59804df3dce8"
+    },
+    {
+        "_doc": "2cd383d9-b9ce-49bc-b834-940d5f2e109e"
+    }
+]

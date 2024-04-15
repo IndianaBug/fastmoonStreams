@@ -28,7 +28,7 @@ coinbase_ws_endpoint = "wss://advanced-trade-ws.coinbase.com"
 
 coinbase_stream_keys = {
             "trades" : "market_trades",
-            "depth" : "product_book",
+            "depth" : "level2",
             "heartbeats" : "heartbeats"
             }
 

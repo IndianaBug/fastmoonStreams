@@ -1992,72 +1992,6 @@ class gateio(CommunicationsManager, gateioInfo):
         connection_data = cls.gateio_buildRequest(*args, **kwargs)
         response = await cls.make_aiohttpRequest_v2(connection_data)
         return response
-    
-    @classmethod
-    async def gateio_posfutureperp(cls, underlying_symbol):
-        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
-        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
-        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in perpi_symbols  if underlying_symbol in x.get("name")]
-        d = {}
-        tasks = []
-        async def gateio_positioning_useless_or_not(symbol, objective):
-            data = await cls.gateio_aiohttpFetch("perpetual", objective, symbol)
-            if isinstance(data, str): 
-                data = json.loads(data)
-            d[f"{s}"] = data
-        for s in perpl_symbols:
-            tasks.append(gateio_positioning_useless_or_not(s, "tta"))
-        for s in perpi_symbols:
-            tasks.append(gateio_positioning_useless_or_not(s, "tta"))
-        await asyncio.gather(*tasks)
-        return d
-
-    @classmethod
-    async def gateio_oifutureperp(cls, underlying_symbol):
-        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
-        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
-        f_symbols = await gateioInfo.gateio_info_async("future.InverseFuture")
-        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in perpi_symbols if underlying_symbol in x.get("name")]
-        f_symbols = [x.get("name") for x in f_symbols if underlying_symbol in x.get("name")]
-        d = {}
-        tasks = []
-        async def gateio_positioning_useless_or_not(symbol):
-            data = await cls.gateio_aiohttpFetch("perpetual", "oi", symbol)
-            if isinstance(data, str): 
-                data = json.loads(data)
-            d[f"{symbol}"] = data
-        for sa in perpl_symbols:
-            tasks.append(gateio_positioning_useless_or_not(sa))
-        for saa in perpi_symbols:
-            tasks.append(gateio_positioning_useless_or_not(saa))
-        for saaa in f_symbols:
-            tasks.append(gateio_positioning_useless_or_not(saaa))
-
-        await asyncio.gather(*tasks)
-        
-        return d
-
-    @classmethod
-    async def gateio_fundperp(cls, underlying_symbol):
-        perpl_symbols = await gateioInfo.gateio_info_async("perpetual.LinearPerpetual")
-        perpi_symbols = await gateioInfo.gateio_info_async("perpetual.InversePerpetual")
-        perpl_symbols = [x.get("name") for x in perpl_symbols if underlying_symbol in x.get("name")]
-        perpi_symbols = [x.get("name") for x in perpi_symbols if underlying_symbol in x.get("name")]
-        d = {}
-        tasks = []
-        async def gatefundplzfunme(symbol):
-            data = await cls.gateio_aiohttpFetch("perpetual", "funding", symbol)
-            if isinstance(data, str): 
-                data = json.loads(data)
-            d[f"{symbol}"] = data
-        for s in perpl_symbols:
-            tasks.append(gatefundplzfunme(s))
-        for s in perpi_symbols:
-            tasks.append(gatefundplzfunme(s))
-        await asyncio.gather(*tasks)
-        return d
         
     @classmethod
     def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
@@ -2084,17 +2018,17 @@ class gateio(CommunicationsManager, gateioInfo):
                 }
         
         if special_method == "fundperp":
-            data["api_call_manager"] = gateio_aoihttp_fundperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["api_call_manager"] = gateio_aoihttp_fundperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
-            data["api_call_manager"] = gateio_aoihttp_oifutureperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["api_call_manager"] = gateio_aoihttp_oifutureperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "oifutureperp"
 
         elif special_method == "posfutureperp":
-            data["api_call_manager"] = gateio_aoihttp_posfutureperp_manager(symbol, gateioInfo.gateio_info_async, cls.gateio_aiohttpFetch)
+            data["api_call_manager"] = gateio_aoihttp_posfutureperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
             data["symbol_update_task"] = True
             data["is_special"] = "posfutureperp"
 

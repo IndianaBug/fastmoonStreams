@@ -670,11 +670,16 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
 
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -688,7 +693,7 @@ class producer(keepalive):
                     if "PONG" in message:
                         await websocket.send("PONG")
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message, on_message_method_ws)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -700,11 +705,16 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
 
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
         
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -718,7 +728,7 @@ class producer(keepalive):
                     if "pong" in message.get("channel"):
                         await websocket.send({"channel" : message.get("channel").repalce("pong", "ping")})
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message, on_message_method_ws)
                     if self.mode == "testing":
                         self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:
@@ -730,11 +740,16 @@ class producer(keepalive):
             producer and topic are reserved for kafka integration
         """
 
+        on_message_method_ws = connection_data.get("on_message_method_ws")
+        on_message_method_api = connection_data.get("on_message_method_api_2")
+
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
-                await self.insert_into_database_2(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
             else:
-                await self.insert_into_database(connection_data, connection_data.get("1stBooksSnapMethod")())
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
 
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -743,7 +758,7 @@ class producer(keepalive):
                     message = await websocket.recv()
                     message =  json.loads(gzip.decompress(message).decode('utf-8'))
                     if self.mode == "production":
-                        await self.insert_into_database(connection_data, message)
+                        await self.insert_into_database(connection_data, message, on_message_method_ws)
                     if "ping" in message:
                         await websocket.send(json.dumps({"pong": message.get("ping")}))
                     if self.mode == "testing":
@@ -759,6 +774,14 @@ class producer(keepalive):
 
         on_message_method_ws = connection_data.get("on_message_method_ws")
         on_message_method_api = connection_data.get("on_message_method_api_2")
+
+        # if connection_data.get("objective") == "depth":
+        #     if self.database_name == "mockCouchDB":
+        #         data = connection_data.get("1stBooksSnapMethod")()
+        #         await self.insert_into_database_2(data, connection_data, on_message_method_api)
+        #     else:
+        #         data = connection_data.get("1stBooksSnapMethod")()
+        #         await self.insert_into_database(data, connection_data, on_message_method_api)
 
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
@@ -777,8 +800,10 @@ class producer(keepalive):
                     message = json.loads(message)
                     if message.get("channel") != "heartbeats":
                         if self.mode == "production":
+                            print("-------")
                             print(message)
-                            # await self.insert_into_database(connection_data, message)
+                            # await self.insert_into_database(connection_data, message, on_message_method_ws)
+                            print("-------")
                         if self.mode == "testing":
                             self.get_latency(connection_data, message)
                 except websockets.ConnectionClosed:

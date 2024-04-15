@@ -1790,30 +1790,28 @@ class gateio_on_message(on_message_helper):
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
         ddd = {}
-        for instrument in data:
-            if isinstance(data.get(instrument)[0], dict):
-                if "open_interest_usd" in data.get(instrument)[0]:
-                    instrument_data = data.get(instrument)[0]
-                    if len(instrument.split("_")) == 2:
-                        price = instrument_data.get("mark_price")
-                        oi = instrument_data.get("open_interest_usd") / price
-                        msid = f"{instrument}@perpetual@gateio"
-                        ddd[msid] = {"price" : price, "oi" : oi}
-                        if msid not in market_state:
-                            market_state[msid] = {}
-                        market_state[msid].update(ddd[msid]) 
-                else:
-                    if "total_size" in data.get(instrument)[0]:
-                        instrument_data = data.get(instrument)[0]
-                        sdm = "_".join(instrument.split("_")[:-1])
-                        price = float(instrument_data.get("mark_price"))
-                        oi = float(instrument_data.get("total_size"))
-                        oi = self.gateio_derivate_multiplier.get("perpetual_future").get(sdm)(oi)
-                        msid = f"{instrument}@future@gateio"
-                        ddd[msid] = {"price" : price, "oi" : oi}
-                        if msid not in market_state:
-                            market_state[msid] = {}
-                        market_state[msid].update(ddd[msid])         
+        for instrument, str_data in data.items():
+            if "open_interest_usd" in str_data:
+                instrument_data = json.loads(str_data)[0]
+                price = instrument_data.get("mark_price")
+                oi = instrument_data.get("open_interest_usd") / price
+                msid = f"{instrument}@perpetual@gateio"
+                ddd[msid] = {"price" : price, "oi" : oi}
+                if msid not in market_state:
+                    market_state[msid] = {}
+                market_state[msid].update(ddd[msid]) 
+            if "total_size" in str_data:
+                instrument_data = json.loads(str_data)[0]
+                sdm = "_".join(instrument.split("_")[:-1])
+                price = float(instrument_data.get("mark_price"))
+                oi = float(instrument_data.get("total_size"))
+                oi = self.gateio_derivate_multiplier.get("perpetual_future").get(sdm)(oi)
+                msid = f"{instrument}@future@gateio"
+                ddd[msid] = {"price" : price, "oi" : oi}
+                if msid not in market_state:
+                    market_state[msid] = {}
+                market_state[msid].update(ddd[msid])
+        ddd["timestamp"] = self.process_timestamp_no_timestamp()         
         return ddd
 
     async def gateio_api_perpetual_future_tta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -1821,33 +1819,33 @@ class gateio_on_message(on_message_helper):
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
         ddd = {}
-        for instrument in data:
-            if isinstance(data.get(instrument)[0], dict):
-                instrument_data = data.get(instrument)[0]
-                price = instrument_data.get("mark_price")
-                oi = instrument_data.get("open_interest_usd") / price
-                lsr_taker = instrument_data.get("lsr_taker") # Long/short taker size ratio
-                lsr_account = instrument_data.get("lsr_account")   # Long/short account number ratio
-                top_lsr_account = instrument_data.get("top_lsr_account") # Top trader long/short account ratio
-                top_lsr_size = instrument_data.get("top_lsr_size")   #  	Top trader long/short position ratio
-                symbol = instrument
-                msid = f"{symbol}@perpetual@gateio"
-                ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "price" : price}
-                if msid not in market_state:
-                    market_state[msid] = {}
-                market_state[msid].update(ddd[msid]) 
+        for instrument, instrument_data in data.items():
+            instrument_data = json.loads(instrument_data)[0]
+            price = instrument_data.get("mark_price")
+            oi = instrument_data.get("open_interest_usd") / price
+            lsr_taker = instrument_data.get("lsr_taker") # Long/short taker size ratio
+            lsr_account = instrument_data.get("lsr_account")   # Long/short account number ratio
+            top_lsr_account = instrument_data.get("top_lsr_account") # Top trader long/short account ratio
+            top_lsr_size = instrument_data.get("top_lsr_size")   #  	Top trader long/short position ratio
+            symbol = instrument
+            msid = f"{symbol}@perpetual@gateio"
+            ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "price" : price}
+            if msid not in market_state:
+                market_state[msid] = {}
+            market_state[msid].update(ddd[msid]) 
+        ddd["timestamp"] = self.process_timestamp_no_timestamp()  
         return ddd
     
     async def gateio_api_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         ddd = {}
-        for instrument in data:
-            if isinstance(data.get(instrument)[0], dict):
-                instrument_data = data.get(instrument)[0]
-                msid = f"{instrument}@perpetual@gateio"
-                ddd[msid]  = {"funding" : float(instrument_data.get("r"))}
-                if msid not in market_state:
-                    market_state[msid] = {}
-                market_state[msid].update(ddd[msid]) 
+        for instrument, instrument_data in data.items():
+            instrument_data = json.loads(instrument_data)[0]
+            msid = f"{instrument}@perpetual@gateio"
+            ddd[msid]  = {"funding" : float(instrument_data.get("r"))}
+            if msid not in market_state:
+                market_state[msid] = {}
+            market_state[msid].update(ddd[msid]) 
+        ddd["timestamp"] = self.process_timestamp_no_timestamp()   
         return ddd
 
     async def gateio_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -1977,17 +1975,39 @@ class coinbase_on_message(on_message_helper):
         return d
 
     async def coinbase_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        timestamp = datetime.strptime(data.get("timestamp").split(".")[0], "%Y-%m-%dT%H:%M:%S").strftime("%Y-%m-%d %H:%M:%S")
-        receive_time = datetime.strptime(data.get("timestamp"), "%Y-%m-%dT%H:%M:%S.%fZ")
-        data = data.get("events")[0].get("updates")
         bids = []
         asks = []
-        for book in data:
-            if book.get("side") == "bid":
-                bids.append([float(book.get("price_level")), float(book.get("new_quantity"))])
-            if book.get("side") == "offer":
-                bids.append([float(book.get("price_level")), float(book.get("new_quantity"))])
-        return {"bids" : bids, "asks" : asks, "timestamp" : timestamp, "receive_time" : receive_time}
+        helper_list = []
+        timestamp = None
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "events.item.updates.item.event_time":
+                timestamp = value
+                break
+        
+        side = ""
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "events.item.updates.item.price_level"  and side == "bid":
+                helper_list.append(float(value))
+            if prefix == "events.item.updates.item.new_quantity" and side == "bid":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "events.item.updates.item.price_level" and side == "offer":
+                helper_list.append(float(value))
+            if prefix == "events.item.updates.item.new_quantity" and side == "offer":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            if prefix == "events.item.updates.item.side":
+                side = value
+
+        timestamp = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
+        receive_time = datetime.strptime(data.get("timestamp"), "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        d = {"timestamp" :  timestamp, "receive_time" :receive_time, "bids" : bids, "asks" : asks}
+        return d
 
     async def coinbase_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         data = json.loads(data)
@@ -2030,28 +2050,29 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
 import sys
 import asyncio
 directory_path = "C:\coding\SatoshiVault\producers"
+directory_path = "/workspaces/fastmoonStreams/producers"
 sys.path.append(directory_path)
 
-# from clients import htx
+from clients import gateio
 
-# cd = htx.htx_build_api_connectionData("perpetual", "funding", "BTC", 15, special_method="fundperp")
-# cd = cd.get("api_call_manager")
-# # asyncio.run(cd.get_bitget_perpetual_symbols())
-# asyncio.run(cd.aiomethod())
-# data = cd.data
+cd = gateio.gateio_build_api_connectionData("perpetual", "tta", "BTC", 15, special_method="posfutureperp")
+cd = cd.get("api_call_manager")
+asyncio.run(cd.get_symbols())
+asyncio.run(cd.aiomethod())
+data = cd.data
 
 # for k, e in data.items():
 #     print(k, e)
 #     print("-------")
 
-data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/coinbase/coinbase_api_spot_depth_btcusd.json"))[0])
+# data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/coinbase/coinbase_api_spot_depth_btcusd.json"))[0])
 
-my_object = on_message()
+# my_object = on_message()
 
-md = {}
-cd = {}
-async def sss():
-    d = await my_object.coinbase_api_spot_depth(data, md, {"exchange_symbols" : ["BTC-USDT"]})  
-    print(d)
+# md = {}
+# cd = {}
+# async def sss():
+#     d = await my_object.coinbase_api_spot_depth(data, md, {"exchange_symbols" : ["BTC-USDT"]})  
+#     print(d)
 
-asyncio.run(sss())
+# asyncio.run(sss())

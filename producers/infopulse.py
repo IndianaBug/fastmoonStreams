@@ -1023,6 +1023,25 @@ class gateioInfo(requestHandler):
          return [x["name"] for x in data]
     
     @classmethod
+    async def get_gateio_underlying_symbols(cls, underlying_asset):
+        linear_perpetual = []
+        inverse_perpetual = []
+        futures = []
+        data = await cls.gateio_info_async("perpetual.LinearPerpetual")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == 'item.name' and underlying_asset in value:
+                linear_perpetual.append(value)
+        data = await cls.gateio_info_async("perpetual.InversePerpetual")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == 'item.name' and underlying_asset in value:
+                inverse_perpetual.append(value)
+        data = await cls.gateio_info_async("future")
+        for prefix, event, value in ijson.parse(data):
+            if prefix == 'item.name' and underlying_asset in value:
+                futures.append(value)
+        return linear_perpetual, inverse_perpetual, futures
+    
+    @classmethod
     async def gateio_info_async(cls, instType):
         """
             ex. perpetual.LinearPerpetual
@@ -1034,6 +1053,7 @@ class gateioInfo(requestHandler):
             return info
         else:
             underlyings = cls.gateio_option_underlying_assets()
+            print(underlyings)
             d = []
             for underlying in underlyings:
                 data = await cls.request_full_async(cls.gateio_endpointtt+cls.gateio_basepointsss.get("option"), headers=cls.gateio_headerssss, params={"underlying" : underlying})
@@ -1043,7 +1063,7 @@ class gateioInfo(requestHandler):
 # import asyncio
 
 # async def getingo():
-#     data = await bitgetInfo.bitget_get_perpetual_instruments_by_underlying("BTC")
+#     data = await gateioInfo.gateio_option_underlying_assets_async("BTC")
 #     print(data)
 
 # asyncio.run(getingo())
