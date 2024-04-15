@@ -95,7 +95,7 @@ class binance_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def binance_api_linearperpetual_linearfuture_depth(self, data:dict, *args, **kwargs):  #-> 'on_message_helper.depth':
@@ -123,8 +123,8 @@ class binance_on_message(on_message_helper):
             if prefix == "E.item":
                 timestamp = value
                 break
-
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def binance_api_inverseperpetual_inversefuture_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.depth':
@@ -167,7 +167,7 @@ class binance_on_message(on_message_helper):
             previous_map_event = event
         
 
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def binance_ws_spot_linearperpetual_linearfuture_depth(self, data:dict,  *args, **kwargs): # -> 'on_message_helper.depth':
@@ -196,8 +196,9 @@ class binance_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
-            
-        return {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+
+
+        return {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
     
     async def binance_ws_inverseperpetual_inversefuture_depth(self, data:dict, market_state, connection_data, *args, **kwargs): # -> 'on_message_helper.depth':
         bids = []
@@ -236,8 +237,7 @@ class binance_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
-        
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def binance_ws_spot_linearperpetual_linearfuture_option_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
@@ -305,6 +305,7 @@ class binance_on_message(on_message_helper):
                 market_state[msid] = {}
                 market_state[msid]["oi"] = amount
         l["timestamp"] = self.process_timestamp_no_timestamp()
+        l["receive_time"] = time.time()
         return l
 
     async def binance_api_oioption_oi_option(self, data:list, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -334,6 +335,8 @@ class binance_on_message(on_message_helper):
                 "days_left": days_left[i],
                 "oi": ois[i],
             }
+        l["timestamp"] = self.process_timestamp_no_timestamp()
+        l["receive_time"] = time.time()
         return instruments_data
         
     async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
@@ -362,7 +365,7 @@ class binance_on_message(on_message_helper):
                 pos_data[msid][f"{objective}_long_ratio"] = longAccount
                 pos_data[msid][f"{objective}_short_ratio"] = shortAccount
                 pos_data[msid][f"{objective}_ratio"] = longShortRatio
-        pos_data.update({"timestamp" : self.process_timestamp_no_timestamp()})
+        pos_data.update({"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time()})
         return pos_data    
 
     async def binance_api_fundperp_perpetual_funding_linear_inverse(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
@@ -378,7 +381,7 @@ class binance_on_message(on_message_helper):
             if msid not in d:
                 d[msid] = {}
             d[msid]["funding"] = float(funding)
-        d.update({"timestamp" : self.process_timestamp_no_timestamp()})
+        d.update({"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time()})
         return d
 
 class bybit_on_message(on_message_helper):
@@ -411,6 +414,7 @@ class bybit_on_message(on_message_helper):
                 market_state[msid] = {}
             market_state[msid]["funding"] = funding
         d["timestamp"] = self.process_timestamp_no_timestamp()
+        d["receive_time"] = time.time()
         return d
 
     async def bybit_api_oifutureperp_linear_inverse_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -429,6 +433,7 @@ class bybit_on_message(on_message_helper):
                 market_state[msid] = {}
             market_state[msid]["oi"] = oi       
             d["timestamp"] = self.process_timestamp_no_timestamp()
+            d["receive_time"] = time.time()
         return d
 
     async def bybit_api_posfutureperp_perpetual_linear_inverse_future_gta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -448,6 +453,7 @@ class bybit_on_message(on_message_helper):
             market_state[msid]["gta_long_ratio"] = buyRatio
             market_state[msid]["gta_short_ratio"] = sellRatio
         d["timestamp"] = self.process_timestamp_no_timestamp()
+        d["receive_time"] = time.time()
         return d
 
     async def bybit_api_spot_linear_perpetual_future_option_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -471,7 +477,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp_no_timestamp(),"receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d    
 
     async def bybit_api_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -511,9 +517,8 @@ class bybit_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
-        
 
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_spot_linear_perpetual_future_option_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -545,7 +550,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
         
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -586,7 +591,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
         
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_linear_spot_perpetual_future_option_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
@@ -688,6 +693,8 @@ class bybit_on_message(on_message_helper):
                 "days_left": days_left[i],
                 "oi": ois[i],
             }
+        instruments_data["timestamp"] = self.process_timestamp_no_timestamp()
+        instruments_data["receive_time"] = time.time()
         return instruments_data
 
 class okx_on_message(on_message_helper):
@@ -726,6 +733,7 @@ class okx_on_message(on_message_helper):
                 market_state[msid] = {}
             market_state[msid]["funding"] = funding
         d["timestamp"] = self.process_timestamp_no_timestamp()
+        d["receive_time"] = time.time()
         return d
 
     async def okx_api_gta_perpetual_future(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -1772,18 +1780,33 @@ class gateio_on_message(on_message_helper):
         """
             btc_price_data : dictionary with all prices of bitcoin instruments from every exchange
         """
-        data = data.get("list")
-        ddd = {}
-        for instData in data:
-            name_data = instData.get("name").split("-")
-            symbol = name_data[0]
-            oi = self.gateio_derivate_multiplier.get("option").get(symbol)(instData.get("position_size"))
-            strike = float(name_data[2])
-            days_left = calculate_option_time_to_expire_gateio(name_data[1])
-            side = name_data[-1]
-            index_price = market_state.get(f"{symbol}@future@gateio", {}).get("price", 1000000)
-            ddd[f"{instData.get('name')}@option@gateio"] = {"symbol" : instData.get("name"), "side" : side, "index_price" : index_price, "strike" : strike, "underlying_price" : index_price, "oi" : oi, "days_left" : days_left}
-        return ddd
+
+        symbol = connection_data.get("exchange_symbols")[0]
+
+        msids = []
+        symbols = []
+        strikes = []
+        days_left = []
+        ois = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "list.item.name":
+                option_data = value.split("-")
+                msids.append(f"{value}@option@gateio")
+                symbols.append(value)
+                strikes.append(float(option_data[2]))
+                days_left.append(calculate_option_time_to_expire_gateio(option_data[1]))
+            if prefix == "list.item.position_size":
+                ois.append(self.gateio_derivate_multiplier.get("option").get(symbol)(float(value)))
+        instruments_data = {x : {} for x in msids}
+        for i, msid in enumerate(msids):
+            instruments_data[msid] = {
+                "symbol": symbols[i],
+                "strike": strikes[i],
+                "days_left": days_left[i],
+                "oi": ois[i],
+            }
+        return instruments_data
     
     async def gateio_api_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
@@ -1852,52 +1875,130 @@ class gateio_on_message(on_message_helper):
         """
             side : bids, asks
         """
-        d = {}
-        d["timestamp"] = self.process_timestamp(data, ["update"], 1000)
-        d["receive_time"] = float(data.get("update")) / 1000   
-        for side in ["bids", "asks"]:
-            d[side] = self.convert_books(data.get(side))
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "bids.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                bids.append(helper_list)
+                helper_list = []
+            if prefix == "asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "asks.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+
         return d
 
     async def gateio_api_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        d["timestamp"] = self.process_timestamp(data, ["update"])
-        d["receive_time"] = float(data.get("update"))   
-        symbol = connection_data.get("exchange_symbol")
-        current_price = (float(data.get("bids")[0].get("p")) + float(data.get("asks")[0].get("p"))) / 2
-        for side in ["bids", "asks"]:
-            d[side] = self.books_multiplier([[x.get("p"), x.get("s")] for x in data.get(side)], self.gateio_derivate_multiplier.get("perpetual_future").get(symbol), current_price)
+        bids = []
+        asks = []
+
+        previous_map_event = ""
+        helper_list = []
+        symbol = connection_data.get("exchange_symbols")[0]
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "bids.item.p" and previous_map_event == "map_key":
+                helper_list.append(float(value))
+            if prefix == "bids.item.s" and previous_map_event == "map_key":
+                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                bids.append(helper_list)
+                helper_list = []
+            if prefix == "asks.item.p" and previous_map_event == "map_key":
+                helper_list.append(float(value))
+            if prefix == "asks.item.s" and previous_map_event == "map_key":
+                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+
         return d
 
     async def gateio_ws_spot_depth(self, data:dict, market_state:dict,  connection_data:dict, *args, **kwargs):
-        data = data.get("result")
-        d = {}
-        d["receive_time"] = float(data.get("t")) / 1000   
-        d["timestamp"] = self.process_timestamp(data, ["t"], 1000)
-        for side in ["a", "b"]:
-            sss = "asks" if side == "a" else "bids" 
-            d[sss] = self.convert_books(data.get(side))
+        bids = []
+        asks = []
+        timestamp = None
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "result.t":
+                timestamp = float(value)
+                break
+
+        previous_map_event = ""
+        helper_list = []
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "result.b.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "result.b.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                bids.append(helper_list)
+                helper_list = []
+            if prefix == "result.a.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "result.a.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp(timestamp , 1000), "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+
         return d
 
     async def gateio_ws_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
             side : bids, asks
         """
-        d = {}
-        data = data.get("result")
-        d["timestamp"] = self.process_timestamp(data, ["t"], 1000)
-        d["receive_time"] = float(data.get("t")) / 1000   
-        symbol = data.get("s")
-        current_price = (float(data.get("a")[0].get("p")) + float(data.get("b")[0].get("p"))) / 2
-        for side in ["a", "b"]:
-            sss = "asks" if side == "a" else "bids" 
-            d[sss] = self.books_multiplier([[x.get("p"), x.get("s")] for x in data.get(side)], self.gateio_derivate_multiplier.get("perpetual_future").get(symbol), current_price)
+        bids = []
+        asks = []
+        timestamp = None
+        symbol = None
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "result.t":
+                timestamp = float(value)
+            if prefix == "result.s":
+                symbol = value
+            if timestamp != None and symbol != None:
+                break
+
+        previous_map_event = ""
+        helper_list = []
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "result.b.item.p" and previous_map_event == "map_key":
+                helper_list.append(float(value))
+            if prefix == "result.b.item.s" and previous_map_event == "map_key":
+                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                bids.append(helper_list)
+                helper_list = []
+            if prefix == "result.a.item.p" and previous_map_event == "map_key":
+                helper_list.append(float(value))
+            if prefix == "result.a.item.s" and previous_map_event == "map_key":
+                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp(timestamp , 1000), "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+
         return d
 
     async def gateio_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         """
             side : bids, asks
         """
+        data = json.loads(data)
         data = data.get("result")
         trades = []
         liquidations = []
@@ -1919,6 +2020,7 @@ class gateio_on_message(on_message_helper):
         """
             https://www.gate.io/docs/developers/futures/ws/en/#trades-notification
         """
+        data = json.loads(data)
         msid = f"{connection_data.get('exchange_symbol')}@spot@gateio"
         if msid not in market_state:
             market_state[msid] = {}
@@ -2047,32 +2149,32 @@ class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_o
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
 
-import sys
-import asyncio
-directory_path = "C:\coding\SatoshiVault\producers"
-directory_path = "/workspaces/fastmoonStreams/producers"
-sys.path.append(directory_path)
+# import sys
+# import asyncio
+# directory_path = "C:\coding\SatoshiVault\producers"
+# directory_path = "/workspaces/fastmoonStreams/producers"
+# sys.path.append(directory_path)
 
-from clients import gateio
+# # from clients import gateio
 
-cd = gateio.gateio_build_api_connectionData("perpetual", "tta", "BTC", 15, special_method="posfutureperp")
-cd = cd.get("api_call_manager")
-asyncio.run(cd.get_symbols())
-asyncio.run(cd.aiomethod())
-data = cd.data
+# # cd = gateio.gateio_build_api_connectionData("perpetual", "tta", "BTC", 15, special_method="posfutureperp")
+# # cd = cd.get("api_call_manager")
+# # asyncio.run(cd.get_symbols())
+# # asyncio.run(cd.aiomethod())
+# # data = cd.data
 
-# for k, e in data.items():
-#     print(k, e)
-#     print("-------")
+# # for k, e in data.items():
+# #     print(k, e)
+# #     print("-------")
 
-# data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/coinbase/coinbase_api_spot_depth_btcusd.json"))[0])
+# data = json.dumps(json.load(open("/workspaces/fastmoonStreams/producers/mockdb/gateio/gateio_ws_spot_depth_btcusdt.json"))[0])
 
 # my_object = on_message()
 
 # md = {}
 # cd = {}
 # async def sss():
-#     d = await my_object.coinbase_api_spot_depth(data, md, {"exchange_symbols" : ["BTC-USDT"]})  
+#     d = await my_object.gateio_ws_spot_depth(data, md, {"exchange_symbols" : ["BTC_USDT"]})  
 #     print(d)
 
 # asyncio.run(sss())
