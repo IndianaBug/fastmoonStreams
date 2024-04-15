@@ -124,7 +124,6 @@ class binance_aoihttp_posfutureperp_manager():
         for key in self.data.copy():
             if key not in keys:
                 del self.data[key]
-        print(self.data.keys())
 
 class binance_aoihttp_oifutureperp_manager():
 
@@ -782,8 +781,6 @@ class gateio_aoihttp_posfutureperp_manager():
             tasks.append(self.gateio_positioning_useless_or_not(s, "tta", d))
         await asyncio.gather(*tasks)
         
-        print(self.data)
-
 class htx_aiohttp_oifutureperp_manager():
 
     def __init__(self, underlying_asset, inverse_future_contract_types_htx, htx_aiohttpFetch):

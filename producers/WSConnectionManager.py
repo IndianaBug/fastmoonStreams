@@ -275,7 +275,6 @@ class keepalive():
         """
         pass
 
-
 class producer(keepalive):
     """
         2 modes: production, testing
@@ -775,13 +774,13 @@ class producer(keepalive):
         on_message_method_ws = connection_data.get("on_message_method_ws")
         on_message_method_api = connection_data.get("on_message_method_api_2")
 
-        # if connection_data.get("objective") == "depth":
-        #     if self.database_name == "mockCouchDB":
-        #         data = connection_data.get("1stBooksSnapMethod")()
-        #         await self.insert_into_database_2(data, connection_data, on_message_method_api)
-        #     else:
-        #         data = connection_data.get("1stBooksSnapMethod")()
-        #         await self.insert_into_database(data, connection_data, on_message_method_api)
+        if connection_data.get("objective") == "depth":
+            if self.database_name == "mockCouchDB":
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database_2(data, connection_data, on_message_method_api)
+            else:
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_database(data, connection_data, on_message_method_api)
 
         if connection_data.get("objective") == "depth":
             if self.database_name == "mockCouchDB":
@@ -802,7 +801,7 @@ class producer(keepalive):
                         if self.mode == "production":
                             print("-------")
                             print(message)
-                            # await self.insert_into_database(connection_data, message, on_message_method_ws)
+                            await self.insert_into_database(connection_data, message, on_message_method_ws)
                             print("-------")
                         if self.mode == "testing":
                             self.get_latency(connection_data, message)
@@ -861,13 +860,3 @@ class producer(keepalive):
         # except:
         #     pass
 
-
-# async def delayed_task(task, delay):
-#     await asyncio.sleep(delay)
-#     await initialize_task(task)
-
-# async def main():
-#     delays = range(len(task_list))  # Create delays for each task
-#     await asyncio.gather(*(delayed_task(task, delay) for task, delay in zip(task_list, delays)))
-
-# asyncio.run(main())
