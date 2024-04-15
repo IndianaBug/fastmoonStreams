@@ -892,36 +892,6 @@ class htxInfo(requestHandler):
         basepoint = recursive_dict_access(cls.htx_basepoints, instType)
         url = f"{endpoint}{basepoint}"
         return cls.simple_request(url).get("data")
-
-    @classmethod
-    async def htx_symbols_by_instType_async(cls, instType):
-        """
-            spot, future
-        """
-        basepoint = iterate_dict(cls.htx_endpoints.get(instType))
-        endpoint = iterate_dict(cls.htx_basepoints.get(instType))
-        links = [f"{y}{x}" for x, y in zip(endpoint, basepoint)]
-        d = []
-        for url in links:
-            data = await cls.simple_request_async(url)
-            data = data.get("data")
-            try:
-                symbols = [d["contract_code"] for d in data]
-            except:
-                symbols = [d["symbol"] for d in data]
-            d.append(symbols)
-        return unnest_list(d)
-    
-    @classmethod
-    async def htx_symbols_async(cls):
-        """
-            spot, future
-        """
-        d= {}
-        for key in cls.htx_endpoints:
-            symbols = await cls.htx_symbols_by_instType_async(key)
-            d[key] = symbols
-        return d
     
     @classmethod
     async def htx_info_async(cls, instType):
@@ -932,7 +902,6 @@ class htxInfo(requestHandler):
         basepoint = recursive_dict_access(cls.htx_basepoints, instType)
         url = f"{endpoint}{basepoint}"
         data = await cls.simple_request_async(url)
-        data = data.get("data")
         return data
 
 class gateioInfo(requestHandler):

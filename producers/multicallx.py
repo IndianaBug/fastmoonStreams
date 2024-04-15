@@ -620,7 +620,6 @@ class bitget_aoihttp_fundperp_manager():
                         self.symbols_perpetual[symbol].remove(key)
                 del self.data[key]
 
-
 class gateio_aoihttp_fundperp_manager():
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
@@ -835,15 +834,12 @@ class htx_aiohttp_oifutureperp_manager():
             await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_oi_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary):
-        response = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
-        if isinstance(response, str):
-            response = json.loads(response)        
+        response = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")      
         state_dictionary[f"{underlying_asset}{asset_specification}"] = response
 
     async def htx_fetch_oi_helper_2(self, instType, objective, underlying_asset, asset_specification, state_dictionary, ctype):
         response = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}", contract_type=ctype)
-        if isinstance(response, str):
-            response = json.loads(response)
+
         state_dictionary[f"{underlying_asset}{asset_specification}"] = response
 
     async def aiomethod(self):
@@ -874,8 +870,6 @@ class htx_aiohttp_fundperp_manager():
 
     async def htx_fetch_fundperp_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary, marginCoinCoinCoin):
         l = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
-        if isinstance(l, str):
-            l = json.loads(l)
         state_dictionary[marginCoinCoinCoin] = l
 
     async def aiomethod(self):
@@ -904,14 +898,11 @@ class htx_aiohttp_posfutureperp_manager():
 
     async def htx_fetch_pos_helper(self, instType, objective, underlying_asset, ltype, state_dictionary):
         tta = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}-{ltype}")
-        if isinstance(tta, str):
-            tta = json.loads(tta)
         state_dictionary[f"{underlying_asset}_{ltype}_{objective}"] = tta
 
     async def htx_fetch_pos_helper_2(self, instType, underlying_asset, obj, state_dictionary):
         tta = await self.htx_aiohttpFetch(instType, obj, f"{underlying_asset}.InverseFuture")
-        if isinstance(tta, str):
-            tta = json.loads(tta)
+
         state_dictionary[f"{underlying_asset}_InverseFuture_tta"] = tta
         
     async def aiomethod(self):

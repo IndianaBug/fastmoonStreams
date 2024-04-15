@@ -1,0 +1,40 @@
+[
+    {
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1371.505
+        },
+        "BTC-USDT-240426@future@htx": {
+            "oi": 0.593
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 2.954
+        },
+        "BTC240426@perpetual@htx": {
+            "oi": 0.6900540664215883
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 611.073383498398
+        },
+        "timestamp": "2024-04-15 01:10:11",
+        "_doc": "2ba677ae-85a4-4b72-b6e2-b4aab18f9efd"
+    },
+    {
+        "BTC-USDT@perpetual@htx": {
+            "oi": 1371.239
+        },
+        "BTC-USDT-240426@future@htx": {
+            "oi": 0.6
+        },
+        "BTC-USDT-240419@future@htx": {
+            "oi": 2.965
+        },
+        "BTC240419@perpetual@htx": {
+            "oi": 0.7803664674090309
+        },
+        "BTC-USD@perpetual@htx": {
+            "oi": 612.7812276765655
+        },
+        "timestamp": "2024-04-15 01:09:50",
+        "_doc": "c25bfeee-5dda-462a-9022-8ac46e9ea758"
+    }
+]

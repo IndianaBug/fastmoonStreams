@@ -1667,23 +1667,84 @@ class mexc_on_message(on_message_helper):
         return d
 
     async def mexc_api_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        symbol = connection_data.get("exchange_symbol")
-        current_price = (data.get("data").get("bids")[0][0] + data.get("data").get("asks")[0][0]) / 2
-        for side in ["asks", "bids"]:
-            books = self.books_multiplier(data.get("data").get(side), self.mexc_derivate_multiplier.get(symbol), current_price)
-            d[side] = books
-        d["timestamp"] = self.process_timestamp(data.get("data"), ["timestamp"], 1000)
-        d["receive_time"] = data.get("data").get("timestamp") / 1000
+    
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        symbol = connection_data.get("exchange_symbols")[0]
+        current_price = market_state.get(f"{symbol}@perpetual@mexc", {}).get("price", 10000000000000000)
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bids.item.item" and previous_map_event == "number":
+                helper_list.append(self.mexc_derivate_multiplier.get(symbol)(float(value), current_price))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asks.item.item" and previous_map_event == "number":
+                helper_list.append(self.mexc_derivate_multiplier.get(symbol)(float(value), current_price))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def mexc_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        for side in ["asks", "bids"]:
-            books = self.convert_books(data.get(side))
-            d[side] = books
-        d["timestamp"] = self.process_timestamp(data, ["timestamp"], 1000)
-        d["receive_time"] = data.get("timestamp") / 1000
+
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "bids.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "asks.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        return d
+
+    async def mexc_ws_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    
+        data = json.loads(data)
+
+        timestamp = float(data.get("ts"))
+        symbol = data.get("symbol")
+
+        data = data.get("data")
+
+        asks = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("asks")] if data.get("asks") != [] else []
+        bids = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("bids")] if data.get("bids") != [] else []
+
+        d = {"timestamp" :  self.process_timestamp(timestamp, 1000), "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+        return d
+
+    async def mexc_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+
+        data = json.loads(data)
+
+        timestamp = float(data.get("t"))
+
+        bidsdata = data.get("d").get("bids") if "bids" in data.get("d") else []
+        bids = [[float(bid.get("p")), float(bid.get("v"))] for bid in bidsdata] if bidsdata != [] else bidsdata
+        asksdata = data.get("d").get("asks") if "asks" in data.get("d") else []
+        asks = [[float(bid.get("p")), float(bid.get("v"))] for bid in asksdata] if asksdata != [] else asksdata
+        d = {"timestamp" :  self.process_timestamp(timestamp, 1000), "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
 class gateio_on_message(on_message_helper):
@@ -1887,11 +1948,32 @@ class coinbase_on_message(on_message_helper):
         pass
 
     async def coinbase_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        data = data.get("pricebook")
-        d = {}
-        d["timestamp"] = datetime.strptime(data.get("time"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
-        for side in ["bids", "asks"]:
-            d[side] = self.convert_books([[x.get("price"), x.get("size")] for x in data.get(side)])
+        bids = []
+        asks = []
+        helper_list = []
+        timestamp = None
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "pricebook.time":
+                timestamp = value
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "pricebook.asks.item.price":
+                helper_list.append(float(value))
+            if prefix == "pricebook.asks.item.size":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "pricebook.bids.item.price":
+                helper_list.append(float(value))
+            if prefix == "pricebook.bids.item.size":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+
+        timestamp = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def coinbase_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
@@ -1908,6 +1990,7 @@ class coinbase_on_message(on_message_helper):
         return {"bids" : bids, "asks" : asks, "timestamp" : timestamp, "receive_time" : receive_time}
 
     async def coinbase_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         trades = []
         liquidations = []
         data = data.get("events")[0].get("trades")
@@ -1961,14 +2044,14 @@ sys.path.append(directory_path)
 #     print(k, e)
 #     print("-------")
 
-data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/kucoin/kucoin_api_perpetual_depth_xbtusdtm.json"))[0])
+data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/coinbase/coinbase_api_spot_depth_btcusd.json"))[0])
 
 my_object = on_message()
 
 md = {}
 cd = {}
 async def sss():
-    d = await my_object.kucoin_api_perpetual_depth(data, md, {"exchange_symbols" : ["BTC-USDT-SWAP"]})  
+    d = await my_object.coinbase_api_spot_depth(data, md, {"exchange_symbols" : ["BTC-USDT"]})  
     print(d)
 
 asyncio.run(sss())

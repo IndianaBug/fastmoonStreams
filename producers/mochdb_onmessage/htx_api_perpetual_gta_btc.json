@@ -1,0 +1,22 @@
+[
+  {
+    "BTC@inverse@future@perpetual@htx": {
+      "tta_long_ratio": 0.65,
+      "tta_short_ratio": 0.325
+    },
+    "BTC-USDT-FUTURES@linear@future@htx": {
+      "tta_long_ratio": 0.698,
+      "tta_short_ratio": 0.302
+    },
+    "BTC-USDT@linear@perpetual@htx": {
+      "tta_long_ratio": 0.6,
+      "tta_short_ratio": 0.36
+    },
+    "BTC-USD@linear@perpetual@htx": {
+      "ttp_long_ratio": 0.505,
+      "ttp_short_ratio": 0.495
+    },
+    "timestamp": "2024-04-15 01:13:53",
+    "_doc": "a811152e-4eae-430d-9c4d-756e85aa8ab9"
+  }
+]

@@ -92,11 +92,11 @@ ws = {
     #    "perpetual.depth.BTC_USDT.snap",  
     #     "perpetual.trades.BTC_USDT",
     #     ],
-    # "coinbase" : [
-    #     "spot.depth.BTC-USD.snap", 
-    #     "spot.trades.BTC-USD", 
-    #     "spot.heartbeats.BTC-USD",
-    #     ],
+    "coinbase" : [
+        "spot.depth.BTC-USD.snap", 
+        # "spot.trades.BTC-USD", 
+        "spot.heartbeats.BTC-USD",
+        ],
 }
 
 api = {
@@ -118,36 +118,36 @@ api = {
         # "perpetual.gta.BTC.15",
         # "option.oi.BTC-USD.15",
         ],
-    # "deribit" : [
+    "deribit" : [
     #     "future.oifunding.BTC.15",  
     #     "option.oifunding.BTC.15",
-    #     ],
+        ],
     "bitget" : [
-        "perpetual.funding.BTC.15.spec", 
+        # "perpetual.funding.BTC.15.spec", 
         # "perpetual.oi.BTC.15.spec", 
     ],
-    # "bingx" : [
-    #     "perpetual.funding.BTC-USDT.30", 
+    "bingx" : [
+        # "perpetual.funding.BTC-USDT.30", 
     #     "perpetual.oi.BTC-USDT.30",  
         # "perpetual.depth.BTC-USDT.30",  
-        # ],
-    # "kucoin" : [
+        ],
+    "kucoin" : [
     #     "perpetual.oifunding.XBTUSDTM.15",
-    #     ],
-    # "gateio" : [
+        ],
+    "gateio" : [
     #     "perpetual.funding.BTC.20.spec",  
     #     "perpetual.oi.BTC.20.spec",    
     #     "perpetual.tta.BTC.20.spec",    
     #     "option.oi.BTC_USDT.20",
-    #     ],
-    # "mexc" : [
+        ],
+    "mexc" : [
     #     "perpetual.oifunding.BTC_USDT.15",
-    #     ],
-    # "htx" : [
-    #     "perpetual.oi.BTC.20.spec", 
-    #     "perpetual.funding.BTC.60.spec", 
-    #     "perpetual.gta.BTC.60.spec",
-    #     ],
+        ],
+    "htx" : [
+        # "perpetual.oi.BTC.20.spec", 
+        # "perpetual.funding.BTC.60.spec", 
+        # "perpetual.gta.BTC.60.spec",
+        ],
 }
 
 
