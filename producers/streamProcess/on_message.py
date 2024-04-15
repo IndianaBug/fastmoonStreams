@@ -11,7 +11,7 @@ from typing import Dict, List, Tuple, Union, Literal, Callable
 from typing import List, Dict, Union, Optional, Literal
 import ijson
 import rapidjson as json
-
+import gzip
 
 class on_message_helper():
 
@@ -1141,24 +1141,58 @@ class bitget_on_message(on_message_helper):
         pass
 
     async def bitget_api_spot_linear_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        for side in ["asks", "bids"]:
-            books = self.convert_books(data.get("data").get(side))
-            d[side] = books
-        d["timestamp"] = self.process_timestamp(data.get("data"), ["ts"], 1000)
-        d["receive_time"] = float(data.get("data").get("ts")) / 1000
-        return d
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bids.item.item" and previous_map_event == "number":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asks.item.item" and previous_map_event == "number":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+        return {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
 
     async def bitget_ws_spot_linear_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        for side in ["asks", "bids"]:
-            books = self.convert_books(data.get("data")[0].get(side))
-            d[side] = books
-        d["timestamp"] = self.process_timestamp(data.get("data")[0], ["ts"], 1000)
-        d["receive_time"] = float(data.get("data")[0].get("ts")) / 1000
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+        timestamp = None
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.item.ts":
+                timestamp = float(value)
+                break
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.item.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.item.bids.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.item.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.item.asks.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bitget_ws_inverse_perpetual_future_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         trades = []
         liquidations = []
         symbol = data.get("arg").get("instId")
@@ -1224,25 +1258,56 @@ class bingx_on_message(on_message_helper):
         pass
 
     async def bingx_api_perpetual_linear_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs) -> Tuple[list, str]:
-        d = {}
-        for side in ["bidsCoin", "asksCoin"]:
-            lside = "bids" if side == "bidsCoin" else "asks"
-            books = self.convert_books(data.get("data").get(side))
-            d[lside] = books
-        d["timestamp"] = self.process_timestamp(data.get("data"), ["T"], 1000)
-        d["receive_time"] = float(data.get("data").get("T")) / 1000        
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.bidsCoin.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bidsCoin.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.asksCoin.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asksCoin.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def bingx_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        for side in ["bids", "asks"]:
-            books = self.convert_books(data.get("data").get(side))
-            d[side] = books
-        d["timestamp"] = self.process_timestamp_no_timestamp()
-        d["receive_time"] = time.time()       
+
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asks.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bids.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def bingx_api_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         timestamp = self.process_timestamp(data.get("data"), ["time"], 1000)
         openInterest = float(data.get("data").get("openInterest"))
         ss = str(data.get('data').get('symbol'))
@@ -1255,6 +1320,7 @@ class bingx_on_message(on_message_helper):
         return d
 
     async def bingx_api_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         funding = float(data.get("data").get("lastFundingRate"))
         ss = str(data.get('data').get('symbol'))
         s = f"{ss}@perpetual@bingx"
@@ -1315,18 +1381,17 @@ class htx_on_message(on_message_helper):
     async def htx_api_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         d = {}
         for marginType in data:
-            if isinstance(data.get(marginType), dict): 
-                data_per_marginType = data.get(marginType).get("data")
-                for data_instrument in data_per_marginType:
-                    symbol = data_instrument.get("contract_code")
-                    oi = float(data_instrument.get("amount"))
-                    instType = "future" if data_instrument.get("business_type") == "futures" else "perpetual"
-                    msid = f"{symbol}@{instType}@htx"
-                    d[msid] = {"oi" :  oi}
+            data_per_marginType = json.loads(data.get(marginType)).get("data")
+            for data_instrument in data_per_marginType:
+                symbol = data_instrument.get("contract_code")
+                oi = float(data_instrument.get("amount"))
+                instType = "future" if data_instrument.get("business_type") == "futures" else "perpetual"
+                msid = f"{symbol}@{instType}@htx"
+                d[msid] = {"oi" :  oi}
 
-                    if msid not in market_state:
-                        market_state[msid] = {}
-                    market_state[msid]["oi"] = oi
+                if msid not in market_state:
+                    market_state[msid] = {}
+                market_state[msid]["oi"] = oi
 
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
@@ -1334,25 +1399,24 @@ class htx_on_message(on_message_helper):
     async def htx_api_perpetual_pos_posfutureperp_gta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         d = {}
         for instrument in data:
-            if isinstance(data.get(instrument), dict):
-                indicator_type = instrument.split("_")[-1]
-                pos_data = data.get(instrument).get("data")
-                if "contract_code" in pos_data:
-                    symbol = pos_data.get("contract_code")
-                    instType = "linear@future" if "FUTURES" in symbol else "linear@perpetual"
-                elif "symbol" in pos_data:
-                    symbol = pos_data.get("symbol")
-                    instType = "inverse@future@perpetual"
-                msid = f"{symbol}@{instType}@htx"
+            indicator_type = instrument.split("_")[-1]
+            pos_data = json.loads(data.get(instrument)).get("data")
+            if "contract_code" in pos_data:
+                symbol = pos_data.get("contract_code")
+                instType = "linear@future" if "FUTURES" in symbol else "linear@perpetual"
+            elif "symbol" in pos_data:
+                symbol = pos_data.get("symbol")
+                instType = "inverse@future@perpetual"
+            msid = f"{symbol}@{instType}@htx"
 
-                long_ratio = float(pos_data.get("list")[0].get("buy_ratio"))
-                short_ratio = float(pos_data.get("list")[0].get("sell_ratio"))
-                d[msid] = {f"{indicator_type}_long_ratio" : long_ratio, f"{indicator_type}_short_ratio" : short_ratio}
+            long_ratio = float(pos_data.get("list")[0].get("buy_ratio"))
+            short_ratio = float(pos_data.get("list")[0].get("sell_ratio"))
+            d[msid] = {f"{indicator_type}_long_ratio" : long_ratio, f"{indicator_type}_short_ratio" : short_ratio}
 
-                if msid not in market_state:
-                    market_state[msid] = {}
-                market_state[msid][f"{indicator_type}_long_ratio"] = long_ratio
-                market_state[msid][f"{indicator_type}_short_ratio"] = short_ratio
+            if msid not in market_state:
+                market_state[msid] = {}
+            market_state[msid][f"{indicator_type}_long_ratio"] = long_ratio
+            market_state[msid][f"{indicator_type}_short_ratio"] = short_ratio
 
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
@@ -1360,14 +1424,13 @@ class htx_on_message(on_message_helper):
     async def htx_api_perpetual_funding_fundperp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         d = {}
         for marginCoin in data:
-            if isinstance(data.get(marginCoin), dict):
-                instData = data.get(marginCoin).get("data")[0]
-                funding = float(instData.get("funding_rate"))
-                contract_code = instData.get("contract_code")
-                msid = f"{contract_code}@perpetual@htx"
-                d[msid] = {"funding" : funding}
-                if msid not in market_state:
-                    market_state[msid] = {}
+            instData = json.loads(data.get(marginCoin)).get("data")[0]
+            funding = float(instData.get("funding_rate"))
+            contract_code = instData.get("contract_code")
+            msid = f"{contract_code}@perpetual@htx"
+            d[msid] = {"funding" : funding}
+            if msid not in market_state:
+                market_state[msid] = {}
                 market_state[msid][f"funding"] = funding
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
@@ -1386,6 +1449,7 @@ class kucoin_on_message(on_message_helper):
             self.kucoin_derivate_multiplier = derivate_multiplier
 
     async def kucoin_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         trades = []
         liquidations = []
         symbol = data.get("data").get("symbol")
@@ -1406,6 +1470,7 @@ class kucoin_on_message(on_message_helper):
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
     async def kucoin_ws_perpetual_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         trades = []
         liquidations = []
         symbol = data.get("data").get("symbol")
@@ -1426,6 +1491,7 @@ class kucoin_on_message(on_message_helper):
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
     
     async def kucoin_api_perpetual_oi_funding_oifunding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         d = {}
         data = data.get("data")
         symbol = data.get("symbol")
@@ -1443,28 +1509,63 @@ class kucoin_on_message(on_message_helper):
         return d
 
     async def kucoin_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        for side in ["asks", "bids"]:
-            books = self.convert_books(data.get("data").get(side))
-            d[side] = books
-        print(data.get("data").get("time"))
-        d["timestamp"] = self.process_timestamp(data.get("data"), ["time"], 1000)
-        d["receive_time"] = data.get("data").get("time") / 1000
+
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bids.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asks.item.item" and previous_map_event == "string":
+                helper_list.append(float(value))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def kucoin_api_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
-        d = {}
-        symbol = data.get("data").get("symbol")
-        price = (float(data.get("data").get("bids")[0][0]) + float(data.get("data").get("asks")[0][0])) / 2
-        for side in ["asks", "bids"]:
-            books = self.books_multiplier(data.get("data").get(side), self.kucoin_derivate_multiplier.get(symbol), price)
-            d[side] = books
-        print(data.get("data").get("time"))
-        d["timestamp"] = self.process_timestamp(data.get("data"), ["ts"], 10**9)
-        d["receive_time"] = data.get("data").get("ts") / 10**9
+        bids = []
+        asks = []
+        previous_map_event = ""
+        helper_list = []
+        symbol = None
+        price = market_state.get(f"{symbol}@perpetual@kucoin", {}).get("price", 1000000000)
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.symbol":
+                symbol = value
+                break
+
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "data.bids.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.bids.item.item" and previous_map_event == "number":
+                helper_list.append( self.kucoin_derivate_multiplier.get(symbol)(float(value), price))
+                helper_list = []
+                bids.append(helper_list)
+            if prefix == "data.asks.item.item" and previous_map_event == "start_array":
+                helper_list.append(float(value))
+            if prefix == "data.asks.item.item" and previous_map_event == "number":
+                helper_list.append( self.kucoin_derivate_multiplier.get(symbol)(float(value), price))
+                asks.append(helper_list)
+                helper_list = []
+            previous_map_event = event
+
+        d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def kucoin_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         d = {}
         for side in ["asks", "bids"]:
             books = [[x[0], x[1]] for x in self.convert_books(data.get("data").get("changes").get(side))]
@@ -1475,6 +1576,7 @@ class kucoin_on_message(on_message_helper):
         return d
 
     async def kucoin_ws_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         d = {}
         symbol = data.get("topic").split(":")[-1]
         change = data.get("data").get("change").split(",")
@@ -1503,6 +1605,7 @@ class mexc_on_message(on_message_helper):
             self.mexc_derivate_multiplier = derivate_multiplier
 
     async def mexc_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         trades = data.get("d").get("deals")
         symbol = data.get("c").split("@")[-1]
         ttt = []
@@ -1524,6 +1627,7 @@ class mexc_on_message(on_message_helper):
         return {"trades" : ttt, "liquidations" : lll, "receive_time" : receive_time}
 
     async def mexc_ws_perpetual_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         symbol = data.get("symbol") 
         trade = data.get("data")
         trades = []
@@ -1544,6 +1648,7 @@ class mexc_on_message(on_message_helper):
         return {"trades" : trades, "liquidations" : [], "receive_time" : receive_time}
 
     async def mexc_api_perpetual_oi_funding_oifunding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+        data = json.loads(data)
         d = {}
         symbol = data.get("data").get("symbol")
         msid = f"{symbol}@perpetual@mexc"
@@ -1844,29 +1949,26 @@ import asyncio
 directory_path = "C:\coding\SatoshiVault\producers"
 sys.path.append(directory_path)
 
-from clients import bitget
+# from clients import htx
 
-cd = bitget.bitget_build_api_connectionData("perpetual", "funding", "BTC", 15, special_method="fundperp")
-cd = cd.get("api_call_manager")
-asyncio.run(cd.get_bitget_perpetual_symbols())
-asyncio.run(cd.aiomethod())
-data = cd.data
+# cd = htx.htx_build_api_connectionData("perpetual", "funding", "BTC", 15, special_method="fundperp")
+# cd = cd.get("api_call_manager")
+# # asyncio.run(cd.get_bitget_perpetual_symbols())
+# asyncio.run(cd.aiomethod())
+# data = cd.data
 
-for k, e in data.items():
-    print(k, e)
-    print("-------")
+# for k, e in data.items():
+#     print(k, e)
+#     print("-------")
 
-# data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/deribit/deribit_ws_perpetual_depth_btcperpetual.json"))[0])
+data = json.dumps(json.load(open("C:/coding/SatoshiVault/producers/mockdb/kucoin/kucoin_api_perpetual_depth_xbtusdtm.json"))[0])
 
-# my_object = on_message()
+my_object = on_message()
 
-# md = {}
-# cd = {}
-# async def sss():
-#     d = await my_object.deribit_ws_perpetual_future_depth(data, md, {"exchange_symbols" : ["BTC-USDT-SWAP"]})  
-#     print(d)
+md = {}
+cd = {}
+async def sss():
+    d = await my_object.kucoin_api_perpetual_depth(data, md, {"exchange_symbols" : ["BTC-USDT-SWAP"]})  
+    print(d)
 
-# asyncio.run(sss())
-
-
-# print(md)
+asyncio.run(sss())
