@@ -12,6 +12,8 @@ import aiocouch
 from utilis import ws_fetcher_helper
 import io
 from functools import partial
+from aiokafka import AIOKafkaProducer
+from aiokafka.errors import KafkaError
 
 
 
@@ -279,14 +281,26 @@ class producer(keepalive):
     """
         2 modes: production, testing
     """
-    def __init__(self, connection_data, database="mockCouchDB", database_folder="mochdb_onmessage", couch_host="", 
-                 couch_username="", couch_password="", ws_timestamp_keys=None,
-                 mode="production"):
+    def __init__(self, 
+                 kafka_host,
+                 number_partitions,
+                 replication_factor,
+                 connection_data, 
+                 database="mockCouchDB", 
+                 database_folder="mochdb_onmessage", 
+                 couch_host="", 
+                 couch_username="", 
+                 couch_password="",
+                 mode="production"
+                 ):
         """
             databases : CouchDB, mockCouchDB
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
             if using tinydb, you must create a folder tinybase
         """
+        self.kafka_host = kafka_host
+        self.number_partitions = number_partitions
+        self.replication_factor = replication_factor
         self.database_name = database
         self.database_folder = database_folder
         if self.database_name == "CouchDB":
@@ -294,7 +308,6 @@ class producer(keepalive):
             self.db.resource.credentials = (couch_username, couch_password)
         self.ws_latencies = {}
         self.connection_data = connection_data
-        self.ws_timestamp_keys = ws_timestamp_keys
         self.ws_failed_connections = {}
         self.mode = mode
         self.set_databases() 
@@ -314,6 +327,9 @@ class producer(keepalive):
         except:
             pass
         self.market_state = {}
+    
+    async def send_message_to_topic(self, producer, topic_name, message):
+        await producer.send_and_wait(topic_name, message.encode())
 
     def onInterrupt_write_to_json(self):
         """

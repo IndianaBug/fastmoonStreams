@@ -7,7 +7,10 @@ import string
 import aiofiles
 import uuid
 import asyncio
-
+import ujson
+from aiokafka import AIOKafkaProducer, TopicExistsError
+from aiokafka.errors import KafkaError
+import asyncio
 
 def get_dict_by_key_value(lst, key, value):
     for d in lst:
@@ -105,10 +108,16 @@ import uuid
 import os
 import asyncio
 import gzip
+import ijson
+from itertools import islice
+
+async def _chunks(data, chunk_size):
+  for i in range(0, len(data), chunk_size):
+    yield data[i:i + chunk_size]
 
 class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
-        self.file_path =  folder_name + "/" + filename + ".txt"
+        self.file_path =  folder_name + "/" + filename + ".json"
         self.buffer_size = buffer_size
 
 
@@ -119,28 +128,23 @@ class MockCouchDB:
             print(e)
             return
         data["_doc"] = str(uuid.uuid4())
-        async with aiofiles.open(self.file_path ,mode='w') as f:
-            await json.dump(data, f)
-            await f.write("\n")
 
-
-
-        # if not os.path.exists(self.file_path):
-        #     async with aiofiles.open(self.file_path ,mode='w') as f:
-        #         content = []
-        #         content.insert(0, data)
-        #         await f.seek(0)  
-        #         await f.truncate() 
-        #         await f.write(json.dumps(content, indent=2)) 
-        # else:
-        #     async with aiofiles.open(self.file_path ,mode='r+') as f: 
-        #         content = await f.read()
-        #         content = json.loads(content)
-        #         content.insert(0, data)
-        #         content = json.dumps(content)
-        #         await f.seek(0)  
-        #         await f.truncate() 
-        #         await f.write(content) 
+        if not os.path.exists(self.file_path):
+            async with aiofiles.open(self.file_path ,mode='w') as f:
+                content = []
+                content.insert(0, data)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(json.dumps(content, indent=2)) 
+        else:
+            async with aiofiles.open(self.file_path ,mode='r+') as f: 
+                content = await f.read()
+                content = json.loads(content)
+                content.insert(0, data)
+                content = json.dumps(content)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(content) 
 
 async def ws_fetcher_helper(function):
     data = await function()
@@ -188,9 +192,12 @@ class DynamicFixedSizeList_binanceOptionOI:
         self.max_size = new_max_size
 
 
-# data_handler = MockCouchDB("large_database.json", "mochdb")
-# for i in range(100):
-#     loop = asyncio.new_event_loop()
-#     asyncio.set_event_loop(loop)
-#     loop.run_until_complete(data_handler.save({f"new_key{i}" : str(i)}))
+async def ensure_topic_exists(producer, partitions, replication_factor, topic_name):
+    try:
+        await producer.client.create_topics([(topic_name, {'partitions': partitions, 'replication_factor': replication_factor})], timeout_ms=10000)
+        print(f"Topic '{topic_name}' created successfully or already exists.")
+    except TopicExistsError:
+        print(f"Topic '{topic_name}' already exists.")
+    except KafkaError as e:
+        print(f"Error while creating topic '{topic_name}': {e}")
 

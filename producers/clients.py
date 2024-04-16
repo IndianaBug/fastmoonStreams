@@ -198,7 +198,7 @@ class binance(CommunicationsManager, binanceInfo):
         return all_info 
 
     @classmethod
-    def binance_build_api_connectionData(cls, instType:str, objective:str, symbol:str,  pullTimeout:int, special_method=None, specialParam=None, **kwargs):
+    def binance_build_api_connectionData(cls, instType:str, objective:str, symbol:str,  pullTimeout:int, special_method="", specialParam=None, **kwargs):
         """
             insType : deptj, funding, oi, tta, ttp, gta
             **kwargs, symbol limit, period. Order doesnt matter
@@ -231,6 +231,7 @@ class binance(CommunicationsManager, binanceInfo):
         data["marginType"] = marginType
         data["standarized_margin"] = standarized_margin
         data["id_api"] = id_api
+        data["topic_name"] = data["id_api"] + data["is_special"]
 
         if special_method == "oioption":
             data["api_call_manager"] = binance_aoihttp_oioption_manager(symbol, binanceInfo.binance_get_option_instruments_by_underlying, cls.binance_aiohttpFetch)
@@ -317,8 +318,11 @@ class binance(CommunicationsManager, binanceInfo):
                                 "msg_method" : partial(cls.binance_build_bulk_ws_message, instTypes, objectives, symbols),
                                 "marginType" : marginType,
                                 "exchange_symbols" : symbols,
-                                "standarized_margin" : standarized_margin
+                                "standarized_margin" : standarized_margin,
+                                "id_api_2" : ""
                             }
+        
+        connection_data["topic_name"] = connection_data["id_ws"]
         
         if needSnap is True:
             connection_data["id_api_2"] = f"binance_api_{instTypes[0]}_{objectives[0]}_{sss[0]}"
@@ -385,7 +389,7 @@ class bybit(CommunicationsManager, bybitInfo):
             pass
 
     @classmethod
-    def bybit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None,  **kwargs):
+    def bybit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str="",  **kwargs):
         """
             insType : depth, gta
             result = d['aiohttpMethod']()
@@ -436,6 +440,8 @@ class bybit(CommunicationsManager, bybitInfo):
         else:
             call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
             data["aiohttpMethod"] = call
+
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
     
@@ -594,6 +600,8 @@ class bybit(CommunicationsManager, bybitInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"bybit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.bybit_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
         return connection_data
         
 class okx(CommunicationsManager, okxInfo):
@@ -651,7 +659,7 @@ class okx(CommunicationsManager, okxInfo):
         return response
 
     @classmethod
-    def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str=None, **kwargs):
+    def okx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method:str="", **kwargs):
         """
             objective :  gta oi oioption funding depth
             instType is symbolic
@@ -692,6 +700,8 @@ class okx(CommunicationsManager, okxInfo):
         else:
             call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
             data["aiohttpMethod"] = call
+        
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
 
@@ -778,6 +788,8 @@ class okx(CommunicationsManager, okxInfo):
         if needSnap == True:
             connection_data["id_api_2"] = f"okx_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.okx_fetch, instType=instTypes[0], objective=objectives[0], symbol=symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
         return connection_data
 
 class coinbase(CommunicationsManager):
@@ -990,6 +1002,9 @@ class coinbase(CommunicationsManager):
         if needSnap is True:
             connection_data["id_api_2"] = f"coinbase_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(self.coinbase_fetch, instTypes[0], objectives[0], symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
+
         return connection_data
 
 class kucoin(CommunicationsManager, kucoinInfo):
@@ -1127,9 +1142,12 @@ class kucoin(CommunicationsManager, kucoinInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"kucoin_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(self.kucoin_fetch, instTypes[0], objectives[0], symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
+
         return connection_data
 
-    def kucoin_build_api_connectionData(self, instType:str, objective:str, symbol, pullTimeout:int, special_method=None, **kwargs):
+    def kucoin_build_api_connectionData(self, instType:str, objective:str, symbol, pullTimeout:int, special_method="", **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oi, gta
@@ -1153,6 +1171,8 @@ class kucoin(CommunicationsManager, kucoinInfo):
                 "aiohttpMethod" : partial(self.kucoin_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
                 }
+        
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
     
@@ -1257,7 +1277,7 @@ class bingx(CommunicationsManager, bingxInfo):
         else:
             return await CommunicationsManager.make_aiohttpRequest(connection_data)
 
-    def bingx_build_api_connectionData(self, instType:str, objective:str, symbol:str, pullTimeout:int, special_method, **kwargs):
+    def bingx_build_api_connectionData(self, instType:str, objective:str, symbol:str, pullTimeout:int, special_method="", **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oi, gta
@@ -1281,7 +1301,8 @@ class bingx(CommunicationsManager, bingxInfo):
                 "aiohttpMethod" : partial(self.bingx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
                 }
-        
+        data["topic_name"] = data["id_api"] + data["is_special"]
+
         return data
 
     def build_bingx_ws_message(self, instType, objective, symbol):
@@ -1301,6 +1322,7 @@ class bingx(CommunicationsManager, bingxInfo):
         symbol_names = [bingx_get_symbol_name(symbol) for symbol in symbols]
         endpoint = self.bingx_ws_endpoints.get(instTypes[0])  
         connection_data =     {
+
                                 "type" : "ws",
                                 "id_ws" : f"bingx_ws_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}",
                                 "exchange":"bingx", 
@@ -1312,6 +1334,8 @@ class bingx(CommunicationsManager, bingxInfo):
                                 "msg_method" : partial(self.build_bingx_ws_message, instTypes[0], objectives[0], symbols[0]),
                                 "exchange_symbols" : symbols,
                             }
+        connection_data["topic_name"] = connection_data["id_ws"]
+
         return connection_data
 
 class bitget(CommunicationsManager, bitgetInfo):
@@ -1371,7 +1395,7 @@ class bitget(CommunicationsManager, bitgetInfo):
         return response
 
     @classmethod
-    def bitget_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=False, **kwargs):
+    def bitget_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method="", **kwargs):
         """
             insType : perpetual, spot
             objective : depth
@@ -1406,6 +1430,8 @@ class bitget(CommunicationsManager, bitgetInfo):
         else:
             call =  partial(cls.bitget_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
             data["aiohttpMethod"] = call
+
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
 
@@ -1475,6 +1501,9 @@ class bitget(CommunicationsManager, bitgetInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"bitget_api_{instType}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.bitget_fetch, instTypes[0], objectives[0], symbols[0])
+        
+        connection_data["topic_name"] = connection_data["id_ws"]
+
         return connection_data
 
 class deribit(CommunicationsManager, deribitInfo):
@@ -1561,14 +1590,14 @@ class deribit(CommunicationsManager, deribitInfo):
         return full
 
     @classmethod
-    def deribit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
+    def deribit_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method="", **kwargs):
         """
             insType : perpetual, spot, future, option
             objective : oifunding, depth
             **kwargs - those in deribit ducumentations
             pullTimeout : how many seconds to wait before you make another call
         """
-        symbol_name = kucoin_get_symbol_name(symbol) 
+        symbol_name = deribit_get_symbol_name(symbol) 
         data =  {
                 "type" : "api",
                 "id_api" : f"deribit_api_{instType}_{objective}_{symbol_name}",
@@ -1580,6 +1609,8 @@ class deribit(CommunicationsManager, deribitInfo):
                 "aiohttpMethod" : partial(cls.deribit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
                 }
+        
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
 
@@ -1614,6 +1645,9 @@ class deribit(CommunicationsManager, deribitInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"deribit_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
             connection_data["1stBooksSnapMethod"] = partial(cls.deribit_fetch, instTypes[0], objectives[0], symbols[0]) 
+
+        connection_data["topic_name"] = connection_data["id_ws"]
+        
         return connection_data
 
 class htx(CommunicationsManager, htxInfo):
@@ -1672,7 +1706,7 @@ class htx(CommunicationsManager, htxInfo):
         return response
 
     @classmethod
-    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, contract_type=None, **kwargs):
+    def htx_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method="", contract_type=None, **kwargs):
         """
             insType : perpetual, spot, future
             objective : depth, oi, tta, ttp
@@ -1710,6 +1744,8 @@ class htx(CommunicationsManager, htxInfo):
         else:
             call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol, contract_type=contract_type)
             data["aiohttpMethod"] = call
+
+        data["topic_name"] = data["id_api"] + data["is_special"]
         return data
 
     @classmethod
@@ -1777,6 +1813,9 @@ class htx(CommunicationsManager, htxInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"htx_api_{instType}_{objective}_{symbol_name}"
             connection_data["kickoffMethod"] = partial(cls.htx_fetch, instType, objective, symbol) 
+
+        connection_data["topic_name"] = connection_data["id_ws"]
+        
         return connection_data
 
 class mexc(CommunicationsManager, mexcInfo):
@@ -1836,7 +1875,7 @@ class mexc(CommunicationsManager, mexcInfo):
         return response
 
     @classmethod
-    def mexc_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special=None, **kwargs):
+    def mexc_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special="", **kwargs):
         """
             insType : perpetual, spot
             objective : depth
@@ -1858,7 +1897,10 @@ class mexc(CommunicationsManager, mexcInfo):
                 "connectionData" : connectionData,
                 "aiohttpMethod" : call,
                 "exchange_symbol" : symbol,
+                "is_special" : special,
                 }
+        
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
 
@@ -1913,7 +1955,10 @@ class mexc(CommunicationsManager, mexcInfo):
                             }
         if needSnap is True:
             connection_data["id_api_2"] = f"mexc_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
-            connection_data["1stBooksSnapMethod"] = partial(cls.mexc_fetch, instTypes[0], objectives[0], symbols[0]) 
+            connection_data["1stBooksSnapMethod"] = partial(cls.mexc_fetch, instTypes[0], objectives[0], symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
+
         return connection_data
 
 class gateio(CommunicationsManager, gateioInfo):
@@ -1994,7 +2039,7 @@ class gateio(CommunicationsManager, gateioInfo):
         return response
         
     @classmethod
-    def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method=None, **kwargs):
+    def gateio_build_api_connectionData(cls, instType:str, objective:str, symbol:str, pullTimeout:int, special_method="", **kwargs):
         """
             available objectives :  depth, trades, funding, oi (containts tta), liquidations 
             symbol is the one fetched from info
@@ -2014,7 +2059,7 @@ class gateio(CommunicationsManager, gateioInfo):
                 "exchange_symbol" : symbol,
                 "api_call_manager" : "",
                 "symbol_update_task" : False,
-                "is_special" : ""
+                "is_special" : special_method,
                 }
         
         if special_method == "fundperp":
@@ -2035,6 +2080,8 @@ class gateio(CommunicationsManager, gateioInfo):
         else:
             call = partial(cls.gateio_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
             data["aiohttpMethod"] = call
+
+        data["topic_name"] = data["id_api"] + data["is_special"]
         
         return data
 
@@ -2067,6 +2114,8 @@ class gateio(CommunicationsManager, gateioInfo):
         if needSnap is True:
             connection_data["id_api_2"] = f"gateio_api_{instTypes[0]}_{objectives[0]}_{symbol_name}"
             connection_data["1stBooksSnapMethod"] = partial(cls.gateio_fetch, instTypes[0], objectives[0], symbols[0])
+
+        connection_data["topic_name"] = connection_data["id_ws"]
         return connection_data
 
 # import ijson

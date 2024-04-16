@@ -317,27 +317,29 @@ class binance_on_message(on_message_helper):
         strikes = []
         days_left = []
         ois = []
-        for l in data:
-            for prefix, event, value in ijson.parse(l):
-                if prefix == "item.symbol":
-                    option_data = value.split("-")
-                    msids.append(f"{value}@option@binance")
-                    symbols.append(value)
-                    strikes.append(float(option_data[2]))
-                    days_left.append(binance_option_timedelta(option_data[1]))
-                if prefix == "item.sumOpenInterest":
-                    ois.append(float(value))
-        instruments_data = {x : {} for x in msids}
-        for i, msid in enumerate(msids):
-            instruments_data[msid] = {
-                "symbol": symbols[i],
-                "strike": strikes[i],
-                "days_left": days_left[i],
-                "oi": ois[i],
-            }
-        l["timestamp"] = self.process_timestamp_no_timestamp()
-        l["receive_time"] = time.time()
-        return instruments_data
+        if len(data) > 0:
+            for l in data:
+                for prefix, event, value in ijson.parse(l):
+                    if prefix == "item.symbol":
+                        option_data = value.split("-")
+                        msids.append(f"{value}@option@binance")
+                        symbols.append(value)
+                        strikes.append(float(option_data[2]))
+                        days_left.append(binance_option_timedelta(option_data[1]))
+                    if prefix == "item.sumOpenInterest":
+                        ois.append(float(value))
+            instruments_data = {x : {} for x in msids}
+            for i, msid in enumerate(msids):
+                instruments_data[msid] = {
+                    "symbol": symbols[i],
+                    "strike": strikes[i],
+                    "days_left": days_left[i],
+                    "oi": ois[i],
+                }
+            l["timestamp"] = self.process_timestamp_no_timestamp()
+            l["receive_time"] = time.time()
+            return instruments_data
+        return {}
         
     async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         pos_data = {}
