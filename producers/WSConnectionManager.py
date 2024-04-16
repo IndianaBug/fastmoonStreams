@@ -298,15 +298,7 @@ class producer(keepalive):
         self.number_partitions = number_partitions
         self.replication_factor = replication_factor
         self.connection_data = connection_data
-        self.set_databases() 
-        self.populate_ws_latencies()
-        if self.database_name == "mockCouchDB":
-            self.insert_into_database = self.insert_into_mockCouchDB
-            self.insert_into_database_2 = self.insert_into_mockCouchDB_2
-            self.insert_into_database_3 = self.insert_into_mockCouchDB_3
-        if self.database_name == "CouchDB":
-            self.insert_into_database = self.insert_into_CouchDB
-            self.insert_into_database_2 = self.insert_into_CouchDB_2
+        self.ws_failed_connections = {}
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
         try:
             deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
@@ -321,92 +313,6 @@ class producer(keepalive):
     
     async def send_message_to_topic(self, topic_name, message):
         await self.producer.send_and_wait(topic_name, message.encode())
-
-    def onInterrupt_write_to_json(self):
-        """
-            Writes to json latencies and failed connections on Interrupt keyboard
-        """
-        if self.ws_latencies:
-            with open(f"ws_latencies.json", 'w') as file:
-                json.dump(self.ws_latencies, file)
-        if self.ws_failed_connections:
-            with open(f"ws_failed_connections.json", 'w') as file:
-                json.dump(self.ws_failed_connections, file)
-
-    def set_databases(self):
-        ws_ids = [di.get("id_ws") for di in self.connection_data if "id_ws" in di]
-        api_ids = [di.get("id_api") for di in self.connection_data if "id_api" in di]
-        api_2_ids = [di.get("id_api_2") for di in self.connection_data if "id_api_2" in di]
-        list_of_databases = ws_ids + api_ids + api_2_ids
-        existing_databases = []
-        if self.database_name == "CouchDB":
-            for databse in list_of_databases:
-                setattr(self, f"db_{databse}", self.db.create(databse))
-                existing_databases.append(databse)
-            print(f"CouchDB server with {len(existing_databases)} databases is ready!!!")
-        if self.database_name == "mockCouchDB":
-            for databse in list_of_databases:
-                setattr(self, f"db_{databse}", MockCouchDB(databse, self.database_folder))
-                existing_databases.append(databse)
-            print(f"mockCouchDB server with {len(existing_databases)} databases is ready!!!")
-    # do not forget ids _id : doc1
-    def insert_into_CouchDB(self, data, connection_dict, on_message:callable):
-        """
-            Inserts into couch database
-        """
-        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
-        if not isinstance(data, dict):
-            data = json.loads(data)
-        getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
-
-    def insert_into_CouchDB_2(self, data, connection_dict, on_message:callable):
-        """
-            Inserts into couch database
-        """
-        # data = zlib.compress(json.dumps(json_data).encode('utf-8'))
-        if not isinstance(data, dict):
-            data = json.loads(data)
-        getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
-        
-    async def insert_into_mockCouchDB(self, data, connection_dict, on_message:callable):
-        try:
-            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
-        except Exception as e:
-            print(f'{connection_dict.get("id_ws")} is not working properly' )
-            print(e)
-
-    async def insert_into_mockCouchDB_2(self, data, connection_dict, on_message:callable):
-        try:
-            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
-        except Exception as e:
-            print(f'{connection_dict.get("id_api_2")} is not working properly' )
-            print(e)
-
-    async def insert_into_mockCouchDB_3(self, data, connection_dict, on_message:callable):
-        try:
-            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
-        except Exception as e:
-            print(f'{connection_dict.get("id_api")} is not working properly' )
-            print(e)
-
-    def populate_ws_latencies(self):
-        for di in self.connection_data:
-            connection_id = di.get("id_ws", None)
-            if connection_id is not None:
-                self.ws_latencies[connection_id] = []
-    
-    def get_latency(self, connection_data_dic, data):
-        """
-            Gets process and recieved timestamps
-        """
-        data = json.load(data)
-        process_timestamp = time.time()
-        for key in self.ws_timestamp_keys:
-            recieved_timestamp = data.get(key, None)
-            if recieved_timestamp is not None:
-                self.ws_latencies[connection_data_dic["id_ws"]]["process_timestamp"] = process_timestamp
-                self.ws_latencies[connection_data_dic["id_ws"]]["recieved_timestamp"] = recieved_timestamp
-                break
 
     async def check_websocket_connection(self, connection_data_dic):
         try:
