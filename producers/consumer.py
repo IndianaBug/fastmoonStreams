@@ -54,49 +54,61 @@ class consumer():
     def insert_into_CouchDB_2(self, data, connection_dict, on_message:callable):
         getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
         
-    async def insert_into_mockCouchDB(self, data, connection_dict, on_message:callable):
+    async def insert_into_mockCouchDB(self, data, connection_dict):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
+            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_ws"))
         except Exception as e:
             print(f'{connection_dict.get("id_ws")} is not working properly' )
             print(e)
 
-    async def insert_into_mockCouchDB_2(self, data, connection_dict, on_message:callable):
+    async def insert_into_mockCouchDB_2(self, data, connection_dict):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
+            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_api_2"))
         except Exception as e:
             print(f'{connection_dict.get("id_api_2")} is not working properly' )
             print(e)
 
-    async def insert_into_mockCouchDB_3(self, data, connection_dict, on_message:callable):
+    async def insert_into_mockCouchDB_3(self, data, connection_dict):
         try:
-            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
+            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict,  on_message=connection_dict.get("on_message_method_api"))
         except Exception as e:
             print(f'{connection_dict.get("id_api")} is not working properly' )
             print(e)
+
+    def initiate_stream_ws_books(self, connection_dict):
+        agent_decorator = self.app.agent(connection_dict.get("topic_name"))
+        @agent_decorator
+        async def process_data(data):
+            counter = 0
+            async for byte_data in data:
+                if counter != 0:
+                    await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
+                else:
+                    await self.insert_into_mockCouchDB_2(byte_data.decode(), connection_dict)
+                    counter += 1
 
     def initiate_stream_ws(self, connection_dict):
         agent_decorator = self.app.agent(connection_dict.get("topic_name"))
         @agent_decorator
         async def process_data(data):
-            for str_data in data:
-                pass
+            async for byte_data in data:
+                await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
+                    
 
     def initiate_stream_api(self, connection_dict):
         agent_decorator = self.app.agent(connection_dict.get("topic_name"))
         @agent_decorator        
         async def process_data(data):
-            for str_data in data:
-                pass
+            async for byte_data in data:
+                await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
                 
-
-
-# Define the decorator function
-def create_decorated_agent(topic):
-    @app.agent(topic)
-    async def process_order(orders):
-        async for order in orders:
-            # Process each order using regular Python
-            total_price = order.price * order.quantity
-            await send_order_received_email(order.account_id, order)
+    def initiate_strems(self):
+        for cd in self.connection_data:
+            if "depth" in cd.get("id_ws"):
+                self.initiate_stream_ws_books(cd)
+            elif "id_api" in cd:
+                self.initiate_stream_api(cd)
+            else:
+                self.initiate_stream_ws(cd)
+         
 
