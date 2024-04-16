@@ -9,11 +9,12 @@ import zlib
 import re
 import gzip
 import aiocouch
-from utilis import ws_fetcher_helper
+from utilis import ws_fetcher_helper, ensure_topic_exists
 import io
 from functools import partial
 from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaError
+from aiokafka.errors import KafkaStorageError
 
 
 
@@ -282,16 +283,10 @@ class producer(keepalive):
         2 modes: production, testing
     """
     def __init__(self, 
-                 kafka_host,
-                 number_partitions,
-                 replication_factor,
-                 connection_data, 
-                 database="mockCouchDB", 
-                 database_folder="mochdb_onmessage", 
-                 couch_host="", 
-                 couch_username="", 
-                 couch_password="",
-                 mode="production"
+                 connection_data,
+                 kafka_host='localhost:9092',
+                 number_partitions=5,
+                 replication_factor=1, 
                  ):
         """
             databases : CouchDB, mockCouchDB
@@ -299,17 +294,10 @@ class producer(keepalive):
             if using tinydb, you must create a folder tinybase
         """
         self.kafka_host = kafka_host
+        self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
         self.number_partitions = number_partitions
         self.replication_factor = replication_factor
-        self.database_name = database
-        self.database_folder = database_folder
-        if self.database_name == "CouchDB":
-            self.db = aiocouch.Server(couch_host)
-            self.db.resource.credentials = (couch_username, couch_password)
-        self.ws_latencies = {}
         self.connection_data = connection_data
-        self.ws_failed_connections = {}
-        self.mode = mode
         self.set_databases() 
         self.populate_ws_latencies()
         if self.database_name == "mockCouchDB":
@@ -327,9 +315,12 @@ class producer(keepalive):
         except:
             pass
         self.market_state = {}
+        # Ensure topics are created
+        for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
+            ensure_topic_exists(self.producer, self.number_partitions, self.replication_factor, topic_name)
     
-    async def send_message_to_topic(self, producer, topic_name, message):
-        await producer.send_and_wait(topic_name, message.encode())
+    async def send_message_to_topic(self, topic_name, message):
+        await self.producer.send_and_wait(topic_name, message.encode())
 
     def onInterrupt_write_to_json(self):
         """
@@ -825,30 +816,20 @@ class producer(keepalive):
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
-    async def aiohttp_socket(self, connection_data, producer=None, topic=None):
-        await asyncio.sleep(2)
-        on_message_method_api = connection_data.get("on_message_method_api")
-        while True:
-            message = await connection_data.get("aiohttpMethod")()
-            await self.insert_into_database_3(message, connection_data, on_message_method_api)
-            time.sleep(connection_data.get("pullTimeout"))
-
-    async def aiohttp_socket_nested(self, connection_data):
-        on_message_method_api = connection_data.get("on_message_method_api")
-        while True:
-            message = await connection_data.get("api_call_manager").aiomethod()
-            await self.insert_into_database_3(message, connection_data, on_message_method_api)
-            time.sleep(connection_data.get("pullTimeout"))
-
-    async def delay_task(self, task, delay):
-        async def delayed_task():
-            # Optional logging for debugging
-            # logging.info(f"Task {task.__name__} starting delay...")
-            await asyncio.sleep(delay)
-            return await task()
+    async def aiohttp_socket(self, connection_data, topic):
+        try:
+            while True:
+                message = await connection_data.get("aiohttpMethod")()
+                await self.send_message_to_topic(topic, message)
+                time.sleep(connection_data.get("pullTimeout"))
+        except Exception as e:
+            print(f"Fetch API error of {connection_data.get('id_api')}, {e}")
+            await asyncio.sleep(5)
 
 
     async def run_producer(self):
+        await self.producer.start()
+        #producer = ''
         tasks = []
         for connection_dict in self.connection_data:
             if "id_ws" in connection_dict:
@@ -857,22 +838,19 @@ class producer(keepalive):
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
             if "id_ws" not in connection_dict and "id_api" in connection_dict:
                 if connection_dict.get("symbol_update_task") is True:
-                    on_message_method_api = connection_dict.get("on_message_method_api")
                     connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
                     tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 0)))
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict)))
                 elif connection_dict.get("is_still_nested") is True:
-                    on_message_method_api = connection_dict.get("on_message_method_api")
                     connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict, on_message_method_api, self.insert_into_database_3, 0)))
+                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict)))
                 else:
-                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict)))
-        # try:
-        await asyncio.gather(*tasks)
-        # except (websockets.exceptions.WebSocketException, KeyboardInterrupt) as e:
-        #     if self.mode == "testing":
-        #         print(f"WebSocket connection interrupted: {e}")
-        #         self.onInterrupt_write_to_json()
-        # except:
-        #     pass
-
+                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"))))
+        try:
+            await asyncio.gather(*tasks)
+        finally:
+            await self.producer.stop()

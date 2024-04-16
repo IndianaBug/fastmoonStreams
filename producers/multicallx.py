@@ -3,9 +3,9 @@ import rapidjson as json
 import re
 from utilis import *
 from functools import partial
-
 from clientpoints.binance import binance_instType_help
 from clientpoints.okx import okx_api_instType_map
+from typing import Callable, Any
 
 
     
@@ -18,35 +18,37 @@ class binance_aoihttp_oioption_manager():
         self.get_expiries = binance_get_option_expiries_method
         self.fetcher = aiohttpfetch
         self.symbol_update_task = True
-        self.container = DynamicFixedSizeList_binanceOptionOI([1, 2, 3], 10) #only for initialization
+        self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
     async def get_binance_instruments(self):
         try:
             expiries = await self.get_expiries(self.underlying_asset)
             self.expiries = expiries
-            self.container.update_expiries(self.expiries)
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_binance_instruments())
             await task
-            await asyncio.sleep(update_interval)  
+            await asyncio.sleep(update_interval)
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.container.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, symbol, expiration, special_method):
         data = await self.fetcher("option", "oi", symbol=symbol, specialParam=expiration,  special_method=special_method)
-        self.container.append(data)
+        self.data[symbol] = data
 
     async def aiomethod(self):
         """
@@ -57,6 +59,11 @@ class binance_aoihttp_oioption_manager():
         for expiration in self.expiries:
             tasks.append(self.helper(self.underlying_asset, expiration, "oioption"))
         await asyncio.gather(*tasks) 
+
+        for expiry in self.expiries:
+            if expiry not in self.data.copy():
+                del self.data[expiry]
+
     
 class binance_aoihttp_posfutureperp_manager():
     """
@@ -74,6 +81,11 @@ class binance_aoihttp_posfutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
 
     async def get_binance_instruments(self):
         try:
@@ -82,19 +94,20 @@ class binance_aoihttp_posfutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_binance_instruments())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper_1(self, instType, objective, symbol):
@@ -138,6 +151,12 @@ class binance_aoihttp_oifutureperp_manager():
         self.pullTimeout = 1
         self.linear_symbols = []
         self.inverse_symbols = []
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
+
 
     async def get_binance_instruments(self):
         try:
@@ -148,19 +167,20 @@ class binance_aoihttp_oifutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_binance_instruments())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, instType, symbol):
@@ -199,6 +219,12 @@ class binance_aoihttp_fundperp_manager():
         self.pullTimeout = 1
         self.linear_symbols = []
         self.inverse_symbols = []
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
+
 
     async def get_binance_instruments(self):
         try:
@@ -209,19 +235,20 @@ class binance_aoihttp_fundperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_binance_instruments())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def fetch_fund_binance_yeye(self, instType, symbol):
@@ -249,6 +276,12 @@ class bybit_aoihttp_oifutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
+
 
     async def get_bybit_instruments(self):
         try:
@@ -257,19 +290,20 @@ class bybit_aoihttp_oifutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_bybit_instruments())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, instType, symbol):
@@ -309,6 +343,12 @@ class bybit_aoihttp_posfutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
+
 
     async def get_bybit_instruments(self):
         try:
@@ -319,19 +359,20 @@ class bybit_aoihttp_posfutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_bybit_instruments())
             await task
             await asyncio.sleep(update_interval) 
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol, instType):
@@ -373,6 +414,12 @@ class bybit_aoihttp_fundperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
+    async def send_message_to_topic(self, message):
+        await self.producer.send_and_wait(self.topic_name, message.encode())  
+
 
     async def get_bybit_instruments(self):
         try:
@@ -383,19 +430,20 @@ class bybit_aoihttp_fundperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_bybit_instruments())
             await task
             await asyncio.sleep(update_interval) 
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, instType, symbol):
@@ -431,6 +479,8 @@ class okx_aoihttp_oifutureperp_manager():
         self.pullTimeout = 1
         self.symbols_perpetual = []
         self.symbols_future = []
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
     async def get_okx_instruments(self):
         try:
@@ -439,19 +489,20 @@ class okx_aoihttp_oifutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_time=60*24):
+    async def update_symbols(self, lag=0, update_time=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_okx_instruments())
             await task
             await asyncio.sleep(update_time)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, instType, symbol):
@@ -486,6 +537,9 @@ class okx_aoihttp_fundperp_manager():
         self.pullTimeout = 1
         self.symbols_perpetual = []
         self.symbols_future = []
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
 
     async def get_okx_instruments(self):
         try:
@@ -493,19 +547,20 @@ class okx_aoihttp_fundperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_okx_instruments())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
@@ -533,7 +588,8 @@ class bitget_aoihttp_oifutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
-
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
     async def get_bitget_perpetual_symbols(self):
         try:
@@ -541,19 +597,20 @@ class bitget_aoihttp_oifutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_bitget_perpetual_symbols())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
@@ -578,7 +635,8 @@ class bitget_aoihttp_fundperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
-
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
     async def get_bitget_perpetual_symbols(self):
         try:
@@ -586,19 +644,20 @@ class bitget_aoihttp_fundperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
     
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_bitget_perpetual_symbols())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
@@ -631,6 +690,9 @@ class gateio_aoihttp_fundperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
 
     async def get_symbols(self):
         try:
@@ -640,19 +702,20 @@ class gateio_aoihttp_fundperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_symbols())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
@@ -680,6 +743,9 @@ class gateio_aoihttp_oifutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
 
     async def get_symbols(self):
         try:
@@ -690,19 +756,20 @@ class gateio_aoihttp_oifutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_symbols())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, symbol, objective, didi, instType):
@@ -743,6 +810,9 @@ class gateio_aoihttp_posfutureperp_manager():
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
+
 
     async def get_symbols(self):
         try:
@@ -753,19 +823,20 @@ class gateio_aoihttp_posfutureperp_manager():
         except Exception as e:
             print(f"Error fetching symbols: {e}")
 
-    async def update_symbols(self, lag, update_interval=60*24):
+    async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.get_symbols())
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def gateio_positioning_useless_or_not(self, symbol, objective, didi):
@@ -790,13 +861,17 @@ class htx_aiohttp_oifutureperp_manager():
         self.running = True
         self.pullTimeout = 1
         self.underlying_asset = underlying_asset
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_oi_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary):
@@ -825,13 +900,17 @@ class htx_aiohttp_fundperp_manager():
         self.running = True
         self.pullTimeout = 1
         self.underlying_asset = underlying_asset
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_fundperp_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary, marginCoinCoinCoin):
@@ -853,13 +932,16 @@ class htx_aiohttp_posfutureperp_manager():
         self.running = True
         self.pullTimeout = 1
         self.underlying_asset = underlying_asset
+        self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
+        self.topic_name = ""
 
-    async def fetch_data(self, connection_data, on_message_method_api, insert_method:callable, lag):
+    async def fetch_data(self, lag=0):
         await asyncio.sleep(lag)
         while self.running:
             task = asyncio.create_task(self.aiomethod())
             await task
-            await insert_method(self.data, connection_data, on_message_method_api)
+            for message in self.data.values():
+                await self.send_message_to_topic(self.topic_name, message.encode())
             await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_pos_helper(self, instType, objective, underlying_asset, ltype, state_dictionary):
