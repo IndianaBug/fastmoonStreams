@@ -1,10 +1,10 @@
 import asyncio
 import rapidjson as json
 import re
-from utilis import *
+from .utilis import *
 from functools import partial
-from clientpoints.binance import binance_instType_help
-from clientpoints.okx import okx_api_instType_map
+from .clientpoints.binance import binance_instType_help
+from .clientpoints.okx import okx_api_instType_map
 from typing import Callable, Any
 
 

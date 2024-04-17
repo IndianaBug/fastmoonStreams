@@ -1,4 +1,4 @@
-from producers.syncer import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
+from syncer import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 from config import coinbase_secret, coinbase_api, kucoin_api, kucoin_pass, kucoin_secret
 
 client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_secret, kucoin_pass)

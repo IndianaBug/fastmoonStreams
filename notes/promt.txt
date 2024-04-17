@@ -1,0 +1,3 @@
+pkill -f tail
+
+pkill -f tail

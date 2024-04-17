@@ -4,14 +4,11 @@ import time
 import websockets
 import ssl
 import rapidjson as json
-from asdasdas.clients.utilis import MockCouchDB
-import zlib
+from .utilis import ws_fetcher_helper, ensure_topic_exists
 import re
 import gzip
 import aiocouch
-from asdasdas.clients.utilis import ws_fetcher_helper, ensure_topic_exists
 import io
-from functools import partial
 from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaError
 from aiokafka.errors import KafkaStorageError

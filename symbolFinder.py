@@ -3,7 +3,7 @@
 # You may merge streams with the same channels (objectives).
 # Bybit/Binance derivate perpetual futures must be sepparated by instrument type, use provided helpers
 
-from producers.syncer import ExchangeAPIClient
+from syncer import ExchangeAPIClient
 from config import coinbase_secret, coinbase_api, kucoin_api, kucoin_pass, kucoin_secret
 
 

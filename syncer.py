@@ -94,7 +94,7 @@ class ExchangeAPIClient():
         if needSnap:
             connStr.pop(connStr.index("snap"))
 
-        special_method = special_methods.get(instType).get(objective) if "spec" in connStr else False
+        special_method = special_methods.get(instType).get(objective) if "spec" in connStr else ""
         if special_method:
             connStr.pop(connStr.index("spec"))
         

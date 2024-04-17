@@ -16,28 +16,28 @@ import base64
 import hashlib
 import hmac
 from hashlib import sha256 
-from asdasdas.clients.utilis import generate_random_integer, generate_random_id, unnest_list
+from .utilis import generate_random_integer, generate_random_id, unnest_list
 from functools import partial
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 from typing import List, Union
-from asdasdas.clients.utilis import filter_nested_dict, standarize_marginType
+from .utilis import filter_nested_dict, standarize_marginType
 
-from asdasdas.clients.clientsinfo import *
-from clientpoints.binance import *
-from clientpoints.bybit import *
-from clientpoints.okx import *
-from clientpoints.coinbase import *
-from clientpoints.deribit import *
-from clientpoints.kucoin import *
-from clientpoints.htx import *
-from clientpoints.bitget import *
-from clientpoints.gateio import *
-from clientpoints.mexc import *
-from clientpoints.bingx import *
+from .clientsinfo import *
+from .clientpoints.binance import *
+from .clientpoints.bybit import *
+from .clientpoints.okx import *
+from .clientpoints.coinbase import *
+from .clientpoints.deribit import *
+from .clientpoints.kucoin import *
+from .clientpoints.htx import *
+from .clientpoints.bitget import *
+from .clientpoints.gateio import *
+from .clientpoints.mexc import *
+from .clientpoints.bingx import *
 
-from asdasdas.clients.apiweaver import *
+from .apiweaver import *
 
 
 class CommunicationsManager:
@@ -368,7 +368,7 @@ class bybit(CommunicationsManager, bybitInfo):
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
             "marginType" : marginType,
-            "special_method" : special_method,
+            "is_special" : special_method,
             "payload" : ""
             }
 
@@ -411,7 +411,8 @@ class bybit(CommunicationsManager, bybitInfo):
                 "standarized_margin" : standarized_margin,
                 "exchange_symbol" : symbol,
                 "api_call_manager" : "",
-                "symbol_update_task" : False
+                "symbol_update_task" : False,
+                "is_special" : special_method,
                 }
 
         if special_method == "posfutureperp":
@@ -450,102 +451,6 @@ class bybit(CommunicationsManager, bybitInfo):
         info = await cls.bybit_info_async(f"future.{instType}Future")
         symbols = [symbol["symbol"] for symbol in info if instType in symbol["contractType"] and underlying_asset in symbol["symbol"]]
         return symbols
-
-    # oifutureperp, posfutureperp, fundfutureperp
-
-    @classmethod
-    async def bybit_build_oifutureperp_method(cls, underlying_asset):
-        """
-            "Linear", "Inverse"
-        """
-        full = {}
-        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        tasks = []
-        for symbol in symbols_linear:
-            instType = "future" if "-" in symbol else "perpetual"
-            async def bybit_oi_async_hihi(instType, symbol):
-                data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[symbol] = data
-            tasks.append(bybit_oi_async_hihi(instType, symbol))
-
-        for symbol in symbols_inverse:
-            instType = "future" if "-" in symbol else "perpetual"
-            async def bybit_oi_async_hihihi(instType, symbol):
-                data = await cls.bybit_aiohttpFetch(instType, "oi", symbol=symbol, special_method="oifutureperp")
-                if isinstance(data, str):
-                    data = json.loads(data)
-                full[symbol] = data
-            tasks.append(bybit_oi_async_hihihi(instType, symbol))
-        
-        await asyncio.gather(*tasks)
-        return full
-        
-    @classmethod
-    async def bybit_build_posfutureperp_method(cls, underlying_asset):
-        """
-        "Linear", "Inverse"
-        """
-        full = {}
-        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        tasks = []
-
-        for symbol in symbols_linear:
-            try:
-                helper = any(char.isdigit() for char in symbol.split("-")[1])
-            except:
-                helper = False
-            if helper is not True:  # unavailable for futures as of april2 2024
-                symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
-                instType = "future" if "-" in symbol else "perpetual"
-                async def boobs_position_one(symbol, instType):
-                    data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full["Linear_"+symbol] = data
-                tasks.append(boobs_position_one(symbol, instType))
-
-        for symbol in symbols_inverse:
-            try:
-                helper = any(char.isdigit() for char in symbol.split("-")[1])
-            except:
-                helper = None
-            if helper is not True:  # unavailable for futures as of april2 2024
-                symbol = symbol.replace("PERP", "USD") if "PERP" in symbol else symbol
-                instType = "future" if "-" in symbol else "perpetual"
-                async def boobs_position_two(instType, symbol):
-                    data = await cls.bybit_aiohttpFetch(instType, "gta", symbol=symbol, special_method="posfutureperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full["Inverse_"+symbol] = data
-                tasks.append(boobs_position_two(instType, symbol))
-
-        await asyncio.gather(*tasks)
-        return full
-
-    @classmethod
-    async def bybit_build_fundfutureperp_method(cls, underlying_asset):
-        """
-        "Linear", "Inverse"
-        """
-        full = {}
-        tasks = []
-        symbols_linear = await cls.bybit_get_instruments_by_marginType("Linear", underlying_asset)
-        symbols_inverse = await cls.bybit_get_instruments_by_marginType("Inverse", underlying_asset)
-        for symbol in symbols_linear + symbols_inverse:
-            instType = "future" if "-" in symbol else "perpetual"
-            if instType == "perpetual":
-                async def big_ass_funded(instType, symbol):
-                    data = await cls.bybit_aiohttpFetch(instType, "funding", symbol=symbol, special_method="fundperp")
-                    if isinstance(data, str):
-                        data = json.loads(data)
-                    full[symbol] = data
-                tasks.append(big_ass_funded(instType, symbol))
-        await asyncio.gather(*tasks)
-        return full
 
     @classmethod
     def bybit_build_ws_message(cls, symbol, instType, objective):
@@ -680,7 +585,8 @@ class okx(CommunicationsManager, okxInfo):
                 "standarized_margin" : standart_marginType,
                 "exchange_symbol" : symbol,
                 "api_call_manager" : "",
-                "symbol_update_task" : False
+                "symbol_update_task" : False,
+                "is_special" : special_method,
                 }
 
         if special_method == "fundperp":
@@ -837,7 +743,7 @@ class coinbase(CommunicationsManager):
             "repeat_code" : self.coinbase_repeat_response_code,
             "maximum_retries" : maximum_retries, 
             "books_dercemet" : books_dercemet,
-            "payload" : payload
+            "payload" : payload,
             }
 
     def coinbase_build_api_connectionData(self, instType:str, objective:str, symbol:str, pullTimeout:int, **kwargs):
@@ -862,6 +768,7 @@ class coinbase(CommunicationsManager):
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.coinbase_aiohttpFetch, instType=instType, symbol=symbol, objective=objective),
                 "exchange_symbol" : symbol,
+                "is_special" : "",
                 }
         
         return data
@@ -1170,6 +1077,7 @@ class kucoin(CommunicationsManager, kucoinInfo):
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.kucoin_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
+                "is_special" : special_method,
                 }
         
         data["topic_name"] = data["id_api"] + data["is_special"]
@@ -1300,6 +1208,7 @@ class bingx(CommunicationsManager, bingxInfo):
                 "connectionData" : connectionData,
                 "aiohttpMethod" : partial(self.bingx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
+                "is_special" : special_method,
                 }
         data["topic_name"] = data["id_api"] + data["is_special"]
 
@@ -1417,7 +1326,7 @@ class bitget(CommunicationsManager, bitgetInfo):
                 "exchange_symbol" : symbol,
                 "symbol_update_task" : False,
                 "api_call_manager" : "",
-                "is_special" : "no!"
+                "is_special" : special_method
                 }
         if special_method == "fundperp":
             data["api_call_manager"] = bitget_aoihttp_fundperp_manager(symbol, bitgetInfo.bitget_get_perpetual_instruments_by_underlying, cls.bitget_aiohttpFetch)
@@ -1608,6 +1517,7 @@ class deribit(CommunicationsManager, deribitInfo):
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : partial(cls.deribit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol),
                 "exchange_symbol" : symbol,
+                "is_special" : special_method,
                 }
         
         data["topic_name"] = data["id_api"] + data["is_special"]
@@ -1727,6 +1637,7 @@ class htx(CommunicationsManager, htxInfo):
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : "",
                 "exchange_symbol" : symbol,
+                "is_special" : special_method,
                 }
 
         if special_method == "oifutureperp":
