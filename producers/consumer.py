@@ -85,6 +85,18 @@ class consumer():
             print(e)
 
     def initiate_stream_ws_books(self, connection_dict):
+        
+        if exchnage != "deribit":
+            if self.database_name == "mockCouchDB":
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_mockCouchDB(data, connection_data)
+            else:
+                data = connection_data.get("1stBooksSnapMethod")()
+                await self.insert_into_mockCouchDB(data, connection_data)
+        if exchange == "deribit":
+            await self.insert_into_mockCouchDB(self.deribit_depths.get(connection_dict.get("id_api_2")), connection_data)
+            del self.deribit_depths
+
         agent_decorator = self.app.agent(connection_dict.get("topic_name"))
         @agent_decorator
         async def process_data(data):
@@ -98,13 +110,6 @@ class consumer():
 
     def initiate_stream_ws(self, connection_dict):
         agent_decorator = self.app.agent(connection_dict.get("topic_name"))
-
-        # deal with books
-
-        on_message_method_api = connection_dict.get("on_message_method_api_2")
-        data = connection_dict.get("1stBooksSnapMethod")()
-        # await self.insert_into_database_2(data, connection_dict, on_message_method_api)
-        
         @agent_decorator
         async def process_data(data):
             async for byte_data in data:

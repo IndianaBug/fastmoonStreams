@@ -346,29 +346,12 @@ class producer(keepalive):
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.pong(message)
-                    if self.mode == "production":
-                        await self.insert_into_database(message, connection_data, on_message_method_ws)
-                    if self.mode == "testing" and message != b'\x89\x00':
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
-    async def bybit_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-        
+    async def bybit_ws(self, connection_data, producer=None, topic=None):        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bybit_keep_alive(websocket, connection_data))
@@ -377,61 +360,24 @@ class producer(keepalive):
                     message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                    if self.mode == "production":
-                        await self.insert_into_database(message, connection_data, on_message_method_ws)
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
     async def okx_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.okx_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    if message == b'\x89\x00':
-                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                    if self.mode == "production":
-                        await self.insert_into_database(message, connection_data, on_message_method_ws)
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
     async def deribit_ws(self, connection_data, producer=None, topic=None):
-        """
-            types : production, heartbeats
-            producer and topic are reserved for kafka integration
-        """
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
         if connection_data.get("objective") == "heartbeats":
             async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
                 await websocket.send(json.dumps(connection_data.get("msg_method")()))
@@ -459,29 +405,12 @@ class producer(keepalive):
                 while websocket.open:
                     try:
                         message = await websocket.recv()
-                        if self.mode == "production":
-                            await self.insert_into_database(message, connection_data, on_message_method_ws)
-                        if self.mode == "testing":
-                            self.get_latency(connection_data, message)
+                        await self.send_message_to_topic(topic, message)
                     except websockets.ConnectionClosed:
                         print(f"Connection closed of {connection_data.get('id_ws')}")
                         break
 
-    async def bitget_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-        
+    async def bitget_ws(self, connection_data, producer=None, topic=None):    
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bitget_keep_alive(websocket, connection_data))
@@ -490,30 +419,12 @@ class producer(keepalive):
                     message = await websocket.recv()
                     if message == b'\x89\x00':
                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                    elif self.mode == "production":
-                        await self.insert_into_database(connection_data, message, on_message_method_ws)
-                    elif self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
     async def kucoin_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
         connection_message = connection_data.get("msg_method")()
         endpoint, ping_data = connection_data.get("url_method")()
         connect_id = re.search(r'connectId=([^&\]]+)', endpoint).group(1)
@@ -527,35 +438,16 @@ class producer(keepalive):
                 try:
                     message = await websocket.recv()
                     if "ping" in message:
-                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
                         await websocket.send({
                                         "id": str(connect_id),
                                         "type": "pong"
                                         })
-                    elif self.mode == "production":
-                        await self.insert_into_database(connection_data, message, on_message_method_ws)
-                    elif self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
     
     async def bingx_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.bingx_keep_alive(websocket, connection_data))
@@ -563,164 +455,78 @@ class producer(keepalive):
                 try:
                     message = await websocket.recv()
                     message = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb').read().decode('utf-8')
-                    if message != "Ping":
-                        if "ping" in message:
-                            message = json.loads(message)
-                            await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
-                        if self.mode == "production":
-                            await self.insert_into_database(connection_data, message, on_message_method_ws)
-                        if self.mode == "testing":
-                            self.get_latency(connection_data, message)
-                    if message == "Ping":
-                        await websocket.send("Pong")
+                    if "ping" in message:
+                        message = json.loads(message)
+                        await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
     
-    async def mexc_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-        
+    async def mexc_ws(self, connection_data, producer=None, topic=None):        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.mexc_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    message = json.loads(message)
                     if "pong" in message:
                         await websocket.send("ping")
                     if "PONG" in message:
                         await websocket.send("PONG")
-                    if self.mode == "production":
-                        await self.insert_into_database(connection_data, message, on_message_method_ws)
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
-    async def gateio_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-        
+    async def gateio_ws(self, connection_data, producer=None, topic=None):        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             keep_alive_task = asyncio.create_task(self.gateio_keep_alive(websocket, connection_data))
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    message = json.loads(message)
-                    if "ping" in message.get("channel"):
-                        await websocket.send({"channel" : message.get("channel").repalce("ping", "pong")})
-                    if "pong" in message.get("channel"):
-                        await websocket.send({"channel" : message.get("channel").repalce("pong", "ping")})
-                    if self.mode == "production":
-                        await self.insert_into_database(connection_data, message, on_message_method_ws)
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                    if "ping" in message:
+                        await websocket.send({"channel" : json.loads(message).get("channel").repalce("ping", "pong")})
+                    if "pong" in message:
+                        await websocket.send({"channel" : json.loads(message).get("channel").repalce("pong", "ping")})
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
     async def htx_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
             await websocket.send(json.dumps(connection_data.get("msg_method")()))
             while websocket.open:
                 try:
                     message = await websocket.recv()
-                    message =  json.loads(gzip.decompress(message).decode('utf-8'))
-                    if self.mode == "production":
-                        await self.insert_into_database(connection_data, message, on_message_method_ws)
+                    message =  gzip.decompress(message).decode('utf-8')
                     if "ping" in message:
-                        await websocket.send(json.dumps({"pong": message.get("ping")}))
-                    if self.mode == "testing":
-                        self.get_latency(connection_data, message)
+                        await websocket.send(json.dumps({"pong": json.loads(message).get("ping")}))
+                    await self.send_message_to_topic(topic, message)
                 except websockets.ConnectionClosed:
                     print(f"Connection closed of {connection_data.get('id_ws')}")
                     break
 
     async def coinbase_ws(self, connection_data, producer=None, topic=None):
-        """
-            producer and topic are reserved for kafka integration
-        """
-
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
-    
-        conM, a, b = connection_data.get("msg_method")()
-        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            await websocket.send(json.dumps(conM))
-            while websocket.open:
-                try:
-                    message = await websocket.recv()
-                    message = json.loads(message)
-                    if message.get("channel") != "heartbeats":
-                        if self.mode == "production":
-                            print("-------")
-                            print(message)
-                            await self.insert_into_database(connection_data, message, on_message_method_ws)
-                            print("-------")
-                        if self.mode == "testing":
-                            self.get_latency(connection_data, message)
-                except websockets.ConnectionClosed:
-                    print(f"Connection closed of {connection_data.get('id_ws')}")
-                    break
+        if message.get("channel") != "heartbeats":
+            conM, a, b = connection_data.get("msg_method")()
+            async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+                await websocket.send(json.dumps(conM))
+                while websocket.open:
+                    try:
+                        message = await websocket.recv()
+                        await self.send_message_to_topic(topic, message)
+                    except websockets.ConnectionClosed:
+                        print(f"Connection closed of {connection_data.get('id_ws')}")
+                        break
+        if message.get("channel") == "heartbeats":
+            conM, a, b = connection_data.get("msg_method")()
+            async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+                await websocket.send(json.dumps(conM))
+                while websocket.open:
+                    pass
 
     async def aiohttp_socket(self, connection_data, topic):
         try:
