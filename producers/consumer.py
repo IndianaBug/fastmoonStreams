@@ -2,6 +2,8 @@ import fauststreaming
 import aiocouch
 import rapidjson as json
 from utilis import MockCouchDB
+import asyncio
+from utilis import ws_fetcher_helper
 
 
 class consumer():
@@ -24,6 +26,13 @@ class consumer():
             self.insert_into_database = self.insert_into_CouchDB
             self.insert_into_database_2 = self.insert_into_CouchDB_2
         self.market_state = {}
+        # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
+        try:
+            deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
+            self.deribit_depths = {x.get("id_api_2") : asyncio.run(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
+            del deribit_depths
+        except:
+            pass
 
     def populate_ws_latencies(self):
         for di in self.connection_data:
@@ -89,6 +98,13 @@ class consumer():
 
     def initiate_stream_ws(self, connection_dict):
         agent_decorator = self.app.agent(connection_dict.get("topic_name"))
+
+        # deal with books
+
+        on_message_method_api = connection_dict.get("on_message_method_api_2")
+        data = connection_dict.get("1stBooksSnapMethod")()
+        # await self.insert_into_database_2(data, connection_dict, on_message_method_api)
+        
         @agent_decorator
         async def process_data(data):
             async for byte_data in data:

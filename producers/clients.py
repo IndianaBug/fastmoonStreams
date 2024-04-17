@@ -2118,13 +2118,5 @@ class gateio(CommunicationsManager, gateioInfo):
         connection_data["topic_name"] = connection_data["id_ws"]
         return connection_data
 
-# import ijson
-
-# cd = binance.binance_build_api_connectionData("perpetual", "oi", "BTC", 15, special_method="oifutureperp")
-# cd = cd.get("api_call_manager")
-# asyncio.run(cd.get_binance_instruments())
-# asyncio.run(cd.aiomethod())
-# asyncio.run(cd.get_binance_instruments())
-# asyncio.run(cd.aiomethod())
 
 
