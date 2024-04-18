@@ -534,12 +534,12 @@ class producer(keepalive):
             await asyncio.sleep(5)
 
     async def ensure_topic_exists(self, topic_name):
+        # https://github.com/aio-libs/aiokafka/blob/master/aiokafka/admin/new_topic.py
         try:
+
+            topic = type(topic_name, (), {"name" : topic_name, "num_partitions" : self.num_partitions, "replication_factor" : self.replication_factor})
             await self.admin.create_topics(
-                topic_name,
-                # {"name" : topic_name,
-                #   "num_partitions" : self.number_partitions,
-                #     "replication_factor" : self.replication_factor}, 
+                    [topic],
                     timeout_ms=10000)
             print(f"Topic '{topic_name}' created successfully or already exists.")
         except KeyboardInterrupt:
@@ -568,21 +568,48 @@ class producer(keepalive):
         except Exception as e:
             print(f"An error occurred: {e}")
         finally:
-            await self.producer.stop()
+            await self.admin.close() 
+            await self.producer.stop() 
+            
+    async def delete_records(self, topic):
+        # from aiokafka.structs import TopicPartition, RecordsToDelete
 
+        # # Assuming 'topic_name' is the topic from which you want to delete all records
+        # topic_name = "your_topic_name"
+
+        # # Create a TopicPartition instance for each partition of the topic
+        # partitions = [TopicPartition(topic_name, partition) for partition in range(3)]  # Assuming 3 partitions
+
+        # # Create a records_to_delete dictionary with RecordsToDelete enums indicating to delete all records
+        # records_to_delete = {tp: RecordsToDelete.DELETE for tp in partitions}
+
+        # # Now, you can call the delete_records method to delete all records of the specified topic
+        # result = await your_aiokafka_consumer.delete_records(records_to_delete)
+        pass
 
     async def run_producer(self):
+        
+        try:
 
-        self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
-        self.admin = AIOKafkaAdminClient(bootstrap_servers=self.kafka_host)
+            self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+            self.admin = AIOKafkaAdminClient(bootstrap_servers=self.kafka_host)
+            
+            # Delete all of the topics on interrups or anything
 
-        await self.producer.start()
-        await self.admin.start()
+            await self.producer.start()
+            await self.admin.start()
 
-        for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
-            await self.ensure_topic_exists(topic_name)
+            for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
+                await self.ensure_topic_exists(topic_name)
 
-        await self.describe_topics()
+            await self.describe_topics()
+        
+        except:
+            await self.delete_all_topics()
+            await self.admin.close() 
+            await self.producer.stop() 
+            
+            
 
         # # producer = ''
         
