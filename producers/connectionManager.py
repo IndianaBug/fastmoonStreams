@@ -4,7 +4,7 @@ import time
 import websockets
 import ssl
 import rapidjson as json
-from .utilis import ws_fetcher_helper, ensure_topic_exists
+from .utilis import ws_fetcher_helper
 import re
 import gzip
 import aiocouch
@@ -12,6 +12,7 @@ import io
 from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaError
 from aiokafka.errors import KafkaStorageError
+from aiokafka.admin.client import AIOKafkaAdminClient
 
 
 
@@ -291,7 +292,7 @@ class producer(keepalive):
             if using tinydb, you must create a folder tinybase
         """
         self.kafka_host = kafka_host
-        self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+        self.producer = None
         self.number_partitions = number_partitions
         self.replication_factor = replication_factor
         self.connection_data = connection_data
@@ -304,9 +305,6 @@ class producer(keepalive):
         except:
             pass
         self.market_state = {}
-        # Ensure topics are created
-        for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
-            ensure_topic_exists(self.producer, self.number_partitions, self.replication_factor, topic_name)
     
     async def send_message_to_topic(self, topic_name, message):
         await self.producer.send_and_wait(topic_name, message.encode())
@@ -535,31 +533,84 @@ class producer(keepalive):
             print(f"Fetch API error of {connection_data.get('id_api')}, {e}")
             await asyncio.sleep(5)
 
-
-    async def run_producer(self):
-        await self.producer.start()
-        #producer = ''
-        tasks = []
-        for connection_dict in self.connection_data:
-            if "id_ws" in connection_dict:
-                exchange = connection_dict.get("exchange")
-                ws_method = getattr(self, f"{exchange}_ws", None)
-                tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
-            if "id_ws" not in connection_dict and "id_api" in connection_dict:
-                if connection_dict.get("symbol_update_task") is True:
-                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict)))
-                elif connection_dict.get("is_still_nested") is True:
-                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(connection_dict)))
-                else:
-                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"))))
+    async def ensure_topic_exists(self, topic_name):
         try:
-            await asyncio.gather(*tasks)
+            await self.admin.create_topics(
+                topic_name,
+                # {"name" : topic_name,
+                #   "num_partitions" : self.number_partitions,
+                #     "replication_factor" : self.replication_factor}, 
+                    timeout_ms=10000)
+            print(f"Topic '{topic_name}' created successfully or already exists.")
+        except KeyboardInterrupt:
+            print("Keyboard interrupt received. Closing producer...")
+        except Exception as e:
+            print(f"An error occurred: {e}")
         finally:
             await self.producer.stop()
+            await self.admin.close()  
+
+    async def describe_topics(self):
+        try:
+            topics = await self.admin.describe_topics()
+            print(topics)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            await self.admin.close() 
+            await self.producer.stop() 
+
+    async def delete_all_topics(self):
+        try:
+            topics = await self.admin.describe_topics()
+            topics = [x["topic"] for x in topics]
+            await self.admin.delete_topics(topics)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            await self.producer.stop()
+
+
+    async def run_producer(self):
+
+        self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+        self.admin = AIOKafkaAdminClient(bootstrap_servers=self.kafka_host)
+
+        await self.producer.start()
+        await self.admin.start()
+
+        for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
+            await self.ensure_topic_exists(topic_name)
+
+        await self.describe_topics()
+
+        # # producer = ''
+        
+        # tasks = []
+        # for connection_dict in self.connection_data:
+        #     if "id_ws" in connection_dict:
+        #         exchange = connection_dict.get("exchange")
+        #         ws_method = getattr(self, f"{exchange}_ws", None)
+        #         tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
+        #     if "id_ws" not in connection_dict and "id_api" in connection_dict:
+        #         if connection_dict.get("symbol_update_task") is True:
+        #             connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+        #             connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+        #             connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+        #             tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
+        #             tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
+        #         elif connection_dict.get("is_still_nested") is True:
+        #             connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+        #             connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+        #             connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+        #             tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
+        #         else:
+        #             tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"))))
+        # try:
+        #     await asyncio.gather(*tasks)
+        # except KeyboardInterrupt:
+        #     print("Keyboard interrupt received. Closing producer...")
+        # except Exception as e:
+        #     print(f"An error occurred: {e}")
+        # finally:
+        #     await self.producer.stop()

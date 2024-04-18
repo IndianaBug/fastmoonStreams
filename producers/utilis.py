@@ -158,11 +158,3 @@ def standarize_marginType(instType, marginType):
     else:
         return instType
       
-
-async def ensure_topic_exists(producer, partitions, replication_factor, topic_name):
-    try:
-        await producer.client.create_topics([(topic_name, {'partitions': partitions, 'replication_factor': replication_factor})], timeout_ms=10000)
-        print(f"Topic '{topic_name}' created successfully or already exists.")
-    except KafkaError as e:
-        print(f"Error while creating topic '{topic_name}': {e}")
-

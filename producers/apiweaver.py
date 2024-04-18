@@ -84,9 +84,6 @@ class binance_aoihttp_posfutureperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
     async def get_binance_instruments(self):
         try:
             self.linear_symbols = await self.info_linear_method(self.underlying_asset)
@@ -107,7 +104,7 @@ class binance_aoihttp_posfutureperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper_1(self, instType, objective, symbol):
@@ -154,10 +151,6 @@ class binance_aoihttp_oifutureperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
-
     async def get_binance_instruments(self):
         try:
             self.linear_symbols = await self.info_linear_method(self.underlying_asset)
@@ -180,7 +173,7 @@ class binance_aoihttp_oifutureperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, instType, symbol):
@@ -222,10 +215,6 @@ class binance_aoihttp_fundperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
-
     async def get_binance_instruments(self):
         try:
             self.linear_symbols = await self.info_linear_method(self.underlying_asset)
@@ -248,7 +237,7 @@ class binance_aoihttp_fundperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def fetch_fund_binance_yeye(self, instType, symbol):
@@ -279,10 +268,6 @@ class bybit_aoihttp_oifutureperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
-
     async def get_bybit_instruments(self):
         try:
             self.symbols_inverse = await self.info_inverse(self.underlying_asset)
@@ -303,7 +288,7 @@ class bybit_aoihttp_oifutureperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, instType, symbol):
@@ -346,10 +331,6 @@ class bybit_aoihttp_posfutureperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
-
     async def get_bybit_instruments(self):
         try:
             self.symbols_inverse = await self.info_inverse(self.underlying_asset)
@@ -372,7 +353,7 @@ class bybit_aoihttp_posfutureperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol, instType):
@@ -417,9 +398,6 @@ class bybit_aoihttp_fundperp_manager():
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
 
-    async def send_message_to_topic(self, message):
-        await self.producer.send_and_wait(self.topic_name, message.encode())  
-
 
     async def get_bybit_instruments(self):
         try:
@@ -443,7 +421,7 @@ class bybit_aoihttp_fundperp_manager():
             task = asyncio.create_task(self.aiomethod())
             await task
             for message in self.data.values():
-                await self.send_message_to_topic(message)
+                await self.send_message_to_topic(self.topic_name, message)
             await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, instType, symbol):
