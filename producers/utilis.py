@@ -7,8 +7,6 @@ import string
 import aiofiles
 import uuid
 import asyncio
-from aiokafka import AIOKafkaProducer
-from aiokafka.errors import KafkaError
 import asyncio
 
 def get_dict_by_key_value(lst, key, value):

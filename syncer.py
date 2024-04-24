@@ -1,5 +1,5 @@
 from producers.clientpointsManager import *
-from consumers import on_message
+from consumers import on_message, flow
 
 class ExchangeAPIClient():
     """ 
@@ -173,6 +173,20 @@ class ExchangeAPIClient():
                     break
                 if ident == idlist[-1] and T == True:
                     return getattr(self.onm, method)
+                
+    def populate_with_flow(self, id_):
+        if "depth" in id_:
+            return flow.booksflow
+        if "trades" in id_:
+            return flow.tradesflow
+        if "option" in id_ and "oi" in id_:
+            return flow.Ooiflow
+        if "oi" in _id and "opiton" not in id_:
+            return flow.oiflow
+        if "liquidations" in id_:
+            return flow.liquidationsflow
+            
+            
 
 # c = ExchangeAPIClient("", "", "", "", "")
 

@@ -13,6 +13,12 @@ from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaError
 from aiokafka.errors import KafkaStorageError
 from aiokafka.admin.client import AIOKafkaAdminClient
+from aiokafka.admin.new_topic import NewTopic
+from aiokafka.structs import TopicPartition
+import logging
+from confluent_kafka.admin import AdminClient, NewTopic
+from confluent_kafka._model import TopicCollection
+
 
 
 
@@ -283,7 +289,7 @@ class producer(keepalive):
     def __init__(self, 
                  connection_data,
                  kafka_host='localhost:9092',
-                 number_partitions=5,
+                 num_partitions=5,
                  replication_factor=1, 
                  ):
         """
@@ -293,7 +299,8 @@ class producer(keepalive):
         """
         self.kafka_host = kafka_host
         self.producer = None
-        self.number_partitions = number_partitions
+        self.admin = AdminClient({'bootstrap.servers': self.kafka_host})
+        self.num_partitions = num_partitions
         self.replication_factor = replication_factor
         self.connection_data = connection_data
         self.ws_failed_connections = {}
@@ -305,6 +312,8 @@ class producer(keepalive):
         except:
             pass
         self.market_state = {}
+        self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
+        self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
     
     async def send_message_to_topic(self, topic_name, message):
         await self.producer.send_and_wait(topic_name, message.encode())
@@ -533,85 +542,52 @@ class producer(keepalive):
             print(f"Fetch API error of {connection_data.get('id_api')}, {e}")
             await asyncio.sleep(5)
 
-    async def ensure_topic_exists(self, topic_name):
-        # https://github.com/aio-libs/aiokafka/blob/master/aiokafka/admin/new_topic.py
+    def ensure_topic_exists(self, topic_names):
+        """
+            # https://github.com/confluentinc/confluent-kafka-python    
+        """
         try:
-
-            topic = type(topic_name, (), {"name" : topic_name, "num_partitions" : self.num_partitions, "replication_factor" : self.replication_factor})
-            await self.admin.create_topics(
-                    [topic],
-                    timeout_ms=10000)
-            print(f"Topic '{topic_name}' created successfully or already exists.")
+            fs = self.admin.create_topics(self.kafka_topics)
+            for topic, f in fs.items():
+                try:
+                    f.result()  
+                    print("Topic {} created".format(topic))
+                except Exception as e:
+                    print("Failed to create topic {}: {}".format(topic, e))
         except KeyboardInterrupt:
             print("Keyboard interrupt received. Closing producer...")
         except Exception as e:
             print(f"An error occurred: {e}")
-        finally:
-            await self.producer.stop()
-            await self.admin.close()  
 
-    async def describe_topics(self):
-        try:
-            topics = await self.admin.describe_topics()
-            print(topics)
-        except Exception as e:
-            print(f"An error occurred: {e}")
-        finally:
-            await self.admin.close() 
-            await self.producer.stop() 
 
-    async def delete_all_topics(self):
+    def describe_topics(self):
+        """
+            https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/admin/_topic.py
+        """
+        topics = self.admin.describe_topics(TopicCollection(self.kafka_topics_names))
+        for topic_name in topics.keys():
+            print(topic_name)
+
+    def delete_all_topics(self):
         try:
             topics = await self.admin.describe_topics()
             topics = [x["topic"] for x in topics]
             await self.admin.delete_topics(topics)
         except Exception as e:
             print(f"An error occurred: {e}")
-        finally:
-            await self.admin.close() 
-            await self.producer.stop() 
             
-    async def delete_records(self, topic):
-        # from aiokafka.structs import TopicPartition, RecordsToDelete
-
-        # # Assuming 'topic_name' is the topic from which you want to delete all records
-        # topic_name = "your_topic_name"
-
-        # # Create a TopicPartition instance for each partition of the topic
-        # partitions = [TopicPartition(topic_name, partition) for partition in range(3)]  # Assuming 3 partitions
-
-        # # Create a records_to_delete dictionary with RecordsToDelete enums indicating to delete all records
-        # records_to_delete = {tp: RecordsToDelete.DELETE for tp in partitions}
-
-        # # Now, you can call the delete_records method to delete all records of the specified topic
-        # result = await your_aiokafka_consumer.delete_records(records_to_delete)
-        pass
-
-    async def run_producer(self):
-        
+    async def start_producer(self):
         try:
-
-            self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
-            self.admin = AIOKafkaAdminClient(bootstrap_servers=self.kafka_host)
-            
-            # Delete all of the topics on interrups or anything
-
             await self.producer.start()
-            await self.admin.start()
-
-            for topic_name in [cond.get("topic_name") for cond in self.connection_data]:
-                await self.ensure_topic_exists(topic_name)
-
-            await self.describe_topics()
-        
-        except:
-            await self.delete_all_topics()
-            await self.admin.close() 
-            await self.producer.stop() 
+            self.logger.info("Producer started successfully")
+        except Exception as e:
+            self.logger.error("Error starting producer: %s", e) 
             
-            
-
-        # # producer = ''
+    async def run_producer(self):
+        self.ensure_topic_exists(self.kafka_topics_names)
+        # self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+        # await self.producer.start()
+        # print(self.producer._closed)
         
         # tasks = []
         # for connection_dict in self.connection_data:
@@ -641,3 +617,4 @@ class producer(keepalive):
         #     print(f"An error occurred: {e}")
         # finally:
         #     await self.producer.stop()
+        #     await self.admin.close() 
