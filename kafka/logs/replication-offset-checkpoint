@@ -11,7 +11,7 @@ okx_api_perpetual_funding_btcfundperp 3 0
 bybit_api_perpetual_linear_gta_btcposfutureperp 4 0
 bybit_api_perpetual_linear_funding_btcfundperp 1 0
 bybit_api_option_option_oioption_btc 2 0
-bybit_api_option_option_oioption_btc 4 1
+bybit_api_option_option_oioption_btc 4 0
 okx_api_perpetual_gta_btc 3 0
 binance_api_perpetual_inverse_funding_btcfundperp 0 0
 binance_api_perpetual_inverse_gta_btcposfutureperp 3 0
@@ -45,7 +45,7 @@ bybit_api_perpetual_linear_oi_btcoifutureperp 2 0
 bybit_api_perpetual_linear_funding_btcfundperp 3 0
 bybit_api_perpetual_linear_gta_btcposfutureperp 2 0
 okx_api_perpetual_oi_btcoifutureperp 4 0
-okx_api_option_oi_btcusd 0 2
+okx_api_option_oi_btcusd 0 0
 bybit_api_perpetual_linear_funding_btcfundperp 0 0
 binance_api_perpetual_inverse_oi_btcoifutureperp 0 0
 bybit_api_perpetual_linear_gta_btcposfutureperp 3 0
@@ -58,5 +58,5 @@ okx_api_perpetual_gta_btc 2 0
 bybit_api_perpetual_linear_funding_btcfundperp 4 0
 okx_api_option_oi_btcusd 3 0
 binance_api_perpetual_inverse_gta_btcposfutureperp 2 0
-okx_api_option_oi_btcusd 4 1
+okx_api_option_oi_btcusd 4 0
 bybit_api_option_option_oioption_btc 3 0

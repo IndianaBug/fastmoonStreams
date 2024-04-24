@@ -7,7 +7,8 @@ import string
 import aiofiles
 import uuid
 import asyncio
-import asyncio
+import gzip
+import ijson
 
 def get_dict_by_key_value(lst, key, value):
     for d in lst:
@@ -99,24 +100,11 @@ def filter_nested_dict(nested_dict, condition):
             nested_dict[key] = [item for item in value if condition(item)]
     return nested_dict
 
-import rapidjson as json
-import aiofiles
-import uuid
-import os
-import asyncio
-import gzip
-import ijson
-from itertools import islice
-
-async def _chunks(data, chunk_size):
-  for i in range(0, len(data), chunk_size):
-    yield data[i:i + chunk_size]
 
 class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
         self.file_path =  folder_name + "/" + filename + ".json"
         self.buffer_size = buffer_size
-
 
     async def save(self, data, market_state, connection_data, on_message:callable):
         try:
