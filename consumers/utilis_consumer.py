@@ -193,3 +193,40 @@ def last_non_zero(arr):
 
 def is_valid_dataframe(df):
     return df is not None and isinstance(df, pd.DataFrame)
+
+
+
+class MockCouchDB:
+    def __init__(self, filename, folder_name="", buffer_size=1024):
+        self.file_path =  folder_name + "/" + filename + ".json"
+        self.buffer_size = buffer_size
+
+
+    async def save(self, data, market_state, connection_data, on_message:callable):
+        try:
+            data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
+        except Exception as e:
+            print(e)
+            return
+        data["_doc"] = str(uuid.uuid4())
+
+        if not os.path.exists(self.file_path):
+            async with aiofiles.open(self.file_path ,mode='w') as f:
+                content = []
+                content.insert(0, data)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(json.dumps(content, indent=2)) 
+        else:
+            async with aiofiles.open(self.file_path ,mode='r+') as f: 
+                content = await f.read()
+                content = json.loads(content)
+                content.insert(0, data)
+                content = json.dumps(content)
+                await f.seek(0)  
+                await f.truncate() 
+                await f.write(content) 
+
+async def ws_fetcher_helper(function):
+    data = await function()
+    return data

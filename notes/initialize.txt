@@ -1,0 +1,22 @@
+Linux:
+permission: chmod -R +x /workspace/fastmoonStreams/kafka
+zookeeper: /workspace/fastmoonStreams/kafka/bin/zookeeper-server-start.sh /workspace/fastmoonStreams/kafka/config/zookeeper.properties
+server: /workspace/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspace/fastmoonStreams/kafka/config/server.properties
+producer: python plauncher.py
+consumer: faust -A clauncher worker -l info --web-port 6066
+
+
+Virtual environment:
+step by step for linux
+https://askubuntu.com/questions/682869/how-do-i-install-a-different-python-version-using-apt-get
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python3.7
+
+sudo apt install curl git make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libreadline6-dev libncurses5-dev libffi-dev libgdbm-dev
+pyenv install 3.7.15
+pyenv virtualenv 3.7.15 workspace/venv
+
+
+Windows:
+For windows you have to mess a little bit

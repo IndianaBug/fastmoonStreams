@@ -1,16 +1,16 @@
-import fauststreaming
+import faust
 import aiocouch
 import rapidjson as json
-from asdasdas.clients.utilis import MockCouchDB
+from utilis_consumer import MockCouchDB
 import asyncio
-from asdasdas.clients.utilis import ws_fetcher_helper
+from faust import App
 
 
-class consumer():
+class XBTApp(App):
     
-    def __init__(self, connection_data, app_name="XBTStreams", database="mockCouchDB", database_folder="mochdb_onmessage", couch_host="", couch_username="", couch_password="", mode="production"):
+    def __init__(self, connection_data, app_name="XBT", database="mockCouchDB", database_folder="mochdb_onmessage", couch_host="", couch_username="", couch_password="", mode="production"):
         self.connection_data = connection_data
-        self.app = fauststreaming.App(app_name)
+        self.name = app_name
         self.database_name = database
         self.database_folder = database_folder
         if self.database_name == "CouchDB":
@@ -84,51 +84,58 @@ class consumer():
             print(f'{connection_dict.get("id_api")} is not working properly' )
             print(e)
 
-    def initiate_stream_ws_books(self, connection_dict):
+    async def initiate_stream_ws_books(self, connection_dict):
         
         if exchnage != "deribit":
             if self.database_name == "mockCouchDB":
                 data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_mockCouchDB(data, connection_data)
+                # await self.insert_into_mockCouchDB(data, connection_data)
+                print(data)
             else:
                 data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_mockCouchDB(data, connection_data)
+                print(data)
+                # await self.insert_into_mockCouchDB(data, connection_data)
         if exchange == "deribit":
-            await self.insert_into_mockCouchDB(self.deribit_depths.get(connection_dict.get("id_api_2")), connection_data)
+            print(data)
+            # await self.insert_into_mockCouchDB(self.deribit_depths.get(connection_dict.get("id_api_2")), connection_data)
             del self.deribit_depths
 
-        agent_decorator = self.app.agent(connection_dict.get("topic_name"))
+        agent_decorator = self.agent(connection_dict.get("topic_name"))
         @agent_decorator
         async def process_data(data):
-            counter = 0
             async for byte_data in data:
-                if counter != 0:
-                    await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
-                else:
-                    await self.insert_into_mockCouchDB_2(byte_data.decode(), connection_dict)
-                    counter += 1
+                print(byte_data)
+                # await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
 
-    def initiate_stream_ws(self, connection_dict):
-        agent_decorator = self.app.agent(connection_dict.get("topic_name"))
+    async def initiate_stream_ws(self, connection_dict):
+        agent_decorator = self.agent(connection_dict.get("topic_name"))
         @agent_decorator
         async def process_data(data):
             async for byte_data in data:
-                await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
+                # await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
+                print(byte_data.decode())
                     
-    def initiate_stream_api(self, connection_dict):
-        agent_decorator = self.app.agent(connection_dict.get("topic_name"))
+    async def initiate_stream_api(self, connection_dict):
+        agent_decorator = self.agent(connection_dict.get("topic_name"))
         @agent_decorator        
         async def process_data(data):
             async for byte_data in data:
-                await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
+                print(byte_data)
+                # await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
                 
-    def initiate_strems(self):
+    async def initiate_strems(self):
         for cd in self.connection_data:
-            if "depth" in cd.get("id_ws"):
-                self.initiate_stream_ws_books(cd)
+            if "depth" in cd.get("id_ws", ""):
+                await self.initiate_stream_ws_books(cd)
             elif "id_api" in cd:
-                self.initiate_stream_api(cd)
+                await self.initiate_stream_api(cd)
             else:
-                self.initiate_stream_ws(cd)
+                await self.initiate_stream_ws(cd)
+    
+    async def start_XBT(self):
+        await self.initiate_strems()
+        self.main()
+
+
          
 
