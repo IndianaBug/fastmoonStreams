@@ -3,14 +3,25 @@ import aiocouch
 import rapidjson as json
 from utilis_consumer import MockCouchDB
 import asyncio
-from faust import App
+import faust 
+from functools import partial
 
 
-class XBTApp(App):
+class XBTApp(faust.App):
     
-    def __init__(self, connection_data, app_name="XBT", database="mockCouchDB", database_folder="mochdb_onmessage", couch_host="", couch_username="", couch_password="", mode="production"):
+    def __init__(self, 
+                 connection_data, 
+                 database="mockCouchDB",
+                 database_folder="mochdb_onmessage", 
+                 couch_host="",
+                 couch_username="", 
+                 couch_password="", 
+                 mode="production",
+                 *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.id = id
+        self.broker = dict(kwargs).get("broker")
         self.connection_data = connection_data
-        self.name = app_name
         self.database_name = database
         self.database_folder = database_folder
         if self.database_name == "CouchDB":
@@ -33,6 +44,7 @@ class XBTApp(App):
             del deribit_depths
         except:
             pass
+
 
     def populate_ws_latencies(self):
         for di in self.connection_data:
@@ -115,26 +127,35 @@ class XBTApp(App):
                 # await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
                 print(byte_data.decode())
                     
-    async def initiate_stream_api(self, connection_dict):
-        agent_decorator = self.agent(connection_dict.get("topic_name"))
-        @agent_decorator        
-        async def process_data(data):
+    async def apifetch_agent(self, connection_dict):
+        # topic = self.topic(connection_dict.get("topic_name"), value_type=str)
+        # agent_decorator = self.agent(topic)
+        # @agent_decorator        
+        # async def process_data(data):
             async for byte_data in data:
                 print(byte_data)
                 # await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
                 
-    async def initiate_strems(self):
+    async def initialize_streams(self):
         for cd in self.connection_data:
-            if "depth" in cd.get("id_ws", ""):
-                await self.initiate_stream_ws_books(cd)
-            elif "id_api" in cd:
-                await self.initiate_stream_api(cd)
-            else:
-                await self.initiate_stream_ws(cd)
+            if "id_api" in cd:
+                f = await partial(self.apifetch_agent, cd)
+                self.agent(f)
+        
+        
+        
+        
+        # for cd in self.connection_data:
+        #     if "depth" in cd.get("id_ws", ""):
+        #         await self.initiate_stream_ws_books(cd)
+        #     elif "id_api" in cd:
+        #         await self.initiate_stream_api(cd)
+        #     else:
+        #         await self.initiate_stream_ws(cd)
     
-    async def start_XBT(self):
-        await self.initiate_strems()
-        self.main()
+    async def start_streams(self):
+        await self.initialize_streams()
+        await self.main()
 
 
          

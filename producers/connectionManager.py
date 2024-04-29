@@ -12,9 +12,6 @@ import io
 from aiokafka import AIOKafkaProducer
 from aiokafka.errors import KafkaError
 from aiokafka.errors import KafkaStorageError
-from aiokafka.admin.client import AIOKafkaAdminClient
-from aiokafka.admin.new_topic import NewTopic
-from aiokafka.structs import TopicPartition
 import logging
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection

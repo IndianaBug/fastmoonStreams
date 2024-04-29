@@ -6,17 +6,18 @@ producer: python plauncher.py
 consumer: faust -A clauncher worker -l info --web-port 6066
 
 
-Virtual environment:
-step by step for linux
-https://askubuntu.com/questions/682869/how-do-i-install-a-different-python-version-using-apt-get
+Virtual environment linux:
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
 sudo apt-get install python3.7
+sudo apt-get install python3.7-venv
+python3.7 -m venv fastmoonVenv
 
-sudo apt install curl git make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libreadline6-dev libncurses5-dev libffi-dev libgdbm-dev
-pyenv install 3.7.15
-pyenv virtualenv 3.7.15 workspace/venv
 
 
 Windows:
 For windows you have to mess a little bit
+
+
+Run venv linux:
+source /workspace/fastmoonVenvv/bin/activate
