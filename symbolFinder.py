@@ -11,7 +11,6 @@ client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_sec
 all_instruments = client.retrieve_all_instruments()
 symbols = client.get_related_instruments(all_instruments, ["BTC", "BTC", "XBT"], ["PERP", "USD", "USD"], ["option", "future"])
 print(symbols)
-print([x for x in client.okx_symbols_by_instType("future") if "BTC" in x])
 
 
 

@@ -5,7 +5,6 @@ server: /workspace/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspace/fa
 producer: python plauncher.py
 consumer: faust -A clauncher worker -l info --web-port 6066
 
-
 Virtual environment linux:
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
@@ -16,8 +15,20 @@ python3.7 -m venv fastmoonVenv
 
 
 Windows:
-For windows you have to mess a little bit
+cd C:\coding\fastmoon\fastmoonStreams
+C:\coding\fastmoon\fastmoonVenv\env\Scripts\activate
+
+zookeeper: 
+
+cd C:\Kafka
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+server:
+
+cd C:\Kafka
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+producer: python p.py
+consumer: faust -A clauncher worker -l info --web-port 6066
 
 
-Run venv linux:
-source /workspace/fastmoonVenvv/bin/activate

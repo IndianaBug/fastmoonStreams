@@ -1,7 +1,7 @@
 import faust
 import aiocouch
 import rapidjson as json
-from utilis_consumer import MockCouchDB
+from utilis_consumer import MockCouchDB, ws_fetcher_helper
 import asyncio
 import faust 
 from functools import partial
@@ -127,22 +127,16 @@ class XBTApp(faust.App):
                 # await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
                 print(byte_data.decode())
                     
-    async def apifetch_agent(self, connection_dict):
-        # topic = self.topic(connection_dict.get("topic_name"), value_type=str)
-        # agent_decorator = self.agent(topic)
-        # @agent_decorator        
-        # async def process_data(data):
-            async for byte_data in data:
-                print(byte_data)
-                # await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
+    async def process_api_agent(self, streams, connection_dict):
+        async for byte_data in streams.items():
+            print(byte_data)
+            # await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
                 
     async def initialize_streams(self):
         for cd in self.connection_data:
+            topic = self.topic(cd.get("topic_name"))
             if "id_api" in cd:
-                f = await partial(self.apifetch_agent, cd)
-                self.agent(f)
-        
-        
+                self.agent(topic)(self.process_api_agent)
         
         
         # for cd in self.connection_data:
