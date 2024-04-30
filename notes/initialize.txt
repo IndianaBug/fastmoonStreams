@@ -3,7 +3,10 @@ permission: chmod -R +x /workspace/fastmoonStreams/kafka
 zookeeper: /workspace/fastmoonStreams/kafka/bin/zookeeper-server-start.sh /workspace/fastmoonStreams/kafka/config/zookeeper.properties
 server: /workspace/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspace/fastmoonStreams/kafka/config/server.properties
 producer: python plauncher.py
-consumer: faust -A clauncher worker -l info --web-port 6066
+consumer: faust -A c worker -l info --web-port=6066
+check pid of a port: sudo ss -tulpn | grep 6066
+kill -9 14153
+
 
 Virtual environment linux:
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -31,4 +34,22 @@ cd C:\Kafka
 producer: python p.py
 consumer: faust -A clauncher worker -l info --web-port 6066
 
+
+
+
+# To do:
+--- fix okx option api fetch
+--- faust stats monitoring
+--- Scalability and Load Balancing. Make sure faust adds more workers automatically in order to deal with increasing workload.
+    Use Kubernetes, but it is for a cluster of servers.
+--- backpressure managment with max.poll.records and fetch.min.bytes
+    run the app for a few minutes nad estimate the amount of data in bytes that it consumes over 1 secod at its noraml times, lower times and higher times. 
+    Faust stats monitoring for your help
+--- service level agreement that sends you messages if your processsing time or message latency goes beyond expected thresholds
+--- withi faust gaugin
+--- maybe with prometeus if needed
+--- implement CI/CD pipelines to automate the testing and deployment of your faust application.
+
+Maybe:
+--- high level of logging with elasticsearch, longstash and kibana
 

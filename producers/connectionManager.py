@@ -533,6 +533,7 @@ class producer(keepalive):
         try:
             while True:
                 message = await connection_data.get("aiohttpMethod")()
+                print(message)
                 await self.send_message_to_topic(topic, message)
                 time.sleep(connection_data.get("pullTimeout"))
         except Exception as e:
@@ -579,6 +580,9 @@ class producer(keepalive):
         self.ensure_topic_exists(self.kafka_topics_names)
         self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
         await self.producer.start()
+        
+        topics = self.admin.list_topics(timeout=10)
+        print(topics.topics)
         
         tasks = []
         for connection_dict in self.connection_data:

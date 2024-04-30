@@ -5,6 +5,11 @@ from utilis_consumer import MockCouchDB, ws_fetcher_helper
 import asyncio
 import faust 
 from functools import partial
+from faust import ChannelT, StreamT, Topic
+from typing import AsyncIterator
+import logging
+import logging.handlers
+from confluent_kafka.admin import AdminClient, NewTopic
 
 
 class XBTApp(faust.App):
@@ -17,11 +22,21 @@ class XBTApp(faust.App):
                  couch_username="", 
                  couch_password="", 
                  mode="production",
+                 log_file="app.log",
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # faust configs
         self.id = id
         self.broker = dict(kwargs).get("broker")
+        self.topic_partitions = dict(kwargs).get("topic_partitions")        
+        # setup logging for error handling
+        self.logger = logging.getLogger(__name__)
+        file_handler = logging.FileHandler(log_file)
+        file_handler.setLevel(logging.DEBUG)  
+        self.logger.addHandler(file_handler)
+        # Connection data vehicle
         self.connection_data = connection_data
+        # database setup
         self.database_name = database
         self.database_folder = database_folder
         if self.database_name == "CouchDB":
@@ -36,6 +51,7 @@ class XBTApp(faust.App):
         if self.database_name == "CouchDB":
             self.insert_into_database = self.insert_into_CouchDB
             self.insert_into_database_2 = self.insert_into_CouchDB_2
+        # Dynamic market info container
         self.market_state = {}
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
         try:
@@ -44,8 +60,7 @@ class XBTApp(faust.App):
             del deribit_depths
         except:
             pass
-
-
+    
     def populate_ws_latencies(self):
         for di in self.connection_data:
             connection_id = di.get("id_ws", None)
@@ -126,31 +141,38 @@ class XBTApp(faust.App):
             async for byte_data in data:
                 # await self.insert_into_mockCouchDB(byte_data.decode(), connection_dict)
                 print(byte_data.decode())
+ 
+    def ensure_dead_letter_topic_exists(self, topic_name="dead_letter", number_partitions=5, replication_factor=1):
+        bootstrap_servers = self.broker.replace("kafka://", "")
+        admin_client = AdminClient({"bootstrap.servers": bootstrap_servers})
+        new_topic = NewTopic(topic_name, num_partitions, replication_factor)
+        admin_client.create_topics([new_topic])
+        admin_client.close()
                     
-    async def process_api_agent(self, streams, connection_dict):
-        async for byte_data in streams.items():
-            print(byte_data)
-            # await self.insert_into_mockCouchDB_3(byte_data.decode(), connection_dict)
-                
-    async def initialize_streams(self):
-        for cd in self.connection_data:
-            topic = self.topic(cd.get("topic_name"))
-            if "id_api" in cd:
-                self.agent(topic)(self.process_api_agent)
-        
-        
-        # for cd in self.connection_data:
-        #     if "depth" in cd.get("id_ws", ""):
-        #         await self.initiate_stream_ws_books(cd)
-        #     elif "id_api" in cd:
-        #         await self.initiate_stream_api(cd)
-        #     else:
-        #         await self.initiate_stream_ws(cd)
-    
-    async def start_streams(self):
-        await self.initialize_streams()
-        await self.main()
-
+    async def process_api_agent(
+                    self,
+                    cd: dict,
+                    stream: StreamT
+                ) -> AsyncIterator:
+        async for byte_data in stream:
+            try:
+                print(byte_data)
+                await self.insert_into_mockCouchDB_3(byte_data, cd)
+                yield byte_data
+            except Exception as e:
+                topic_name = cd.get("topic_name")
+                self.logger.error(f"Exception raised for topic {topic_name}: {e}")
+                self.logger.info(f"Exception raised for topic {topic_name}: {e}")
 
          
+# processing time agreement
+# @app.agent(topic)
+# async def process(stream):
+#     async for event in stream:
+#         start_time = time.time()
+#         # Process the event
+#         # Your processing logic here
+#         end_time = time.time()
+#         processing_time = end_time - start_time
+#         app.monitor.gauge('custom_processing_time', processing_time)
 

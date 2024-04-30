@@ -1,28 +1,30 @@
 from streams import connectionData
 from consumers.consumer import XBTApp
 import asyncio
-# import inspect
-# import faust
+from functools import partial
 
+app = XBTApp(
+            connection_data=connectionData, 
+            database="mockCouchDB",
+            database_folder="mochdb_onmessage", 
+            couch_host="",
+            couch_username="", 
+            couch_password="", 
+            mode="production",
+            id = "XBTApp",
+            broker = "kafka://localhost:9092",
+            topic_partitions=5
+            )
 
-# init_signature = inspect.signature(faust.App.__init__)
-# for param in init_signature.parameters.values():
-#     print(param)
-
-consumer = XBTApp(
-                 connection_data=connectionData, 
-                 database="mockCouchDB",
-                 database_folder="mochdb_onmessage", 
-                 couch_host="",
-                 couch_username="", 
-                 couch_password="", 
-                 mode="production",
-                 id = "XBTApp",
-                 broker = "kafka://localhost:9092")
+for cd in app.connection_data:
+    topic_name = cd.get("topic_name")
+    if "id_api" in cd:
+        topic = app.topic(topic_name)
+        app.agent(topic)(partial(app.process_api_agent, cd))
+        print(f"API initialized for topic: {topic_name}")
+    
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(consumer.start_streams())
+    app.main()
 
 
