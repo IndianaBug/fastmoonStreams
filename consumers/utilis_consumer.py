@@ -2,6 +2,10 @@ import numpy as np
 import datetime
 import pandas as pd
 from itertools import chain
+import uuid
+import os
+import aiofiles
+import rapidjson as json
 
 def booksflow_find_level(price, level_size):
     return np.ceil(price / level_size) * level_size
@@ -201,7 +205,6 @@ class MockCouchDB:
         self.file_path =  folder_name + "/" + filename + ".json"
         self.buffer_size = buffer_size
 
-
     async def save(self, data, market_state, connection_data, on_message:callable):
         try:
             data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
@@ -225,7 +228,34 @@ class MockCouchDB:
                 content = json.dumps(content)
                 await f.seek(0)  
                 await f.truncate() 
-                await f.write(content) 
+                await f.write(content)
+
+def insert_into_CouchDB(self, data, connection_dict, on_message:callable):
+    getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
+
+def insert_into_CouchDB_2(self, data, connection_dict, on_message:callable):
+    getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
+    
+async def insert_into_mockCouchDB(self, data, connection_dict):
+    try:
+        await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_ws"))
+    except Exception as e:
+        print(f'{connection_dict.get("id_ws")} is not working properly' )
+        print(e)
+
+async def insert_into_mockCouchDB_2(self, data, connection_dict):
+    try:
+        await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_api_2"))
+    except Exception as e:
+        print(f'{connection_dict.get("id_api_2")} is not working properly' )
+        print(e)
+
+async def insert_into_mockCouchDB_3(self, data, connection_dict):
+    try:
+        await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict,  on_message=connection_dict.get("on_message_method_api"))
+    except Exception as e:
+        print(f'{connection_dict.get("id_api")} is not working properly' )
+        print(e) 
 
 async def ws_fetcher_helper(function):
     data = await function()

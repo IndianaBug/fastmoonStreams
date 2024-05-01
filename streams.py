@@ -98,7 +98,7 @@ api = {
     "okx" : [
         # "perpetual.oi.BTC.60.spec", 
         # "perpetual.funding.BTC.60.spec", 
-        "perpetual.gta.BTC.15",
+        "perpetual.gta.BTC.30",
         # "option.oi.BTC-USD.15",
         ],
     # "deribit" : [

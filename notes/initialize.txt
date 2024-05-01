@@ -32,7 +32,7 @@ cd C:\Kafka
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 
 producer: python p.py
-consumer: faust -A clauncher worker -l info --web-port 6066
+consumer: faust -A c worker -l info --web-port=6066
 
 
 

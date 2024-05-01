@@ -5,12 +5,9 @@ from functools import partial
 
 app = XBTApp(
             connection_data=connectionData, 
-            database="mockCouchDB",
-            database_folder="mochdb_onmessage", 
             couch_host="",
             couch_username="", 
             couch_password="", 
-            mode="production",
             id = "XBTApp",
             broker = "kafka://localhost:9092",
             topic_partitions=5
