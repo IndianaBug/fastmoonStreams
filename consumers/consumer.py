@@ -9,7 +9,7 @@ import rapidjson as json
 import faust
 from utilis_consumer import MockCouchDB
 from utilis_consumer import ws_fetcher_helper, insert_into_CouchDB, insert_into_CouchDB_2
-from utilis_consumer import insert_into_mockCouchDB, insert_into_mockCouchDB_2, insert_into_mockCouchDB_3
+import sys
 # Todo: 
 # Add database related exceptions, everywhere
 
@@ -31,6 +31,7 @@ class XBTApp(faust.App):
         self.id = id
         self.broker = dict(kwargs).get("broker")
         self.topic_partitions = dict(kwargs).get("topic_partitions")
+        self.value_serializer = dict(kwargs).get("value_serializer")
         # logger        
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
         # connection data, streaming, processing 
@@ -109,9 +110,9 @@ class XBTApp(faust.App):
 
         # Creates inserting methods
         if self.database_name == "mockCouchDB":
-            self.insert_into_database = insert_into_mockCouchDB
-            self.insert_into_database_2 = insert_into_mockCouchDB_2
-            self.insert_into_database_3 = insert_into_mockCouchDB_3
+            self.insert_into_database = self.insert_into_mockCouchDB
+            self.insert_into_database_2 = self.insert_into_mockCouchDB_2
+            self.insert_into_database_3 = self.insert_into_mockCouchDB_3
         if self.database_name == "CouchDB":
             self.insert_into_database = insert_into_CouchDB
             self.insert_into_database_2 = insert_into_CouchDB_2
@@ -159,8 +160,8 @@ class XBTApp(faust.App):
         """
         async for byte_data in stream:
             try:
-                print(byte_data)
-                await self.insert_into_database(byte_data, cd)
+
+                await self.insert_into_database(byte_data.decode(), cd)
                 yield byte_data
             except ValueError as e:
                 topic_name = cd.get("topic_name")
@@ -174,16 +175,17 @@ class XBTApp(faust.App):
                 topic_name = cd.get("topic_name")
                 self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
                 continue
-                    
+    
     async def process_api_agent(self, cd: dict, stream: faust.StreamT) -> AsyncIterator:
         """
-            Handler for API topics
+            Configuration of multiple agents 
         """
         async for byte_data in stream:
             try:
-                print(byte_data)
-                await self.insert_into_database_3(self, byte_data, cd)
-                yield byte_data
+                print(sys.getsizeof(byte_data))
+                data = byte_data.decode()
+                await self.insert_into_database_3(data, cd)
+                yield data
             except ValueError as e:
                 topic_name = cd.get("topic_name")
                 self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e)
@@ -196,6 +198,30 @@ class XBTApp(faust.App):
                 topic_name = cd.get("topic_name")
                 self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
                 continue
+            
+
+
+    async def insert_into_mockCouchDB(self, data, connection_dict):
+        try:
+            await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_ws"))
+        except Exception as e:
+            print(f'{connection_dict.get("id_ws")} is not working properly' )
+            print(e)
+
+    async def insert_into_mockCouchDB_2(self, data, connection_dict):
+        try:
+            await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_api_2"))
+        except Exception as e:
+            print(f'{connection_dict.get("id_api_2")} is not working properly' )
+            print(e)
+
+    async def insert_into_mockCouchDB_3(self, data, connection_dict):
+        try:
+            await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict,  on_message=connection_dict.get("on_message_method_api"))
+        except Exception as e:
+            print(f'{connection_dict.get("id_api")} is not working properly' )
+            print(e) 
+
 
 # For processing time controll, for later
          

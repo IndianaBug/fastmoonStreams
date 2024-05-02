@@ -203,7 +203,6 @@ def is_valid_dataframe(df):
 class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
         self.file_path =  folder_name + "/" + filename + ".json"
-        self.buffer_size = buffer_size
 
     async def save(self, data, market_state, connection_data, on_message:callable):
         try:
@@ -236,26 +235,6 @@ def insert_into_CouchDB(self, data, connection_dict, on_message:callable):
 def insert_into_CouchDB_2(self, data, connection_dict, on_message:callable):
     getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)
     
-async def insert_into_mockCouchDB(self, data, connection_dict):
-    try:
-        await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_ws"))
-    except Exception as e:
-        print(f'{connection_dict.get("id_ws")} is not working properly' )
-        print(e)
-
-async def insert_into_mockCouchDB_2(self, data, connection_dict):
-    try:
-        await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_api_2"))
-    except Exception as e:
-        print(f'{connection_dict.get("id_api_2")} is not working properly' )
-        print(e)
-
-async def insert_into_mockCouchDB_3(self, data, connection_dict):
-    try:
-        await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict,  on_message=connection_dict.get("on_message_method_api"))
-    except Exception as e:
-        print(f'{connection_dict.get("id_api")} is not working properly' )
-        print(e) 
 
 async def ws_fetcher_helper(function):
     data = await function()

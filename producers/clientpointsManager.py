@@ -87,37 +87,63 @@ class CommunicationsManager:
         
     @classmethod
     async def make_aiohttpRequest(cls, connection_data):
-        async with aiohttp.ClientSession() as session:
-            async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
-                response =  await response.text()
-                return response
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
+                    response =  await response.text()
+                    return response
+        except aiohttp.ClientError as e:
+            print(f"HTTP request failed: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
             
     @classmethod
     async def make_aiohttpRequest_v2(cls, connection_data):
         connection_data["headers"] = {str(key): str(value) for key, value in connection_data["headers"].items()}
-        async with aiohttp.ClientSession() as session:
-            async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
-                response =  await response.text()
-                return response
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(connection_data["url"], headers=connection_data["headers"], params=connection_data["params"]) as response:
+                    response =  await response.text()
+                    return response
+        except aiohttp.ClientError as e:
+            print(f"HTTP request failed: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     @classmethod
     async def make_wsRequest_http(cls, connection_data):
         async def wsClient(connection_data):
-            async with websockets.connect(connection_data.get("endpoint"), ssl=ssl_context) as websocket:
-                await websocket.send(json.dumps(connection_data.get("headers")))
-                response = await websocket.recv()
-                return response
-
+            try:
+                async with websockets.connect(connection_data.get("endpoint"), ssl=ssl_context) as websocket:
+                    await websocket.send(json.dumps(connection_data.get("headers")))
+                    response = await websocket.recv()
+                    return response
+            except websockets.ConnectionClosedError as e:
+                print(f"Connection was closed prematurely: {e}")
+            except websockets.WebSocketException as e:
+                print(f"WebSocket error occurred: {e}")
+            except asyncio.TimeoutError:
+                print("Timeout occurred while trying to connect or communicate")
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
         response = await asyncio.run(wsClient(connection_data))
         return response
 
     @classmethod
     async def make_wsRequest(cls, connection_data):
-        async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
-            await websocket.send(json.dumps(connection_data.get("headers")))
-            response = await websocket.recv()
-            return response 
-
+        try:
+            async with websockets.connect(connection_data.get("endpoint"),  ssl=ssl_context) as websocket:
+                await websocket.send(json.dumps(connection_data.get("headers")))
+                response = await websocket.recv()
+                return response 
+        except websockets.ConnectionClosedError as e:
+            print(f"Connection was closed prematurely: {e}")
+        except websockets.WebSocketException as e:
+            print(f"WebSocket error occurred: {e}")
+        except asyncio.TimeoutError:
+            print("Timeout occurred while trying to connect or communicate")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     @classmethod
     def http_call(cls, endpoint, basepoint, payload, headers):
@@ -533,6 +559,9 @@ class okx(CommunicationsManager, okxInfo):
         url = f"{endpoint}{basepoint}"
         instTypeOkx = okx_api_instType_map.get(instType)
         params = cls.okx_api_params_map.get(objective)(symbol) if objective != "oi" else cls.okx_api_params_map.get(objective)(instTypeOkx, symbol)
+        if instType == "option" and objective == "oi" and len(symbol.split("-"))==2:
+            del params["instId"]
+            params["instFamily"] = symbol
         headers = {}
 
         return {

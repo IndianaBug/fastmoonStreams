@@ -15,6 +15,7 @@ from aiokafka.errors import KafkaStorageError
 import logging
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
+import sys
 
 
 
@@ -313,7 +314,7 @@ class producer(keepalive):
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
     
     async def send_message_to_topic(self, topic_name, message):
-        await self.producer.send_and_wait(topic_name, message.encode())
+        await self.producer.send_and_wait(topic_name, message)
 
     async def check_websocket_connection(self, connection_data_dic):
         try:
@@ -529,17 +530,6 @@ class producer(keepalive):
                 while websocket.open:
                     pass
 
-    async def aiohttp_socket(self, connection_data, topic):
-        try:
-            while True:
-                message = await connection_data.get("aiohttpMethod")()
-                print(message)
-                await self.send_message_to_topic(topic, message)
-                time.sleep(connection_data.get("pullTimeout"))
-        except Exception as e:
-            print(f"Fetch API error of {connection_data.get('id_api')}, {e}")
-            await asyncio.sleep(5)
-
     def ensure_topic_exists(self, topic_names):
         """
             # https://github.com/confluentinc/confluent-kafka-python    
@@ -557,7 +547,6 @@ class producer(keepalive):
         except Exception as e:
             print(f"An error occurred: {e}")
 
-
     def describe_topics(self):
         """
             https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/admin/_topic.py
@@ -573,19 +562,37 @@ class producer(keepalive):
         except Exception as e:
             print(f"An error occurred: {e}")
             
+    async def aiohttp_socket(self, connection_data, topic, initial_delay):
+        await asyncio.sleep(initial_delay)
+        try:
+            while True:
+                message = await connection_data.get("aiohttpMethod")()
+                message = message.encode("utf-8")
+                print(sys.getsizeof(message))
+                await self.send_message_to_topic(topic, message)
+                await asyncio.sleep(connection_data.get("pullTimeout"))
+        except asyncio.CancelledError:
+            print(f"Task was cancelled of {connection_data.get('id_api')}")
+        except ConnectionError as e:
+            print(f"Connection error of {connection_data.get('id_api')}, {e}")
+        except TimeoutError:
+            print(f"Timeout error occurred of {connection_data.get('id_api')}")
+        except asyncio.TimeoutError:
+            print(f"Asynchronous timeout error occurred of {connection_data.get('id_api')}")
+        except Exception as e:
+            print(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}")
+            await asyncio.sleep(5)  # Add a delay before retrying or handling the error further
             
+                
     async def run_producer(self):
         # self.delete_all_topics()
         # print(self.delete_all_topics())
         self.ensure_topic_exists(self.kafka_topics_names)
         self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
         await self.producer.start()
-        
-        topics = self.admin.list_topics(timeout=10)
-        print(topics.topics)
-        
+        topics = self.admin.list_topics(timeout=10)        
         tasks = []
-        for connection_dict in self.connection_data:
+        for delay, connection_dict in enumerate(self.connection_data):
             if "id_ws" in connection_dict:
                 exchange = connection_dict.get("exchange")
                 ws_method = getattr(self, f"{exchange}_ws", None)
@@ -603,7 +610,7 @@ class producer(keepalive):
                     connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
                     tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
                 else:
-                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"))))
+                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"), initial_delay=delay)))
         try:
             await asyncio.gather(*tasks)
         except KeyboardInterrupt:
