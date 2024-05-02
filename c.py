@@ -97,3 +97,7 @@ if __name__ == "__main__":
 
 # for agent, topic in agents():
 #     attach_agent(agent, topic)
+
+
+
+# https://github.com/robinhood/faust/issues/300
