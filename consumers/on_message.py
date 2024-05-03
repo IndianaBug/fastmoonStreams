@@ -744,7 +744,8 @@ class okx_on_message(on_message_helper):
                 break
         d = {}            
         d["timestamp"] = self.process_timestamp_no_timestamp()
-        d["gta_ratio"] = gta
+        d[label] = {}
+        d[label]["gta_ratio"] = gta
         market_state[label] = {"gta_ratio" : gta}
         return d
 
@@ -1000,13 +1001,16 @@ class deribit_on_message(on_message_helper):
                 msids.append(f"{value}@{instType}@deribit")
                 symbols.append(value)
             if prefix == "result.item.mid_price":
-                prices.append(float(value))
+                if value != None:
+                    prices.append(float(value))
             if prefix == "result.item.funding_8h":
                 instType = "future" if any(char.isdigit() for char in this_symbol.split("-")[-1]) else "perpetual"
-                fundings[f"{this_symbol}@{instType}@deribit"] = {}
-                fundings[f"{this_symbol}@{instType}@deribit"]["funding"] = float(value)
+                if value != None:
+                    fundings[f"{this_symbol}@{instType}@deribit"] = {}
+                    fundings[f"{this_symbol}@{instType}@deribit"]["funding"] = float(value)
             if prefix == "result.item.open_interest":
-                ois.append(float(value))
+                if value != None:
+                    ois.append(float(value))
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
@@ -1304,12 +1308,13 @@ class bingx_on_message(on_message_helper):
 
     async def bingx_api_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
         data = json.loads(data)
-        timestamp = self.process_timestamp(data.get("data"), ["time"], 1000)
+        timestamp = self.process_timestamp(data.get("data").get("time"), 1000)
         openInterest = float(data.get("data").get("openInterest"))
         ss = str(data.get('data').get('symbol'))
         s = f"{ss}@perpetual@bingx"
         openInterest = openInterest / market_state.get(s, {}).get("price", 100000)
         d = {s : {"oi" : openInterest}}
+        d["timestamp"] = timestamp
         if s not in market_state:
             market_state[s] = {}
         market_state[s]["oi"] = openInterest
@@ -1321,6 +1326,7 @@ class bingx_on_message(on_message_helper):
         ss = str(data.get('data').get('symbol'))
         s = f"{ss}@perpetual@bingx"
         d = {s : {"oi" : funding}}
+        d["timestamp"] = self.process_timestamp_no_timestamp()
         if s not in market_state:
             market_state[s] = {}
         market_state[s]["funding"] = funding
@@ -1334,7 +1340,7 @@ class bingx_on_message(on_message_helper):
             side = "buy" if trade.get("m") is True else "sell"
             price = float(trade.get("p"))
             amount = float(trade.get("q"))
-            timestamp = self.process_timestamp(trade, ["T"], 1000)
+            timestamp = self.process_timestamp(trade.get("T"), 1000)
             receive_time = float(data.get("T")) / 1000 
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
@@ -1355,7 +1361,7 @@ class bingx_on_message(on_message_helper):
         side = "buy" if trade.get("m") is True else "sell"
         price = float(trade.get("p"))
         amount = float(trade.get("q"))
-        timestamp = self.process_timestamp(trade, ["t"], 1000)
+        timestamp = self.process_timestamp(trade.get("t"), 1000)
         receive_time = float(trade.get("t")) / 1000 
         trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
         msid = f"{symbol}@spot@bingx"

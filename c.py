@@ -4,6 +4,8 @@ import asyncio
 from functools import partial
 import uuid
 import faust
+from typing import AsyncIterator
+import sys
 
 app = XBTApp(
             connection_data=connectionData, 
@@ -16,39 +18,22 @@ app = XBTApp(
             value_serializer='raw'
             )
 
-partial_functions = {}
-
-def create_agent(agent):
-    return agent
 
 def agents(connection_data):
     """ Configuration of multiple agents """
-
     agents = []
     for cd in connection_data:
-        topic_name = cd.get("topic_name")
         if "id_api" in cd:
-            topic = app.topic(topic_name)
-            agent_function = partial(app.process_api_agent, cd)
-            agents.append(create_agent(agent_function))
-            # app.agent(topic)(create_agent(agent_function))
-            # print(f"API initialized for topic: {topic_name}")
+            agents.append(app.create_api_agent(cd))
     return agents
 
 def attach_agent(agent, cd):
     topic_name = cd.get("topic_name")
     topic = app.topic(topic_name)
-    app.agent(topic)(create_agent(agent_function))
+    app.agent(topic, name=topic_name)(agent)
             
-for agent, cd in enumerate(agents(app.connection_data), app.connection_data):
+for agent, cd in zip(agents(app.connection_data), app.connection_data):
     attach_agent(agent, cd)
-# for cd in app.connection_data:
-#     topic_name = cd.get("topic_name")
-#     if "id_api" in cd:
-#         topic = app.topic(topic_name)
-#         agent_function = partial(app.process_api_agent, cd)
-#         app.agent(topic)(create_agent(agent_function))
-#         print(f"API initialized for topic: {topic_name}")
     
 
 if __name__ == "__main__":

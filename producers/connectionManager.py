@@ -1,5 +1,4 @@
 import asyncio
-import websockets
 import time
 import websockets
 import ssl
@@ -9,16 +8,61 @@ import re
 import gzip
 import aiocouch
 import io
-from aiokafka import AIOKafkaProducer
-from aiokafka.errors import KafkaError
-from aiokafka.errors import KafkaStorageError
+import sys
 import logging
+from logging.handlers import RotatingFileHandler
+import backoff
+from aiokafka import AIOKafkaProducer
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
-import sys
 
+from kafka.errors import (
+    KafkaError, KafkaConnectionError, KafkaTimeoutError, NoBrokersAvailable, AuthenticationFailedError,
+    BrokerNotAvailableError, LeaderNotAvailableError, NotLeaderForPartitionError,
+    UnknownTopicOrPartitionError, MessageSizeTooLargeError, RecordListTooLargeError,
+    CorruptRecordException, NotEnoughReplicasError, NotEnoughReplicasAfterAppendError,
+    TopicAuthorizationFailedError, ClusterAuthorizationFailedError, GroupAuthorizationFailedError,
+    IllegalStateError
+)
 
+from websockets.exceptions import (
+    ConnectionClosed, ConnectionClosedError, ConnectionClosedOK, ProtocolError, InvalidHandshake
+    )
 
+websockets_errors = (ConnectionClosed, ConnectionClosedError, ConnectionClosedOK, ProtocolError, InvalidHandshake)
+
+recoverable_errors = (
+    asyncio.TimeoutError,
+    ConnectionError,
+    NotLeaderForPartitionError,
+    LeaderNotAvailableError,
+    BrokerNotAvailableError,
+    NotEnoughReplicasError,
+    NotEnoughReplicasAfterAppendError
+)
+
+producer_restart_errors = (
+    IllegalStateError,
+    KafkaTimeoutError,
+    KafkaConnectionError,
+)
+
+giveup_errors = (
+    UnknownTopicOrPartitionError,
+    MessageSizeTooLargeError,
+    RecordListTooLargeError,
+    GroupAuthorizationFailedError,
+    ClusterAuthorizationFailedError,
+    TopicAuthorizationFailedError,
+    TopicAuthorizationFailedError,
+    Exception,
+    IllegalStateError,
+    KafkaTimeoutError,
+    KafkaConnectionError,
+)
+
+def should_give_up(exc):
+    return isinstance(exc, giveup_errors)
 
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -60,6 +104,7 @@ class keepalive():
                 await websocket.pong(b"")  # Empty payload for unsolicited pong
             except websockets.ConnectionClosed:
                 print(f"Connection closed of {id_ws}. Stopping keep-alive.")
+                return
             await asyncio.sleep(ping_interval)
 
     async def bybit_keep_alive(self, websocket, connection_data=None, ping_interval:int=20):
@@ -288,7 +333,8 @@ class producer(keepalive):
                  connection_data,
                  kafka_host='localhost:9092',
                  num_partitions=5,
-                 replication_factor=1, 
+                 replication_factor=1,
+                 producer_reconnection_attempts=5, 
                  ):
         """
             databases : CouchDB, mockCouchDB
@@ -297,6 +343,8 @@ class producer(keepalive):
         """
         self.kafka_host = kafka_host
         self.producer = None
+        self.producer_running = False
+        self.producer_reconnection_attempts = producer_reconnection_attempts
         self.admin = AdminClient({'bootstrap.servers': self.kafka_host})
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
@@ -312,10 +360,25 @@ class producer(keepalive):
         self.market_state = {}
         self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
-    
-    async def send_message_to_topic(self, topic_name, message):
-        await self.producer.send_and_wait(topic_name, message)
-
+        self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
+        
+    def setup_logger(self, log_file, maxBytes=10*1024*1024, backupCount=5):
+        """
+            Setups rotating logger with spesific logfile size and backup count
+        """
+        log_file = log_file / "logs/producerlogger.log"
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.DEBUG)
+        file_handler = RotatingFileHandler(
+                        log_file, 
+                        maxBytes=maxBytes, 
+                        backupCount=backupCount      
+                    )
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+        return logger
+                        
     async def check_websocket_connection(self, connection_data_dic):
         try:
             async with websockets.connect(connection_data_dic.get("url")) as websocket:
@@ -323,35 +386,113 @@ class producer(keepalive):
         except websockets.exceptions.WebSocketException as e:
             print(f"WebSocket connection failed: {connection_data_dic.get('id_ws')}.  Reason: {e}")
             self.ws_failed_connections[connection_data_dic.get('id_ws')] = e
-    
+
+    @backoff.on_exception(backoff.expo,
+                          websockets_errors,
+                          max_tries=8)
     async def binance_ws(self, connection_data, producer=None, topic=None):
         """
             producer and topic are reserved for kafka integration
-        """
-        on_message_method_ws = connection_data.get("on_message_method_ws")
-        on_message_method_api = connection_data.get("on_message_method_api_2")
-
-        if connection_data.get("objective") == "depth":
-            if self.database_name == "mockCouchDB":
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database_2(data, connection_data, on_message_method_api)
-            else:
-                data = connection_data.get("1stBooksSnapMethod")()
-                await self.insert_into_database(data, connection_data, on_message_method_api)
+            Maintain a WebSocket connection with automatic reconnection using exponential backoff.
+        """ 
+        @backoff.on_exception(backoff.expo,
+                            websockets_errors,
+                            max_tries=8)
+        async def connect_and_listen():
             
-        async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-            await websocket.send(json.dumps(connection_data.get("msg_method")()))
-            keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
-            while websocket.open:
-                try:
-                    message = await websocket.recv()
-                    if message == b'\x89\x00':
-                        print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                        await websocket.pong(message)
-                    await self.send_message_to_topic(topic, message)
-                except websockets.ConnectionClosed:
-                    print(f"Connection closed of {connection_data.get('id_ws')}")
-                    break
+            async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+                await websocket.send(json.dumps(connection_data.get("msg_method")()))
+                keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
+                while websocket.open:
+                    try:
+                        message = await websocket.recv()
+                        if message == b'\x89\x00':
+                            print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                            await websocket.pong(message)
+                        await self.send_message_to_topic(topic, message)
+                    except websockets.ConnectionClosed:
+                        print(f"Connection closed of {connection_data.get('id_ws')}")
+                        break
+
+
+# async def binance_ws(self, connection_data, producer=None, topic=None):
+#     """
+#     Connects to Binance WebSocket and processes messages.
+#     producer and topic are reserved for kafka integration.
+#     """
+#     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)  # Assuming ssl_context is defined.
+#     try:
+#         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+#             await websocket.send(json.dumps(connection_data.get("msg_method")()))
+#             keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
+#             while websocket.open:
+#                 try:
+#                     message = await websocket.recv()
+#                     if message == b'\x89\x00':
+#                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+#                         await websocket.pong(message)
+#                     await self.send_message_to_topic(topic, message)
+#                 except ConnectionClosedOK:
+#                     self.logger.error(f"WebSocket connection closed normally for {connection_data.get('id_ws')}.", exc_info=True)
+#                     break
+#                 except ConnectionClosedError as e:
+#                     self.logger.error(f"WebSocket connection closed with error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
+#                     break
+#                 except ProtocolError as e:
+#                     self.logger.error(f"WebSocket protocol error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
+#                 except InvalidHandshake as e:
+#                     self.logger.error(f"Invalid handshake error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
+#                 except Exception as e:
+#                     self.logger.error(f"Unexpected error occurred for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
+#     except asyncio.TimeoutError:
+#         self.logger.error(f"WebSocket connection timed out for {connection_data.get('id_ws')}", exc_info=True)
+#     except Exception as e:
+#         self.logger.error(f"Failed to establish WebSocket connection for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
+#     finally:
+#         if keep_alive_task:
+#             keep_alive_task.cancel()
+#         self.logger.info(f"WebSocket connection for {connection_data.get('id_ws')} has ended.")
+
+
+# import asyncio
+# import websockets
+# import backoff
+
+# async def websocket_client(uri):
+#     """Maintain a WebSocket connection with automatic reconnection using exponential backoff."""
+
+#     @backoff.on_exception(backoff.expo,
+#                           websockets.exceptions.WebSocketException,
+#                           max_tries=8)  # Adjust max_tries according to your needs
+#     async def connect_and_listen():
+#         async with websockets.connect(uri) as websocket:
+#             # Assume we have a function `handle_message` to process incoming messages
+#             await handle_messages(websocket)
+
+#     while True:
+#         try:
+#             await connect_and_listen()
+#         except websockets.exceptions.WebSocketException as e:
+#             print(f"Failed to connect or lost connection: {e}. Retrying...")
+#         except Exception as e:
+#             print(f"Unhandled exception: {e}. Exiting...")
+#             break  # Exit if an unexpected error occurs
+#         await asyncio.sleep(1)  # Safety sleep to prevent hot loops in case of immediate re-throw of exceptions
+
+# async def handle_messages(websocket):
+#     try:
+#         while True:
+#             message = await websocket.recv()
+#             print(f"Received message: {message}")
+#     except websockets.exceptions.ConnectionClosed as e:
+#         print(f"Connection closed: {e}")
+#         raise  # Re-raise to trigger reconnection in the outer loop
+
+# # URL to the WebSocket server
+# uri = "wss://example.com/socket"
+# asyncio.run(websocket_client(uri))
+
+
 
     async def bybit_ws(self, connection_data, producer=None, topic=None):        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
@@ -530,23 +671,281 @@ class producer(keepalive):
                 while websocket.open:
                     pass
 
+    @backoff.on_exception(backoff.expo,
+                          recoverable_errors,
+                          max_tries=5,
+                          max_time=300,
+                          givup=should_give_up)
     def ensure_topic_exists(self, topic_names):
         """
-            # https://github.com/confluentinc/confluent-kafka-python    
+            Ensures all of the topics exist with correct configurations
+            https://github.com/confluentinc/confluent-kafka-python    
         """
         try:
             fs = self.admin.create_topics(self.kafka_topics)
             for topic, f in fs.items():
-                try:
-                    f.result()  
-                    print("Topic {} created".format(topic))
-                except Exception as e:
-                    print("Failed to create topic {}: {}".format(topic, e))
-        except KeyboardInterrupt:
-            print("Keyboard interrupt received. Closing producer...")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+                f.result()  
+                print("Topic {} created".format(topic))
+        # retriable errors
+        except recoverable_errors as e:
+            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
+            self.logger.exception(e)
+            raise  
+        # restart errors
+        except KafkaConnectionError:
+            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except KafkaTimeoutError:
+            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except IllegalStateError as e:  
+            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
+            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        # others
+        except NoBrokersAvailable:
+            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except AuthenticationFailedError:
+            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except KafkaError as e:  
+            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except Exception as e: 
+            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
 
+    @backoff.on_exception(backoff.expo,
+                          recoverable_errors,
+                          max_tries=5,
+                          max_time=300,
+                          givup=should_give_up)
+    async def start_producer():
+        try:
+            await producer.start()
+            print("Producer started successfully.")
+        # retriable errors
+        except recoverable_errors as e:
+            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
+            self.logger.exception(e)
+            raise  
+        # restart errors
+        except KafkaConnectionError:
+            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except KafkaTimeoutError:
+            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except IllegalStateError as e:  
+            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
+            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        # others
+        except NoBrokersAvailable:
+            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
+            self.logger.exception(e)
+        except AuthenticationFailedError:
+            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+        except KafkaError as e:  
+            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+        except Exception as e: 
+            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
+            self.logger.exception(e)
+        finally:
+            await producer.stop()
+
+    @backoff.on_exception(backoff.expo,
+                          recoverable_errors,
+                          max_tries=5,
+                          max_time=300,
+                          givup=should_give_up)
+    async def send_message_to_topic(self, topic_name, message):
+        try:
+            await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+        # retriable errors
+        except recoverable_errors as e:
+            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
+            self.logger.exception(e)
+            raise  
+        # restart errors
+        except KafkaConnectionError:
+            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except KafkaTimeoutError:
+            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except IllegalStateError as e:  
+            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
+            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        # others
+        except UnknownTopicOrPartitionError as e:
+            self.logger.error("UnknownTopicOrPartitionError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except MessageSizeTooLargeError as e:
+            self.logger.error("MessageSizeTooLargeError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except RecordListTooLargeError as e:
+            self.logger.error("RecordListTooLargeError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except GroupAuthorizationFailedError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("GroupAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except ClusterAuthorizationFailedError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("ClusterAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except TopicAuthorizationFailedError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("TopicAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except Exception as e:
+            self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+
+    @backoff.on_exception(backoff.expo,
+                        (ConnectionError, asyncio.TimeoutError, Exception, aiohttp.ClientResponseError, asyncio.CancelledError,
+                         aiohttp.ServerTimeoutError, json.JSONDecodeError, ValueError, TimeoutError),  
+                        max_tries=10,  
+                        max_time=300) 
+    async def aiohttp_socket(self, connection_data, topic, initial_delay):
+        await asyncio.sleep(initial_delay)
+        try:
+            while True:
+                message = await connection_data.get("aiohttpMethod")()
+                await self.send_message_to_topic(topic, message)
+                message = message.encode("utf-8")
+                print(sys.getsizeof(message))
+                await asyncio.sleep(connection_data.get("pullTimeout"))
+        except aiohttp.ClientResponseError as e:
+            self.logger.error(f"ClientResponseError of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"ClientResponseError of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except json.JSONDecodeError as e:
+            self.logger.error(f"JSONDecodeError of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"JSONDecodeError of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except ValueError as e:
+            self.logger.error(f"ValueError of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"ValueError of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except asyncio.CancelledError as e:
+            self.logger.error(f"asyncio.CancelledError of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"asyncio.CancelledError of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except ConnectionError as e:
+            self.logger.error(f"Connection error of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"Connection error of of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except TimeoutError:
+            self.logger.error(f"Timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"Timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
+        except asyncio.TimeoutError:
+            self.logger.error(f"Asynchronous timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"Asynchronous timeout error occurredof {connection_data.get('id_api')}, {e}", exc_info=True)
+        except Exception as e:
+            self.logger.error(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
+            self.logger.exception(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
+            await asyncio.sleep(5)  # Add a delay before retrying or handling the error further
+
+    @backoff.on_exception(backoff.expo,
+                        BrokerNotAvailableError,
+                        max_time=300)
+    async def reconnect_producer(self):
+        for i in range(self.producer_reconnection_attempts):  
+            await asyncio.sleep(10) 
+            try:
+                await self.run_producer(is_reconnect=True)
+                self.logger.info("Reconnected to the broker successfully")
+                self.producer_running = True
+                return True
+            except Exception as e:
+                self.logger.error("Reconnection failed: %s", str(e))
+                self.logger.exception(e)
+        self.logger.critical("Unable to reconnect to the broker after several attempts.")
+        await self.producer.stop() 
+        self.producer_running = False
+        return False
+
+    @backoff.on_exception(backoff.expo,
+                          recoverable_errors,
+                          max_tries=5,
+                          max_time=300,
+                          givup=should_give_up)
+    async def run_producer(self, is_reconnect=False):
+        try:
+            # self.delete_all_topics()
+            # print(self.delete_all_topics())
+            if is_reconnect is False:
+                self.ensure_topic_exists(self.kafka_topics_names)    
+                self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+            await self.start_producer()
+            topics = self.admin.list_topics(timeout=10)        
+            tasks = []
+            for delay, connection_dict in enumerate(self.connection_data):
+                if "id_ws" in connection_dict:
+                    exchange = connection_dict.get("exchange")
+                    ws_method = getattr(self, f"{exchange}_ws", None)
+                    tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
+                if "id_ws" not in connection_dict and "id_api" in connection_dict:
+                    if connection_dict.get("symbol_update_task") is True:
+                        connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                        connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                        connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
+                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
+                    elif connection_dict.get("is_still_nested") is True:
+                        connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                        connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                        connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
+                    else:
+                        tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"), initial_delay=delay)))
+                await asyncio.gather(*tasks)
+        except recoverable_errors as e:
+            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
+            self.logger.exception(e)
+            raise  
+        # restart errors
+        except KafkaConnectionError:
+            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except KafkaTimeoutError:
+            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
+            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        except IllegalStateError as e:  
+            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
+            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
+            await self.reconnect_producer()
+        # others
+        except NoBrokersAvailable:
+            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except AuthenticationFailedError:
+            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except KafkaError as e:  
+            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+        except Exception as e: 
+            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
+            self.logger.exception(e)
+            await producer.stop()
+            
     def describe_topics(self):
         """
             https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/admin/_topic.py
@@ -561,61 +960,3 @@ class producer(keepalive):
             print(f"{topics} were deleted")
         except Exception as e:
             print(f"An error occurred: {e}")
-            
-    async def aiohttp_socket(self, connection_data, topic, initial_delay):
-        await asyncio.sleep(initial_delay)
-        try:
-            while True:
-                message = await connection_data.get("aiohttpMethod")()
-                message = message.encode("utf-8")
-                print(sys.getsizeof(message))
-                await self.send_message_to_topic(topic, message)
-                await asyncio.sleep(connection_data.get("pullTimeout"))
-        except asyncio.CancelledError:
-            print(f"Task was cancelled of {connection_data.get('id_api')}")
-        except ConnectionError as e:
-            print(f"Connection error of {connection_data.get('id_api')}, {e}")
-        except TimeoutError:
-            print(f"Timeout error occurred of {connection_data.get('id_api')}")
-        except asyncio.TimeoutError:
-            print(f"Asynchronous timeout error occurred of {connection_data.get('id_api')}")
-        except Exception as e:
-            print(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}")
-            await asyncio.sleep(5)  # Add a delay before retrying or handling the error further
-            
-                
-    async def run_producer(self):
-        # self.delete_all_topics()
-        # print(self.delete_all_topics())
-        self.ensure_topic_exists(self.kafka_topics_names)
-        self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
-        await self.producer.start()
-        topics = self.admin.list_topics(timeout=10)        
-        tasks = []
-        for delay, connection_dict in enumerate(self.connection_data):
-            if "id_ws" in connection_dict:
-                exchange = connection_dict.get("exchange")
-                ws_method = getattr(self, f"{exchange}_ws", None)
-                tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
-            if "id_ws" not in connection_dict and "id_api" in connection_dict:
-                if connection_dict.get("symbol_update_task") is True:
-                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
-                elif connection_dict.get("is_still_nested") is True:
-                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
-                else:
-                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"), initial_delay=delay)))
-        try:
-            await asyncio.gather(*tasks)
-        except KeyboardInterrupt:
-            print("Keyboard interrupt received. Closing producer...")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-        finally:
-            await self.producer.stop()

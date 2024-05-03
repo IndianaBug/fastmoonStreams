@@ -24,12 +24,9 @@ class binance_aoihttp_oioption_manager():
         self.topic_name = ""
 
     async def get_binance_instruments(self):
-        try:
-            expiries = await self.get_expiries(self.underlying_asset)
-            self.expiries = expiries
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
-    
+        expiries = await self.get_expiries(self.underlying_asset)
+        self.expiries = expiries
+        
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
@@ -85,11 +82,8 @@ class binance_aoihttp_posfutureperp_manager():
         self.topic_name = ""
 
     async def get_binance_instruments(self):
-        try:
-            self.linear_symbols = await self.info_linear_method(self.underlying_asset)
-            self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.linear_symbols = await self.info_linear_method(self.underlying_asset)
+        self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -152,13 +146,10 @@ class binance_aoihttp_oifutureperp_manager():
         self.topic_name = ""
 
     async def get_binance_instruments(self):
-        try:
-            self.linear_symbols = await self.info_linear_method(self.underlying_asset)
-            self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
-            self.inverse_symbols = await self.info_inverse_method(self.underlying_asset)
-            self.inverse_symbols = [x for x in self.inverse_symbols if self.underlying_asset in x and "USD" in  x]  
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.linear_symbols = await self.info_linear_method(self.underlying_asset)
+        self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
+        self.inverse_symbols = await self.info_inverse_method(self.underlying_asset)
+        self.inverse_symbols = [x for x in self.inverse_symbols if self.underlying_asset in x and "USD" in  x]  
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -216,13 +207,11 @@ class binance_aoihttp_fundperp_manager():
         self.topic_name = ""
 
     async def get_binance_instruments(self):
-        try:
-            self.linear_symbols = await self.info_linear_method(self.underlying_asset)
-            self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x and bool(re.search(r'\d', x.split("_")[-1])) is False]
-            self.inverse_symbols = await self.info_inverse_method(self.underlying_asset)
-            self.inverse_symbols = [x for x in self.inverse_symbols if self.underlying_asset in x and "USD" in  x and bool(re.search(r'\d', x.split("_")[-1])) is False]  
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.linear_symbols = await self.info_linear_method(self.underlying_asset)
+        self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x and bool(re.search(r'\d', x.split("_")[-1])) is False]
+        self.inverse_symbols = await self.info_inverse_method(self.underlying_asset)
+        self.inverse_symbols = [x for x in self.inverse_symbols if self.underlying_asset in x and "USD" in  x and bool(re.search(r'\d', x.split("_")[-1])) is False]  
+
 
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -269,11 +258,8 @@ class bybit_aoihttp_oifutureperp_manager():
         self.topic_name = ""
 
     async def get_bybit_instruments(self):
-        try:
-            self.symbols_inverse = await self.info_inverse(self.underlying_asset)
-            self.symbols_linear = await self.info_linear(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_inverse = await self.info_inverse(self.underlying_asset)
+        self.symbols_linear = await self.info_linear(self.underlying_asset)
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -332,13 +318,10 @@ class bybit_aoihttp_posfutureperp_manager():
         self.topic_name = ""
 
     async def get_bybit_instruments(self):
-        try:
-            self.symbols_inverse = await self.info_inverse(self.underlying_asset)
-            self.symbols_linear = await self.info_linear(self.underlying_asset)
-            self.symbols_inverse = [s for s in self.symbols_inverse if len(s.split("-")) == 1]
-            self.symbols_linear = [s for s in self.symbols_linear if len(s.split("-")) == 1]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_inverse = await self.info_inverse(self.underlying_asset)
+        self.symbols_linear = await self.info_linear(self.underlying_asset)
+        self.symbols_inverse = [s for s in self.symbols_inverse if len(s.split("-")) == 1]
+        self.symbols_linear = [s for s in self.symbols_linear if len(s.split("-")) == 1]
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -400,13 +383,10 @@ class bybit_aoihttp_fundperp_manager():
 
 
     async def get_bybit_instruments(self):
-        try:
-            self.symbols_inverse = await self.info_inverse(self.underlying_asset)
-            self.symbols_linear = await self.info_linear(self.underlying_asset)
-            self.symbols_inverse = [s for s in self.symbols_inverse if len(s.split("-")) == 1]
-            self.symbols_linear = [s for s in self.symbols_linear if len(s.split("-")) == 1]
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_inverse = await self.info_inverse(self.underlying_asset)
+        self.symbols_linear = await self.info_linear(self.underlying_asset)
+        self.symbols_inverse = [s for s in self.symbols_inverse if len(s.split("-")) == 1]
+        self.symbols_linear = [s for s in self.symbols_linear if len(s.split("-")) == 1]
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -461,11 +441,8 @@ class okx_aoihttp_oifutureperp_manager():
         self.topic_name = ""
 
     async def get_okx_instruments(self):
-        try:
-            self.symbols_future = await self.info_future(self.underlying_asset)
-            self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_future = await self.info_future(self.underlying_asset)
+        self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
     
     async def update_symbols(self, lag=0, update_time=60*24):
         await asyncio.sleep(lag)
@@ -520,10 +497,7 @@ class okx_aoihttp_fundperp_manager():
 
 
     async def get_okx_instruments(self):
-        try:
-            self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -570,10 +544,7 @@ class bitget_aoihttp_oifutureperp_manager():
         self.topic_name = ""
 
     async def get_bitget_perpetual_symbols(self):
-        try:
-            self.symbols_perpetual = await self.info(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_perpetual = await self.info(self.underlying_asset)
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -617,10 +588,7 @@ class bitget_aoihttp_fundperp_manager():
         self.topic_name = ""
 
     async def get_bitget_perpetual_symbols(self):
-        try:
-            self.symbols_perpetual = await self.info(self.underlying_asset)
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        self.symbols_perpetual = await self.info(self.underlying_asset)
     
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -673,12 +641,9 @@ class gateio_aoihttp_fundperp_manager():
 
 
     async def get_symbols(self):
-        try:
-            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
-            self.linear_symbols = linear_perpetual
-            self.inverse_symbols = inverse_perpetual
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+        self.linear_symbols = linear_perpetual
+        self.inverse_symbols = inverse_perpetual
 
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -726,13 +691,10 @@ class gateio_aoihttp_oifutureperp_manager():
 
 
     async def get_symbols(self):
-        try:
-            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
-            self.linear_symbols = linear_perpetual
-            self.inverse_symbols = inverse_perpetual
-            self.future_symbols = futures
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+        self.linear_symbols = linear_perpetual
+        self.inverse_symbols = inverse_perpetual
+        self.future_symbols = futures
 
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
@@ -793,13 +755,10 @@ class gateio_aoihttp_posfutureperp_manager():
 
 
     async def get_symbols(self):
-        try:
-            linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
-            self.linear_symbols = linear_perpetual
-            self.inverse_symbols = inverse_perpetual
-            self.future_symbols = futures
-        except Exception as e:
-            print(f"Error fetching symbols: {e}")
+        linear_perpetual, inverse_perpetual, futures = await self.info(self.underlying_asset)
+        self.linear_symbols = linear_perpetual
+        self.inverse_symbols = inverse_perpetual
+        self.future_symbols = futures
 
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)

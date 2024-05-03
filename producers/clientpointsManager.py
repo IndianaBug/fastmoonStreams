@@ -1996,7 +1996,7 @@ class gateio(CommunicationsManager, gateioInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : None,
-                "exchange_symbol" : symbol,
+                "exchange_symbols" : symbol,
                 "api_call_manager" : "",
                 "symbol_update_task" : False,
                 "is_special" : special_method,

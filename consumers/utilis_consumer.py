@@ -205,11 +205,7 @@ class MockCouchDB:
         self.file_path =  folder_name + "/" + filename + ".json"
 
     async def save(self, data, market_state, connection_data, on_message:callable):
-        try:
-            data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
-        except Exception as e:
-            print(e)
-            return
+        data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
         data["_doc"] = str(uuid.uuid4())
 
         if not os.path.exists(self.file_path):

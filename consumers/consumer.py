@@ -49,7 +49,7 @@ class XBTApp(faust.App):
         """
             Setups rotating logger with spesific logfile size and backup count
         """
-        log_file = log_file / "logs/applogs.log"
+        log_file = log_file / "logs/consumerlogger.log"
         logger = logging.getLogger(__name__)
         logger.setLevel(logging.DEBUG)
         file_handler = RotatingFileHandler(
@@ -176,51 +176,101 @@ class XBTApp(faust.App):
                 self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
                 continue
     
-    async def process_api_agent(self, cd: dict, stream: faust.StreamT) -> AsyncIterator:
+    def create_api_agent(self, cd : dict):
         """
-            Configuration of multiple agents 
-        """
-        async for byte_data in stream:
-            try:
-                print(sys.getsizeof(byte_data))
-                data = byte_data.decode()
-                await self.insert_into_database_3(data, cd)
-                yield data
-            except ValueError as e:
-                topic_name = cd.get("topic_name")
-                self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e)
-            except asyncio.TimeoutError  as e:
-                topic_name = cd.get("topic_name")
-                self.logger.error("Operation timed out for topic %s: %e", topic_name, e)
-            except ConnectionError as e:
-                self.logger.error("Connection error for topic %s: %e", topic_name, e)
-            except Exception as e:
-                topic_name = cd.get("topic_name")
-                self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
-                continue
+            cd : dictionary with connection data
+            Creating a single agent (with the help of closures)
+            https://github.com/robinhood/faust/issues/300
             
-
+            Note that if above code will run after app is already started, you need to start your new agents manually.
+            new_agent = app.agent(channel=..., name=...)(agent_coro)
+            new_agent.start()        
+        """
+        async def process_api_agent(stream: faust.StreamT) -> AsyncIterator:
+            """
+                Configuration of the API agent
+            """
+            async for byte_data in stream:
+                try:
+                    data = byte_data.decode()
+                    await self.insert_into_database_3(data, cd)
+                    yield data
+                except ValueError as e:
+                    topic_name = cd.get("topic_name")
+                    self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e, exc_info=True)
+                except asyncio.TimeoutError  as e:
+                    topic_name = cd.get("topic_name")
+                    self.logger.error("Operation timed out for topic %s: %e", topic_name, e, exc_info=True)
+                except ConnectionError as e:
+                    topic_name = cd.get("topic_name")
+                    self.logger.error("Connection error for topic %s: %e", topic_name, e, exc_info=True)
+                except Exception as e:
+                    topic_name = cd.get("topic_name")
+                    self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e, exc_info=True)
+                    continue
+        return process_api_agent
+            
 
     async def insert_into_mockCouchDB(self, data, connection_dict):
         try:
             await getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_ws"))
+        except ValueError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
+        except asyncio.TimeoutError  as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Operation timed out for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
+        except ConnectionError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Connection error for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
         except Exception as e:
-            print(f'{connection_dict.get("id_ws")} is not working properly' )
-            print(e)
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
+
 
     async def insert_into_mockCouchDB_2(self, data, connection_dict):
         try:
             await getattr(self, f"db_{connection_dict.get('id_api_2')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=connection_dict.get("on_message_method_api_2"))
+        except ValueError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
+        except asyncio.TimeoutError  as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Operation timed out for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
+        except ConnectionError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Connection error for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
         except Exception as e:
-            print(f'{connection_dict.get("id_api_2")} is not working properly' )
-            print(e)
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e)
+            self.logger.exception(e)
 
     async def insert_into_mockCouchDB_3(self, data, connection_dict):
         try:
             await getattr(self, f"db_{connection_dict.get('id_api')}").save(data=data, market_state=self.market_state, connection_data=connection_dict,  on_message=connection_dict.get("on_message_method_api"))
+        except ValueError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("JSONDecodeError  for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except asyncio.TimeoutError  as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Operation timed out for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
+        except ConnectionError as e:
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Connection error for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
         except Exception as e:
-            print(f'{connection_dict.get("id_api")} is not working properly' )
-            print(e) 
+            topic_name = connection_dict.get("topic_name")
+            self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e, exc_info=True)
+            self.logger.exception(e)
 
 
 # For processing time controll, for later

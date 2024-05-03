@@ -84,20 +84,20 @@ ws = {
 
 api = {
     "binance" : [
-    #     "perpetual.funding.BTC.15.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15.spec",
-        # "option.oi.BTC.15.spec",
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
+        "option.oi.BTC.15.spec",
         ],
     "bybit" : [
-    #     "perpetual.funding.BTC.15.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15.spec",
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
         "option.oioption.BTC.15"
         ],
     "okx" : [
-        # "perpetual.oi.BTC.15.spec", 
-        # "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.funding.BTC.15.spec", 
         "perpetual.gta.BTC.15",
         "option.oi.BTC-USD.15",
         ],
@@ -106,8 +106,8 @@ api = {
         "option.oifunding.BTC.15",
         ],
     "bitget" : [
-    #     "perpetual.funding.BTC.15.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
     ],
     "bingx" : [
         "perpetual.funding.BTC-USDT.15", 
@@ -118,18 +118,18 @@ api = {
         "perpetual.oifunding.XBTUSDTM.15",
         ],
     "gateio" : [
-    #     "perpetual.funding.BTC.20.spec",  
-    #     "perpetual.oi.BTC.20.spec",    
-    #     "perpetual.tta.BTC.20.spec",    
+        "perpetual.funding.BTC.20.spec",  
+        "perpetual.oi.BTC.20.spec",    
+        "perpetual.tta.BTC.20.spec",    
         "option.oi.BTC_USDT.20",
         ],
     "mexc" : [
         "perpetual.oifunding.BTC_USDT.15",
         ],
     "htx" : [
-    #     "perpetual.oi.BTC.20.spec", 
-    #     "perpetual.funding.BTC.60.spec", 
-    #     "perpetual.gta.BTC.60.spec",
+        "perpetual.oi.BTC.20.spec", 
+        "perpetual.funding.BTC.60.spec", 
+        "perpetual.gta.BTC.60.spec",
         ],
 }
 
