@@ -15,6 +15,7 @@ import backoff
 from aiokafka import AIOKafkaProducer
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
+from prometheus_client import start_http_server, Counter, Gauge, Histogram
 
 from kafka.errors import (
     KafkaError, KafkaConnectionError, KafkaTimeoutError, NoBrokersAvailable, AuthenticationFailedError,
@@ -69,6 +70,11 @@ ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
 
+# Connection duration
+# Latency of every websocket
+# Latency of a group of websockets (per exchange)
+# Number of disconnects. When do they happe
+
 class keepalive():
     """
         Handles pings pongs of websockets connections
@@ -87,9 +93,19 @@ class keepalive():
         "htx" : 5,
         "coinbase" : None # heartbeats mechanism
     }
+    binance_keep_alive = False
+    bybit_keep_alive = False
+    okx_keep_alive = False
+    bitget_keep_alive = False
+    deribit_keep_alive = False
+    bingx_keep_alive = False
+    kucoin_keep_alive = False
+    coinbase_keep_alive = False
+    mexc_keep_alive = False
+    htx_keep_alive = False
+    gateio_keep_alive = False
     
-    @classmethod
-    async def binance_keep_alive(cls, websocket, connection_data:dict=None, ping_interval:int=30):
+    async def binance_keep_alive(self, websocket, logger, connection_data:dict=None, ping_interval:int=30):
         """
             https://binance-docs.github.io/apidocs/spot/en/#websocket-market-streams
             Websocket server will send a ping frame every 3 minutes.
@@ -97,15 +113,23 @@ class keepalive():
             When you receive a ping, you must send a pong with a copy of ping's payload as soon as possible.
             Unsolicited pong frames are allowed, but will not prevent disconnection. It is recommended that the payload for these pong frames are empty.
         """
-        id_ws = connection_data.get("id_ws", None)
-        while True:
+        id_ws = connection_data.get("id_ws", "unknown")
+        req_id = connection_data.get('req_id', None)
+        self.binance_keep_alive = True
+        
+        while self.binance_keep_alive:
             try:
-                # print("Sending unsolicited pong")
-                await websocket.pong(b"")  # Empty payload for unsolicited pong
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-                return
-            await asyncio.sleep(ping_interval)
+                await websocket.pong(b"") 
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+            
+    def binance_keep_alive_stop(self):
+        self.binance_keep_alive = False
 
     async def bybit_keep_alive(self, websocket, connection_data=None, ping_interval:int=20):
         """
@@ -118,14 +142,23 @@ class keepalive():
 
             How to seng: // req_id is a customised ID, which is optional ws.send(JSON.stringify({"req_id": "100001", "op": "ping"})
         """
-        id_ws = connection_data.get("id_ws", None)
-        while True:
+        id_ws = connection_data.get("id_ws", "unknown")
+        req_id = connection_data.get('req_id', None)
+        self.bybit_keep_alive = True
+        
+        while self.bybit_keep_alive:
             try:
-                # print("Sending ping")
-                await websocket.ping(json.dumps({"req_id": connection_data.get('req_id'), "op": "ping"})) 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                await websocket.ping(json.dumps({"req_id": req_id, "op": "ping"})) 
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+            
+    def bybit_keep_alive_stop(self):
+        self.bybit_keep_alive = False
 
     async def okx_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
         """
@@ -138,14 +171,23 @@ class keepalive():
         2. If the timer is triggered, which means that no new message is received within N seconds, send the String 'ping'.
         3. Expect a 'pong' as a response. If the response message is not received within N seconds, please raise an error or reconnect. 
         """
-        id_ws = connection_data.get("id_ws", None)
-        while True:
+        id_ws = connection_data.get("id_ws", "unknown")
+        req_id = connection_data.get('req_id', None)
+        self.okx_keep_alive = True
+        
+        while self.okx_keep_alive:
             try:
-                # print("Sending ping")
                 await websocket.ping("ping") 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+
+    def okx_keep_alive_stop(self):
+        self.okx_keep_alive = False
 
     async def deribit_keep_alive(self, websocket, conn_id, data=None):
         """
@@ -176,14 +218,23 @@ class keepalive():
 
             If the user sends more messages than the limit, the connection will be disconnected. IPs that are repeatedly disconnected may be blocked by the server;
         """
-        id_ws = connection_data.get("id_ws", None)
-        while True:
+        id_ws = connection_data.get("id_ws", "unknown")
+        req_id = connection_data.get('req_id', None)
+        self.bitget_keep_alive = True
+        
+        while self.bitget_keep_alive:
             try:
-                # print("Sending ping")
                 await websocket.ping("ping") 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+
+    def bitget_keep_alive_stop(self):
+        self.bitget_keep_alive = False
 
     async def bingx_keep_alive(self, websocket, connection_data=None, ping_interval:int=5):
         """
@@ -201,17 +252,27 @@ class keepalive():
 
             # PERP
             send simply Pong
-
+            
             Yeah, as you get keepalive is useless
         """
-        id_ws = connection_data.get("id_ws", None)
-        while True:
+        
+        id_ws = connection_data.get("id_ws", "unknown")
+        req_id = connection_data.get('req_id', None)
+        self.bingx_keep_alive = True
+        
+        while self.bingx_keep_alive:
             try:
-                # print("Sending ping")
-                await websocket.send("Ping") 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                await websocket.send("Pong") 
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+
+    def bingx_keep_alive_stop(self):
+        self.bingx_keep_alive = False
 
     async def kucoin_keep_alive(self, websocket, connection_data=None, ping_interval=None):
         """
@@ -231,16 +292,24 @@ class keepalive():
         connection_id = connection_data.get("connect_id")
         ping_interval = connection_data.get("ping_interval")
         id_ws = connection_data.get("id_ws", None)
-        while True:
+        self.kucoin_keep_alive = True
+        
+        while self.kucoin_keep_alive:
             try:
-                print("Sending pong")
                 await websocket.send({
                                         "id": str(connection_id),
-                                        "type": "pong"
+                                        "type": "ping"
                                         })
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(int(ping_interval))
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+            
+    def kucoin_keep_alive_stop(self):
+        self.kucoin_keep_alive = False
         
     async def mexc_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
         """
@@ -270,16 +339,26 @@ class keepalive():
             "msg":"PONG"
             }
         """
+        ping_interval = connection_data.get("ping_interval")
         id_ws = connection_data.get("id_ws", None)
-        while True:
+        self.mexc_keep_alive = True
+        while self.mexc_keep_alive:
             try:
                 if connection_data.get("instType") == "spot":
                     await websocket.send("PING") 
+                    await asyncio.sleep(ping_interval) 
                 else:
                     await websocket.send("ping") 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                    await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+
+    def mexc_keep_alive_stop(self):
+        self.mexc_keep_alive = False
 
     async def gateio_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
         """
@@ -293,8 +372,10 @@ class keepalive():
             https://www.gate.io/docs/developers/apiv4/ws/en/#system-api
             options.ping
         """
+        ping_interval = connection_data.get("ping_interval")
         id_ws = connection_data.get("id_ws", None)
-        while True:
+        self.gateio_keep_alive = True
+        while self.gateio_keep_alive:
             try:
                 if connection_data.get("instType") == "spot":
                     await websocket.send({"channel" : "spot.ping"}) 
@@ -302,9 +383,16 @@ class keepalive():
                     await websocket.send({"channel" : "futures.ping"}) 
                 if connection_data.get("instType") == "option":
                     await websocket.send({"channel" : "options.ping"}) 
-            except websockets.ConnectionClosed:
-                print(f"Connection closed of {id_ws}. Stopping keep-alive.")
-            await asyncio.sleep(ping_interval)
+                await asyncio.sleep(ping_interval) 
+            except websockets_errors as e:  
+                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
+                break
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
+                break
+            
+    def gateio_keep_alive_stop(self):
+        self.gateio_keep_alive = False
 
     async def htx_keep_alive(self, websocket, connection_data=None, ping_interval:int=5):
         """
@@ -335,6 +423,7 @@ class producer(keepalive):
                  num_partitions=5,
                  replication_factor=1,
                  producer_reconnection_attempts=5, 
+                 prometeus_start_server=8000
                  ):
         """
             databases : CouchDB, mockCouchDB
@@ -350,6 +439,7 @@ class producer(keepalive):
         self.replication_factor = replication_factor
         self.connection_data = connection_data
         self.ws_failed_connections = {}
+        self.start_prometeus_server = start_http_server
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
         try:
             deribit_depths = [x for x in connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
@@ -357,10 +447,24 @@ class producer(keepalive):
             del deribit_depths
         except:
             pass
-        self.market_state = {}
         self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
+        
+        # Connection metrics
+        self.ws_connections_active = Gauge('websocket_connections_active', 'Number of active WebSocket connections')
+        self.api_connections_active = Gauge('API Asyncio pipes active', 'Number of active API Asyncio pipes active')
+        self.connection_errors = Counter('app_connection_errors_total', 'Total number of connection errors')
+        
+        self.connection_duration = Histogram('app_connection_duration_seconds', 'Time connected before disconnect', buckets=(1, 5, 10, 30, 60, 300, 600))
+        self.message_throughput = Counter('app_messages_total', 'Total messages sent and received')
+        self.data_volume = Counter('app_data_volume_bytes', 'Total data transmitted in bytes')
+        self.reconnection_attempts = Counter('app_reconnection_attempts_total', 'Total reconnection attempts')
+        self.ping_pong_duration = Histogram('app_ping_pong_duration_seconds', 'Round-trip time for ping-pong messages', buckets=(0.01, 0.05, 0.1, 0.5, 1, 5))
+
+        
+    def start_metrics_server(self):
+        self.start_prometeus_server()
         
     def setup_logger(self, log_file, maxBytes=10*1024*1024, backupCount=5):
         """
@@ -379,17 +483,7 @@ class producer(keepalive):
         logger.addHandler(file_handler)
         return logger
                         
-    async def check_websocket_connection(self, connection_data_dic):
-        try:
-            async with websockets.connect(connection_data_dic.get("url")) as websocket:
-                await websocket.send(json.dumps(connection_data_dic.get("msg_method")()))
-        except websockets.exceptions.WebSocketException as e:
-            print(f"WebSocket connection failed: {connection_data_dic.get('id_ws')}.  Reason: {e}")
-            self.ws_failed_connections[connection_data_dic.get('id_ws')] = e
-
-    @backoff.on_exception(backoff.expo,
-                          websockets_errors,
-                          max_tries=8)
+                        
     async def binance_ws(self, connection_data, producer=None, topic=None):
         """
             producer and topic are reserved for kafka integration
@@ -399,99 +493,28 @@ class producer(keepalive):
                             websockets_errors,
                             max_tries=8)
         async def connect_and_listen():
-            
-            async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-                await websocket.send(json.dumps(connection_data.get("msg_method")()))
-                keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
-                while websocket.open:
-                    try:
-                        message = await websocket.recv()
-                        if message == b'\x89\x00':
-                            print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-                            await websocket.pong(message)
-                        await self.send_message_to_topic(topic, message)
-                    except websockets.ConnectionClosed:
-                        print(f"Connection closed of {connection_data.get('id_ws')}")
-                        break
-
-
-# async def binance_ws(self, connection_data, producer=None, topic=None):
-#     """
-#     Connects to Binance WebSocket and processes messages.
-#     producer and topic are reserved for kafka integration.
-#     """
-#     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)  # Assuming ssl_context is defined.
-#     try:
-#         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
-#             await websocket.send(json.dumps(connection_data.get("msg_method")()))
-#             keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
-#             while websocket.open:
-#                 try:
-#                     message = await websocket.recv()
-#                     if message == b'\x89\x00':
-#                         print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
-#                         await websocket.pong(message)
-#                     await self.send_message_to_topic(topic, message)
-#                 except ConnectionClosedOK:
-#                     self.logger.error(f"WebSocket connection closed normally for {connection_data.get('id_ws')}.", exc_info=True)
-#                     break
-#                 except ConnectionClosedError as e:
-#                     self.logger.error(f"WebSocket connection closed with error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
-#                     break
-#                 except ProtocolError as e:
-#                     self.logger.error(f"WebSocket protocol error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
-#                 except InvalidHandshake as e:
-#                     self.logger.error(f"Invalid handshake error for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
-#                 except Exception as e:
-#                     self.logger.error(f"Unexpected error occurred for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
-#     except asyncio.TimeoutError:
-#         self.logger.error(f"WebSocket connection timed out for {connection_data.get('id_ws')}", exc_info=True)
-#     except Exception as e:
-#         self.logger.error(f"Failed to establish WebSocket connection for {connection_data.get('id_ws')}: {str(e)}", exc_info=True)
-#     finally:
-#         if keep_alive_task:
-#             keep_alive_task.cancel()
-#         self.logger.info(f"WebSocket connection for {connection_data.get('id_ws')} has ended.")
-
-
-# import asyncio
-# import websockets
-# import backoff
-
-# async def websocket_client(uri):
-#     """Maintain a WebSocket connection with automatic reconnection using exponential backoff."""
-
-#     @backoff.on_exception(backoff.expo,
-#                           websockets.exceptions.WebSocketException,
-#                           max_tries=8)  # Adjust max_tries according to your needs
-#     async def connect_and_listen():
-#         async with websockets.connect(uri) as websocket:
-#             # Assume we have a function `handle_message` to process incoming messages
-#             await handle_messages(websocket)
-
-#     while True:
-#         try:
-#             await connect_and_listen()
-#         except websockets.exceptions.WebSocketException as e:
-#             print(f"Failed to connect or lost connection: {e}. Retrying...")
-#         except Exception as e:
-#             print(f"Unhandled exception: {e}. Exiting...")
-#             break  # Exit if an unexpected error occurs
-#         await asyncio.sleep(1)  # Safety sleep to prevent hot loops in case of immediate re-throw of exceptions
-
-# async def handle_messages(websocket):
-#     try:
-#         while True:
-#             message = await websocket.recv()
-#             print(f"Received message: {message}")
-#     except websockets.exceptions.ConnectionClosed as e:
-#         print(f"Connection closed: {e}")
-#         raise  # Re-raise to trigger reconnection in the outer loop
-
-# # URL to the WebSocket server
-# uri = "wss://example.com/socket"
-# asyncio.run(websocket_client(uri))
-
+            try:
+                async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
+                    await websocket.send(json.dumps(connection_data.get("msg_method")()))
+                    keep_alive_task = asyncio.create_task(self.binance_keep_alive(websocket, connection_data))
+                    while websocket.open:
+                        try:
+                            message = await websocket.recv()
+                            if message == b'\x89\x00':
+                                print(f"Received ping from {connection_data.get('id_ws')}. Sending pong...")
+                                await websocket.pong(message)
+                            await self.send_message_to_topic(topic, message)
+                        except websockets_errors as e:  
+                            self.logger.exception(f"WebSocket error for {connection_data.get('id_ws')}, {e}", exc_info=True)
+                            break
+            except asyncio.TimeoutError as e:
+                self.logger.exception(f"WebSocket connection timed out for {connection_data.get('id_ws')}, {e}", exc_info=True)
+            except Exception as e:
+                self.logger.exception(f"Failed to establish WebSocket connection for {connection_data.get('id_ws')}, {e}", exc_info=True)
+            finally:
+                if self.binance_keep_alive:
+                    self.binance_keep_alive_stop()
+                self.logger.info(f"WebSocket connection for {connection_data.get('id_ws')} has ended.")
 
 
     async def bybit_ws(self, connection_data, producer=None, topic=None):        
@@ -960,3 +983,49 @@ class producer(keepalive):
             print(f"{topics} were deleted")
         except Exception as e:
             print(f"An error occurred: {e}")
+            
+            
+            
+1. Granularity of connection duration per exchange
+2. Measure latency for every book websocket and consider sending alerts when latency os too high. Integrate telegram into the notification system. Or email notification system. Many modern monitoring tools like Prometheus come with built-in alerting functionalities. Prometheus’s Alertmanager, for example, can route alerts to various endpoints including email, Slack, PagerDuty, and more.
+3. Overall system latency to correlate with CPU and memory usage to identify resource bottlenecks
+4. Reconnection attempts
+import psutil
+
+# CPU Utilization
+cpu_usage = psutil.cpu_percent(interval=1)
+
+# Memory Utilization
+memory = psutil.virtual_memory()
+memory_usage = memory.percent  # percentage of memory use
+
+print(f"CPU Usage: {cpu_usage}%")
+print(f"Memory Usage: {memory_usage}%")
+
+
+5. Infrastructure Health: Monitor infrastructure metrics such as server load, network I/O, and disk I/O. 
+
+# Disk I/O
+disk_io = psutil.disk_io_counters()
+print(disk_io)
+
+# Network I/O
+net_io = psutil.net_io_counters()
+print(net_io)
+
+6. Historical Data Analysis: Store historical metrics data for trend analysis and capacity planning. 
+Summarize the data before storing it
+
+Time-Series Databases: Databases like InfluxDB or TimescaleDB (an extension to PostgreSQL) are designed for time-series data and can be ideal for storing metrics. These databases efficiently handle high write and read loads and are good at compressing data.
+Relational Databases: If your load is not extremely high, traditional relational databases like MySQL or PostgreSQL can be used effectively with proper indexing.
+Integration with Prometheus: If you are using Prometheus for monitoring, it already stores time-series data and provides capabilities for querying historical data. Prometheus stores its data in a custom time-series database format optimized for high performance and efficiency.
+
+Disk Space: The amount of disk space required will grow over time, especially with high-frequency data collection. You need to estimate the data growth and plan the infrastructure accordingly.
+Operational Maintenance: Over such long periods, you will likely need to perform maintenance on the storage system, including hardware replacements and upgrades, migration to newer systems, and possibly changes in the data format.
+Data Summarization: Over long periods, it may become impractical to keep all data at the highest granularity. You might need to summarize or downsample older data.
+Integration with External Long-term Storage Solutions: Because Prometheus is not ideally suited for multi-year data retention due to its in-memory indexing, many use it in conjunction with other solutions designed for long-term storage. Common strategies include:
+Using Prometheus with Remote Write: Prometheus can be configured to "remote write" its data to external long-term storage systems such as Thanos, Cortex, or M3, which are designed to handle longer retention periods efficiently.
+Thanos: Integrating Prometheus with Thanos can provide a seamless way to manage long-term storage across multiple Prometheus instances. Thanos adds a storage layer that supports querying large amounts of historical metric data and can integrate with cloud storage solutions like Amazon S3, Google Cloud Storage, or Microsoft Azure Blob Storage, making it more scalable and resilient.
+Cortex: Similar to Thanos, Cortex provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus.
+
+# Faust has proper metrics to monitor kafka servers
