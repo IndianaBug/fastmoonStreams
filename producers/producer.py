@@ -101,7 +101,8 @@ class keepalive():
     @keep_alive("bybit_keepalive_running")
     async def bybit_keepalive(self, websocket, connection_data):
         """ initialize bybit keep alive caroutine"""
-        await websocket.ping(json.dumps({"req_id": connection_data.get("req_id"), "op": "ping"})) 
+        req_id = connection_data.get("req_id")
+        await websocket.ping(json.dumps({"req_id": req_id, "op": "ping"})) 
         await asyncio.sleep(self.bybit_pp_interval) 
             
     def stop_bybit_keepalive(self):
