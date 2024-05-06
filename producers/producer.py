@@ -11,63 +11,17 @@ import io
 import sys
 import logging
 from logging.handlers import RotatingFileHandler
+from functools import wraps
 import backoff
 from aiokafka import AIOKafkaProducer
+from errors import websockets_errors, kafka_recoverable_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
+from kafka.errors import BrokerNotAvailableError
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
 from prometheus_client import start_http_server, Counter, Gauge, Histogram
 
-from kafka.errors import (
-    KafkaError, KafkaConnectionError, KafkaTimeoutError, NoBrokersAvailable, AuthenticationFailedError,
-    BrokerNotAvailableError, LeaderNotAvailableError, NotLeaderForPartitionError,
-    UnknownTopicOrPartitionError, MessageSizeTooLargeError, RecordListTooLargeError,
-    CorruptRecordException, NotEnoughReplicasError, NotEnoughReplicasAfterAppendError,
-    TopicAuthorizationFailedError, ClusterAuthorizationFailedError, GroupAuthorizationFailedError,
-    IllegalStateError
-)
-
-from websockets.exceptions import (
-    ConnectionClosed, ConnectionClosedError, ConnectionClosedOK, ProtocolError, InvalidHandshake
-    )
-
-websockets_errors = (ConnectionClosed, ConnectionClosedError, ConnectionClosedOK, ProtocolError, InvalidHandshake)
-
-recoverable_errors = (
-    asyncio.TimeoutError,
-    ConnectionError,
-    NotLeaderForPartitionError,
-    LeaderNotAvailableError,
-    BrokerNotAvailableError,
-    NotEnoughReplicasError,
-    NotEnoughReplicasAfterAppendError
-)
-
-producer_restart_errors = (
-    IllegalStateError,
-    KafkaTimeoutError,
-    KafkaConnectionError,
-)
-
-giveup_errors = (
-    UnknownTopicOrPartitionError,
-    MessageSizeTooLargeError,
-    RecordListTooLargeError,
-    GroupAuthorizationFailedError,
-    ClusterAuthorizationFailedError,
-    TopicAuthorizationFailedError,
-    TopicAuthorizationFailedError,
-    Exception,
-    IllegalStateError,
-    KafkaTimeoutError,
-    KafkaConnectionError,
-)
-
 def should_give_up(exc):
-    return isinstance(exc, giveup_errors)
-
-ssl_context = ssl.create_default_context()
-ssl_context.check_hostname = False
-ssl_context.verify_mode = ssl.CERT_NONE
+    return isinstance(exc, kafka_giveup_errors)
 
 
 # Connection duration
@@ -77,88 +31,86 @@ ssl_context.verify_mode = ssl.CERT_NONE
 
 class keepalive():
     """
-        Handles pings pongs of websockets connections
-        Intervals are in seconds
+        docs references:
+            binance: https://binance-docs.github.io/apidocs/spot/en/#websocket-market-streams
+            bybit: https://bybit-exchange.github.io/docs/v5/ws/connect
+            bingx:
+            bitget: https://www.bitget.com/api-doc/common/websocket-intro
+            coinbase:
+            deribit:
+            kucoin:
+            gateio:
+            mexc:
+            htx:
+            okx: 
     """
-    prefered_intervals = {
-        "binance" : 30,   
-        "bybit" : 20,       
-        "okx" : 15,         
-        "deribit" : None, # heartbeats mechanism
-        "kucoin" : None,  # defined by kucoin server
-        "bitget" : 30,
-        "bingx" : 5,
-        "mexc" : 15, 
-        "gateio" : 15,
-        "htx" : 5,
-        "coinbase" : None # heartbeats mechanism
-    }
-    binance_keep_alive = False
-    bybit_keep_alive = False
-    okx_keep_alive = False
-    bitget_keep_alive = False
-    deribit_keep_alive = False
-    bingx_keep_alive = False
-    kucoin_keep_alive = False
-    coinbase_keep_alive = False
-    mexc_keep_alive = False
-    htx_keep_alive = False
-    gateio_keep_alive = False
-    
-    async def binance_keep_alive(self, websocket, logger, connection_data:dict=None, ping_interval:int=30):
-        """
-            https://binance-docs.github.io/apidocs/spot/en/#websocket-market-streams
-            Websocket server will send a ping frame every 3 minutes.
-            If the websocket server does not receive a pong frame back from the connection within a 10 minute period, the connection will be disconnected.
-            When you receive a ping, you must send a pong with a copy of ping's payload as soon as possible.
-            Unsolicited pong frames are allowed, but will not prevent disconnection. It is recommended that the payload for these pong frames are empty.
-        """
-        id_ws = connection_data.get("id_ws", "unknown")
-        req_id = connection_data.get('req_id', None)
-        self.binance_keep_alive = True
-        
-        while self.binance_keep_alive:
-            try:
-                await websocket.pong(b"") 
-                await asyncio.sleep(ping_interval) 
-            except websockets_errors as e:  
-                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
-                break
-            except Exception as e:
-                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
-                break
-            
-    def binance_keep_alive_stop(self):
-        self.binance_keep_alive = False
+    # prefered ping/pong intervals
+    binance_pp_interval = 30
+    bybit_pp_interval = 20
+    bingx_pp_interval = 5
+    bitget_pp_interval = 30
+    coinbase_pp_interval = None
+    deribit_pp_interval = None
+    gateio_pp_interval = 15
+    htx_pp_interval = 5
+    kucoin_pp_interval = None
+    mexc_pp_interval = 15
+    okx_pp_interval = 15
+    # Running
+    binance_keepalive_running = False
+    bybit_keepalive_running = False
+    bingx_keepalive_running = False
+    bitget_keepalive_running = False
+    coinbase_keepalive_running = False
+    deribit_keepalive_running = False
+    gateio_keepalive_running = False
+    htx_keepalive_running = False
+    kucoin_keepalive_running = False
+    mexc_keepalive_running = False
+    okx_keepalive_running = False
 
-    async def bybit_keep_alive(self, websocket, connection_data=None, ping_interval:int=20):
-        """
-            https://bybit-exchange.github.io/docs/v5/ws/connect
-            In general, if there is no "ping-pong" and no stream data sent from server end, the connection will be 
-            cut off after 10 minutes. When you have a particular need, you can configure connection alive time by max_active_time.
-            Since ticker scans every 30s, so it is not fully exact, i.e., if you configure 45s, and your last update or ping-pong is 
-            occurred on 2023-08-15 17:27:23, your disconnection time maybe happened on 2023-08-15 17:28:15
-            To avoid network or program issues, we recommend that you send the ping heartbeat packet every 20 seconds to maintain the WebSocket connection.
+    def keep_alive(self, running_attr_name:str):
+        """ Pattern of keep alive for every exchange"""
+        def decorator(func):
+            @wraps(func)
+            async def wrapper(self, websocket, connection_data, logger, *args, **kwargs):
+                running = getattr(self, running_attr_name)
+                id_ws = connection_data.get("id_ws", "unknown")
+                while getattr(self, running):
+                    try:
+                        await func(self, websocket, *args, **kwargs)
+                    except websockets_errors as e:
+                        logger.exception("Keep-Alive error, connection closed: %s", e, id_ws, exc_info=True)
+                        break
+                    except Exception as e:
+                        logger.exception("Unexpected error in keep-alive: %s", e, id_ws, exc_info=True)
+                        break
+            return wrapper
+        return decorator
 
-            How to seng: // req_id is a customised ID, which is optional ws.send(JSON.stringify({"req_id": "100001", "op": "ping"})
-        """
-        id_ws = connection_data.get("id_ws", "unknown")
-        req_id = connection_data.get('req_id', None)
-        self.bybit_keep_alive = True
-        
-        while self.bybit_keep_alive:
-            try:
-                await websocket.ping(json.dumps({"req_id": req_id, "op": "ping"})) 
-                await asyncio.sleep(ping_interval) 
-            except websockets_errors as e:  
-                self.logger.exception(f"Keep-Alive error for {id_ws}, {e}", exc_info=True)
-                break
-            except Exception as e:
-                self.logger.exception(f"Unexpected error in keep-alive for {id_ws}, {e}", exc_info=True)
-                break
+    @keep_alive("binance_keepalive_running")
+    async def binance_keepalive(self, websocket):
+        """ initialize binance keep alive caroutine"""
+        await websocket.pong(b"") 
+        await asyncio.sleep(self.binance_pp_interval) 
             
-    def bybit_keep_alive_stop(self):
-        self.bybit_keep_alive = False
+    def stop_binance_keepalive(self):
+        """ stop keep alive """
+        self.binance_keepalive_running = False
+
+    @keep_alive("bybit_keepalive_running")
+    async def bybit_keepalive(self, websocket, connection_data):
+        """ initialize bybit keep alive caroutine"""
+        await websocket.ping(json.dumps({"req_id": connection_data.get("req_id"), "op": "ping"})) 
+        await asyncio.sleep(self.bybit_pp_interval) 
+            
+    def stop_bybit_keepalive(self):
+        """ stop keep alive """
+        self.bybit_keepalive_running = False
+
+
+
+
 
     async def okx_keep_alive(self, websocket, connection_data=None, ping_interval:int=15):
         """
@@ -417,6 +369,9 @@ class producer(keepalive):
     """
         2 modes: production, testing
     """
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
     def __init__(self, 
                  connection_data,
                  kafka_host='localhost:9092',
@@ -450,6 +405,7 @@ class producer(keepalive):
         self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
+        self.loop = None
         
         # Connection metrics
         self.ws_connections_active = Gauge('websocket_connections_active', 'Number of active WebSocket connections')
@@ -462,6 +418,9 @@ class producer(keepalive):
         self.reconnection_attempts = Counter('app_reconnection_attempts_total', 'Total reconnection attempts')
         self.ping_pong_duration = Histogram('app_ping_pong_duration_seconds', 'Round-trip time for ping-pong messages', buckets=(0.01, 0.05, 0.1, 0.5, 1, 5))
 
+    def get_asyncio_loop(self, loop):
+        """ Gets loop arg"""
+        self.loop=loop
         
     def start_metrics_server(self):
         self.start_prometeus_server()
@@ -482,8 +441,7 @@ class producer(keepalive):
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
         return logger
-                        
-                        
+                                            
     async def binance_ws(self, connection_data, producer=None, topic=None):
         """
             producer and topic are reserved for kafka integration
@@ -515,7 +473,6 @@ class producer(keepalive):
                 if self.binance_keep_alive:
                     self.binance_keep_alive_stop()
                 self.logger.info(f"WebSocket connection for {connection_data.get('id_ws')} has ended.")
-
 
     async def bybit_ws(self, connection_data, producer=None, topic=None):        
         async for websocket in websockets.connect(connection_data.get("url"), timeout=86400, ssl=ssl_context, max_size=1024 * 1024 * 10):
@@ -695,195 +652,43 @@ class producer(keepalive):
                     pass
 
     @backoff.on_exception(backoff.expo,
-                          recoverable_errors,
+                          kafka_recoverable_errors,
                           max_tries=5,
                           max_time=300,
-                          givup=should_give_up)
-    def ensure_topic_exists(self, topic_names):
+                          giveup=should_give_up)
+    def handle_kafka_errors_backup(self, func):
         """
-            Ensures all of the topics exist with correct configurations
-            https://github.com/confluentinc/confluent-kafka-python    
+            Decorator for error and reconnecting handling
         """
-        try:
-            fs = self.admin.create_topics(self.kafka_topics)
-            for topic, f in fs.items():
-                f.result()  
-                print("Topic {} created".format(topic))
-        # retriable errors
-        except recoverable_errors as e:
-            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
-            self.logger.exception(e)
-            raise  
-        # restart errors
-        except KafkaConnectionError:
-            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except KafkaTimeoutError:
-            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except IllegalStateError as e:  
-            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
-            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        # others
-        except NoBrokersAvailable:
-            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except AuthenticationFailedError:
-            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except KafkaError as e:  
-            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except Exception as e: 
-            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            try:
+                return await func(*args, **kwargs)
+            except kafka_recoverable_errors as e:
+                self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1], e, exc_info=True)
+                raise
+            except kafka_restart_errors as e:
+                self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
+                await self.reconnect_producer()
+            except kafka_giveup_errors as e:
+                self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
+                await self.producer.stop()
+        return wrapper
 
-    @backoff.on_exception(backoff.expo,
-                          recoverable_errors,
-                          max_tries=5,
-                          max_time=300,
-                          givup=should_give_up)
-    async def start_producer():
-        try:
-            await producer.start()
-            print("Producer started successfully.")
-        # retriable errors
-        except recoverable_errors as e:
-            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
-            self.logger.exception(e)
-            raise  
-        # restart errors
-        except KafkaConnectionError:
-            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except KafkaTimeoutError:
-            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except IllegalStateError as e:  
-            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
-            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        # others
-        except NoBrokersAvailable:
-            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
-            self.logger.exception(e)
-        except AuthenticationFailedError:
-            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-        except KafkaError as e:  
-            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-        except Exception as e: 
-            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
-            self.logger.exception(e)
-        finally:
-            await producer.stop()
-
-    @backoff.on_exception(backoff.expo,
-                          recoverable_errors,
-                          max_tries=5,
-                          max_time=300,
-                          givup=should_give_up)
-    async def send_message_to_topic(self, topic_name, message):
-        try:
-            await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
-        # retriable errors
-        except recoverable_errors as e:
-            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
-            self.logger.exception(e)
-            raise  
-        # restart errors
-        except KafkaConnectionError:
-            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except KafkaTimeoutError:
-            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except IllegalStateError as e:  
-            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
-            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        # others
-        except UnknownTopicOrPartitionError as e:
-            self.logger.error("UnknownTopicOrPartitionError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except MessageSizeTooLargeError as e:
-            self.logger.error("MessageSizeTooLargeError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except RecordListTooLargeError as e:
-            self.logger.error("RecordListTooLargeError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except GroupAuthorizationFailedError as e:
-            topic_name = connection_dict.get("topic_name")
-            self.logger.error("GroupAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except ClusterAuthorizationFailedError as e:
-            topic_name = connection_dict.get("topic_name")
-            self.logger.error("ClusterAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except TopicAuthorizationFailedError as e:
-            topic_name = connection_dict.get("topic_name")
-            self.logger.error("TopicAuthorizationFailedError raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-        except Exception as e:
-            self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e, exc_info=True)
-            self.logger.exception(e)
-
-    @backoff.on_exception(backoff.expo,
-                        (ConnectionError, asyncio.TimeoutError, Exception, aiohttp.ClientResponseError, asyncio.CancelledError,
-                         aiohttp.ServerTimeoutError, json.JSONDecodeError, ValueError, TimeoutError),  
-                        max_tries=10,  
-                        max_time=300) 
-    async def aiohttp_socket(self, connection_data, topic, initial_delay):
-        await asyncio.sleep(initial_delay)
-        try:
-            while True:
-                message = await connection_data.get("aiohttpMethod")()
-                await self.send_message_to_topic(topic, message)
-                message = message.encode("utf-8")
-                print(sys.getsizeof(message))
-                await asyncio.sleep(connection_data.get("pullTimeout"))
-        except aiohttp.ClientResponseError as e:
-            self.logger.error(f"ClientResponseError of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"ClientResponseError of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except json.JSONDecodeError as e:
-            self.logger.error(f"JSONDecodeError of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"JSONDecodeError of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except ValueError as e:
-            self.logger.error(f"ValueError of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"ValueError of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except asyncio.CancelledError as e:
-            self.logger.error(f"asyncio.CancelledError of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"asyncio.CancelledError of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except ConnectionError as e:
-            self.logger.error(f"Connection error of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"Connection error of of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except TimeoutError:
-            self.logger.error(f"Timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"Timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
-        except asyncio.TimeoutError:
-            self.logger.error(f"Asynchronous timeout error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"Asynchronous timeout error occurredof {connection_data.get('id_api')}, {e}", exc_info=True)
-        except Exception as e:
-            self.logger.error(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
-            self.logger.exception(f"Unexpected error occurred of {connection_data.get('id_api')}, {e}", exc_info=True)
-            await asyncio.sleep(5)  # Add a delay before retrying or handling the error further
+    async def start_producer(self):
+        """
+            Starts producer with handling
+        """
+        await self.producer.start()
+        print("Producer started successfully.")
 
     @backoff.on_exception(backoff.expo,
                         BrokerNotAvailableError,
                         max_time=300)
     async def reconnect_producer(self):
+        """
+            Reconnects producer in case of crashing
+        """
         for i in range(self.producer_reconnection_attempts):  
             await asyncio.sleep(10) 
             try:
@@ -892,27 +697,31 @@ class producer(keepalive):
                 self.producer_running = True
                 return True
             except Exception as e:
-                self.logger.error("Reconnection failed: %s", str(e))
-                self.logger.exception(e)
+                self.logger.exception("Reconnection failed: %s", str(e))
         self.logger.critical("Unable to reconnect to the broker after several attempts.")
         await self.producer.stop() 
         self.producer_running = False
         return False
 
-    @backoff.on_exception(backoff.expo,
-                          recoverable_errors,
-                          max_tries=5,
-                          max_time=300,
-                          givup=should_give_up)
+    async def ensure_topic_exists(self):
+        """
+            Ensures that topics exist with necessary configurations
+        """
+        fs = self.admin.create_topics(self.kafka_topics)
+        for topic, f in fs.items():
+            f.result()  
+            print(f"Topic {topic} created")
+
+    @handle_kafka_errors_backup
     async def run_producer(self, is_reconnect=False):
+        """
+            Runs roducer
+        """
         try:
-            # self.delete_all_topics()
-            # print(self.delete_all_topics())
             if is_reconnect is False:
-                self.ensure_topic_exists(self.kafka_topics_names)    
-                self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host)
+                self.ensure_topic_exists()    
+                self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host, loop=self.loop)
             await self.start_producer()
-            topics = self.admin.list_topics(timeout=10)        
             tasks = []
             for delay, connection_dict in enumerate(self.connection_data):
                 if "id_ws" in connection_dict:
@@ -934,40 +743,42 @@ class producer(keepalive):
                     else:
                         tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_dict, connection_dict.get("topic_name"), initial_delay=delay)))
                 await asyncio.gather(*tasks)
-        except recoverable_errors as e:
-            self.logger.error("%s raised for topic %s: %s", type(e).__name__, topic_name, e, exc_info=True)
-            self.logger.exception(e)
+        except kafka_recoverable_errors as e:
+            self.logger.exception("Recoverable error raised %s, reconnecting", e, exc_info=True)
             raise  
-        # restart errors
-        except KafkaConnectionError:
-            self.logger.error(f"KafkaConnectionError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaConnectionError raised, reconnecting producer...", exc_info=True)
+        except kafka_restart_errors:
+            self.logger.exception("kafka_restart_errors raised, reconnecting producer... {e}", exc_info=True)
             await self.reconnect_producer()
-        except KafkaTimeoutError:
-            self.logger.error(f"KafkaTimeoutError raised, {e}", exc_info=True)
-            self.logger.exception("KafkaTimeoutError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        except IllegalStateError as e:  
-            self.logger.error(f"IllegalStateError raised, {e}", exc_info=True)
-            self.logger.exception("IllegalStateError raised, reconnecting producer...", exc_info=True)
-            await self.reconnect_producer()
-        # others
-        except NoBrokersAvailable:
-            self.logger.error(f"NoBrokersAvailable raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except AuthenticationFailedError:
-            self.logger.error(f"AuthenticationFailedError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except KafkaError as e:  
-            self.logger.error(f"KafkaError raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
-        except Exception as e: 
-            self.logger.error(f"Unexpected error raised, {e}", exc_info=True)
-            self.logger.exception(e)
-            await producer.stop()
+        except kafka_giveup_errors:
+            self.logger.exception("kafka_giveup_errors raised, stopping producer... {e}", exc_info=True)
+            await self.producer.stop()
+    
+    @handle_kafka_errors_backup
+    async def send_message_to_topic(self, topic_name, message):
+        """
+            Ensures messages are send while dealing with errors
+        """
+        await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+    
+
+    @backoff.on_exception(backoff.expo,
+                        aiohttp_recoverable_errors,  
+                        max_tries=10,  
+                        max_time=300) 
+    async def aiohttp_socket(self, connection_data, topic, initial_delay):
+        """ initiates aiohttp pipe"""
+        await asyncio.sleep(initial_delay)
+        try:
+            while True:
+                message = await connection_data.get("aiohttpMethod")()
+                await self.send_message_to_topic(topic, message)
+                message = message.encode("utf-8")
+                print(sys.getsizeof(message))
+                await asyncio.sleep(connection_data.get("pullTimeout"))
+        except aiohttp_recoverable_errors as e:  
+            self.logger.exception("Error from {connection_data.get('id_api')}: %s", e, exc_info=True)
+            raise  
+
             
     def describe_topics(self):
         """
@@ -986,46 +797,46 @@ class producer(keepalive):
             
             
             
-1. Granularity of connection duration per exchange
-2. Measure latency for every book websocket and consider sending alerts when latency os too high. Integrate telegram into the notification system. Or email notification system. Many modern monitoring tools like Prometheus come with built-in alerting functionalities. Prometheus’s Alertmanager, for example, can route alerts to various endpoints including email, Slack, PagerDuty, and more.
-3. Overall system latency to correlate with CPU and memory usage to identify resource bottlenecks
-4. Reconnection attempts
-import psutil
+# 1. Granularity of connection duration per exchange
+# 2. Measure latency for every book websocket and consider sending alerts when latency os too high. Integrate telegram into the notification system. Or email notification system. Many modern monitoring tools like Prometheus come with built-in alerting functionalities. Prometheus’s Alertmanager, for example, can route alerts to various endpoints including email, Slack, PagerDuty, and more.
+# 3. Overall system latency to correlate with CPU and memory usage to identify resource bottlenecks
+# 4. Reconnection attempts
+# import psutil
 
-# CPU Utilization
-cpu_usage = psutil.cpu_percent(interval=1)
+# # CPU Utilization
+# cpu_usage = psutil.cpu_percent(interval=1)
 
-# Memory Utilization
-memory = psutil.virtual_memory()
-memory_usage = memory.percent  # percentage of memory use
+# # Memory Utilization
+# memory = psutil.virtual_memory()
+# memory_usage = memory.percent  # percentage of memory use
 
-print(f"CPU Usage: {cpu_usage}%")
-print(f"Memory Usage: {memory_usage}%")
+# print(f"CPU Usage: {cpu_usage}%")
+# print(f"Memory Usage: {memory_usage}%")
 
 
-5. Infrastructure Health: Monitor infrastructure metrics such as server load, network I/O, and disk I/O. 
+# 5. Infrastructure Health: Monitor infrastructure metrics such as server load, network I/O, and disk I/O. 
 
-# Disk I/O
-disk_io = psutil.disk_io_counters()
-print(disk_io)
+# # Disk I/O
+# disk_io = psutil.disk_io_counters()
+# print(disk_io)
 
-# Network I/O
-net_io = psutil.net_io_counters()
-print(net_io)
+# # Network I/O
+# net_io = psutil.net_io_counters()
+# print(net_io)
 
-6. Historical Data Analysis: Store historical metrics data for trend analysis and capacity planning. 
-Summarize the data before storing it
+# 6. Historical Data Analysis: Store historical metrics data for trend analysis and capacity planning. 
+# Summarize the data before storing it
 
-Time-Series Databases: Databases like InfluxDB or TimescaleDB (an extension to PostgreSQL) are designed for time-series data and can be ideal for storing metrics. These databases efficiently handle high write and read loads and are good at compressing data.
-Relational Databases: If your load is not extremely high, traditional relational databases like MySQL or PostgreSQL can be used effectively with proper indexing.
-Integration with Prometheus: If you are using Prometheus for monitoring, it already stores time-series data and provides capabilities for querying historical data. Prometheus stores its data in a custom time-series database format optimized for high performance and efficiency.
+# Time-Series Databases: Databases like InfluxDB or TimescaleDB (an extension to PostgreSQL) are designed for time-series data and can be ideal for storing metrics. These databases efficiently handle high write and read loads and are good at compressing data.
+# Relational Databases: If your load is not extremely high, traditional relational databases like MySQL or PostgreSQL can be used effectively with proper indexing.
+# Integration with Prometheus: If you are using Prometheus for monitoring, it already stores time-series data and provides capabilities for querying historical data. Prometheus stores its data in a custom time-series database format optimized for high performance and efficiency.
 
-Disk Space: The amount of disk space required will grow over time, especially with high-frequency data collection. You need to estimate the data growth and plan the infrastructure accordingly.
-Operational Maintenance: Over such long periods, you will likely need to perform maintenance on the storage system, including hardware replacements and upgrades, migration to newer systems, and possibly changes in the data format.
-Data Summarization: Over long periods, it may become impractical to keep all data at the highest granularity. You might need to summarize or downsample older data.
-Integration with External Long-term Storage Solutions: Because Prometheus is not ideally suited for multi-year data retention due to its in-memory indexing, many use it in conjunction with other solutions designed for long-term storage. Common strategies include:
-Using Prometheus with Remote Write: Prometheus can be configured to "remote write" its data to external long-term storage systems such as Thanos, Cortex, or M3, which are designed to handle longer retention periods efficiently.
-Thanos: Integrating Prometheus with Thanos can provide a seamless way to manage long-term storage across multiple Prometheus instances. Thanos adds a storage layer that supports querying large amounts of historical metric data and can integrate with cloud storage solutions like Amazon S3, Google Cloud Storage, or Microsoft Azure Blob Storage, making it more scalable and resilient.
-Cortex: Similar to Thanos, Cortex provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus.
+# Disk Space: The amount of disk space required will grow over time, especially with high-frequency data collection. You need to estimate the data growth and plan the infrastructure accordingly.
+# Operational Maintenance: Over such long periods, you will likely need to perform maintenance on the storage system, including hardware replacements and upgrades, migration to newer systems, and possibly changes in the data format.
+# Data Summarization: Over long periods, it may become impractical to keep all data at the highest granularity. You might need to summarize or downsample older data.
+# Integration with External Long-term Storage Solutions: Because Prometheus is not ideally suited for multi-year data retention due to its in-memory indexing, many use it in conjunction with other solutions designed for long-term storage. Common strategies include:
+# Using Prometheus with Remote Write: Prometheus can be configured to "remote write" its data to external long-term storage systems such as Thanos, Cortex, or M3, which are designed to handle longer retention periods efficiently.
+# Thanos: Integrating Prometheus with Thanos can provide a seamless way to manage long-term storage across multiple Prometheus instances. Thanos adds a storage layer that supports querying large amounts of historical metric data and can integrate with cloud storage solutions like Amazon S3, Google Cloud Storage, or Microsoft Azure Blob Storage, making it more scalable and resilient.
+# Cortex: Similar to Thanos, Cortex provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus.
 
-# Faust has proper metrics to monitor kafka servers
+# # Faust has proper metrics to monitor kafka servers
