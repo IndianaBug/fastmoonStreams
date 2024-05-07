@@ -4,12 +4,15 @@ import asyncio
 import aiohttp
 import json
 
+import websockets.exceptions
+
 websockets_errors = (
-    websockets.ConnectionClosed, 
-    websockets.ConnectionClosedError, 
-    websockets.ConnectionClosedOK, 
-    websockets.ProtocolError, 
-    websockets.InvalidHandshake
+    websockets.exceptions.ConnectionClosed, 
+    websockets.exceptions.ConnectionClosedError, 
+    websockets.exceptions.ConnectionClosedOK, 
+    websockets.exceptions.ProtocolError, 
+    websockets.exceptions.InvalidHandshake,
+    websockets.exceptions.InvalidState
     )
 
 kafka_recoverable_errors = (
