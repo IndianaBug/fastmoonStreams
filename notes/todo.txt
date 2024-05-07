@@ -1,0 +1,51 @@
+# 1. Granularity of connection duration per exchange use Summary of prometeus.abs
+# 2. Track for how many times the keep alive message has been recieved from the client. 
+# 3. Errors and Timeouts related to keep alive.
+
+# 2. Measure latency for every book websocket and consider sending alerts when latency os too high. Integrate telegram into the notification system. Or email notification system. Many modern monitoring tools like Prometheus come with built-in alerting functionalities. Prometheus’s Alertmanager, for example, can route alerts to various endpoints including email, Slack, PagerDuty, and more.
+# 3. Overall system latency to correlate with CPU and memory usage to identify resource bottlenecks
+# 4. Reconnection attempts
+# import psutil
+
+# # CPU Utilization
+# cpu_usage = psutil.cpu_percent(interval=1)
+
+# # Memory Utilization
+# memory = psutil.virtual_memory()
+# memory_usage = memory.percent  # percentage of memory use
+
+# print(f"CPU Usage: {cpu_usage}%")
+# print(f"Memory Usage: {memory_usage}%")
+
+
+# 5. Infrastructure Health: Monitor infrastructure metrics such as server load, network I/O, and disk I/O. 
+
+# # Disk I/O
+# disk_io = psutil.disk_io_counters()
+# print(disk_io)
+
+# # Network I/O
+# net_io = psutil.net_io_counters()
+# print(net_io)
+
+# 6. Historical Data Analysis: Store historical metrics data for trend analysis and capacity planning. 
+# Summarize the data before storing it
+
+# Time-Series Databases: Databases like InfluxDB or TimescaleDB (an extension to PostgreSQL) are designed for time-series data and can be ideal for storing metrics. These databases efficiently handle high write and read loads and are good at compressing data.
+# Relational Databases: If your load is not extremely high, traditional relational databases like MySQL or PostgreSQL can be used effectively with proper indexing.
+# Integration with Prometheus: If you are using Prometheus for monitoring, it already stores time-series data and provides capabilities for querying historical data. Prometheus stores its data in a custom time-series database format optimized for high performance and efficiency.
+
+# Disk Space: The amount of disk space required will grow over time, especially with high-frequency data collection. You need to estimate the data growth and plan the infrastructure accordingly.
+# Operational Maintenance: Over such long periods, you will likely need to perform maintenance on the storage system, including hardware replacements and upgrades, migration to newer systems, and possibly changes in the data format.
+# Data Summarization: Over long periods, it may become impractical to keep all data at the highest granularity. You might need to summarize or downsample older data.
+# Integration with External Long-term Storage Solutions: Because Prometheus is not ideally suited for multi-year data retention due to its in-memory indexing, many use it in conjunction with other solutions designed for long-term storage. Common strategies include:
+# Using Prometheus with Remote Write: Prometheus can be configured to "remote write" its data to external long-term storage systems such as Thanos, Cortex, or M3, which are designed to handle longer retention periods efficiently.
+# Thanos: Integrating Prometheus with Thanos can provide a seamless way to manage long-term storage across multiple Prometheus instances. Thanos adds a storage layer that supports querying large amounts of historical metric data and can integrate with cloud storage solutions like Amazon S3, Google Cloud Storage, or Microsoft Azure Blob Storage, making it more scalable and resilient.
+# Cortex: Similar to Thanos, Cortex provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus.
+
+# # Faust has proper metrics to monitor kafka servers
+
+
+# Resource Utilization: Monitor resource utilization, such as CPU and memory usage, of the server hosting the WebSocket service. High resource usage could indicate performance bottlenecks or potential scalability issues.
+
+# Client Disconnects: Track the number of client disconnects or closures of WebSocket connections. Monitoring client disconnects helps detect when clients are intentionally or unintentionally terminating connections and can provide insights into user behavior or network stability.
