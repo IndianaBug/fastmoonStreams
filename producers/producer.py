@@ -32,7 +32,9 @@ class keepalive():
         docs references:
             binance: https://binance-docs.github.io/apidocs/spot/en/#websocket-market-streams
             bybit: https://bybit-exchange.github.io/docs/v5/ws/connect
-            bingx: https://bingx-api.github.io/docs/#/en-us/swapV2/socket/
+            bingx: 
+                perpetual : https://bingx-api.github.io/docs/#/en-us/swapV2/socket/
+                spot: https://bingx-api.github.io/docs/#/en-us/spot/socket/
             bitget: https://www.bitget.com/api-doc/common/websocket-intro
             coinbase: https://docs.cloud.coinbase.com/advanced-trade-api/docs/ws-channels#heartbeats-channel
             deribit: https://docs.deribit.com/#public-set_heartbeat
@@ -46,39 +48,40 @@ class keepalive():
             okx: https://www.okx.com/docs-v5/en/#overview-websocket-overview
     """
     # prefered ping/pong intervals
-    binance_pp_interval = 600
+    binance_pp_interval = 180
+    binance_timeout_interval = 600
     bybit_pp_interval = 20
+    bybit_timeout_interval = 40           # unspecified by bybit
     bingx_pp_interval = 5
+    bingx_timeout_interval = 15           # unspecified by bingx
     bitget_pp_interval = 30
-    coinbase_pp_interval = None
-    deribit_pp_interval = None
-    gateio_pp_interval = 15
+    bitget_timeout_interval = 30
+    coinbase_pp_interval = None            # uses hearbeats to keep connection stable
+    coinbase_timeout_interval = None
+    deribit_pp_interval = None             # uses heartbeats
+    deribit_timeout_interval = None
+    gateio_pp_interval = 5
+    gateio_timeout_interval = 10           # unspecified by gateio
     htx_pp_interval = 5
-    kucoin_pp_interval = None  # defined by kucoin
+    htx_timeout_interval = 10              # needs to be refactored
+    kucoin_pp_interval = None              # defined during initialization
+    kucoin_timeout_interval = None         # defined during initialization
     mexc_pp_interval = 15
-    okx_pp_interval = 15
+    mexc_timeout_interval = 60
+    okx_pp_interval = 30
+    okx_timeout_interval = 30
     # Running
-    binance_keepalive_running = False
-    bybit_keepalive_running = False
-    bingx_keepalive_running = False
-    bitget_keepalive_running = False
-    coinbase_keepalive_running = False
-    deribit_keepalive_running = False
-    gateio_keepalive_running = False
-    htx_keepalive_running = False
-    kucoin_keepalive_running = False
-    mexc_keepalive_running = False
-    okx_keepalive_running = False
+    keep_alives_running = {}
+    kucoin_pp_intervals = {}
     # Errors metricks
     KEEP_ALIVE_ERRORS = Counter('keep_alive_errors', 'Count of errors in keep alive', ['error_type', 'websocket_id', 'exchange'])
     KEEP_ALIVE_DISCONNECTS = Counter('keep_alive_disconnects', 'Count of disconnects in keep alive', ['websocket_id', 'exchnage'])
     KEEP_ALIVE_COUNTS = Counter('keep_alive_counts', 'Counts timmes ping/pong interactions', ['websocket_id'])
+    last_ping_pong_times = {}
     # reconnect retries
     max_reconnect_retries = 8
 
-    last_ping_pong_times = {}
-
-    def keep_alive(self, running_attr_name:str):
+    def keep_alive(self):
         """ Pattern of keep alive for every exchange"""
         def decorator(func):
             @wraps(func)
@@ -86,32 +89,50 @@ class keepalive():
                                     websockets_errors,
                                     max_tries=self.max_reconnect_retries)
             async def wrapper(self, connection_data, websocket, logger, *args, **kwargs):
+                                
                 id_ws = connection_data.get("id_ws", "unknown")
-                while getattr(self, running_attr_name):
+                exchange = connection_data.get("exchnage")
+                
+                if exchange == "kucoin":
+                    pingInterval, pingTimeout = self.get_kucoin_pingInterval(connection_data)
+                    kucoin_pp_intervals[id_ws] = {}
+                    kucoin_pp_intervals[id_ws]["pingInterval"] = pingInterval
+                    kucoin_pp_intervals[id_ws]["pingTimeout"] = pingTimeout
+                
+                self.keep_alives_running[id_ws] = True
+                
+                while self.keep_alives_running.get(id_ws, False):
                     try:
                         await func(self, connection_data, websocket=websocket, logger=logger, *args, **kwargs)
                     except aiohttp_recoverable_errors as e:
                         logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-                        self.KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchnage=connection_data.get("exchnage"), websocket_id=id_ws).inc()
+                        self.KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchnage=exchange, websocket_id=id_ws).inc()
                         raise
                     except Exception as e:
                         logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-                        self.KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchnage=connection_data.get("exchnage")).inc()
+                        self.KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchnage=exchange).inc()
                         break
             return wrapper
         return decorator
 
-    @keep_alive("binance_keepalive_running")
+    def get_kucoin_pingInterval(self, conData):
+        """ dynamicall gets ping interval of a kucoin websocket connection """
+        d1, d2 = conData.get("url_method")()
+        pingInterval = d2.get("pingInterval")
+        pingTimeout = d2.get("pingTimeout")
+        return pingInterval, pingTimeout
+
+    async def stop_keepalive(self, connection_data):
+        """ stop keep alive """
+        self.keep_alives_running[connection_data.get("id_ws")] = False
+
+    @keep_alive()
     async def binance_keepalive(self, connection_data, websocket, logger):
-        """ initialize binance keep alive caroutine"""
+        """ binance sends you ping and you respond with pong. NOT NEEDED"""
         await websocket.pong(b"") 
         await asyncio.sleep(self.binance_pp_interval) 
-            
-    async def stop_binance_keepalive(self):
-        """ stop keep alive """
-        self.binance_keepalive_running = False
 
-    @keep_alive("bybit_keepalive_running")
+    @keep_alive()
     async def bybit_keepalive(self, connection_data, websocket, logger):
         """ initialize bybit keep alive caroutine"""
         id_ws = connection_data.get("id_ws")
@@ -119,78 +140,50 @@ class keepalive():
         print("Ping sent to %s", id_ws)
         await asyncio.sleep(self.bybit_pp_interval) 
             
-    async def stop_bybit_keepalive(self):
-        """ stop keep alive """
-        self.bybit_keepalive_running = False
-
-    @keep_alive("okx_keepalive_running")
+    @keep_alive()
     async def okx_keepalive(self, connection_data, websocket, logger):
         """ initialize okx keep alive caroutine"""
         await websocket.send("ping") 
         await asyncio.sleep(self.okx_pp_interval) 
             
-    async def stop_okx_keepalive(self):
-        """ stop keep alive """
-        self.okx_keepalive_running = False
-        
-    @keep_alive("bitget_keepalive_running")
+    @keep_alive()
     async def bitget_keepalive(self, connection_data, websocket, logger):
         """ initialize bitget keep alive caroutine"""
         await websocket.send("ping") 
         await asyncio.sleep(self.bitget_pp_interval) 
             
-    async def stop_bitget_keepalive(self):
-        """ stop keep alive """
-        self.bitget_keepalive_running = False
-        
-    @keep_alive("bingx_keepalive_running")
+    @keep_alive()
     async def bingx_keepalive(self, connection_data, websocket, logger):
         """ initialize bingx keep alive caroutine (ONLY FOR PERPETUAL WEBSOCKETS)"""
         await websocket.send("Pong") 
         await asyncio.sleep(self.bingx_pp_interval) 
-            
-    async def stop_bingx_keepalive(self):
-        """ stop keep alive """
-        self.bingx_keepalive_running = False
-        
-    @keep_alive("kucoin_keepalive_running")
+
+    @keep_alive()
     async def kucoin_keepalive(self, connection_data, websocket, logger):
         """ initialize kucoin keep alive caroutine"""
         await websocket.send({"id": str(connection_data.get("connection_id")), "type": "ping"})
-        await asyncio.sleep(self.kucoin_pp_interval) 
+        await asyncio.sleep(self.kucoin_pp_intervals.get(connection_data.get("id_ws")).get("pingInterval", 18000)) 
             
-    async def stop_kucoin_keepalive(self):
-        """ stop keep alive """
-        self.kucoin_keepalive_running = False
-        
-    @keep_alive("mexc_keepalive_running")
+    @keep_alive()
     async def mexc_keepalive(self, connection_data, websocket, logger):
         """ initialize mexc keep alive caroutine"""
         if connection_data.get("instType") == "spot":
-            await websocket.send("PING") 
+            await websocket.send(json.dumps({"method": "PING"}))
         else:
-            await websocket.send("ping") 
+            await websocket.send(json.dumps({"method": "ping"})) 
         await asyncio.sleep(self.mexc_pp_interval) 
             
-    async def stop_mexc_keepalive(self):
-        """ stop keep alive """
-        self.mexc_keepalive_running = False
-        
-    @keep_alive("gateio_keepalive_running")
+    @keep_alive()
     async def gateio_keepalive(self, connection_data, websocket, logger):
         """ initialize gateio keep alive caroutine"""
         if connection_data.get("instType") == "spot":
-            await websocket.send({"channel" : "spot.ping"}) 
+            await websocket.send('{"time": %d, "channel" : "spot.ping"}' % int(time.time()))
         if connection_data.get("instType") in ["future", "perpetual"]:
-            await websocket.send({"channel" : "futures.ping"}) 
+            await websocket.send('{"time": %d, "channel" : "futures.ping"}' % int(time.time()))
         if connection_data.get("instType") == "option":
-            await websocket.send({"channel" : "options.ping"}) 
+            await websocket.send('{"time": %d, "channel": "options.ping"}'% int(time.time()))
         await asyncio.sleep(self.gateio_pp_interval) 
             
-    async def stop_gateio_keepalive(self):
-        """ stop keep alive """
-        self.gateio_keepalive_running = False
-
 class producer(keepalive):
     """
         2 modes: production, testing
@@ -265,7 +258,7 @@ class producer(keepalive):
 
     # Websocket related
 
-    def websocket_wrapper(self, keep_alive_caroutine_attr=None, stop_keep_alive_caroutine_attr=None):
+    def websocket_wrapper(self, keep_alive_caroutine_attr=None):
         """Pattern for every websocket"""
         def decorator(func):
             """decor"""
@@ -296,15 +289,12 @@ class producer(keepalive):
                     except Exception as e:
                         self.logger.exception("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
                     finally:
-                        if stop_keep_alive_caroutine_attr is not None:
-                            keep_alive_method = getattr(self, keep_alive_caroutine_attr)
-                            if keep_alive_method:
-                                stop_keep_alive_method = getattr(self, stop_keep_alive_caroutine_attr)
-                                await stop_keep_alive_caroutine_attr()
+                        if keep_alive_caroutine_attr is not None:
+                            await self.stop_keepalive(connection_data)
                         self.logger.info("WebSocket connection for %s has ended.", id_ws)
                         await ws.__aexit__(None, None, None)
 
-    @websocket_wrapper(None, None)
+    @websocket_wrapper(None)
     async def binance_ws(self, connection_data, topic, websocket):
         message = await websocket.recv()
         if "ping" in message:
@@ -315,11 +305,11 @@ class producer(keepalive):
             print("Pong send to %s", id_ws)
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.binance_pp_interval:
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.binance_timeout_interval:
             self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
             raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper("bybit_keepalive", "stop_bybit_keepalive")
+    @websocket_wrapper("bybit_keepalive")
     async def bybit_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
@@ -327,11 +317,11 @@ class producer(keepalive):
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bybit_pp_interval:
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bybit_timeout_interval:
             self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
             raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
                                        
-    @websocket_wrapper("okx_keepalive", "stop_okx_keepalive")
+    @websocket_wrapper("okx_keepalive")
     async def okx_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
@@ -339,16 +329,16 @@ class producer(keepalive):
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.okx_pp_interval:
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.okx_timeout_interval:
             self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
             raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
         
-    @websocket_wrapper(None, None)
+    @websocket_wrapper(None)
     async def deribit_ws(self, websocket, connection_data, topic):
         message = await websocket.recv()
         await self.send_message_to_topic(topic, message)
 
-    @websocket_wrapper(None, None)
+    @websocket_wrapper(None)
     async def deribit_heartbeat(self, websocket, connection_data, topic):
         message = await websocket.recv()
         message = json.loads(message)
@@ -364,7 +354,7 @@ class producer(keepalive):
             }
             await websocket.send(json.dumps(test_response))
 
-    @websocket_wrapper("bitget_keepalive", "stop_bitget_keepalive")
+    @websocket_wrapper("bitget_keepalive")
     async def bitget_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
@@ -372,11 +362,11 @@ class producer(keepalive):
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bitget_pp_interval:
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bitget_timeout_interval:
             self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
             raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper("kucoin_keepalive", "stop_kucoin_keepalive")
+    @websocket_wrapper("kucoin_keepalive")
     async def kucoin_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
@@ -384,44 +374,65 @@ class producer(keepalive):
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bitget_pp_interval:
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.kucoin_pp_intervals.get(id_ws).get("pingTimeout", 10000):
             self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
             raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper("bingx_keepalive", "stop_bingx_keepalive")
+    @websocket_wrapper(None)
     async def bingx_ws(self, websocket, connection_data, topic):
+        instType = connection_data.get("instType")
         message = await websocket.recv()
         message = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb').read().decode('utf-8')
         if "ping" in message:
-            message = json.loads(message)
-            await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+            if instType == "spot":
+                message = json.loads(message)
+                await websocket.send(json.dumps({"pong" : message.get("ping"), "time" : message.get("time")}))
+                self.last_ping_pong_times[id_ws] = time.time()
+                self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
+            if instType == "perpetual":
+                await websocket.pong()
+                self.last_ping_pong_times[id_ws] = time.time()
+                self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bingx_timeout_interval:
+            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
+            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper("mexc_keepalive", "stop_mexc_keepalive")
+    @websocket_wrapper("mexc_keepalive")
     async def mexc_ws(self, websocket, connection_data, topic):
+        id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
-        if "pong" in message:
-            await websocket.send("ping")
-        if "PONG" in message:
-            await websocket.send("PING")
+        if "PONG" in message or "pong" in message:
+            self.last_ping_pong_times[id_ws] = time.time()
+            self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.mexc_timeout_interval:
+            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
+            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper("gateio_keepalive", "stop_gateio_keepalive")
+    @websocket_wrapper("gateio_keepalive")
     async def gateio_ws(self, websocket, connection_data, topic):
+        id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
-        if "ping" in message:
-            await websocket.send({"channel" : json.loads(message).get("channel").repalce("ping", "pong")})
         if "pong" in message:
-            await websocket.send({"channel" : json.loads(message).get("channel").repalce("pong", "ping")})
+            self.last_ping_pong_times[id_ws] = time.time()
+            self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.gateio_timeout_interval:
+            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
+            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
     
     @websocket_wrapper(None, None)
     async def htx_ws(self, websocket, connection_data, topic):
+        id_ws = connection_data.get('id_ws')
         message = await websocket.recv()
-        message =  gzip.decompress(message).decode('utf-8')
-        if "ping" in message:
-            await websocket.send(json.dumps({"pong": json.loads(message).get("ping")}))
+        if "pong" in message:
+            self.last_ping_pong_times[id_ws] = time.time()
+            self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.htx_timeout_interval:
+            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
+            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
 
     @websocket_wrapper(None, None)
     async def coinbase_ws(self, websocket, connection_data, topic):
