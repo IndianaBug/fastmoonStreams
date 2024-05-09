@@ -40,12 +40,13 @@ ws = {
     #     "option.optionTrades.BTC-USD",
     #     ],
     
-    # "deribit" : [
-    #     "perpetual.depth.BTC-PERPETUAL.snap", 
+    "deribit" : [
+        # "perpetual.depth.BTC-PERPETUAL.snap", 
     #     "future.tradesagg.BTC",
     #     "option.tradesagg.BTC", 
-    #     "perpetual.heartbeats.BTC.BTC-PERPETUAL"
-    #     ],
+    #     "perpetual.heartbeats.BTC",
+        "perpetual.heartbeats.BTC-PERPETUAL"     
+        ],
     # "bitget" : [
     #     "spot.depth.BTCUSDT.snap", 
     #     "perpetual.trades.BTCUSDT.BTCUSDC",
@@ -58,7 +59,7 @@ ws = {
     #     "spot.depth.BTC-USDT"
     #     ],
     "kucoin" : [
-        "spot.depth.BTC-USDT.snap", 
+        # "spot.depth.BTC-USDT.snap", 
     #     "spot.trades.BTC-USDT",
     #     "perpetual.depth.XBTUSDTM.snap", 
     #     "perpetual.trades.XBTUSDTM",
@@ -135,9 +136,8 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-a, b = connectionData[0].get("url_method")()
-
-print(b)
+a = connectionData[0]
+print(a)
 
 
 # for e in connectionData:

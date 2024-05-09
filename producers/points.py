@@ -25,17 +25,17 @@ from typing import List, Union
 from .utilis import filter_nested_dict, standarize_marginType
 
 from .clientsinfo import *
-from .clientpoints.binance import *
-from .clientpoints.bybit import *
-from .clientpoints.okx import *
-from .clientpoints.coinbase import *
-from .clientpoints.deribit import *
-from .clientpoints.kucoin import *
-from .clientpoints.htx import *
-from .clientpoints.bitget import *
-from .clientpoints.gateio import *
-from .clientpoints.mexc import *
-from .clientpoints.bingx import *
+from .clientpoints_.binance import *
+from .clientpoints_.bybit import *
+from .clientpoints_.okx import *
+from .clientpoints_.coinbase import *
+from .clientpoints_.deribit import *
+from .clientpoints_.kucoin import *
+from .clientpoints_.htx import *
+from .clientpoints_.bitget import *
+from .clientpoints_.gateio import *
+from .clientpoints_.mexc import *
+from .clientpoints_.bingx import *
 
 from .apiweaver import *
 

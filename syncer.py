@@ -1,4 +1,4 @@
-from producers.clientpointsManager import *
+from producers.points import *
 from consumers import on_message, flow
 
 class ExchangeAPIClient():

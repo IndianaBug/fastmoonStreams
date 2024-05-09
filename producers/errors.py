@@ -6,13 +6,31 @@ import json
 
 import websockets.exceptions
 
-websockets_errors = (
+websockets_heartbeats_errors = (
     websockets.exceptions.ConnectionClosed, 
-    websockets.exceptions.ConnectionClosedError, 
-    websockets.exceptions.ConnectionClosedOK, 
-    websockets.exceptions.ProtocolError, 
+    websockets.exceptions.WebSocketException,
+    websockets.exceptions.ConnectionClosedError,
     websockets.exceptions.InvalidHandshake,
-    websockets.exceptions.InvalidState
+    websockets.exceptions.SecurityError,
+    websockets.exceptions.InvalidMessage,
+    websockets.exceptions.InvalidHeader,
+    websockets.exceptions.InvalidHeaderFormat,
+    websockets.exceptions.InvalidHeaderValue,
+    websockets.exceptions.InvalidOrigin,
+    websockets.exceptions.InvalidUpgrade,
+    websockets.exceptions.InvalidStatus,
+    websockets.exceptions.InvalidStatusCode,
+    websockets.exceptions.NegotiationError,
+    websockets.exceptions.DuplicateParameter,
+    websockets.exceptions.InvalidParameterName,
+    websockets.exceptions.InvalidParameterValue,
+    websockets.exceptions.AbortHandshake,
+    websockets.exceptions.RedirectHandshake,
+    websockets.exceptions.InvalidState,
+    websockets.exceptions.InvalidURI,
+    websockets.exceptions.PayloadTooBig,
+    websockets.exceptions.ProtocolError,
+    websockets.exceptions.WebSocketProtocolError,
     )
 
 kafka_recoverable_errors = (

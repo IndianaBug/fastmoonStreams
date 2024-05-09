@@ -1,10 +1,24 @@
-# 1. Granularity of connection duration per exchange use Summary of prometeus.abs
-# 2. Track for how many times the keep alive message has been recieved from the client. 
-# 3. Errors and Timeouts related to keep alive.
 
-# 2. Measure latency for every book websocket and consider sending alerts when latency os too high. Integrate telegram into the notification system. Or email notification system. Many modern monitoring tools like Prometheus come with built-in alerting functionalities. Prometheus’s Alertmanager, for example, can route alerts to various endpoints including email, Slack, PagerDuty, and more.
-# 3. Overall system latency to correlate with CPU and memory usage to identify resource bottlenecks
-# 4. Reconnection attempts
+
+1. Ensure that heatbeats is on if related ws connections are on
+
+2. Granuality for Ws metrics:
+  - Connection duration
+  - message size
+  - errors and disconnects. For how long did they lasted?
+  - Errors and reconnect attemps
+  - latency. Alerts when latency is too high. Integrate telegram notifications
+  - CPU, Memory, server load, network I/O, and disk I/O and any otherresource utilization. 
+  Correlate with latency
+
+3. Configure the prometeus server, make short retention. Scrap metrics from there and place them into a database or whatever
+
+3 Build telegram alert system
+
+4. Faust has proper metrics to monitor kafka servers, integrate those
+
+
+
 # import psutil
 
 # # CPU Utilization
@@ -17,9 +31,6 @@
 # print(f"CPU Usage: {cpu_usage}%")
 # print(f"Memory Usage: {memory_usage}%")
 
-
-# 5. Infrastructure Health: Monitor infrastructure metrics such as server load, network I/O, and disk I/O. 
-
 # # Disk I/O
 # disk_io = psutil.disk_io_counters()
 # print(disk_io)
@@ -28,24 +39,58 @@
 # net_io = psutil.net_io_counters()
 # print(net_io)
 
-# 6. Historical Data Analysis: Store historical metrics data for trend analysis and capacity planning. 
-# Summarize the data before storing it
 
-# Time-Series Databases: Databases like InfluxDB or TimescaleDB (an extension to PostgreSQL) are designed for time-series data and can be ideal for storing metrics. These databases efficiently handle high write and read loads and are good at compressing data.
-# Relational Databases: If your load is not extremely high, traditional relational databases like MySQL or PostgreSQL can be used effectively with proper indexing.
-# Integration with Prometheus: If you are using Prometheus for monitoring, it already stores time-series data and provides capabilities for querying historical data. Prometheus stores its data in a custom time-series database format optimized for high performance and efficiency.
+#### SETUP TELEGRAM bot
 
-# Disk Space: The amount of disk space required will grow over time, especially with high-frequency data collection. You need to estimate the data growth and plan the infrastructure accordingly.
-# Operational Maintenance: Over such long periods, you will likely need to perform maintenance on the storage system, including hardware replacements and upgrades, migration to newer systems, and possibly changes in the data format.
-# Data Summarization: Over long periods, it may become impractical to keep all data at the highest granularity. You might need to summarize or downsample older data.
-# Integration with External Long-term Storage Solutions: Because Prometheus is not ideally suited for multi-year data retention due to its in-memory indexing, many use it in conjunction with other solutions designed for long-term storage. Common strategies include:
-# Using Prometheus with Remote Write: Prometheus can be configured to "remote write" its data to external long-term storage systems such as Thanos, Cortex, or M3, which are designed to handle longer retention periods efficiently.
-# Thanos: Integrating Prometheus with Thanos can provide a seamless way to manage long-term storage across multiple Prometheus instances. Thanos adds a storage layer that supports querying large amounts of historical metric data and can integrate with cloud storage solutions like Amazon S3, Google Cloud Storage, or Microsoft Azure Blob Storage, making it more scalable and resilient.
-# Cortex: Similar to Thanos, Cortex provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus.
+from flask import Flask, request
+import requests
 
-# # Faust has proper metrics to monitor kafka servers
+app = Flask(__name__)
 
+TELEGRAM_API = "https://api.telegram.org/bot<YourBotToken>/sendMessage"
+CHAT_ID = "<YourChannelOrGroupChatID>"
 
-# Resource Utilization: Monitor resource utilization, such as CPU and memory usage, of the server hosting the WebSocket service. High resource usage could indicate performance bottlenecks or potential scalability issues.
+@app.route('/alerts', methods=['POST'])
+def handle_alerts():
+    alerts = request.json
+    for alert in alerts['alerts']:
+        message = f"Alert: {alert['labels']['alertname']} is {alert['status']}. Description: {alert['annotations']['description']}"
+        send_telegram_message(message)
+    return "Alert received", 200
 
-# Client Disconnects: Track the number of client disconnects or closures of WebSocket connections. Monitoring client disconnects helps detect when clients are intentionally or unintentionally terminating connections and can provide insights into user behavior or network stability.
+def send_telegram_message(message):
+    payload = {
+        'chat_id': CHAT_ID,
+        'text': message,
+        'parse_mode': 'HTML'
+    }
+    response = requests.post(TELEGRAM_API, json=payload)
+    return response.json()
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5002)
+
+# Yaml for metrics
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'websocket_service'
+    static_configs:
+      - targets: ['localhost:9090']  # Adjust the target to where your service runs
+
+# Short retention configuration
+storage:
+  tsdb:
+    retention_time: '6h'  # Retain data for 6 hours
+
+# YAml for notifications
+
+route:
+  receiver: 'webhook'
+receivers:
+- name: 'webhook'
+  webhook_configs:
+  - url: 'http://<your_server_ip>:5002/alerts'

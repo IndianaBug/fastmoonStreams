@@ -11,15 +11,17 @@ import sys
 import backoff
 import aiocouch
 from aiokafka import AIOKafkaProducer
+import websockets
 from  websockets.exceptions import WebSocketException, ConnectionClosed
 from websockets.client import Connect
 from kafka.errors import BrokerNotAvailableError
 from .utilis import ws_fetcher_helper
-from .errors import websockets_errors, kafka_recoverable_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
+from .errors import websockets_heartbeats_errors, kafka_recoverable_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
 import rapidjson as json
-from prometheus_client import start_http_server, Counter, Summary   # https://prometheus.github.io/client_python/exporting/http/wsgi/
+from prometheus_client import start_http_server, Summary, Counter, Gauge, Histogram  # https://prometheus.github.io/client_python/exporting/http/wsgi/
+import string
 
 
 def should_give_up(exc):
@@ -206,6 +208,7 @@ class producer(keepalive):
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
             if using tinydb, you must create a folder tinybase
         """
+        # kafka setup
         self.kafka_host = kafka_host
         self.producer = None
         self.producer_running = False
@@ -213,11 +216,20 @@ class producer(keepalive):
         self.admin = AdminClient({'bootstrap.servers': self.kafka_host})
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
-        self.connection_data = connection_data
-        self.ws_failed_connections = {}
-        self.start_prometeus_server = start_http_server(prometeus_start_server)
         self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
+        # websockets setup
+        self.connection_data = connection_data
+        self.ws_messages = {} #ids were dynamicall generated upon creating websockets. IF you need them, extract them from here
+        self.websockets = {}
+        self.ws_related_to_heartbeat_channel = {}
+        self.___get_list_related_websockets()
+        self.ssl_context = ssl.create_default_context()
+        self.ssl_context.check_hostname = False
+        self.ssl_context.verify_mode = ssl.CERT_NONE
+        self.wsmessage_max_size = 1024 * 1024 * 10
+        # metrics, logging
+        self.start_prometeus_server = start_http_server(prometeus_start_server)
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
         try:
@@ -227,7 +239,18 @@ class producer(keepalive):
         except Exception as e:
             self.logger.error("Couldnt fetch deribit depth %s", e, exc_info=True)
         self.loop = None
-        # Connection metrics
+        # Metrics definitions using prometheus_client library
+        self.CONNECTION_DURATION = Summary('websocket_connection_duration_seconds', 'Time spent in WebSocket connection', ['websocket_id'])
+        self.MESSAGE_SIZE = Histogram('websocket_message_size_bytes', 'Size of WebSocket messages', ['websocket_id'], buckets=[64, 256, 1024, 4096, 16384, 65536])
+        self.ERRORS_DISCONNECTS = Counter('websocket_errors_disconnects_total', 'Count of errors and disconnects', ['websocket_id'])
+        self.RECONNECT_ATTEMPTS = Counter('websocket_reconnect_attempts_total', 'Count of reconnect attempts after disconnecting', ['websocket_id'])
+        self.LATENCY = Gauge('websocket_latency_seconds', 'Latency of WebSocket connections', ['websocket_id'])
+        self.CPU_USAGE = Gauge('server_cpu_usage', 'CPU usage of the server')
+        self.MEMORY_USAGE = Gauge('server_memory_usage_bytes', 'Memory usage of the server')
+        self.DISK_IO = Gauge('server_disk_io_bytes', 'Disk I/O of the server')
+        self.NETWORK_IO = Gauge('server_network_io_bytes', 'Network I/O of the server')
+        
+        # Ensure that heartbeats is on is some websockets are on
 
     #  Producer setup
 
@@ -257,6 +280,64 @@ class producer(keepalive):
         return logger
 
     # Websocket related
+    
+    def ___get_list_related_websockets(self):
+        """
+            Must be called on initialization.
+
+            Deribit and conibase use separated websocket connection (heartbeats) to keep the connection stable.
+            If for some reason all of the websockets related to coinbase or derebit cloase, the heartbeat 
+            connection of the exchange should close too. (In order to not keep any unnecessary websockt connections)
+            
+            This method will return a list of related websockets to heartbeats.
+            In coinbase and derebit, for every ticker (say BTC-USD) and all of the channels related to this ticker (like books, trades ...) there must be a single heaertbeat (BTC-USD)
+        """
+        ids = [x.get("id_ws") for x in self.connection_data]        
+        self.ws_related_to_heartbeat_channel = { x : [] for x in ids if "heartbeat" in x}
+        for data in self.connection_data:
+            symbol = data.get("symbol").lower()
+            symbol = ''.join(char for char in symbol if char in string.ascii_letters or char in string.digits)
+            id_ws = data.get("id_Ws")
+            for heartbeat in d.keys():
+                if symbol in heartbeat:
+                    self.ws_related_to_heartbeat_channel[heartbeat].append(id_ws)
+                    
+    def ___get_related_ws(self, connection_data):
+        exchnage = connection_data.get("exchange").lower()
+        symbol = connection_data.get("symbol").lower()
+        symbol = ''.join(char for char in symbol if char in string.ascii_letters or char in string.digits)
+        key = ""
+        for heartbeats_key in self.ws_related_to_heartbeat_channel.keys():
+            if symbol in heartbeats_key:
+                if exchnage in heartbeats_key:
+                    key = heartbeats_key
+                    break
+        return self.ws_related_to_heartbeat_channel.get(key), key
+             
+    async def __wsaenter__(self, connection_data):
+        """ initiates websocket gracefully"""
+        url = connection_data.get("url")
+        id_ws = connection_data.get('id_ws')
+        self.websocke[id_ws] = await websockets.connect(url, ssl=self.ssl_context, max_size=self.wsmessage_max_size)
+        return self.websocket[id_ws]
+    
+    async def __wsaexit__(self, websocket, connection_data):
+        """ exits from websocket gracefully """
+        exchange = connection_data.get("exchange")
+        id_ws = connection_data.get("id_ws")
+        payload = self.related_websockets.get(id_ws)
+        if exchange == "coinabse":
+            payload["type"] = "unsubscribe"
+        if exchange == "deribit":
+            if "heartbeat" in id_ws:
+                payload["method"] = '/public/disable_heartbeat'
+            if "heartbeat" not in id_ws:
+                payload["method"] = '/public/unsubscribe'
+        try:
+            await websocket.send(payload)  
+            await websocket.wait_closed() 
+        except WebSocketException:
+            pass  
 
     def websocket_wrapper(self, keep_alive_caroutine_attr=None):
         """Pattern for every websocket"""
@@ -269,21 +350,32 @@ class producer(keepalive):
             async def wrapper(connection_data, topic):
                 url = connection_data.get("url")
                 id_ws = connection_data.get('id_ws')
-                connection_message = json.dumps(connection_data.get("msg_method")())
-                connection = Connect(url, ssl=self.ssl_context, max_size=1024 * 1024 * 10)
-                async with connection as ws:
-                    websocket = await ws.__aenter__()
+                connection_message = connection_data.get("msg_method")()
+                self.ws_messages[id_ws] = connection_message
+                connection = self.__wsaenter__(connection_data)
+                async with connection as websocket:
                     try:
-                        await websocket.send(connection_message)
+                        await websocket.send(json.dumps(connection_message))
                         if keep_alive_caroutine_attr is not None:
                             keep_alive_method = getattr(self, keep_alive_caroutine_attr)
                             asyncio.create_task(keep_alive_method(websocket, connection_data, self.logger))
-                        while websocket.open:
-                            try:
-                                await func(self, connection_data, topic, websocket=websocket,)
-                            except (WebSocketException, TimeoutError, ConnectionClosed) as e:  
-                                self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
-                                raise
+                        # If heartbeats is closed properly then fo not reconnect. 
+                        # Others websockets will be closed properly every X amount of times.
+                        # This is due to arquitecture of the data provider
+                        if "heartbeat" not in id_ws:
+                            while websocket.open:
+                                try:
+                                    await func(self, connection_data, topic, websocket=websocket,)
+                                except (WebSocketException, TimeoutError) as e:  
+                                    self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                                    raise
+                        if "heartbeat" in id_ws:
+                            while websocket.open:
+                                try:
+                                    await func(self, connection_data, topic, websocket=websocket,)
+                                except (websockets_heartbeats_errors, TimeoutError) as e:  
+                                    self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                                    raise
                     except asyncio.TimeoutError as e:
                         self.logger.exception("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
                     except Exception as e:
@@ -291,8 +383,14 @@ class producer(keepalive):
                     finally:
                         if keep_alive_caroutine_attr is not None:
                             await self.stop_keepalive(connection_data)
+                        else:
+                            if "heartbeat" in id_ws:
+                                related_ws, heartbeat_key = self.___get_related_ws(connection_data)
+                                are_all_down = all(not self.websockets.get(id_ws).open for id_ws in related_ws)
+                                if are_all_down:
+                                    self.websockets(websocket, self.connection_data.get(heartbeat_key))
                         self.logger.info("WebSocket connection for %s has ended.", id_ws)
-                        await ws.__aexit__(None, None, None)
+                        await self.__wsaexit__(connection_data)
 
     @websocket_wrapper(None)
     async def binance_ws(self, connection_data, topic, websocket):
