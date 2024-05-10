@@ -22,6 +22,8 @@ from confluent_kafka._model import TopicCollection
 import rapidjson as json
 from prometheus_client import start_http_server, Summary, Counter, Gauge, Histogram  # https://prometheus.github.io/client_python/exporting/http/wsgi/
 import string
+import psutil
+
 
 
 def should_give_up(exc):
@@ -194,14 +196,27 @@ class producer(keepalive):
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
     def __init__(self, 
-                 connection_data,
-                 kafka_host='localhost:9092',
-                 num_partitions=5,
-                 replication_factor=1,
-                 producer_reconnection_attempts=5, 
-                 prometeus_start_server=8000,
-                 log_file_bytes=10*1024*1024,
-                 log_file_backup_count=5,
+                connection_data,
+                kafka_host = 'localhost:9092',
+                num_partitions = 5,
+                replication_factor = 1,
+                producer_reconnection_attempts = 5, 
+                prometeus_start_server = 8000,
+                log_file_bytes = 10*1024*1024,
+                log_file_backup_count = 5,
+                producer_metrics = [
+                    "CONNECTION_DURATION",
+                    "TOTAL_MESSAGES",
+                    "MESSAGE_SIZE",
+                    "ERRORS_DISCONNECTS",
+                    "RECONNECT_ATTEMPTS",
+                    "LATENCY",
+                    "CPU_USAGE",
+                    "MEMORY_USAGE",
+                    "DISK_IO",
+                    "NETWORK_IO"
+                ],
+                cpu_memory_catch_interval = 60
                  ):
         """
             databases : CouchDB, mockCouchDB
@@ -229,6 +244,8 @@ class producer(keepalive):
         self.ssl_context.verify_mode = ssl.CERT_NONE
         self.wsmessage_max_size = 1024 * 1024 * 10
         # metrics, logging
+        self.cpu_memory_catch_interval = cpu_memory_catch_interval
+        self.producer_metrics = producer_metrics
         self.start_prometeus_server = start_http_server(prometeus_start_server)
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
         # Deribit requires websockets to make api calls. websockets carrotines cant be called within websockets carotines (maybe can idk). This is the helper to mitigate the problem
@@ -240,15 +257,27 @@ class producer(keepalive):
             self.logger.error("Couldnt fetch deribit depth %s", e, exc_info=True)
         self.loop = None
         # Metrics definitions using prometheus_client library
-        self.CONNECTION_DURATION = Summary('websocket_connection_duration_seconds', 'Time spent in WebSocket connection', ['websocket_id'])
-        self.MESSAGE_SIZE = Histogram('websocket_message_size_bytes', 'Size of WebSocket messages', ['websocket_id'], buckets=[64, 256, 1024, 4096, 16384, 65536])
-        self.ERRORS_DISCONNECTS = Counter('websocket_errors_disconnects_total', 'Count of errors and disconnects', ['websocket_id'])
-        self.RECONNECT_ATTEMPTS = Counter('websocket_reconnect_attempts_total', 'Count of reconnect attempts after disconnecting', ['websocket_id'])
-        self.LATENCY = Gauge('websocket_latency_seconds', 'Latency of WebSocket connections', ['websocket_id'])
-        self.CPU_USAGE = Gauge('server_cpu_usage', 'CPU usage of the server')
-        self.MEMORY_USAGE = Gauge('server_memory_usage_bytes', 'Memory usage of the server')
-        self.DISK_IO = Gauge('server_disk_io_bytes', 'Disk I/O of the server')
-        self.NETWORK_IO = Gauge('server_network_io_bytes', 'Network I/O of the server')
+        if "CONNECTION_DURATION" in producer_metrics:
+            self.CONNECTION_DURATION = Gauge('websocket_connection_duration_seconds', 'Time spent in WebSocket connection', ['websocket_id'])
+        # Note on historgram: Crucially, after retrieving data, Prometheus resets the histogram's internal counters to zero.
+        if "TOTAL_MESSAGES" in producer_metrics:
+            self.TOTAL_MESSAGES = Gauge('websocket_messages_sent_total', 'Total number of WebSocket messages sent', ['websocket_id'])
+        if "MESSAGE_SIZE" in producer_metrics:
+            self.MESSAGE_SIZE = Histogram('websocket_message_size_bytes', 'Size of WebSocket messages', ['websocket_id'], buckets=[64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 10 * 1048576])
+        if "ERRORS_DISCONNECTS" in producer_metrics:
+            self.ERRORS_DISCONNECTS = Counter('websocket_errors_disconnects_total', 'Count of errors and disconnects', ['websocket_id'])
+        if "RECONNECT_ATTEMPTS" in producer_metrics:
+            self.RECONNECT_ATTEMPTS = Counter('websocket_reconnect_attempts_total', 'Count of reconnect attempts after disconnecting', ['websocket_id'])
+        if "NETWORK_LATENCY" in producer_metrics:
+            self.NETWORK_LATENCY = Gauge('websocket_latency_seconds', 'Latency of WebSocket connections', ['websocket_id'])
+        if "CPU_USAGE" in producer_metrics:
+            self.CPU_USAGE = Gauge('server_cpu_usage', 'CPU usage of the server')
+        if "MEMORY_USAGE" in producer_metrics:
+            self.MEMORY_USAGE = Gauge('server_memory_usage_bytes', 'Memory usage of the server')
+        if "DISK_IO" in producer_metrics:
+            self.DISK_IO = Gauge('server_disk_io_bytes', 'Disk I/O of the server')
+        if "NETWORK_IO" in producer_metrics:
+            self.NETWORK_IO = Gauge('server_network_io_bytes', 'Network I/O of the server')
         
         # Ensure that heartbeats is on is some websockets are on
 
@@ -278,6 +307,36 @@ class producer(keepalive):
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
         return logger
+
+    # metrics
+    
+    def update_cpu_usage(self):
+        """ Get CPU usage percentage """
+        cpu_percent = psutil.cpu_percent(interval=1)  # interval specifies the time to wait
+        CPU_USAGE.set(cpu_percent)
+
+    def update_memory_usage(self):
+        """Get memory usage"""
+        memory = psutil.virtual_memory()
+        MEMORY_USAGE.set(memory.used)  # memory.used gives us the amount of used memory
+
+    def update_disk_io(self):
+        """Get disk I/O statistics"""
+        disk_io = psutil.disk_io_counters()
+        DISK_IO.set(disk_io.read_bytes + disk_io.write_bytes)  # Sum of read and write bytes
+
+    def update_network_io(self):
+        """Get network I/O statistics"""
+        network_io = psutil.net_io_counters()
+        NETWORK_IO.set(network_io.bytes_sent + network_io.bytes_recv)  # Sum of sent and received bytes
+        
+    async def CPU_MEMORY_diskIO_networkIO_update(self):
+        while True:
+            self.update_cpu_usage()
+            self.update_memory_usage()
+            self.update_disk_io()
+            self.update_network_io()
+            await asyncio.sleep(self.cpu_memory_catch_interval)  # update every 60 seconds
 
     # Websocket related
     
@@ -338,21 +397,47 @@ class producer(keepalive):
             await websocket.wait_closed() 
         except WebSocketException:
             pass  
+        
+    async def heartbeats_listener(self):
+        """ Ensures that heartbeats of conibase of derebit are running """
+        for heartbeat_id, ws_ids in self.ws_related_to_heartbeat_channel.items():
+            is_heartbeat_on =  self.websockets.get(heartbeat_id).open
+            for ws_id in ws_ids:
+                is_ws_on =  self.websockets.get(ws_id).open
+                if is_heartbeat_on is False and is_ws_on is True:
+                    connection_data = [x for x in self.connection_data if x.get("id_ws") == ws_id][0]
+                    method = self.coinbase_ws if "coinbase" in ws_id else self.deribit_ws
+                    asyncio.create_task(method(connection_data), connection_data.get("topic_name"))
+                    break
+        
+
+    def on_backoff(self, details):
+        """ helper to count reconenct attempts """
+        websocket_id = details['args'][0].get('id_ws')
+        if "RECONNECT_ATTEMPTS" in self.producer_metrics:
+            self.RECONNECT_ATTEMPTS.labels(websocket_id=websocket_id).inc()
+        self.logger.info(f"Reconnecting to WebSocket ID {websocket_id}. Attempt {details['tries']}")
 
     def websocket_wrapper(self, keep_alive_caroutine_attr=None):
         """Pattern for every websocket"""
+
         def decorator(func):
             """decor"""
             @wraps(func)
-            @backoff.on_exception(backoff.expo,
-                                  (WebSocketException, TimeoutError, ConnectionClosed),
-                                  max_tries=self.max_reconnect_retries)
+            @backoff.on_exception(
+                backoff.expo,
+                (WebSocketException, TimeoutError, ConnectionClosed),
+                max_tries=self.max_reconnect_retries,
+                on_backoff=self.on_backoff
+                                  )
             async def wrapper(connection_data, topic):
                 url = connection_data.get("url")
                 id_ws = connection_data.get('id_ws')
                 connection_message = connection_data.get("msg_method")()
                 self.ws_messages[id_ws] = connection_message
                 connection = self.__wsaenter__(connection_data)
+                
+                connection_start_time = time.time() 
                 async with connection as websocket:
                     try:
                         await websocket.send(json.dumps(connection_message))
@@ -374,72 +459,117 @@ class producer(keepalive):
                                 try:
                                     await func(self, connection_data, topic, websocket=websocket,)
                                 except (websockets_heartbeats_errors, TimeoutError) as e:  
+                                    
                                     self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                                    
+                                    # metrics
+                                    if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                                        self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
+                                    if "TOTAL_MESSAGES" in self.producer_metrics:
+                                        self.TOTAL_MESSAGES.labels(websocket_id=websocket_id).set(0)
+                                    if "CONNECTION_DURATION" in self.producer_metrics:
+                                        duration = time.time() - connection_start_time
+                                        self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
+                                        
                                     raise
                     except asyncio.TimeoutError as e:
                         self.logger.exception("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
                     except Exception as e:
                         self.logger.exception("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
                     finally:
+                        # metrics
+                        if "CONNECTION_DURATION" in self.producer_metrics:
+                            duration = time.time() - connection_start_time
+                            self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
+
+                        # safe heartbeat exit
                         if keep_alive_caroutine_attr is not None:
                             await self.stop_keepalive(connection_data)
                         else:
                             if "heartbeat" in id_ws:
+                                
                                 related_ws, heartbeat_key = self.___get_related_ws(connection_data)
                                 are_all_down = all(not self.websockets.get(id_ws).open for id_ws in related_ws)
+                                
                                 if are_all_down:
                                     self.websockets(websocket, self.connection_data.get(heartbeat_key))
+                        
                         self.logger.info("WebSocket connection for %s has ended.", id_ws)
                         await self.__wsaexit__(connection_data)
+                        
+    def process_ws_metrics(self, id_ws, message, latency_start_time):
+        if "MESSAGE_SIZE" in self.producer_metrics:
+            message_size = len(message.encode('utf-8'))   
+            MESSAGE_SIZE.labels(websocket_id=id_ws).observe(message_size)
+        if "NETWORK_LATENCY" in self.producer_metrics:   
+            latency_end_time = time.time()
+            latency = latency_end_time - latency_start_time
+            self.NETWORK_LATENCY.labels(websocket_id=websocket_id).set(latency)
+        if "TOTAL_MESSAGES" in self.producer_metrics:   
+            self.TOTAL_MESSAGES.labels(websocket_id=websocket_id).set(0)
 
-    @websocket_wrapper(None)
-    async def binance_ws(self, connection_data, topic, websocket):
-        message = await websocket.recv()
+    def ws_ping_process(self, message, id_ws):
         if "ping" in message:
             print("Ping recieved %s", id_ws)
-            id_ws = connection_data.get('id_ws')
             self.last_ping_pong_times[id_ws] = time.time()
             await websocket.pong()
             print("Pong send to %s", id_ws)
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
+    
+    def ws_process_logger(self, time_interval, p = "Ping"):
+        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > time_interval:
+            self.logger.exception("%s interval timeout exceeded for WebSocket ID %s", p,  id_ws, exc_info=True)
+            raise TimeoutError(f"{p} interval timeout exceeded for WebSocket ID {id_ws}")
+
+    @websocket_wrapper(None)
+    async def binance_ws(self, connection_data, topic, websocket):
+        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
+        self.ws_ping_process(message, id_ws)
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.binance_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.binance_timeout_interval)
 
     @websocket_wrapper("bybit_keepalive")
     async def bybit_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bybit_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
-                                       
+        self.ws_process_logger(self.bybit_timeout_interval, "Pong")
+                              
     @websocket_wrapper("okx_keepalive")
     async def okx_ws(self, websocket, connection_data, topic):
         id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.okx_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.okx_timeout_interval, "Pong")
         
     @websocket_wrapper(None)
     async def deribit_ws(self, websocket, connection_data, topic):
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         await self.send_message_to_topic(topic, message)
+        self.process_ws_metrics(id_ws, message, latency_start_time)
 
     @websocket_wrapper(None)
     async def deribit_heartbeat(self, websocket, connection_data, topic):
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         message = json.loads(message)
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if message.get("method") == "heartbeat":
             print("Received heartbeat from Deribit server.")
         elif message.get("result") == "ok":
@@ -451,36 +581,42 @@ class producer(keepalive):
                 }
             }
             await websocket.send(json.dumps(test_response))
+        interval = connection_data.get("msg", {}).get("params", {}).get("interval", 5)
+        self.ws_process_logger(interval, "Heartbeat")
 
     @websocket_wrapper("bitget_keepalive")
     async def bitget_ws(self, websocket, connection_data, topic):
-        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bitget_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.bitget_timeout_interval, "Pong")
 
     @websocket_wrapper("kucoin_keepalive")
     async def kucoin_ws(self, websocket, connection_data, topic):
-        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.kucoin_pp_intervals.get(id_ws).get("pingTimeout", 10000):
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        interval = self.kucoin_pp_intervals.get(id_ws).get("pingTimeout", 10000)
+        self.ws_process_logger(interval, "Pong")
 
     @websocket_wrapper(None)
     async def bingx_ws(self, websocket, connection_data, topic):
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         instType = connection_data.get("instType")
         message = await websocket.recv()
         message = gzip.GzipFile(fileobj=io.BytesIO(message), mode='rb').read().decode('utf-8')
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "ping" in message:
             if instType == "spot":
                 message = json.loads(message)
@@ -492,76 +628,110 @@ class producer(keepalive):
                 self.last_ping_pong_times[id_ws] = time.time()
                 self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.bingx_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.bingx_timeout_interval, "Ping")
 
     @websocket_wrapper("mexc_keepalive")
     async def mexc_ws(self, websocket, connection_data, topic):
-        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "PONG" in message or "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.mexc_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.mexc_timeout_interval, "Pong")
 
     @websocket_wrapper("gateio_keepalive")
     async def gateio_ws(self, websocket, connection_data, topic):
-        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.gateio_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
+        self.ws_process_logger(self.mexc_timeout_interval, "Ping")
     
     @websocket_wrapper(None, None)
     async def htx_ws(self, websocket, connection_data, topic):
-        id_ws = connection_data.get('id_ws')
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         if "pong" in message:
             self.last_ping_pong_times[id_ws] = time.time()
             self.KEEP_ALIVE_COUNTS.labels(websocket_id=id_ws).inc()
         await self.send_message_to_topic(topic, message)
-        if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > self.htx_timeout_interval:
-            self.logger.exception("Ping interval timeout exceeded for WebSocket ID %s", id_ws, exc_info=True)
-            raise TimeoutError(f"Ping interval timeout exceeded for WebSocket ID {id_ws}")
-
+        self.ws_process_logger(self.htx_timeout_interval, "Pong")
+        
     @websocket_wrapper(None, None)
     async def coinbase_ws(self, websocket, connection_data, topic):
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
+        self.process_ws_metrics(id_ws, message, latency_start_time)
         await self.send_message_to_topic(topic, message)
 
     @websocket_wrapper(None, None)
     async def coinbase_heartbeats(self, websocket, connection_data, topic):
         pass
     
+    async def heartbeats_listener(self):
+        """ Ensures that heartbeats of conibase of derebit are running """
+        for heartbeat_id, ws_ids in self.ws_related_to_heartbeat_channel.items():
+            is_heartbeat_on =  self.websockets.get(heartbeat_id).open
+            for ws_id in ws_ids:
+                is_ws_on =  self.websockets.get(ws_id).open
+                if is_heartbeat_on is False and is_ws_on is True:
+                    connection_data = [x for x in self.connection_data if x.get("id_ws") == ws_id][0]
+                    method = self.coinbase_ws if "coinbase" in ws_id else self.deribit_ws
+                    asyncio.create_task(method(connection_data), connection_data.get("topic_name"))
+                    break
+    
     # aiohttp caroutine related
     
-    @backoff.on_exception(backoff.expo,
-                        aiohttp_recoverable_errors,  
-                        max_tries=10,  
-                        max_time=300) 
+    @backoff.on_exception(
+        backoff.expo,
+        aiohttp_recoverable_errors,  
+        max_tries=10,  
+        max_time=300,
+        on_backoff=self.on_backoff
+                        ) 
     async def aiohttp_socket(self, connection_data, topic, initial_delay):
         """ initiates aiohttp pipe"""
+        
+        connection_start_time = time.time()
         await asyncio.sleep(initial_delay)
+        
         try:
+        
             while True:
+                latency_start_time = time.time()
                 message = await connection_data.get("aiohttpMethod")()
+                self.process_ws_metrics(id_ws, message, latency_start_time)
                 await self.send_message_to_topic(topic, message)
                 message = message.encode("utf-8")
                 print(sys.getsizeof(message))
                 await asyncio.sleep(connection_data.get("pullTimeout"))
+        
         except aiohttp_recoverable_errors as e:  
+        
             self.logger.exception("Error from %s: %s", connection_data.get('id_api'), e, exc_info=True)
+            
+            if "CONNECTION_DURATION" in self.producer_metrics:
+                duration = time.time() - connection_start_time
+                self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
+
+            if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
             raise  
+        
         except Exception as e:
             logger.exception("Error from %s: %s . The caroutine was completely closed or broken", connection_data.get('id_api'), e, exc_info=True)
+            if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
             break
 
     # Kafka server related    
@@ -667,6 +837,9 @@ class producer(keepalive):
             
             tasks = []
             
+            tasks.append(asyncio.ensure_future(ws_method(self.CPU_MEMORY_diskIO_networkIO_update())))
+            tasks.append(asyncio.ensure_future(ws_method(self.heartbeats_listener())))
+            
             for delay, connection_dict in enumerate(self.connection_data):
                 
                 # websocket caroutines
@@ -707,8 +880,8 @@ class producer(keepalive):
             self.logger.exception("Recoverable error raised %s, reconnecting", e, exc_info=True)
             raise  
         except kafka_restart_errors:
-            self.logger.exception("kafka_restart_errors raised, reconnecting producer... {e}", exc_info=True)
+            self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
             await self.reconnect_producer()
         except kafka_giveup_errors:
-            self.logger.exception("kafka_giveup_errors raised, stopping producer... {e}", exc_info=True)
+            self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
             await self.producer.stop()

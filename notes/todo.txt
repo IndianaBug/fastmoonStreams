@@ -1,43 +1,22 @@
 
 
-1. Ensure that heatbeats is on if related ws connections are on
-
-2. Granuality for Ws metrics:
-  - Connection duration
-  - message size
-  - errors and disconnects. For how long did they lasted?
-  - Errors and reconnect attemps
-  - latency. Alerts when latency is too high. Integrate telegram notifications
-  - CPU, Memory, server load, network I/O, and disk I/O and any otherresource utilization. 
-  Correlate with latency
 
 3. Configure the prometeus server, make short retention. Scrap metrics from there and place them into a database or whatever
+
+3. Configure an sqlite database and write down scraped metrics to there
 
 3 Build telegram alert system
 
 4. Faust has proper metrics to monitor kafka servers, integrate those
 
+5. Security implementation of my webserver and database access
+
+6. Security implementations: regular updates of the operating system. Strong passwords and double-tripple authentication. 
+Firewalls to ports. HTTPS encryption, input validation, Infusion detection, vulnerabilites scanning, maybe give it somebody else.
+
+7. 
 
 
-# import psutil
-
-# # CPU Utilization
-# cpu_usage = psutil.cpu_percent(interval=1)
-
-# # Memory Utilization
-# memory = psutil.virtual_memory()
-# memory_usage = memory.percent  # percentage of memory use
-
-# print(f"CPU Usage: {cpu_usage}%")
-# print(f"Memory Usage: {memory_usage}%")
-
-# # Disk I/O
-# disk_io = psutil.disk_io_counters()
-# print(disk_io)
-
-# # Network I/O
-# net_io = psutil.net_io_counters()
-# print(net_io)
 
 
 #### SETUP TELEGRAM bot

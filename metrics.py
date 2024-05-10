@@ -34,3 +34,13 @@ plt.show()
 # actor_spawned: Number of actors spawned by the worker.
 # actor_active: Number of active actors.
 # actor_died: Number of actors that have died.
+
+
+Start with local storage for CouchDB and PostgreSQL during development and initial testing. 
+
+Security: Implement appropriate security measures for your storage solutions, including encryption at rest and in transit.
+
+Production Deployment: For production deployments, consider using managed cloud database services like AWS RDS or Google Cloud SQL for PostgreSQL metrics to ensure scalability, manageability, and security.
+CouchDB Data: For CouchDB streaming data, evaluate cloud storage solutions like DynamoDB (AWS) or Firestore (Google Cloud) that offer horizontal scaling and real-time access capabilities. Alternatively, consider S3 or Cloud Storage for cost-effective long-term retention.
+
+Data Security: Always implement robust security measures for data access control, encryption, and regular monitoring to safeguard your data.

@@ -143,4 +143,69 @@ def standarize_marginType(instType, marginType):
             return "linear"
     else:
         return instType
-      
+
+
+import logger
+
+class SQLiteDatabaseHandler:
+    
+    def __init__(self, abs_path: str, logger : logger):
+        """ Creates or uses existing database located in {abs_path} and stores its connection """
+        self.logger = logger
+        try:
+            self.conn = sqlite3.connect(str(abs_path))
+            assert self.conn is not None
+        except sqlite3.Error as e:
+            # database could not be created (or opened) -> abort
+            self.logger.exception("database could not be created (or opened) -> abort : %s", e, exc_info=True)
+            sys.exit(1)
+        self.create_table_metrics(0)
+        self.tables = ["producer_metrics", "consumer_metrics"]
+            
+
+    def create_table_metrics(self) -> None:
+        """ createds tables """
+        try:
+            tables = ["producer_metrics", "consumer_metrics"]
+            for table in tables:
+                self.conn.cursor().execute(f"""CREATE TABLE {table}(timestamp STRING PRIMARY KEY)""")
+                self.conn.commit()
+        except sqlite3.Error as e:
+            self.logger.exception("SQLite database creation failed/impossibe : %s", e, exc_info=True)
+            
+    def remove_table(self, tablename: str) -> None:
+        """ removes tables """
+        sql = "DROP TABLE {}".format(tablename)
+        try:
+            self.conn.cursor().executescript(sql)
+            self.conn.commit()
+        except sqlite3.Error as e:
+            self.logger.exception("SQLite database table removing failed : %s", e, exc_info=True)
+
+            
+    def insert_column(self, table, ticker) -> None:
+        """ adds new tables """
+        try:
+            sql = 'ALTER TABLE {} ADD {} FLOAT;'.format(table, ticker.replace('1', 'one').replace('1000', 'thousand')) 
+            self.conn.cursor().execute(sql)
+            self.conn.commit()
+        except sqlite3.Error as e:
+            self.logger.exception("SQLite database table insertion failed failed : %s", e, exc_info=True)
+            
+    def insert_producer_consumer_metrics_columns(self, producer_columns, consumer_columns):
+        """ inserts metriccs names into a table"""
+        d = {"producer_metrics" : consumer_columns, "consumer_metrics" : producer_columns}
+        for identification, metrics in d.items():
+            for metric in metrics:
+                self.insert_column(identification, metric)
+                
+    def insert_many(self, table, data):
+        """ 
+            inserts data into sqlite database
+            data must be in the dictionary form: {"metric_1 : [values....] "metric_2" : [values....]} 
+        """
+        pass
+        
+                    
+                
+
