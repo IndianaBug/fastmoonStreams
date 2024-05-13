@@ -240,13 +240,15 @@ class publisher(keepalive):
                     "DISK_IO",
                     "NETWORK_IO"
                 ],
-                cpu_memory_catch_interval = 60
+                cpu_memory_catch_interval = 60,
+                max_reconnect_retries=8,
                  ):
         """
             databases : CouchDB, mockCouchDB
             ws_timestamp_keys: possible key of timestamps. Needed evaluate latency
             if using tinydb, you must create a folder tinybase
         """
+        super().__init__(max_reconnect_retries)
         self.connection_data = connection_data
         # kafka setup
         self.kafka_host = kafka_host
@@ -302,6 +304,21 @@ class publisher(keepalive):
             self.DISK_IO = Gauge('server_disk_io_bytes', 'Disk I/O of the server')
         if "NETWORK_IO" in producer_metrics:
             self.NETWORK_IO = Gauge('server_network_io_bytes', 'Network I/O of the server')
+
+        # stream handlers
+        self.binance_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.binance_ws_func)
+        self.bitget_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bitget_ws_func)
+        self.bingx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bingx_ws_func)
+        self.bybit_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bybit_ws_func)
+        self.coinbase_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.coinbase_ws_func)
+        self.coinbase_heartbeat_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.coinbase_heartbeat_func)
+        self.deribit_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.deribit_ws_func)
+        self.deribit_heartbeat_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.deribit_heartbeat_func)
+        self.kucoin_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.kucoin_ws_func)
+        self.mexc_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.mexc_ws_func)
+        self.htx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.htx_ws_func)
+        self.okx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.okx_ws_func)
+        self.gateio_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.gateio_ws_func)
         
         # Ensure that heartbeats is on is some websockets are on
 
@@ -453,8 +470,7 @@ class publisher(keepalive):
                 max_tries=max_reconnect_retries,
                 on_backoff=on_backoff
                                   )
-            async def wrapper(*args, **kwargs):
-                self = kwargs.get("self")
+            async def wrapper(self, *args, **kwargs):
                 connection_data = kwargs.get("connection_data")
                 id_ws = connection_data.get('id_ws')
                 connection_message = connection_data.get("msg_method")()
@@ -464,45 +480,18 @@ class publisher(keepalive):
                 async with connection as websocket:
                     try:
                         await websocket.send(json.dumps(connection_message))
+
                         if keep_alive_caroutine_attr is not None:
                             keep_alive_method = getattr(self, keep_alive_caroutine_attr)
                             asyncio.create_task(keep_alive_method(websocket, connection_data, self.logger))
                             
-                        if "heartbeat" not in id_ws:
-                            while websocket.open:
-                                try:
-                                    await func(self, connection_data, websocket=websocket, *args, **kwargs)
-                                except (WebSocketException, TimeoutError) as e:  
-                                    self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
-
-                                    if "ERRORS_DISCONNECTS" in self.producer_metrics:
-                                        self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
-                                    if "TOTAL_MESSAGES" in self.producer_metrics:
-                                        self.TOTAL_MESSAGES.labels(websocket_id=id_ws).set(0)
-                                    if "CONNECTION_DURATION" in self.producer_metrics:
-                                        duration = time.time() - connection_start_time
-                                        self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)                
-                    
-                                    raise
-                                
-                        if "heartbeat" in id_ws:
-                            while websocket.open:
-                                try:
-                                    await func(self, connection_data, websocket=websocket, *args, **kwargs)
-                                except (websockets_heartbeats_errors, TimeoutError) as e:  
-                                    
-                                    self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
-                                    
-                                    # metrics
-                                    if "ERRORS_DISCONNECTS" in self.producer_metrics:
-                                        self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
-                                    if "TOTAL_MESSAGES" in self.producer_metrics:
-                                        self.TOTAL_MESSAGES.labels(websocket_id=id_ws).set(0)
-                                    if "CONNECTION_DURATION" in self.producer_metrics:
-                                        duration = time.time() - connection_start_time
-                                        self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
-                                        
-                                    raise
+                        while websocket.open:
+                            try:
+                                await func(self, connection_data, websocket=websocket, *args, **kwargs)
+                            except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e:  
+                                self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                                self.process_disconnects_metrics(id_ws, connection_start_time)
+                                raise
                                 
                     except asyncio.TimeoutError as e:
                         self.logger.exception("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
@@ -530,6 +519,16 @@ class publisher(keepalive):
                         
                         self.logger.info("WebSocket connection for %s has ended.", id_ws)
                         await self.__wsaexit__(websocket, connection_data)
+
+    def process_disconnects_metrics(self, id_ws, connection_start_time):
+        """ pattern of processing disconnects"""
+        if "ERRORS_DISCONNECTS" in self.producer_metrics:
+            self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
+        if "TOTAL_MESSAGES" in self.producer_metrics:
+            self.TOTAL_MESSAGES.labels(websocket_id=id_ws).set(0)
+        if "CONNECTION_DURATION" in self.producer_metrics:
+            duration = time.time() - connection_start_time
+            self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)      
                         
     def process_ws_metrics(self, id_ws, message, latency_start_time):
         """ processes 3 metrics """
@@ -564,9 +563,10 @@ class publisher(keepalive):
             self.logger.exception("%s interval timeout exceeded for WebSocket ID %s", p,  id_ws, exc_info=True)
             raise TimeoutError(f"{p} interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper(None)
-    async def binance_ws(self, connection_data, websocket):
-        """ binance ws """
+    async def binance_ws_func(self, *args, **kwargs):
+        """ wrapper function for binance ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         id_ws = connection_data.get('id_ws')
         latency_start_time = time.time()
         message = await websocket.recv()
@@ -575,9 +575,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.binance_timeout_interval)
 
-    @websocket_wrapper("bybit_keepalive")
-    async def bybit_ws(self, connection_data, websocket):
-        """ bybit ws"""
+    async def bybit_ws_func(self, *args, **kwargs):
+        """ wrapper function for bybit ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         id_ws = connection_data.get('id_ws')
         latency_start_time = time.time()
         message = await websocket.recv()
@@ -586,9 +587,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.bybit_timeout_interval, "Pong")
                               
-    @websocket_wrapper("okx_keepalive")
-    async def okx_ws(self, connection_data, websocket):
-        """ okx ws"""
+    async def okx_ws_func(self, *args, **kwargs):
+        """ wrapper function for okx ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         id_ws = connection_data.get('id_ws')
         latency_start_time = time.time()
         message = await websocket.recv()
@@ -597,18 +599,20 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.okx_timeout_interval, "Pong")
         
-    @websocket_wrapper(None)
-    async def deribit_ws(self, connection_data, websocket):
-        """ deribit ws"""
+    async def deribit_ws_func(self, *args, **kwargs):
+        """ wrapper function for deribit ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.process_ws_metrics(id_ws, message, latency_start_time)
 
-    @websocket_wrapper(None)
-    async def deribit_heartbeat(self, connection_data, websocket):
-        """ deribit heartbeat"""
+    async def deribit_heartbeat_func(self, *args, **kwargs):
+        """ wrapper function for deribit heartbeat ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -628,9 +632,10 @@ class publisher(keepalive):
         interval = connection_data.get("msg", {}).get("params", {}).get("interval", 5)
         self.ws_process_logger(interval, "Heartbeat")
 
-    @websocket_wrapper("bitget_keepalive")
-    async def bitget_ws(self, connection_data, websocket):
-        """ bitget ws """
+    async def bitget_ws_func(self, *args, **kwargs):
+        """ wrapper function for bitget ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -639,9 +644,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.bitget_timeout_interval, "Pong")
 
-    @websocket_wrapper("kucoin_keepalive")
-    async def kucoin_ws(self, connection_data, websocket):
-        """ kucoin ws"""
+    async def kucoin_ws_func(self, *args, **kwargs):
+        """ wrapper function for kucoin ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -651,9 +657,10 @@ class publisher(keepalive):
         interval = self.kucoin_pp_intervals.get(id_ws).get("pingTimeout", 10000)
         self.ws_process_logger(interval, "Pong")
 
-    @websocket_wrapper(None)
-    async def bingx_ws(self, connection_data, websocket):
-        """ bingx ws"""
+    async def bingx_ws_func(self, *args, **kwargs):
+        """ wrapper function for bingx ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         instType = connection_data.get("instType")
@@ -673,9 +680,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.bingx_timeout_interval, "Ping")
 
-    @websocket_wrapper("mexc_keepalive")
-    async def mexc_ws(self, connection_data, websocket):
-        """ mexc ws"""
+    async def mexc_ws_func(self, *args, **kwargs):
+        """ wrapper function for mexc ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -686,9 +694,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.mexc_timeout_interval, "Pong")
 
-    @websocket_wrapper("gateio_keepalive")
-    async def gateio_ws(self, connection_data, websocket):
-        """ gateio ws"""
+    async def gateio_ws_func(self, *args, **kwargs):
+        """ wrapper function for gateio ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -697,9 +706,10 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.mexc_timeout_interval, "Ping")
     
-    @websocket_wrapper(None)
-    async def htx_ws(self, connection_data, websocket):
-        """ htx ws"""
+    async def htx_ws_func(self, *args, **kwargs):
+        """ wrapper function for htx ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
@@ -708,17 +718,17 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(self.htx_timeout_interval, "Pong")
         
-    @websocket_wrapper(None)
-    async def coinbase_ws(self, connection_data, websocket):
-        """ coinbase ws"""
+    async def coinbase_ws_func(self, *args, **kwargs):
+        """ wrapper function for coinbase ws websocket """
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         self.process_ws_metrics(id_ws, message, latency_start_time)
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
 
-    @websocket_wrapper(None)
-    async def coinbase_heartbeats(self, connection_data, websocket):
+    async def coinbase_heartbeat_func(self, *args, **kwargs):
         """ coinbase heartbeats"""
         pass
     
