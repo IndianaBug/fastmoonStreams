@@ -135,3 +135,18 @@
 [2024-05-13T14:54:57.934+0000][gc,marking  ] GC(6) Concurrent Cleanup for Next Mark
 [2024-05-13T14:54:57.935+0000][gc,marking  ] GC(6) Concurrent Cleanup for Next Mark 0.923ms
 [2024-05-13T14:54:57.935+0000][gc          ] GC(6) Concurrent Mark Cycle 95.813ms
+[2024-05-13T15:57:03.132+0000][gc,start    ] GC(7) Pause Young (Prepare Mixed) (G1 Evacuation Pause)
+[2024-05-13T15:57:03.177+0000][gc,task     ] GC(7) Using 2 workers of 2 for evacuation
+[2024-05-13T15:57:03.225+0000][gc,mmu      ] GC(7) MMU target violated: 21.0ms (20.0ms/21.0ms)
+[2024-05-13T15:57:03.226+0000][gc,phases   ] GC(7)   Pre Evacuate Collection Set: 0.2ms
+[2024-05-13T15:57:03.226+0000][gc,phases   ] GC(7)   Merge Heap Roots: 0.1ms
+[2024-05-13T15:57:03.226+0000][gc,phases   ] GC(7)   Evacuate Collection Set: 2.4ms
+[2024-05-13T15:57:03.226+0000][gc,phases   ] GC(7)   Post Evacuate Collection Set: 35.9ms
+[2024-05-13T15:57:03.226+0000][gc,phases   ] GC(7)   Other: 26.0ms
+[2024-05-13T15:57:03.226+0000][gc,heap     ] GC(7) Eden regions: 50->0(49)
+[2024-05-13T15:57:03.226+0000][gc,heap     ] GC(7) Survivor regions: 1->2(7)
+[2024-05-13T15:57:03.226+0000][gc,heap     ] GC(7) Old regions: 16->16
+[2024-05-13T15:57:03.226+0000][gc,heap     ] GC(7) Humongous regions: 129->129
+[2024-05-13T15:57:03.226+0000][gc,metaspace] GC(7) Metaspace: 37344K(37696K)->37344K(37696K) NonClass: 33255K(33472K)->33255K(33472K) Class: 4089K(4224K)->4089K(4224K)
+[2024-05-13T15:57:03.226+0000][gc          ] GC(7) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 195M->146M(1024M) 93.962ms
+[2024-05-13T15:57:03.226+0000][gc,cpu      ] GC(7) User=0.00s Sys=0.00s Real=0.10s
