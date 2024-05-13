@@ -45,7 +45,7 @@ ws = {
     #     "future.tradesagg.BTC",
     #     "option.tradesagg.BTC", 
     #     "perpetual.heartbeats.BTC",
-        "perpetual.heartbeats.BTC-PERPETUAL"     
+        # "perpetual.heartbeats.BTC-PERPETUAL"     
         ],
     # "bitget" : [
     #     "spot.depth.BTCUSDT.snap", 
@@ -84,12 +84,12 @@ ws = {
 }
 
 api = {
-    # "binance" : [
-    #     "perpetual.funding.BTC.15.spec", 
-    #     "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15.spec",
-    #     "option.oi.BTC.15.spec",
-    #     ],
+    "binance" : [
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
+        "option.oi.BTC.15.spec",
+        ],
     # "bybit" : [
     #     "perpetual.funding.BTC.15.spec", 
     #     "perpetual.oi.BTC.15.spec", 
