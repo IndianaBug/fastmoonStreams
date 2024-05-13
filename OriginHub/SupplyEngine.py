@@ -14,6 +14,7 @@ import aiocouch
 from aiokafka import AIOKafkaProducer
 import websockets
 from  websockets.exceptions import WebSocketException, ConnectionClosed
+from .decorators import keepalive_decorator
 from prometheus_client import start_http_server, Counter, Gauge, Histogram  # https://prometheus.github.io/client_python/exporting/http/wsgi/
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
@@ -22,8 +23,6 @@ import rapidjson as json
 from kafka.errors import BrokerNotAvailableError
 from .errors import websockets_heartbeats_errors, kafka_recoverable_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
 from .utilis import ws_fetcher_helper
-
-
 
 def should_give_up(exc):
     return isinstance(exc, kafka_giveup_errors)
@@ -84,55 +83,31 @@ class keepalive():
     # reconnect retries
     max_reconnect_retries = 8
 
-    # def keep_alive(self):
-    #     """ Pattern of keep alive for every exchange"""
-    #     def decorator(func):
-    #         @wraps(func)
-    #         @backoff.on_exception(backoff.expo,
-    #                                 WebSocketException,
-    #                                 max_tries=self.max_reconnect_retries)
-    #         async def wrapper(self, connection_data, websocket, logger, *args, **kwargs):
-                                
-    #             id_ws = connection_data.get("id_ws", "unknown")
-    #             exchange = connection_data.get("exchnage")
-                
-    #             if exchange == "kucoin":
-    #                 pingInterval, pingTimeout = self.get_kucoin_pingInterval(connection_data)
-    #                 self.kucoin_pp_intervals[id_ws] = {}
-    #                 self.kucoin_pp_intervals[id_ws]["pingInterval"] = pingInterval
-    #                 self.kucoin_pp_intervals[id_ws]["pingTimeout"] = pingTimeout
-                
-    #             self.keep_alives_running[id_ws] = True
-                
-    #             while self.keep_alives_running.get(id_ws, False):
-    #                 try:
-    #                     await func(self, connection_data, websocket=websocket, logger=logger, *args, **kwargs)
-    #                 except aiohttp_recoverable_errors as e:
-    #                     logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-    #                     self.KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchnage=exchange, websocket_id=id_ws).inc()
-    #                     raise
-    #                 except Exception as e:
-    #                     logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-    #                     self.KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchnage=exchange).inc()
-    #                     break
-    #         return wrapper
-        # return decorator
-    
+    def __init__(self, max_reconnect_retries=8, *args, **kwargs):
+        self.max_reconnect_retries = max_reconnect_retries
+        self.binance_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.binance_keepalive_func)
+        self.bitget_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.bitget_keepalive_func)
+        self.bingx_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.bingx_keepalive_func)
+        self.bybit_keepalive = keepalive_decorator(max_reconnect_retries)(self.bybit_keepalive_func)
+        self.gateio_keepalive = keepalive_decorator(max_reconnect_retries)(self.gateio_keepalive_func)
+        self.okx_keepalive = keepalive_decorator(max_reconnect_retries)(self.okx_keepalive_func)
+        self.kucoin_keepalive = keepalive_decorator(max_reconnect_retries)(self.kucoin_keepalive_func)
+        self.mexc_keepalive = keepalive_decorator(max_reconnect_retries)(self.mexc_keepalive_func)
+        self.htx_keepalive = keepalive_decorator(max_reconnect_retries)(self.htx_keepalive_func)
+
     @staticmethod
-    def keep_alive(self):
-        """ Pattern of keep alive for every exchange."""
+    def keepalive_decorator(max_reconnect_retries):
+        """ Pattern of keep alive for every exchange"""
         def decorator(func):
-            @wraps(func)
             @backoff.on_exception(backoff.expo,
-                                  WebSocketException,  # Ensure WebSocketException is imported
-                                  max_tries=self.max_reconnect_retries)
+                                    WebSocketException,
+                                    max_tries=max_reconnect_retries)
             async def wrapper(*args, **kwargs):
-                # self is explicitly passed here as the first argument, args[0]
                 connection_data = kwargs.get('connection_data')
                 websocket = kwargs.get('websocket')
                 logger = kwargs.get('logger')
                 id_ws = connection_data.get("id_ws", "unknown")
-                exchange = connection_data.get("exchange")  # Fixed typo from 'exchnage' to 'exchange'
+                exchange = connection_data.get("exchange")  
                 
                 if exchange == "kucoin":
                     pingInterval, pingTimeout = args[0].get_kucoin_pingInterval(connection_data)
@@ -145,7 +120,7 @@ class keepalive():
                 
                 while args[0].keep_alives_running.get(id_ws, False):
                     try:
-                        await func(*args, **kwargs)
+                        await func(websocket, connection_data, logger, *args, **kwargs)
                     except aiohttp_recoverable_errors as e:
                         logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
                         args[0].KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchange=exchange, websocket_id=id_ws).inc()
@@ -156,6 +131,7 @@ class keepalive():
                         break
             return wrapper
         return decorator
+
 
     def get_kucoin_pingInterval(self, conData):
         """ dynamicall gets ping interval of a kucoin websocket connection """
@@ -168,56 +144,66 @@ class keepalive():
         """ stop keep alive """
         self.keep_alives_running[connection_data.get("id_ws")] = False
 
-    @keep_alive()
-    async def binance_keepalive(self, connection_data, websocket, logger):
+    async def binance_keepalive_func(self, *args, **kwargs):
         """ binance sends you ping and you respond with pong. NOT NEEDED"""
+        websocket = kwargs.get("websocket")
         await websocket.pong(b"") 
         await asyncio.sleep(self.binance_pp_interval) 
 
-    @keep_alive()
-    async def bybit_keepalive(self, connection_data, websocket, logger):
+    async def bybit_keepalive_func(self, *args, **kwargs):
         """ initialize bybit keep alive caroutine"""
-        id_ws = connection_data.get("id_ws")
+        id_ws = kwargs.get("connection_data").get("id_ws")
+        websocket = kwargs.get("websocket")
         await websocket.ping(json.dumps({"op": "ping"})) 
         print("Ping sent to %s", id_ws)
         await asyncio.sleep(self.bybit_pp_interval) 
             
-    @keep_alive()
-    async def okx_keepalive(self, connection_data, websocket, logger):
+    async def okx_keepalive_func(self, *args, **kwargs):
         """ initialize okx keep alive caroutine"""
+        websocket = kwargs.get("websocket")
         await websocket.send("ping") 
         await asyncio.sleep(self.okx_pp_interval) 
             
-    @keep_alive()
-    async def bitget_keepalive(self, connection_data, websocket, logger):
+    async def bitget_keepalive_func(self, *args, **kwargs):
         """ initialize bitget keep alive caroutine"""
+        websocket = kwargs.get("websocket")
         await websocket.send("ping") 
         await asyncio.sleep(self.bitget_pp_interval) 
             
-    @keep_alive()
-    async def bingx_keepalive(self, connection_data, websocket, logger):
+    async def bingx_keepalive_func(self, *args, **kwargs):
         """ initialize bingx keep alive caroutine (ONLY FOR PERPETUAL WEBSOCKETS)"""
+        websocket = kwargs.get("websocket")
         await websocket.send("Pong") 
         await asyncio.sleep(self.bingx_pp_interval) 
 
-    @keep_alive()
-    async def kucoin_keepalive(self, connection_data, websocket, logger):
+    async def kucoin_keepalive_func(self, *args, **kwargs):
         """ initialize kucoin keep alive caroutine"""
+        websocket = kwargs.get("websocket")
+        connection_data = kwargs.get("connection_data")
         await websocket.send({"id": str(connection_data.get("connection_id")), "type": "ping"})
         await asyncio.sleep(self.kucoin_pp_intervals.get(connection_data.get("id_ws")).get("pingInterval", 18000)) 
             
-    @keep_alive()
-    async def mexc_keepalive(self, connection_data, websocket, logger):
+    async def mexc_keepalive_func(self, *args, **kwargs):
         """ initialize mexc keep alive caroutine"""
+        websocket = kwargs.get("websocket")
+        connection_data = kwargs.get("connection_data")
         if connection_data.get("instType") == "spot":
             await websocket.send(json.dumps({"method": "PING"}))
         else:
             await websocket.send(json.dumps({"method": "ping"})) 
         await asyncio.sleep(self.mexc_pp_interval) 
+
+    async def htx_keepalive_func(self, *args, **kwargs):
+        """ initialize mexc keep alive caroutine"""
+        websocket = kwargs.get("websocket")
+        connection_data = kwargs.get("connection_data")
+        await websocket.send(json.dumps({"method": "ping"}))
+        await asyncio.sleep(self.mexc_pp_interval) 
             
-    @keep_alive()
-    async def gateio_keepalive(self, connection_data, websocket, logger):
+    async def gateio_keepalive_func(self, *args, **kwargs):
         """ initialize gateio keep alive caroutine"""
+        websocket = kwargs.get("websocket")
+        connection_data = kwargs.get("connection_data")
         if connection_data.get("instType") == "spot":
             await websocket.send('{"time": %d, "channel" : "spot.ping"}' % int(time.time()))
         if connection_data.get("instType") in ["future", "perpetual"]:
@@ -445,7 +431,7 @@ class publisher(keepalive):
                 if is_heartbeat_on is False and is_ws_on is True:
                     connection_data = [x for x in self.connection_data if x.get("id_ws") == ws_id][0]
                     method = self.coinbase_ws if "coinbase" in ws_id else self.deribit_ws
-                    asyncio.create_task(method(connection_data=connection_data))
+                    asyncio.create_task(method(connection_data))
                     break
         
     def on_backoff(self, details):
@@ -455,19 +441,21 @@ class publisher(keepalive):
             self.RECONNECT_ATTEMPTS.labels(websocket_id=websocket_id).inc()
         self.logger.info("Reconnecting to WebSocket ID %s. Attempt %s", websocket_id, {details['tries']})
 
-    def websocket_wrapper(self, keep_alive_caroutine_attr=None):
+    @staticmethod
+    def websocket_wrapper(max_reconnect_retries, on_backoff, keep_alive_caroutine_attr=None):
         """Pattern for every websocket"""
-
         def decorator(func):
-            """decor"""
+            """decorator"""
             @wraps(func)
             @backoff.on_exception(
                 backoff.expo,
                 (WebSocketException, TimeoutError, ConnectionClosed),
-                max_tries=self.max_reconnect_retries,
-                on_backoff=self.on_backoff
+                max_tries=max_reconnect_retries,
+                on_backoff=on_backoff
                                   )
-            async def wrapper(connection_data, *args, **kwargs):
+            async def wrapper(*args, **kwargs):
+                self = kwargs.get("self")
+                connection_data = kwargs.get("connection_data")
                 id_ws = connection_data.get('id_ws')
                 connection_message = connection_data.get("msg_method")()
                 self.ws_messages[id_ws] = connection_message
@@ -480,10 +468,6 @@ class publisher(keepalive):
                             keep_alive_method = getattr(self, keep_alive_caroutine_attr)
                             asyncio.create_task(keep_alive_method(websocket, connection_data, self.logger))
                             
-                        # If heartbeats is closed properly then fo not reconnect. 
-                        # Others websockets will be closed properly every X amount of times.
-                        # This is due to arquitecture of the data provider
-                        
                         if "heartbeat" not in id_ws:
                             while websocket.open:
                                 try:

@@ -1,4 +1,4 @@
-from producers.points import *
+from OriginHub.ExchangeGateway import *
 from consumers import on_message, flow
 
 class ExchangeAPIClient():
