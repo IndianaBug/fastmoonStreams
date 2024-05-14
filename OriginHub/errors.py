@@ -46,69 +46,54 @@ aiohttp_recoverable_errors = (
     TimeoutError
 )
 
+from kafka.errors import RETRY_ERROR_TYPES
 
-def get_kafka_errors():
-    kafka_errors_module = importlib.import_module('kafka.errors')
-    kafka_errors = {name: cls for name, cls in kafka_errors_module.__dict__.items() if isinstance(cls, type)}
-    return kafka_errors
-kafka_errors = get_kafka_errors()
+# for e, ee in kafka_errors.items():
+#     print(e, ee)
 
-reconnect_error_names = [
-    "kafka_giveup_errors",  # Assuming this is a custom-defined error
-    "KafkaTimeoutError",
-    "KafkaConnectionError",
-    "NotLeaderForPartitionError",
-    "LeaderNotAvailableError",
-    "NetworkException",
-    "RetriableCommitFailedError",
-    "RebalanceInProgressError",
-    "CoordinatorLoadInProgress",
-    "CoordinatorNotAvailable",
-    "NotCoordinator",
-    "UnknownServerException",
-    "BrokerNotAvailableError",
-    "ReplicaNotAvailableError",
-    "RequestTimedOutError",
-    "GroupLoadInProgressError",
-    "GroupCoordinatorNotAvailableError",
-    "NotCoordinatorForGroupError",
-    "NotEnoughReplicasError",
-    "NotEnoughReplicasAfterAppendError",
-    "FetchSessionIdNotFoundError",
-    "FencedLeaderEpochError",
-    "UnknownTopicOrPartitionError",
-    "OffsetOutOfRangeError",
-]
+# def get_kafka_errors():
+#     kafka_errors_module = importlib.import_module('kafka.errors')
+#     kafka_errors = {name: cls for name, cls in kafka_errors_module.__dict__.items() if isinstance(cls, type)}
+#     return kafka_errors
+# kafka_errors = get_kafka_errors()
 
-send_error_names = [
-    "UnknownTopicOrPartitionError",  # The specified topic or partition does not exist on this broker
-    "MessageSizeTooLargeError",  # The message is too large to be sent
-    "RecordListTooLargeError",  # The record list is too large
-    "GroupAuthorizationFailedError",  # Authorization failed for the specified group
-    "ClusterAuthorizationFailedError",  # Authorization failed for the cluster
-    "TopicAuthorizationFailedError",  # Authorization failed for the topic
-    "InvalidTopicError",  # The topic is invalid
-    "CorruptRecordException",  # The record is corrupt
-    "InvalidRequiredAcksError",  # Invalid required acknowledgments
-    "NotEnoughReplicasError",  # Not enough replicas
-    "NotEnoughReplicasAfterAppendError",  # Not enough replicas after appending
-    "RequestTimedOutError",  # Request timed out
-]
+kafka_reconnect_errors = RETRY_ERROR_TYPES
 
-ignore_error_names_on_extraction = [
-    "TopicAlreadyExistsError",
-    "BrokerNotAvailableError", # used for different purpuse
-    "KafkaError",
-]
+kafka_message_errors = (
+    kafka.errors.OffsetMetadataTooLargeError,
+    kafka.errors.StaleControllerEpochError,
+    kafka.errors.MessageSizeTooLargeError,
+    kafka.errors.ReplicaNotAvailableError,
+    kafka.errors.BrokerNotAvailableError,
+    kafka.errors.RequestTimedOutError,
+    kafka.errors.NotLeaderForPartitionError,
+    kafka.errors.InvalidRequiredAcksError,
+    kafka.errors.CorruptRecordException,
+    kafka.errors.InvalidTopicError,
+    kafka.errors.ClusterAuthorizationFailedError,
+    kafka.errors.GroupAuthorizationFailedError,
+    kafka.errors.RecordListTooLargeError,
+    kafka.errors.UnknownTopicOrPartitionError,
+    kafka.errors.TopicAuthorizationFailedError
+)
 
-non_givup_errors = send_error_names+reconnect_error_names+ignore_error_names_on_extraction
+restart_producer_errors = (
+    kafka.errors.NotEnoughReplicasError,
+    kafka.errors.NotEnoughReplicasAfterAppendError,
+    kafka.errors.InvalidReplicationFactorError,
+    kafka.errors.InvalidRequestError,
+    kafka.errors.UnsupportedVersionError,
+    asyncio.TimeoutError,
+    ConnectionError,
+)
+
+from kafka.errors import kafka_errors
+
+kafka_giveup_errors = tuple(
+    set(list(kafka_errors.values())) - set(restart_producer_errors) - set(kafka_reconnect_errors) - set(kafka_message_errors)
+)
 
 
-kafka_restart_errors = list(kafka_errors[name] for name in reconnect_error_names if name in kafka_errors)
-kafka_send_errors = tuple(kafka_errors[name] for name in send_error_names if name in kafka_errors)
-kafka_giveup_errors = tuple(kafka_errors[name] for name in kafka_errors if name not in non_givup_errors)
 
-kafka_restart_errors += [asyncio.TimeoutError, ConnectionError]
-kafka_restart_errors = tuple(kafka_restart_errors)
 
-print()
+

@@ -135,8 +135,6 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
-a = connectionData[0]
-print(a)
 
 
 # for e in connectionData:

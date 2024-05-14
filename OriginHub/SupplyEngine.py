@@ -20,8 +20,11 @@ from confluent_kafka._model import TopicCollection
 import psutil
 import rapidjson as json
 from kafka.errors import BrokerNotAvailableError, TopicAlreadyExistsError
-from .errors import websockets_heartbeats_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
+from kafka.errors import RETRY_ERROR_TYPES as kafka_RETRY_ERROR_TYPES
+from .errors import websockets_heartbeats_errors, restart_producer_errors, kafka_message_errors, aiohttp_recoverable_errors, kafka_giveup_errors
 from .utilis import ws_fetcher_helper
+import kafka
+
 
 def should_give_up(exc):
     return isinstance(exc, kafka_giveup_errors)
@@ -787,22 +790,28 @@ class publisher(keepalive):
         async def wrapper(self, *args, **kwargs):
             try:
                 return await func(self, *args, **kwargs)
-            except kafka_restart_errors as e:
-                self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
+            except kafka_RETRY_ERROR_TYPES as e:
+                if len(args) != 0:
+                    self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
+                else:
+                    self.logger.exception("%s", e, exc_info=True)
                 raise
             except TopicAlreadyExistsError:
                 self.logger.info("Topic already exists, skipping to the next iteration...")
-            except kafka_restart_errors as e:
+            except restart_producer_errors as e:
                 self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
                 await self.reconnect_producer()
-            except kafka_send_errors as e:
-                self.logger.exception("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
+            except kafka_message_errors as e:
+                if len(args) != 0:
+                    self.logger.exception("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
+                else:
+                    self.logger.exception("%s", e, exc_info=True)
             except kafka_giveup_errors as e:
                 self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
                 await self.producer.stop()
         return backoff.on_exception(
             backoff.expo,
-            kafka_restart_errors,
+            kafka_RETRY_ERROR_TYPES,
             max_tries=5,
             max_time=300,
             giveup=should_give_up
@@ -837,15 +846,21 @@ class publisher(keepalive):
         self.producer_running = False
         return False
 
-    @handle_kafka_errors_backup
     async def ensure_topic_exists(self):
         """
             Ensures that topics exist with necessary configurations
         """
-        fs = self.admin.create_topics(self.kafka_topics)
-        for topic, f in fs.items():
-            f.result()  
-            print(f"Topic {topic} created")
+        try:
+            fs = self.admin.create_topics(self.kafka_topics)
+            for topic, f in fs.items():
+                try:
+                    f.result()  
+                    print(f"Topic {topic} created")
+                except KafkaException  as e:
+                    self.logger.info("Topic already exists, skipping to the next iteration...")
+        except TopicAlreadyExistsError as e:
+            self.logger.info("Topic already exists, skipping to the next iteration...")
+
             
     @handle_kafka_errors_backup
     async def send_message_to_topic(self, topic_name, message):
@@ -854,7 +869,6 @@ class publisher(keepalive):
         """
         await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
     
-    @handle_kafka_errors_backup
     def describe_topics(self):
         """
             https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/admin/_topic.py
@@ -862,7 +876,6 @@ class publisher(keepalive):
         topics = self.admin.describe_topics(TopicCollection(self.kafka_topics_names))
         return list(topics.keys())
 
-    @handle_kafka_errors_backup
     def delete_all_topics(self):
         """ deletes topics """
         try:
@@ -879,7 +892,7 @@ class publisher(keepalive):
         """
             Runs roducer
         """
-        self.delete_all_topics()
+        # self.delete_all_topics()
         if is_reconnect is False:
             await self.ensure_topic_exists()    
             self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host, loop=self.loop)

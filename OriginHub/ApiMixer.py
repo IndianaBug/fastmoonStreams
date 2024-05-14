@@ -1,15 +1,26 @@
 import asyncio
-import rapidjson as json
 import re
 from .utilis import *
-from functools import partial
 from .clientpoints_.binance import binance_instType_help
-from .clientpoints_.okx import okx_api_instType_map
 from typing import Callable, Any
+import sys
 
 
-    
-class binance_aoihttp_oioption_manager():
+class CommonFunctionality:
+    @classmethod
+    async def fetch_data(cls, lag):
+        await asyncio.sleep(lag)
+        while cls.running:
+            task = asyncio.create_task(cls.aiomethod())
+            await task
+            for message in cls.data.values():
+                await cls.send_message_to_topic(cls.topic_name, message)
+                message_encoded = message.encode("utf-8")
+                print(sys.getsizeof(message_encoded))
+            await asyncio.sleep(cls.pullTimeout)
+
+
+class binance_aoihttp_oioption_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
         self.running = True
@@ -34,15 +45,6 @@ class binance_aoihttp_oioption_manager():
             await task
             await asyncio.sleep(update_interval)
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def helper(self, symbol, expiration, special_method):
         data = await self.fetcher("option", "oi", symbol=symbol, specialParam=expiration,  special_method=special_method)
         self.data[symbol] = data
@@ -61,8 +63,7 @@ class binance_aoihttp_oioption_manager():
             if expiry not in self.data.copy():
                 del self.data[expiry]
 
-    
-class binance_aoihttp_posfutureperp_manager():
+class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
     """
         I after examining instruments related to BTC, ETHBTC instrument was present but its not suppoused to be. 
         So info API has some mistakes on binance side and it was fixed by filtering all of the symbols that doesnt contain USD
@@ -92,15 +93,6 @@ class binance_aoihttp_posfutureperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def helper_1(self, instType, objective, symbol):
         data = await self.fetcher(instType, objective, symbol=symbol, special_method="posfutureperp")
         if data == "[]" and symbol in self.linear_symbols:
@@ -129,7 +121,7 @@ class binance_aoihttp_posfutureperp_manager():
             if key not in keys:
                 del self.data[key]
 
-class binance_aoihttp_oifutureperp_manager():
+class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_linear_method:callable, info_inverse_method:callable, aiohttpfetch:callable):
         self.running = True
@@ -158,15 +150,6 @@ class binance_aoihttp_oifutureperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def helper(self, instType, symbol):
         data = await self.fetcher(instType, "oi", symbol=symbol, special_method="oifutureperp")
         if "code" not in data:
@@ -190,7 +173,7 @@ class binance_aoihttp_oifutureperp_manager():
             if len([x for x in all_symbols if x in key]) == 0:
                 del self.data[key]
         
-class binance_aoihttp_fundperp_manager():
+class binance_aoihttp_fundperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_linear_method:callable, info_inverse_method:callable, aiohttpfetch:callable):
         self.running = True
@@ -220,15 +203,6 @@ class binance_aoihttp_fundperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def fetch_fund_binance_yeye(self, instType, symbol):
         data = await self.fetcher(instType, "funding", symbol=symbol, special_method="fundperp")
         self.data[f"{symbol}_{instType}"] = data
@@ -241,7 +215,7 @@ class binance_aoihttp_fundperp_manager():
                 tasks.append(self.fetch_fund_binance_yeye(instType, symbol))
         await asyncio.gather(*tasks)    
 
-class bybit_aoihttp_oifutureperp_manager():
+class bybit_aoihttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_linear:callable, info_inverse:callable, aiohttpfetch:callable):
         self.running = True
@@ -268,15 +242,6 @@ class bybit_aoihttp_oifutureperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def h1(self, instType, symbol):
         data = await self.fetcher(instType, "oi", symbol=symbol, special_method="oifutureperp")
         self.data[symbol] = data
@@ -301,7 +266,7 @@ class bybit_aoihttp_oifutureperp_manager():
             if len([x for x in all_symbols if x in key]) == 0:
                 del self.data[key]
         
-class bybit_aoihttp_posfutureperp_manager():
+class bybit_aoihttp_posfutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_linear, info_inverse, aiohttpfetch:callable):
         self.running = True
@@ -329,15 +294,6 @@ class bybit_aoihttp_posfutureperp_manager():
             task = asyncio.create_task(self.get_bybit_instruments())
             await task
             await asyncio.sleep(update_interval) 
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol, instType):
         data = await self.fetcher(instType, "gta", symbol=symbol, special_method="posfutureperp")
@@ -365,7 +321,7 @@ class bybit_aoihttp_posfutureperp_manager():
             if len([x for x in all_symbols if x in key]) == 0:
                 del self.data[key]
     
-class bybit_aoihttp_fundperp_manager():
+class bybit_aoihttp_fundperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_linear, info_inverse, aiohttpfetch:callable):
         self.running = True
@@ -395,15 +351,6 @@ class bybit_aoihttp_fundperp_manager():
             await task
             await asyncio.sleep(update_interval) 
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message)
-            await asyncio.sleep(self.pullTimeout)
-
     async def h1(self, instType, symbol):
         data = await self.fetcher(instType, "funding", symbol=symbol, special_method="fundperp")
         self.data[symbol] = data
@@ -422,7 +369,7 @@ class bybit_aoihttp_fundperp_manager():
                 self.symbols_linear = [item for item in self.symbols_linear if item != k]
                 self.symbols_inverse = [item for item in self.symbols_inverse if item != k]
         
-class okx_aoihttp_oifutureperp_manager():
+class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_perpetual:callable, info_future:callable, aiohttpfetch:callable):
         self.running = True
@@ -451,15 +398,6 @@ class okx_aoihttp_oifutureperp_manager():
             await task
             await asyncio.sleep(update_time)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
-
     async def h1(self, instType, symbol):
         data = await self.fetcher(instType, "oi", symbol)
         self.data[symbol] = data
@@ -478,7 +416,7 @@ class okx_aoihttp_oifutureperp_manager():
             if len([x for x in all_symbols if x == key]) == 0:
                 del self.data[key]
 
-class okx_aoihttp_fundperp_manager():
+class okx_aoihttp_fundperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info_perpetual:callable, aiohttpfetch:callable):
         self.running = True
@@ -506,15 +444,6 @@ class okx_aoihttp_fundperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
-
     async def h1(self, symbol):
         response = await self.fetcher("perpetual", "funding", symbol)
         self.data[symbol] = response
@@ -529,7 +458,7 @@ class okx_aoihttp_fundperp_manager():
             if len([x for x in self.symbols_perpetual if x == key]) == 0:
                 del self.data[key]
 
-class bitget_aoihttp_oifutureperp_manager():
+class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
@@ -552,15 +481,6 @@ class bitget_aoihttp_oifutureperp_manager():
             task = asyncio.create_task(self.get_bitget_perpetual_symbols())
             await task
             await asyncio.sleep(update_interval)  
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
         data = await self.fetcher("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
@@ -573,7 +493,7 @@ class bitget_aoihttp_oifutureperp_manager():
                 tasks.append(self.h1(symbol))
         await asyncio.gather(*tasks)
 
-class bitget_aoihttp_fundperp_manager():
+class bitget_aoihttp_fundperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
@@ -596,15 +516,6 @@ class bitget_aoihttp_fundperp_manager():
             task = asyncio.create_task(self.get_bitget_perpetual_symbols())
             await task
             await asyncio.sleep(update_interval)  
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
 
     async def h1(self, symbol):
         data = await self.fetcher("perpetual", "funding", symbol=symbol, special_method="fundperp")
@@ -624,7 +535,7 @@ class bitget_aoihttp_fundperp_manager():
                         self.symbols_perpetual[symbol].remove(key)
                 del self.data[key]
 
-class gateio_aoihttp_fundperp_manager():
+class gateio_aoihttp_fundperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
@@ -652,15 +563,6 @@ class gateio_aoihttp_fundperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
-
     async def h1(self, symbol):
         data = await self.fetcher("perpetual", "funding", symbol)
         self.data[f"{symbol}"] = data
@@ -673,7 +575,7 @@ class gateio_aoihttp_fundperp_manager():
             tasks.append(self.h1(s))
         await asyncio.gather(*tasks)
 
-class gateio_aoihttp_oifutureperp_manager():
+class gateio_aoihttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
@@ -702,15 +604,6 @@ class gateio_aoihttp_oifutureperp_manager():
             task = asyncio.create_task(self.get_symbols())
             await task
             await asyncio.sleep(update_interval)  
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
 
     async def helper(self, symbol, objective, didi, instType):
         data = await self.fetcher(instType, objective, symbol)
@@ -737,7 +630,7 @@ class gateio_aoihttp_oifutureperp_manager():
                 if "USD" in key and "USDT" not in key: 
                     self.inverse_symbols.remove(key)
 
-class gateio_aoihttp_posfutureperp_manager():
+class gateio_aoihttp_posfutureperp_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
         self.running = True
@@ -767,15 +660,6 @@ class gateio_aoihttp_posfutureperp_manager():
             await task
             await asyncio.sleep(update_interval)  
 
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
-
     async def gateio_positioning_useless_or_not(self, symbol, objective, didi):
         data = await self.fetcher("perpetual", objective, symbol)
         self.data[f"{symbol}"] = data
@@ -789,7 +673,7 @@ class gateio_aoihttp_posfutureperp_manager():
             tasks.append(self.gateio_positioning_useless_or_not(s, "tta", d))
         await asyncio.gather(*tasks)
         
-class htx_aiohttp_oifutureperp_manager():
+class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
 
     def __init__(self, underlying_asset, inverse_future_contract_types_htx, htx_aiohttpFetch):
         self.inverse_future_contract_types_htx = inverse_future_contract_types_htx
@@ -800,16 +684,6 @@ class htx_aiohttp_oifutureperp_manager():
         self.underlying_asset = underlying_asset
         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
         self.topic_name = ""
-
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_oi_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary):
         response = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")      
@@ -828,7 +702,7 @@ class htx_aiohttp_oifutureperp_manager():
             tasks.append(self.htx_fetch_oi_helper_2("future", "oi", self.underlying_asset, ".InverseFuture", self.data, ctype))
         await asyncio.gather(*tasks)
 
-class htx_aiohttp_fundperp_manager():
+class htx_aiohttp_fundperp_manager(CommonFunctionality):
 
     def __init__(self, underlying_asset, inverse_future_contract_types_htx, htx_aiohttpFetch):
         self.inverse_future_contract_types_htx = inverse_future_contract_types_htx
@@ -840,16 +714,6 @@ class htx_aiohttp_fundperp_manager():
         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
         self.topic_name = ""
 
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
-
     async def htx_fetch_fundperp_helper(self, instType, objective, underlying_asset, asset_specification, state_dictionary, marginCoinCoinCoin):
         l = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
         state_dictionary[marginCoinCoinCoin] = l
@@ -860,7 +724,7 @@ class htx_aiohttp_fundperp_manager():
         tasks.append(self.htx_fetch_fundperp_helper("perpetual", "funding", self.underlying_asset, "-USD", self.data, "usd"))
         await asyncio.gather(*tasks)
     
-class htx_aiohttp_posfutureperp_manager():
+class htx_aiohttp_posfutureperp_manager(CommonFunctionality):
 
     def __init__(self, underlying_asset, inverse_future_contract_types_htx, htx_aiohttpFetch):
         self.inverse_future_contract_types_htx = inverse_future_contract_types_htx
@@ -871,15 +735,6 @@ class htx_aiohttp_posfutureperp_manager():
         self.underlying_asset = underlying_asset
         self.send_message_to_topic:Callable[[Any, str, bytes], Any] = None
         self.topic_name = ""
-
-    async def fetch_data(self, lag=0):
-        await asyncio.sleep(lag)
-        while self.running:
-            task = asyncio.create_task(self.aiomethod())
-            await task
-            for message in self.data.values():
-                await self.send_message_to_topic(self.topic_name, message.encode())
-            await asyncio.sleep(self.pullTimeout)
 
     async def htx_fetch_pos_helper(self, instType, objective, underlying_asset, ltype, state_dictionary):
         tta = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}-{ltype}")
