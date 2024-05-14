@@ -14,14 +14,13 @@ import aiocouch
 from aiokafka import AIOKafkaProducer
 import websockets
 from  websockets.exceptions import WebSocketException, ConnectionClosed
-from .decorators import keepalive_decorator
 from prometheus_client import start_http_server, Counter, Gauge, Histogram  # https://prometheus.github.io/client_python/exporting/http/wsgi/
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka._model import TopicCollection
 import psutil
 import rapidjson as json
-from kafka.errors import BrokerNotAvailableError
-from .errors import websockets_heartbeats_errors, kafka_recoverable_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
+from kafka.errors import BrokerNotAvailableError, TopicAlreadyExistsError
+from .errors import websockets_heartbeats_errors, kafka_restart_errors, kafka_giveup_errors, aiohttp_recoverable_errors, kafka_send_errors
 from .utilis import ws_fetcher_helper
 
 def should_give_up(exc):
@@ -88,12 +87,12 @@ class keepalive():
         self.binance_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.binance_keepalive_func)
         self.bitget_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.bitget_keepalive_func)
         self.bingx_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.bingx_keepalive_func)
-        self.bybit_keepalive = keepalive_decorator(max_reconnect_retries)(self.bybit_keepalive_func)
-        self.gateio_keepalive = keepalive_decorator(max_reconnect_retries)(self.gateio_keepalive_func)
-        self.okx_keepalive = keepalive_decorator(max_reconnect_retries)(self.okx_keepalive_func)
-        self.kucoin_keepalive = keepalive_decorator(max_reconnect_retries)(self.kucoin_keepalive_func)
-        self.mexc_keepalive = keepalive_decorator(max_reconnect_retries)(self.mexc_keepalive_func)
-        self.htx_keepalive = keepalive_decorator(max_reconnect_retries)(self.htx_keepalive_func)
+        self.bybit_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.bybit_keepalive_func)
+        self.gateio_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.gateio_keepalive_func)
+        self.okx_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.okx_keepalive_func)
+        self.kucoin_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.kucoin_keepalive_func)
+        self.mexc_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.mexc_keepalive_func)
+        self.htx_keepalive = self.keepalive_decorator(max_reconnect_retries)(self.htx_keepalive_func)
 
     @staticmethod
     def keepalive_decorator(max_reconnect_retries):
@@ -264,7 +263,8 @@ class publisher(keepalive):
         self.ws_messages = {} #ids were dynamicall generated upon creating websockets. IF you need them, extract them from here
         self.websockets = {}
         self.ws_related_to_heartbeat_channel = {}
-        self.___get_list_related_websockets()
+        if self.ws_related_to_heartbeat_channel != {}:
+            self.___get_list_related_websockets()
         self.ssl_context = ssl.create_default_context()
         self.ssl_context.check_hostname = False
         self.ssl_context.verify_mode = ssl.CERT_NONE
@@ -307,18 +307,18 @@ class publisher(keepalive):
 
         # stream handlers
         self.binance_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.binance_ws_func)
-        self.bitget_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bitget_ws_func)
-        self.bingx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bingx_ws_func)
-        self.bybit_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.bybit_ws_func)
+        self.bitget_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.bitget_keepalive)(self.bitget_ws_func)
+        self.bingx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.bingx_keepalive)(self.bingx_ws_func)
+        self.bybit_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.bybit_keepalive)(self.bybit_ws_func)
         self.coinbase_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.coinbase_ws_func)
         self.coinbase_heartbeat_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.coinbase_heartbeat_func)
         self.deribit_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.deribit_ws_func)
         self.deribit_heartbeat_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.deribit_heartbeat_func)
-        self.kucoin_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.kucoin_ws_func)
-        self.mexc_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.mexc_ws_func)
-        self.htx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.htx_ws_func)
-        self.okx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.okx_ws_func)
-        self.gateio_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff)(self.gateio_ws_func)
+        self.kucoin_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.kucoin_keepalive)(self.kucoin_ws_func)
+        self.mexc_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.mexc_keepalive)(self.mexc_ws_func)
+        self.htx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.htx_keepalive)(self.htx_ws_func)
+        self.okx_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.okx_keepalive)(self.okx_ws_func)
+        self.gateio_ws = self.websocket_wrapper(self.max_reconnect_retries, self.on_backoff, self.gateio_keepalive)(self.gateio_ws_func)
         
         # Ensure that heartbeats is on is some websockets are on
 
@@ -519,6 +519,8 @@ class publisher(keepalive):
                         
                         self.logger.info("WebSocket connection for %s has ended.", id_ws)
                         await self.__wsaexit__(websocket, connection_data)
+            return wrapper
+        return decorator
 
     def process_disconnects_metrics(self, id_ws, connection_start_time):
         """ pattern of processing disconnects"""
@@ -734,80 +736,79 @@ class publisher(keepalive):
     
     # aiohttp caroutine related
     
-    def aiohttp_socket(self):
+
+    async def aiohttp_socket(self, connection_data, initial_delay):
         """Initiates aiohttp pipe"""
-        @backoff.on_exception(
-            backoff.expo,
-            aiohttp_recoverable_errors,  
-            max_tries=10,  
-            max_time=300,
-            on_backoff=self.on_backoff
-                            ) 
-        async def inner_aiohttp_socket(connection_data, initial_delay):
-            """ initiates aiohttp pipe"""
-            
-            id_ws = connection_data.get("id_ws")
-            connection_start_time = time.time()
-            await asyncio.sleep(initial_delay)
-            topic = connection_data.get("topic_name")
+        
+        id_ws = connection_data.get("id_ws")
+        connection_start_time = time.time()
+        await asyncio.sleep(initial_delay)
+        topic = connection_data.get("topic_name")
+        print(topic)
+
+        async def inner_aiohttp_socket():
             try:
-            
                 while True:
                     latency_start_time = time.time()
                     message = await connection_data.get("aiohttpMethod")()
                     self.process_ws_metrics(id_ws, message, latency_start_time)
                     await self.send_message_to_topic(topic, message)
-                    message = message.encode("utf-8")
-                    print(sys.getsizeof(message))
+                    message_encoded = message.encode("utf-8")
+                    print(sys.getsizeof(message_encoded))
                     await asyncio.sleep(connection_data.get("pullTimeout"))
-            
-            except aiohttp_recoverable_errors as e:  
-            
+            except aiohttp_recoverable_errors as e:
                 self.logger.exception("Error from %s: %s", connection_data.get('id_api'), e, exc_info=True)
-                
                 if "CONNECTION_DURATION" in self.producer_metrics:
                     duration = time.time() - connection_start_time
                     self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
-
                 if "ERRORS_DISCONNECTS" in self.producer_metrics:
                     self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
-                raise  
-            
+                raise
             except Exception as e:
-                self.logger.exception("Error from %s: %s . The caroutine was completely closed or broken", connection_data.get('id_api'), e, exc_info=True)
+                self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", connection_data.get('id_api'), e, exc_info=True)
                 if "ERRORS_DISCONNECTS" in self.producer_metrics:
                     self.ERRORS_DISCONNECTS.labels(websocket_id=id_ws).inc()
-                    
-        return inner_aiohttp_socket
+        return await backoff.on_exception(
+            backoff.expo,
+            aiohttp_recoverable_errors,
+            max_tries=10,
+            max_time=300,
+            on_backoff=self.on_backoff
+        )(inner_aiohttp_socket)()
 
     # Kafka server related    
 
-    @backoff.on_exception(backoff.expo,
-                          kafka_recoverable_errors,
-                          max_tries=5,
-                          max_time=300,
-                          giveup=should_give_up)
-    def handle_kafka_errors_backup(self, func):
+    @staticmethod
+    def handle_kafka_errors_backup(func):
         """
             Decorator for error and reconnecting handling
         """
         @wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(self, *args, **kwargs):
             try:
-                return await func(*args, **kwargs)
-            except kafka_recoverable_errors as e:
-                self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1], e, exc_info=True)
+                return await func(self, *args, **kwargs)
+            except kafka_restart_errors as e:
+                self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
                 raise
+            except TopicAlreadyExistsError:
+                self.logger.info("Topic already exists, skipping to the next iteration...")
             except kafka_restart_errors as e:
                 self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
                 await self.reconnect_producer()
             except kafka_send_errors as e:
-                self.logger.exception("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1],  e, exc_info=True)
+                self.logger.exception("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
             except kafka_giveup_errors as e:
                 self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
                 await self.producer.stop()
-        return wrapper
+        return backoff.on_exception(
+            backoff.expo,
+            kafka_restart_errors,
+            max_tries=5,
+            max_time=300,
+            giveup=should_give_up
+        )(wrapper)
 
+    @handle_kafka_errors_backup
     async def start_producer(self):
         """
             Starts producer with handling
@@ -836,6 +837,7 @@ class publisher(keepalive):
         self.producer_running = False
         return False
 
+    @handle_kafka_errors_backup
     async def ensure_topic_exists(self):
         """
             Ensures that topics exist with necessary configurations
@@ -852,7 +854,7 @@ class publisher(keepalive):
         """
         await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
     
-            
+    @handle_kafka_errors_backup
     def describe_topics(self):
         """
             https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/admin/_topic.py
@@ -860,6 +862,7 @@ class publisher(keepalive):
         topics = self.admin.describe_topics(TopicCollection(self.kafka_topics_names))
         return list(topics.keys())
 
+    @handle_kafka_errors_backup
     def delete_all_topics(self):
         """ deletes topics """
         try:
@@ -876,60 +879,50 @@ class publisher(keepalive):
         """
             Runs roducer
         """
-        try:
-            # start producer
-            if is_reconnect is False:
-                self.ensure_topic_exists()    
-                self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host, loop=self.loop)
-            await self.start_producer()
+        self.delete_all_topics()
+        if is_reconnect is False:
+            await self.ensure_topic_exists()    
+            self.producer = AIOKafkaProducer(bootstrap_servers=self.kafka_host, loop=self.loop)
+        await self.start_producer()
+        
+        tasks = []
+        
+        tasks.append(asyncio.ensure_future(self.CPU_MEMORY_diskIO_networkIO_update()))
+        tasks.append(asyncio.ensure_future(self.heartbeats_listener()))
+        
+        for delay, connection_dict in enumerate(self.connection_data):
             
-            tasks = []
-            
-            tasks.append(asyncio.ensure_future(self.CPU_MEMORY_diskIO_networkIO_update()))
-            tasks.append(asyncio.ensure_future(self.heartbeats_listener()))
-            
-            for delay, connection_dict in enumerate(self.connection_data):
-                
-                # websocket caroutines
-                if "id_ws" in connection_dict:
-                    connection_message = json.dumps(connection_dict.get("msg_method")())
-                    exchange = connection_dict.get("exchange")
-                    if connection_message.get("channel") != "heartbeats":                                      
-                        ws_method = getattr(self, f"{exchange}_ws", None)
-                    if connection_message.get("channel") == "heartbeats":
-                        ws_method = getattr(self, f"{exchange}_heartbeats", None)
-                    tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
-                        
+            # websocket caroutines
+            if "id_ws" in connection_dict:
+                connection_message = json.dumps(connection_dict.get("msg_method")())
+                exchange = connection_dict.get("exchange")
+                if connection_message.get("channel") != "heartbeats":                                      
+                    ws_method = getattr(self, f"{exchange}_ws", None)
+                if connection_message.get("channel") == "heartbeats":
+                    ws_method = getattr(self, f"{exchange}_heartbeats", None)
+                tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
                     
-                if "id_ws" not in connection_dict and "id_api" in connection_dict:
+                
+            if "id_ws" not in connection_dict and "id_api" in connection_dict:
+                
+                # special dynamic aiohttp caroutines 
+                if connection_dict.get("symbol_update_task") is True:
+                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
                     
-                    # special dynamic aiohttp caroutines 
-                    if connection_dict.get("symbol_update_task") is True:
-                        connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                        connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                        connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(0)))
-                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
-                        
-                    elif connection_dict.get("is_still_nested") is True:
-                        connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
-                        connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
-                        connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
-                        tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
-                        
-                    # regular aiohttp caroutines 
-                    else:
-                        
-                        tasks.append(asyncio.ensure_future(self.aiohttp_socket()(connection_data=connection_dict, initial_delay=delay)))
+                elif connection_dict.get("is_still_nested") is True:
+                    connection_dict["api_call_manager"].pullTimeout = connection_dict.get("pullTimeout")
+                    connection_dict["api_call_manager"].send_message_to_topic = self.send_message_to_topic
+                    connection_dict["api_call_manager"].topic_name = connection_dict.get("topic_name")
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data()))
+                    
+                # regular aiohttp caroutines 
+                else:
+                    
+                    tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_data=connection_dict, initial_delay=delay)))
+            
+            await asyncio.gather(*tasks)
                 
-                await asyncio.gather(*tasks)
-                
-        except kafka_recoverable_errors as e:
-            self.logger.exception("Recoverable error raised %s, reconnecting", e, exc_info=True)
-            raise  
-        except kafka_restart_errors:
-            self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
-            await self.reconnect_producer()
-        except kafka_giveup_errors:
-            self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
-            await self.producer.stop()
