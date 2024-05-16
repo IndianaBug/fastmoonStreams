@@ -84,17 +84,17 @@ ws = {
 
 api = {
     "binance" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
-        "option.oi.BTC.15.spec",
+        # "perpetual.funding.BTC.15.spec", 
+        # "perpetual.oi.BTC.15.spec", 
+        # "perpetual.gta.BTC.15.spec",
+        # "option.oi.BTC.15.spec",
         ],
-    # "bybit" : [
+    "bybit" : [
     #     "perpetual.funding.BTC.15.spec", 
     #     "perpetual.oi.BTC.15.spec", 
     #     "perpetual.gta.BTC.15.spec",
-    #     "option.oioption.BTC.15"
-    #     ],
+        # "option.oioption.BTC.15"
+        ],
     # "okx" : [
     #     "perpetual.oi.BTC.15.spec", 
     #     "perpetual.funding.BTC.15.spec", 
@@ -134,7 +134,6 @@ api = {
 }
 
 connectionData = client.build_connection_data(ws, api)
-
 
 
 # for e in connectionData:

@@ -1,7 +1,7 @@
 Linux:
-permission: chmod -R +x /workspace/fastmoonStreams/kafka
-zookeeper: /workspace/fastmoonStreams/kafka/bin/zookeeper-server-start.sh /workspace/fastmoonStreams/kafka/config/zookeeper.properties
-server: /workspace/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspace/fastmoonStreams/kafka/config/server.properties
+permission: chmod -R +x /workspaces/fastmoonStreams/kafka
+zookeeper: /workspaces/fastmoonStreams/kafka/bin/zookeeper-server-start.sh /workspaces/fastmoonStreams/kafka/config/zookeeper.properties
+server: /workspaces/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspaces/fastmoonStreams/kafka/config/server.properties
 producer: python plauncher.py
 consumer: faust -A c worker -l info --web-port=6066
 check pid of a port: sudo ss -tulpn | grep 6066

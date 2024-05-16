@@ -4,26 +4,95 @@ from .utilis import *
 from .clientpoints_.binance import binance_instType_help
 from typing import Callable, Any
 import sys
+from logging.handlers import RotatingFileHandler
+import backoff
+from .errors import aiohttp_recoverable_errors 
+from pathlib import Path
+import time
+from functools import wraps, partial
+base_path = Path(__file__).parent.parent
+log_file_bytes = 10*1024*1024,
+log_file_backup_count = 5,
 
 
 class CommonFunctionality:
-    @classmethod
-    async def fetch_data(cls, lag):
-        await asyncio.sleep(lag)
-        while cls.running:
-            task = asyncio.create_task(cls.aiomethod())
-            await task
-            for message in cls.data.values():
-                await cls.send_message_to_topic(cls.topic_name, message)
-                message_encoded = message.encode("utf-8")
-                print(sys.getsizeof(message_encoded))
-            await asyncio.sleep(cls.pullTimeout)
+    
+    def __init__(self):
+        self.max_reconnect_retries = "its a reference"
+
+    
+    def wrapper_create_tasks(self, func):
+        """ wrapper for aiohttp tasks"""
+        @wraps(func)
+        async def inner_wrapper_create_tasks(self, connection_data, lag, *args, **kwargs):
+            try:
+                connection_start_time = time.time()
+                id_api = connection_data.get("id_api")
+                await func(self, lag, *args, **kwargs)
+            except aiohttp_recoverable_errors as e:
+                self.logger.exception("Error from %s: %s", id_api, e, exc_info=True)
+                if "CONNECTION_DURATION" in self.producer_metrics:
+                    duration = time.time() - connection_start_time
+                    self.CONNECTION_DURATION.labels(websocket_id=id_api).set(duration)
+                if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
+                raise
+            except Exception as e:
+                self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", id_api, e, exc_info=True)
+                if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
+        return backoff.on_exception(
+                backoff.expo,
+                aiohttp_recoverable_errors,
+                max_tries=self.max_reconnect_retries,
+                max_time=300
+            )(inner_wrapper_create_tasks)
+        
+    def wrapper_update_symbols(func):
+        """ patter for method of updating symbols"""
+        async def inner_wrapper_update_symbols(self, list_of_functions, lag=0, update_interval=60*24, *args, **kwargs):
+            await asyncio.sleep(lag)
+            while self.running:
+                task = asyncio.create_task(self.get_binance_instruments())
+                await task
+                await asyncio.sleep(update_interval)
+                
+        
+    @staticmethod
+    def log_exceptions(func):
+        """ exception wrapper for datainput"""
+        @wraps(func)
+        async def wrapper(self, *args, **kwargs):
+            try:
+                return await func(self, *args, **kwargs)
+            except ValueError as e:
+                self.logger.exception(f"ValueError in {func.__name__}: {e}")
+            except KeyError as e:
+                self.logger.exception(f"KeyError in {func.__name__}: {e}")
+            except asyncio.TimeoutError as e:
+                self.logger.exception(f"TimeoutError in {func.__name__}: {e}")
+            except ConnectionError as e:
+                self.logger.exception(f"ConnectionError in {func.__name__}: {e}")
+            except IndexError as e:
+                self.logger.exception(f"IndexError in {func.__name__}: {e}")
+            except TypeError as e:
+                self.logger.exception(f"TypeError in {func.__name__}: {e}")
+            except AttributeError as e:
+                self.logger.exception(f"AttributeError in {func.__name__}: {e}")
+            except RuntimeError as e:
+                self.logger.exception(f"RuntimeError in {func.__name__}: {e}")
+            except Exception as e:
+                self.logger.exception(f"Unexpected error in {func.__name__}: {e}")
+                raise
+            
+        return wrapper
+            
 
 
 class binance_aoihttp_oioption_manager(CommonFunctionality):
 
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
-        self.running = True
+        super().__init__()
         self.underlying_asset = underlying_asset
         self.expiries = []
         self.get_expiries = binance_get_option_expiries_method
@@ -31,8 +100,8 @@ class binance_aoihttp_oioption_manager(CommonFunctionality):
         self.symbol_update_task = True
         self.data = {}
         self.pullTimeout = 1
-        self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
-        self.topic_name = ""
+
+
 
     async def get_binance_instruments(self):
         expiries = await self.get_expiries(self.underlying_asset)
@@ -44,11 +113,27 @@ class binance_aoihttp_oioption_manager(CommonFunctionality):
             task = asyncio.create_task(self.get_binance_instruments())
             await task
             await asyncio.sleep(update_interval)
+            
+        # await asyncio.sleep(lag)
+        # id_api = self.connection_data.get("id_api")
+        # connection_start_time = time.time()
+        # try:
+        #     while self.running:
+        #         task = asyncio.create_task(self.aiomethod())
+        #         await task
+        #         for message in self.data.values():
+        #             await self.send_message_to_topic(self.topic_name, message)
+        #             message_encoded = message.encode("utf-8")
+        #             print(sys.getsizeof(message_encoded))
+        #         await asyncio.sleep(self.pullTimeout)
 
-    async def helper(self, symbol, expiration, special_method):
+    async def create_task_helper(self, symbol, expiration, special_method):
+        while 
         data = await self.fetcher("option", "oi", symbol=symbol, specialParam=expiration,  special_method=special_method)
-        self.data[symbol] = data
+        self.data[expiration] = data
+        
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         """
             BTC, ETH ...
@@ -57,19 +142,21 @@ class binance_aoihttp_oioption_manager(CommonFunctionality):
         tasks = []
         for expiration in self.expiries:
             tasks.append(self.helper(self.underlying_asset, expiration, "oioption"))
-        await asyncio.gather(*tasks) 
-
+                    
         for expiry in self.expiries:
             if expiry not in self.data.copy():
-                del self.data[expiry]
+                self.expiries.remove(expiry)
+        
+        return tasks
 
-class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
+class binance_aoihttp_posfutureperp_manager():
     """
         I after examining instruments related to BTC, ETHBTC instrument was present but its not suppoused to be. 
         So info API has some mistakes on binance side and it was fixed by filtering all of the symbols that doesnt contain USD
     """
 
     def __init__ (self, underlying_asset, info_linear:callable, aiohttpfetch:callable):
+        super().__init__()
         self.running = True
         self.underlying_asset = underlying_asset
         self.linear_symbols = []
@@ -81,7 +168,7 @@ class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
         self.pullTimeout = 1
         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
         self.topic_name = ""
-
+        
     async def get_binance_instruments(self):
         self.linear_symbols = await self.info_linear_method(self.underlying_asset)
         self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
@@ -104,6 +191,7 @@ class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
         self.data[coinm_symbol+f"coinmAgg_{objective}"] = data
 
+    # @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.linear_symbols:
@@ -114,14 +202,18 @@ class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
                 tasks.append(self.helper_1(instType, objective, symbol))
         for objective in ["tta", "ttp", "gta"]:
             tasks.append(self.helper_2("perpetual", objective, self.inverse_symbol))
+            
         await asyncio.gather(*tasks)
 
         keys = [f"{x}_{o}" for x in self.linear_symbols for o in ["tta", "ttp", "gta"]] + [self.inverse_symbol+f"coinmAgg_{o}" for o in ["tta", "ttp", "gta"]]
         for key in self.data.copy():
             if key not in keys:
                 del self.data[key]
+                
+                
+                
 
-class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
+class binance_aoihttp_oifutureperp_manager():
 
     def __init__ (self, underlying_asset, info_linear_method:callable, info_inverse_method:callable, aiohttpfetch:callable):
         self.running = True
@@ -136,6 +228,33 @@ class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
         self.inverse_symbols = []
         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
         self.topic_name = ""
+        
+    # @with_backoff
+    async def fetch_data_2(self, lag):
+        await asyncio.sleep(lag)
+        id_api = self.connection_data.get("id_api")
+        connection_start_time = time.time()
+        try:
+            while self.running:
+                task = asyncio.create_task(self.aiomethod_2())
+                await task
+                for message in self.data.values():
+                    await self.send_message_to_topic(self.topic_name, message)
+                    message_encoded = message.encode("utf-8")
+                    print(sys.getsizeof(message_encoded))
+                await asyncio.sleep(self.pullTimeout)
+        except aiohttp_recoverable_errors as e:
+            self.logger.exception("Error from %s: %s", id_api, e, exc_info=True)
+            if "CONNECTION_DURATION" in self.producer_metrics:
+                duration = time.time() - connection_start_time
+                self.CONNECTION_DURATION.labels(websocket_id=id_api).set(duration)
+            if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
+            raise
+        except Exception as e:
+            self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", self.connection_data.get('id_api'), e, exc_info=True)
+            if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
 
     async def get_binance_instruments(self):
         self.linear_symbols = await self.info_linear_method(self.underlying_asset)
@@ -160,7 +279,8 @@ class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
             else:
                 self.linear_symbols.remove(symbol)
 
-    async def aiomethod(self):
+    # @CommonFunctionality.log_exceptions
+    async def aiomethod_2(self):
         tasks = []
         for symbol in self.linear_symbols + self.inverse_symbols:
             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
@@ -195,7 +315,6 @@ class binance_aoihttp_fundperp_manager(CommonFunctionality):
         self.inverse_symbols = await self.info_inverse_method(self.underlying_asset)
         self.inverse_symbols = [x for x in self.inverse_symbols if self.underlying_asset in x and "USD" in  x and bool(re.search(r'\d', x.split("_")[-1])) is False]  
 
-
     async def update_symbols(self, lag=0, update_interval=60*24):
         await asyncio.sleep(lag)
         while self.running:
@@ -207,6 +326,7 @@ class binance_aoihttp_fundperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, "funding", symbol=symbol, special_method="fundperp")
         self.data[f"{symbol}_{instType}"] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.linear_symbols + self.inverse_symbols:
@@ -250,6 +370,7 @@ class bybit_aoihttp_oifutureperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, "oi", symbol=symbol, special_method="oifutureperp")
         self.data[symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.symbols_linear:
@@ -303,6 +424,7 @@ class bybit_aoihttp_posfutureperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, "gta", symbol=symbol, special_method="posfutureperp")
         self.data["Inverse_"+symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.symbols_linear:
@@ -355,6 +477,7 @@ class bybit_aoihttp_fundperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, "funding", symbol=symbol, special_method="fundperp")
         self.data[symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.symbols_linear + self.symbols_inverse:
@@ -402,6 +525,7 @@ class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
         data = await self.fetcher(instType, "oi", symbol)
         self.data[symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for s in self.symbols_perpetual:
@@ -448,6 +572,7 @@ class okx_aoihttp_fundperp_manager(CommonFunctionality):
         response = await self.fetcher("perpetual", "funding", symbol)
         self.data[symbol] = response
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for symbol in self.symbols_perpetual:
@@ -486,6 +611,7 @@ class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
         data = await self.fetcher("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
         self.data[symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for margin in self.symbols_perpetual:
@@ -521,6 +647,7 @@ class bitget_aoihttp_fundperp_manager(CommonFunctionality):
         data = await self.fetcher("perpetual", "funding", symbol=symbol, special_method="fundperp")
         self.data[symbol] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for margin in self.symbols_perpetual:
@@ -567,6 +694,7 @@ class gateio_aoihttp_fundperp_manager(CommonFunctionality):
         data = await self.fetcher("perpetual", "funding", symbol)
         self.data[f"{symbol}"] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for s in self.inverse_symbols:
@@ -608,7 +736,8 @@ class gateio_aoihttp_oifutureperp_manager(CommonFunctionality):
     async def helper(self, symbol, objective, didi, instType):
         data = await self.fetcher(instType, objective, symbol)
         self.data[f"{symbol}"] = data
-        
+    
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         d = {}
         tasks = []
@@ -664,6 +793,7 @@ class gateio_aoihttp_posfutureperp_manager(CommonFunctionality):
         data = await self.fetcher("perpetual", objective, symbol)
         self.data[f"{symbol}"] = data
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         d = {}
         tasks = []
@@ -694,6 +824,7 @@ class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
 
         state_dictionary[f"{underlying_asset}{asset_specification}"] = response
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         tasks.append(self.htx_fetch_oi_helper("perpetual", "oiall", self.underlying_asset, "-USDT.LinearPerpetual", self.data))
@@ -718,6 +849,7 @@ class htx_aiohttp_fundperp_manager(CommonFunctionality):
         l = await self.htx_aiohttpFetch(instType, objective, f"{underlying_asset}{asset_specification}")
         state_dictionary[marginCoinCoinCoin] = l
 
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         tasks.append(self.htx_fetch_fundperp_helper("perpetual", "funding", self.underlying_asset, "-USDT", self.data, "usdt"))
@@ -744,7 +876,8 @@ class htx_aiohttp_posfutureperp_manager(CommonFunctionality):
         tta = await self.htx_aiohttpFetch(instType, obj, f"{underlying_asset}.InverseFuture")
 
         state_dictionary[f"{underlying_asset}_InverseFuture_tta"] = tta
-        
+    
+    @CommonFunctionality.log_exceptions
     async def aiomethod(self):
         tasks = []
         for ltype in ["USDT", "USD", "USDT-FUTURES"]:

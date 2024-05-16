@@ -48,15 +48,6 @@ aiohttp_recoverable_errors = (
 
 from kafka.errors import RETRY_ERROR_TYPES
 
-# for e, ee in kafka_errors.items():
-#     print(e, ee)
-
-# def get_kafka_errors():
-#     kafka_errors_module = importlib.import_module('kafka.errors')
-#     kafka_errors = {name: cls for name, cls in kafka_errors_module.__dict__.items() if isinstance(cls, type)}
-#     return kafka_errors
-# kafka_errors = get_kafka_errors()
-
 kafka_reconnect_errors = RETRY_ERROR_TYPES
 
 kafka_message_errors = (
@@ -92,6 +83,8 @@ from kafka.errors import kafka_errors
 kafka_giveup_errors = tuple(
     set(list(kafka_errors.values())) - set(restart_producer_errors) - set(kafka_reconnect_errors) - set(kafka_message_errors)
 )
+
+
 
 
 
