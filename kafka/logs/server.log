@@ -1,40 +1,814 @@
-[2024-05-16 15:17:43,221] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 3 in 1 ms. (kafka.log.LocalLog)
-[2024-05-16 15:17:43,222] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1] Wrote producer snapshot at offset 3 with 0 producer ids in 0 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2024-05-16 15:17:43,222] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=0, size=518, lastModifiedTime=1715868906554, largestRecordTimestamp=1715868906556) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,223] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 3 due to segment deletion (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,224] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 2 in 0 ms. (kafka.log.LocalLog)
-[2024-05-16 15:17:43,224] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3] Wrote producer snapshot at offset 2 with 0 producer ids in 1 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2024-05-16 15:17:43,225] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=0, size=326, lastModifiedTime=1715868906546, largestRecordTimestamp=1715868906552) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,225] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 2 due to segment deletion (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,226] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 8 in 1 ms. (kafka.log.LocalLog)
-[2024-05-16 15:17:43,226] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4] Wrote producer snapshot at offset 8 with 0 producer ids in 0 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2024-05-16 15:17:43,226] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=0, size=1214, lastModifiedTime=1715868906546, largestRecordTimestamp=1715868906551) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,227] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 8 due to segment deletion (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,228] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 2 in 1 ms. (kafka.log.LocalLog)
-[2024-05-16 15:17:43,228] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0] Wrote producer snapshot at offset 2 with 0 producer ids in 0 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2024-05-16 15:17:43,228] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=0, size=284, lastModifiedTime=1715868906550, largestRecordTimestamp=1715868906554) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,228] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 2 due to segment deletion (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,229] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 1 in 0 ms. (kafka.log.LocalLog)
-[2024-05-16 15:17:43,229] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2] Wrote producer snapshot at offset 1 with 0 producer ids in 1 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2024-05-16 15:17:43,229] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=0, size=188, lastModifiedTime=1715868906550, largestRecordTimestamp=1715868906553) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
-[2024-05-16 15:17:43,230] INFO [UnifiedLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 1 due to segment deletion (kafka.log.UnifiedLog)
-[2024-05-16 15:18:43,223] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=0, size=518, lastModifiedTime=1715868906554, largestRecordTimestamp=1715868906556) (kafka.log.LocalLog$)
-[2024-05-16 15:18:43,224] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,224] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,224] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,225] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=0, size=326, lastModifiedTime=1715868906546, largestRecordTimestamp=1715868906552) (kafka.log.LocalLog$)
-[2024-05-16 15:18:43,225] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,225] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,225] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,228] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=0, size=1214, lastModifiedTime=1715868906546, largestRecordTimestamp=1715868906551) (kafka.log.LocalLog$)
-[2024-05-16 15:18:43,228] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,228] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,228] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,228] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=0, size=284, lastModifiedTime=1715868906550, largestRecordTimestamp=1715868906554) (kafka.log.LocalLog$)
-[2024-05-16 15:18:43,229] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,229] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,229] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,230] INFO [LocalLog partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=0, size=188, lastModifiedTime=1715868906550, largestRecordTimestamp=1715868906553) (kafka.log.LocalLog$)
-[2024-05-16 15:18:43,230] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,230] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
-[2024-05-16 15:18:43,231] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
+[2024-05-17 11:47:16,128] INFO Reading configuration from: /workspaces/fastmoonStreams/kafka/config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,137] INFO clientPortAddress is 0.0.0.0:2181 (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,137] INFO secureClientPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,137] INFO observerMasterPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,138] INFO metricsProvider.className is org.apache.zookeeper.metrics.impl.DefaultMetricsProvider (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,143] INFO autopurge.snapRetainCount set to 3 (org.apache.zookeeper.server.DatadirCleanupManager)
+[2024-05-17 11:47:16,143] INFO autopurge.purgeInterval set to 0 (org.apache.zookeeper.server.DatadirCleanupManager)
+[2024-05-17 11:47:16,143] INFO Purge task is not scheduled. (org.apache.zookeeper.server.DatadirCleanupManager)
+[2024-05-17 11:47:16,144] WARN Either no config or no quorum defined in config, running in standalone mode (org.apache.zookeeper.server.quorum.QuorumPeerMain)
+[2024-05-17 11:47:16,154] INFO Log4j 1.2 jmx support not found; jmx disabled. (org.apache.zookeeper.jmx.ManagedUtil)
+[2024-05-17 11:47:16,158] INFO Reading configuration from: /workspaces/fastmoonStreams/kafka/config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,158] INFO clientPortAddress is 0.0.0.0:2181 (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,159] INFO secureClientPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,159] INFO observerMasterPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,159] INFO metricsProvider.className is org.apache.zookeeper.metrics.impl.DefaultMetricsProvider (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-05-17 11:47:16,159] INFO Starting server (org.apache.zookeeper.server.ZooKeeperServerMain)
+[2024-05-17 11:47:16,195] INFO ServerMetrics initialized with provider org.apache.zookeeper.metrics.impl.DefaultMetricsProvider@197d671 (org.apache.zookeeper.server.ServerMetrics)
+[2024-05-17 11:47:16,212] INFO ACL digest algorithm is: SHA1 (org.apache.zookeeper.server.auth.DigestAuthenticationProvider)
+[2024-05-17 11:47:16,212] INFO zookeeper.DigestAuthenticationProvider.enabled = true (org.apache.zookeeper.server.auth.DigestAuthenticationProvider)
+[2024-05-17 11:47:16,222] INFO zookeeper.snapshot.trust.empty : false (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
+[2024-05-17 11:47:16,249] INFO  (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO   ______                  _                                           (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO  |___  /                 | |                                          (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO     / /    ___     ___   | | __   ___    ___   _ __     ___   _ __    (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO    / /    / _ \   / _ \  | |/ /  / _ \  / _ \ | '_ \   / _ \ | '__| (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO   / /__  | (_) | | (_) | |   <  |  __/ |  __/ | |_) | |  __/ | |     (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO  /_____|  \___/   \___/  |_|\_\  \___|  \___| | .__/   \___| |_| (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,250] INFO                                               | |                      (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,251] INFO                                               |_|                      (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,251] INFO  (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,253] INFO Server environment:zookeeper.version=3.8.3-6ad6d364c7c0bcf0de452d54ebefa3058098ab56, built on 2023-10-05 10:34 UTC (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,253] INFO Server environment:host.name=localhost (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,254] INFO Server environment:java.version=21.0.2 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,254] INFO Server environment:java.vendor=Microsoft (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,255] INFO Server environment:java.home=/usr/local/sdkman/candidates/java/21.0.2-ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,258] INFO Server environment:java.class.path=/workspaces/fastmoonStreams/kafka/bin/../libs/activation-1.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/aopalliance-repackaged-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/argparse4j-0.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/audience-annotations-0.12.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/caffeine-2.9.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/checker-qual-3.19.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-beanutils-1.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-cli-1.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-collections-3.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-digester-2.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-io-2.11.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-lang3-3.8.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-logging-1.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-validator-1.7.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-basic-auth-extension-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-json-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-client-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-runtime-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-transforms-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/error_prone_annotations-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-api-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-locator-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-utils-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-core-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-databind-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-dataformat-csv-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-datatype-jdk8-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-base-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-json-provider-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-jaxb-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-scala_2.13-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.activation-api-1.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.annotation-api-1.3.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.inject-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.validation-api-2.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.ws.rs-api-2.1.6.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.xml.bind-api-2.3.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javassist-3.29.2-GA.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.activation-api-1.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.annotation-api-1.3.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.servlet-api-3.1.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.ws.rs-api-2.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jaxb-api-2.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-client-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-common-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-core-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-hk2-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-server-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-client-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-continuation-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-http-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-io-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-security-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-server-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlet-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlets-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-ajax-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jline-3.22.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jopt-simple-5.0.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jose4j-0.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jsr305-3.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-clients-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-group-coordinator-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-log4j-appender-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-metadata-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-raft-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-common-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-shell-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-examples-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-scala_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-test-utils-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/lz4-java-1.8.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/maven-artifact-3.8.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-2.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-4.1.12.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-buffer-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-codec-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-handler-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-resolver-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-classes-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-unix-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/opentelemetry-proto-1.0.0-alpha.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/osgi-resource-locator-1.0.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/paranamer-2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/pcollections-4.0.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/plexus-utils-3.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/protobuf-java-3.23.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reflections-0.10.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reload4j-1.2.25.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/rocksdbjni-7.9.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-collection-compat_2.13-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-java8-compat_2.13-1.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-library-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-logging_2.13-3.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-reflect-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-api-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-reload4j-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/snappy-java-1.1.10.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/swagger-annotations-2.2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/trogdor-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-jute-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zstd-jni-1.5.5-6.jar (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,264] INFO Server environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,272] INFO Server environment:java.io.tmpdir=/tmp (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,272] INFO Server environment:java.compiler=<NA> (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,272] INFO Server environment:os.name=Linux (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,272] INFO Server environment:os.arch=amd64 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:os.version=6.5.0-1019-azure (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:user.name=codespace (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:user.home=/home/codespace (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:user.dir=/workspaces/fastmoonStreams (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:os.memory.free=490MB (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,273] INFO Server environment:os.memory.max=512MB (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,274] INFO Server environment:os.memory.total=512MB (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,274] INFO zookeeper.enableEagerACLCheck = false (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,274] INFO zookeeper.digest.enabled = true (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,274] INFO zookeeper.closeSessionTxn.enabled = true (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,275] INFO zookeeper.flushDelay = 0 ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,275] INFO zookeeper.maxWriteQueuePollTime = 0 ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,276] INFO zookeeper.maxBatchSize=1000 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,276] INFO zookeeper.intBufferStartingSizeBytes = 1024 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,278] INFO Weighed connection throttling is disabled (org.apache.zookeeper.server.BlueThrottle)
+[2024-05-17 11:47:16,280] INFO minSessionTimeout set to 6000 ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,280] INFO maxSessionTimeout set to 60000 ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,283] INFO getData response cache size is initialized with value 400. (org.apache.zookeeper.server.ResponseCache)
+[2024-05-17 11:47:16,284] INFO getChildren response cache size is initialized with value 400. (org.apache.zookeeper.server.ResponseCache)
+[2024-05-17 11:47:16,286] INFO zookeeper.pathStats.slotCapacity = 60 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,286] INFO zookeeper.pathStats.slotDuration = 15 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,286] INFO zookeeper.pathStats.maxDepth = 6 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,286] INFO zookeeper.pathStats.initialDelay = 5 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,288] INFO zookeeper.pathStats.delay = 5 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,288] INFO zookeeper.pathStats.enabled = false (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
+[2024-05-17 11:47:16,291] INFO The max bytes for all large requests are set to 104857600 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,291] INFO The large request threshold is set to -1 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,292] INFO zookeeper.enforce.auth.enabled = false (org.apache.zookeeper.server.AuthenticationHelper)
+[2024-05-17 11:47:16,292] INFO zookeeper.enforce.auth.schemes = [] (org.apache.zookeeper.server.AuthenticationHelper)
+[2024-05-17 11:47:16,292] INFO Created server with tickTime 3000 ms minSessionTimeout 6000 ms maxSessionTimeout 60000 ms clientPortListenBacklog -1 datadir /workspaces/fastmoonStreams/kafka/data/version-2 snapdir /workspaces/fastmoonStreams/kafka/data/version-2 (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,314] INFO Using org.apache.zookeeper.server.NIOServerCnxnFactory as server connection factory (org.apache.zookeeper.server.ServerCnxnFactory)
+[2024-05-17 11:47:16,335] WARN maxCnxns is not configured, using default value 0. (org.apache.zookeeper.server.ServerCnxnFactory)
+[2024-05-17 11:47:16,337] INFO Configuring NIO connection handler with 10s sessionless connection timeout, 1 selector thread(s), 4 worker threads, and 64 kB direct buffers. (org.apache.zookeeper.server.NIOServerCnxnFactory)
+[2024-05-17 11:47:16,347] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)
+[2024-05-17 11:47:16,368] INFO Using org.apache.zookeeper.server.watch.WatchManager as watch manager (org.apache.zookeeper.server.watch.WatchManagerFactory)
+[2024-05-17 11:47:16,368] INFO Using org.apache.zookeeper.server.watch.WatchManager as watch manager (org.apache.zookeeper.server.watch.WatchManagerFactory)
+[2024-05-17 11:47:16,369] INFO zookeeper.snapshotSizeFactor = 0.33 (org.apache.zookeeper.server.ZKDatabase)
+[2024-05-17 11:47:16,369] INFO zookeeper.commitLogCount=500 (org.apache.zookeeper.server.ZKDatabase)
+[2024-05-17 11:47:16,375] INFO zookeeper.snapshot.compression.method = CHECKED (org.apache.zookeeper.server.persistence.SnapStream)
+[2024-05-17 11:47:16,382] INFO Reading snapshot /workspaces/fastmoonStreams/kafka/data/version-2/snapshot.98 (org.apache.zookeeper.server.persistence.FileSnap)
+[2024-05-17 11:47:16,394] INFO The digest in the snapshot has digest version of 2, with zxid as 0x98, and digest value as 190920319784 (org.apache.zookeeper.server.DataTree)
+[2024-05-17 11:47:16,419] INFO ZooKeeper audit is disabled. (org.apache.zookeeper.audit.ZKAuditProvider)
+[2024-05-17 11:47:16,422] INFO 36 txns loaded in 13 ms (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
+[2024-05-17 11:47:16,423] INFO Snapshot loaded in 53 ms, highest zxid is 0xbc, digest is 187181033070 (org.apache.zookeeper.server.ZKDatabase)
+[2024-05-17 11:47:16,424] INFO Snapshotting: 0xbc to /workspaces/fastmoonStreams/kafka/data/version-2/snapshot.bc (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
+[2024-05-17 11:47:16,430] INFO Snapshot taken in 6 ms (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:16,444] INFO zookeeper.request_throttler.shutdownTimeout = 10000 ms (org.apache.zookeeper.server.RequestThrottler)
+[2024-05-17 11:47:16,445] INFO PrepRequestProcessor (sid:0) started, reconfigEnabled=false (org.apache.zookeeper.server.PrepRequestProcessor)
+[2024-05-17 11:47:16,475] INFO Using checkIntervalMs=60000 maxPerMinute=10000 maxNeverUsedIntervalMs=0 (org.apache.zookeeper.server.ContainerManager)
+[2024-05-17 11:47:34,840] INFO Expiring session 0x1000002eca60001, timeout of 18000ms exceeded (org.apache.zookeeper.server.ZooKeeperServer)
+[2024-05-17 11:47:34,842] INFO Creating new log file: log.bd (org.apache.zookeeper.server.persistence.FileTxnLog)
+[2024-05-17 11:47:37,953] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
+[2024-05-17 11:47:38,605] INFO Setting -D jdk.tls.rejectClientInitiatedRenegotiation=true to disable client-initiated TLS renegotiation (org.apache.zookeeper.common.X509Util)
+[2024-05-17 11:47:38,804] INFO Registered signal handlers for TERM, INT, HUP (org.apache.kafka.common.utils.LoggingSignalHandler)
+[2024-05-17 11:47:38,806] INFO starting (kafka.server.KafkaServer)
+[2024-05-17 11:47:38,807] INFO Connecting to zookeeper on localhost:2181 (kafka.server.KafkaServer)
+[2024-05-17 11:47:38,822] INFO [ZooKeeperClient Kafka server] Initializing a new session to localhost:2181. (kafka.zookeeper.ZooKeeperClient)
+[2024-05-17 11:47:38,827] INFO Client environment:zookeeper.version=3.8.3-6ad6d364c7c0bcf0de452d54ebefa3058098ab56, built on 2023-10-05 10:34 UTC (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,827] INFO Client environment:host.name=localhost (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,827] INFO Client environment:java.version=21.0.2 (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,827] INFO Client environment:java.vendor=Microsoft (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,827] INFO Client environment:java.home=/usr/local/sdkman/candidates/java/21.0.2-ms (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,828] INFO Client environment:java.class.path=/workspaces/fastmoonStreams/kafka/bin/../libs/activation-1.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/aopalliance-repackaged-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/argparse4j-0.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/audience-annotations-0.12.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/caffeine-2.9.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/checker-qual-3.19.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-beanutils-1.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-cli-1.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-collections-3.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-digester-2.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-io-2.11.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-lang3-3.8.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-logging-1.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-validator-1.7.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-basic-auth-extension-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-json-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-client-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-runtime-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-transforms-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/error_prone_annotations-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-api-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-locator-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-utils-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-core-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-databind-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-dataformat-csv-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-datatype-jdk8-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-base-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-json-provider-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-jaxb-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-scala_2.13-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.activation-api-1.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.annotation-api-1.3.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.inject-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.validation-api-2.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.ws.rs-api-2.1.6.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.xml.bind-api-2.3.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javassist-3.29.2-GA.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.activation-api-1.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.annotation-api-1.3.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.servlet-api-3.1.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.ws.rs-api-2.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jaxb-api-2.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-client-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-common-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-core-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-hk2-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-server-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-client-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-continuation-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-http-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-io-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-security-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-server-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlet-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlets-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-ajax-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jline-3.22.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jopt-simple-5.0.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jose4j-0.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jsr305-3.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-clients-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-group-coordinator-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-log4j-appender-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-metadata-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-raft-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-common-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-shell-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-examples-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-scala_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-test-utils-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/lz4-java-1.8.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/maven-artifact-3.8.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-2.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-4.1.12.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-buffer-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-codec-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-handler-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-resolver-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-classes-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-unix-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/opentelemetry-proto-1.0.0-alpha.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/osgi-resource-locator-1.0.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/paranamer-2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/pcollections-4.0.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/plexus-utils-3.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/protobuf-java-3.23.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reflections-0.10.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reload4j-1.2.25.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/rocksdbjni-7.9.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-collection-compat_2.13-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-java8-compat_2.13-1.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-library-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-logging_2.13-3.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-reflect-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-api-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-reload4j-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/snappy-java-1.1.10.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/swagger-annotations-2.2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/trogdor-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-jute-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zstd-jni-1.5.5-6.jar (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,829] INFO Client environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,829] INFO Client environment:java.io.tmpdir=/tmp (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,829] INFO Client environment:java.compiler=<NA> (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,829] INFO Client environment:os.name=Linux (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,829] INFO Client environment:os.arch=amd64 (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,830] INFO Client environment:os.version=6.5.0-1019-azure (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,830] INFO Client environment:user.name=codespace (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,830] INFO Client environment:user.home=/home/codespace (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,830] INFO Client environment:user.dir=/workspaces/fastmoonStreams (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,830] INFO Client environment:os.memory.free=981MB (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,831] INFO Client environment:os.memory.max=1024MB (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,831] INFO Client environment:os.memory.total=1024MB (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,833] INFO Initiating client connection, connectString=localhost:2181 sessionTimeout=18000 watcher=kafka.zookeeper.ZooKeeperClient$ZooKeeperClientWatcher$@5a37d3ed (org.apache.zookeeper.ZooKeeper)
+[2024-05-17 11:47:38,838] INFO jute.maxbuffer value is 4194304 Bytes (org.apache.zookeeper.ClientCnxnSocket)
+[2024-05-17 11:47:38,844] INFO zookeeper.request.timeout value is 0. feature enabled=false (org.apache.zookeeper.ClientCnxn)
+[2024-05-17 11:47:38,846] INFO [ZooKeeperClient Kafka server] Waiting until connected. (kafka.zookeeper.ZooKeeperClient)
+[2024-05-17 11:47:38,847] INFO Opening socket connection to server localhost/[0:0:0:0:0:0:0:1]:2181. (org.apache.zookeeper.ClientCnxn)
+[2024-05-17 11:47:38,849] INFO Socket connection established, initiating session, client: /[0:0:0:0:0:0:0:1]:35426, server: localhost/[0:0:0:0:0:0:0:1]:2181 (org.apache.zookeeper.ClientCnxn)
+[2024-05-17 11:47:38,869] INFO Session establishment complete on server localhost/[0:0:0:0:0:0:0:1]:2181, session id = 0x10000293d000000, negotiated timeout = 18000 (org.apache.zookeeper.ClientCnxn)
+[2024-05-17 11:47:38,872] INFO [ZooKeeperClient Kafka server] Connected. (kafka.zookeeper.ZooKeeperClient)
+[2024-05-17 11:47:39,286] INFO Cluster ID = 03-TqCAWSWG-2Gv_6g0W1A (kafka.server.KafkaServer)
+[2024-05-17 11:47:39,362] INFO KafkaConfig values: 
+	advertised.listeners = null
+	alter.config.policy.class.name = null
+	alter.log.dirs.replication.quota.window.num = 11
+	alter.log.dirs.replication.quota.window.size.seconds = 1
+	authorizer.class.name = 
+	auto.create.topics.enable = true
+	auto.include.jmx.reporter = true
+	auto.leader.rebalance.enable = true
+	background.threads = 10
+	broker.heartbeat.interval.ms = 2000
+	broker.id = 0
+	broker.id.generation.enable = true
+	broker.rack = null
+	broker.session.timeout.ms = 9000
+	client.quota.callback.class = null
+	compression.type = producer
+	connection.failed.authentication.delay.ms = 100
+	connections.max.idle.ms = 600000
+	connections.max.reauth.ms = 0
+	control.plane.listener.name = null
+	controlled.shutdown.enable = true
+	controlled.shutdown.max.retries = 3
+	controlled.shutdown.retry.backoff.ms = 5000
+	controller.listener.names = null
+	controller.quorum.append.linger.ms = 25
+	controller.quorum.election.backoff.max.ms = 1000
+	controller.quorum.election.timeout.ms = 1000
+	controller.quorum.fetch.timeout.ms = 2000
+	controller.quorum.request.timeout.ms = 2000
+	controller.quorum.retry.backoff.ms = 20
+	controller.quorum.voters = []
+	controller.quota.window.num = 11
+	controller.quota.window.size.seconds = 1
+	controller.socket.timeout.ms = 30000
+	create.topic.policy.class.name = null
+	default.replication.factor = 1
+	delegation.token.expiry.check.interval.ms = 3600000
+	delegation.token.expiry.time.ms = 86400000
+	delegation.token.master.key = null
+	delegation.token.max.lifetime.ms = 604800000
+	delegation.token.secret.key = null
+	delete.records.purgatory.purge.interval.requests = 1
+	delete.topic.enable = true
+	early.start.listeners = null
+	eligible.leader.replicas.enable = false
+	fetch.max.bytes = 57671680
+	fetch.purgatory.purge.interval.requests = 1000
+	group.consumer.assignors = [org.apache.kafka.coordinator.group.assignor.UniformAssignor, org.apache.kafka.coordinator.group.assignor.RangeAssignor]
+	group.consumer.heartbeat.interval.ms = 5000
+	group.consumer.max.heartbeat.interval.ms = 15000
+	group.consumer.max.session.timeout.ms = 60000
+	group.consumer.max.size = 2147483647
+	group.consumer.min.heartbeat.interval.ms = 5000
+	group.consumer.min.session.timeout.ms = 45000
+	group.consumer.session.timeout.ms = 45000
+	group.coordinator.new.enable = false
+	group.coordinator.rebalance.protocols = [classic]
+	group.coordinator.threads = 1
+	group.initial.rebalance.delay.ms = 3
+	group.max.session.timeout.ms = 1800000
+	group.max.size = 2147483647
+	group.min.session.timeout.ms = 6000
+	initial.broker.registration.timeout.ms = 60000
+	inter.broker.listener.name = null
+	inter.broker.protocol.version = 3.7-IV4
+	kafka.metrics.polling.interval.secs = 10
+	kafka.metrics.reporters = []
+	leader.imbalance.check.interval.seconds = 300
+	leader.imbalance.per.broker.percentage = 10
+	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+	listeners = PLAINTEXT://:9092
+	log.cleaner.backoff.ms = 15000
+	log.cleaner.dedupe.buffer.size = 134217728
+	log.cleaner.delete.retention.ms = 86400000
+	log.cleaner.enable = true
+	log.cleaner.io.buffer.load.factor = 0.9
+	log.cleaner.io.buffer.size = 524288
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	log.cleaner.max.compaction.lag.ms = 9223372036854775807
+	log.cleaner.min.cleanable.ratio = 0.5
+	log.cleaner.min.compaction.lag.ms = 0
+	log.cleaner.threads = 1
+	log.cleanup.policy = [delete]
+	log.dir = /tmp/kafka-logs
+	log.dirs = /workspaces/fastmoonStreams/kafka/logs
+	log.flush.interval.messages = 9223372036854775807
+	log.flush.interval.ms = null
+	log.flush.offset.checkpoint.interval.ms = 60000
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	log.flush.start.offset.checkpoint.interval.ms = 60000
+	log.index.interval.bytes = 4096
+	log.index.size.max.bytes = 10485760
+	log.local.retention.bytes = -2
+	log.local.retention.ms = -2
+	log.message.downconversion.enable = true
+	log.message.format.version = 3.0-IV1
+	log.message.timestamp.after.max.ms = 9223372036854775807
+	log.message.timestamp.before.max.ms = 9223372036854775807
+	log.message.timestamp.difference.max.ms = 9223372036854775807
+	log.message.timestamp.type = CreateTime
+	log.preallocate = false
+	log.retention.bytes = -1
+	log.retention.check.interval.ms = 300000
+	log.retention.hours = 1
+	log.retention.minutes = null
+	log.retention.ms = null
+	log.roll.hours = 168
+	log.roll.jitter.hours = 0
+	log.roll.jitter.ms = null
+	log.roll.ms = null
+	log.segment.bytes = 1073741824
+	log.segment.delete.delay.ms = 60000
+	max.connection.creation.rate = 2147483647
+	max.connections = 2147483647
+	max.connections.per.ip = 2147483647
+	max.connections.per.ip.overrides = 
+	max.incremental.fetch.session.cache.slots = 1000
+	message.max.bytes = 1048588
+	metadata.log.dir = null
+	metadata.log.max.record.bytes.between.snapshots = 20971520
+	metadata.log.max.snapshot.interval.ms = 3600000
+	metadata.log.segment.bytes = 1073741824
+	metadata.log.segment.min.bytes = 8388608
+	metadata.log.segment.ms = 604800000
+	metadata.max.idle.interval.ms = 500
+	metadata.max.retention.bytes = 104857600
+	metadata.max.retention.ms = 604800000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	min.insync.replicas = 1
+	node.id = 0
+	num.io.threads = 40
+	num.network.threads = 20
+	num.partitions = 10
+	num.recovery.threads.per.data.dir = 1
+	num.replica.alter.log.dirs.threads = null
+	num.replica.fetchers = 1
+	offset.metadata.max.bytes = 4096
+	offsets.commit.required.acks = -1
+	offsets.commit.timeout.ms = 5000
+	offsets.load.buffer.size = 5242880
+	offsets.retention.check.interval.ms = 600000
+	offsets.retention.minutes = 10080
+	offsets.topic.compression.codec = 0
+	offsets.topic.num.partitions = 50
+	offsets.topic.replication.factor = 1
+	offsets.topic.segment.bytes = 104857600
+	password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding
+	password.encoder.iterations = 4096
+	password.encoder.key.length = 128
+	password.encoder.keyfactory.algorithm = null
+	password.encoder.old.secret = null
+	password.encoder.secret = null
+	principal.builder.class = class org.apache.kafka.common.security.authenticator.DefaultKafkaPrincipalBuilder
+	process.roles = []
+	producer.id.expiration.check.interval.ms = 600000
+	producer.id.expiration.ms = 86400000
+	producer.purgatory.purge.interval.requests = 1000
+	queued.max.request.bytes = -1
+	queued.max.requests = 500
+	quota.window.num = 11
+	quota.window.size.seconds = 1
+	remote.log.index.file.cache.total.size.bytes = 1073741824
+	remote.log.manager.task.interval.ms = 30000
+	remote.log.manager.task.retry.backoff.max.ms = 30000
+	remote.log.manager.task.retry.backoff.ms = 500
+	remote.log.manager.task.retry.jitter = 0.2
+	remote.log.manager.thread.pool.size = 10
+	remote.log.metadata.custom.metadata.max.bytes = 128
+	remote.log.metadata.manager.class.name = org.apache.kafka.server.log.remote.metadata.storage.TopicBasedRemoteLogMetadataManager
+	remote.log.metadata.manager.class.path = null
+	remote.log.metadata.manager.impl.prefix = rlmm.config.
+	remote.log.metadata.manager.listener.name = null
+	remote.log.reader.max.pending.tasks = 100
+	remote.log.reader.threads = 10
+	remote.log.storage.manager.class.name = null
+	remote.log.storage.manager.class.path = null
+	remote.log.storage.manager.impl.prefix = rsm.config.
+	remote.log.storage.system.enable = false
+	replica.fetch.backoff.ms = 1000
+	replica.fetch.max.bytes = 1048576
+	replica.fetch.min.bytes = 1
+	replica.fetch.response.max.bytes = 10485760
+	replica.fetch.wait.max.ms = 500
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	replica.lag.time.max.ms = 30000
+	replica.selector.class = null
+	replica.socket.receive.buffer.bytes = 65536
+	replica.socket.timeout.ms = 30000
+	replication.quota.window.num = 11
+	replication.quota.window.size.seconds = 1
+	request.timeout.ms = 30000
+	reserved.broker.max.id = 1000
+	sasl.client.callback.handler.class = null
+	sasl.enabled.mechanisms = [GSSAPI]
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism.controller.protocol = GSSAPI
+	sasl.mechanism.inter.broker.protocol = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	sasl.server.callback.handler.class = null
+	sasl.server.max.receive.size = 524288
+	security.inter.broker.protocol = PLAINTEXT
+	security.providers = null
+	server.max.startup.time.ms = 9223372036854775807
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	socket.listen.backlog.size = 50
+	socket.receive.buffer.bytes = 1024000
+	socket.request.max.bytes = 1048576000
+	socket.send.buffer.bytes = 1024000
+	ssl.allow.dn.changes = false
+	ssl.allow.san.changes = false
+	ssl.cipher.suites = []
+	ssl.client.auth = none
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.principal.mapping.rules = DEFAULT
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	telemetry.max.bytes = 1048576
+	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
+	transaction.max.timeout.ms = 900000
+	transaction.partition.verification.enable = true
+	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
+	transaction.state.log.load.buffer.size = 5242880
+	transaction.state.log.min.isr = 1
+	transaction.state.log.num.partitions = 50
+	transaction.state.log.replication.factor = 1
+	transaction.state.log.segment.bytes = 104857600
+	transactional.id.expiration.ms = 604800000
+	unclean.leader.election.enable = false
+	unstable.api.versions.enable = false
+	unstable.metadata.versions.enable = false
+	zookeeper.clientCnxnSocket = null
+	zookeeper.connect = localhost:2181
+	zookeeper.connection.timeout.ms = 18000
+	zookeeper.max.in.flight.requests = 10
+	zookeeper.metadata.migration.enable = false
+	zookeeper.metadata.migration.min.batch.size = 200
+	zookeeper.session.timeout.ms = 18000
+	zookeeper.set.acl = false
+	zookeeper.ssl.cipher.suites = null
+	zookeeper.ssl.client.enable = false
+	zookeeper.ssl.crl.enable = false
+	zookeeper.ssl.enabled.protocols = null
+	zookeeper.ssl.endpoint.identification.algorithm = HTTPS
+	zookeeper.ssl.keystore.location = null
+	zookeeper.ssl.keystore.password = null
+	zookeeper.ssl.keystore.type = null
+	zookeeper.ssl.ocsp.enable = false
+	zookeeper.ssl.protocol = TLSv1.2
+	zookeeper.ssl.truststore.location = null
+	zookeeper.ssl.truststore.password = null
+	zookeeper.ssl.truststore.type = null
+ (kafka.server.KafkaConfig)
+[2024-05-17 11:47:39,440] INFO [ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2024-05-17 11:47:39,440] INFO [ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2024-05-17 11:47:39,443] INFO [ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2024-05-17 11:47:39,444] INFO [ThrottledChannelReaper-ControllerMutation]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
+[2024-05-17 11:47:39,521] INFO Loading logs from log dirs ArraySeq(/workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,544] INFO Recovering 25 logs from /workspaces/fastmoonStreams/kafka/logs since no clean shutdown file was found (kafka.log.LogManager)
+[2024-05-17 11:47:39,610] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 141 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,611] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,611] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=141, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-0/00000000000000000141.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,620] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 9ms for snapshot load and 0ms for segment recovery from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,637] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 141. 0/1 recovered for binance_api_perpetual_inverse_gta_btcposfutureperp-0. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,639] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 141 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,640] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,640] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=141, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-0/00000000000000000141.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,640] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,649] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 141 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,649] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,650] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-0/00000000000000000141.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,650] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 141 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,670] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-0, topicId=RJ1v4TKiSBCqVR80NiZ5TQ, topic=binance_api_perpetual_inverse_gta_btcposfutureperp, partition=0, highWatermark=141, lastStableOffset=141, logStartOffset=141, logEndOffset=141) with 1 segments, local-log-start-offset 141 and log-end-offset 141 in 111ms (1/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,676] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 8 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,678] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,678] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=8, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000008.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,681] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 1ms for segment recovery from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,682] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 8. 0/1 recovered for binance_api_perpetual_inverse_oi_btcoifutureperp-4. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,683] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 8 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,683] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,683] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=8, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000008.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,684] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,686] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 8 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,686] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,686] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4/00000000000000000008.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,686] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 8 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,690] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-4, topicId=tYwm3ONwSVaKrHvEwerLOA, topic=binance_api_perpetual_inverse_oi_btcoifutureperp, partition=4, highWatermark=8, lastStableOffset=8, logStartOffset=8, logEndOffset=8) with 1 segments, local-log-start-offset 8 and log-end-offset 8 in 19ms (2/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,693] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 9 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,693] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,693] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=9, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-4/00000000000000000009.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,696] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,698] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 9. 0/1 recovered for binance_api_perpetual_inverse_funding_btcfundperp-4. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,698] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 9 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,699] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,699] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=9, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-4/00000000000000000009.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,699] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,703] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 9 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,703] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,704] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-4/00000000000000000009.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,704] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 9 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,709] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-4, topicId=Qu__V7QQQS2BFSnc7VMd3g, topic=binance_api_perpetual_inverse_funding_btcfundperp, partition=4, highWatermark=9, lastStableOffset=9, logStartOffset=9, logEndOffset=9) with 1 segments, local-log-start-offset 9 and log-end-offset 9 in 18ms (3/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,715] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 154 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,715] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,715] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=154, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-4/00000000000000000154.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,717] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,719] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 154. 0/1 recovered for binance_api_perpetual_inverse_gta_btcposfutureperp-4. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,720] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 154 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,720] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,720] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4] Loading producer state from snapshot file 'SnapshotFile(offset=154, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-4/00000000000000000154.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,721] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,723] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 154 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,723] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,724] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-4/00000000000000000154.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,724] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 154 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,728] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-4, topicId=RJ1v4TKiSBCqVR80NiZ5TQ, topic=binance_api_perpetual_inverse_gta_btcposfutureperp, partition=4, highWatermark=154, lastStableOffset=154, logStartOffset=154, logEndOffset=154) with 1 segments, local-log-start-offset 154 and log-end-offset 154 in 18ms (4/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,733] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 0. 0/1 recovered for bybit_api_option_option_oioption_btc-0. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,734] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,734] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,735] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,737] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,737] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,737] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,741] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-0, topicId=r5nZyROHR9K1nwEUu2OHtA, topic=bybit_api_option_option_oioption_btc, partition=0, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=0) with 1 segments, local-log-start-offset 0 and log-end-offset 0 in 13ms (5/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,746] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 1 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,746] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,746] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=1, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000001.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,749] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,750] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 1. 0/1 recovered for binance_api_perpetual_inverse_oi_btcoifutureperp-2. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,751] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 1 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,751] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,751] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=1, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000001.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,751] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,754] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 1 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,754] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,754] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2/00000000000000000001.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,754] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,760] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-2, topicId=tYwm3ONwSVaKrHvEwerLOA, topic=binance_api_perpetual_inverse_oi_btcoifutureperp, partition=2, highWatermark=1, lastStableOffset=1, logStartOffset=1, logEndOffset=1) with 1 segments, local-log-start-offset 1 and log-end-offset 1 in 18ms (6/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,763] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,763] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,764] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-2] Loading producer state from snapshot file 'SnapshotFile(offset=16, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-2/00000000000000000016.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,766] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,767] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 16. 0/1 recovered for binance_api_option_option_oi_btcoioption-2. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,767] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,768] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,768] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-2] Loading producer state from snapshot file 'SnapshotFile(offset=16, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-2/00000000000000000016.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,768] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,769] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,769] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,770] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-2/00000000000000000016.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,770] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,776] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-2, topicId=f-JqyaqETsipquujyX3LSA, topic=binance_api_option_option_oi_btcoioption, partition=2, highWatermark=16, lastStableOffset=16, logStartOffset=16, logEndOffset=16) with 1 segments, local-log-start-offset 16 and log-end-offset 16 in 16ms (7/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,781] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 19. 0/1 recovered for binance_api_option_option_oi_btcoioption-0. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,782] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 19 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,782] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,782] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-0] Loading producer state from snapshot file 'SnapshotFile(offset=19, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-0/00000000000000000019.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,785] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,790] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 19 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,790] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,791] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-0/00000000000000000019.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,791] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,795] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-0, topicId=f-JqyaqETsipquujyX3LSA, topic=binance_api_option_option_oi_btcoioption, partition=0, highWatermark=19, lastStableOffset=19, logStartOffset=19, logEndOffset=19) with 1 segments, local-log-start-offset 19 and log-end-offset 19 in 18ms (8/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,801] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 23 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,801] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,801] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-4] Loading producer state from snapshot file 'SnapshotFile(offset=23, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000023.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,804] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,806] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 23. 0/1 recovered for binance_api_option_option_oi_btcoioption-4. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,807] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 23 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,807] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,807] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-4] Loading producer state from snapshot file 'SnapshotFile(offset=23, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000023.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,807] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,808] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 23 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,808] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,809] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000023.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,809] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 23 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,815] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4, topicId=f-JqyaqETsipquujyX3LSA, topic=binance_api_option_option_oi_btcoioption, partition=4, highWatermark=23, lastStableOffset=23, logStartOffset=23, logEndOffset=23) with 1 segments, local-log-start-offset 23 and log-end-offset 23 in 20ms (9/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,823] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,824] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,824] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=2, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000002.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,826] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,827] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 2. 0/1 recovered for binance_api_perpetual_inverse_oi_btcoifutureperp-3. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,828] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,828] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,829] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=2, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000002.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,829] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,831] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,831] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,832] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3/00000000000000000002.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,833] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 1ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,837] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-3, topicId=tYwm3ONwSVaKrHvEwerLOA, topic=binance_api_perpetual_inverse_oi_btcoifutureperp, partition=3, highWatermark=2, lastStableOffset=2, logStartOffset=2, logEndOffset=2) with 1 segments, local-log-start-offset 2 and log-end-offset 2 in 22ms (10/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,842] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 3 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,842] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,842] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=3, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000003.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,845] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,846] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 3. 0/1 recovered for binance_api_perpetual_inverse_oi_btcoifutureperp-1. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,847] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 3 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,847] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,847] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=3, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000003.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,848] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,851] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 3 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,852] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,852] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1/00000000000000000003.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,852] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 3 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,856] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-1, topicId=tYwm3ONwSVaKrHvEwerLOA, topic=binance_api_perpetual_inverse_oi_btcoifutureperp, partition=1, highWatermark=3, lastStableOffset=3, logStartOffset=3, logEndOffset=3) with 1 segments, local-log-start-offset 3 and log-end-offset 3 in 18ms (11/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,864] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 153 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,865] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,866] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=153, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-1/00000000000000000153.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,869] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,871] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 153. 0/1 recovered for binance_api_perpetual_inverse_gta_btcposfutureperp-1. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,871] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 153 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,871] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,871] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=153, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-1/00000000000000000153.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,871] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,873] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 153 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,873] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,873] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-1/00000000000000000153.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,873] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 153 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,878] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-1, topicId=RJ1v4TKiSBCqVR80NiZ5TQ, topic=binance_api_perpetual_inverse_gta_btcposfutureperp, partition=1, highWatermark=153, lastStableOffset=153, logStartOffset=153, logEndOffset=153) with 1 segments, local-log-start-offset 153 and log-end-offset 153 in 21ms (12/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,884] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 1. 0/1 recovered for bybit_api_option_option_oioption_btc-3. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,884] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 1 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,884] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,885] INFO [ProducerStateManager partition=bybit_api_option_option_oioption_btc-3] Loading producer state from snapshot file 'SnapshotFile(offset=1, file=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-3/00000000000000000001.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,887] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,890] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 1 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,890] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,891] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-3/00000000000000000001.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,891] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 1 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,895] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-3, topicId=r5nZyROHR9K1nwEUu2OHtA, topic=bybit_api_option_option_oioption_btc, partition=3, highWatermark=1, lastStableOffset=1, logStartOffset=1, logEndOffset=1) with 1 segments, local-log-start-offset 1 and log-end-offset 1 in 16ms (13/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,900] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,900] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,901] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-1] Loading producer state from snapshot file 'SnapshotFile(offset=16, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-1/00000000000000000016.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,904] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,906] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 16. 0/1 recovered for binance_api_option_option_oi_btcoioption-1. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,907] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,908] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,908] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-1] Loading producer state from snapshot file 'SnapshotFile(offset=16, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-1/00000000000000000016.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,908] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,914] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 16 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,914] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,915] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-1/00000000000000000016.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,915] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 16 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,919] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-1, topicId=f-JqyaqETsipquujyX3LSA, topic=binance_api_option_option_oi_btcoioption, partition=1, highWatermark=16, lastStableOffset=16, logStartOffset=16, logEndOffset=16) with 1 segments, local-log-start-offset 16 and log-end-offset 16 in 24ms (14/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,926] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 13 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,926] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,926] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-3] Loading producer state from snapshot file 'SnapshotFile(offset=13, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-3/00000000000000000013.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,931] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 5ms for snapshot load and 0ms for segment recovery from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,933] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 13. 0/1 recovered for binance_api_option_option_oi_btcoioption-3. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,933] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 13 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,934] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,934] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-3] Loading producer state from snapshot file 'SnapshotFile(offset=13, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-3/00000000000000000013.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,934] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,938] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 13 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,938] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,939] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-3/00000000000000000013.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,939] INFO [LogLoader partition=binance_api_option_option_oi_btcoioption-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 13 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,940] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-3, topicId=f-JqyaqETsipquujyX3LSA, topic=binance_api_option_option_oi_btcoioption, partition=3, highWatermark=13, lastStableOffset=13, logStartOffset=13, logEndOffset=13) with 1 segments, local-log-start-offset 13 and log-end-offset 13 in 21ms (15/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,946] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,946] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,947] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=2, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000002.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,950] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,953] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 2. 0/1 recovered for binance_api_perpetual_inverse_oi_btcoifutureperp-0. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,954] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,955] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,955] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=2, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000002.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,955] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,961] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 2 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,963] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,963] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0/00000000000000000002.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,965] INFO [LogLoader partition=binance_api_perpetual_inverse_oi_btcoifutureperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,967] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_oi_btcoifutureperp-0, topicId=tYwm3ONwSVaKrHvEwerLOA, topic=binance_api_perpetual_inverse_oi_btcoifutureperp, partition=0, highWatermark=2, lastStableOffset=2, logStartOffset=2, logEndOffset=2) with 1 segments, local-log-start-offset 2 and log-end-offset 2 in 25ms (16/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,970] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 7 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,970] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,970] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=7, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-2/00000000000000000007.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,973] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,973] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 7. 0/1 recovered for binance_api_perpetual_inverse_funding_btcfundperp-2. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,974] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 7 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,974] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,974] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=7, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-2/00000000000000000007.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,974] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,975] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 7 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,975] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,976] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-2/00000000000000000007.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:39,976] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 7 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,979] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-2, topicId=Qu__V7QQQS2BFSnc7VMd3g, topic=binance_api_perpetual_inverse_funding_btcfundperp, partition=2, highWatermark=7, lastStableOffset=7, logStartOffset=7, logEndOffset=7) with 1 segments, local-log-start-offset 7 and log-end-offset 7 in 12ms (17/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,984] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 0. 0/1 recovered for bybit_api_option_option_oioption_btc-1. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,985] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,985] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,985] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,987] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,987] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,988] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,992] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-1, topicId=r5nZyROHR9K1nwEUu2OHtA, topic=bybit_api_option_option_oioption_btc, partition=1, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=0) with 1 segments, local-log-start-offset 0 and log-end-offset 0 in 13ms (18/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:39,994] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 19 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,994] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,994] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=19, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-3/00000000000000000019.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,997] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,998] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 19. 0/1 recovered for binance_api_perpetual_inverse_funding_btcfundperp-3. (kafka.log.LogLoader)
+[2024-05-17 11:47:39,999] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 19 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,999] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:39,999] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=19, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-3/00000000000000000019.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:39,999] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,002] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 19 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,002] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,002] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-3/00000000000000000019.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:40,003] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 19 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,009] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-3, topicId=Qu__V7QQQS2BFSnc7VMd3g, topic=binance_api_perpetual_inverse_funding_btcfundperp, partition=3, highWatermark=19, lastStableOffset=19, logStartOffset=19, logEndOffset=19) with 1 segments, local-log-start-offset 19 and log-end-offset 19 in 17ms (19/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,016] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 0. 0/1 recovered for bybit_api_option_option_oioption_btc-2. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,017] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,017] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,017] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,018] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,018] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,019] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,024] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-2, topicId=r5nZyROHR9K1nwEUu2OHtA, topic=bybit_api_option_option_oioption_btc, partition=2, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=0) with 1 segments, local-log-start-offset 0 and log-end-offset 0 in 15ms (20/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,026] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 14 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,027] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,027] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=14, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-1/00000000000000000014.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,029] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,030] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 14. 0/1 recovered for binance_api_perpetual_inverse_funding_btcfundperp-1. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,031] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 14 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,031] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,031] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-1] Loading producer state from snapshot file 'SnapshotFile(offset=14, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-1/00000000000000000014.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,032] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,033] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 14 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,033] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,033] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-1/00000000000000000014.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:40,034] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-1, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 14 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,036] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-1, topicId=Qu__V7QQQS2BFSnc7VMd3g, topic=binance_api_perpetual_inverse_funding_btcfundperp, partition=1, highWatermark=14, lastStableOffset=14, logStartOffset=14, logEndOffset=14) with 1 segments, local-log-start-offset 14 and log-end-offset 14 in 11ms (21/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,041] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 0. 0/1 recovered for bybit_api_option_option_oioption_btc-4. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,042] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,042] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,042] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,044] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,044] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,044] INFO [LogLoader partition=bybit_api_option_option_oioption_btc-4, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,055] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/bybit_api_option_option_oioption_btc-4, topicId=r5nZyROHR9K1nwEUu2OHtA, topic=bybit_api_option_option_oioption_btc, partition=4, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=0) with 1 segments, local-log-start-offset 0 and log-end-offset 0 in 13ms (22/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,059] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 137 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,061] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,072] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=137, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-3/00000000000000000137.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,075] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,076] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 137. 0/1 recovered for binance_api_perpetual_inverse_gta_btcposfutureperp-3. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,077] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 137 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,077] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,077] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3] Loading producer state from snapshot file 'SnapshotFile(offset=137, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-3/00000000000000000137.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,078] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,079] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 137 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,080] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,080] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-3/00000000000000000137.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:40,080] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-3, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 137 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,083] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-3, topicId=RJ1v4TKiSBCqVR80NiZ5TQ, topic=binance_api_perpetual_inverse_gta_btcposfutureperp, partition=3, highWatermark=137, lastStableOffset=137, logStartOffset=137, logEndOffset=137) with 1 segments, local-log-start-offset 137 and log-end-offset 137 in 28ms (23/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,086] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 11 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,086] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,086] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=11, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-0/00000000000000000011.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,089] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,090] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 11. 0/1 recovered for binance_api_perpetual_inverse_funding_btcfundperp-0. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,091] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 11 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,091] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,091] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_funding_btcfundperp-0] Loading producer state from snapshot file 'SnapshotFile(offset=11, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-0/00000000000000000011.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,091] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,093] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 11 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,093] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,093] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-0/00000000000000000011.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:40,093] INFO [LogLoader partition=binance_api_perpetual_inverse_funding_btcfundperp-0, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 11 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,097] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_funding_btcfundperp-0, topicId=Qu__V7QQQS2BFSnc7VMd3g, topic=binance_api_perpetual_inverse_funding_btcfundperp, partition=0, highWatermark=11, lastStableOffset=11, logStartOffset=11, logEndOffset=11) with 1 segments, local-log-start-offset 11 and log-end-offset 11 in 14ms (24/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,101] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 138 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,101] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,101] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=138, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-2/00000000000000000138.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,105] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 4ms for snapshot load and 0ms for segment recovery from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,106] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Recovering unflushed segment 138. 0/1 recovered for binance_api_perpetual_inverse_gta_btcposfutureperp-2. (kafka.log.LogLoader)
+[2024-05-17 11:47:40,106] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 138 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,106] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,106] INFO [ProducerStateManager partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2] Loading producer state from snapshot file 'SnapshotFile(offset=138, file=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-2/00000000000000000138.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-17 11:47:40,106] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,108] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 138 with message format version 2 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,109] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Reloading from producer snapshot and rebuilding producer state from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,109] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-2/00000000000000000138.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-17 11:47:40,109] INFO [LogLoader partition=binance_api_perpetual_inverse_gta_btcposfutureperp-2, dir=/workspaces/fastmoonStreams/kafka/logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 138 (kafka.log.UnifiedLog$)
+[2024-05-17 11:47:40,110] INFO Completed load of Log(dir=/workspaces/fastmoonStreams/kafka/logs/binance_api_perpetual_inverse_gta_btcposfutureperp-2, topicId=RJ1v4TKiSBCqVR80NiZ5TQ, topic=binance_api_perpetual_inverse_gta_btcposfutureperp, partition=2, highWatermark=138, lastStableOffset=138, logStartOffset=138, logEndOffset=138) with 1 segments, local-log-start-offset 138 and log-end-offset 138 in 13ms (25/25 completed in /workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
+[2024-05-17 11:47:40,117] INFO Loaded 25 logs in 595ms (unclean log dirs = ArrayBuffer(/workspaces/fastmoonStreams/kafka/logs)) (kafka.log.LogManager)
+[2024-05-17 11:47:40,119] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)
+[2024-05-17 11:47:40,120] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)
+[2024-05-17 11:47:40,259] INFO [kafka-log-cleaner-thread-0]: Starting (kafka.log.LogCleaner$CleanerThread)
+[2024-05-17 11:47:40,306] INFO [feature-zk-node-event-process-thread]: Starting (kafka.server.FinalizedFeatureChangeListener$ChangeNotificationProcessorThread)
+[2024-05-17 11:47:40,335] INFO [MetadataCache brokerId=0] Updated cache from existing None to latest Features(version=3.7-IV4, finalizedFeatures={}, finalizedFeaturesEpoch=0). (kafka.server.metadata.ZkMetadataCache)
+[2024-05-17 11:47:40,371] INFO [zk-broker-0-to-controller-forwarding-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
+[2024-05-17 11:47:40,946] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
+[2024-05-17 11:47:41,046] INFO [SocketServer listenerType=ZK_BROKER, nodeId=0] Created data-plane acceptor and processors for endpoint : ListenerName(PLAINTEXT) (kafka.network.SocketServer)
+[2024-05-17 11:47:41,063] INFO [zk-broker-0-to-controller-alter-partition-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
+[2024-05-17 11:47:41,077] INFO [ExpirationReaper-0-Produce]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,077] INFO [ExpirationReaper-0-Fetch]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,078] INFO [ExpirationReaper-0-DeleteRecords]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,078] INFO [ExpirationReaper-0-ElectLeader]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,080] INFO [ExpirationReaper-0-RemoteFetch]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,088] INFO [LogDirFailureHandler]: Starting (kafka.server.ReplicaManager$LogDirFailureHandler)
+[2024-05-17 11:47:41,090] INFO [AddPartitionsToTxnSenderThread-0]: Starting (kafka.server.AddPartitionsToTxnManager)
+[2024-05-17 11:47:41,179] INFO Creating /brokers/ids/0 (is it secure? false) (kafka.zk.KafkaZkClient)
+[2024-05-17 11:47:41,214] INFO Stat of the created znode at /brokers/ids/0 is: 205,205,1715946461198,1715946461198,1,0,0,72057771154997248,202,0,205
+ (kafka.zk.KafkaZkClient)
+[2024-05-17 11:47:41,214] INFO Registered broker 0 at path /brokers/ids/0 with addresses: PLAINTEXT://localhost:9092, czxid (broker epoch): 205 (kafka.zk.KafkaZkClient)
+[2024-05-17 11:47:41,338] INFO [ExpirationReaper-0-topic]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,349] INFO [ExpirationReaper-0-Heartbeat]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,361] INFO [ExpirationReaper-0-Rebalance]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,367] INFO [GroupCoordinator 0]: Starting up. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-17 11:47:41,417] INFO [GroupCoordinator 0]: Startup complete. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-17 11:47:41,441] INFO [TransactionCoordinator id=0] Starting up. (kafka.coordinator.transaction.TransactionCoordinator)
+[2024-05-17 11:47:41,480] INFO [TransactionCoordinator id=0] Startup complete. (kafka.coordinator.transaction.TransactionCoordinator)
+[2024-05-17 11:47:41,481] INFO [TxnMarkerSenderThread-0]: Starting (kafka.coordinator.transaction.TransactionMarkerChannelManager)
+[2024-05-17 11:47:41,597] INFO [ExpirationReaper-0-AlterAcls]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2024-05-17 11:47:41,708] INFO [Controller id=0, targetBrokerId=0] Node 0 disconnected. (org.apache.kafka.clients.NetworkClient)
+[2024-05-17 11:47:41,713] INFO [/config/changes-event-process-thread]: Starting (kafka.common.ZkNodeChangeNotificationListener$ChangeEventProcessThread)
+[2024-05-17 11:47:41,734] WARN [Controller id=0, targetBrokerId=0] Connection to node 0 (localhost/127.0.0.1:9092) could not be established. Node may not be available. (org.apache.kafka.clients.NetworkClient)
+[2024-05-17 11:47:41,741] INFO [Controller id=0, targetBrokerId=0] Client requested connection close from node 0 (org.apache.kafka.clients.NetworkClient)
+[2024-05-17 11:47:41,770] INFO [SocketServer listenerType=ZK_BROKER, nodeId=0] Enabling request processing. (kafka.network.SocketServer)
+[2024-05-17 11:47:41,778] INFO Awaiting socket connections on 0.0.0.0:9092. (kafka.network.DataPlaneAcceptor)
+[2024-05-17 11:47:41,931] INFO Kafka version: 3.7.0 (org.apache.kafka.common.utils.AppInfoParser)
+[2024-05-17 11:47:41,931] INFO Kafka commitId: 2ae524ed625438c5 (org.apache.kafka.common.utils.AppInfoParser)
+[2024-05-17 11:47:41,931] INFO Kafka startTimeMs: 1715946461925 (org.apache.kafka.common.utils.AppInfoParser)
+[2024-05-17 11:47:41,936] INFO [KafkaServer id=0] started (kafka.server.KafkaServer)
+[2024-05-17 11:47:41,977] INFO [zk-broker-0-to-controller-alter-partition-channel-manager]: Recorded new controller, from now on will use node localhost:9092 (id: 0 rack: null) (kafka.server.NodeToControllerRequestThread)
+[2024-05-17 11:47:42,000] INFO [zk-broker-0-to-controller-forwarding-channel-manager]: Recorded new controller, from now on will use node localhost:9092 (id: 0 rack: null) (kafka.server.NodeToControllerRequestThread)
+[2024-05-17 11:47:42,129] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions HashSet(binance_api_perpetual_inverse_oi_btcoifutureperp-2, bybit_api_option_option_oioption_btc-4, binance_api_perpetual_inverse_oi_btcoifutureperp-4, binance_api_option_option_oi_btcoioption-3, binance_api_perpetual_inverse_funding_btcfundperp-4, bybit_api_option_option_oioption_btc-0, binance_api_perpetual_inverse_gta_btcposfutureperp-0, binance_api_option_option_oi_btcoioption-2, bybit_api_option_option_oioption_btc-2, binance_api_perpetual_inverse_funding_btcfundperp-0, binance_api_perpetual_inverse_oi_btcoifutureperp-3, binance_api_perpetual_inverse_funding_btcfundperp-1, binance_api_perpetual_inverse_gta_btcposfutureperp-1, binance_api_perpetual_inverse_gta_btcposfutureperp-4, binance_api_perpetual_inverse_funding_btcfundperp-3, bybit_api_option_option_oioption_btc-1, binance_api_perpetual_inverse_oi_btcoifutureperp-0, binance_api_option_option_oi_btcoioption-0, binance_api_perpetual_inverse_funding_btcfundperp-2, binance_api_perpetual_inverse_gta_btcposfutureperp-2, binance_api_perpetual_inverse_gta_btcposfutureperp-3, bybit_api_option_option_oioption_btc-3, binance_api_perpetual_inverse_oi_btcoifutureperp-1, binance_api_option_option_oi_btcoioption-4, binance_api_option_option_oi_btcoioption-1) (kafka.server.ReplicaFetcherManager)
+[2024-05-17 11:47:42,160] INFO [Partition bybit_api_option_option_oioption_btc-2 broker=0] Log loaded for partition bybit_api_option_option_oioption_btc-2 with initial high watermark 0 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,215] INFO [Partition binance_api_perpetual_inverse_gta_btcposfutureperp-0 broker=0] Log loaded for partition binance_api_perpetual_inverse_gta_btcposfutureperp-0 with initial high watermark 141 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,245] INFO [Partition binance_api_perpetual_inverse_gta_btcposfutureperp-4 broker=0] Log loaded for partition binance_api_perpetual_inverse_gta_btcposfutureperp-4 with initial high watermark 154 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,275] INFO [Partition binance_api_option_option_oi_btcoioption-2 broker=0] Log loaded for partition binance_api_option_option_oi_btcoioption-2 with initial high watermark 16 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,304] INFO [Partition binance_api_perpetual_inverse_oi_btcoifutureperp-4 broker=0] Log loaded for partition binance_api_perpetual_inverse_oi_btcoifutureperp-4 with initial high watermark 8 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,339] INFO [Partition binance_api_perpetual_inverse_funding_btcfundperp-1 broker=0] Log loaded for partition binance_api_perpetual_inverse_funding_btcfundperp-1 with initial high watermark 14 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,370] INFO [Partition binance_api_perpetual_inverse_oi_btcoifutureperp-0 broker=0] Log loaded for partition binance_api_perpetual_inverse_oi_btcoifutureperp-0 with initial high watermark 2 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,399] INFO [Partition binance_api_perpetual_inverse_gta_btcposfutureperp-1 broker=0] Log loaded for partition binance_api_perpetual_inverse_gta_btcposfutureperp-1 with initial high watermark 153 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,429] INFO [Partition binance_api_option_option_oi_btcoioption-3 broker=0] Log loaded for partition binance_api_option_option_oi_btcoioption-3 with initial high watermark 13 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,459] INFO [Partition binance_api_perpetual_inverse_funding_btcfundperp-0 broker=0] Log loaded for partition binance_api_perpetual_inverse_funding_btcfundperp-0 with initial high watermark 11 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,490] INFO [Partition binance_api_perpetual_inverse_oi_btcoifutureperp-3 broker=0] Log loaded for partition binance_api_perpetual_inverse_oi_btcoifutureperp-3 with initial high watermark 2 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,521] INFO [Partition binance_api_perpetual_inverse_funding_btcfundperp-4 broker=0] Log loaded for partition binance_api_perpetual_inverse_funding_btcfundperp-4 with initial high watermark 9 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,551] INFO [Partition binance_api_perpetual_inverse_gta_btcposfutureperp-2 broker=0] Log loaded for partition binance_api_perpetual_inverse_gta_btcposfutureperp-2 with initial high watermark 138 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,586] INFO [Partition bybit_api_option_option_oioption_btc-4 broker=0] Log loaded for partition bybit_api_option_option_oioption_btc-4 with initial high watermark 0 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,618] INFO [Partition binance_api_perpetual_inverse_funding_btcfundperp-3 broker=0] Log loaded for partition binance_api_perpetual_inverse_funding_btcfundperp-3 with initial high watermark 19 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,661] INFO [Partition binance_api_option_option_oi_btcoioption-0 broker=0] Log loaded for partition binance_api_option_option_oi_btcoioption-0 with initial high watermark 19 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,692] INFO [Partition binance_api_perpetual_inverse_oi_btcoifutureperp-2 broker=0] Log loaded for partition binance_api_perpetual_inverse_oi_btcoifutureperp-2 with initial high watermark 1 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,723] INFO [Partition bybit_api_option_option_oioption_btc-1 broker=0] Log loaded for partition bybit_api_option_option_oioption_btc-1 with initial high watermark 0 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,755] INFO [Partition binance_api_option_option_oi_btcoioption-4 broker=0] Log loaded for partition binance_api_option_option_oi_btcoioption-4 with initial high watermark 23 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,784] INFO [Partition bybit_api_option_option_oioption_btc-3 broker=0] Log loaded for partition bybit_api_option_option_oioption_btc-3 with initial high watermark 1 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,815] INFO [Partition binance_api_perpetual_inverse_gta_btcposfutureperp-3 broker=0] Log loaded for partition binance_api_perpetual_inverse_gta_btcposfutureperp-3 with initial high watermark 137 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,844] INFO [Partition binance_api_perpetual_inverse_funding_btcfundperp-2 broker=0] Log loaded for partition binance_api_perpetual_inverse_funding_btcfundperp-2 with initial high watermark 7 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,873] INFO [Partition binance_api_option_option_oi_btcoioption-1 broker=0] Log loaded for partition binance_api_option_option_oi_btcoioption-1 with initial high watermark 16 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,902] INFO [Partition binance_api_perpetual_inverse_oi_btcoifutureperp-1 broker=0] Log loaded for partition binance_api_perpetual_inverse_oi_btcoifutureperp-1 with initial high watermark 3 (kafka.cluster.Partition)
+[2024-05-17 11:47:42,932] INFO [Partition bybit_api_option_option_oioption_btc-0 broker=0] Log loaded for partition bybit_api_option_option_oioption_btc-0 with initial high watermark 0 (kafka.cluster.Partition)

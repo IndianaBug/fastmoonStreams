@@ -153,3 +153,493 @@ TypeError: binance_aoihttp_posfutureperp_manager.aiomethod() missing 1 required 
 2024-05-16 14:13:55,728 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_gta_btcposfutureperp' already exists."}
 2024-05-16 14:14:49,458 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_oi_btcoifutureperp' already exists."}
 2024-05-16 14:14:49,459 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_gta_btcposfutureperp' already exists."}
+2024-05-17 11:52:33,608 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:54:31,566 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:55:00,024 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:57:07,136 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:58:18,667 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:59:04,994 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 11:59:31,134 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:10:24,893 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:12:49,342 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:16:07,344 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:17:18,309 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:18:19,095 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:47:49,162 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:47:59,943 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:48:00,956 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:49:42,093 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:49:54,903 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:51:58,592 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:51:58,620 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:51:59,625 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:51:59,627 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:51:59,628 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:52:01,170 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:01,171 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:52:01,540 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:01,541 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:52:02,505 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:55,638 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:52:55,647 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:56,651 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:52:56,652 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:56,653 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:52:57,326 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:52:57,327 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:53:00,021 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:53:00,022 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:53:03,956 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:19,660 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:54:19,667 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:20,671 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:54:20,671 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:20,672 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:54:20,934 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:20,934 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:54:24,892 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:24,893 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:54:29,168 - OriginHub.SupplyEngine - ERROR - Error from binance_api_option_option_oi_btc: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 88, in inner_wrapper_create_tasks
+    await func(self, *args, **kwargs) # inside must be infinite iterator
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 128, in assemble_asyncronious_tasks
+    tasks.append(asyncio.create_task(task, name="option_update_symbols"))
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/tasks.py", line 337, in create_task
+    task = loop.create_task(coro)
+  File "/usr/local/python/3.10.13/lib/python3.10/asyncio/base_events.py", line 438, in create_task
+    task = tasks.Task(coro, loop=self, name=name)
+TypeError: a coroutine was expected, got <Task pending name='option_update_symbols' coro=<CommonFunctionality.update_symbols() running at /workspaces/fastmoonStreams/OriginHub/ApiMixer.py:46>>
+2024-05-17 12:54:54,944 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:54:55,967 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:55:22,430 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:55:23,456 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:56:23,762 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:56:24,772 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:56:51,652 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:56:52,664 - OriginHub.SupplyEngine - ERROR - AttributeError in update_symbols, None, error message:'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 116, in update_symbols
+    await getattr(self, "get_instruments")()
+AttributeError: 'binance_aoihttp_oioption_manager' object has no attribute 'get_instruments'
+2024-05-17 12:57:39,854 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 12:58:30,713 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 13:02:41,056 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-17 13:02:44,328 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,329 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,330 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,331 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,331 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,335 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,337 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,338 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,338 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,339 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,340 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'
+2024-05-17 13:02:44,342 - OriginHub.SupplyEngine - ERROR - AttributeError in aiohttp_task, None, error message:'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 50, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 173, in aiohttp_task
+    await self.message_process(symbol, expiry, special_method, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 138, in message_process
+    await self.send_message_to_topic(self.topic_name, message)
+  File "/home/codespace/.local/lib/python3.10/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 793, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 871, in send_message_to_topic
+    await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+AttributeError: 'NoneType' object has no attribute 'encode'

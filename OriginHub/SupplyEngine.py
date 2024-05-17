@@ -941,17 +941,10 @@ class publisher(keepalive):
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
                     
             if "id_api" in connection_dict:
-                # special dynamic aiohttp caroutines 
-                if connection_dict.get("symbol_update_task") is True:
-                    update_symbols_method = getattr(connection_dict.get("api_call_manager"), [x for x in dir(connection_dict.get("api_call_manager")) if "update_symbols" in x][0])
-                    fetch_symbols_method = getattr(connection_dict.get("api_call_manager"), [x for x in dir(connection_dict.get("api_call_manager")) if "fetch" in x][0])  
-                    tasks.append(asyncio.ensure_future(update_symbols_method(delay)))
-                    tasks.append(asyncio.ensure_future(fetch_symbols_method(delay)))
-                    # tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").update_symbols(delay)))
-                    # tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(delay)))
-                elif connection_dict.get("is_still_nested") is True:
-                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").fetch_data(delay)))
-                # regular aiohttp caroutines 
+                if connection_dict.get("symbol_update_task") is True :
+                    new_tasks = await connection_dict.get("api_call_manager").assemble_asyncronious_tasks(lag=delay)
+                    for t in new_tasks:
+                        tasks.append(asyncio.ensure_future(t))
                 else:
                     tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_data=connection_dict, initial_delay=delay)))
             
