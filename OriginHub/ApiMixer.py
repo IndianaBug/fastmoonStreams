@@ -14,6 +14,10 @@ base_path = Path(__file__).parent.parent
 log_file_bytes = 10*1024*1024,
 log_file_backup_count = 5,
 
+class logger_instance():
+    """ omit """
+    def exception(self, *args, **kwargs):
+        pass
 
 class CommonFunctionality:
     
@@ -27,11 +31,14 @@ class CommonFunctionality:
         self.underlying_asset = ""
         self.fetcher = fetcher
         self.send_message_to_topic = send_message_to_topic
+        self.logger = logger_instance()
 
         self._instruments_to_remove = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
         self._instruments_to_add = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
         self._instruments = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
+        self._tasks = {}
         self.running = {"coroutine_orchestrator" : False, "calibrate_instruments" : False}
+
         
         
     def start_orchestrator(self):
@@ -42,13 +49,13 @@ class CommonFunctionality:
         """ stops caroutines """
         self.running["coroutine_orchestrator"] = False
         
-    def _start_coroutine(self, coroutine):
+    def _start_coroutine(self, id_instrument):
         """ starts caroutins """
-        self.running[coroutine] = True
+        self.running[id_instrument] = True
         
-    def _stop_coroutine(self, coroutine):
+    def _stop_coroutine(self, id_instrument):
         """ stops caroutines """
-        self.running[coroutine] = False
+        self.running[id_instrument] = False
                 
     @staticmethod
     def errors_aiohttp(func):
@@ -125,166 +132,200 @@ class CommonFunctionality:
         return symbol
             
     @errors_aiohttp
-    async def coroutine_orchestrator(self, lag: int = 0, *args, **kwargs):
+    async def coroutine_orchestrator(self, lag, *args, **kwargs):
         """ 
-            Pattern for updating symbols for OI fetchers or Option expirations.
+            manages fetching coroutines.
+            method _calibrate_instruments writes instruments to del/add into variables self._instruments_to_add, self._instruments_to_remove
+            based on active instruments, the dict self._tasks is updated
         """
         
         objective = self.connection_data.get("objective")
         exchange = self.connection_data.get("exchange")
         inst_type = self.connection_data.get("instType")
-        topic_name = self.connection_data.get("topic_name")
-        pull_timeout = self.connection_data.get("pullTimeout")
         instrument_calibration_timeout = self.connection_data.get("instrument_calibration_timeout", 60*60)
         special_method = self.connection_data.get("is_special")
         
-        tasks = []  
-
         update_symbol_task = asyncio.create_task(getattr(self, "_calibrate_instruments")(instrument_calibration_timeout))
         id_instrument_calibration = f"{exchange}_{special_method}_{self.underlying_asset}_calibrate_instruments"
-        tasks.append({"name" : id_instrument_calibration,  "task" : update_symbol_task}) 
+        self._tasks[id_instrument_calibration] = update_symbol_task 
         await asyncio.sleep(5 + lag) # wait until symbols are fetched
         
         self.start_orchestrator()
         while self.running.get("coroutine_orchestrator") is True:
-            # add tasks            
+            # Add new tasks
             for inst_type in self._instruments_to_add:
+                
                 for instrument in self._instruments_to_add.get(inst_type):
-                    if not any(task['name'] == instrument for task in tasks):
-                        id_task = f"{exchange}_{special_method}_{self.underlying_asset}_{instrument}"
-                        
+                    
+                    id_instrument = f"{exchange}_{special_method}_{self.underlying_asset}_{instrument}"
+
+                    if not self._tasks.get(id_instrument, None):                        
                         
                         method = getattr(self, "asyncronous_data_stream")
                         method = partial(
-                            method, instType=instType, objective=self.objective, symbol=symbol,
-                            special_param=instrument, special_method=self.special_method
+                            method, id_instrument=id_instrument, exchange=exchange, inst_type=inst_type, objective=objective, instrument=instrument,
+                            special_param=instrument, special_method=special_method
                             )
-                        task = asyncio.create_task(method(), name=name)
-                        tasks.append({"name": instrument, "task": task})
+                        task = asyncio.create_task(method(), name=id_instrument)
+                        self._tasks[id_instrument] = task
 
-            # Remove old tasks
-            for instType in self.instruments_to_remove:
-                for instrument in self.instruments_to_remove.get(instType):
-                    task_to_remove = next((task for task in tasks if task['name'] == instrument), None)
+            # Remove expired tasks
+            for inst_type in self._instruments_to_remove:
+
+                for instrument in self._instruments_to_remove.get(inst_type):
+
+                    id_instrument = f"{exchange}_{special_method}_{self.underlying_asset}_{instrument}"
+                    
+                    task_to_remove = next((task_name for task_name, task in self._tasks.items() if task_name == id_instrument), None)
+
                     if task_to_remove:
-                        task_to_remove['task'].cancel()
+                        task_to_remove =  self._tasks.get(id_instrument, None)
+                        task_to_remove.cancel()
                         try:
-                            await task_to_remove['task']
-                        except asyncio.CancelledError:
-                            pass
-                        tasks.remove(task_to_remove)
+                            await task_to_remove
+                        except asyncio.CancelledError as e:
+                            self.logger.exception("Couldn't cancel caroutine of %s, message: %s", id_instrument, e, exc_info=True)
+                        del self._tasks[id_instrument]
 
             await asyncio.sleep(instrument_calibration_timeout)
 
-    async def message_process(self, expiry, *args, **kwargs):
-        """ pattern for sending every message"""
-        message = self.data.get(expiry)
-        await self.send_message_to_topic(self.topic_name, message)
-        message_encoded = message.encode("utf-8")
-        print(sys.getsizeof(message_encoded))
-        await asyncio.sleep(self.datapull_timeout)
+    async def asyncronous_data_stream(self, id_instrument, exchange, inst_type, objective, instrument, special_param, special_method):
+
+        """Creates fetching coroutine for a specific symbol"""
+
+        self._start_coroutine(id_instrument)
+
+        # Binance option
+        # data = await self.fetcher("option", "oi", symbol=self.underlying_asset, specialParam=expiry,  special_method="oioption")
+
+        topic_name = self.connection_data.get("topic_name")
+        pull_timeout = self.connection_data.get("pullTimeout")
+        fetch_method = partial(self.fetcher, inst_type, objective, symbol=self.underlying_asset, specialParam=special_param,  special_method=special_method)
+
+        while self.running.get(id_instrument, False):
+            data = await fetch_method()
+            await self.send_message_to_topic(topic_name, data)
+            # -------
+            message_encoded = data.encode("utf-8")
+            print(sys.getsizeof(message_encoded))
+            # --------    
+            await asyncio.sleep(pull_timeout)
+
 
 
 class binance_aoihttp_oioption_manager(CommonFunctionality):
     
-    """ Unique methods related to option oi fetching"""
+    """ Unique symbol update method """
 
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
         super().__init__()
         self.underlying_asset = underlying_asset
-        self.expiries = []
         self.get_expiries = binance_get_option_expiries_method
         self.fetcher = aiohttpfetch
-        self.symbol_update_task = True
-        self.data = {}
-        self.pullTimeout = 0
-        self.topic_name = ""
-        self.update_instruments_timeout = 60 * 24
 
     @CommonFunctionality.errors_aiohttp
     async def _calibrate_instruments(self, symbols_update_interval):
         """ updates ixisting option instruments"""
         while True:
             expiries = await self.get_expiries(self.underlying_asset)
-            old_expiries = self.instruments.get("option", [])
+            old_expiries = self._instruments.get("option", [])
             instruments_to_remove = list(set(old_expiries) - set(expiries)) 
             instruments_to_add = list(set(expiries) - set(old_expiries))         
-            self.instruments["option"] = expiries
-            self.instruments_to_remove["option"] = instruments_to_remove
-            self.instruments_to_add["option"] = instruments_to_add
+            self._instruments["option"] = expiries
+            self._instruments_to_remove["option"] = instruments_to_remove
+            self._instruments_to_add["option"] = instruments_to_add
             await asyncio.sleep(symbols_update_interval)
 
+
+class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
+    
+    """ Unique symbol update method """
+
+    def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.underlying_asset = underlying_asset
+        self.get_expiries = binance_get_option_expiries_method
+        self.fetcher = aiohttpfetch
+
     @CommonFunctionality.errors_aiohttp
-    async def aiohttp_task(self, expiry, *args, **kwargs):
-        """ creates a taks"""
+    async def _calibrate_instruments(self, symbols_update_interval):
+        """ updates ixisting option instruments"""
+        while True:
+            expiries = await self.get_expiries(self.underlying_asset)
+            old_expiries = self._instruments.get("option", [])
+            instruments_to_remove = list(set(old_expiries) - set(expiries)) 
+            instruments_to_add = list(set(expiries) - set(old_expiries))         
+            self._instruments["option"] = expiries
+            self._instruments_to_remove["option"] = instruments_to_remove
+            self._instruments_to_add["option"] = instruments_to_add
+            await asyncio.sleep(symbols_update_interval)
+
+
+    
+
+        
+
+
+class binance_aoihttp_posfutureperp_manager():
+    """
+        I after examining instruments related to BTC, ETHBTC instrument was present but its not suppoused to be. 
+        So info API has some mistakes on binance side and it was fixed by filtering all of the symbols that doesnt contain USD
+    """
+
+    def __init__ (self, underlying_asset, info_linear:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.running = True
+        self.underlying_asset = underlying_asset
+        self.linear_symbols = []
+        self.inverse_symbol = underlying_asset + "USD"
+        self.info_linear_method = info_linear
+        self.fetcher = aiohttpfetch
+        self.symbol_update_task = True
+        self.data = {}
+        self.pullTimeout = 1
+        self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
+        self.topic_name = ""
+        
+    async def get_binance_instruments(self):
+        self.linear_symbols = await self.info_linear_method(self.underlying_asset)
+        self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
+    
+    async def update_symbols(self, lag=0, update_interval=60*24):
+        await asyncio.sleep(lag)
         while self.running:
-            data = await self.fetcher("option", "oi", symbol=self.underlying_asset, specialParam=expiry,  special_method="oioption")
-            await self.message_process(expiry, *args, **kwargs)
-    
+            task = asyncio.create_task(self.get_binance_instruments())
+            await task
+            await asyncio.sleep(update_interval)  
 
-        
-
-
-# class binance_aoihttp_posfutureperp_manager():
-#     """
-#         I after examining instruments related to BTC, ETHBTC instrument was present but its not suppoused to be. 
-#         So info API has some mistakes on binance side and it was fixed by filtering all of the symbols that doesnt contain USD
-#     """
-
-#     def __init__ (self, underlying_asset, info_linear:callable, aiohttpfetch:callable):
-#         super().__init__()
-#         self.running = True
-#         self.underlying_asset = underlying_asset
-#         self.linear_symbols = []
-#         self.inverse_symbol = underlying_asset + "USD"
-#         self.info_linear_method = info_linear
-#         self.fetcher = aiohttpfetch
-#         self.symbol_update_task = True
-#         self.data = {}
-#         self.pullTimeout = 1
-#         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
-#         self.topic_name = ""
-        
-#     async def get_binance_instruments(self):
-#         self.linear_symbols = await self.info_linear_method(self.underlying_asset)
-#         self.linear_symbols = [x for x in self.linear_symbols if self.underlying_asset in x and "USD" in  x]
-    
-#     async def update_symbols(self, lag=0, update_interval=60*24):
-#         await asyncio.sleep(lag)
-#         while self.running:
-#             task = asyncio.create_task(self.get_binance_instruments())
-#             await task
-#             await asyncio.sleep(update_interval)  
-
-#     async def helper_1(self, instType, objective, symbol):
-#         data = await self.fetcher(instType, objective, symbol=symbol, special_method="posfutureperp")
-#         if data == "[]" and symbol in self.linear_symbols:
-#             self.linear_symbols.remove(symbol)
-#         self.data[f"{symbol}_{objective}"] = data
+    async def helper_1(self, instType, objective, symbol):
+        data = await self.fetcher(instType, objective, symbol=symbol, special_method="posfutureperp")
+        if data == "[]" and symbol in self.linear_symbols:
+            self.linear_symbols.remove(symbol)
+        self.data[f"{symbol}_{objective}"] = data
 
 
-#     async def helper_2(self, instType, objective, coinm_symbol):
-#         data = await self.fetcher(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
-#         self.data[coinm_symbol+f"coinmAgg_{objective}"] = data
+    async def helper_2(self, instType, objective, coinm_symbol):
+        data = await self.fetcher(instType, objective, symbol=coinm_symbol, special_method="posfutureperp")
+        self.data[coinm_symbol+f"coinmAgg_{objective}"] = data
 
-#     # @CommonFunctionality.log_exceptions
-#     async def aiomethod(self):
-#         tasks = []
-#         for symbol in self.linear_symbols:
-#             instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
-#             for objective in ["tta", "ttp", "gta"]:
-#                 marginType = binance_instType_help(symbol)
-#                 symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
-#                 tasks.append(self.helper_1(instType, objective, symbol))
-#         for objective in ["tta", "ttp", "gta"]:
-#             tasks.append(self.helper_2("perpetual", objective, self.inverse_symbol))
+    # @CommonFunctionality.log_exceptions
+    async def aiomethod(self):
+        tasks = []
+        for symbol in self.linear_symbols:
+            instType = "future" if bool(re.search(r'\d', symbol.split("_")[-1])) else "perpetual"
+            for objective in ["tta", "ttp", "gta"]:
+                marginType = binance_instType_help(symbol)
+                symbol = symbol if marginType == "Linear" else symbol.replace("_", "").replace("PERP", "")
+                tasks.append(self.helper_1(instType, objective, symbol))
+        for objective in ["tta", "ttp", "gta"]:
+            tasks.append(self.helper_2("perpetual", objective, self.inverse_symbol))
             
-#         await asyncio.gather(*tasks)
+        await asyncio.gather(*tasks)
 
-#         keys = [f"{x}_{o}" for x in self.linear_symbols for o in ["tta", "ttp", "gta"]] + [self.inverse_symbol+f"coinmAgg_{o}" for o in ["tta", "ttp", "gta"]]
-#         for key in self.data.copy():
-#             if key not in keys:
-#                 del self.data[key]
+        keys = [f"{x}_{o}" for x in self.linear_symbols for o in ["tta", "ttp", "gta"]] + [self.inverse_symbol+f"coinmAgg_{o}" for o in ["tta", "ttp", "gta"]]
+        for key in self.data.copy():
+            if key not in keys:
+                del self.data[key]
                 
                 
                 
