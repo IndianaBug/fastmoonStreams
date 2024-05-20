@@ -135,6 +135,7 @@ api = {
 
 connectionData = client.build_connection_data(ws, api)
 
+print(connectionData)
 
 # for e in connectionData:
 #     print("----")

@@ -19,35 +19,37 @@ class CommonFunctionality:
     
     """ Common functionalities class betweem apimixers"""
     
-    def __init__(self):
-        self.max_reconnect_retries = 0
+    def __init__(self, underlying_asset="BTC", connection_data={}, max_reconnect_retries=8, fetcher:callable=lambda:0, send_message_to_topic:callable=lambda x,y:0):
+        
+        self.underlying_asset = underlying_asset
+        self.max_reconnect_retries = max_reconnect_retries
+        self.connection_data = connection_data
         self.underlying_asset = ""
-        self.fetcher : lambda : 0
-        self.send_message_to_topic = lambda x, y : 0
-        self.running = False 
-        self.connection_data = {}
+        self.fetcher = fetcher
+        self.send_message_to_topic = send_message_to_topic
+
+        self._instruments_to_remove = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
+        self._instruments_to_add = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
+        self._instruments = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
+        self.running = {"coroutine_orchestrator" : False, "calibrate_instruments" : False}
         
-        self.objective = ""
-        self.special_param = ""
-        self.special_method = ""
-        self.data = {}
-        self.topic_name = ""
-        self.datapull_timeout = 0
-        self.update_instruments_timeout = 0
-        self.instruments_to_remove = {}
-        self.instruments_to_add = {}
-        self.instruments = {} # 
-        self.exchange = ""
         
-    def start_caroutines(self):
+    def start_orchestrator(self):
         """ starts caroutins """
-        self.running = True
+        self.running["coroutine_orchestrator"] = True
         
-    def stop_caroutines(self):
+    def stop_orchestrator(self):
         """ stops caroutines """
-        self.running = False
+        self.running["coroutine_orchestrator"] = False
         
+    def _start_coroutine(self, coroutine):
+        """ starts caroutins """
+        self.running[coroutine] = True
         
+    def _stop_coroutine(self, coroutine):
+        """ stops caroutines """
+        self.running[coroutine] = False
+                
     @staticmethod
     def errors_aiohttp(func):
         """ logs errors of a single aiohttp method"""
@@ -86,10 +88,8 @@ class CommonFunctionality:
             wrapper for aiohttp tasks
             necessary attributes must be passed from SupplyEngine class
         """
-        max_reconnect_retries = 5
         @wraps(func)
-        async def inner_caroutine_manager(self, *args, **kwargs):
-            max_reconnect_retries = self.max_reconnect_retries
+        async def inner_coroutine_manager(self, *args, **kwargs):
             connection_start_time = time.time()
             id_api = self.connection_data.get("id_api")
             try:
@@ -106,14 +106,18 @@ class CommonFunctionality:
                 self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", id_api, e, exc_info=True)
                 if "ERRORS_DISCONNECTS" in self.producer_metrics:
                     self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
-        return backoff.on_exception(
+                    
+        def wrapper(self, *args, **kwargs):
+            return backoff.on_exception(
                 backoff.expo,
                 aiohttp_recoverable_errors,
-                max_tries=max_reconnect_retries,
+                max_tries=self.max_reconnect_retries,
                 max_time=300
-            )(inner_caroutine_manager)
+            )(inner_coroutine_manager)(self, *args, **kwargs)
+
+        return wrapper
         
-    def get_symbol_name(self, instType, *args, **kwargs):
+    def _help_symbol_name(self, instType, *args, **kwargs):
         """ helper to get the correct symbol name"""
         symbol = ""
         if self.exchange == "binance" and instType == "option" and self.special_method == "oioption":
@@ -121,30 +125,36 @@ class CommonFunctionality:
         return symbol
             
     @errors_aiohttp
-    async def caroutine_manager(self, lag: int = 0, *args, **kwargs):
+    async def coroutine_orchestrator(self, lag: int = 0, *args, **kwargs):
         """ 
-        Pattern for updating symbols for OI fetchers or Option expirations.
-        The method get_instruments must exist within the class.
+            Pattern for updating symbols for OI fetchers or Option expirations.
         """
+        
+        objective = self.connection_data.get("objective")
+        exchange = self.connection_data.get("exchange")
+        inst_type = self.connection_data.get("instType")
+        topic_name = self.connection_data.get("topic_name")
+        pull_timeout = self.connection_data.get("pullTimeout")
+        instrument_calibration_timeout = self.connection_data.get("instrument_calibration_timeout", 60*60)
+        special_method = self.connection_data.get("is_special")
+        
         tasks = []  
 
-        update_symbol_task = asyncio.create_task(getattr(self, "caroutine_update_instruments")(self.update_instruments_timeout))
-        tasks.append({f"{self.exchange}_update_instruments" : update_symbol_task}) # append update symbols task
+        update_symbol_task = asyncio.create_task(getattr(self, "_calibrate_instruments")(instrument_calibration_timeout))
+        id_instrument_calibration = f"{exchange}_{special_method}_{self.underlying_asset}_calibrate_instruments"
+        tasks.append({"name" : id_instrument_calibration,  "task" : update_symbol_task}) 
+        await asyncio.sleep(5 + lag) # wait until symbols are fetched
         
-        await asyncio.sleep(5 + lag) # wait until symbols are fetch
-        
-        while self.running:
-
-
-            # Add new tasks
-            for instType in self.instruments_to_add:
-                for instrument in self.instruments_to_add.get(instType):
+        self.start_orchestrator()
+        while self.running.get("coroutine_orchestrator") is True:
+            # add tasks            
+            for inst_type in self._instruments_to_add:
+                for instrument in self._instruments_to_add.get(inst_type):
                     if not any(task['name'] == instrument for task in tasks):
+                        id_task = f"{exchange}_{special_method}_{self.underlying_asset}_{instrument}"
                         
-                        name = f"{self.exchange}_{instType}_{instrument}"
-                        symbol = self.get_symbol_name(instType)
                         
-                        method = getattr(self, "create_continuous_fetcher")
+                        method = getattr(self, "asyncronous_data_stream")
                         method = partial(
                             method, instType=instType, objective=self.objective, symbol=symbol,
                             special_param=instrument, special_method=self.special_method
@@ -164,7 +174,7 @@ class CommonFunctionality:
                             pass
                         tasks.remove(task_to_remove)
 
-            await asyncio.sleep(symbols_update_interval)
+            await asyncio.sleep(instrument_calibration_timeout)
 
     async def message_process(self, expiry, *args, **kwargs):
         """ pattern for sending every message"""
@@ -192,7 +202,7 @@ class binance_aoihttp_oioption_manager(CommonFunctionality):
         self.update_instruments_timeout = 60 * 24
 
     @CommonFunctionality.errors_aiohttp
-    async def caroutine_update_instruments(self, symbols_update_interval):
+    async def _calibrate_instruments(self, symbols_update_interval):
         """ updates ixisting option instruments"""
         while True:
             expiries = await self.get_expiries(self.underlying_asset)
