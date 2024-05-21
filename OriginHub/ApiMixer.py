@@ -248,7 +248,7 @@ class CommonFunctionality:
 
         # gateio
         if exchange == "gateio" and objective == "oi": 
-            inst_type = "future" if margin_type == "future" else "perpetual"
+            inst_type = "future" if margin_type == "futures" else "perpetual"
             fetch_method = partial(self.fetcher, inst_type, "oi", symbol=instrument)
         if exchange == "gateio" and objective == "tta": 
             fetch_method = partial(self.fetcher, "perpetual", "tta", symbol=instrument)
@@ -292,6 +292,7 @@ class CommonFunctionality:
             data = await fetch_method()
             await self.send_message_to_topic(topic_name, data)
             # -------
+            # print(data)
             message_encoded = data.encode("utf-8")
             print(sys.getsizeof(message_encoded), id_instrument)
             # -------
