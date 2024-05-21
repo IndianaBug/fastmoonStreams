@@ -941,7 +941,7 @@ class publisher(keepalive):
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
                     
             if "id_api" in connection_dict:
-                if connection_dict.get("symbol_update_task") is True :
+                if connection_dict.get("symbol_update_task") is True or connection_dict.get("is_still_nested") is True :
                     tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").start_coroutines_orchestrator(lag=delay)))
                 else:
                     tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_data=connection_dict, initial_delay=delay)))

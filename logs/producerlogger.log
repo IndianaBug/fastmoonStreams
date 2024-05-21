@@ -4931,3 +4931,14 @@ TypeError: 'str' object is not callable
 2024-05-21 21:31:18,796 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_oi_btcoifutureperp' already exists."}
 2024-05-21 22:03:45,846 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_oi_btcoifutureperp' already exists."}
 2024-05-21 22:04:55,061 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-21 23:21:07,480 - OriginHub.SupplyEngine - ERROR - Error from htx_api_perpetual_oi_btc: 'str' object is not callable
+Traceback (most recent call last):
+  File "C:\coding\fastmoon\fastmoonStreams\OriginHub\SupplyEngine.py", line 755, in inner_aiohttp_socket
+    message = await connection_data.get("aiohttpMethod")()
+TypeError: 'str' object is not callable
+2024-05-21 23:38:31,451 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-21 23:38:32,493 - OriginHub.SupplyEngine - ERROR - TypeError in  _calibrate_instruments, None, error message:htx_aiohttp_oifutureperp_manager._calibrate_instruments() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "C:\coding\fastmoon\fastmoonStreams\OriginHub\ApiMixer.py", line 90, in inner_wrapper_task_generator
+    return await func(self, *args, **kwargs)
+TypeError: htx_aiohttp_oifutureperp_manager._calibrate_instruments() takes 1 positional argument but 2 were given
