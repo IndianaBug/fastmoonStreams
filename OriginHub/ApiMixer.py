@@ -233,7 +233,18 @@ class CommonFunctionality:
             fetch_method = partial(self.fetcher, inst_type, "gta", symbol=instrument, special_method="posfutureperp")
         if exchange == "bybit" and special_method == "fundperp": 
             fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument, special_method="fundperp")
-
+            
+        # Okx
+        if exchange == "okx" and objective == "oi": 
+            fetch_method = partial(self.fetcher, margin_type, "oi", instrument)
+        if exchange == "okx" and objective == "funding": 
+            fetch_method = partial(self.fetcher, margin_type, "funding", instrument)
+            
+        # Bitget
+        if exchange == "bitget" and objective == "oi": 
+            fetch_method = partial(self.fetcher, "perpetual", "oi", symbol=instrument, special_method="oifutureperp")
+        if exchange == "bitget" and objective == "funding": 
+            fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument, special_method="fundperp")
         return fetch_method
     
     
@@ -525,134 +536,120 @@ class bybit_aoihttp_fundperp_manager(CommonFunctionality):
                                                 
             await asyncio.sleep(symbols_update_interval)   
 
+class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
+    
+    def __init__ (self, underlying_asset, info_perpetual:callable, info_future:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.underlying_asset = underlying_asset
+        self.get_symbols_perpetual = info_perpetual
+        self.get_symbols_future = info_future
+        self.fetcher = aiohttpfetch
+        self._objectives = ["oi"]
 
+    @CommonFunctionality.errors_aiohttp
+    async def _calibrate_instruments(self, symbols_update_interval):
+        """ there are no unique positions for every symbol from inverse margin. The positioning is encapsulated simply within underlyingasset_USD"""
+        self.running["calibrate_instruments"] = True
+        while self.running["calibrate_instruments"]:
+            # current linear symbols
+            current_symbols_perpetual = await self.get_symbols_perpetual(self.underlying_asset)
+            old_symbols_perpetual = self._instruments.get("perpetual", [])
+            instruments_to_remove = list(set(old_symbols_perpetual) - set(current_symbols_perpetual)) 
+            instruments_to_add = list(set(current_symbols_perpetual) - set(old_symbols_perpetual))         
+            self._instruments["perpetual"] = current_symbols_perpetual
+            self._instruments_to_remove["perpetual"] = instruments_to_remove
+            self._instruments_to_add["perpetual"] = instruments_to_add
+            
+            current_symbols_future = await self.get_symbols_future(self.underlying_asset)
+            old_symbols_future = self._instruments.get("future", [])
+            instruments_to_remove = list(set(old_symbols_future) - set(current_symbols_future)) 
+            instruments_to_add = list(set(current_symbols_future) - set(old_symbols_future))         
+            self._instruments["future"] = current_symbols_future
+            self._instruments_to_remove["future"] = instruments_to_remove
+            self._instruments_to_add["future"] = instruments_to_add
+                                                            
+            await asyncio.sleep(symbols_update_interval)
+            
+class okx_aoihttp_fundperp_manager(CommonFunctionality):
+    
+    def __init__ (self, underlying_asset, info_perpetual:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.underlying_asset = underlying_asset
+        self.get_symbols_perpetual = info_perpetual
+        self.fetcher = aiohttpfetch
+        self._objectives = ["oi"]
+
+    @CommonFunctionality.errors_aiohttp
+    async def _calibrate_instruments(self, symbols_update_interval):
+        """ there are no unique positions for every symbol from inverse margin. The positioning is encapsulated simply within underlyingasset_USD"""
+        self.running["calibrate_instruments"] = True
+        while self.running["calibrate_instruments"]:
+            # current linear symbols
+            current_symbols_perpetual = await self.get_symbols_perpetual(self.underlying_asset)
+            old_symbols_perpetual = self._instruments.get("perpetual", [])
+            instruments_to_remove = list(set(old_symbols_perpetual) - set(current_symbols_perpetual)) 
+            instruments_to_add = list(set(current_symbols_perpetual) - set(old_symbols_perpetual))         
+            self._instruments["perpetual"] = current_symbols_perpetual
+            self._instruments_to_remove["perpetual"] = instruments_to_remove
+            self._instruments_to_add["perpetual"] = instruments_to_add
+                                                            
+            await asyncio.sleep(symbols_update_interval)
+            
+class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
+    
+    def __init__ (self, underlying_asset, info_perpetual:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.underlying_asset = underlying_asset
+        self.get_symbols_perpetual = info_perpetual
+        self.fetcher = aiohttpfetch
+        self._objectives = ["oi"]
+
+    @CommonFunctionality.errors_aiohttp
+    async def _calibrate_instruments(self, symbols_update_interval):
+        """ there are no unique positions for every symbol from inverse margin. The positioning is encapsulated simply within underlyingasset_USD"""
+        self.running["calibrate_instruments"] = True
+        while self.running["calibrate_instruments"]:
+            # current linear symbols
+            symbols_by_margin = await self.get_symbols_perpetual(self.underlying_asset)
+            current_symbols_perpetual = [y for x in symbols_by_margin.values() for y in x]
+            
+            old_symbols_perpetual = self._instruments.get("perpetual", [])
+            instruments_to_remove = list(set(old_symbols_perpetual) - set(current_symbols_perpetual)) 
+            instruments_to_add = list(set(current_symbols_perpetual) - set(old_symbols_perpetual))         
+            self._instruments["perpetual"] = current_symbols_perpetual
+            self._instruments_to_remove["perpetual"] = instruments_to_remove
+            self._instruments_to_add["perpetual"] = instruments_to_add
+                                                            
+            await asyncio.sleep(symbols_update_interval)
         
-# class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
-
-#     def __init__ (self, underlying_asset, info_perpetual:callable, info_future:callable, aiohttpfetch:callable):
-#         self.running = True
-#         self.underlying_asset = underlying_asset
-#         self.symbols_future = []
-#         self.symbols_perpetual = []
-#         self.info_perpetual = info_perpetual
-#         self.info_future = info_future
-#         self.fetcher = aiohttpfetch
-#         self.symbol_update_task = True
-#         self.data = {}
-#         self.pullTimeout = 1
-#         self.symbols_perpetual = []
-#         self.symbols_future = []
-#         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
-#         self.topic_name = ""
-
-#     async def get_okx_instruments(self):
-#         self.symbols_future = await self.info_future(self.underlying_asset)
-#         self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
+class bitget_aoihttp_fundperp_manager(CommonFunctionality):
     
-#     async def update_symbols(self, lag=0, update_time=60*24):
-#         await asyncio.sleep(lag)
-#         while self.running:
-#             task = asyncio.create_task(self.get_okx_instruments())
-#             await task
-#             await asyncio.sleep(update_time)  
+    def __init__ (self, underlying_asset, info_perpetual:callable, aiohttpfetch:callable):
+        super().__init__()
+        self.underlying_asset = underlying_asset
+        self.get_symbols_perpetual = info_perpetual
+        self.fetcher = aiohttpfetch
+        self._objectives = ["funding"]
 
-#     async def h1(self, instType, symbol):
-#         data = await self.fetcher(instType, "oi", symbol)
-#         self.data[symbol] = data
-
-#     @CommonFunctionality.log_exceptions
-#     async def aiomethod(self):
-#         tasks = []
-#         for s in self.symbols_perpetual:
-#             tasks.append(self.h1("perpetual", s))
-#         for s in self.symbols_future:
-#             tasks.append(self.h1("future", s))
-#         await asyncio.gather(*tasks)
-
-#         all_symbols = self.symbols_perpetual + self.symbols_future
-
-#         for key in self.data.copy():
-#             if len([x for x in all_symbols if x == key]) == 0:
-#                 del self.data[key]
-
-# class okx_aoihttp_fundperp_manager(CommonFunctionality):
-
-#     def __init__ (self, underlying_asset, info_perpetual:callable, aiohttpfetch:callable):
-#         self.running = True
-#         self.underlying_asset = underlying_asset
-#         self.symbols_future = []
-#         self.symbols_perpetual = []
-#         self.info_perpetual = info_perpetual
-#         self.fetcher = aiohttpfetch
-#         self.symbol_update_task = True
-#         self.data = {}
-#         self.pullTimeout = 1
-#         self.symbols_perpetual = []
-#         self.symbols_future = []
-#         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
-#         self.topic_name = ""
+    @CommonFunctionality.errors_aiohttp
+    async def _calibrate_instruments(self, symbols_update_interval):
+        """ there are no unique positions for every symbol from inverse margin. The positioning is encapsulated simply within underlyingasset_USD"""
+        self.running["calibrate_instruments"] = True
+        while self.running["calibrate_instruments"]:
+            # current linear symbols
+            symbols_by_margin = await self.get_symbols_perpetual(self.underlying_asset)
+            current_symbols_perpetual = [y for x in symbols_by_margin.values() for y in x]
+            
+            old_symbols_perpetual = self._instruments.get("perpetual", [])
+            instruments_to_remove = list(set(old_symbols_perpetual) - set(current_symbols_perpetual)) 
+            instruments_to_add = list(set(current_symbols_perpetual) - set(old_symbols_perpetual))         
+            self._instruments["perpetual"] = current_symbols_perpetual
+            self._instruments_to_remove["perpetual"] = instruments_to_remove
+            self._instruments_to_add["perpetual"] = instruments_to_add
+                                                            
+            await asyncio.sleep(symbols_update_interval)
 
 
-#     async def get_okx_instruments(self):
-#         self.symbols_perpetual = await self.info_perpetual(self.underlying_asset)
-    
-#     async def update_symbols(self, lag=0, update_interval=60*24):
-#         await asyncio.sleep(lag)
-#         while self.running:
-#             task = asyncio.create_task(self.get_okx_instruments())
-#             await task
-#             await asyncio.sleep(update_interval)  
-
-#     async def h1(self, symbol):
-#         response = await self.fetcher("perpetual", "funding", symbol)
-#         self.data[symbol] = response
-
-#     @CommonFunctionality.log_exceptions
-#     async def aiomethod(self):
-#         tasks = []
-#         for symbol in self.symbols_perpetual:
-#             tasks.append(self.h1(symbol))
-#         await asyncio.gather(*tasks)
-
-#         for key in self.data.copy():
-#             if len([x for x in self.symbols_perpetual if x == key]) == 0:
-#                 del self.data[key]
-
-# class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
-
-#     def __init__ (self, underlying_asset, info:callable, aiohttpfetch:callable):
-#         self.running = True
-#         self.underlying_asset = underlying_asset
-#         self.symbols_perpetual = []
-#         self.info = info
-#         self.fetcher = aiohttpfetch
-#         self.symbol_update_task = True
-#         self.data = {}
-#         self.pullTimeout = 1
-#         self.send_message_to_topic = lambda x,y : print("This function will be changed dynamically")
-#         self.topic_name = ""
-
-#     async def get_bitget_perpetual_symbols(self):
-#         self.symbols_perpetual = await self.info(self.underlying_asset)
-    
-#     async def update_symbols(self, lag=0, update_interval=60*24):
-#         await asyncio.sleep(lag)
-#         while self.running:
-#             task = asyncio.create_task(self.get_bitget_perpetual_symbols())
-#             await task
-#             await asyncio.sleep(update_interval)  
-
-#     async def h1(self, symbol):
-#         data = await self.fetcher("perpetual", "oi", symbol=symbol, special_method="oifutureperp")
-#         self.data[symbol] = data
-
-#     @CommonFunctionality.log_exceptions
-#     async def aiomethod(self):
-#         tasks = []
-#         for margin in self.symbols_perpetual:
-#             for symbol in self.symbols_perpetual[margin]:
-#                 tasks.append(self.h1(symbol))
-#         await asyncio.gather(*tasks)
 
 # class bitget_aoihttp_fundperp_manager(CommonFunctionality):
 
