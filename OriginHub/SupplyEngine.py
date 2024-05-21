@@ -942,13 +942,11 @@ class publisher(keepalive):
                     
             if "id_api" in connection_dict:
                 if connection_dict.get("symbol_update_task") is True :
-                    new_tasks = await connection_dict.get("api_call_manager").assemble_asyncronious_tasks(lag=delay)
-                    for t in new_tasks:
-                        tasks.append(asyncio.ensure_future(t))
+                    tasks.append(asyncio.ensure_future(connection_dict.get("api_call_manager").start_coroutines_orchestrator(lag=delay)))
                 else:
                     tasks.append(asyncio.ensure_future(self.aiohttp_socket(connection_data=connection_dict, initial_delay=delay)))
             
             
-            await asyncio.gather(*tasks)
+        await asyncio.gather(*tasks)
             
             
