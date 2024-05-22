@@ -73,7 +73,7 @@ class binance_on_message(on_message_helper):
         else:
             self.binance_derivate_multiplier = binance_derivate_multiplier
     
-    async def binance_api_spot_depth(self, data:dict, *args, **kwargs): 
+    async def binance_api_spot_depth(self, data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -96,7 +96,7 @@ class binance_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def binance_api_linearperpetual_linearfuture_depth(self, data:dict, *args, **kwargs):  #-> 'on_message_helper.depth':
+    async def binance_api_linearperpetual_linearfuture_depth(self, data:str, *args, **kwargs):  #-> 'on_message_helper.depth':
         bids = []
         asks = []
         previous_map_event = ""
@@ -125,7 +125,7 @@ class binance_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def binance_api_inverseperpetual_inversefuture_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.depth':
+    async def binance_api_inverseperpetual_inversefuture_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.depth':
         bids = []
         asks = []
         previous_map_event = ""
@@ -168,7 +168,7 @@ class binance_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def binance_ws_spot_linearperpetual_linearfuture_depth(self, data:dict,  *args, **kwargs): # -> 'on_message_helper.depth':
+    async def binance_ws_spot_linearperpetual_linearfuture_depth(self, data:str,  *args, **kwargs): # -> 'on_message_helper.depth':
         bids = []
         asks = []
         previous_map_event = ""
@@ -198,7 +198,7 @@ class binance_on_message(on_message_helper):
 
         return {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
     
-    async def binance_ws_inverseperpetual_inversefuture_depth(self, data:dict, market_state, connection_data, *args, **kwargs): # -> 'on_message_helper.depth':
+    async def binance_ws_inverseperpetual_inversefuture_depth(self, data:str, market_state, connection_data, *args, **kwargs): # -> 'on_message_helper.depth':
         bids = []
         asks = []
         previous_map_event = ""
@@ -238,7 +238,7 @@ class binance_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def binance_ws_spot_linearperpetual_linearfuture_option_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_spot_linearperpetual_linearfuture_option_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         symbol = data.get("s")
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         instType = "option" if len(symbol.split("-")) == 4 else instType
@@ -251,7 +251,7 @@ class binance_on_message(on_message_helper):
 
         return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
 
-    async def binance_ws_inverseperpetual_inversefuture_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_inverseperpetual_inversefuture_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
         symbol = data.get("s")
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
@@ -268,7 +268,7 @@ class binance_on_message(on_message_helper):
         receive_time = float(data.get("E")) / 1000
         return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
 
-    async def binance_ws_linearperpetual_linearfuture_option_liquidations(self, data:dict, *args, **kwargs): #  -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_linearperpetual_linearfuture_option_liquidations(self, data:str, *args, **kwargs): #  -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
         quantity = float(data.get("o").get("q"))
         price = float(data.get("o").get("p"))
@@ -277,7 +277,7 @@ class binance_on_message(on_message_helper):
         receive_time = float(data.get("E")) / 1000
         return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "receive_time" : receive_time}
 
-    async def binance_ws_inverseperpetual_inversefuture_liquidations(self, data:dict, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_inverseperpetual_inversefuture_liquidations(self, data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
         price = float(data.get("o").get("p"))
         quantity = self.binance_derivate_multiplier.get(data.get("o").get("ps"))(float(data.get("o").get("q")), price)
@@ -286,7 +286,7 @@ class binance_on_message(on_message_helper):
         receive_time = float(data.get("E")) / 1000
         return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "receive_time" : receive_time}
 
-    async def binance_api_oifutureperp_perpetual_oi_linear_inverse(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_oifutureperp_perpetual_oi_linear_inverse(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         l = {}
         oidata = json.loads(data)
         symbol = oidata.get("symbol")
@@ -305,7 +305,7 @@ class binance_on_message(on_message_helper):
         l["receive_time"] = time.time()
         return l
 
-    async def binance_api_oioption_oi_option(self, data:list, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def binance_api_oioption_oi_option(self, data:list, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.binance.com/en/support/faq/binance-options-contract-specifications-cdee5d43b70d4d2386980d41786a8533
         """
@@ -336,7 +336,7 @@ class binance_on_message(on_message_helper):
         instruments_data["receive_time"] = time.time()
         return instruments_data
         
-    async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:dict, market_state:dict, connection_data:dict, key:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:str, market_state:dict, connection_data:str, key:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         pos_data = {}
         objective = key.split("_")[-1]
         data_position = json.loads(data)
@@ -364,7 +364,7 @@ class binance_on_message(on_message_helper):
         pos_data.update({"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time()})
         return pos_data    
 
-    async def binance_api_fundperp_perpetual_funding_linear_inverse(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_fundperp_perpetual_funding_linear_inverse(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         d = {}
         funddata = json.loads(data)[0]
         symbol = funddata.get("symbol")
@@ -398,7 +398,7 @@ class bybit_on_message(on_message_helper):
         else:
             self.bybit_derivate_multiplier = bybit_derivate_multiplier
 
-    async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:dict, market_state:dict, connection_data:dict, instrument, *args, **kwargs): 
+    async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs): 
         d = {}
         funddata = json.loads(data)
         msid = f"{instrument}@perpetual@bybit"
@@ -411,7 +411,7 @@ class bybit_on_message(on_message_helper):
         d["receive_time"] = time.time()
         return d
 
-    async def bybit_api_oifutureperp_linear_inverse_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_oifutureperp_linear_inverse_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         d = {}
         oidata = json.loads(data)
         symbol = oidata.get("result").get("symbol")
@@ -429,7 +429,7 @@ class bybit_on_message(on_message_helper):
         d["receive_time"] = time.time()
         return d
 
-    async def bybit_api_posfutureperp_perpetual_linear_inverse_future_gta(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_posfutureperp_perpetual_linear_inverse_future_gta(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         d = {}
         posdata = json.loads(data)
         symbol = posdata.get("result").get("list")[0].get("symbol")
@@ -448,7 +448,7 @@ class bybit_on_message(on_message_helper):
         d["receive_time"] = time.time()
         return d
 
-    async def bybit_api_spot_linear_perpetual_future_option_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_spot_linear_perpetual_future_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -472,7 +472,7 @@ class bybit_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(),"receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d    
 
-    async def bybit_api_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_api_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -513,7 +513,7 @@ class bybit_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def bybit_ws_spot_linear_perpetual_future_option_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_ws_spot_linear_perpetual_future_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -545,7 +545,7 @@ class bybit_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def bybit_ws_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bybit_ws_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -586,7 +586,7 @@ class bybit_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def bybit_ws_linear_spot_perpetual_future_option_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_ws_linear_spot_perpetual_future_option_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -610,7 +610,7 @@ class bybit_on_message(on_message_helper):
                     market_state[msid]["price"] = price
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def bybit_ws_inverse_perpetual_future_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bybit_ws_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -632,7 +632,7 @@ class bybit_on_message(on_message_helper):
                 market_state[msid]["price"] = price
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def bybit_ws_linear_perpetual_future_option_liquidations(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bybit_ws_linear_perpetual_future_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -645,7 +645,7 @@ class bybit_on_message(on_message_helper):
         liquidations.append([{"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp}])
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def bybit_ws_inverse_perpetual_future_liquidations(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def bybit_ws_inverse_perpetual_future_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -659,7 +659,7 @@ class bybit_on_message(on_message_helper):
         liquidations.append([{"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp}])
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def bybit_api_oioption_oi_option(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): # -> Tuple[np.array, np.array, np.array, float, str]:
+    async def bybit_api_oioption_oi_option(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> Tuple[np.array, np.array, np.array, float, str]:
         """
             https://blog.bybit.com/post/everything-you-need-to-know-about-bybit-s-usdc-options-blt905124bb9461ab21/
         """
@@ -710,7 +710,7 @@ class okx_on_message(on_message_helper):
         else:
             self.okx_derivate_multiplier = derivate_multiplier
 
-    async def okx_api_fundperp_perpetual_future_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_api_fundperp_perpetual_future_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
         d = {}
@@ -727,7 +727,7 @@ class okx_on_message(on_message_helper):
         d["receive_time"] = time.time()
         return d
 
-    async def okx_api_gta_perpetual_future(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_api_gta_perpetual_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
         label = "BTC@future@perpetual@okx" 
@@ -749,7 +749,7 @@ class okx_on_message(on_message_helper):
         market_state[label] = {"gta_ratio" : gta}
         return d
 
-    async def okx_api_oifutureperp_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_api_oifutureperp_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
         d = {}
@@ -765,7 +765,7 @@ class okx_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def okx_api_option_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs): 
+    async def okx_api_option_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         """
             https://www.okx.com/help/i-okx-options-introduction
         """
@@ -793,7 +793,7 @@ class okx_on_message(on_message_helper):
             }
         return instruments_data
 
-    async def okx_api_ws_spot_option_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_api_ws_spot_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -822,7 +822,7 @@ class okx_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
         return d
     
-    async def okx_api_ws_linear_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_api_ws_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -862,7 +862,7 @@ class okx_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
         return d
 
-    async def okx_ws_option_trades_optionTrades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_ws_option_trades_optionTrades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
         data = json.loads(data)
@@ -877,7 +877,7 @@ class okx_on_message(on_message_helper):
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}   
     
-    async def okx_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []           
@@ -896,7 +896,7 @@ class okx_on_message(on_message_helper):
                 market_state[msid]["price"] = price
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}     
     
-    async def okx_ws_linear_inverse_perpetual_future_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_ws_linear_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []           
@@ -919,7 +919,7 @@ class okx_on_message(on_message_helper):
 
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}          
 
-    async def okx_ws_future_perpetual_option_liquidations(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def okx_ws_future_perpetual_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []           
@@ -958,7 +958,7 @@ class deribit_on_message(on_message_helper):
         else:
             self.deribit_derivate_multiplier = derivate_multiplier
 
-    async def deribit_api_option_oi_oifunding(self, data:dict, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
+    async def deribit_api_option_oi_oifunding(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         """
             https://static.deribit.com/files/USDCContractSpecsandmargins.pdf
         """
@@ -987,7 +987,7 @@ class deribit_on_message(on_message_helper):
         instruments_data["timestamp"] = self.process_timestamp_no_timestamp()
         return instruments_data
 
-    async def deribit_api_perpetual_future_oi_funding_oifunding(self, data:dict, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
+    async def deribit_api_perpetual_future_oi_funding_oifunding(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         msids = []
         symbols = []
         prices = []
@@ -1029,7 +1029,7 @@ class deribit_on_message(on_message_helper):
         instruments_data["timestamp"] = self.process_timestamp_no_timestamp()
         return instruments_data
 
-    async def deribit_ws_future_perpetual_linear_inverse_option_trades_tradesagg_liquidations(self, data:dict, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
+    async def deribit_ws_future_perpetual_linear_inverse_option_trades_tradesagg_liquidations(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         """
             https://docs.deribit.com/#trades-kind-currency-interval -- contains liquidations
         """
@@ -1060,7 +1060,7 @@ class deribit_on_message(on_message_helper):
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def deribit_api_perpetual_future_depth(self, data:dict, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
+    async def deribit_api_perpetual_future_depth(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         bids = []
         asks = []
         previous_map_event = ""
@@ -1094,7 +1094,7 @@ class deribit_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
         return d
         
-    async def deribit_ws_perpetual_future_depth(self, data:dict, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
+    async def deribit_ws_perpetual_future_depth(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
 
         bids = []
         asks = []
@@ -1142,7 +1142,7 @@ class bitget_on_message(on_message_helper):
         """
         pass
 
-    async def bitget_api_spot_linear_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bitget_api_spot_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -1163,7 +1163,7 @@ class bitget_on_message(on_message_helper):
             previous_map_event = event
         return {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
 
-    async def bitget_ws_spot_linear_inverse_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bitget_ws_spot_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -1193,7 +1193,7 @@ class bitget_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def bitget_ws_inverse_perpetual_future_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bitget_ws_inverse_perpetual_future_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -1216,7 +1216,7 @@ class bitget_on_message(on_message_helper):
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def bitget_api_oi_perpetual_oifutureperp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bitget_api_oi_perpetual_oifutureperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
         instrument_data = json.loads(data).get("data")
         symbol = instrument_data.get("openInterestList")[0].get("symbol")
@@ -1231,7 +1231,7 @@ class bitget_on_message(on_message_helper):
         d["timestamp"] = timestamp
         return d
 
-    async def bitget_api_funding_perpetual_fundperp(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bitget_api_funding_perpetual_fundperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             [[side, price, size, timestamp]]
         """
@@ -1257,7 +1257,7 @@ class bingx_on_message(on_message_helper):
         """
         pass
 
-    async def bingx_api_perpetual_linear_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs) -> Tuple[list, str]:
+    async def bingx_api_perpetual_linear_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs) -> Tuple[list, str]:
         bids = []
         asks = []
         previous_map_event = ""
@@ -1281,7 +1281,7 @@ class bingx_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def bingx_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bingx_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
 
         bids = []
         asks = []
@@ -1306,7 +1306,7 @@ class bingx_on_message(on_message_helper):
         d = {"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def bingx_api_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bingx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         timestamp = self.process_timestamp(data.get("data").get("time"), 1000)
         openInterest = float(data.get("data").get("openInterest"))
@@ -1320,7 +1320,7 @@ class bingx_on_message(on_message_helper):
         market_state[s]["oi"] = openInterest
         return d
 
-    async def bingx_api_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bingx_api_perpetual_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         funding = float(data.get("data").get("lastFundingRate"))
         ss = str(data.get('data').get('symbol'))
@@ -1332,7 +1332,7 @@ class bingx_on_message(on_message_helper):
         market_state[s]["funding"] = funding
         return d
     
-    async def bingx_ws_trades_perpetual(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bingx_ws_trades_perpetual(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         trades = []
         liquidations = []
         symbol = data.get("dataType").split("@")[0]
@@ -1353,7 +1353,7 @@ class bingx_on_message(on_message_helper):
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
     
-    async def bingx_ws_trades_spot(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def bingx_ws_trades_spot(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         trades = []
         liquidations = []
         trade = data.get("data")
@@ -1380,7 +1380,7 @@ class htx_on_message(on_message_helper):
         """
         pass
 
-    async def htx_api_perpetual_oi(self, data:dict, market_state:dict, connection_data:dict, marginType, *args, **kwargs):
+    async def htx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, marginType, *args, **kwargs):
         d = {}
         data_per_marginType = json.loads(data).get("data")
         for data_instrument in data_per_marginType:
@@ -1397,7 +1397,7 @@ class htx_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def htx_api_perpetual_pos_posfutureperp_gta(self, data:dict, market_state:dict, connection_data:dict, instrument, *args, **kwargs):
+    async def htx_api_perpetual_pos_posfutureperp_gta(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
         d = {}
         indicator_type = instrument.split("_")[-1]
         pos_data = json.loads(data).get("data")
@@ -1421,7 +1421,7 @@ class htx_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def htx_api_perpetual_funding_fundperp(self, data:dict, market_state:dict, connection_data:dict, marginCoin, *args, **kwargs):
+    async def htx_api_perpetual_funding_fundperp(self, data:str, market_state:dict, connection_data:str, marginCoin, *args, **kwargs):
         d = {}
         instData = json.loads(data).get("data")[0]
         funding = float(instData.get("funding_rate"))
@@ -1447,7 +1447,7 @@ class kucoin_on_message(on_message_helper):
         else:
             self.kucoin_derivate_multiplier = derivate_multiplier
 
-    async def kucoin_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -1468,7 +1468,7 @@ class kucoin_on_message(on_message_helper):
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
-    async def kucoin_ws_perpetual_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_ws_perpetual_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []
@@ -1489,7 +1489,7 @@ class kucoin_on_message(on_message_helper):
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
     
-    async def kucoin_api_perpetual_oi_funding_oifunding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_api_perpetual_oi_funding_oifunding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         d = {}
         data = data.get("data")
@@ -1507,7 +1507,7 @@ class kucoin_on_message(on_message_helper):
         d["timestamp"] = timestamp
         return d
 
-    async def kucoin_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_api_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
 
         bids = []
         asks = []
@@ -1532,7 +1532,7 @@ class kucoin_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def kucoin_api_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_api_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -1563,7 +1563,7 @@ class kucoin_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def kucoin_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         d = {}
         for side in ["asks", "bids"]:
@@ -1574,7 +1574,7 @@ class kucoin_on_message(on_message_helper):
         d["receive_time"] = data.get("data").get("time") / 1000
         return d
 
-    async def kucoin_ws_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def kucoin_ws_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         d = {}
         symbol = data.get("topic").split(":")[-1]
@@ -1603,7 +1603,7 @@ class mexc_on_message(on_message_helper):
         else:
             self.mexc_derivate_multiplier = derivate_multiplier
 
-    async def mexc_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = data.get("d").get("deals")
         symbol = data.get("c").split("@")[-1]
@@ -1625,7 +1625,7 @@ class mexc_on_message(on_message_helper):
                 market_state[msid]["price"] = price
         return {"trades" : ttt, "liquidations" : lll, "receive_time" : receive_time}
 
-    async def mexc_ws_perpetual_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_ws_perpetual_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         symbol = data.get("symbol") 
         trade = data.get("data")
@@ -1646,7 +1646,7 @@ class mexc_on_message(on_message_helper):
             market_state[msid]["price"] = price
         return {"trades" : trades, "liquidations" : [], "receive_time" : receive_time}
 
-    async def mexc_api_perpetual_oi_funding_oifunding(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_api_perpetual_oi_funding_oifunding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         d = {}
         symbol = data.get("data").get("symbol")
@@ -1665,7 +1665,7 @@ class mexc_on_message(on_message_helper):
             market_state[msid]["oi"] = oi
         return d
 
-    async def mexc_api_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_api_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
     
         bids = []
         asks = []
@@ -1693,7 +1693,7 @@ class mexc_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def mexc_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_api_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
 
         bids = []
         asks = []
@@ -1718,7 +1718,7 @@ class mexc_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def mexc_ws_perpetual_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_ws_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
     
         data = json.loads(data)
 
@@ -1733,7 +1733,7 @@ class mexc_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp(timestamp, 1000), "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def mexc_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def mexc_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
 
         data = json.loads(data)
 
@@ -1767,7 +1767,7 @@ class gateio_on_message(on_message_helper):
         else:
             self.gateio_derivate_multiplier = derivate_multiplier
 
-    async def gateio_api_option_oi_oioption(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_api_option_oi_oioption(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             btc_price_data : dictionary with all prices of bitcoin instruments from every exchange
         """
@@ -1799,7 +1799,7 @@ class gateio_on_message(on_message_helper):
             }
         return instruments_data
     
-    async def gateio_api_perpetual_future_oi(self, data:dict, market_state:dict, connection_data:dict, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
@@ -1828,7 +1828,7 @@ class gateio_on_message(on_message_helper):
         ddd["timestamp"] = self.process_timestamp_no_timestamp()         
         return ddd
 
-    async def gateio_api_perpetual_future_tta(self, data:dict, market_state:dict, connection_data:dict, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_future_tta(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
@@ -1849,7 +1849,7 @@ class gateio_on_message(on_message_helper):
         ddd["timestamp"] = self.process_timestamp_no_timestamp()  
         return ddd
     
-    async def gateio_api_perpetual_funding(self, data:dict, market_state:dict, connection_data:dict, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_funding(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
         ddd = {}
         instrument_data = json.loads(data)[0]
         msid = f"{instrument}@perpetual@gateio"
@@ -1860,7 +1860,7 @@ class gateio_on_message(on_message_helper):
         ddd["timestamp"] = self.process_timestamp_no_timestamp()   
         return ddd
 
-    async def gateio_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_api_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             side : bids, asks
         """
@@ -1888,7 +1888,7 @@ class gateio_on_message(on_message_helper):
 
         return d
 
-    async def gateio_api_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_api_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
 
@@ -1914,7 +1914,7 @@ class gateio_on_message(on_message_helper):
 
         return d
 
-    async def gateio_ws_spot_depth(self, data:dict, market_state:dict,  connection_data:dict, *args, **kwargs):
+    async def gateio_ws_spot_depth(self, data:str, market_state:dict,  connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         timestamp = None
@@ -1945,7 +1945,7 @@ class gateio_on_message(on_message_helper):
 
         return d
 
-    async def gateio_ws_perpetual_future_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_ws_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             side : bids, asks
         """
@@ -1983,7 +1983,7 @@ class gateio_on_message(on_message_helper):
 
         return d
 
-    async def gateio_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             side : bids, asks
         """
@@ -2005,7 +2005,7 @@ class gateio_on_message(on_message_helper):
 
         return {"liquidations" : liquidations, "trades" : trades, "receive_time" : receive_time}
 
-    async def gateio_ws_perpetual_future_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def gateio_ws_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/futures/ws/en/#trades-notification
         """
@@ -2036,7 +2036,7 @@ class coinbase_on_message(on_message_helper):
     def __init__ (self):
         pass
 
-    async def coinbase_api_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def coinbase_api_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         helper_list = []
@@ -2065,7 +2065,7 @@ class coinbase_on_message(on_message_helper):
         d = {"timestamp" :  self.process_timestamp_no_timestamp(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
         return d
 
-    async def coinbase_ws_spot_depth(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def coinbase_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         helper_list = []
@@ -2100,7 +2100,7 @@ class coinbase_on_message(on_message_helper):
         d = {"timestamp" :  timestamp, "receive_time" :receive_time, "bids" : bids, "asks" : asks}
         return d
 
-    async def coinbase_ws_spot_trades(self, data:dict, market_state:dict, connection_data:dict, *args, **kwargs):
+    async def coinbase_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []

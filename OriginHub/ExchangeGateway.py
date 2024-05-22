@@ -248,7 +248,7 @@ class binance(CommunicationsManager, binanceInfo):
                 "exchange_symbol" : symbol,
                 "standarized_margin" : "",
                 "api_call_manager" : "",
-                "symbol_update_task" : False
+                "coroutine_manager" : False
                 }
         instrument = binance_get_symbol_name(symbol)
         marginType = binance_get_marginType(instType, symbol)
@@ -263,14 +263,14 @@ class binance(CommunicationsManager, binanceInfo):
 
         if special_method == "oioption":
             data["api_call_manager"] = binance_aoihttp_oioption_manager(symbol, binanceInfo.binance_get_option_instruments_by_underlying, cls.binance_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oioption"
 
         elif special_method == "posfutureperp":
             data["api_call_manager"] = binance_aoihttp_posfutureperp_manager(symbol, 
                                                                              binanceInfo.binance_get_linear_instruments_by_underlying,
                                                                              cls.binance_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "posfutureperp"
 
         elif special_method == "fundperp":
@@ -278,7 +278,7 @@ class binance(CommunicationsManager, binanceInfo):
                                                                         binanceInfo.binance_get_inverse_instruments_by_underlying, 
                                                                         binanceInfo.binance_get_linear_instruments_by_underlying,
                                                                               cls.binance_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
@@ -286,7 +286,7 @@ class binance(CommunicationsManager, binanceInfo):
                                                                         binanceInfo.binance_get_inverse_instruments_by_underlying, 
                                                                             binanceInfo.binance_get_linear_instruments_by_underlying,
                                                                               cls.binance_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oifutureperp"
         else:
             call = partial(cls.binance_aiohttpFetch, insType=instType, objective=objective, symbol=symbol)
@@ -439,7 +439,7 @@ class bybit(CommunicationsManager, bybitInfo):
                 "standarized_margin" : standarized_margin,
                 "exchange_symbol" : symbol,
                 "api_call_manager" : "",
-                "symbol_update_task" : False,
+                "coroutine_manager" : False,
                 "is_special" : special_method,
                 }
 
@@ -448,7 +448,7 @@ class bybit(CommunicationsManager, bybitInfo):
                                                                            cls.bybit_get_linear_instruments_by_underlying, 
                                                                            cls.bybit_get_inverse_instruments_by_underlying,
                                                                            cls.bybit_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "posfutureperp"
 
         elif special_method == "fundperp":
@@ -456,7 +456,7 @@ class bybit(CommunicationsManager, bybitInfo):
                                                                         cls.bybit_get_linear_instruments_by_underlying, 
                                                                         cls.bybit_get_inverse_instruments_by_underlying,
                                                                       cls.bybit_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
@@ -464,7 +464,7 @@ class bybit(CommunicationsManager, bybitInfo):
                                                                            cls.bybit_get_linear_instruments_by_underlying, 
                                                                            cls.bybit_get_inverse_instruments_by_underlying,
                                                                           cls.bybit_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oifutureperp"
         else:
             call = partial(cls.bybit_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
@@ -616,7 +616,7 @@ class okx(CommunicationsManager, okxInfo):
                 "standarized_margin" : standart_marginType,
                 "exchange_symbol" : symbol,
                 "api_call_manager" : "",
-                "symbol_update_task" : False,
+                "coroutine_manager" : False,
                 "is_special" : special_method,
                 }
 
@@ -624,7 +624,7 @@ class okx(CommunicationsManager, okxInfo):
             data["api_call_manager"] = okx_aoihttp_fundperp_manager(symbol, 
                                                                     cls.okx_get_perpetual_instruments_by_underlying,
                                                                     cls.okx_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
@@ -632,7 +632,7 @@ class okx(CommunicationsManager, okxInfo):
                                                                         cls.okx_get_perpetual_instruments_by_underlying,
                                                                         cls.okx_get_future_instruments_by_underlying, 
                                                                         cls.okx_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oifutureperp"
         else:
             call = partial(cls.okx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
@@ -1355,17 +1355,17 @@ class bitget(CommunicationsManager, bitgetInfo):
                 "aiohttpMethod" : "",
                 "special_method" : special_method,
                 "exchange_symbol" : symbol,
-                "symbol_update_task" : False,
+                "coroutine_manager" : False,
                 "api_call_manager" : "",
                 "is_special" : special_method
                 }
         if special_method == "fundperp":
             data["api_call_manager"] = bitget_aoihttp_fundperp_manager(symbol, bitgetInfo.bitget_get_perpetual_instruments_by_underlying, cls.bitget_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
         elif special_method == "oifutureperp":
             data["api_call_manager"] = bitget_aoihttp_oifutureperp_manager(symbol, bitgetInfo.bitget_get_perpetual_instruments_by_underlying, cls.bitget_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oifutureperp"
         else:
             call =  partial(cls.bitget_aiohttpFetch, instType=instType, objective=objective, symbol=symbol)
@@ -1669,19 +1669,20 @@ class htx(CommunicationsManager, htxInfo):
                 "aiohttpMethod" : "",
                 "exchange_symbol" : symbol,
                 "is_special" : special_method,
+                "coroutine_manager" : False,
                 }
 
         if special_method == "oifutureperp":
             data["api_call_manager"] = htx_aiohttp_oifutureperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
             data["is_special"] = "oifutureperp"
-            data["is_still_nested"] = True
+            data["coroutine_manager"] = True
         elif special_method == "fundperp":
             data["api_call_manager"] = htx_aiohttp_fundperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
-            data["is_still_nested"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
         elif special_method == "posfutureperp":
             data["api_call_manager"] = htx_aiohttp_posfutureperp_manager(symbol, inverse_future_contract_types_htx, cls.htx_aiohttpFetch)
-            data["is_still_nested"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "posfutureperp"
         else:
             call = partial(cls.htx_aiohttpFetch, instType=instType, objective=objective, symbol=symbol, contract_type=contract_type)
@@ -2000,23 +2001,23 @@ class gateio(CommunicationsManager, gateioInfo):
                 "aiohttpMethod" : None,
                 "exchange_symbols" : symbol,
                 "api_call_manager" : "",
-                "symbol_update_task" : False,
+                "coroutine_manager" : False,
                 "is_special" : special_method,
                 }
         
         if special_method == "fundperp":
             data["api_call_manager"] = gateio_aoihttp_fundperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "fundperp"
 
         elif special_method == "oifutureperp":
             data["api_call_manager"] = gateio_aoihttp_oifutureperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "oifutureperp"
 
         elif special_method == "posfutureperp":
             data["api_call_manager"] = gateio_aoihttp_posfutureperp_manager(symbol, gateioInfo.get_gateio_underlying_symbols, cls.gateio_aiohttpFetch)
-            data["symbol_update_task"] = True
+            data["coroutine_manager"] = True
             data["is_special"] = "posfutureperp"
 
         else:

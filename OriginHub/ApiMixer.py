@@ -14,6 +14,7 @@ base_path = Path(__file__).parent.parent
 log_file_bytes = 10*1024*1024,
 log_file_backup_count = 5,
 
+
 class logger_instance():
     """ omit """
     def exception(self, *args, **kwargs):
@@ -162,12 +163,11 @@ class CommonFunctionality:
         exchange = self.connection_data.get("exchange")
         instrument_calibration_timeout = self.connection_data.get("instrument_calibration_timeout", 60*60)
         special_method = self.connection_data.get("is_special")
-        
         update_symbol_task = asyncio.create_task(getattr(self, "_calibrate_instruments")(instrument_calibration_timeout))
         id_instrument_calibration = f"{exchange}_{special_method}_{self.underlying_asset}_calibrate_instruments"
         self._tasks[id_instrument_calibration] = update_symbol_task 
         await asyncio.sleep(5 + lag)
-                
+
         self.start_orchestrator()
         while self.running.get("coroutine_orchestrator") is True:
                         
@@ -211,60 +211,59 @@ class CommonFunctionality:
         # Binance
         if exchange == "binance" and margin_type == "option" and objective == "oi":
             fetch_method = partial(self.fetcher, "option", "oi", symbol=self.underlying_asset, specialParam=special_param,  special_method=special_method)
-        if exchange == "binance" and objective in ["tta", "ttp", "gta"] and special_method == "posfutureperp":
+        elif exchange == "binance" and objective in ["tta", "ttp", "gta"] and special_method == "posfutureperp":
             if margin_type == "linear":
                 inst_type = "future" if bool(re.search(r'\d', instrument.split("_")[-1])) else "perpetual"
                 fetch_method = partial(self.fetcher, inst_type, objective, symbol=instrument,  special_method="posfutureperp")
             if margin_type == "inverse":
                 fetch_method = partial(self.fetcher, "perpetual", objective, symbol=self.underlying_asset+"USD",  special_method="posfutureperp")
-        if exchange == "binance" and objective == "oi" and special_method == "oifutureperp":
+        elif exchange == "binance" and objective == "oi" and special_method == "oifutureperp":
             inst_type = "future" if bool(re.search(r'\d', instrument.split("_")[-1])) else "perpetual"
             fetch_method = partial(self.fetcher, inst_type, "oi", symbol=instrument,  special_method="oifutureperp")
-        if exchange == "binance" and special_method == "fundperp":
+        elif exchange == "binance" and special_method == "fundperp":
             fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument, special_method="fundperp")
         
         # Bybit
-        if exchange == "bybit" and special_method == "oifutureperp":
+        elif exchange == "bybit" and special_method == "oifutureperp":
             inst_type = "future" if "-" in instrument else "perpetual"
             fetch_method = partial(self.fetcher, inst_type, "oi", symbol=instrument, special_method="oifutureperp")
-        if exchange == "bybit" and special_method == "posfutureperp": 
+        elif exchange == "bybit" and special_method == "posfutureperp": 
             instrument = instrument.replace("PERP", "USD") if "PERP" in instrument else instrument
             inst_type = "future" if "-" in instrument else "perpetual"
             fetch_method = partial(self.fetcher, inst_type, "gta", symbol=instrument, special_method="posfutureperp")
-        if exchange == "bybit" and special_method == "fundperp": 
+        elif exchange == "bybit" and special_method == "fundperp": 
             fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument, special_method="fundperp")
             
         # Okx
-        if exchange == "okx" and objective == "oi": 
+        elif exchange == "okx" and objective == "oi": 
             fetch_method = partial(self.fetcher, margin_type, "oi", instrument)
-        if exchange == "okx" and objective == "funding": 
+        elif exchange == "okx" and objective == "funding": 
             fetch_method = partial(self.fetcher, margin_type, "funding", instrument)
             
         # Bitget
-        if exchange == "bitget" and objective == "oi": 
+        elif exchange == "bitget" and objective == "oi": 
             fetch_method = partial(self.fetcher, "perpetual", "oi", symbol=instrument, special_method="oifutureperp")
-        if exchange == "bitget" and objective == "funding": 
+        elif exchange == "bitget" and objective == "funding": 
             fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument, special_method="fundperp")
 
         # gateio
-        if exchange == "gateio" and objective == "oi": 
+        elif exchange == "gateio" and objective == "oi": 
             inst_type = "future" if margin_type == "futures" else "perpetual"
             fetch_method = partial(self.fetcher, inst_type, "oi", symbol=instrument)
-        if exchange == "gateio" and objective == "tta": 
+        elif exchange == "gateio" and objective == "tta": 
             fetch_method = partial(self.fetcher, "perpetual", "tta", symbol=instrument)
-        if exchange == "gateio" and objective == "funding": 
+        elif exchange == "gateio" and objective == "funding": 
             fetch_method = partial(self.fetcher, "perpetual", "funding", symbol=instrument)
 
-        # htx
-        if exchange == "htx" and objective == "oi" and margin_type == "linear": 
+        elif exchange == "htx" and objective == "oi" and margin_type == "linear": 
             fetch_method = partial(self.fetcher, "perpetual", "oiall", f"{self.underlying_asset}{instrument}")
-        if exchange == "htx" and objective == "oi" and margin_type == "inverse": 
+        elif exchange == "htx" and objective == "oi" and margin_type == "inverse": 
             fetch_method = partial(self.fetcher, "perpetual", "oi", f"{self.underlying_asset}{instrument}")
-        if exchange == "htx" and objective == "oi" and margin_type == "future": 
+        elif exchange == "htx" and objective == "oi" and margin_type == "future": 
             fetch_method = partial(self.fetcher, "future", "oi", f"{self.underlying_asset}.InverseFuture", contract_type=instrument)
-        if exchange == "htx" and objective == "funding": 
+        elif exchange == "htx" and objective == "funding": 
             fetch_method = partial(self.fetcher, "perpetual", "funding", f"{self.underlying_asset}{instrument}")
-        if exchange == "htx" and objective in ["tta", "ttp"]:
+        elif exchange == "htx" and objective in ["tta", "ttp"]:
             name = f"{self.underlying_asset}-{instrument}" if margin_type == "perpetual" else f"{self.underlying_asset}.InverseFuture"
             fetch_method = partial(self.fetcher, margin_type, objective, name)
 
@@ -759,7 +758,7 @@ class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
         self._objectives = ["oi"]
 
     @CommonFunctionality.errors_aiohttp
-    async def _calibrate_instruments(self):
+    async def _calibrate_instruments(self, *args, **kwargs):
         """ Reference"""
         self._instruments_to_add["future"] = self.inverse_future_contract_types_htx
         self._instruments_to_add["linear"] = ["-USDT.LinearPerpetual"]
@@ -779,7 +778,7 @@ class htx_aiohttp_fundperp_manager(CommonFunctionality):
         self._objectives = ["funding"]
 
     @CommonFunctionality.errors_aiohttp
-    async def _calibrate_instruments(self):
+    async def _calibrate_instruments(self, *args, **kwargs):
         """ Reference"""
         self._instruments_to_add["linear"] = ["-USDT.LinearPerpetual"]
         self._instruments_to_add["inverse"] = ["-USD"]
@@ -797,7 +796,7 @@ class htx_aiohttp_posfutureperp_manager(CommonFunctionality):
         self._objectives = ["tta", "ttp"]
 
     @CommonFunctionality.errors_aiohttp
-    async def _calibrate_instruments(self):
+    async def _calibrate_instruments(self, *args, **kwargs):
         """ Reference"""
         self._instruments_to_add["perpetual"] = ["USDT", "USD", "USDT-FUTURES"]
         self._instruments_to_add["future"] = ["InverseFuture"]
