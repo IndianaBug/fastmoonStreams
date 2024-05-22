@@ -10,6 +10,7 @@ import faust
 from ProcessCenter.utilis_ConsumerEngine import MockCouchDB
 from ProcessCenter.utilis_ConsumerEngine import ws_fetcher_helper, insert_into_CouchDB, insert_into_CouchDB_2
 import sys
+import backoff
 # Todo: 
 # Add database related exceptions, everywhere
 
@@ -61,6 +62,27 @@ class XBTApp(faust.App):
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
         return logger
+    
+    @staticmethod
+    def faust_errors_wrapper(func):
+        """ pattern for dealing with faust errors"""
+        async def wrapper(self, *args, **kwargs):
+            try:
+                await func(self, *args, **kwargs)
+            except:
+                pass
+        return wrapper
+    
+    @staticmethod
+    def db_errors_wrapper(func):
+        """ pattern for dealing with faust errors"""
+        async def wrapper(self, *args, **kwargs):
+            try:
+                await func(self, *args, **kwargs)
+            except:
+                pass
+        return wrapper
+
 
     def setup_deribit_depth(self):
         """

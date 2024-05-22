@@ -10,13 +10,13 @@ faust_proceed_errors = (
     faust.exceptions.PartitionsMismatch
 )
 
+# retry then log
 faust_backup_errors = (
     faust.exceptions.NotReady, 
     faust.exceptions.ConsumerNotStarted, 
 )
 
-# logging, alerting, inspect these messages later, 
-# Just log the message, log the error and proceed
+# write down messages and proceed
 faust_message_errors = (
     faust.exceptions.FaustPredicate,
     faust.exceptions.ValidationError,   

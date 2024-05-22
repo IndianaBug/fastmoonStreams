@@ -112,11 +112,11 @@ class keepalive():
                 try:
                     await func(self, websocket, connection_data, logger, *args, **kwargs)
                 except aiohttp_recoverable_errors as e:
-                    logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
+                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
                     args[0].KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchange=exchange, websocket_id=id_ws).inc()
                     raise
                 except Exception as e:
-                    logger.exception("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
+                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
                     args[0].KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchange=exchange).inc()
                     break
         def backoff_inner_wrapper(self, *args, **kwargs):
@@ -423,7 +423,7 @@ class publisher(keepalive):
             await websocket.send(json.dumps(payload))  
             await websocket.wait_closed() 
         except WebSocketException as e:
-            self.logger.exception("Could shut down gracefuly the websocket %s, %s", id_ws, e, exc_info=True)  
+            self.logger.error("Could shut down gracefuly the websocket %s, %s", id_ws, e, exc_info=True)  
         
     async def heartbeats_listener(self):
         """ Ensures that heartbeats of conibase of derebit are running """
@@ -462,19 +462,18 @@ class publisher(keepalive):
                         keep_alive_method = getattr(self, keepalattr)
                         asyncio.create_task(keep_alive_method(self, websocket=websocket, connection_data=connection_data, logger=self.logger))
                                             
-                        
                     while websocket.open:
                         try:
                             await func(self, connection_data=connection_data, websocket=websocket, *args, **kwargs)
                         except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e: 
-                            self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                            self.logger.error("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
                             self.process_disconnects_metrics(id_ws, connection_start_time)
                             raise
                             
                 except asyncio.TimeoutError as e:
-                    self.logger.exception("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
+                    self.logger.error("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
                 except Exception as e:
-                    self.logger.exception("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
+                    self.logger.error("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
                 finally:
                     # metrics
                     if "CONNECTION_DURATION" in self.producer_metrics:
@@ -549,7 +548,7 @@ class publisher(keepalive):
     def ws_process_logger(self, id_ws, time_interval, word="Ping"):
         """ logger pattern """
         if time.time() - self.last_ping_pong_times.get(id_ws, time.time()) > time_interval:
-            self.logger.exception("%s interval timeout exceeded for WebSocket ID %s", word,  id_ws, exc_info=True)
+            self.logger.error("%s interval timeout exceeded for WebSocket ID %s", word,  id_ws, exc_info=True)
             raise TimeoutError(f"{word} interval timeout exceeded for WebSocket ID {id_ws}")
 
     @websocket_wrapper(keepalattr=None)
@@ -756,7 +755,7 @@ class publisher(keepalive):
                     print(sys.getsizeof(message_encoded))
                     await asyncio.sleep(connection_data.get("pullTimeout"))
             except aiohttp_recoverable_errors as e:
-                self.logger.exception("Error from %s: %s", connection_data.get('id_api'), e, exc_info=True)
+                self.logger.error("Error from %s: %s", connection_data.get('id_api'), e, exc_info=True)
                 if "CONNECTION_DURATION" in self.producer_metrics:
                     duration = time.time() - connection_start_time
                     self.CONNECTION_DURATION.labels(websocket_id=id_api).set(duration)
@@ -764,7 +763,7 @@ class publisher(keepalive):
                     self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
                 raise
             except Exception as e:
-                self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", connection_data.get('id_api'), e, exc_info=True)
+                self.logger.error("Error from %s: %s. The coroutine was completely closed or broken", connection_data.get('id_api'), e, exc_info=True)
                 if "ERRORS_DISCONNECTS" in self.producer_metrics:
                     self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
         return await backoff.on_exception(
@@ -790,22 +789,22 @@ class publisher(keepalive):
                 return await func(self, *args, **kwargs)
             except kafka_RETRY_ERROR_TYPES as e:
                 if len(args) != 0:
-                    self.logger.exception("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
+                    self.logger.error("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
                 else:
-                    self.logger.exception("%s", e, exc_info=True)
+                    self.logger.error("%s", e, exc_info=True)
                 raise
             except TopicAlreadyExistsError:
                 self.logger.info("Topic already exists, skipping to the next iteration...")
             except restart_producer_errors as e:
-                self.logger.exception("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
+                self.logger.error("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
                 await self.reconnect_producer()
             except kafka_message_errors as e:
                 if len(args) != 0:
-                    self.logger.exception("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
+                    self.logger.error("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
                 else:
-                    self.logger.exception("%s", e, exc_info=True)
+                    self.logger.error("%s", e, exc_info=True)
             except kafka_giveup_errors as e:
-                self.logger.exception("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
+                self.logger.error("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
                 await self.producer.stop()
         return backoff.on_exception(
             backoff.expo,
@@ -838,7 +837,7 @@ class publisher(keepalive):
                 self.producer_running = True
                 return True
             except Exception as e:
-                self.logger.exception("Reconnection failed: %s", str(e))
+                self.logger.error("Reconnection failed: %s", str(e))
         self.logger.critical("Unable to reconnect to the broker after several attempts.")
         await self.producer.stop() 
         self.producer_running = False
