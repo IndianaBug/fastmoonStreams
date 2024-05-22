@@ -160,7 +160,6 @@ class XBTApp(faust.App):
         """
         async for byte_data in stream:
             try:
-
                 await self.insert_into_database(byte_data.decode(), cd)
                 yield byte_data
             except ValueError as e:
@@ -272,17 +271,4 @@ class XBTApp(faust.App):
             self.logger.error("Unexpected error raised for topic %s: %e", topic_name, e, exc_info=True)
             self.logger.exception(e)
 
-
-# For processing time controll, for later
-         
-# processing time agreement
-# @app.agent(topic)
-# async def process(stream):
-#     async for event in stream:
-#         start_time = time.time()
-#         # Process the event
-#         # Your processing logic here
-#         end_time = time.time()
-#         processing_time = end_time - start_time
-#         app.monitor.gauge('custom_processing_time', processing_time)
 
