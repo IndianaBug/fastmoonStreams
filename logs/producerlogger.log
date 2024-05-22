@@ -6235,3 +6235,19 @@ Traceback (most recent call last):
   File "/home/codespace/.local/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 652, in send
     raise TypeError("data is a dict-like object")
 TypeError: data is a dict-like object
+2024-05-22 15:22:13,455 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'coinbase_ws_spot_trades_btcusd' already exists."}
+2024-05-22 15:24:20,805 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'coinbase_ws_spot_trades_btcusd' already exists."}
+2024-05-22 15:25:13,492 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'coinbase_ws_spot_heartbeats_btcusd' already exists."}
+2024-05-22 15:25:39,171 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'coinbase_ws_spot_heartbeats_btcusd' already exists."}
+2024-05-22 15:25:47,200 - OriginHub.SupplyEngine - ERROR - Failed to establish WebSocket connection for coinbase_ws_spot_heartbeats_btcusd, catching classes that do not inherit from BaseException is not allowed
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 467, in inner_websocket_wrapper
+    await func(self, connection_data=connection_data, websocket=websocket, *args, **kwargs)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/SupplyEngine.py", line 468, in inner_websocket_wrapper
+    except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e:
+TypeError: catching classes that do not inherit from BaseException is not allowed

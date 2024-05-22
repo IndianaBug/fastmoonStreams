@@ -446,6 +446,7 @@ class publisher(keepalive):
     
     @staticmethod
     def websocket_wrapper(keepalattr=None):
+        """ pattern for every websocket connection, errors and logging """
         def wrapper(func):
             async def inner_websocket_wrapper(self, *args, **kwargs):
                 connection_data = args[0]
@@ -507,72 +508,6 @@ class publisher(keepalive):
 
             return backoff_inner_websocket_wrapper
         return wrapper
-        
-    def ex():
-    # @staticmethod
-    # def websocket_wrapper(max_reconnect_retries, on_backoff, keep_alive_caroutine_attr=None):
-    #     """Pattern for every websocket"""
-    #     def decorator(func):
-    #         """decorator"""
-    #         @wraps(func)
-    #         @backoff.on_exception(
-    #             backoff.expo,
-    #             (WebSocketException, TimeoutError, ConnectionClosed),
-    #             max_tries=max_reconnect_retries,
-    #             on_backoff=on_backoff
-    #                               )
-    #         async def wrapper(self, *args, **kwargs):
-    #             connection_data = kwargs.get("connection_data")
-    #             id_ws = connection_data.get('id_ws')
-    #             connection_message = connection_data.get("msg_method")()
-    #             self.ws_messages[id_ws] = connection_message
-    #             connection = self.__wsaenter__(connection_data)
-    #             connection_start_time = time.time() 
-    #             async with connection as websocket:
-    #                 try:
-    #                     await websocket.send(json.dumps(connection_message))
-
-    #                     if keep_alive_caroutine_attr is not None:
-    #                         keep_alive_method = getattr(self, keep_alive_caroutine_attr)
-    #                         asyncio.create_task(keep_alive_method(websocket, connection_data, self.logger))
-                            
-    #                     while websocket.open:
-    #                         try:
-    #                             await func(self, connection_data, websocket=websocket, *args, **kwargs)
-    #                         except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e:  
-    #                             self.logger.exception("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
-    #                             self.process_disconnects_metrics(id_ws, connection_start_time)
-    #                             raise
-                                
-    #                 except asyncio.TimeoutError as e:
-    #                     self.logger.exception("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
-    #                 except Exception as e:
-    #                     self.logger.exception("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
-    #                 finally:
-    #                     # metrics
-    #                     if "CONNECTION_DURATION" in self.producer_metrics:
-    #                         duration = time.time() - connection_start_time
-    #                         self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
-
-    #                     # safe heartbeat exit
-    #                     if keep_alive_caroutine_attr is not None:
-    #                         await self.stop_keepalive(connection_data)
-    #                     else:
-    #                         if "heartbeat" in id_ws:
-                                
-    #                             related_ws, heartbeat_key = self._get_related_ws(connection_data)
-    #                             are_all_down = all(not self.websockets.get(id_ws).open for id_ws in related_ws)
-                                
-    #                             if are_all_down:
-    #                                 heartbeat_websocket = self.websockets.get(heartbeat_key)
-    #                                 cd = [x for x in self.connection_data if x.get("id_ws") == heartbeat_websocket][0]
-    #                                 self.__wsaexit__(websocket, cd)
-                        
-    #                     self.logger.info("WebSocket connection for %s has ended.", id_ws)
-    #                     await self.__wsaexit__(websocket, connection_data)
-    #         return wrapper
-    #     return decorator
-        pass
 
     def process_disconnects_metrics(self, id_ws, connection_start_time):
         """ pattern of processing disconnects"""
@@ -668,7 +603,7 @@ class publisher(keepalive):
         self.process_ws_metrics(id_ws, message, latency_start_time)
 
     @websocket_wrapper(keepalattr=None)
-    async def deribit_heartbeat(self, *args, **kwargs):
+    async def deribit_heartbeats(self, *args, **kwargs):
         """ wrapper function for deribit heartbeat ws websocket """
         connection_data = kwargs.get("connection_data")
         websocket = kwargs.get("websocket")
@@ -791,12 +726,11 @@ class publisher(keepalive):
         latency_start_time = time.time()
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
-        print(message)
         self.process_ws_metrics(id_ws, message, latency_start_time)
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
 
     @websocket_wrapper(keepalattr=None)
-    async def coinbase_heartbeat_func(self, *args, **kwargs):
+    async def coinbase_heartbeats(self, *args, **kwargs):
         """ coinbase heartbeats"""
         pass
     
@@ -956,6 +890,7 @@ class publisher(keepalive):
     # run producer
     
     def populate_apimixers(self):
+        """ pass some crucial variables to apimixers"""
         for connection_dict in self.connection_data:
             if "id_ws" not in connection_dict and "id_api" in connection_dict:
                 if connection_dict.get("coroutine_manager") is True:
@@ -990,9 +925,7 @@ class publisher(keepalive):
         self.populate_apimixers()
                 
         for delay, connection_dict in enumerate(self.connection_data):
-            
-            print(connection_dict)
-            
+                        
             # websocket caroutines
             if "id_ws" in connection_dict:
                 connection_message = connection_dict.get("msg_method")()

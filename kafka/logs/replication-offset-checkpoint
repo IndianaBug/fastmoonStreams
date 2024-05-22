@@ -1,0 +1,12 @@
+0
+10
+coinbase_ws_spot_trades_btcusd 1 3
+coinbase_ws_spot_heartbeats_btcusd 3 0
+coinbase_ws_spot_trades_btcusd 3 3
+coinbase_ws_spot_heartbeats_btcusd 2 0
+coinbase_ws_spot_trades_btcusd 4 1
+coinbase_ws_spot_heartbeats_btcusd 4 0
+coinbase_ws_spot_trades_btcusd 2 1
+coinbase_ws_spot_heartbeats_btcusd 1 0
+coinbase_ws_spot_heartbeats_btcusd 0 0
+coinbase_ws_spot_trades_btcusd 0 3

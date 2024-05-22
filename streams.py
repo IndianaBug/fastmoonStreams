@@ -77,7 +77,7 @@ ws = {
         ],
     "coinbase" : [
         # "spot.depth.BTC-USD.snap", 
-        "spot.trades.BTC-USD", 
+        # "spot.trades.BTC-USD", 
         # "spot.heartbeats.BTC-USD",
         ],
 }

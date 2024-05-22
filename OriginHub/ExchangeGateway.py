@@ -913,7 +913,7 @@ class coinbase(CommunicationsManager):
                 "timestamp": int(time.time())
             }     
 
-        return message, instType, objective   
+        return message
 
     def coinbase_build_ws_connectionData(self, instTypes, objectives:str, symbols:str, needSnap=False, snaplimit=1000, **kwargs):
         """
@@ -922,7 +922,7 @@ class coinbase(CommunicationsManager):
             for books, needSnap should be = True
             **kwargs : only product_id, instrument type is handled automatically
         """
-        message, instType, objective = self.coinbase_build_ws_method(instTypes[0], objectives[0], symbols[0])
+        message = self.coinbase_build_ws_method(instTypes[0], objectives[0], symbols[0])
         symbol_name = coinbase_get_symbol_name(symbols[0])
         endpoint = coinbase_ws_endpoint    
         connection_data =     {

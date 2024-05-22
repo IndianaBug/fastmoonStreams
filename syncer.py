@@ -1,5 +1,5 @@
 from OriginHub.ExchangeGateway import *
-from consumers import on_message, flow
+from ProcessCenter import Flow, MessageProcessor
 
 class ExchangeAPIClient():
     """ 
@@ -24,7 +24,7 @@ class ExchangeAPIClient():
             for method_name in dir(client):
                 if not method_name.startswith("__") and callable(getattr(client, method_name)):
                     setattr(self, method_name, getattr(client, method_name))
-        self.onm = on_message.on_message(**on_message_kwargs) if on_message_kwargs != None else on_message.on_message()
+        self.onm = MessageProcessor.on_message(**on_message_kwargs) if on_message_kwargs != None else MessageProcessor.on_message()
 
     def build_connection_data_test(self, wss={}, apis={}):
         d = []
@@ -176,15 +176,15 @@ class ExchangeAPIClient():
                 
     def populate_with_flow(self, id_):
         if "depth" in id_:
-            return flow.booksflow
+            return Flow.booksflow
         if "trades" in id_:
-            return flow.tradesflow
+            return Flow.tradesflow
         if "option" in id_ and "oi" in id_:
-            return flow.Ooiflow
+            return Flow.Ooiflow
         if "oi" in _id and "opiton" not in id_:
-            return flow.oiflow
+            return Flow.oiflow
         if "liquidations" in id_:
-            return flow.liquidationsflow
+            return Flow.liquidationsflow
             
             
 
