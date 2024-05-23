@@ -24,7 +24,7 @@ from kafka.errors import BrokerNotAvailableError, TopicAlreadyExistsError
 from kafka.errors import RETRY_ERROR_TYPES as kafka_RETRY_ERROR_TYPES
 from .errors import websockets_heartbeats_errors, restart_producer_errors, kafka_message_errors, aiohttp_recoverable_errors, kafka_giveup_errors
 from .utilis import ws_fetcher_helper
-from confluent_kafka.cimpl import KafkaException 
+from confluent_kafka.cimpl import KafkaException
 
 
 def should_give_up(exc):

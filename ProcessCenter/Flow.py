@@ -469,7 +469,6 @@ class oiflowOption():
             example:
                 pranges = np.array([0.0, 1.0, 2.0, 5.0, 10.0])  : percentage ranges of strikes from current price
                 expiry_windows = np.array([0.0, 1.0, 3.0, 7.0])  : expiration window ranges
-
         """
         self.exchange = exchange
         self.instrument = instrument

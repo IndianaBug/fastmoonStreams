@@ -204,26 +204,38 @@ class MockCouchDB:
     def __init__(self, filename, folder_name="", buffer_size=1024):
         self.file_path =  folder_name + "/" + filename + ".json"
 
-    async def save(self, data, market_state, connection_data, on_message:callable):
+    async def save(self, data, market_state, connection_data, on_message:callable, logger):
         data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
         data["_doc"] = str(uuid.uuid4())
 
-        if not os.path.exists(self.file_path):
-            async with aiofiles.open(self.file_path ,mode='w') as f:
-                content = []
-                content.insert(0, data)
-                await f.seek(0)  
-                await f.truncate() 
-                await f.write(json.dumps(content, indent=2)) 
-        else:
-            async with aiofiles.open(self.file_path ,mode='r+') as f: 
-                content = await f.read()
-                content = json.loads(content)
-                content.insert(0, data)
-                content = json.dumps(content)
-                await f.seek(0)  
-                await f.truncate() 
-                await f.write(content)
+        try:
+            if not os.path.exists(self.file_path):
+                async with aiofiles.open(self.file_path, mode='w') as f:
+                    content = [data]
+                    await f.seek(0)
+                    await f.truncate()
+                    await f.write(json.dumps(content, indent=2))
+            else:
+                async with aiofiles.open(self.file_path, mode='r+') as f:
+                    try:
+                        content = await f.read()
+                        content = json.loads(content)
+                    except json.JSONDecodeError as e:
+                        print(f"JSONDecodeError reading file: {e}")
+                        content = []
+
+                    content.insert(0, data)
+                    await f.seek(0)
+                    await f.truncate()
+                    await f.write(json.dumps(content, indent=2))
+        except FileNotFoundError as e:
+            logger.error(f"FileNotFoundError: {e}")
+        except PermissionError as e:
+            logger.error(f"PermissionError: {e}")
+        except IOError as e:
+            logger.error(f"IOError handling file operations: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error handling file operations: {e}")
 
 def insert_into_CouchDB(self, data, connection_dict, on_message:callable):
     getattr(self, f"db_{connection_dict.get('id_ws')}").save(data=data, market_state=self.market_state, connection_data=connection_dict, on_message=on_message)

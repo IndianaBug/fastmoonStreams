@@ -34,55 +34,16 @@ def attach_agent(agent, cd):
             
 for agent, cd in zip(agents(app.connection_data), app.connection_data):
     attach_agent(agent, cd)
-    
+
+
+# async def periodic_cleanup():
+#     while True:
+#         try:
+#             await db.cleanup_old_records('my_topic_dead_messages', 30)
+#             logger.info("Old records cleaned up successfully.")
+#         except Exception as e:
+#             logger.error(f"Error during cleanup: {e}")
+#         await asyncio.sleep(86400)  # Run cleanup every 24 hours
 
 if __name__ == "__main__":
     app.main()
-
-
-# https://github.com/robinhood/faust/issues/300
-
-
-
-# def create_agent(start_topic: str, next_topic: faust.topics.Topic):
-#     """Creating a single agent (with the help of closures)
- 
-#          `start_topic`:  str
-#              Just a string that you can use in other functions
-#              to figure out how messages in that topic can be
-#              transformed
-
-#          `next_topic`:  faust.topics.Topic
-#              A faust `app.topic` instance
-#     """
-
-#     async def agent(stream):
-#         """ Send messages from one topic to another """
-
-#         async for message in stream:
-#             if message_should_be_transformed(start_topic):
-#                 message = transform_message(start_topic, message)
-#             await next_topic.send(value=message)
-
-#     log.info(f"NEW Agent Created: ## Agent - {consumer} ##")
-
-#     return agent
-
-# def agents():
-#     """ Configuration of multiple agents """
-
-#     agents = []
-#     for topic in topics:
-#         agent = create_agent(topic.start, topic.next)
-#         agents.append((agent, topic))
-#     return agents
-
-# def attach_agent(agent, topic: namedtuple):
-#     app.agent(channel=topic.faust, name=f"{topic.start}-agent")(agent)
-
-# for agent, topic in agents():
-#     attach_agent(agent, topic)
-
-
-
-# https://github.com/robinhood/faust/issues/300
