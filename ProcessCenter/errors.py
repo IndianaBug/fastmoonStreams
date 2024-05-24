@@ -1,5 +1,4 @@
 import faust 
-import aiocouch
 import aiohttp
 
 
@@ -34,23 +33,6 @@ faust_shutdown_errors = (
     faust.exceptions.ConsistencyError,
 )
 
-db_backup_errors = (
-    aiocouch.exception.UnauthorizedError,    
-    aiocouch.exception.ConflictError,             
-    aiocouch.exception.ExpectationFailedError,    
-    aiohttp.ClientConnectionError,
-    aiohttp.ClientResponseError
-)
-db_proceed_errors = (
-    aiocouch.exception.BadRequestError,
-    aiocouch.exception.ForbiddenError,
-    aiocouch.exception.NotFoundError,
-    aiocouch.exception.PreconditionFailedError,
-    aiocouch.exception.UnsupportedMediaTypeError,
-    KeyError,
-    TypeError,
-    Exception
-)
 
 ws_backoff_errors = (
     aiohttp.ClientConnectionError,

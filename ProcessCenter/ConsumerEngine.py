@@ -12,37 +12,64 @@ from ProcessCenter.utilis_ConsumerEngine import ws_fetcher_helper, insert_into_C
 import sys
 import backoff
 from errors import *
-# Todo: 
-# Add database related exceptions, everywhere
+from db_connectors import PostgresConnector, MockdbConnector, AsyncClickHouseConnector
+
 
 base_path = Path(__file__).parent.parent
 
-class XBTApp(faust.App):
+class StreamApp(faust.App):
     
     def __init__(self, 
-                 connection_data, 
-                 database="mockCouchDB",
-                 couch_host="",
-                 couch_username="", 
-                 couch_password="", 
+                 connection_data,
+                 coin="XBT", 
+                 app_name="XBTStreams",
+                 clickhouse_host=None,
+                 clickhouse_port=None,
+                 clickhouse_username=None, 
+                 clickhouse_password=None,
+                 clickhouse_dbname="market_data",
+                 postgres_host=None,
+                 postgres_port=None,
+                 postgres_username=None, 
+                 postgres_password=None,
+                 postgres_dbname="dead_letters",
                  log_file_bytes=10*1024*1024,
                  log_file_backup_count=5,
                  max_reconnect_retries=8,
+                 mode = "testing",
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
         # faust configs
+        self.coin=coin
+        self.app_name = app_name
         self.id = id
-        self.broker = dict(kwargs).get("broker")
-        self.topic_partitions = dict(kwargs).get("topic_partitions")
-        self.value_serializer = dict(kwargs).get("value_serializer")
+        self.broker = kwargs.get("broker")
+        self.topic_partitions = kwargs.get("topic_partitions")
+        self.value_serializer = kwargs.get("value_serializer")
         self.max_reconnect_retries = max_reconnect_retries
         self.logger = self.setup_logger(base_path, log_file_bytes, log_file_backup_count)
         self.connection_data = connection_data
-        self.database_name = database
-        self.database_folder = str(base_path / "database")
-        self.setup_database(couch_host, couch_username, couch_password) 
+
         self.market_state = {} # lates data dictionary, everyhting except trades and depth
         self.deribit_depths = self.fetch_initial_deribit_depth()
+        
+        #database related
+        self.sqldb = None
+        self.nosqldb = None
+        self.mochnosql = None
+        self.clickhouse_host=clickhouse_host,
+        self.clickhouse_port=clickhouse_port,
+        self.clickhouse_username=clickhouse_username, 
+        self.clickhouse_password=clickhouse_password,
+        self.clickhouse_dbname=clickhouse_dbname,
+        self.postgres_host=postgres_host,
+        self.postgres_port=postgres_port,
+        self.postgres_username=postgres_username, 
+        self.postgres_password=postgres_password,
+        self.postgres_dbname=postgres_dbname,
+        self.database_folder = str(base_path / "database")
+        self.setup_databases() 
+        
         
     async def handle_backoff(self, details):
         """handles what to do on recoverable exceptions"""
@@ -71,21 +98,11 @@ class XBTApp(faust.App):
     async def faust_error_on_message(self):
         """ changes header parameter"""
         pass
+    
+    async def close(self):
+        """ safe close of faust app and databases """
+        await self.sqldb.close()
         
-    @staticmethod
-    def db_errors_wrapper(func):
-        """ pattern of couchdb and mochdb errors"""
-        async def wrapper(self, *args, **kwargs):
-            try:
-                func(self, *args, **kwargs)
-            except db_backup_errors as e:
-                self.logger.error("database recoverable error: %s, retrying", e, exc_info=True)
-                raise
-            except db_proceed_errors:
-                self.logger.error("database unrecoeverable error: %s", e, exc_info=True)
-        async def wrapper_with_backoff(self, *args, **kwargs):
-            return await backoff.on_exception(backoff.expo, db_backup_errors, max_tries=self.max_reconnect_retries, on_backoff=self.handle_backoff)(wrapper)(self, *args, **kwargs)
-        return wrapper_with_backoff
     
     @staticmethod
     def faust_errors_wrapper(func):
@@ -105,7 +122,6 @@ class XBTApp(faust.App):
         async def wrapper_with_backoff(self, *args, **kwargs):
             return await backoff.on_exception(backoff.expo, faust_backup_errors, max_tries=self.max_reconnect_retries, on_backoff=self.handle_backoff)(wrapper)(self, *args, **kwargs)
         return wrapper_with_backoff
-    
     
     @staticmethod
     def websocket_errors_wrapper(func):
@@ -153,15 +169,29 @@ class XBTApp(faust.App):
         logger.addHandler(file_handler)
         return logger
 
-    def setup_database(self, couch_host, couch_username, couch_password):
-        """
-            sets database
-        """
-        # Couch db if selected
+    async def setup_databases(self,):
+        """ sets database """
+        
+        self.mochnosql = MockdbConnector()
+        
+        try:
+            self.sqldb = PostgresConnector(dsn)
+            PostgresConnector.create_database(self.postgres_host, self.postgres_username, self.postgres_password, self.postgres_dbname)
+            dsn = f"postgresql://{self.postgres_username}:{postgres_password}@{postgres_host}/{dbname}"
+            self.sqldb = PostgresConnector(dsn)
+            await self.sqldb.connect()
+            await self.sqldb.create_tables_for_dead_messages([cd.get("topic_name") for cd in self.connection_data])
+        except Exception as e:
+            raise RuntimeError("Credentials for PostgreSQL database are missing, database wasn't created") from e
+        
         if self.database_name == "CouchDB":
-            self.db = aiocouch.Server(couch_host)
-            self.db.resource.credentials = (couch_username, couch_password)
-            self.ws_latencies = {}
+            try:
+                self.nosqldb = aiocouch.CouchDB(server=couch_host, user=couch_username, password=couch_password)
+                await self.nosqldb.check_credentials()
+                await self.nosqldb.create(self.app_name)
+            except Exception as e:
+                raise RuntimeError("Credentials for CouchDb database are missing, database wasn't created") from e
+        
 
         ws_ids = [di.get("id_ws") for di in self.connection_data if "id_ws" in di]
         api_ids = [di.get("id_api") for di in self.connection_data if "id_api" in di]

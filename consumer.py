@@ -19,6 +19,7 @@ app = XBTApp(
             )
 
 
+
 def agents(connection_data):
     """ Configuration of multiple agents """
     agents = []
