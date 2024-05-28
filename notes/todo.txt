@@ -1,96 +1,14 @@
+1. Prometeus server
+2. Postgres/Clickhouse managment tasks. Memory managment tasks, move files every day, replicas etc....
+3. Connect everything to prometeus server
+4. Connec tkibanas to prometeus
+5. Tellegram alerts
+6. Streaming processing
+7. Gather consumer/producer metrics and select the most appropriate kafka configs base on those metrics
+8. In producer, change kafka_errors to aiohttp_errors. Also, use confluent_kafka_errors
+9. Implement unittests, integrationtests and functionaltests.
+10. In producer and consumer, make robust error handeling and telegram notification if some disconnects happen
 
-
-1. Ensure that heatbeats is on if related ws connections are on
-
-2. Granuality for Ws metrics:
-  - Connection duration
-  - message size
-  - errors and disconnects. For how long did they lasted?
-  - Errors and reconnect attemps
-  - latency. Alerts when latency is too high. Integrate telegram notifications
-  - CPU, Memory, server load, network I/O, and disk I/O and any otherresource utilization. 
-  Correlate with latency
-
-3. Configure the prometeus server, make short retention. Scrap metrics from there and place them into a database or whatever
-
-3 Build telegram alert system
-
-4. Faust has proper metrics to monitor kafka servers, integrate those
-
-
-
-# import psutil
-
-# # CPU Utilization
-# cpu_usage = psutil.cpu_percent(interval=1)
-
-# # Memory Utilization
-# memory = psutil.virtual_memory()
-# memory_usage = memory.percent  # percentage of memory use
-
-# print(f"CPU Usage: {cpu_usage}%")
-# print(f"Memory Usage: {memory_usage}%")
-
-# # Disk I/O
-# disk_io = psutil.disk_io_counters()
-# print(disk_io)
-
-# # Network I/O
-# net_io = psutil.net_io_counters()
-# print(net_io)
-
-
-#### SETUP TELEGRAM bot
-
-from flask import Flask, request
-import requests
-
-app = Flask(__name__)
-
-TELEGRAM_API = "https://api.telegram.org/bot<YourBotToken>/sendMessage"
-CHAT_ID = "<YourChannelOrGroupChatID>"
-
-@app.route('/alerts', methods=['POST'])
-def handle_alerts():
-    alerts = request.json
-    for alert in alerts['alerts']:
-        message = f"Alert: {alert['labels']['alertname']} is {alert['status']}. Description: {alert['annotations']['description']}"
-        send_telegram_message(message)
-    return "Alert received", 200
-
-def send_telegram_message(message):
-    payload = {
-        'chat_id': CHAT_ID,
-        'text': message,
-        'parse_mode': 'HTML'
-    }
-    response = requests.post(TELEGRAM_API, json=payload)
-    return response.json()
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
-
-# Yaml for metrics
-
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-scrape_configs:
-  - job_name: 'websocket_service'
-    static_configs:
-      - targets: ['localhost:9090']  # Adjust the target to where your service runs
-
-# Short retention configuration
-storage:
-  tsdb:
-    retention_time: '6h'  # Retain data for 6 hours
-
-# YAml for notifications
-
-route:
-  receiver: 'webhook'
-receivers:
-- name: 'webhook'
-  webhook_configs:
-  - url: 'http://<your_server_ip>:5002/alerts'
+9. Create API to instantly fetch the necessary data. Perhabs, gather also the older data of bitcoin prices. So put it into the database.
+10. Train the bot with as many possible strategies as possible.
+11. 

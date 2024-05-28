@@ -1,0 +1,3501 @@
+[
+  {
+    "BTC-240726-54000-P@option@binance": {
+      "symbol": "BTC-240726-54000-P",
+      "strike": 54000.0,
+      "days_left": 58,
+      "oi": 71.39
+    },
+    "BTC-240726-70000-C@option@binance": {
+      "symbol": "BTC-240726-70000-C",
+      "strike": 70000.0,
+      "days_left": 58,
+      "oi": 33.42
+    },
+    "BTC-240726-82000-C@option@binance": {
+      "symbol": "BTC-240726-82000-C",
+      "strike": 82000.0,
+      "days_left": 58,
+      "oi": 30.91
+    },
+    "BTC-240726-105000-C@option@binance": {
+      "symbol": "BTC-240726-105000-C",
+      "strike": 105000.0,
+      "days_left": 58,
+      "oi": 12.43
+    },
+    "BTC-240726-58000-C@option@binance": {
+      "symbol": "BTC-240726-58000-C",
+      "strike": 58000.0,
+      "days_left": 58,
+      "oi": 14.06
+    },
+    "BTC-240726-90000-P@option@binance": {
+      "symbol": "BTC-240726-90000-P",
+      "strike": 90000.0,
+      "days_left": 58,
+      "oi": 281.5
+    },
+    "BTC-240726-78000-P@option@binance": {
+      "symbol": "BTC-240726-78000-P",
+      "strike": 78000.0,
+      "days_left": 58,
+      "oi": 7.22
+    },
+    "BTC-240726-67000-P@option@binance": {
+      "symbol": "BTC-240726-67000-P",
+      "strike": 67000.0,
+      "days_left": 58,
+      "oi": 15.83
+    },
+    "BTC-240726-50000-P@option@binance": {
+      "symbol": "BTC-240726-50000-P",
+      "strike": 50000.0,
+      "days_left": 58,
+      "oi": 218.56
+    },
+    "BTC-240726-54000-C@option@binance": {
+      "symbol": "BTC-240726-54000-C",
+      "strike": 54000.0,
+      "days_left": 58,
+      "oi": 62.42
+    },
+    "BTC-240726-90000-C@option@binance": {
+      "symbol": "BTC-240726-90000-C",
+      "strike": 90000.0,
+      "days_left": 58,
+      "oi": 262.33
+    },
+    "BTC-240726-78000-C@option@binance": {
+      "symbol": "BTC-240726-78000-C",
+      "strike": 78000.0,
+      "days_left": 58,
+      "oi": 39.3
+    },
+    "BTC-240726-50000-C@option@binance": {
+      "symbol": "BTC-240726-50000-C",
+      "strike": 50000.0,
+      "days_left": 58,
+      "oi": 222.68
+    },
+    "BTC-240726-40000-P@option@binance": {
+      "symbol": "BTC-240726-40000-P",
+      "strike": 40000.0,
+      "days_left": 58,
+      "oi": 48.69
+    },
+    "BTC-240726-67000-C@option@binance": {
+      "symbol": "BTC-240726-67000-C",
+      "strike": 67000.0,
+      "days_left": 58,
+      "oi": 21.09
+    },
+    "BTC-240726-82000-P@option@binance": {
+      "symbol": "BTC-240726-82000-P",
+      "strike": 82000.0,
+      "days_left": 58,
+      "oi": 13.98
+    },
+    "BTC-240726-70000-P@option@binance": {
+      "symbol": "BTC-240726-70000-P",
+      "strike": 70000.0,
+      "days_left": 58,
+      "oi": 52.2
+    },
+    "BTC-240726-58000-P@option@binance": {
+      "symbol": "BTC-240726-58000-P",
+      "strike": 58000.0,
+      "days_left": 58,
+      "oi": 17.89
+    },
+    "BTC-240726-105000-P@option@binance": {
+      "symbol": "BTC-240726-105000-P",
+      "strike": 105000.0,
+      "days_left": 58,
+      "oi": 7.59
+    },
+    "BTC-240726-40000-C@option@binance": {
+      "symbol": "BTC-240726-40000-C",
+      "strike": 40000.0,
+      "days_left": 58,
+      "oi": 49.91
+    },
+    "timestamp": "2024-05-28 13:54:34",
+    "receive_time": 1716904474.217727,
+    "_doc": "159f2a8d-99ef-4786-9570-db37dcbad3a4"
+  },
+  {
+    "BTC-240601-66000-P@option@binance": {
+      "symbol": "BTC-240601-66000-P",
+      "strike": 66000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-70000-C@option@binance": {
+      "symbol": "BTC-240601-70000-C",
+      "strike": 70000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-65000-C@option@binance": {
+      "symbol": "BTC-240601-65000-C",
+      "strike": 65000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-71000-C@option@binance": {
+      "symbol": "BTC-240601-71000-C",
+      "strike": 71000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-62000-P@option@binance": {
+      "symbol": "BTC-240601-62000-P",
+      "strike": 62000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-74000-P@option@binance": {
+      "symbol": "BTC-240601-74000-P",
+      "strike": 74000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-66000-C@option@binance": {
+      "symbol": "BTC-240601-66000-C",
+      "strike": 66000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-72000-C@option@binance": {
+      "symbol": "BTC-240601-72000-C",
+      "strike": 72000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-68000-P@option@binance": {
+      "symbol": "BTC-240601-68000-P",
+      "strike": 68000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-67500-P@option@binance": {
+      "symbol": "BTC-240601-67500-P",
+      "strike": 67500.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-62000-C@option@binance": {
+      "symbol": "BTC-240601-62000-C",
+      "strike": 62000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-64000-P@option@binance": {
+      "symbol": "BTC-240601-64000-P",
+      "strike": 64000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-70000-P@option@binance": {
+      "symbol": "BTC-240601-70000-P",
+      "strike": 70000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-71000-P@option@binance": {
+      "symbol": "BTC-240601-71000-P",
+      "strike": 71000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-68000-C@option@binance": {
+      "symbol": "BTC-240601-68000-C",
+      "strike": 68000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-74000-C@option@binance": {
+      "symbol": "BTC-240601-74000-C",
+      "strike": 74000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-65000-P@option@binance": {
+      "symbol": "BTC-240601-65000-P",
+      "strike": 65000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-72000-P@option@binance": {
+      "symbol": "BTC-240601-72000-P",
+      "strike": 72000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-67500-C@option@binance": {
+      "symbol": "BTC-240601-67500-C",
+      "strike": 67500.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "BTC-240601-64000-C@option@binance": {
+      "symbol": "BTC-240601-64000-C",
+      "strike": 64000.0,
+      "days_left": 3,
+      "oi": 0.0
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8961604,
+    "_doc": "32a703f5-07bd-4d5e-b507-922e963cfacd"
+  },
+  {
+    "BTC-240530-72000-C@option@binance": {
+      "symbol": "BTC-240530-72000-C",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 7.17
+    },
+    "BTC-240530-68000-P@option@binance": {
+      "symbol": "BTC-240530-68000-P",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 4.39
+    },
+    "BTC-240530-74000-P@option@binance": {
+      "symbol": "BTC-240530-74000-P",
+      "strike": 74000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-240530-66000-C@option@binance": {
+      "symbol": "BTC-240530-66000-C",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 8.8
+    },
+    "BTC-240530-69000-P@option@binance": {
+      "symbol": "BTC-240530-69000-P",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 5.63
+    },
+    "BTC-240530-64000-P@option@binance": {
+      "symbol": "BTC-240530-64000-P",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 6.07
+    },
+    "BTC-240530-67000-C@option@binance": {
+      "symbol": "BTC-240530-67000-C",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 4.86
+    },
+    "BTC-240530-74000-C@option@binance": {
+      "symbol": "BTC-240530-74000-C",
+      "strike": 74000.0,
+      "days_left": 1,
+      "oi": 16.31
+    },
+    "BTC-240530-76000-P@option@binance": {
+      "symbol": "BTC-240530-76000-P",
+      "strike": 76000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-240530-71000-P@option@binance": {
+      "symbol": "BTC-240530-71000-P",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 0.29
+    },
+    "BTC-240530-68000-C@option@binance": {
+      "symbol": "BTC-240530-68000-C",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 6.16
+    },
+    "BTC-240530-69500-P@option@binance": {
+      "symbol": "BTC-240530-69500-P",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 10.47
+    },
+    "BTC-240530-66000-P@option@binance": {
+      "symbol": "BTC-240530-66000-P",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 8.92
+    },
+    "BTC-240530-72000-P@option@binance": {
+      "symbol": "BTC-240530-72000-P",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-240530-69000-C@option@binance": {
+      "symbol": "BTC-240530-69000-C",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 5.8
+    },
+    "BTC-240530-76000-C@option@binance": {
+      "symbol": "BTC-240530-76000-C",
+      "strike": 76000.0,
+      "days_left": 1,
+      "oi": 18.03
+    },
+    "BTC-240530-64000-C@option@binance": {
+      "symbol": "BTC-240530-64000-C",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-240530-71000-C@option@binance": {
+      "symbol": "BTC-240530-71000-C",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 4.54
+    },
+    "BTC-240530-67000-P@option@binance": {
+      "symbol": "BTC-240530-67000-P",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 2.31
+    },
+    "BTC-240530-69500-C@option@binance": {
+      "symbol": "BTC-240530-69500-C",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 8.96
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8847303,
+    "_doc": "da2c88d2-ec2d-4bf4-9b78-08ac4498430f"
+  },
+  {
+    "BTC-250328-140000-C@option@binance": {
+      "symbol": "BTC-250328-140000-C",
+      "strike": 140000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-220000-P@option@binance": {
+      "symbol": "BTC-250328-220000-P",
+      "strike": 220000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-40000-P@option@binance": {
+      "symbol": "BTC-250328-40000-P",
+      "strike": 40000.0,
+      "days_left": 303,
+      "oi": 0.01
+    },
+    "BTC-250328-160000-P@option@binance": {
+      "symbol": "BTC-250328-160000-P",
+      "strike": 160000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-70000-P@option@binance": {
+      "symbol": "BTC-250328-70000-P",
+      "strike": 70000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-30000-P@option@binance": {
+      "symbol": "BTC-250328-30000-P",
+      "strike": 30000.0,
+      "days_left": 303,
+      "oi": 0.02
+    },
+    "BTC-250328-65000-P@option@binance": {
+      "symbol": "BTC-250328-65000-P",
+      "strike": 65000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-220000-C@option@binance": {
+      "symbol": "BTC-250328-220000-C",
+      "strike": 220000.0,
+      "days_left": 303,
+      "oi": 0.01
+    },
+    "BTC-250328-40000-C@option@binance": {
+      "symbol": "BTC-250328-40000-C",
+      "strike": 40000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-70000-C@option@binance": {
+      "symbol": "BTC-250328-70000-C",
+      "strike": 70000.0,
+      "days_left": 303,
+      "oi": 5.03
+    },
+    "BTC-250328-160000-C@option@binance": {
+      "symbol": "BTC-250328-160000-C",
+      "strike": 160000.0,
+      "days_left": 303,
+      "oi": 0.04
+    },
+    "BTC-250328-90000-P@option@binance": {
+      "symbol": "BTC-250328-90000-P",
+      "strike": 90000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-65000-C@option@binance": {
+      "symbol": "BTC-250328-65000-C",
+      "strike": 65000.0,
+      "days_left": 303,
+      "oi": 5.0
+    },
+    "BTC-250328-30000-C@option@binance": {
+      "symbol": "BTC-250328-30000-C",
+      "strike": 30000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-55000-P@option@binance": {
+      "symbol": "BTC-250328-55000-P",
+      "strike": 55000.0,
+      "days_left": 303,
+      "oi": 0.01
+    },
+    "BTC-250328-200000-P@option@binance": {
+      "symbol": "BTC-250328-200000-P",
+      "strike": 200000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-110000-P@option@binance": {
+      "symbol": "BTC-250328-110000-P",
+      "strike": 110000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-140000-P@option@binance": {
+      "symbol": "BTC-250328-140000-P",
+      "strike": 140000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-90000-C@option@binance": {
+      "symbol": "BTC-250328-90000-C",
+      "strike": 90000.0,
+      "days_left": 303,
+      "oi": 6.92
+    },
+    "BTC-250328-200000-C@option@binance": {
+      "symbol": "BTC-250328-200000-C",
+      "strike": 200000.0,
+      "days_left": 303,
+      "oi": 0.04
+    },
+    "BTC-250328-55000-C@option@binance": {
+      "symbol": "BTC-250328-55000-C",
+      "strike": 55000.0,
+      "days_left": 303,
+      "oi": 0.0
+    },
+    "BTC-250328-110000-C@option@binance": {
+      "symbol": "BTC-250328-110000-C",
+      "strike": 110000.0,
+      "days_left": 303,
+      "oi": 0.02
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8786216,
+    "_doc": "9ba6406a-c782-4604-a6e2-a8add7472024"
+  },
+  {
+    "BTC-240529-66500-P@option@binance": {
+      "symbol": "BTC-240529-66500-P",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 11.77
+    },
+    "BTC-240529-68000-P@option@binance": {
+      "symbol": "BTC-240529-68000-P",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 7.59
+    },
+    "BTC-240529-72000-C@option@binance": {
+      "symbol": "BTC-240529-72000-C",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 53.27
+    },
+    "BTC-240529-71500-C@option@binance": {
+      "symbol": "BTC-240529-71500-C",
+      "strike": 71500.0,
+      "days_left": 0,
+      "oi": 38.75
+    },
+    "BTC-240529-63000-P@option@binance": {
+      "symbol": "BTC-240529-63000-P",
+      "strike": 63000.0,
+      "days_left": 0,
+      "oi": 19.26
+    },
+    "BTC-240529-75000-P@option@binance": {
+      "symbol": "BTC-240529-75000-P",
+      "strike": 75000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-240529-67000-C@option@binance": {
+      "symbol": "BTC-240529-67000-C",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 1.15
+    },
+    "BTC-240529-69000-P@option@binance": {
+      "symbol": "BTC-240529-69000-P",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 11.75
+    },
+    "BTC-240529-73000-C@option@binance": {
+      "symbol": "BTC-240529-73000-C",
+      "strike": 73000.0,
+      "days_left": 0,
+      "oi": 93.49
+    },
+    "BTC-240529-67500-P@option@binance": {
+      "symbol": "BTC-240529-67500-P",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 6.77
+    },
+    "BTC-240529-68000-C@option@binance": {
+      "symbol": "BTC-240529-68000-C",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 4.79
+    },
+    "BTC-240529-68750-P@option@binance": {
+      "symbol": "BTC-240529-68750-P",
+      "strike": 68750.0,
+      "days_left": 0,
+      "oi": 6.43
+    },
+    "BTC-240529-66500-C@option@binance": {
+      "symbol": "BTC-240529-66500-C",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-240529-70000-P@option@binance": {
+      "symbol": "BTC-240529-70000-P",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 8.01
+    },
+    "BTC-240529-63000-C@option@binance": {
+      "symbol": "BTC-240529-63000-C",
+      "strike": 63000.0,
+      "days_left": 0,
+      "oi": 0.01
+    },
+    "BTC-240529-68500-P@option@binance": {
+      "symbol": "BTC-240529-68500-P",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 11.25
+    },
+    "BTC-240529-65000-P@option@binance": {
+      "symbol": "BTC-240529-65000-P",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 24.03
+    },
+    "BTC-240529-69000-C@option@binance": {
+      "symbol": "BTC-240529-69000-C",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 12.41
+    },
+    "BTC-240529-67500-C@option@binance": {
+      "symbol": "BTC-240529-67500-C",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 5.44
+    },
+    "BTC-240529-71000-P@option@binance": {
+      "symbol": "BTC-240529-71000-P",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 0.01
+    },
+    "BTC-240529-70500-P@option@binance": {
+      "symbol": "BTC-240529-70500-P",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 3.81
+    },
+    "BTC-240529-75000-C@option@binance": {
+      "symbol": "BTC-240529-75000-C",
+      "strike": 75000.0,
+      "days_left": 0,
+      "oi": 125.72
+    },
+    "BTC-240529-69500-P@option@binance": {
+      "symbol": "BTC-240529-69500-P",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 1.06
+    },
+    "BTC-240529-68750-C@option@binance": {
+      "symbol": "BTC-240529-68750-C",
+      "strike": 68750.0,
+      "days_left": 0,
+      "oi": 7.29
+    },
+    "BTC-240529-66000-P@option@binance": {
+      "symbol": "BTC-240529-66000-P",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 5.82
+    },
+    "BTC-240529-70000-C@option@binance": {
+      "symbol": "BTC-240529-70000-C",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 33.75
+    },
+    "BTC-240529-71500-P@option@binance": {
+      "symbol": "BTC-240529-71500-P",
+      "strike": 71500.0,
+      "days_left": 0,
+      "oi": 0.02
+    },
+    "BTC-240529-72000-P@option@binance": {
+      "symbol": "BTC-240529-72000-P",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-240529-73000-P@option@binance": {
+      "symbol": "BTC-240529-73000-P",
+      "strike": 73000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-240529-68500-C@option@binance": {
+      "symbol": "BTC-240529-68500-C",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 8.92
+    },
+    "BTC-240529-65000-C@option@binance": {
+      "symbol": "BTC-240529-65000-C",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-240529-67000-P@option@binance": {
+      "symbol": "BTC-240529-67000-P",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 21.0
+    },
+    "BTC-240529-70500-C@option@binance": {
+      "symbol": "BTC-240529-70500-C",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 24.58
+    },
+    "BTC-240529-71000-C@option@binance": {
+      "symbol": "BTC-240529-71000-C",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 37.35
+    },
+    "BTC-240529-69500-C@option@binance": {
+      "symbol": "BTC-240529-69500-C",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 11.24
+    },
+    "BTC-240529-66000-C@option@binance": {
+      "symbol": "BTC-240529-66000-C",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 2.79
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8721085,
+    "_doc": "152bef45-2bde-401e-b7e7-b72f87e3571c"
+  },
+  {
+    "BTC-240607-54000-C@option@binance": {
+      "symbol": "BTC-240607-54000-C",
+      "strike": 54000.0,
+      "days_left": 9,
+      "oi": 2.07
+    },
+    "BTC-240607-80000-P@option@binance": {
+      "symbol": "BTC-240607-80000-P",
+      "strike": 80000.0,
+      "days_left": 9,
+      "oi": 10.29
+    },
+    "BTC-240607-68000-P@option@binance": {
+      "symbol": "BTC-240607-68000-P",
+      "strike": 68000.0,
+      "days_left": 9,
+      "oi": 6.38
+    },
+    "BTC-240607-60000-C@option@binance": {
+      "symbol": "BTC-240607-60000-C",
+      "strike": 60000.0,
+      "days_left": 9,
+      "oi": 8.78
+    },
+    "BTC-240607-56000-P@option@binance": {
+      "symbol": "BTC-240607-56000-P",
+      "strike": 56000.0,
+      "days_left": 9,
+      "oi": 8.14
+    },
+    "BTC-240607-74000-P@option@binance": {
+      "symbol": "BTC-240607-74000-P",
+      "strike": 74000.0,
+      "days_left": 9,
+      "oi": 6.27
+    },
+    "BTC-240607-66000-C@option@binance": {
+      "symbol": "BTC-240607-66000-C",
+      "strike": 66000.0,
+      "days_left": 9,
+      "oi": 29.91
+    },
+    "BTC-240607-78000-C@option@binance": {
+      "symbol": "BTC-240607-78000-C",
+      "strike": 78000.0,
+      "days_left": 9,
+      "oi": 29.76
+    },
+    "BTC-240607-84000-C@option@binance": {
+      "symbol": "BTC-240607-84000-C",
+      "strike": 84000.0,
+      "days_left": 9,
+      "oi": 10.6
+    },
+    "BTC-240607-63000-P@option@binance": {
+      "symbol": "BTC-240607-63000-P",
+      "strike": 63000.0,
+      "days_left": 9,
+      "oi": 30.81
+    },
+    "BTC-240607-56000-C@option@binance": {
+      "symbol": "BTC-240607-56000-C",
+      "strike": 56000.0,
+      "days_left": 9,
+      "oi": 0.0
+    },
+    "BTC-240607-58000-P@option@binance": {
+      "symbol": "BTC-240607-58000-P",
+      "strike": 58000.0,
+      "days_left": 9,
+      "oi": 27.81
+    },
+    "BTC-240607-74000-C@option@binance": {
+      "symbol": "BTC-240607-74000-C",
+      "strike": 74000.0,
+      "days_left": 9,
+      "oi": 20.5
+    },
+    "BTC-240607-80000-C@option@binance": {
+      "symbol": "BTC-240607-80000-C",
+      "strike": 80000.0,
+      "days_left": 9,
+      "oi": 48.56
+    },
+    "BTC-240607-68000-C@option@binance": {
+      "symbol": "BTC-240607-68000-C",
+      "strike": 68000.0,
+      "days_left": 9,
+      "oi": 29.81
+    },
+    "BTC-240607-71000-P@option@binance": {
+      "symbol": "BTC-240607-71000-P",
+      "strike": 71000.0,
+      "days_left": 9,
+      "oi": 37.72
+    },
+    "BTC-240607-63000-C@option@binance": {
+      "symbol": "BTC-240607-63000-C",
+      "strike": 63000.0,
+      "days_left": 9,
+      "oi": 25.04
+    },
+    "BTC-240607-66000-P@option@binance": {
+      "symbol": "BTC-240607-66000-P",
+      "strike": 66000.0,
+      "days_left": 9,
+      "oi": 25.36
+    },
+    "BTC-240607-54000-P@option@binance": {
+      "symbol": "BTC-240607-54000-P",
+      "strike": 54000.0,
+      "days_left": 9,
+      "oi": 10.81
+    },
+    "BTC-240607-60000-P@option@binance": {
+      "symbol": "BTC-240607-60000-P",
+      "strike": 60000.0,
+      "days_left": 9,
+      "oi": 13.85
+    },
+    "BTC-240607-58000-C@option@binance": {
+      "symbol": "BTC-240607-58000-C",
+      "strike": 58000.0,
+      "days_left": 9,
+      "oi": 3.16
+    },
+    "BTC-240607-84000-P@option@binance": {
+      "symbol": "BTC-240607-84000-P",
+      "strike": 84000.0,
+      "days_left": 9,
+      "oi": 7.62
+    },
+    "BTC-240607-71000-C@option@binance": {
+      "symbol": "BTC-240607-71000-C",
+      "strike": 71000.0,
+      "days_left": 9,
+      "oi": 63.39
+    },
+    "BTC-240607-78000-P@option@binance": {
+      "symbol": "BTC-240607-78000-P",
+      "strike": 78000.0,
+      "days_left": 9,
+      "oi": 4.53
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8625758,
+    "_doc": "c7ed331d-f59f-4099-ad26-1b3e3a793066"
+  },
+  {
+    "BTC-240628-36000-P@option@binance": {
+      "symbol": "BTC-240628-36000-P",
+      "strike": 36000.0,
+      "days_left": 30,
+      "oi": 17.25
+    },
+    "BTC-240628-110000-C@option@binance": {
+      "symbol": "BTC-240628-110000-C",
+      "strike": 110000.0,
+      "days_left": 30,
+      "oi": 20.26
+    },
+    "BTC-240628-52000-C@option@binance": {
+      "symbol": "BTC-240628-52000-C",
+      "strike": 52000.0,
+      "days_left": 30,
+      "oi": 32.66
+    },
+    "BTC-240628-75000-C@option@binance": {
+      "symbol": "BTC-240628-75000-C",
+      "strike": 75000.0,
+      "days_left": 30,
+      "oi": 174.05
+    },
+    "BTC-240628-24000-P@option@binance": {
+      "symbol": "BTC-240628-24000-P",
+      "strike": 24000.0,
+      "days_left": 30,
+      "oi": 29.21
+    },
+    "BTC-240628-47000-P@option@binance": {
+      "symbol": "BTC-240628-47000-P",
+      "strike": 47000.0,
+      "days_left": 30,
+      "oi": 27.84
+    },
+    "BTC-240628-40000-C@option@binance": {
+      "symbol": "BTC-240628-40000-C",
+      "strike": 40000.0,
+      "days_left": 30,
+      "oi": 38.89
+    },
+    "BTC-240628-54000-P@option@binance": {
+      "symbol": "BTC-240628-54000-P",
+      "strike": 54000.0,
+      "days_left": 30,
+      "oi": 44.11
+    },
+    "BTC-240628-28000-C@option@binance": {
+      "symbol": "BTC-240628-28000-C",
+      "strike": 28000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-31000-P@option@binance": {
+      "symbol": "BTC-240628-31000-P",
+      "strike": 31000.0,
+      "days_left": 30,
+      "oi": 37.97
+    },
+    "BTC-240628-42000-P@option@binance": {
+      "symbol": "BTC-240628-42000-P",
+      "strike": 42000.0,
+      "days_left": 30,
+      "oi": 115.86
+    },
+    "BTC-240628-70000-C@option@binance": {
+      "symbol": "BTC-240628-70000-C",
+      "strike": 70000.0,
+      "days_left": 30,
+      "oi": 195.44
+    },
+    "BTC-240628-65000-P@option@binance": {
+      "symbol": "BTC-240628-65000-P",
+      "strike": 65000.0,
+      "days_left": 30,
+      "oi": 135.37
+    },
+    "BTC-240628-19000-P@option@binance": {
+      "symbol": "BTC-240628-19000-P",
+      "strike": 19000.0,
+      "days_left": 30,
+      "oi": 47.64
+    },
+    "BTC-240628-46000-C@option@binance": {
+      "symbol": "BTC-240628-46000-C",
+      "strike": 46000.0,
+      "days_left": 30,
+      "oi": 73.51
+    },
+    "BTC-240628-34000-C@option@binance": {
+      "symbol": "BTC-240628-34000-C",
+      "strike": 34000.0,
+      "days_left": 30,
+      "oi": 1.5
+    },
+    "BTC-240628-58000-C@option@binance": {
+      "symbol": "BTC-240628-58000-C",
+      "strike": 58000.0,
+      "days_left": 30,
+      "oi": 29.16
+    },
+    "BTC-240628-105000-C@option@binance": {
+      "symbol": "BTC-240628-105000-C",
+      "strike": 105000.0,
+      "days_left": 30,
+      "oi": 46.75
+    },
+    "BTC-240628-23000-C@option@binance": {
+      "symbol": "BTC-240628-23000-C",
+      "strike": 23000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-95000-P@option@binance": {
+      "symbol": "BTC-240628-95000-P",
+      "strike": 95000.0,
+      "days_left": 30,
+      "oi": 1.95
+    },
+    "BTC-240628-60000-P@option@binance": {
+      "symbol": "BTC-240628-60000-P",
+      "strike": 60000.0,
+      "days_left": 30,
+      "oi": 102.75
+    },
+    "BTC-240628-100000-C@option@binance": {
+      "symbol": "BTC-240628-100000-C",
+      "strike": 100000.0,
+      "days_left": 30,
+      "oi": 39.69
+    },
+    "BTC-240628-25000-P@option@binance": {
+      "symbol": "BTC-240628-25000-P",
+      "strike": 25000.0,
+      "days_left": 30,
+      "oi": 36.8
+    },
+    "BTC-240628-48000-P@option@binance": {
+      "symbol": "BTC-240628-48000-P",
+      "strike": 48000.0,
+      "days_left": 30,
+      "oi": 51.89
+    },
+    "BTC-240628-90000-P@option@binance": {
+      "symbol": "BTC-240628-90000-P",
+      "strike": 90000.0,
+      "days_left": 30,
+      "oi": 1.5
+    },
+    "BTC-240628-41000-C@option@binance": {
+      "symbol": "BTC-240628-41000-C",
+      "strike": 41000.0,
+      "days_left": 30,
+      "oi": 108.55
+    },
+    "BTC-240628-37000-P@option@binance": {
+      "symbol": "BTC-240628-37000-P",
+      "strike": 37000.0,
+      "days_left": 30,
+      "oi": 61.92
+    },
+    "BTC-240628-53000-C@option@binance": {
+      "symbol": "BTC-240628-53000-C",
+      "strike": 53000.0,
+      "days_left": 30,
+      "oi": 46.4
+    },
+    "BTC-240628-32000-P@option@binance": {
+      "symbol": "BTC-240628-32000-P",
+      "strike": 32000.0,
+      "days_left": 30,
+      "oi": 42.39
+    },
+    "BTC-240628-20000-P@option@binance": {
+      "symbol": "BTC-240628-20000-P",
+      "strike": 20000.0,
+      "days_left": 30,
+      "oi": 25.41
+    },
+    "BTC-240628-55000-P@option@binance": {
+      "symbol": "BTC-240628-55000-P",
+      "strike": 55000.0,
+      "days_left": 30,
+      "oi": 62.76
+    },
+    "BTC-240628-43000-P@option@binance": {
+      "symbol": "BTC-240628-43000-P",
+      "strike": 43000.0,
+      "days_left": 30,
+      "oi": 66.78
+    },
+    "BTC-240628-29000-C@option@binance": {
+      "symbol": "BTC-240628-29000-C",
+      "strike": 29000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-120000-P@option@binance": {
+      "symbol": "BTC-240628-120000-P",
+      "strike": 120000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-85000-P@option@binance": {
+      "symbol": "BTC-240628-85000-P",
+      "strike": 85000.0,
+      "days_left": 30,
+      "oi": 13.55
+    },
+    "BTC-240628-50000-P@option@binance": {
+      "symbol": "BTC-240628-50000-P",
+      "strike": 50000.0,
+      "days_left": 30,
+      "oi": 92.0
+    },
+    "BTC-240628-24000-C@option@binance": {
+      "symbol": "BTC-240628-24000-C",
+      "strike": 24000.0,
+      "days_left": 30,
+      "oi": 0.01
+    },
+    "BTC-240628-47000-C@option@binance": {
+      "symbol": "BTC-240628-47000-C",
+      "strike": 47000.0,
+      "days_left": 30,
+      "oi": 48.65
+    },
+    "BTC-240628-35000-C@option@binance": {
+      "symbol": "BTC-240628-35000-C",
+      "strike": 35000.0,
+      "days_left": 30,
+      "oi": 14.71
+    },
+    "BTC-240628-38000-P@option@binance": {
+      "symbol": "BTC-240628-38000-P",
+      "strike": 38000.0,
+      "days_left": 30,
+      "oi": 56.69
+    },
+    "BTC-240628-54000-C@option@binance": {
+      "symbol": "BTC-240628-54000-C",
+      "strike": 54000.0,
+      "days_left": 30,
+      "oi": 22.99
+    },
+    "BTC-240628-30000-C@option@binance": {
+      "symbol": "BTC-240628-30000-C",
+      "strike": 30000.0,
+      "days_left": 30,
+      "oi": 3.36
+    },
+    "BTC-240628-26000-P@option@binance": {
+      "symbol": "BTC-240628-26000-P",
+      "strike": 26000.0,
+      "days_left": 30,
+      "oi": 36.26
+    },
+    "BTC-240628-42000-C@option@binance": {
+      "symbol": "BTC-240628-42000-C",
+      "strike": 42000.0,
+      "days_left": 30,
+      "oi": 115.07
+    },
+    "BTC-240628-49000-P@option@binance": {
+      "symbol": "BTC-240628-49000-P",
+      "strike": 49000.0,
+      "days_left": 30,
+      "oi": 71.63
+    },
+    "BTC-240628-65000-C@option@binance": {
+      "symbol": "BTC-240628-65000-C",
+      "strike": 65000.0,
+      "days_left": 30,
+      "oi": 177.76
+    },
+    "BTC-240628-21000-P@option@binance": {
+      "symbol": "BTC-240628-21000-P",
+      "strike": 21000.0,
+      "days_left": 30,
+      "oi": 36.03
+    },
+    "BTC-240628-33000-P@option@binance": {
+      "symbol": "BTC-240628-33000-P",
+      "strike": 33000.0,
+      "days_left": 30,
+      "oi": 26.47
+    },
+    "BTC-240628-95000-C@option@binance": {
+      "symbol": "BTC-240628-95000-C",
+      "strike": 95000.0,
+      "days_left": 30,
+      "oi": 50.2
+    },
+    "BTC-240628-44000-P@option@binance": {
+      "symbol": "BTC-240628-44000-P",
+      "strike": 44000.0,
+      "days_left": 30,
+      "oi": 35.16
+    },
+    "BTC-240628-60000-C@option@binance": {
+      "symbol": "BTC-240628-60000-C",
+      "strike": 60000.0,
+      "days_left": 30,
+      "oi": 137.82
+    },
+    "BTC-240628-56000-P@option@binance": {
+      "symbol": "BTC-240628-56000-P",
+      "strike": 56000.0,
+      "days_left": 30,
+      "oi": 85.75
+    },
+    "BTC-240628-37000-C@option@binance": {
+      "symbol": "BTC-240628-37000-C",
+      "strike": 37000.0,
+      "days_left": 30,
+      "oi": 8.57
+    },
+    "BTC-240628-51000-P@option@binance": {
+      "symbol": "BTC-240628-51000-P",
+      "strike": 51000.0,
+      "days_left": 30,
+      "oi": 140.54
+    },
+    "BTC-240628-25000-C@option@binance": {
+      "symbol": "BTC-240628-25000-C",
+      "strike": 25000.0,
+      "days_left": 30,
+      "oi": 22.61
+    },
+    "BTC-240628-36000-C@option@binance": {
+      "symbol": "BTC-240628-36000-C",
+      "strike": 36000.0,
+      "days_left": 30,
+      "oi": 4.0
+    },
+    "BTC-240628-90000-C@option@binance": {
+      "symbol": "BTC-240628-90000-C",
+      "strike": 90000.0,
+      "days_left": 30,
+      "oi": 85.36
+    },
+    "BTC-240628-48000-C@option@binance": {
+      "symbol": "BTC-240628-48000-C",
+      "strike": 48000.0,
+      "days_left": 30,
+      "oi": 52.88
+    },
+    "BTC-240628-20000-C@option@binance": {
+      "symbol": "BTC-240628-20000-C",
+      "strike": 20000.0,
+      "days_left": 30,
+      "oi": 13.83
+    },
+    "BTC-240628-39000-P@option@binance": {
+      "symbol": "BTC-240628-39000-P",
+      "strike": 39000.0,
+      "days_left": 30,
+      "oi": 67.41
+    },
+    "BTC-240628-31000-C@option@binance": {
+      "symbol": "BTC-240628-31000-C",
+      "strike": 31000.0,
+      "days_left": 30,
+      "oi": 12.85
+    },
+    "BTC-240628-27000-P@option@binance": {
+      "symbol": "BTC-240628-27000-P",
+      "strike": 27000.0,
+      "days_left": 30,
+      "oi": 30.39
+    },
+    "BTC-240628-43000-C@option@binance": {
+      "symbol": "BTC-240628-43000-C",
+      "strike": 43000.0,
+      "days_left": 30,
+      "oi": 117.82
+    },
+    "BTC-240628-15000-P@option@binance": {
+      "symbol": "BTC-240628-15000-P",
+      "strike": 15000.0,
+      "days_left": 30,
+      "oi": 220.92
+    },
+    "BTC-240628-55000-C@option@binance": {
+      "symbol": "BTC-240628-55000-C",
+      "strike": 55000.0,
+      "days_left": 30,
+      "oi": 114.64
+    },
+    "BTC-240628-80000-P@option@binance": {
+      "symbol": "BTC-240628-80000-P",
+      "strike": 80000.0,
+      "days_left": 30,
+      "oi": 36.5
+    },
+    "BTC-240628-115000-P@option@binance": {
+      "symbol": "BTC-240628-115000-P",
+      "strike": 115000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-34000-P@option@binance": {
+      "symbol": "BTC-240628-34000-P",
+      "strike": 34000.0,
+      "days_left": 30,
+      "oi": 21.75
+    },
+    "BTC-240628-45000-P@option@binance": {
+      "symbol": "BTC-240628-45000-P",
+      "strike": 45000.0,
+      "days_left": 30,
+      "oi": 49.24
+    },
+    "BTC-240628-50000-C@option@binance": {
+      "symbol": "BTC-240628-50000-C",
+      "strike": 50000.0,
+      "days_left": 30,
+      "oi": 166.19
+    },
+    "BTC-240628-19000-C@option@binance": {
+      "symbol": "BTC-240628-19000-C",
+      "strike": 19000.0,
+      "days_left": 30,
+      "oi": 0.01
+    },
+    "BTC-240628-57000-P@option@binance": {
+      "symbol": "BTC-240628-57000-P",
+      "strike": 57000.0,
+      "days_left": 30,
+      "oi": 91.93
+    },
+    "BTC-240628-22000-P@option@binance": {
+      "symbol": "BTC-240628-22000-P",
+      "strike": 22000.0,
+      "days_left": 30,
+      "oi": 51.32
+    },
+    "BTC-240628-120000-C@option@binance": {
+      "symbol": "BTC-240628-120000-C",
+      "strike": 120000.0,
+      "days_left": 30,
+      "oi": 74.81
+    },
+    "BTC-240628-40000-P@option@binance": {
+      "symbol": "BTC-240628-40000-P",
+      "strike": 40000.0,
+      "days_left": 30,
+      "oi": 166.73
+    },
+    "BTC-240628-26000-C@option@binance": {
+      "symbol": "BTC-240628-26000-C",
+      "strike": 26000.0,
+      "days_left": 30,
+      "oi": 2.8
+    },
+    "BTC-240628-38000-C@option@binance": {
+      "symbol": "BTC-240628-38000-C",
+      "strike": 38000.0,
+      "days_left": 30,
+      "oi": 6.55
+    },
+    "BTC-240628-49000-C@option@binance": {
+      "symbol": "BTC-240628-49000-C",
+      "strike": 49000.0,
+      "days_left": 30,
+      "oi": 11.14
+    },
+    "BTC-240628-75000-P@option@binance": {
+      "symbol": "BTC-240628-75000-P",
+      "strike": 75000.0,
+      "days_left": 30,
+      "oi": 94.93
+    },
+    "BTC-240628-110000-P@option@binance": {
+      "symbol": "BTC-240628-110000-P",
+      "strike": 110000.0,
+      "days_left": 30,
+      "oi": 1.34
+    },
+    "BTC-240628-52000-P@option@binance": {
+      "symbol": "BTC-240628-52000-P",
+      "strike": 52000.0,
+      "days_left": 30,
+      "oi": 96.72
+    },
+    "BTC-240628-32000-C@option@binance": {
+      "symbol": "BTC-240628-32000-C",
+      "strike": 32000.0,
+      "days_left": 30,
+      "oi": 2.04
+    },
+    "BTC-240628-56000-C@option@binance": {
+      "symbol": "BTC-240628-56000-C",
+      "strike": 56000.0,
+      "days_left": 30,
+      "oi": 51.26
+    },
+    "BTC-240628-21000-C@option@binance": {
+      "symbol": "BTC-240628-21000-C",
+      "strike": 21000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-70000-P@option@binance": {
+      "symbol": "BTC-240628-70000-P",
+      "strike": 70000.0,
+      "days_left": 30,
+      "oi": 139.93
+    },
+    "BTC-240628-44000-C@option@binance": {
+      "symbol": "BTC-240628-44000-C",
+      "strike": 44000.0,
+      "days_left": 30,
+      "oi": 92.2
+    },
+    "BTC-240628-28000-P@option@binance": {
+      "symbol": "BTC-240628-28000-P",
+      "strike": 28000.0,
+      "days_left": 30,
+      "oi": 15.4
+    },
+    "BTC-240628-58000-P@option@binance": {
+      "symbol": "BTC-240628-58000-P",
+      "strike": 58000.0,
+      "days_left": 30,
+      "oi": 105.34
+    },
+    "BTC-240628-105000-P@option@binance": {
+      "symbol": "BTC-240628-105000-P",
+      "strike": 105000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-51000-C@option@binance": {
+      "symbol": "BTC-240628-51000-C",
+      "strike": 51000.0,
+      "days_left": 30,
+      "oi": 30.21
+    },
+    "BTC-240628-46000-P@option@binance": {
+      "symbol": "BTC-240628-46000-P",
+      "strike": 46000.0,
+      "days_left": 30,
+      "oi": 8.75
+    },
+    "BTC-240628-35000-P@option@binance": {
+      "symbol": "BTC-240628-35000-P",
+      "strike": 35000.0,
+      "days_left": 30,
+      "oi": 116.74
+    },
+    "BTC-240628-85000-C@option@binance": {
+      "symbol": "BTC-240628-85000-C",
+      "strike": 85000.0,
+      "days_left": 30,
+      "oi": 91.14
+    },
+    "BTC-240628-23000-P@option@binance": {
+      "symbol": "BTC-240628-23000-P",
+      "strike": 23000.0,
+      "days_left": 30,
+      "oi": 45.34
+    },
+    "BTC-240628-80000-C@option@binance": {
+      "symbol": "BTC-240628-80000-C",
+      "strike": 80000.0,
+      "days_left": 30,
+      "oi": 128.64
+    },
+    "BTC-240628-30000-P@option@binance": {
+      "symbol": "BTC-240628-30000-P",
+      "strike": 30000.0,
+      "days_left": 30,
+      "oi": 62.69
+    },
+    "BTC-240628-53000-P@option@binance": {
+      "symbol": "BTC-240628-53000-P",
+      "strike": 53000.0,
+      "days_left": 30,
+      "oi": 88.31
+    },
+    "BTC-240628-27000-C@option@binance": {
+      "symbol": "BTC-240628-27000-C",
+      "strike": 27000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-100000-P@option@binance": {
+      "symbol": "BTC-240628-100000-P",
+      "strike": 100000.0,
+      "days_left": 30,
+      "oi": 3.63
+    },
+    "BTC-240628-41000-P@option@binance": {
+      "symbol": "BTC-240628-41000-P",
+      "strike": 41000.0,
+      "days_left": 30,
+      "oi": 105.37
+    },
+    "BTC-240628-15000-C@option@binance": {
+      "symbol": "BTC-240628-15000-C",
+      "strike": 15000.0,
+      "days_left": 30,
+      "oi": 2.25
+    },
+    "BTC-240628-39000-C@option@binance": {
+      "symbol": "BTC-240628-39000-C",
+      "strike": 39000.0,
+      "days_left": 30,
+      "oi": 16.5
+    },
+    "BTC-240628-29000-P@option@binance": {
+      "symbol": "BTC-240628-29000-P",
+      "strike": 29000.0,
+      "days_left": 30,
+      "oi": 33.11
+    },
+    "BTC-240628-45000-C@option@binance": {
+      "symbol": "BTC-240628-45000-C",
+      "strike": 45000.0,
+      "days_left": 30,
+      "oi": 136.7
+    },
+    "BTC-240628-57000-C@option@binance": {
+      "symbol": "BTC-240628-57000-C",
+      "strike": 57000.0,
+      "days_left": 30,
+      "oi": 25.61
+    },
+    "BTC-240628-22000-C@option@binance": {
+      "symbol": "BTC-240628-22000-C",
+      "strike": 22000.0,
+      "days_left": 30,
+      "oi": 0.0
+    },
+    "BTC-240628-115000-C@option@binance": {
+      "symbol": "BTC-240628-115000-C",
+      "strike": 115000.0,
+      "days_left": 30,
+      "oi": 40.62
+    },
+    "BTC-240628-33000-C@option@binance": {
+      "symbol": "BTC-240628-33000-C",
+      "strike": 33000.0,
+      "days_left": 30,
+      "oi": 3.54
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8571131,
+    "_doc": "5df9c583-8f61-4ece-b68a-4fa53366cf47"
+  },
+  {
+    "BTC-240531-68000-C@option@binance": {
+      "symbol": "BTC-240531-68000-C",
+      "strike": 68000.0,
+      "days_left": 2,
+      "oi": 74.22
+    },
+    "BTC-240531-44000-C@option@binance": {
+      "symbol": "BTC-240531-44000-C",
+      "strike": 44000.0,
+      "days_left": 2,
+      "oi": 64.18
+    },
+    "BTC-240531-56000-C@option@binance": {
+      "symbol": "BTC-240531-56000-C",
+      "strike": 56000.0,
+      "days_left": 2,
+      "oi": 19.8
+    },
+    "BTC-240531-70000-P@option@binance": {
+      "symbol": "BTC-240531-70000-P",
+      "strike": 70000.0,
+      "days_left": 2,
+      "oi": 53.96
+    },
+    "BTC-240531-35000-P@option@binance": {
+      "symbol": "BTC-240531-35000-P",
+      "strike": 35000.0,
+      "days_left": 2,
+      "oi": 98.25
+    },
+    "BTC-240531-51000-C@option@binance": {
+      "symbol": "BTC-240531-51000-C",
+      "strike": 51000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-74000-C@option@binance": {
+      "symbol": "BTC-240531-74000-C",
+      "strike": 74000.0,
+      "days_left": 2,
+      "oi": 99.71
+    },
+    "BTC-240531-58000-P@option@binance": {
+      "symbol": "BTC-240531-58000-P",
+      "strike": 58000.0,
+      "days_left": 2,
+      "oi": 13.1
+    },
+    "BTC-240531-63000-C@option@binance": {
+      "symbol": "BTC-240531-63000-C",
+      "strike": 63000.0,
+      "days_left": 2,
+      "oi": 15.42
+    },
+    "BTC-240531-81000-C@option@binance": {
+      "symbol": "BTC-240531-81000-C",
+      "strike": 81000.0,
+      "days_left": 2,
+      "oi": 28.34
+    },
+    "BTC-240531-65000-P@option@binance": {
+      "symbol": "BTC-240531-65000-P",
+      "strike": 65000.0,
+      "days_left": 2,
+      "oi": 90.14
+    },
+    "BTC-240531-76000-P@option@binance": {
+      "symbol": "BTC-240531-76000-P",
+      "strike": 76000.0,
+      "days_left": 2,
+      "oi": 16.78
+    },
+    "BTC-240531-57000-C@option@binance": {
+      "symbol": "BTC-240531-57000-C",
+      "strike": 57000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-60000-P@option@binance": {
+      "symbol": "BTC-240531-60000-P",
+      "strike": 60000.0,
+      "days_left": 2,
+      "oi": 51.2
+    },
+    "BTC-240531-71000-P@option@binance": {
+      "symbol": "BTC-240531-71000-P",
+      "strike": 71000.0,
+      "days_left": 2,
+      "oi": 31.07
+    },
+    "BTC-240531-69000-C@option@binance": {
+      "symbol": "BTC-240531-69000-C",
+      "strike": 69000.0,
+      "days_left": 2,
+      "oi": 29.07
+    },
+    "BTC-240531-40000-C@option@binance": {
+      "symbol": "BTC-240531-40000-C",
+      "strike": 40000.0,
+      "days_left": 2,
+      "oi": 95.22
+    },
+    "BTC-240531-59000-P@option@binance": {
+      "symbol": "BTC-240531-59000-P",
+      "strike": 59000.0,
+      "days_left": 2,
+      "oi": 14.55
+    },
+    "BTC-240531-52000-C@option@binance": {
+      "symbol": "BTC-240531-52000-C",
+      "strike": 52000.0,
+      "days_left": 2,
+      "oi": 0.05
+    },
+    "BTC-240531-64000-C@option@binance": {
+      "symbol": "BTC-240531-64000-C",
+      "strike": 64000.0,
+      "days_left": 2,
+      "oi": 20.1
+    },
+    "BTC-240531-75000-C@option@binance": {
+      "symbol": "BTC-240531-75000-C",
+      "strike": 75000.0,
+      "days_left": 2,
+      "oi": 296.71
+    },
+    "BTC-240531-66000-P@option@binance": {
+      "symbol": "BTC-240531-66000-P",
+      "strike": 66000.0,
+      "days_left": 2,
+      "oi": 146.09
+    },
+    "BTC-240531-54000-P@option@binance": {
+      "symbol": "BTC-240531-54000-P",
+      "strike": 54000.0,
+      "days_left": 2,
+      "oi": 447.06
+    },
+    "BTC-240531-70000-C@option@binance": {
+      "symbol": "BTC-240531-70000-C",
+      "strike": 70000.0,
+      "days_left": 2,
+      "oi": 67.37
+    },
+    "BTC-240531-77000-P@option@binance": {
+      "symbol": "BTC-240531-77000-P",
+      "strike": 77000.0,
+      "days_left": 2,
+      "oi": 8.44
+    },
+    "BTC-240531-61000-P@option@binance": {
+      "symbol": "BTC-240531-61000-P",
+      "strike": 61000.0,
+      "days_left": 2,
+      "oi": 26.04
+    },
+    "BTC-240531-72000-P@option@binance": {
+      "symbol": "BTC-240531-72000-P",
+      "strike": 72000.0,
+      "days_left": 2,
+      "oi": 21.35
+    },
+    "BTC-240531-35000-C@option@binance": {
+      "symbol": "BTC-240531-35000-C",
+      "strike": 35000.0,
+      "days_left": 2,
+      "oi": 29.53
+    },
+    "BTC-240531-46000-C@option@binance": {
+      "symbol": "BTC-240531-46000-C",
+      "strike": 46000.0,
+      "days_left": 2,
+      "oi": 83.99
+    },
+    "BTC-240531-58000-C@option@binance": {
+      "symbol": "BTC-240531-58000-C",
+      "strike": 58000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-65000-C@option@binance": {
+      "symbol": "BTC-240531-65000-C",
+      "strike": 65000.0,
+      "days_left": 2,
+      "oi": 20.18
+    },
+    "BTC-240531-76000-C@option@binance": {
+      "symbol": "BTC-240531-76000-C",
+      "strike": 76000.0,
+      "days_left": 2,
+      "oi": 94.32
+    },
+    "BTC-240531-55000-P@option@binance": {
+      "symbol": "BTC-240531-55000-P",
+      "strike": 55000.0,
+      "days_left": 2,
+      "oi": 11.1
+    },
+    "BTC-240531-67000-P@option@binance": {
+      "symbol": "BTC-240531-67000-P",
+      "strike": 67000.0,
+      "days_left": 2,
+      "oi": 27.36
+    },
+    "BTC-240531-78000-P@option@binance": {
+      "symbol": "BTC-240531-78000-P",
+      "strike": 78000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-71000-C@option@binance": {
+      "symbol": "BTC-240531-71000-C",
+      "strike": 71000.0,
+      "days_left": 2,
+      "oi": 70.82
+    },
+    "BTC-240531-44000-P@option@binance": {
+      "symbol": "BTC-240531-44000-P",
+      "strike": 44000.0,
+      "days_left": 2,
+      "oi": 112.01
+    },
+    "BTC-240531-85000-P@option@binance": {
+      "symbol": "BTC-240531-85000-P",
+      "strike": 85000.0,
+      "days_left": 2,
+      "oi": 138.72
+    },
+    "BTC-240531-59000-C@option@binance": {
+      "symbol": "BTC-240531-59000-C",
+      "strike": 59000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-50000-P@option@binance": {
+      "symbol": "BTC-240531-50000-P",
+      "strike": 50000.0,
+      "days_left": 2,
+      "oi": 37.03
+    },
+    "BTC-240531-73000-P@option@binance": {
+      "symbol": "BTC-240531-73000-P",
+      "strike": 73000.0,
+      "days_left": 2,
+      "oi": 7.97
+    },
+    "BTC-240531-62000-P@option@binance": {
+      "symbol": "BTC-240531-62000-P",
+      "strike": 62000.0,
+      "days_left": 2,
+      "oi": 103.86
+    },
+    "BTC-240531-54000-C@option@binance": {
+      "symbol": "BTC-240531-54000-C",
+      "strike": 54000.0,
+      "days_left": 2,
+      "oi": 15.19
+    },
+    "BTC-240531-66000-C@option@binance": {
+      "symbol": "BTC-240531-66000-C",
+      "strike": 66000.0,
+      "days_left": 2,
+      "oi": 135.91
+    },
+    "BTC-240531-77000-C@option@binance": {
+      "symbol": "BTC-240531-77000-C",
+      "strike": 77000.0,
+      "days_left": 2,
+      "oi": 60.57
+    },
+    "BTC-240531-80000-P@option@binance": {
+      "symbol": "BTC-240531-80000-P",
+      "strike": 80000.0,
+      "days_left": 2,
+      "oi": 78.82
+    },
+    "BTC-240531-72000-C@option@binance": {
+      "symbol": "BTC-240531-72000-C",
+      "strike": 72000.0,
+      "days_left": 2,
+      "oi": 54.62
+    },
+    "BTC-240531-56000-P@option@binance": {
+      "symbol": "BTC-240531-56000-P",
+      "strike": 56000.0,
+      "days_left": 2,
+      "oi": 121.14
+    },
+    "BTC-240531-61000-C@option@binance": {
+      "symbol": "BTC-240531-61000-C",
+      "strike": 61000.0,
+      "days_left": 2,
+      "oi": 0.02
+    },
+    "BTC-240531-60000-C@option@binance": {
+      "symbol": "BTC-240531-60000-C",
+      "strike": 60000.0,
+      "days_left": 2,
+      "oi": 8.45
+    },
+    "BTC-240531-68000-P@option@binance": {
+      "symbol": "BTC-240531-68000-P",
+      "strike": 68000.0,
+      "days_left": 2,
+      "oi": 30.38
+    },
+    "BTC-240531-63000-P@option@binance": {
+      "symbol": "BTC-240531-63000-P",
+      "strike": 63000.0,
+      "days_left": 2,
+      "oi": 23.58
+    },
+    "BTC-240531-51000-P@option@binance": {
+      "symbol": "BTC-240531-51000-P",
+      "strike": 51000.0,
+      "days_left": 2,
+      "oi": 24.89
+    },
+    "BTC-240531-74000-P@option@binance": {
+      "symbol": "BTC-240531-74000-P",
+      "strike": 74000.0,
+      "days_left": 2,
+      "oi": 8.67
+    },
+    "BTC-240531-81000-P@option@binance": {
+      "symbol": "BTC-240531-81000-P",
+      "strike": 81000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-55000-C@option@binance": {
+      "symbol": "BTC-240531-55000-C",
+      "strike": 55000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-240531-78000-C@option@binance": {
+      "symbol": "BTC-240531-78000-C",
+      "strike": 78000.0,
+      "days_left": 2,
+      "oi": 32.03
+    },
+    "BTC-240531-67000-C@option@binance": {
+      "symbol": "BTC-240531-67000-C",
+      "strike": 67000.0,
+      "days_left": 2,
+      "oi": 34.71
+    },
+    "BTC-240531-62000-C@option@binance": {
+      "symbol": "BTC-240531-62000-C",
+      "strike": 62000.0,
+      "days_left": 2,
+      "oi": 90.11
+    },
+    "BTC-240531-73000-C@option@binance": {
+      "symbol": "BTC-240531-73000-C",
+      "strike": 73000.0,
+      "days_left": 2,
+      "oi": 141.85
+    },
+    "BTC-240531-85000-C@option@binance": {
+      "symbol": "BTC-240531-85000-C",
+      "strike": 85000.0,
+      "days_left": 2,
+      "oi": 252.49
+    },
+    "BTC-240531-46000-P@option@binance": {
+      "symbol": "BTC-240531-46000-P",
+      "strike": 46000.0,
+      "days_left": 2,
+      "oi": 165.06
+    },
+    "BTC-240531-50000-C@option@binance": {
+      "symbol": "BTC-240531-50000-C",
+      "strike": 50000.0,
+      "days_left": 2,
+      "oi": 0.01
+    },
+    "BTC-240531-57000-P@option@binance": {
+      "symbol": "BTC-240531-57000-P",
+      "strike": 57000.0,
+      "days_left": 2,
+      "oi": 6.65
+    },
+    "BTC-240531-69000-P@option@binance": {
+      "symbol": "BTC-240531-69000-P",
+      "strike": 69000.0,
+      "days_left": 2,
+      "oi": 37.48
+    },
+    "BTC-240531-52000-P@option@binance": {
+      "symbol": "BTC-240531-52000-P",
+      "strike": 52000.0,
+      "days_left": 2,
+      "oi": 118.79
+    },
+    "BTC-240531-75000-P@option@binance": {
+      "symbol": "BTC-240531-75000-P",
+      "strike": 75000.0,
+      "days_left": 2,
+      "oi": 99.33
+    },
+    "BTC-240531-80000-C@option@binance": {
+      "symbol": "BTC-240531-80000-C",
+      "strike": 80000.0,
+      "days_left": 2,
+      "oi": 221.58
+    },
+    "BTC-240531-40000-P@option@binance": {
+      "symbol": "BTC-240531-40000-P",
+      "strike": 40000.0,
+      "days_left": 2,
+      "oi": 160.37
+    },
+    "BTC-240531-64000-P@option@binance": {
+      "symbol": "BTC-240531-64000-P",
+      "strike": 64000.0,
+      "days_left": 2,
+      "oi": 127.59
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8429337,
+    "_doc": "d50efdce-4eac-4ec1-89dc-14d263204bfe"
+  },
+  {
+    "BTC-240614-80000-P@option@binance": {
+      "symbol": "BTC-240614-80000-P",
+      "strike": 80000.0,
+      "days_left": 16,
+      "oi": 0.02
+    },
+    "BTC-240614-72000-C@option@binance": {
+      "symbol": "BTC-240614-72000-C",
+      "strike": 72000.0,
+      "days_left": 16,
+      "oi": 12.33
+    },
+    "BTC-240614-56000-P@option@binance": {
+      "symbol": "BTC-240614-56000-P",
+      "strike": 56000.0,
+      "days_left": 16,
+      "oi": 11.01
+    },
+    "BTC-240614-60000-C@option@binance": {
+      "symbol": "BTC-240614-60000-C",
+      "strike": 60000.0,
+      "days_left": 16,
+      "oi": 10.17
+    },
+    "BTC-240614-78000-C@option@binance": {
+      "symbol": "BTC-240614-78000-C",
+      "strike": 78000.0,
+      "days_left": 16,
+      "oi": 17.67
+    },
+    "BTC-240614-66000-C@option@binance": {
+      "symbol": "BTC-240614-66000-C",
+      "strike": 66000.0,
+      "days_left": 16,
+      "oi": 33.17
+    },
+    "BTC-240614-64000-P@option@binance": {
+      "symbol": "BTC-240614-64000-P",
+      "strike": 64000.0,
+      "days_left": 16,
+      "oi": 20.02
+    },
+    "BTC-240614-82000-P@option@binance": {
+      "symbol": "BTC-240614-82000-P",
+      "strike": 82000.0,
+      "days_left": 16,
+      "oi": 14.05
+    },
+    "BTC-240614-56000-C@option@binance": {
+      "symbol": "BTC-240614-56000-C",
+      "strike": 56000.0,
+      "days_left": 16,
+      "oi": 12.49
+    },
+    "BTC-240614-70000-P@option@binance": {
+      "symbol": "BTC-240614-70000-P",
+      "strike": 70000.0,
+      "days_left": 16,
+      "oi": 23.41
+    },
+    "BTC-240614-62000-C@option@binance": {
+      "symbol": "BTC-240614-62000-C",
+      "strike": 62000.0,
+      "days_left": 16,
+      "oi": 1.44
+    },
+    "BTC-240614-88000-P@option@binance": {
+      "symbol": "BTC-240614-88000-P",
+      "strike": 88000.0,
+      "days_left": 16,
+      "oi": 0.0
+    },
+    "BTC-240614-80000-C@option@binance": {
+      "symbol": "BTC-240614-80000-C",
+      "strike": 80000.0,
+      "days_left": 16,
+      "oi": 26.05
+    },
+    "BTC-240614-76000-P@option@binance": {
+      "symbol": "BTC-240614-76000-P",
+      "strike": 76000.0,
+      "days_left": 16,
+      "oi": 0.0
+    },
+    "BTC-240614-70000-C@option@binance": {
+      "symbol": "BTC-240614-70000-C",
+      "strike": 70000.0,
+      "days_left": 16,
+      "oi": 13.15
+    },
+    "BTC-240614-66000-P@option@binance": {
+      "symbol": "BTC-240614-66000-P",
+      "strike": 66000.0,
+      "days_left": 16,
+      "oi": 20.88
+    },
+    "BTC-240614-82000-C@option@binance": {
+      "symbol": "BTC-240614-82000-C",
+      "strike": 82000.0,
+      "days_left": 16,
+      "oi": 13.95
+    },
+    "BTC-240614-60000-P@option@binance": {
+      "symbol": "BTC-240614-60000-P",
+      "strike": 60000.0,
+      "days_left": 16,
+      "oi": 10.34
+    },
+    "BTC-240614-72000-P@option@binance": {
+      "symbol": "BTC-240614-72000-P",
+      "strike": 72000.0,
+      "days_left": 16,
+      "oi": 13.15
+    },
+    "BTC-240614-76000-C@option@binance": {
+      "symbol": "BTC-240614-76000-C",
+      "strike": 76000.0,
+      "days_left": 16,
+      "oi": 3.81
+    },
+    "BTC-240614-64000-C@option@binance": {
+      "symbol": "BTC-240614-64000-C",
+      "strike": 64000.0,
+      "days_left": 16,
+      "oi": 12.73
+    },
+    "BTC-240614-88000-C@option@binance": {
+      "symbol": "BTC-240614-88000-C",
+      "strike": 88000.0,
+      "days_left": 16,
+      "oi": 0.63
+    },
+    "BTC-240614-78000-P@option@binance": {
+      "symbol": "BTC-240614-78000-P",
+      "strike": 78000.0,
+      "days_left": 16,
+      "oi": 0.0
+    },
+    "BTC-240614-62000-P@option@binance": {
+      "symbol": "BTC-240614-62000-P",
+      "strike": 62000.0,
+      "days_left": 16,
+      "oi": 12.79
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8337457,
+    "_doc": "26b3173f-5b17-4e72-b9ad-87eaac09e72c"
+  },
+  {
+    "BTC-240927-18000-P@option@binance": {
+      "symbol": "BTC-240927-18000-P",
+      "strike": 18000.0,
+      "days_left": 121,
+      "oi": 3.76
+    },
+    "BTC-240927-34000-C@option@binance": {
+      "symbol": "BTC-240927-34000-C",
+      "strike": 34000.0,
+      "days_left": 121,
+      "oi": 2.64
+    },
+    "BTC-240927-23000-C@option@binance": {
+      "symbol": "BTC-240927-23000-C",
+      "strike": 23000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-130000-P@option@binance": {
+      "symbol": "BTC-240927-130000-P",
+      "strike": 130000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-60000-P@option@binance": {
+      "symbol": "BTC-240927-60000-P",
+      "strike": 60000.0,
+      "days_left": 121,
+      "oi": 3.37
+    },
+    "BTC-240927-46000-C@option@binance": {
+      "symbol": "BTC-240927-46000-C",
+      "strike": 46000.0,
+      "days_left": 121,
+      "oi": 19.5
+    },
+    "BTC-240927-58000-C@option@binance": {
+      "symbol": "BTC-240927-58000-C",
+      "strike": 58000.0,
+      "days_left": 121,
+      "oi": 6.0
+    },
+    "BTC-240927-95000-P@option@binance": {
+      "symbol": "BTC-240927-95000-P",
+      "strike": 95000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-90000-P@option@binance": {
+      "symbol": "BTC-240927-90000-P",
+      "strike": 90000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-25000-P@option@binance": {
+      "symbol": "BTC-240927-25000-P",
+      "strike": 25000.0,
+      "days_left": 121,
+      "oi": 4.11
+    },
+    "BTC-240927-41000-C@option@binance": {
+      "symbol": "BTC-240927-41000-C",
+      "strike": 41000.0,
+      "days_left": 121,
+      "oi": 7.5
+    },
+    "BTC-240927-160000-P@option@binance": {
+      "symbol": "BTC-240927-160000-P",
+      "strike": 160000.0,
+      "days_left": 121,
+      "oi": 63.92
+    },
+    "BTC-240927-37000-P@option@binance": {
+      "symbol": "BTC-240927-37000-P",
+      "strike": 37000.0,
+      "days_left": 121,
+      "oi": 14.92
+    },
+    "BTC-240927-48000-P@option@binance": {
+      "symbol": "BTC-240927-48000-P",
+      "strike": 48000.0,
+      "days_left": 121,
+      "oi": 22.73
+    },
+    "BTC-240927-52000-C@option@binance": {
+      "symbol": "BTC-240927-52000-C",
+      "strike": 52000.0,
+      "days_left": 121,
+      "oi": 11.06
+    },
+    "BTC-240927-140000-C@option@binance": {
+      "symbol": "BTC-240927-140000-C",
+      "strike": 140000.0,
+      "days_left": 121,
+      "oi": 0.83
+    },
+    "BTC-240927-20000-P@option@binance": {
+      "symbol": "BTC-240927-20000-P",
+      "strike": 20000.0,
+      "days_left": 121,
+      "oi": 3.62
+    },
+    "BTC-240927-31000-P@option@binance": {
+      "symbol": "BTC-240927-31000-P",
+      "strike": 31000.0,
+      "days_left": 121,
+      "oi": 1.44
+    },
+    "BTC-240927-43000-P@option@binance": {
+      "symbol": "BTC-240927-43000-P",
+      "strike": 43000.0,
+      "days_left": 121,
+      "oi": 7.42
+    },
+    "BTC-240927-29000-C@option@binance": {
+      "symbol": "BTC-240927-29000-C",
+      "strike": 29000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-55000-P@option@binance": {
+      "symbol": "BTC-240927-55000-P",
+      "strike": 55000.0,
+      "days_left": 121,
+      "oi": 31.44
+    },
+    "BTC-240927-105000-C@option@binance": {
+      "symbol": "BTC-240927-105000-C",
+      "strike": 105000.0,
+      "days_left": 121,
+      "oi": 3.22
+    },
+    "BTC-240927-35000-C@option@binance": {
+      "symbol": "BTC-240927-35000-C",
+      "strike": 35000.0,
+      "days_left": 121,
+      "oi": 6.34
+    },
+    "BTC-240927-50000-P@option@binance": {
+      "symbol": "BTC-240927-50000-P",
+      "strike": 50000.0,
+      "days_left": 121,
+      "oi": 7.6
+    },
+    "BTC-240927-47000-C@option@binance": {
+      "symbol": "BTC-240927-47000-C",
+      "strike": 47000.0,
+      "days_left": 121,
+      "oi": 19.08
+    },
+    "BTC-240927-59000-C@option@binance": {
+      "symbol": "BTC-240927-59000-C",
+      "strike": 59000.0,
+      "days_left": 121,
+      "oi": 4.5
+    },
+    "BTC-240927-19000-P@option@binance": {
+      "symbol": "BTC-240927-19000-P",
+      "strike": 19000.0,
+      "days_left": 121,
+      "oi": 24.24
+    },
+    "BTC-240927-24000-C@option@binance": {
+      "symbol": "BTC-240927-24000-C",
+      "strike": 24000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-30000-C@option@binance": {
+      "symbol": "BTC-240927-30000-C",
+      "strike": 30000.0,
+      "days_left": 121,
+      "oi": 0.88
+    },
+    "BTC-240927-100000-C@option@binance": {
+      "symbol": "BTC-240927-100000-C",
+      "strike": 100000.0,
+      "days_left": 121,
+      "oi": 2.05
+    },
+    "BTC-240927-38000-P@option@binance": {
+      "symbol": "BTC-240927-38000-P",
+      "strike": 38000.0,
+      "days_left": 121,
+      "oi": 5.93
+    },
+    "BTC-240927-42000-C@option@binance": {
+      "symbol": "BTC-240927-42000-C",
+      "strike": 42000.0,
+      "days_left": 121,
+      "oi": 6.0
+    },
+    "BTC-240927-53000-C@option@binance": {
+      "symbol": "BTC-240927-53000-C",
+      "strike": 53000.0,
+      "days_left": 121,
+      "oi": 5.33
+    },
+    "BTC-240927-26000-P@option@binance": {
+      "symbol": "BTC-240927-26000-P",
+      "strike": 26000.0,
+      "days_left": 121,
+      "oi": 3.46
+    },
+    "BTC-240927-49000-P@option@binance": {
+      "symbol": "BTC-240927-49000-P",
+      "strike": 49000.0,
+      "days_left": 121,
+      "oi": 11.73
+    },
+    "BTC-240927-65000-C@option@binance": {
+      "symbol": "BTC-240927-65000-C",
+      "strike": 65000.0,
+      "days_left": 121,
+      "oi": 6.93
+    },
+    "BTC-240927-32000-P@option@binance": {
+      "symbol": "BTC-240927-32000-P",
+      "strike": 32000.0,
+      "days_left": 121,
+      "oi": 1.25
+    },
+    "BTC-240927-95000-C@option@binance": {
+      "symbol": "BTC-240927-95000-C",
+      "strike": 95000.0,
+      "days_left": 121,
+      "oi": 1.26
+    },
+    "BTC-240927-18000-C@option@binance": {
+      "symbol": "BTC-240927-18000-C",
+      "strike": 18000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-44000-P@option@binance": {
+      "symbol": "BTC-240927-44000-P",
+      "strike": 44000.0,
+      "days_left": 121,
+      "oi": 2.5
+    },
+    "BTC-240927-60000-C@option@binance": {
+      "symbol": "BTC-240927-60000-C",
+      "strike": 60000.0,
+      "days_left": 121,
+      "oi": 9.51
+    },
+    "BTC-240927-125000-P@option@binance": {
+      "symbol": "BTC-240927-125000-P",
+      "strike": 125000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-130000-C@option@binance": {
+      "symbol": "BTC-240927-130000-C",
+      "strike": 130000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-56000-P@option@binance": {
+      "symbol": "BTC-240927-56000-P",
+      "strike": 56000.0,
+      "days_left": 121,
+      "oi": 1.27
+    },
+    "BTC-240927-21000-P@option@binance": {
+      "symbol": "BTC-240927-21000-P",
+      "strike": 21000.0,
+      "days_left": 121,
+      "oi": 4.69
+    },
+    "BTC-240927-85000-P@option@binance": {
+      "symbol": "BTC-240927-85000-P",
+      "strike": 85000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-36000-C@option@binance": {
+      "symbol": "BTC-240927-36000-C",
+      "strike": 36000.0,
+      "days_left": 121,
+      "oi": 5.64
+    },
+    "BTC-240927-90000-C@option@binance": {
+      "symbol": "BTC-240927-90000-C",
+      "strike": 90000.0,
+      "days_left": 121,
+      "oi": 2.04
+    },
+    "BTC-240927-48000-C@option@binance": {
+      "symbol": "BTC-240927-48000-C",
+      "strike": 48000.0,
+      "days_left": 121,
+      "oi": 14.5
+    },
+    "BTC-240927-51000-P@option@binance": {
+      "symbol": "BTC-240927-51000-P",
+      "strike": 51000.0,
+      "days_left": 121,
+      "oi": 5.07
+    },
+    "BTC-240927-120000-P@option@binance": {
+      "symbol": "BTC-240927-120000-P",
+      "strike": 120000.0,
+      "days_left": 121,
+      "oi": 2.28
+    },
+    "BTC-240927-25000-C@option@binance": {
+      "symbol": "BTC-240927-25000-C",
+      "strike": 25000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-43000-C@option@binance": {
+      "symbol": "BTC-240927-43000-C",
+      "strike": 43000.0,
+      "days_left": 121,
+      "oi": 1.5
+    },
+    "BTC-240927-80000-P@option@binance": {
+      "symbol": "BTC-240927-80000-P",
+      "strike": 80000.0,
+      "days_left": 121,
+      "oi": 6.6
+    },
+    "BTC-240927-54000-C@option@binance": {
+      "symbol": "BTC-240927-54000-C",
+      "strike": 54000.0,
+      "days_left": 121,
+      "oi": 6.8
+    },
+    "BTC-240927-20000-C@option@binance": {
+      "symbol": "BTC-240927-20000-C",
+      "strike": 20000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-15000-P@option@binance": {
+      "symbol": "BTC-240927-15000-P",
+      "strike": 15000.0,
+      "days_left": 121,
+      "oi": 32.94
+    },
+    "BTC-240927-31000-C@option@binance": {
+      "symbol": "BTC-240927-31000-C",
+      "strike": 31000.0,
+      "days_left": 121,
+      "oi": 2.01
+    },
+    "BTC-240927-27000-P@option@binance": {
+      "symbol": "BTC-240927-27000-P",
+      "strike": 27000.0,
+      "days_left": 121,
+      "oi": 2.96
+    },
+    "BTC-240927-39000-P@option@binance": {
+      "symbol": "BTC-240927-39000-P",
+      "strike": 39000.0,
+      "days_left": 121,
+      "oi": 1.62
+    },
+    "BTC-240927-19000-C@option@binance": {
+      "symbol": "BTC-240927-19000-C",
+      "strike": 19000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-115000-P@option@binance": {
+      "symbol": "BTC-240927-115000-P",
+      "strike": 115000.0,
+      "days_left": 121,
+      "oi": 2.28
+    },
+    "BTC-240927-57000-P@option@binance": {
+      "symbol": "BTC-240927-57000-P",
+      "strike": 57000.0,
+      "days_left": 121,
+      "oi": 8.08
+    },
+    "BTC-240927-22000-P@option@binance": {
+      "symbol": "BTC-240927-22000-P",
+      "strike": 22000.0,
+      "days_left": 121,
+      "oi": 4.32
+    },
+    "BTC-240927-45000-P@option@binance": {
+      "symbol": "BTC-240927-45000-P",
+      "strike": 45000.0,
+      "days_left": 121,
+      "oi": 23.62
+    },
+    "BTC-240927-33000-P@option@binance": {
+      "symbol": "BTC-240927-33000-P",
+      "strike": 33000.0,
+      "days_left": 121,
+      "oi": 2.03
+    },
+    "BTC-240927-49000-C@option@binance": {
+      "symbol": "BTC-240927-49000-C",
+      "strike": 49000.0,
+      "days_left": 121,
+      "oi": 12.99
+    },
+    "BTC-240927-75000-P@option@binance": {
+      "symbol": "BTC-240927-75000-P",
+      "strike": 75000.0,
+      "days_left": 121,
+      "oi": 12.98
+    },
+    "BTC-240927-160000-C@option@binance": {
+      "symbol": "BTC-240927-160000-C",
+      "strike": 160000.0,
+      "days_left": 121,
+      "oi": 75.93
+    },
+    "BTC-240927-110000-P@option@binance": {
+      "symbol": "BTC-240927-110000-P",
+      "strike": 110000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-52000-P@option@binance": {
+      "symbol": "BTC-240927-52000-P",
+      "strike": 52000.0,
+      "days_left": 121,
+      "oi": 2.45
+    },
+    "BTC-240927-26000-C@option@binance": {
+      "symbol": "BTC-240927-26000-C",
+      "strike": 26000.0,
+      "days_left": 121,
+      "oi": 0.02
+    },
+    "BTC-240927-37000-C@option@binance": {
+      "symbol": "BTC-240927-37000-C",
+      "strike": 37000.0,
+      "days_left": 121,
+      "oi": 4.14
+    },
+    "BTC-240927-70000-P@option@binance": {
+      "symbol": "BTC-240927-70000-P",
+      "strike": 70000.0,
+      "days_left": 121,
+      "oi": 12.4
+    },
+    "BTC-240927-32000-C@option@binance": {
+      "symbol": "BTC-240927-32000-C",
+      "strike": 32000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-56000-C@option@binance": {
+      "symbol": "BTC-240927-56000-C",
+      "strike": 56000.0,
+      "days_left": 121,
+      "oi": 6.48
+    },
+    "BTC-240927-44000-C@option@binance": {
+      "symbol": "BTC-240927-44000-C",
+      "strike": 44000.0,
+      "days_left": 121,
+      "oi": 6.0
+    },
+    "BTC-240927-55000-C@option@binance": {
+      "symbol": "BTC-240927-55000-C",
+      "strike": 55000.0,
+      "days_left": 121,
+      "oi": 7.54
+    },
+    "BTC-240927-125000-C@option@binance": {
+      "symbol": "BTC-240927-125000-C",
+      "strike": 125000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-21000-C@option@binance": {
+      "symbol": "BTC-240927-21000-C",
+      "strike": 21000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-28000-P@option@binance": {
+      "symbol": "BTC-240927-28000-P",
+      "strike": 28000.0,
+      "days_left": 121,
+      "oi": 19.76
+    },
+    "BTC-240927-50000-C@option@binance": {
+      "symbol": "BTC-240927-50000-C",
+      "strike": 50000.0,
+      "days_left": 121,
+      "oi": 13.17
+    },
+    "BTC-240927-120000-C@option@binance": {
+      "symbol": "BTC-240927-120000-C",
+      "strike": 120000.0,
+      "days_left": 121,
+      "oi": 3.93
+    },
+    "BTC-240927-46000-P@option@binance": {
+      "symbol": "BTC-240927-46000-P",
+      "strike": 46000.0,
+      "days_left": 121,
+      "oi": 32.24
+    },
+    "BTC-240927-23000-P@option@binance": {
+      "symbol": "BTC-240927-23000-P",
+      "strike": 23000.0,
+      "days_left": 121,
+      "oi": 0.38
+    },
+    "BTC-240927-85000-C@option@binance": {
+      "symbol": "BTC-240927-85000-C",
+      "strike": 85000.0,
+      "days_left": 121,
+      "oi": 1.28
+    },
+    "BTC-240927-34000-P@option@binance": {
+      "symbol": "BTC-240927-34000-P",
+      "strike": 34000.0,
+      "days_left": 121,
+      "oi": 2.91
+    },
+    "BTC-240927-58000-P@option@binance": {
+      "symbol": "BTC-240927-58000-P",
+      "strike": 58000.0,
+      "days_left": 121,
+      "oi": 7.3
+    },
+    "BTC-240927-80000-C@option@binance": {
+      "symbol": "BTC-240927-80000-C",
+      "strike": 80000.0,
+      "days_left": 121,
+      "oi": 4.19
+    },
+    "BTC-240927-38000-C@option@binance": {
+      "symbol": "BTC-240927-38000-C",
+      "strike": 38000.0,
+      "days_left": 121,
+      "oi": 4.5
+    },
+    "BTC-240927-15000-C@option@binance": {
+      "symbol": "BTC-240927-15000-C",
+      "strike": 15000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-27000-C@option@binance": {
+      "symbol": "BTC-240927-27000-C",
+      "strike": 27000.0,
+      "days_left": 121,
+      "oi": 0.03
+    },
+    "BTC-240927-53000-P@option@binance": {
+      "symbol": "BTC-240927-53000-P",
+      "strike": 53000.0,
+      "days_left": 121,
+      "oi": 6.32
+    },
+    "BTC-240927-41000-P@option@binance": {
+      "symbol": "BTC-240927-41000-P",
+      "strike": 41000.0,
+      "days_left": 121,
+      "oi": 1.33
+    },
+    "BTC-240927-29000-P@option@binance": {
+      "symbol": "BTC-240927-29000-P",
+      "strike": 29000.0,
+      "days_left": 121,
+      "oi": 0.72
+    },
+    "BTC-240927-115000-C@option@binance": {
+      "symbol": "BTC-240927-115000-C",
+      "strike": 115000.0,
+      "days_left": 121,
+      "oi": 4.5
+    },
+    "BTC-240927-57000-C@option@binance": {
+      "symbol": "BTC-240927-57000-C",
+      "strike": 57000.0,
+      "days_left": 121,
+      "oi": 4.67
+    },
+    "BTC-240927-33000-C@option@binance": {
+      "symbol": "BTC-240927-33000-C",
+      "strike": 33000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-22000-C@option@binance": {
+      "symbol": "BTC-240927-22000-C",
+      "strike": 22000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-140000-P@option@binance": {
+      "symbol": "BTC-240927-140000-P",
+      "strike": 140000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-45000-C@option@binance": {
+      "symbol": "BTC-240927-45000-C",
+      "strike": 45000.0,
+      "days_left": 121,
+      "oi": 10.0
+    },
+    "BTC-240927-59000-P@option@binance": {
+      "symbol": "BTC-240927-59000-P",
+      "strike": 59000.0,
+      "days_left": 121,
+      "oi": 8.37
+    },
+    "BTC-240927-24000-P@option@binance": {
+      "symbol": "BTC-240927-24000-P",
+      "strike": 24000.0,
+      "days_left": 121,
+      "oi": 0.01
+    },
+    "BTC-240927-35000-P@option@binance": {
+      "symbol": "BTC-240927-35000-P",
+      "strike": 35000.0,
+      "days_left": 121,
+      "oi": 4.31
+    },
+    "BTC-240927-75000-C@option@binance": {
+      "symbol": "BTC-240927-75000-C",
+      "strike": 75000.0,
+      "days_left": 121,
+      "oi": 3.84
+    },
+    "BTC-240927-105000-P@option@binance": {
+      "symbol": "BTC-240927-105000-P",
+      "strike": 105000.0,
+      "days_left": 121,
+      "oi": 1.14
+    },
+    "BTC-240927-110000-C@option@binance": {
+      "symbol": "BTC-240927-110000-C",
+      "strike": 110000.0,
+      "days_left": 121,
+      "oi": 1.83
+    },
+    "BTC-240927-36000-P@option@binance": {
+      "symbol": "BTC-240927-36000-P",
+      "strike": 36000.0,
+      "days_left": 121,
+      "oi": 23.13
+    },
+    "BTC-240927-47000-P@option@binance": {
+      "symbol": "BTC-240927-47000-P",
+      "strike": 47000.0,
+      "days_left": 121,
+      "oi": 1.05
+    },
+    "BTC-240927-51000-C@option@binance": {
+      "symbol": "BTC-240927-51000-C",
+      "strike": 51000.0,
+      "days_left": 121,
+      "oi": 12.99
+    },
+    "BTC-240927-42000-P@option@binance": {
+      "symbol": "BTC-240927-42000-P",
+      "strike": 42000.0,
+      "days_left": 121,
+      "oi": 7.62
+    },
+    "BTC-240927-30000-P@option@binance": {
+      "symbol": "BTC-240927-30000-P",
+      "strike": 30000.0,
+      "days_left": 121,
+      "oi": 0.67
+    },
+    "BTC-240927-54000-P@option@binance": {
+      "symbol": "BTC-240927-54000-P",
+      "strike": 54000.0,
+      "days_left": 121,
+      "oi": 6.0
+    },
+    "BTC-240927-70000-C@option@binance": {
+      "symbol": "BTC-240927-70000-C",
+      "strike": 70000.0,
+      "days_left": 121,
+      "oi": 3.97
+    },
+    "BTC-240927-65000-P@option@binance": {
+      "symbol": "BTC-240927-65000-P",
+      "strike": 65000.0,
+      "days_left": 121,
+      "oi": 12.72
+    },
+    "BTC-240927-28000-C@option@binance": {
+      "symbol": "BTC-240927-28000-C",
+      "strike": 28000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-100000-P@option@binance": {
+      "symbol": "BTC-240927-100000-P",
+      "strike": 100000.0,
+      "days_left": 121,
+      "oi": 0.0
+    },
+    "BTC-240927-39000-C@option@binance": {
+      "symbol": "BTC-240927-39000-C",
+      "strike": 39000.0,
+      "days_left": 121,
+      "oi": 6.0
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.8276582,
+    "_doc": "9af84bb2-0a99-4f1a-8e1d-b59fcae09378"
+  },
+  {
+    "BTC-241227-46000-P@option@binance": {
+      "symbol": "BTC-241227-46000-P",
+      "strike": 46000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-160000-C@option@binance": {
+      "symbol": "BTC-241227-160000-C",
+      "strike": 160000.0,
+      "days_left": 212,
+      "oi": 3.36
+    },
+    "BTC-241227-62000-C@option@binance": {
+      "symbol": "BTC-241227-62000-C",
+      "strike": 62000.0,
+      "days_left": 212,
+      "oi": 0.05
+    },
+    "BTC-241227-85000-C@option@binance": {
+      "symbol": "BTC-241227-85000-C",
+      "strike": 85000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-58000-P@option@binance": {
+      "symbol": "BTC-241227-58000-P",
+      "strike": 58000.0,
+      "days_left": 212,
+      "oi": 1.63
+    },
+    "BTC-241227-34000-P@option@binance": {
+      "symbol": "BTC-241227-34000-P",
+      "strike": 34000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-120000-P@option@binance": {
+      "symbol": "BTC-241227-120000-P",
+      "strike": 120000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-50000-C@option@binance": {
+      "symbol": "BTC-241227-50000-C",
+      "strike": 50000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-41000-P@option@binance": {
+      "symbol": "BTC-241227-41000-P",
+      "strike": 41000.0,
+      "days_left": 212,
+      "oi": 1.74
+    },
+    "BTC-241227-15000-C@option@binance": {
+      "symbol": "BTC-241227-15000-C",
+      "strike": 15000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-80000-C@option@binance": {
+      "symbol": "BTC-241227-80000-C",
+      "strike": 80000.0,
+      "days_left": 212,
+      "oi": 0.03
+    },
+    "BTC-241227-38000-C@option@binance": {
+      "symbol": "BTC-241227-38000-C",
+      "strike": 38000.0,
+      "days_left": 212,
+      "oi": 0.07
+    },
+    "BTC-241227-52000-P@option@binance": {
+      "symbol": "BTC-241227-52000-P",
+      "strike": 52000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-33000-C@option@binance": {
+      "symbol": "BTC-241227-33000-C",
+      "strike": 33000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-29000-P@option@binance": {
+      "symbol": "BTC-241227-29000-P",
+      "strike": 29000.0,
+      "days_left": 212,
+      "oi": 2.21
+    },
+    "BTC-241227-115000-P@option@binance": {
+      "symbol": "BTC-241227-115000-P",
+      "strike": 115000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-56000-C@option@binance": {
+      "symbol": "BTC-241227-56000-C",
+      "strike": 56000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-45000-C@option@binance": {
+      "symbol": "BTC-241227-45000-C",
+      "strike": 45000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-47000-P@option@binance": {
+      "symbol": "BTC-241227-47000-P",
+      "strike": 47000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-63000-C@option@binance": {
+      "symbol": "BTC-241227-63000-C",
+      "strike": 63000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-35000-P@option@binance": {
+      "symbol": "BTC-241227-35000-P",
+      "strike": 35000.0,
+      "days_left": 212,
+      "oi": 0.21
+    },
+    "BTC-241227-59000-P@option@binance": {
+      "symbol": "BTC-241227-59000-P",
+      "strike": 59000.0,
+      "days_left": 212,
+      "oi": 1.32
+    },
+    "BTC-241227-75000-C@option@binance": {
+      "symbol": "BTC-241227-75000-C",
+      "strike": 75000.0,
+      "days_left": 212,
+      "oi": 0.08
+    },
+    "BTC-241227-51000-C@option@binance": {
+      "symbol": "BTC-241227-51000-C",
+      "strike": 51000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-110000-P@option@binance": {
+      "symbol": "BTC-241227-110000-P",
+      "strike": 110000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-40000-C@option@binance": {
+      "symbol": "BTC-241227-40000-C",
+      "strike": 40000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-39000-C@option@binance": {
+      "symbol": "BTC-241227-39000-C",
+      "strike": 39000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-125000-C@option@binance": {
+      "symbol": "BTC-241227-125000-C",
+      "strike": 125000.0,
+      "days_left": 212,
+      "oi": 0.13
+    },
+    "BTC-241227-140000-P@option@binance": {
+      "symbol": "BTC-241227-140000-P",
+      "strike": 140000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-54000-P@option@binance": {
+      "symbol": "BTC-241227-54000-P",
+      "strike": 54000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-28000-C@option@binance": {
+      "symbol": "BTC-241227-28000-C",
+      "strike": 28000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-53000-P@option@binance": {
+      "symbol": "BTC-241227-53000-P",
+      "strike": 53000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-65000-P@option@binance": {
+      "symbol": "BTC-241227-65000-P",
+      "strike": 65000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-30000-P@option@binance": {
+      "symbol": "BTC-241227-30000-P",
+      "strike": 30000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-42000-P@option@binance": {
+      "symbol": "BTC-241227-42000-P",
+      "strike": 42000.0,
+      "days_left": 212,
+      "oi": 0.99
+    },
+    "BTC-241227-95000-P@option@binance": {
+      "symbol": "BTC-241227-95000-P",
+      "strike": 95000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-46000-C@option@binance": {
+      "symbol": "BTC-241227-46000-C",
+      "strike": 46000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-60000-P@option@binance": {
+      "symbol": "BTC-241227-60000-P",
+      "strike": 60000.0,
+      "days_left": 212,
+      "oi": 1.29
+    },
+    "BTC-241227-34000-C@option@binance": {
+      "symbol": "BTC-241227-34000-C",
+      "strike": 34000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-120000-C@option@binance": {
+      "symbol": "BTC-241227-120000-C",
+      "strike": 120000.0,
+      "days_left": 212,
+      "oi": 0.21
+    },
+    "BTC-241227-57000-C@option@binance": {
+      "symbol": "BTC-241227-57000-C",
+      "strike": 57000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-41000-C@option@binance": {
+      "symbol": "BTC-241227-41000-C",
+      "strike": 41000.0,
+      "days_left": 212,
+      "oi": 1.38
+    },
+    "BTC-241227-36000-P@option@binance": {
+      "symbol": "BTC-241227-36000-P",
+      "strike": 36000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-52000-C@option@binance": {
+      "symbol": "BTC-241227-52000-C",
+      "strike": 52000.0,
+      "days_left": 212,
+      "oi": 0.45
+    },
+    "BTC-241227-25000-P@option@binance": {
+      "symbol": "BTC-241227-25000-P",
+      "strike": 25000.0,
+      "days_left": 212,
+      "oi": 0.06
+    },
+    "BTC-241227-90000-P@option@binance": {
+      "symbol": "BTC-241227-90000-P",
+      "strike": 90000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-48000-P@option@binance": {
+      "symbol": "BTC-241227-48000-P",
+      "strike": 48000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-115000-C@option@binance": {
+      "symbol": "BTC-241227-115000-C",
+      "strike": 115000.0,
+      "days_left": 212,
+      "oi": 0.39
+    },
+    "BTC-241227-70000-C@option@binance": {
+      "symbol": "BTC-241227-70000-C",
+      "strike": 70000.0,
+      "days_left": 212,
+      "oi": 0.18
+    },
+    "BTC-241227-20000-P@option@binance": {
+      "symbol": "BTC-241227-20000-P",
+      "strike": 20000.0,
+      "days_left": 212,
+      "oi": 4.15
+    },
+    "BTC-241227-55000-P@option@binance": {
+      "symbol": "BTC-241227-55000-P",
+      "strike": 55000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-43000-P@option@binance": {
+      "symbol": "BTC-241227-43000-P",
+      "strike": 43000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-31000-P@option@binance": {
+      "symbol": "BTC-241227-31000-P",
+      "strike": 31000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-29000-C@option@binance": {
+      "symbol": "BTC-241227-29000-C",
+      "strike": 29000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-110000-C@option@binance": {
+      "symbol": "BTC-241227-110000-C",
+      "strike": 110000.0,
+      "days_left": 212,
+      "oi": 0.18
+    },
+    "BTC-241227-61000-P@option@binance": {
+      "symbol": "BTC-241227-61000-P",
+      "strike": 61000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-47000-C@option@binance": {
+      "symbol": "BTC-241227-47000-C",
+      "strike": 47000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-35000-C@option@binance": {
+      "symbol": "BTC-241227-35000-C",
+      "strike": 35000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-58000-C@option@binance": {
+      "symbol": "BTC-241227-58000-C",
+      "strike": 58000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-105000-P@option@binance": {
+      "symbol": "BTC-241227-105000-P",
+      "strike": 105000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-37000-P@option@binance": {
+      "symbol": "BTC-241227-37000-P",
+      "strike": 37000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-42000-C@option@binance": {
+      "symbol": "BTC-241227-42000-C",
+      "strike": 42000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-135000-P@option@binance": {
+      "symbol": "BTC-241227-135000-P",
+      "strike": 135000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-53000-C@option@binance": {
+      "symbol": "BTC-241227-53000-C",
+      "strike": 53000.0,
+      "days_left": 212,
+      "oi": 0.07
+    },
+    "BTC-241227-49000-P@option@binance": {
+      "symbol": "BTC-241227-49000-P",
+      "strike": 49000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-65000-C@option@binance": {
+      "symbol": "BTC-241227-65000-C",
+      "strike": 65000.0,
+      "days_left": 212,
+      "oi": 1.01
+    },
+    "BTC-241227-30000-C@option@binance": {
+      "symbol": "BTC-241227-30000-C",
+      "strike": 30000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-100000-P@option@binance": {
+      "symbol": "BTC-241227-100000-P",
+      "strike": 100000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-56000-P@option@binance": {
+      "symbol": "BTC-241227-56000-P",
+      "strike": 56000.0,
+      "days_left": 212,
+      "oi": 1.02
+    },
+    "BTC-241227-32000-P@option@binance": {
+      "symbol": "BTC-241227-32000-P",
+      "strike": 32000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-60000-C@option@binance": {
+      "symbol": "BTC-241227-60000-C",
+      "strike": 60000.0,
+      "days_left": 212,
+      "oi": 1.08
+    },
+    "BTC-241227-95000-C@option@binance": {
+      "symbol": "BTC-241227-95000-C",
+      "strike": 95000.0,
+      "days_left": 212,
+      "oi": 0.04
+    },
+    "BTC-241227-44000-P@option@binance": {
+      "symbol": "BTC-241227-44000-P",
+      "strike": 44000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-130000-P@option@binance": {
+      "symbol": "BTC-241227-130000-P",
+      "strike": 130000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-48000-C@option@binance": {
+      "symbol": "BTC-241227-48000-C",
+      "strike": 48000.0,
+      "days_left": 212,
+      "oi": 0.01
+    },
+    "BTC-241227-90000-C@option@binance": {
+      "symbol": "BTC-241227-90000-C",
+      "strike": 90000.0,
+      "days_left": 212,
+      "oi": 1.5
+    },
+    "BTC-241227-59000-C@option@binance": {
+      "symbol": "BTC-241227-59000-C",
+      "strike": 59000.0,
+      "days_left": 212,
+      "oi": 0.06
+    },
+    "BTC-241227-62000-P@option@binance": {
+      "symbol": "BTC-241227-62000-P",
+      "strike": 62000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-85000-P@option@binance": {
+      "symbol": "BTC-241227-85000-P",
+      "strike": 85000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-25000-C@option@binance": {
+      "symbol": "BTC-241227-25000-C",
+      "strike": 25000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-50000-P@option@binance": {
+      "symbol": "BTC-241227-50000-P",
+      "strike": 50000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-36000-C@option@binance": {
+      "symbol": "BTC-241227-36000-C",
+      "strike": 36000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-160000-P@option@binance": {
+      "symbol": "BTC-241227-160000-P",
+      "strike": 160000.0,
+      "days_left": 212,
+      "oi": 16.04
+    },
+    "BTC-241227-15000-P@option@binance": {
+      "symbol": "BTC-241227-15000-P",
+      "strike": 15000.0,
+      "days_left": 212,
+      "oi": 13.0
+    },
+    "BTC-241227-80000-P@option@binance": {
+      "symbol": "BTC-241227-80000-P",
+      "strike": 80000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-54000-C@option@binance": {
+      "symbol": "BTC-241227-54000-C",
+      "strike": 54000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-38000-P@option@binance": {
+      "symbol": "BTC-241227-38000-P",
+      "strike": 38000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-43000-C@option@binance": {
+      "symbol": "BTC-241227-43000-C",
+      "strike": 43000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-31000-C@option@binance": {
+      "symbol": "BTC-241227-31000-C",
+      "strike": 31000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-125000-P@option@binance": {
+      "symbol": "BTC-241227-125000-P",
+      "strike": 125000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-140000-C@option@binance": {
+      "symbol": "BTC-241227-140000-C",
+      "strike": 140000.0,
+      "days_left": 212,
+      "oi": 1.59
+    },
+    "BTC-241227-61000-C@option@binance": {
+      "symbol": "BTC-241227-61000-C",
+      "strike": 61000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-105000-C@option@binance": {
+      "symbol": "BTC-241227-105000-C",
+      "strike": 105000.0,
+      "days_left": 212,
+      "oi": 0.53
+    },
+    "BTC-241227-33000-P@option@binance": {
+      "symbol": "BTC-241227-33000-P",
+      "strike": 33000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-45000-P@option@binance": {
+      "symbol": "BTC-241227-45000-P",
+      "strike": 45000.0,
+      "days_left": 212,
+      "oi": 1.2
+    },
+    "BTC-241227-57000-P@option@binance": {
+      "symbol": "BTC-241227-57000-P",
+      "strike": 57000.0,
+      "days_left": 212,
+      "oi": 0.4
+    },
+    "BTC-241227-63000-P@option@binance": {
+      "symbol": "BTC-241227-63000-P",
+      "strike": 63000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-75000-P@option@binance": {
+      "symbol": "BTC-241227-75000-P",
+      "strike": 75000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-37000-C@option@binance": {
+      "symbol": "BTC-241227-37000-C",
+      "strike": 37000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-40000-P@option@binance": {
+      "symbol": "BTC-241227-40000-P",
+      "strike": 40000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-51000-P@option@binance": {
+      "symbol": "BTC-241227-51000-P",
+      "strike": 51000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-100000-C@option@binance": {
+      "symbol": "BTC-241227-100000-C",
+      "strike": 100000.0,
+      "days_left": 212,
+      "oi": 0.34
+    },
+    "BTC-241227-135000-C@option@binance": {
+      "symbol": "BTC-241227-135000-C",
+      "strike": 135000.0,
+      "days_left": 212,
+      "oi": 0.48
+    },
+    "BTC-241227-49000-C@option@binance": {
+      "symbol": "BTC-241227-49000-C",
+      "strike": 49000.0,
+      "days_left": 212,
+      "oi": 0.1
+    },
+    "BTC-241227-70000-P@option@binance": {
+      "symbol": "BTC-241227-70000-P",
+      "strike": 70000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-44000-C@option@binance": {
+      "symbol": "BTC-241227-44000-C",
+      "strike": 44000.0,
+      "days_left": 212,
+      "oi": 0.05
+    },
+    "BTC-241227-130000-C@option@binance": {
+      "symbol": "BTC-241227-130000-C",
+      "strike": 130000.0,
+      "days_left": 212,
+      "oi": 0.02
+    },
+    "BTC-241227-28000-P@option@binance": {
+      "symbol": "BTC-241227-28000-P",
+      "strike": 28000.0,
+      "days_left": 212,
+      "oi": 0.15
+    },
+    "BTC-241227-32000-C@option@binance": {
+      "symbol": "BTC-241227-32000-C",
+      "strike": 32000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-20000-C@option@binance": {
+      "symbol": "BTC-241227-20000-C",
+      "strike": 20000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-39000-P@option@binance": {
+      "symbol": "BTC-241227-39000-P",
+      "strike": 39000.0,
+      "days_left": 212,
+      "oi": 0.0
+    },
+    "BTC-241227-55000-C@option@binance": {
+      "symbol": "BTC-241227-55000-C",
+      "strike": 55000.0,
+      "days_left": 212,
+      "oi": 0.03
+    },
+    "timestamp": "2024-05-28 13:54:33",
+    "receive_time": 1716904473.793108,
+    "_doc": "ef12df33-c7e7-4780-8039-58f8dc26bff3"
+  }
+]

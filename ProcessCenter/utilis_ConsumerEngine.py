@@ -9,6 +9,10 @@ import rapidjson as json
 import backoff
 import asyncpg
 
+async def ws_fetcher_helper(function):
+    data = await function()
+    return data
+
 def booksflow_find_level(price, level_size):
     return np.ceil(price / level_size) * level_size
 

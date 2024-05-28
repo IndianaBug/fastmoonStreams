@@ -8,6 +8,7 @@ import subprocess
 from asynch import connect
 from asynch.cursors import DictCursor
 from asynch.errors import ServerException
+from pathlib import Path
 
 class PostgresConnector:
     
@@ -20,7 +21,7 @@ class PostgresConnector:
         self.username = username
         self.host = host
         self.password = password
-        self.dsn = database_name
+        self.dsn =  f"postgresql://{username}:{password}@{host}/{database_name}"
         self.port = port
         self.conn = None
 
@@ -112,21 +113,34 @@ class PostgresConnector:
         
         
 class MockdbConnector:
-    def __init__(self, filename, folder_name="", buffer_size=1024):
-        self.file_path =  folder_name + "/" + filename + ".json"
+    def __init__(self, folder_path):
+        self.folder_path =  folder_path
 
-    async def save(self, data, market_state, connection_data, on_message:callable, logger):
+    async def save(self, market_state, logger, pipe_type, data, connection_data, on_message:callable,):
+        """  pipe_type : id_ws, id_api, id_api_2 """
+        
         data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
         data["_doc"] = str(uuid.uuid4())
+        
+        pipe_id = connection_data.get(pipe_type, connection_data.get("id_api"))
+        folder_type = pipe_type.split("_")[1]
+        exchange = connection_data.get("exchange")
+        folder_path = Path("/".join([self.folder_path, folder_type, exchange]))
+        if not folder_path.exists():
+            folder_path.mkdir(parents=True, exist_ok=True)
+        relative_file_path = "/".join([self.folder_path, folder_type, exchange, pipe_id]) + ".json"
+        
+        print(data)
+        
         try:
-            if not os.path.exists(self.file_path):
-                async with aiofiles.open(self.file_path, mode='w') as f:
+            if not os.path.exists(relative_file_path):
+                async with aiofiles.open(relative_file_path, mode='w') as f:
                     content = [data]
                     await f.seek(0)
                     await f.truncate()
                     await f.write(json.dumps(content, indent=2))
             else:
-                async with aiofiles.open(self.file_path, mode='r+') as f:
+                async with aiofiles.open(relative_file_path, mode='r+') as f:
                     try:
                         content = await f.read()
                         content = json.loads(content)

@@ -301,7 +301,7 @@ class binance_on_message(on_message_helper):
         l["receive_time"] = time.time()
         return l
 
-    async def binance_api_oioption_oi_option(self, data:list, market_state:dict, connection_data:str, *args, **kwargs):
+    async def binance_api_oioption_oi_option(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.binance.com/en/support/faq/binance-options-contract-specifications-cdee5d43b70d4d2386980d41786a8533
         """
@@ -321,13 +321,13 @@ class binance_on_message(on_message_helper):
             if prefix == "item.sumOpenInterest":
                 ois.append(float(value))
             instruments_data = {x : {} for x in msids}
-            for i, msid in enumerate(msids):
-                instruments_data[msid] = {
-                    "symbol": symbols[i],
-                    "strike": strikes[i],
-                    "days_left": days_left[i],
-                    "oi": ois[i],
-                }
+        for i, msid in enumerate(msids):
+            instruments_data[msid] = {
+                "symbol": symbols[i],
+                "strike": strikes[i],
+                "days_left": days_left[i],
+                "oi": ois[i],
+            }
         instruments_data["timestamp"] = self.process_timestamp_no_timestamp()
         instruments_data["receive_time"] = time.time()
         return instruments_data

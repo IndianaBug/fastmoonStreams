@@ -1,515 +1,118 @@
-[2024-05-22 15:21:23,043] INFO Reading configuration from: /workspaces/fastmoonStreams/kafka/config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,049] INFO clientPortAddress is 0.0.0.0:2181 (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,049] INFO secureClientPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,050] INFO observerMasterPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,050] INFO metricsProvider.className is org.apache.zookeeper.metrics.impl.DefaultMetricsProvider (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,054] INFO autopurge.snapRetainCount set to 3 (org.apache.zookeeper.server.DatadirCleanupManager)
-[2024-05-22 15:21:23,055] INFO autopurge.purgeInterval set to 0 (org.apache.zookeeper.server.DatadirCleanupManager)
-[2024-05-22 15:21:23,055] INFO Purge task is not scheduled. (org.apache.zookeeper.server.DatadirCleanupManager)
-[2024-05-22 15:21:23,055] WARN Either no config or no quorum defined in config, running in standalone mode (org.apache.zookeeper.server.quorum.QuorumPeerMain)
-[2024-05-22 15:21:23,057] INFO Log4j 1.2 jmx support not found; jmx disabled. (org.apache.zookeeper.jmx.ManagedUtil)
-[2024-05-22 15:21:23,058] INFO Reading configuration from: /workspaces/fastmoonStreams/kafka/config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,058] INFO clientPortAddress is 0.0.0.0:2181 (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,059] INFO secureClientPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,059] INFO observerMasterPort is not set (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,060] INFO metricsProvider.className is org.apache.zookeeper.metrics.impl.DefaultMetricsProvider (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
-[2024-05-22 15:21:23,060] INFO Starting server (org.apache.zookeeper.server.ZooKeeperServerMain)
-[2024-05-22 15:21:23,087] INFO ServerMetrics initialized with provider org.apache.zookeeper.metrics.impl.DefaultMetricsProvider@27c86f2d (org.apache.zookeeper.server.ServerMetrics)
-[2024-05-22 15:21:23,091] INFO ACL digest algorithm is: SHA1 (org.apache.zookeeper.server.auth.DigestAuthenticationProvider)
-[2024-05-22 15:21:23,092] INFO zookeeper.DigestAuthenticationProvider.enabled = true (org.apache.zookeeper.server.auth.DigestAuthenticationProvider)
-[2024-05-22 15:21:23,096] INFO zookeeper.snapshot.trust.empty : false (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
-[2024-05-22 15:21:23,113] INFO  (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,119] INFO   ______                  _                                           (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,122] INFO  |___  /                 | |                                          (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,122] INFO     / /    ___     ___   | | __   ___    ___   _ __     ___   _ __    (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,123] INFO    / /    / _ \   / _ \  | |/ /  / _ \  / _ \ | '_ \   / _ \ | '__| (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,123] INFO   / /__  | (_) | | (_) | |   <  |  __/ |  __/ | |_) | |  __/ | |     (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,125] INFO  /_____|  \___/   \___/  |_|\_\  \___|  \___| | .__/   \___| |_| (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,126] INFO                                               | |                      (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,127] INFO                                               |_|                      (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,127] INFO  (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,129] INFO Server environment:zookeeper.version=3.8.3-6ad6d364c7c0bcf0de452d54ebefa3058098ab56, built on 2023-10-05 10:34 UTC (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,133] INFO Server environment:host.name=localhost (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,134] INFO Server environment:java.version=21.0.2 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,135] INFO Server environment:java.vendor=Microsoft (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,135] INFO Server environment:java.home=/usr/local/sdkman/candidates/java/21.0.2-ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,136] INFO Server environment:java.class.path=/workspaces/fastmoonStreams/kafka/bin/../libs/activation-1.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/aopalliance-repackaged-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/argparse4j-0.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/audience-annotations-0.12.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/caffeine-2.9.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/checker-qual-3.19.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-beanutils-1.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-cli-1.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-collections-3.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-digester-2.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-io-2.11.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-lang3-3.8.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-logging-1.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-validator-1.7.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-basic-auth-extension-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-json-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-client-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-runtime-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-transforms-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/error_prone_annotations-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-api-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-locator-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-utils-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-core-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-databind-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-dataformat-csv-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-datatype-jdk8-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-base-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-json-provider-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-jaxb-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-scala_2.13-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.activation-api-1.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.annotation-api-1.3.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.inject-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.validation-api-2.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.ws.rs-api-2.1.6.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.xml.bind-api-2.3.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javassist-3.29.2-GA.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.activation-api-1.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.annotation-api-1.3.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.servlet-api-3.1.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.ws.rs-api-2.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jaxb-api-2.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-client-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-common-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-core-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-hk2-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-server-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-client-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-continuation-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-http-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-io-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-security-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-server-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlet-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlets-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-ajax-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jline-3.22.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jopt-simple-5.0.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jose4j-0.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jsr305-3.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-clients-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-group-coordinator-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-log4j-appender-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-metadata-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-raft-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-common-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-shell-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-examples-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-scala_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-test-utils-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/lz4-java-1.8.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/maven-artifact-3.8.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-2.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-4.1.12.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-buffer-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-codec-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-handler-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-resolver-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-classes-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-unix-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/opentelemetry-proto-1.0.0-alpha.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/osgi-resource-locator-1.0.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/paranamer-2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/pcollections-4.0.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/plexus-utils-3.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/protobuf-java-3.23.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reflections-0.10.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reload4j-1.2.25.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/rocksdbjni-7.9.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-collection-compat_2.13-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-java8-compat_2.13-1.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-library-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-logging_2.13-3.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-reflect-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-api-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-reload4j-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/snappy-java-1.1.10.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/swagger-annotations-2.2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/trogdor-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-jute-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zstd-jni-1.5.5-6.jar (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,139] INFO Server environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,140] INFO Server environment:java.io.tmpdir=/tmp (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,140] INFO Server environment:java.compiler=<NA> (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,140] INFO Server environment:os.name=Linux (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,140] INFO Server environment:os.arch=amd64 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,141] INFO Server environment:os.version=6.5.0-1019-azure (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,141] INFO Server environment:user.name=codespace (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,141] INFO Server environment:user.home=/home/codespace (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,141] INFO Server environment:user.dir=/workspaces/fastmoonStreams (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,141] INFO Server environment:os.memory.free=490MB (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,142] INFO Server environment:os.memory.max=512MB (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,146] INFO Server environment:os.memory.total=512MB (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,146] INFO zookeeper.enableEagerACLCheck = false (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,147] INFO zookeeper.digest.enabled = true (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,148] INFO zookeeper.closeSessionTxn.enabled = true (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,148] INFO zookeeper.flushDelay = 0 ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,149] INFO zookeeper.maxWriteQueuePollTime = 0 ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,149] INFO zookeeper.maxBatchSize=1000 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,149] INFO zookeeper.intBufferStartingSizeBytes = 1024 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,152] INFO Weighed connection throttling is disabled (org.apache.zookeeper.server.BlueThrottle)
-[2024-05-22 15:21:23,154] INFO minSessionTimeout set to 6000 ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,154] INFO maxSessionTimeout set to 60000 ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,160] INFO getData response cache size is initialized with value 400. (org.apache.zookeeper.server.ResponseCache)
-[2024-05-22 15:21:23,161] INFO getChildren response cache size is initialized with value 400. (org.apache.zookeeper.server.ResponseCache)
-[2024-05-22 15:21:23,162] INFO zookeeper.pathStats.slotCapacity = 60 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,162] INFO zookeeper.pathStats.slotDuration = 15 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,162] INFO zookeeper.pathStats.maxDepth = 6 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,162] INFO zookeeper.pathStats.initialDelay = 5 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,164] INFO zookeeper.pathStats.delay = 5 (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,164] INFO zookeeper.pathStats.enabled = false (org.apache.zookeeper.server.util.RequestPathMetricsCollector)
-[2024-05-22 15:21:23,168] INFO The max bytes for all large requests are set to 104857600 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,168] INFO The large request threshold is set to -1 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,171] INFO zookeeper.enforce.auth.enabled = false (org.apache.zookeeper.server.AuthenticationHelper)
-[2024-05-22 15:21:23,171] INFO zookeeper.enforce.auth.schemes = [] (org.apache.zookeeper.server.AuthenticationHelper)
-[2024-05-22 15:21:23,172] INFO Created server with tickTime 3000 ms minSessionTimeout 6000 ms maxSessionTimeout 60000 ms clientPortListenBacklog -1 datadir /workspaces/fastmoonStreams/kafka/data/version-2 snapdir /workspaces/fastmoonStreams/kafka/data/version-2 (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,195] INFO Using org.apache.zookeeper.server.NIOServerCnxnFactory as server connection factory (org.apache.zookeeper.server.ServerCnxnFactory)
-[2024-05-22 15:21:23,205] WARN maxCnxns is not configured, using default value 0. (org.apache.zookeeper.server.ServerCnxnFactory)
-[2024-05-22 15:21:23,207] INFO Configuring NIO connection handler with 10s sessionless connection timeout, 1 selector thread(s), 4 worker threads, and 64 kB direct buffers. (org.apache.zookeeper.server.NIOServerCnxnFactory)
-[2024-05-22 15:21:23,215] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)
-[2024-05-22 15:21:23,229] INFO Using org.apache.zookeeper.server.watch.WatchManager as watch manager (org.apache.zookeeper.server.watch.WatchManagerFactory)
-[2024-05-22 15:21:23,230] INFO Using org.apache.zookeeper.server.watch.WatchManager as watch manager (org.apache.zookeeper.server.watch.WatchManagerFactory)
-[2024-05-22 15:21:23,230] INFO zookeeper.snapshotSizeFactor = 0.33 (org.apache.zookeeper.server.ZKDatabase)
-[2024-05-22 15:21:23,230] INFO zookeeper.commitLogCount=500 (org.apache.zookeeper.server.ZKDatabase)
-[2024-05-22 15:21:23,242] INFO zookeeper.snapshot.compression.method = CHECKED (org.apache.zookeeper.server.persistence.SnapStream)
-[2024-05-22 15:21:23,242] INFO Snapshotting: 0x0 to /workspaces/fastmoonStreams/kafka/data/version-2/snapshot.0 (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
-[2024-05-22 15:21:23,250] INFO Snapshot loaded in 20 ms, highest zxid is 0x0, digest is 1371985504 (org.apache.zookeeper.server.ZKDatabase)
-[2024-05-22 15:21:23,252] INFO Snapshotting: 0x0 to /workspaces/fastmoonStreams/kafka/data/version-2/snapshot.0 (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
-[2024-05-22 15:21:23,253] INFO Snapshot taken in 1 ms (org.apache.zookeeper.server.ZooKeeperServer)
-[2024-05-22 15:21:23,273] INFO zookeeper.request_throttler.shutdownTimeout = 10000 ms (org.apache.zookeeper.server.RequestThrottler)
-[2024-05-22 15:21:23,274] INFO PrepRequestProcessor (sid:0) started, reconfigEnabled=false (org.apache.zookeeper.server.PrepRequestProcessor)
-[2024-05-22 15:21:23,307] INFO Using checkIntervalMs=60000 maxPerMinute=10000 maxNeverUsedIntervalMs=0 (org.apache.zookeeper.server.ContainerManager)
-[2024-05-22 15:21:23,308] INFO ZooKeeper audit is disabled. (org.apache.zookeeper.audit.ZKAuditProvider)
-[2024-05-22 15:21:27,506] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
-[2024-05-22 15:21:27,812] INFO Setting -D jdk.tls.rejectClientInitiatedRenegotiation=true to disable client-initiated TLS renegotiation (org.apache.zookeeper.common.X509Util)
-[2024-05-22 15:21:27,908] INFO Registered signal handlers for TERM, INT, HUP (org.apache.kafka.common.utils.LoggingSignalHandler)
-[2024-05-22 15:21:27,910] INFO starting (kafka.server.KafkaServer)
-[2024-05-22 15:21:27,910] INFO Connecting to zookeeper on localhost:2181 (kafka.server.KafkaServer)
-[2024-05-22 15:21:27,929] INFO [ZooKeeperClient Kafka server] Initializing a new session to localhost:2181. (kafka.zookeeper.ZooKeeperClient)
-[2024-05-22 15:21:27,933] INFO Client environment:zookeeper.version=3.8.3-6ad6d364c7c0bcf0de452d54ebefa3058098ab56, built on 2023-10-05 10:34 UTC (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,934] INFO Client environment:host.name=localhost (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,934] INFO Client environment:java.version=21.0.2 (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,934] INFO Client environment:java.vendor=Microsoft (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,934] INFO Client environment:java.home=/usr/local/sdkman/candidates/java/21.0.2-ms (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,935] INFO Client environment:java.class.path=/workspaces/fastmoonStreams/kafka/bin/../libs/activation-1.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/aopalliance-repackaged-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/argparse4j-0.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/audience-annotations-0.12.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/caffeine-2.9.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/checker-qual-3.19.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-beanutils-1.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-cli-1.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-collections-3.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-digester-2.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-io-2.11.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-lang3-3.8.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-logging-1.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/commons-validator-1.7.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-basic-auth-extension-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-json-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-mirror-client-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-runtime-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/connect-transforms-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/error_prone_annotations-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-api-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-locator-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/hk2-utils-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-core-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-databind-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-dataformat-csv-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-datatype-jdk8-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-base-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-jaxrs-json-provider-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-jaxb-annotations-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jackson-module-scala_2.13-2.16.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.activation-api-1.2.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.annotation-api-1.3.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.inject-2.6.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.validation-api-2.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.ws.rs-api-2.1.6.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jakarta.xml.bind-api-2.3.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javassist-3.29.2-GA.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.activation-api-1.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.annotation-api-1.3.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.servlet-api-3.1.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/javax.ws.rs-api-2.1.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jaxb-api-2.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-client-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-common-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-container-servlet-core-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-hk2-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jersey-server-2.39.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-client-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-continuation-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-http-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-io-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-security-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-server-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlet-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-servlets-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jetty-util-ajax-9.4.53.v20231009.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jline-3.22.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jopt-simple-5.0.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jose4j-0.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/jsr305-3.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-clients-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-group-coordinator-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-log4j-appender-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-metadata-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-raft-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-server-common-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-shell-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-storage-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-examples-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-scala_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-streams-test-utils-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka-tools-api-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/kafka_2.13-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/lz4-java-1.8.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/maven-artifact-3.8.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-2.2.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/metrics-core-4.1.12.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-buffer-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-codec-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-handler-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-resolver-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-classes-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-epoll-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/netty-transport-native-unix-common-4.1.100.Final.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/opentelemetry-proto-1.0.0-alpha.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/osgi-resource-locator-1.0.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/paranamer-2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/pcollections-4.0.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/plexus-utils-3.3.1.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/protobuf-java-3.23.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reflections-0.10.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/reload4j-1.2.25.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/rocksdbjni-7.9.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-collection-compat_2.13-2.10.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-java8-compat_2.13-1.0.2.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-library-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-logging_2.13-3.9.4.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/scala-reflect-2.13.12.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-api-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/slf4j-reload4j-1.7.36.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/snappy-java-1.1.10.5.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/swagger-annotations-2.2.8.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/trogdor-3.7.0.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zookeeper-jute-3.8.3.jar:/workspaces/fastmoonStreams/kafka/bin/../libs/zstd-jni-1.5.5-6.jar (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,936] INFO Client environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,936] INFO Client environment:java.io.tmpdir=/tmp (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,936] INFO Client environment:java.compiler=<NA> (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,936] INFO Client environment:os.name=Linux (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:os.arch=amd64 (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:os.version=6.5.0-1019-azure (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:user.name=codespace (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:user.home=/home/codespace (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:user.dir=/workspaces/fastmoonStreams (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,937] INFO Client environment:os.memory.free=982MB (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,938] INFO Client environment:os.memory.max=1024MB (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,938] INFO Client environment:os.memory.total=1024MB (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,940] INFO Initiating client connection, connectString=localhost:2181 sessionTimeout=18000 watcher=kafka.zookeeper.ZooKeeperClient$ZooKeeperClientWatcher$@5a37d3ed (org.apache.zookeeper.ZooKeeper)
-[2024-05-22 15:21:27,945] INFO jute.maxbuffer value is 4194304 Bytes (org.apache.zookeeper.ClientCnxnSocket)
-[2024-05-22 15:21:27,951] INFO zookeeper.request.timeout value is 0. feature enabled=false (org.apache.zookeeper.ClientCnxn)
-[2024-05-22 15:21:27,953] INFO [ZooKeeperClient Kafka server] Waiting until connected. (kafka.zookeeper.ZooKeeperClient)
-[2024-05-22 15:21:27,954] INFO Opening socket connection to server localhost/[0:0:0:0:0:0:0:1]:2181. (org.apache.zookeeper.ClientCnxn)
-[2024-05-22 15:21:27,956] INFO Socket connection established, initiating session, client: /[0:0:0:0:0:0:0:1]:56472, server: localhost/[0:0:0:0:0:0:0:1]:2181 (org.apache.zookeeper.ClientCnxn)
-[2024-05-22 15:21:27,964] INFO Creating new log file: log.1 (org.apache.zookeeper.server.persistence.FileTxnLog)
-[2024-05-22 15:21:27,989] INFO Session establishment complete on server localhost/[0:0:0:0:0:0:0:1]:2181, session id = 0x10000bd259a0000, negotiated timeout = 18000 (org.apache.zookeeper.ClientCnxn)
-[2024-05-22 15:21:27,992] INFO [ZooKeeperClient Kafka server] Connected. (kafka.zookeeper.ZooKeeperClient)
-[2024-05-22 15:21:28,424] INFO Cluster ID = s_uEBdBcQOqmWY-IavigVQ (kafka.server.KafkaServer)
-[2024-05-22 15:21:28,465] INFO KafkaConfig values: 
-	advertised.listeners = null
-	alter.config.policy.class.name = null
-	alter.log.dirs.replication.quota.window.num = 11
-	alter.log.dirs.replication.quota.window.size.seconds = 1
-	authorizer.class.name = 
-	auto.create.topics.enable = true
-	auto.include.jmx.reporter = true
-	auto.leader.rebalance.enable = true
-	background.threads = 10
-	broker.heartbeat.interval.ms = 2000
-	broker.id = 0
-	broker.id.generation.enable = true
-	broker.rack = null
-	broker.session.timeout.ms = 9000
-	client.quota.callback.class = null
-	compression.type = producer
-	connection.failed.authentication.delay.ms = 100
-	connections.max.idle.ms = 600000
-	connections.max.reauth.ms = 0
-	control.plane.listener.name = null
-	controlled.shutdown.enable = true
-	controlled.shutdown.max.retries = 3
-	controlled.shutdown.retry.backoff.ms = 5000
-	controller.listener.names = null
-	controller.quorum.append.linger.ms = 25
-	controller.quorum.election.backoff.max.ms = 1000
-	controller.quorum.election.timeout.ms = 1000
-	controller.quorum.fetch.timeout.ms = 2000
-	controller.quorum.request.timeout.ms = 2000
-	controller.quorum.retry.backoff.ms = 20
-	controller.quorum.voters = []
-	controller.quota.window.num = 11
-	controller.quota.window.size.seconds = 1
-	controller.socket.timeout.ms = 30000
-	create.topic.policy.class.name = null
-	default.replication.factor = 1
-	delegation.token.expiry.check.interval.ms = 3600000
-	delegation.token.expiry.time.ms = 86400000
-	delegation.token.master.key = null
-	delegation.token.max.lifetime.ms = 604800000
-	delegation.token.secret.key = null
-	delete.records.purgatory.purge.interval.requests = 1
-	delete.topic.enable = true
-	early.start.listeners = null
-	eligible.leader.replicas.enable = false
-	fetch.max.bytes = 57671680
-	fetch.purgatory.purge.interval.requests = 1000
-	group.consumer.assignors = [org.apache.kafka.coordinator.group.assignor.UniformAssignor, org.apache.kafka.coordinator.group.assignor.RangeAssignor]
-	group.consumer.heartbeat.interval.ms = 5000
-	group.consumer.max.heartbeat.interval.ms = 15000
-	group.consumer.max.session.timeout.ms = 60000
-	group.consumer.max.size = 2147483647
-	group.consumer.min.heartbeat.interval.ms = 5000
-	group.consumer.min.session.timeout.ms = 45000
-	group.consumer.session.timeout.ms = 45000
-	group.coordinator.new.enable = false
-	group.coordinator.rebalance.protocols = [classic]
-	group.coordinator.threads = 1
-	group.initial.rebalance.delay.ms = 3
-	group.max.session.timeout.ms = 1800000
-	group.max.size = 2147483647
-	group.min.session.timeout.ms = 6000
-	initial.broker.registration.timeout.ms = 60000
-	inter.broker.listener.name = null
-	inter.broker.protocol.version = 3.7-IV4
-	kafka.metrics.polling.interval.secs = 10
-	kafka.metrics.reporters = []
-	leader.imbalance.check.interval.seconds = 300
-	leader.imbalance.per.broker.percentage = 10
-	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
-	listeners = PLAINTEXT://:9092
-	log.cleaner.backoff.ms = 15000
-	log.cleaner.dedupe.buffer.size = 134217728
-	log.cleaner.delete.retention.ms = 86400000
-	log.cleaner.enable = true
-	log.cleaner.io.buffer.load.factor = 0.9
-	log.cleaner.io.buffer.size = 524288
-	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
-	log.cleaner.max.compaction.lag.ms = 9223372036854775807
-	log.cleaner.min.cleanable.ratio = 0.5
-	log.cleaner.min.compaction.lag.ms = 0
-	log.cleaner.threads = 1
-	log.cleanup.policy = [delete]
-	log.dir = /tmp/kafka-logs
-	log.dirs = /workspaces/fastmoonStreams/kafka/logs
-	log.flush.interval.messages = 9223372036854775807
-	log.flush.interval.ms = null
-	log.flush.offset.checkpoint.interval.ms = 60000
-	log.flush.scheduler.interval.ms = 9223372036854775807
-	log.flush.start.offset.checkpoint.interval.ms = 60000
-	log.index.interval.bytes = 4096
-	log.index.size.max.bytes = 10485760
-	log.local.retention.bytes = -2
-	log.local.retention.ms = -2
-	log.message.downconversion.enable = true
-	log.message.format.version = 3.0-IV1
-	log.message.timestamp.after.max.ms = 9223372036854775807
-	log.message.timestamp.before.max.ms = 9223372036854775807
-	log.message.timestamp.difference.max.ms = 9223372036854775807
-	log.message.timestamp.type = CreateTime
-	log.preallocate = false
-	log.retention.bytes = -1
-	log.retention.check.interval.ms = 300000
-	log.retention.hours = 1
-	log.retention.minutes = null
-	log.retention.ms = null
-	log.roll.hours = 168
-	log.roll.jitter.hours = 0
-	log.roll.jitter.ms = null
-	log.roll.ms = null
-	log.segment.bytes = 1073741824
-	log.segment.delete.delay.ms = 60000
-	max.connection.creation.rate = 2147483647
-	max.connections = 2147483647
-	max.connections.per.ip = 2147483647
-	max.connections.per.ip.overrides = 
-	max.incremental.fetch.session.cache.slots = 1000
-	message.max.bytes = 1048588
-	metadata.log.dir = null
-	metadata.log.max.record.bytes.between.snapshots = 20971520
-	metadata.log.max.snapshot.interval.ms = 3600000
-	metadata.log.segment.bytes = 1073741824
-	metadata.log.segment.min.bytes = 8388608
-	metadata.log.segment.ms = 604800000
-	metadata.max.idle.interval.ms = 500
-	metadata.max.retention.bytes = 104857600
-	metadata.max.retention.ms = 604800000
-	metric.reporters = []
-	metrics.num.samples = 2
-	metrics.recording.level = INFO
-	metrics.sample.window.ms = 30000
-	min.insync.replicas = 1
-	node.id = 0
-	num.io.threads = 40
-	num.network.threads = 20
-	num.partitions = 10
-	num.recovery.threads.per.data.dir = 1
-	num.replica.alter.log.dirs.threads = null
-	num.replica.fetchers = 1
-	offset.metadata.max.bytes = 4096
-	offsets.commit.required.acks = -1
-	offsets.commit.timeout.ms = 5000
-	offsets.load.buffer.size = 5242880
-	offsets.retention.check.interval.ms = 600000
-	offsets.retention.minutes = 10080
-	offsets.topic.compression.codec = 0
-	offsets.topic.num.partitions = 50
-	offsets.topic.replication.factor = 1
-	offsets.topic.segment.bytes = 104857600
-	password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding
-	password.encoder.iterations = 4096
-	password.encoder.key.length = 128
-	password.encoder.keyfactory.algorithm = null
-	password.encoder.old.secret = null
-	password.encoder.secret = null
-	principal.builder.class = class org.apache.kafka.common.security.authenticator.DefaultKafkaPrincipalBuilder
-	process.roles = []
-	producer.id.expiration.check.interval.ms = 600000
-	producer.id.expiration.ms = 86400000
-	producer.purgatory.purge.interval.requests = 1000
-	queued.max.request.bytes = -1
-	queued.max.requests = 500
-	quota.window.num = 11
-	quota.window.size.seconds = 1
-	remote.log.index.file.cache.total.size.bytes = 1073741824
-	remote.log.manager.task.interval.ms = 30000
-	remote.log.manager.task.retry.backoff.max.ms = 30000
-	remote.log.manager.task.retry.backoff.ms = 500
-	remote.log.manager.task.retry.jitter = 0.2
-	remote.log.manager.thread.pool.size = 10
-	remote.log.metadata.custom.metadata.max.bytes = 128
-	remote.log.metadata.manager.class.name = org.apache.kafka.server.log.remote.metadata.storage.TopicBasedRemoteLogMetadataManager
-	remote.log.metadata.manager.class.path = null
-	remote.log.metadata.manager.impl.prefix = rlmm.config.
-	remote.log.metadata.manager.listener.name = null
-	remote.log.reader.max.pending.tasks = 100
-	remote.log.reader.threads = 10
-	remote.log.storage.manager.class.name = null
-	remote.log.storage.manager.class.path = null
-	remote.log.storage.manager.impl.prefix = rsm.config.
-	remote.log.storage.system.enable = false
-	replica.fetch.backoff.ms = 1000
-	replica.fetch.max.bytes = 1048576
-	replica.fetch.min.bytes = 1
-	replica.fetch.response.max.bytes = 10485760
-	replica.fetch.wait.max.ms = 500
-	replica.high.watermark.checkpoint.interval.ms = 5000
-	replica.lag.time.max.ms = 30000
-	replica.selector.class = null
-	replica.socket.receive.buffer.bytes = 65536
-	replica.socket.timeout.ms = 30000
-	replication.quota.window.num = 11
-	replication.quota.window.size.seconds = 1
-	request.timeout.ms = 30000
-	reserved.broker.max.id = 1000
-	sasl.client.callback.handler.class = null
-	sasl.enabled.mechanisms = [GSSAPI]
-	sasl.jaas.config = null
-	sasl.kerberos.kinit.cmd = /usr/bin/kinit
-	sasl.kerberos.min.time.before.relogin = 60000
-	sasl.kerberos.principal.to.local.rules = [DEFAULT]
-	sasl.kerberos.service.name = null
-	sasl.kerberos.ticket.renew.jitter = 0.05
-	sasl.kerberos.ticket.renew.window.factor = 0.8
-	sasl.login.callback.handler.class = null
-	sasl.login.class = null
-	sasl.login.connect.timeout.ms = null
-	sasl.login.read.timeout.ms = null
-	sasl.login.refresh.buffer.seconds = 300
-	sasl.login.refresh.min.period.seconds = 60
-	sasl.login.refresh.window.factor = 0.8
-	sasl.login.refresh.window.jitter = 0.05
-	sasl.login.retry.backoff.max.ms = 10000
-	sasl.login.retry.backoff.ms = 100
-	sasl.mechanism.controller.protocol = GSSAPI
-	sasl.mechanism.inter.broker.protocol = GSSAPI
-	sasl.oauthbearer.clock.skew.seconds = 30
-	sasl.oauthbearer.expected.audience = null
-	sasl.oauthbearer.expected.issuer = null
-	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
-	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
-	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
-	sasl.oauthbearer.jwks.endpoint.url = null
-	sasl.oauthbearer.scope.claim.name = scope
-	sasl.oauthbearer.sub.claim.name = sub
-	sasl.oauthbearer.token.endpoint.url = null
-	sasl.server.callback.handler.class = null
-	sasl.server.max.receive.size = 524288
-	security.inter.broker.protocol = PLAINTEXT
-	security.providers = null
-	server.max.startup.time.ms = 9223372036854775807
-	socket.connection.setup.timeout.max.ms = 30000
-	socket.connection.setup.timeout.ms = 10000
-	socket.listen.backlog.size = 50
-	socket.receive.buffer.bytes = 1024000
-	socket.request.max.bytes = 1048576000
-	socket.send.buffer.bytes = 1024000
-	ssl.allow.dn.changes = false
-	ssl.allow.san.changes = false
-	ssl.cipher.suites = []
-	ssl.client.auth = none
-	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
-	ssl.endpoint.identification.algorithm = https
-	ssl.engine.factory.class = null
-	ssl.key.password = null
-	ssl.keymanager.algorithm = SunX509
-	ssl.keystore.certificate.chain = null
-	ssl.keystore.key = null
-	ssl.keystore.location = null
-	ssl.keystore.password = null
-	ssl.keystore.type = JKS
-	ssl.principal.mapping.rules = DEFAULT
-	ssl.protocol = TLSv1.3
-	ssl.provider = null
-	ssl.secure.random.implementation = null
-	ssl.trustmanager.algorithm = PKIX
-	ssl.truststore.certificates = null
-	ssl.truststore.location = null
-	ssl.truststore.password = null
-	ssl.truststore.type = JKS
-	telemetry.max.bytes = 1048576
-	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
-	transaction.max.timeout.ms = 900000
-	transaction.partition.verification.enable = true
-	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
-	transaction.state.log.load.buffer.size = 5242880
-	transaction.state.log.min.isr = 1
-	transaction.state.log.num.partitions = 50
-	transaction.state.log.replication.factor = 1
-	transaction.state.log.segment.bytes = 104857600
-	transactional.id.expiration.ms = 604800000
-	unclean.leader.election.enable = false
-	unstable.api.versions.enable = false
-	unstable.metadata.versions.enable = false
-	zookeeper.clientCnxnSocket = null
-	zookeeper.connect = localhost:2181
-	zookeeper.connection.timeout.ms = 18000
-	zookeeper.max.in.flight.requests = 10
-	zookeeper.metadata.migration.enable = false
-	zookeeper.metadata.migration.min.batch.size = 200
-	zookeeper.session.timeout.ms = 18000
-	zookeeper.set.acl = false
-	zookeeper.ssl.cipher.suites = null
-	zookeeper.ssl.client.enable = false
-	zookeeper.ssl.crl.enable = false
-	zookeeper.ssl.enabled.protocols = null
-	zookeeper.ssl.endpoint.identification.algorithm = HTTPS
-	zookeeper.ssl.keystore.location = null
-	zookeeper.ssl.keystore.password = null
-	zookeeper.ssl.keystore.type = null
-	zookeeper.ssl.ocsp.enable = false
-	zookeeper.ssl.protocol = TLSv1.2
-	zookeeper.ssl.truststore.location = null
-	zookeeper.ssl.truststore.password = null
-	zookeeper.ssl.truststore.type = null
- (kafka.server.KafkaConfig)
-[2024-05-22 15:21:28,525] INFO [ThrottledChannelReaper-Fetch]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2024-05-22 15:21:28,527] INFO [ThrottledChannelReaper-Produce]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2024-05-22 15:21:28,529] INFO [ThrottledChannelReaper-Request]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2024-05-22 15:21:28,530] INFO [ThrottledChannelReaper-ControllerMutation]: Starting (kafka.server.ClientQuotaManager$ThrottledChannelReaper)
-[2024-05-22 15:21:28,535] INFO [KafkaServer id=0] Rewriting /workspaces/fastmoonStreams/kafka/logs/meta.properties (kafka.server.KafkaServer)
-[2024-05-22 15:21:28,639] INFO Loading logs from log dirs ArraySeq(/workspaces/fastmoonStreams/kafka/logs) (kafka.log.LogManager)
-[2024-05-22 15:21:28,644] INFO No logs found to be loaded in /workspaces/fastmoonStreams/kafka/logs (kafka.log.LogManager)
-[2024-05-22 15:21:28,653] INFO Loaded 0 logs in 13ms (kafka.log.LogManager)
-[2024-05-22 15:21:28,656] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)
-[2024-05-22 15:21:28,664] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)
-[2024-05-22 15:21:28,704] INFO [kafka-log-cleaner-thread-0]: Starting (kafka.log.LogCleaner$CleanerThread)
-[2024-05-22 15:21:28,723] INFO [feature-zk-node-event-process-thread]: Starting (kafka.server.FinalizedFeatureChangeListener$ChangeNotificationProcessorThread)
-[2024-05-22 15:21:28,726] INFO Feature ZK node at path: /feature does not exist (kafka.server.FinalizedFeatureChangeListener)
-[2024-05-22 15:21:28,745] INFO [zk-broker-0-to-controller-forwarding-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2024-05-22 15:21:29,148] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
-[2024-05-22 15:21:29,203] INFO [SocketServer listenerType=ZK_BROKER, nodeId=0] Created data-plane acceptor and processors for endpoint : ListenerName(PLAINTEXT) (kafka.network.SocketServer)
-[2024-05-22 15:21:29,211] INFO [zk-broker-0-to-controller-alter-partition-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)
-[2024-05-22 15:21:29,231] INFO [ExpirationReaper-0-Produce]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,232] INFO [ExpirationReaper-0-Fetch]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,233] INFO [ExpirationReaper-0-DeleteRecords]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,237] INFO [ExpirationReaper-0-ElectLeader]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,241] INFO [ExpirationReaper-0-RemoteFetch]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,253] INFO [LogDirFailureHandler]: Starting (kafka.server.ReplicaManager$LogDirFailureHandler)
-[2024-05-22 15:21:29,255] INFO [AddPartitionsToTxnSenderThread-0]: Starting (kafka.server.AddPartitionsToTxnManager)
-[2024-05-22 15:21:29,281] INFO Creating /brokers/ids/0 (is it secure? false) (kafka.zk.KafkaZkClient)
-[2024-05-22 15:21:29,306] INFO Stat of the created znode at /brokers/ids/0 is: 25,25,1716391289291,1716391289291,1,0,0,72058406417596416,202,0,25
- (kafka.zk.KafkaZkClient)
-[2024-05-22 15:21:29,306] INFO Registered broker 0 at path /brokers/ids/0 with addresses: PLAINTEXT://localhost:9092, czxid (broker epoch): 25 (kafka.zk.KafkaZkClient)
-[2024-05-22 15:21:29,350] INFO [ExpirationReaper-0-topic]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,357] INFO [ExpirationReaper-0-Heartbeat]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,369] INFO [ExpirationReaper-0-Rebalance]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,370] INFO Successfully created /controller_epoch with initial epoch 0 (kafka.zk.KafkaZkClient)
-[2024-05-22 15:21:29,375] INFO [GroupCoordinator 0]: Starting up. (kafka.coordinator.group.GroupCoordinator)
-[2024-05-22 15:21:29,397] INFO Feature ZK node created at path: /feature (kafka.server.FinalizedFeatureChangeListener)
-[2024-05-22 15:21:29,398] INFO [GroupCoordinator 0]: Startup complete. (kafka.coordinator.group.GroupCoordinator)
-[2024-05-22 15:21:29,434] INFO [TransactionCoordinator id=0] Starting up. (kafka.coordinator.transaction.TransactionCoordinator)
-[2024-05-22 15:21:29,460] INFO [TransactionCoordinator id=0] Startup complete. (kafka.coordinator.transaction.TransactionCoordinator)
-[2024-05-22 15:21:29,470] INFO [TxnMarkerSenderThread-0]: Starting (kafka.coordinator.transaction.TransactionMarkerChannelManager)
-[2024-05-22 15:21:29,471] INFO [MetadataCache brokerId=0] Updated cache from existing None to latest Features(version=3.7-IV4, finalizedFeatures={}, finalizedFeaturesEpoch=0). (kafka.server.metadata.ZkMetadataCache)
-[2024-05-22 15:21:29,537] INFO [ExpirationReaper-0-AlterAcls]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
-[2024-05-22 15:21:29,562] INFO [Controller id=0, targetBrokerId=0] Node 0 disconnected. (org.apache.kafka.clients.NetworkClient)
-[2024-05-22 15:21:29,569] WARN [Controller id=0, targetBrokerId=0] Connection to node 0 (localhost/127.0.0.1:9092) could not be established. Node may not be available. (org.apache.kafka.clients.NetworkClient)
-[2024-05-22 15:21:29,571] INFO [Controller id=0, targetBrokerId=0] Client requested connection close from node 0 (org.apache.kafka.clients.NetworkClient)
-[2024-05-22 15:21:29,623] INFO [/config/changes-event-process-thread]: Starting (kafka.common.ZkNodeChangeNotificationListener$ChangeEventProcessThread)
-[2024-05-22 15:21:29,637] INFO [SocketServer listenerType=ZK_BROKER, nodeId=0] Enabling request processing. (kafka.network.SocketServer)
-[2024-05-22 15:21:29,640] INFO Awaiting socket connections on 0.0.0.0:9092. (kafka.network.DataPlaneAcceptor)
-[2024-05-22 15:21:29,653] INFO Kafka version: 3.7.0 (org.apache.kafka.common.utils.AppInfoParser)
-[2024-05-22 15:21:29,653] INFO Kafka commitId: 2ae524ed625438c5 (org.apache.kafka.common.utils.AppInfoParser)
-[2024-05-22 15:21:29,653] INFO Kafka startTimeMs: 1716391289649 (org.apache.kafka.common.utils.AppInfoParser)
-[2024-05-22 15:21:29,654] INFO [KafkaServer id=0] started (kafka.server.KafkaServer)
-[2024-05-22 15:21:29,832] INFO [zk-broker-0-to-controller-alter-partition-channel-manager]: Recorded new controller, from now on will use node localhost:9092 (id: 0 rack: null) (kafka.server.NodeToControllerRequestThread)
-[2024-05-22 15:21:29,866] INFO [zk-broker-0-to-controller-forwarding-channel-manager]: Recorded new controller, from now on will use node localhost:9092 (id: 0 rack: null) (kafka.server.NodeToControllerRequestThread)
-[2024-05-22 15:21:42,740] INFO Creating topic coinbase_ws_spot_trades_btcusd with configuration {} and initial partition assignment HashMap(0 -> ArrayBuffer(0), 1 -> ArrayBuffer(0), 2 -> ArrayBuffer(0), 3 -> ArrayBuffer(0), 4 -> ArrayBuffer(0)) (kafka.zk.AdminZkClient)
-[2024-05-22 15:21:42,930] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions HashSet(coinbase_ws_spot_trades_btcusd-2, coinbase_ws_spot_trades_btcusd-3, coinbase_ws_spot_trades_btcusd-1, coinbase_ws_spot_trades_btcusd-4, coinbase_ws_spot_trades_btcusd-0) (kafka.server.ReplicaFetcherManager)
-[2024-05-22 15:21:42,981] INFO [LogLoader partition=coinbase_ws_spot_trades_btcusd-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:21:42,994] INFO Created log for partition coinbase_ws_spot_trades_btcusd-2 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_trades_btcusd-2 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:21:42,997] INFO [Partition coinbase_ws_spot_trades_btcusd-2 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_trades_btcusd-2 (kafka.cluster.Partition)
-[2024-05-22 15:21:42,998] INFO [Partition coinbase_ws_spot_trades_btcusd-2 broker=0] Log loaded for partition coinbase_ws_spot_trades_btcusd-2 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,049] INFO [LogLoader partition=coinbase_ws_spot_trades_btcusd-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:21:43,050] INFO Created log for partition coinbase_ws_spot_trades_btcusd-1 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_trades_btcusd-1 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:21:43,050] INFO [Partition coinbase_ws_spot_trades_btcusd-1 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_trades_btcusd-1 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,050] INFO [Partition coinbase_ws_spot_trades_btcusd-1 broker=0] Log loaded for partition coinbase_ws_spot_trades_btcusd-1 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,104] INFO [LogLoader partition=coinbase_ws_spot_trades_btcusd-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:21:43,105] INFO Created log for partition coinbase_ws_spot_trades_btcusd-0 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_trades_btcusd-0 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:21:43,105] INFO [Partition coinbase_ws_spot_trades_btcusd-0 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_trades_btcusd-0 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,105] INFO [Partition coinbase_ws_spot_trades_btcusd-0 broker=0] Log loaded for partition coinbase_ws_spot_trades_btcusd-0 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,152] INFO [LogLoader partition=coinbase_ws_spot_trades_btcusd-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:21:43,153] INFO Created log for partition coinbase_ws_spot_trades_btcusd-4 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_trades_btcusd-4 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:21:43,153] INFO [Partition coinbase_ws_spot_trades_btcusd-4 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_trades_btcusd-4 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,153] INFO [Partition coinbase_ws_spot_trades_btcusd-4 broker=0] Log loaded for partition coinbase_ws_spot_trades_btcusd-4 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,204] INFO [LogLoader partition=coinbase_ws_spot_trades_btcusd-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:21:43,206] INFO Created log for partition coinbase_ws_spot_trades_btcusd-3 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_trades_btcusd-3 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:21:43,206] INFO [Partition coinbase_ws_spot_trades_btcusd-3 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_trades_btcusd-3 (kafka.cluster.Partition)
-[2024-05-22 15:21:43,206] INFO [Partition coinbase_ws_spot_trades_btcusd-3 broker=0] Log loaded for partition coinbase_ws_spot_trades_btcusd-3 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,586] INFO Creating topic coinbase_ws_spot_heartbeats_btcusd with configuration {} and initial partition assignment HashMap(0 -> ArrayBuffer(0), 1 -> ArrayBuffer(0), 2 -> ArrayBuffer(0), 3 -> ArrayBuffer(0), 4 -> ArrayBuffer(0)) (kafka.zk.AdminZkClient)
-[2024-05-22 15:24:45,702] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions HashSet(coinbase_ws_spot_heartbeats_btcusd-2, coinbase_ws_spot_heartbeats_btcusd-3, coinbase_ws_spot_heartbeats_btcusd-1, coinbase_ws_spot_heartbeats_btcusd-4, coinbase_ws_spot_heartbeats_btcusd-0) (kafka.server.ReplicaFetcherManager)
-[2024-05-22 15:24:45,710] INFO [LogLoader partition=coinbase_ws_spot_heartbeats_btcusd-0, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:24:45,714] INFO Created log for partition coinbase_ws_spot_heartbeats_btcusd-0 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_heartbeats_btcusd-0 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:24:45,715] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-0 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_heartbeats_btcusd-0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,715] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-0 broker=0] Log loaded for partition coinbase_ws_spot_heartbeats_btcusd-0 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,766] INFO [LogLoader partition=coinbase_ws_spot_heartbeats_btcusd-2, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:24:45,767] INFO Created log for partition coinbase_ws_spot_heartbeats_btcusd-2 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_heartbeats_btcusd-2 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:24:45,771] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-2 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_heartbeats_btcusd-2 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,771] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-2 broker=0] Log loaded for partition coinbase_ws_spot_heartbeats_btcusd-2 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,819] INFO [LogLoader partition=coinbase_ws_spot_heartbeats_btcusd-1, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:24:45,821] INFO Created log for partition coinbase_ws_spot_heartbeats_btcusd-1 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_heartbeats_btcusd-1 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:24:45,821] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-1 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_heartbeats_btcusd-1 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,821] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-1 broker=0] Log loaded for partition coinbase_ws_spot_heartbeats_btcusd-1 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,875] INFO [LogLoader partition=coinbase_ws_spot_heartbeats_btcusd-4, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:24:45,879] INFO Created log for partition coinbase_ws_spot_heartbeats_btcusd-4 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_heartbeats_btcusd-4 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:24:45,879] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-4 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_heartbeats_btcusd-4 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,880] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-4 broker=0] Log loaded for partition coinbase_ws_spot_heartbeats_btcusd-4 with initial high watermark 0 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,935] INFO [LogLoader partition=coinbase_ws_spot_heartbeats_btcusd-3, dir=/workspaces/fastmoonStreams/kafka/logs] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
-[2024-05-22 15:24:45,937] INFO Created log for partition coinbase_ws_spot_heartbeats_btcusd-3 in /workspaces/fastmoonStreams/kafka/logs/coinbase_ws_spot_heartbeats_btcusd-3 with properties {} (kafka.log.LogManager)
-[2024-05-22 15:24:45,938] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-3 broker=0] No checkpointed highwatermark is found for partition coinbase_ws_spot_heartbeats_btcusd-3 (kafka.cluster.Partition)
-[2024-05-22 15:24:45,938] INFO [Partition coinbase_ws_spot_heartbeats_btcusd-3 broker=0] Log loaded for partition coinbase_ws_spot_heartbeats_btcusd-3 with initial high watermark 0 (kafka.cluster.Partition)
+[2024-05-28 13:00:00,042] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 27 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-5834d1f3-0474-4878-8f58-b71e66aa21d3 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:00:00,043] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 28 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:00:00,044] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-5834d1f3-0474-4878-8f58-b71e66aa21d3, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:00:41,937] INFO [GroupMetadataManager brokerId=0] Group XBT_All_Streams transitioned to Dead in generation 28 (kafka.coordinator.group.GroupMetadataManager)
+[2024-05-28 13:24:37,654] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-cf04f1f5-f0f6-46aa-b311-c8c3fff1b55a and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:24:37,655] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 0 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-cf04f1f5-f0f6-46aa-b311-c8c3fff1b55a with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:24:37,657] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 1 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:24:37,659] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-cf04f1f5-f0f6-46aa-b311-c8c3fff1b55a for group XBT_All_Streams for generation 1. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:25:02,151] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 1 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-cf04f1f5-f0f6-46aa-b311-c8c3fff1b55a on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:25:02,152] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 2 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:25:02,152] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-cf04f1f5-f0f6-46aa-b311-c8c3fff1b55a, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:43,615] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-8f1c2554-04ac-40ee-ab14-b81224477594 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:43,616] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 2 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-8f1c2554-04ac-40ee-ab14-b81224477594 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:43,618] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 3 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:43,621] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-8f1c2554-04ac-40ee-ab14-b81224477594 for group XBT_All_Streams for generation 3. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:50,898] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 3 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-8f1c2554-04ac-40ee-ab14-b81224477594 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:50,898] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 4 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:26:50,899] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-8f1c2554-04ac-40ee-ab14-b81224477594, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:15,152] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-ebec3f96-387b-481a-8b02-9455fbf8c0a8 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:15,153] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 4 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-ebec3f96-387b-481a-8b02-9455fbf8c0a8 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:15,156] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 5 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:15,160] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-ebec3f96-387b-481a-8b02-9455fbf8c0a8 for group XBT_All_Streams for generation 5. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:20,614] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 5 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-ebec3f96-387b-481a-8b02-9455fbf8c0a8 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:20,614] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 6 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:20,615] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-ebec3f96-387b-481a-8b02-9455fbf8c0a8, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:55,982] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-cf0f934c-46f1-4590-8299-a8f42202ef44 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:55,986] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 6 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-cf0f934c-46f1-4590-8299-a8f42202ef44 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:55,989] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 7 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:28:55,992] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-cf0f934c-46f1-4590-8299-a8f42202ef44 for group XBT_All_Streams for generation 7. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:29:02,472] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 7 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-cf0f934c-46f1-4590-8299-a8f42202ef44 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:29:02,472] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 8 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:29:02,473] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-cf0f934c-46f1-4590-8299-a8f42202ef44, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:07,114] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-2fbc74f3-420a-4994-9124-b4b3f18a0b9e and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:07,115] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 8 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-2fbc74f3-420a-4994-9124-b4b3f18a0b9e with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:07,119] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 9 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:07,121] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-2fbc74f3-420a-4994-9124-b4b3f18a0b9e for group XBT_All_Streams for generation 9. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:09,450] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 9 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-2fbc74f3-420a-4994-9124-b4b3f18a0b9e on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:09,451] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 10 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:09,451] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-2fbc74f3-420a-4994-9124-b4b3f18a0b9e, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:30,209] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-53091a1b-8036-4c7f-8e71-43c12dc9db89 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:30,210] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 10 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-53091a1b-8036-4c7f-8e71-43c12dc9db89 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:30,213] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 11 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:30,217] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-53091a1b-8036-4c7f-8e71-43c12dc9db89 for group XBT_All_Streams for generation 11. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:41,505] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 11 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-53091a1b-8036-4c7f-8e71-43c12dc9db89 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:41,505] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 12 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:33:41,506] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-53091a1b-8036-4c7f-8e71-43c12dc9db89, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:56,847] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-98ae9b49-5193-4af8-a7ad-a98d9b07ade5 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:56,851] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 12 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-98ae9b49-5193-4af8-a7ad-a98d9b07ade5 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:56,855] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 13 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:56,859] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-98ae9b49-5193-4af8-a7ad-a98d9b07ade5 for group XBT_All_Streams for generation 13. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:59,306] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 13 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-98ae9b49-5193-4af8-a7ad-a98d9b07ade5 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:59,306] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 14 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:41:59,306] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-98ae9b49-5193-4af8-a7ad-a98d9b07ade5, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:31,327] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-9ce9e68e-216d-42f2-8ada-24a1cadb41d3 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:31,330] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 14 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-9ce9e68e-216d-42f2-8ada-24a1cadb41d3 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:31,333] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 15 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:31,337] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-9ce9e68e-216d-42f2-8ada-24a1cadb41d3 for group XBT_All_Streams for generation 15. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:37,678] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 15 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-9ce9e68e-216d-42f2-8ada-24a1cadb41d3 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:37,678] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 16 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:42:37,679] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-9ce9e68e-216d-42f2-8ada-24a1cadb41d3, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:08,310] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-c2146827-fe52-4aaa-9405-d3ade9ed59dd and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:08,311] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 16 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-c2146827-fe52-4aaa-9405-d3ade9ed59dd with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:08,314] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 17 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:08,318] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-c2146827-fe52-4aaa-9405-d3ade9ed59dd for group XBT_All_Streams for generation 17. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:12,636] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 17 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-c2146827-fe52-4aaa-9405-d3ade9ed59dd on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:12,637] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 18 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:45:12,637] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-c2146827-fe52-4aaa-9405-d3ade9ed59dd, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:29,598] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-9db903b7-6818-4cf3-86f5-0ec57f2a1981 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:29,599] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 18 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-9db903b7-6818-4cf3-86f5-0ec57f2a1981 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:29,603] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 19 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:29,606] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-9db903b7-6818-4cf3-86f5-0ec57f2a1981 for group XBT_All_Streams for generation 19. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:34,513] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 19 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-9db903b7-6818-4cf3-86f5-0ec57f2a1981 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:34,513] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 20 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:46:34,514] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-9db903b7-6818-4cf3-86f5-0ec57f2a1981, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:41,578] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-f72feeee-5c3c-4f52-ba45-1f4a077982d5 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:41,579] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 20 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-f72feeee-5c3c-4f52-ba45-1f4a077982d5 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:41,582] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 21 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:41,586] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-f72feeee-5c3c-4f52-ba45-1f4a077982d5 for group XBT_All_Streams for generation 21. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:57,754] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 21 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-f72feeee-5c3c-4f52-ba45-1f4a077982d5 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:57,754] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 22 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:47:57,755] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-f72feeee-5c3c-4f52-ba45-1f4a077982d5, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:28,288] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-22c293cf-4c24-47be-8c0a-6a61d6889840 and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:28,295] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 22 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-22c293cf-4c24-47be-8c0a-6a61d6889840 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:28,298] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 23 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:28,302] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-22c293cf-4c24-47be-8c0a-6a61d6889840 for group XBT_All_Streams for generation 23. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:38,303] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 23 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-22c293cf-4c24-47be-8c0a-6a61d6889840 on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:38,303] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 24 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:48:38,304] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-22c293cf-4c24-47be-8c0a-6a61d6889840, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:03,310] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-6e5465cf-5e11-4548-875e-47633d5a0e1f and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:03,311] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 24 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-6e5465cf-5e11-4548-875e-47633d5a0e1f with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:03,316] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 25 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:03,319] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-6e5465cf-5e11-4548-875e-47633d5a0e1f for group XBT_All_Streams for generation 25. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:07,486] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 25 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-6e5465cf-5e11-4548-875e-47633d5a0e1f on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:07,486] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 26 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:07,489] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-6e5465cf-5e11-4548-875e-47633d5a0e1f, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:40,719] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-beee4408-067a-44cd-8e67-112bd6615bfc and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:40,720] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 26 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-beee4408-067a-44cd-8e67-112bd6615bfc with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:40,723] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 27 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:53:40,727] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-beee4408-067a-44cd-8e67-112bd6615bfc for group XBT_All_Streams for generation 27. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:02,946] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 27 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-beee4408-067a-44cd-8e67-112bd6615bfc on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:02,946] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 28 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:02,947] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-beee4408-067a-44cd-8e67-112bd6615bfc, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:16,102] INFO [GroupCoordinator 0]: Dynamic member with unknown member id joins group XBT_All_Streams in Empty state. Created a new member id faust-0.11.0-51489689-bb88-431b-b044-471d933a0c2f and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:16,103] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 28 (__consumer_offsets-36) (reason: Adding new member faust-0.11.0-51489689-bb88-431b-b044-471d933a0c2f with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:16,107] INFO [GroupCoordinator 0]: Stabilized group XBT_All_Streams generation 29 (__consumer_offsets-36) with 1 members (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:54:16,111] INFO [GroupCoordinator 0]: Assignment received from leader faust-0.11.0-51489689-bb88-431b-b044-471d933a0c2f for group XBT_All_Streams for generation 29. The group has 1 members, 0 of which are static. (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:56:10,843] INFO [LocalLog partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Rolled new log segment at offset 7 in 1 ms. (kafka.log.LocalLog)
+[2024-05-28 13:56:10,843] INFO [ProducerStateManager partition=binance_api_option_option_oi_btcoioption-4] Wrote producer snapshot at offset 7 with 0 producer ids in 0 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2024-05-28 13:56:10,845] INFO [UnifiedLog partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment LogSegment(baseOffset=4, size=33703, lastModifiedTime=1716900827753, largestRecordTimestamp=1716900827755) due to log retention time 3600000ms breach based on the largest record timestamp in the segment (kafka.log.UnifiedLog)
+[2024-05-28 13:56:10,845] INFO [UnifiedLog partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Incremented log start offset to 7 due to segment deletion (kafka.log.UnifiedLog)
+[2024-05-28 13:56:16,294] INFO [GroupCoordinator 0]: Preparing to rebalance group XBT_All_Streams in state PreparingRebalance with old generation 29 (__consumer_offsets-36) (reason: Removing member faust-0.11.0-51489689-bb88-431b-b044-471d933a0c2f on LeaveGroup; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:56:16,294] INFO [GroupCoordinator 0]: Group XBT_All_Streams with generation 30 is now empty (__consumer_offsets-36) (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:56:16,295] INFO [GroupCoordinator 0]: Member MemberMetadata(memberId=faust-0.11.0-51489689-bb88-431b-b044-471d933a0c2f, groupInstanceId=None, clientId=faust-0.11.0, clientHost=/0:0:0:0:0:0:0:1, sessionTimeoutMs=60000, rebalanceTimeoutMs=60000, supportedProtocols=List(faust)) has left group XBT_All_Streams through explicit `LeaveGroup`; client reason: not provided (kafka.coordinator.group.GroupCoordinator)
+[2024-05-28 13:57:10,845] INFO [LocalLog partition=binance_api_option_option_oi_btcoioption-4, dir=/workspaces/fastmoonStreams/kafka/logs] Deleting segment files LogSegment(baseOffset=4, size=33703, lastModifiedTime=1716900827753, largestRecordTimestamp=1716900827755) (kafka.log.LocalLog$)
+[2024-05-28 13:57:10,846] INFO Deleted producer state snapshot /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000004.snapshot.deleted (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2024-05-28 13:57:10,846] INFO Deleted log /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000004.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
+[2024-05-28 13:57:10,846] INFO Deleted offset index /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000004.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)
+[2024-05-28 13:57:10,847] INFO Deleted time index /workspaces/fastmoonStreams/kafka/logs/binance_api_option_option_oi_btcoioption-4/00000000000000000004.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)

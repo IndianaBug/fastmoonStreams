@@ -1,36 +1,50 @@
 import faust 
 import aiohttp
 
+from faust.exceptions import (
+    Skip, FaustWarning, AlreadyConfiguredWarning, FaustPredicate, SameNode, PartitionsMismatch
+)
+from faust.exceptions import (
+    NotReady, ConsumerNotStarted
+)
+
+from faust.exceptions import (
+    FaustPredicate, ValidationError, DecodeError, KeyDecodeError, ValueDecodeError, ProducerSendError
+)
+
+from faust.exceptions import (
+    SecurityError, ImproperlyConfigured, ConsistencyError
+)
 
 # log and proceed
 faust_proceed_errors = (
-    faust.exceptions.Skip,
-    faust.exceptions.FaustWarning,
-    faust.exceptions.AlreadyConfiguredWarning,
-    faust.exceptions.FaustPredicate,
-    faust.exceptions.SameNode,
-    faust.exceptions.PartitionsMismatch
+    Skip,
+    FaustWarning,
+    AlreadyConfiguredWarning,
+    FaustPredicate,
+    SameNode,
+    PartitionsMismatch
 )
 
 faust_backup_errors = (
-    faust.exceptions.NotReady, 
-    faust.exceptions.ConsumerNotStarted, 
+    NotReady, 
+    ConsumerNotStarted, 
 )
 
 faust_message_errors = (
-    faust.exceptions.FaustPredicate,
-    faust.exceptions.ValidationError,   
-    faust.exceptions.DecodeError,
-    faust.exceptions.KeyDecodeError,
-    faust.exceptions.ValueDecodeError,
-    faust.exceptions.ProducerSendError,
+    FaustPredicate,
+    ValidationError,   
+    DecodeError,
+    KeyDecodeError,
+    ValueDecodeError,
+    ProducerSendError,
 )
 
 # log, shutdown faust
 faust_shutdown_errors = (
-    faust.exceptions.SecurityError,
-    faust.exceptions.ImproperlyConfigured,
-    faust.exceptions.ConsistencyError,
+    SecurityError,
+    ImproperlyConfigured,
+    ConsistencyError,
 )
 
 

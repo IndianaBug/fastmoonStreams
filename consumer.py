@@ -1,5 +1,5 @@
 from streams import connectionData
-from ProcessCenter.ConsumerEngine import XBTApp
+from ProcessCenter.ConsumerEngine import StreamApp
 import asyncio
 from functools import partial
 import uuid
@@ -7,17 +7,13 @@ import faust
 from typing import AsyncIterator
 import sys
 
-app = XBTApp(
+app = StreamApp(
             connection_data=connectionData, 
-            couch_host="",
-            couch_username="", 
-            couch_password="", 
-            id = "XBTApp",
+            id = "XBT_All_Streams",
             broker = "kafka://localhost:9092",
             topic_partitions=5,
             value_serializer='raw'
             )
-
 
 
 def agents(connection_data):
@@ -26,6 +22,10 @@ def agents(connection_data):
     for cd in connection_data:
         if "id_api" in cd:
             agents.append(app.create_api_agent(cd))
+        # elif "id_ws" in cd and cd.get("objective") == "depth":
+        #     agents.append(app.create_wsbooks_agent(cd))
+        # else:
+        #     agents.append(app.create_ws_agent(cd))
     return agents
 
 def attach_agent(agent, cd):

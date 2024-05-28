@@ -1,0 +1,66 @@
+[
+  {
+    "BTCUSDT_240628@future@binance": {
+      "oi": 2535.941
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.5547416,
+    "_doc": "dade7df9-729a-406a-942e-2e40ccdd5775"
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "oi": 2316.472
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.552281,
+    "_doc": "62362a01-d743-44e7-b225-9800961e116d"
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "oi": 3440.684
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.5405142,
+    "_doc": "2f412616-c5f3-47ae-a640-a5842fb5223b"
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "oi": 849.552
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.53873,
+    "_doc": "bf2381f3-f700-4f14-8742-254779d6cdbd"
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "oi": 73857.668
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.5367463,
+    "_doc": "3f6f3ddf-8e75-443c-8334-d7cfb4ae3ab8"
+  },
+  {
+    "BTCUSD_240927@future@binance": {
+      "oi": 0.2711682
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.533536,
+    "_doc": "66d6406c-6025-4070-8df1-8d3673e1f5d7"
+  },
+  {
+    "BTCUSD_PERP@perpetual@binance": {
+      "oi": 1.5959693
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.5236492,
+    "_doc": "ee1d8615-d3d9-4cac-ae44-7c6203e92f82"
+  },
+  {
+    "BTCUSD_240628@future@binance": {
+      "oi": 0.2286404
+    },
+    "timestamp": "2024-05-28 13:54:32",
+    "receive_time": 1716904472.48626,
+    "_doc": "5667f98b-2317-434d-b627-e2e6e7ccac9e"
+  }
+]

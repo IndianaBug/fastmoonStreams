@@ -2,8 +2,8 @@ Linux:
 permission: chmod -R +x /workspaces/fastmoonStreams/kafka
 zookeeper: /workspaces/fastmoonStreams/kafka/bin/zookeeper-server-start.sh /workspaces/fastmoonStreams/kafka/config/zookeeper.properties
 server: /workspaces/fastmoonStreams/kafka/bin/kafka-server-start.sh /workspaces/fastmoonStreams/kafka/config/server.properties
-producer: python plauncher.py
-consumer: faust -A c worker -l info --web-port=6066
+producer: python producer.py
+consumer: faust -A consumer worker -l info --web-port=6066
 check pid of a port: sudo ss -tulpn | grep 6066
 kill -9 14153
 

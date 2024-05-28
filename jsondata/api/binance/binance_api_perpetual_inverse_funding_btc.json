@@ -1,0 +1,42 @@
+[
+  {
+    "BTCUSDC@perpetual@binance": {
+      "funding": 0.00010471
+    },
+    "timestamp": "2024-05-28 13:54:31",
+    "receive_time": 1716904471.5176542,
+    "_doc": "49b68d97-b27a-427e-8e32-61df0e868519"
+  },
+  {
+    "BTCUSD_PERP@perpetual@binance": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 13:54:31",
+    "receive_time": 1716904471.5162067,
+    "_doc": "5e62a203-d9f7-48fe-93ac-28b13424e911"
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 13:54:31",
+    "receive_time": 1716904471.5144382,
+    "_doc": "2d209435-1520-4bb8-9e9d-90c82c7c0af0"
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 13:54:31",
+    "receive_time": 1716904471.5115,
+    "_doc": "1570fdfd-730f-4867-89d1-223ab07be6f2"
+  },
+  {
+    "BTCSTUSDT@perpetual@binance": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 13:54:31",
+    "receive_time": 1716904471.5061932,
+    "_doc": "b6512495-ff9e-4cd1-ba48-8d95e7aef3a3"
+  }
+]
