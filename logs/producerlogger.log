@@ -135,3 +135,89 @@ asyncio.exceptions.CancelledError
 2024-05-28 13:55:23,963 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_oi_btcoifutureperp' already exists."}
 2024-05-28 13:55:23,963 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_funding_btcfundperp' already exists."}
 2024-05-28 13:55:23,963 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_gta_btcposfutureperp' already exists."}
+2024-05-28 14:17:11,008 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_funding_btcfundperp' already exists."}
+2024-05-28 14:17:11,017 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_oi_btcoifutureperp' already exists."}
+2024-05-28 14:17:11,017 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_gta_btcposfutureperp' already exists."}
+2024-05-28 14:17:11,017 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_funding_btcfundperp' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_oi_btcoifutureperp' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_gta_btcposfutureperp' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_option_option_oioption_btc' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:17:11,018 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_gta_btc' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_option_oi_btcusd' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'deribit_api_future_oifunding_btc' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'deribit_api_option_oifunding_btc' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bitget_api_perpetual_funding_BTCfundperp' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bitget_api_perpetual_oi_BTCoifutureperp' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_funding_btcusdt' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_oi_btcusdt' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_depth_btcusdt' already exists."}
+2024-05-28 14:17:11,019 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'kucoin_api_perpetual_oifunding_xbtusdtm' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_tta_btcposfutureperp' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_option_oi_btcusdt' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'mexc_api_perpetual_oifunding_btcusdt' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:17:11,020 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_gta_btcposfutureperp' already exists."}
+2024-05-28 14:17:20,117 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_gta, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError
+2024-05-28 14:17:20,128 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_tta, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError
+2024-05-28 14:17:20,129 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_ttp, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError
+2024-05-28 14:24:33,514 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_funding_btcfundperp' already exists."}
+2024-05-28 14:24:33,515 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_oi_btcoifutureperp' already exists."}
+2024-05-28 14:24:33,515 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_gta_btcposfutureperp' already exists."}
+2024-05-28 14:24:33,515 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_option_option_oi_btcoioption' already exists."}
+2024-05-28 14:24:33,516 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_funding_btcfundperp' already exists."}
+2024-05-28 14:24:33,516 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_oi_btcoifutureperp' already exists."}
+2024-05-28 14:24:33,517 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_gta_btcposfutureperp' already exists."}
+2024-05-28 14:24:33,517 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_option_option_oioption_btc' already exists."}
+2024-05-28 14:24:33,517 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:24:33,517 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:24:33,517 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_gta_btc' already exists."}
+2024-05-28 14:24:33,518 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_option_oi_btcusd' already exists."}
+2024-05-28 14:24:33,518 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'deribit_api_future_oifunding_btc' already exists."}
+2024-05-28 14:24:33,518 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'deribit_api_option_oifunding_btc' already exists."}
+2024-05-28 14:24:33,518 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bitget_api_perpetual_funding_BTCfundperp' already exists."}
+2024-05-28 14:24:33,518 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bitget_api_perpetual_oi_BTCoifutureperp' already exists."}
+2024-05-28 14:24:33,519 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_funding_btcusdt' already exists."}
+2024-05-28 14:24:33,519 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_oi_btcusdt' already exists."}
+2024-05-28 14:24:33,519 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_api_perpetual_depth_btcusdt' already exists."}
+2024-05-28 14:24:33,519 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'kucoin_api_perpetual_oifunding_xbtusdtm' already exists."}
+2024-05-28 14:24:33,519 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:24:33,520 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:24:33,520 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_perpetual_tta_btcposfutureperp' already exists."}
+2024-05-28 14:24:33,520 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'gateio_api_option_oi_btcusdt' already exists."}
+2024-05-28 14:24:33,520 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'mexc_api_perpetual_oifunding_btcusdt' already exists."}
+2024-05-28 14:24:33,520 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_oi_btcoifutureperp' already exists."}
+2024-05-28 14:24:33,521 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_funding_btcfundperp' already exists."}
+2024-05-28 14:24:33,521 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'htx_api_perpetual_gta_btcposfutureperp' already exists."}
+2024-05-28 14:24:42,571 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_ttp, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError
+2024-05-28 14:24:42,580 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_tta, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError
+2024-05-28 14:24:42,580 - OriginHub.SupplyEngine - ERROR - Couldn't cancel caroutine of binance_posfutureperp_BTC_BTCSTUSDT_gta, message: 
+Traceback (most recent call last):
+  File "/workspaces/fastmoonStreams/OriginHub/ApiMixer.py", line 79, in _hault_coroutine
+    await task_to_remove
+asyncio.exceptions.CancelledError

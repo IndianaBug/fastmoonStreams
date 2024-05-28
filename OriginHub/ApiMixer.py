@@ -284,11 +284,17 @@ class CommonFunctionality:
         topic_name = self.connection_data.get("topic_name")
         pull_timeout = self.connection_data.get("pullTimeout")
         fetch_method = self._build_fetching_method(exchange, margin_type, objective, instrument, special_param, special_method)
-        
         symbol_check_tries = 0
         
         while self.running.get(id_instrument):
+            
             data = await fetch_method()
+            if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
+                data = objective + data
+            if exchange == "gateio":
+                data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
+                
+            
             await self.send_message_to_topic(topic_name, data)
             # -------
             # print(data)

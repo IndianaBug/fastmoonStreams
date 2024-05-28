@@ -1,0 +1,160 @@
+[
+  {
+    "BTC240531@perpetual@htx": {
+      "oi": 0.11007022186634481
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "_doc": "003e0302-df19-4b64-bbd4-34f3f75ce9c6"
+  },
+  {
+    "BTC240531@perpetual@htx": {
+      "oi": 0.11013445507968007
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "_doc": "1cf729d2-42c1-4ac2-ad90-8d259046b066"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.04241602249160784
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "7e2edf31-93c9-462e-b392-29086556bac1"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.04243127085167754
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "4d0ba5c1-fd91-49b3-94b9-7790062e3795"
+  },
+  {
+    "BTC240628@perpetual@htx": {
+      "oi": 15.87253452316352
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "fbc27ec5-66e7-479a-b23e-d5ec2ec515fd"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 617.5059547308374
+    },
+    "timestamp": "2024-05-28 15:21:24",
+    "_doc": "2578606e-2f95-4693-ac0d-110c256e57bb"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 617.1923015429478
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "_doc": "116ed10d-9c31-4b2b-9d08-9d077fdda239"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 617.1923015429478
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "_doc": "6929323f-cc7a-4ac1-9cd1-7aefe7933034"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "oi": 6375.555
+    },
+    "BTC-USDT-240607@future@htx": {
+      "oi": 0.78
+    },
+    "BTC-USDT-240531@future@htx": {
+      "oi": 4.772
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "_doc": "109e2e1b-fc6e-4752-b2b0-879a2c444d3f"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.04241602249160784
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "_doc": "86e34702-5153-4f00-ae2d-c1fd35730fdf"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.04239192179538267
+    },
+    "timestamp": "2024-05-28 15:21:21",
+    "_doc": "81a02508-74c1-4a14-ba2e-a32939c1e6cd"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.035079590475014195
+    },
+    "timestamp": "2024-05-28 15:21:20",
+    "_doc": "0b76ce03-fdbf-4f53-98bf-a2d2cdf07818"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "oi": 6374.697
+    },
+    "BTC-USDT-240607@future@htx": {
+      "oi": 0.786
+    },
+    "BTC-USDT-240531@future@htx": {
+      "oi": 4.764
+    },
+    "timestamp": "2024-05-28 15:21:19",
+    "_doc": "71ce58cb-af2a-4711-9f84-bc4a8d8c5422"
+  },
+  {
+    "BTC240628@perpetual@htx": {
+      "oi": 15.856136668765858
+    },
+    "timestamp": "2024-05-28 15:21:18",
+    "_doc": "ec40ba2c-7e2a-4ddc-b44c-83daaa8536de"
+  },
+  {
+    "BTC240531@perpetual@htx": {
+      "oi": 0.11160291448074247
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "_doc": "e9601ce9-89a7-41dc-838b-046731878217"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 617.288152501445
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "_doc": "7ee1c3ae-7b89-4e8b-ab31-ba1e664458ef"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "oi": 6375.901
+    },
+    "BTC-USDT-240607@future@htx": {
+      "oi": 0.78
+    },
+    "BTC-USDT-240531@future@htx": {
+      "oi": 4.81
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "_doc": "d4fb50e0-f808-41bd-a1f8-d7d3bf349581"
+  },
+  {
+    "BTC240531@perpetual@htx": {
+      "oi": 0.11306410176591443
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "_doc": "6dd6b8a8-0d73-49a1-a871-08eb144b4d01"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 617.1923015429478
+    },
+    "timestamp": "2024-05-28 15:21:14",
+    "_doc": "575f48a5-d286-4344-8c8f-e7cdf943b2dc"
+  },
+  {
+    "BTC240628@perpetual@htx": {
+      "oi": 15.852429562837257
+    },
+    "timestamp": "2024-05-28 15:21:13",
+    "_doc": "bdc82e2d-cba2-4423-8903-71ce6b555d79"
+  }
+]

@@ -1,0 +1,452 @@
+[
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "receive_time": 1716909686.8542695,
+    "_doc": "b49edc58-ea80-4c8a-aea2-c49b52008b44"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "receive_time": 1716909686.2912955,
+    "_doc": "2d628e4e-8198-4737-a2de-65c839257db4"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "receive_time": 1716909685.7692711,
+    "_doc": "36d34c85-88ff-4a81-81ac-d1fe643929f3"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "receive_time": 1716909685.4215605,
+    "_doc": "b26a816a-e535-475d-ac7e-5f08584344da"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "receive_time": 1716909685.1368687,
+    "_doc": "bade7beb-feee-4aef-9f79-088bbecaeacf"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 15:21:24",
+    "receive_time": 1716909684.7986515,
+    "_doc": "cdcd32b5-f69f-44a0-9546-003d91d5c9e6"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "receive_time": 1716909683.7288857,
+    "_doc": "58c52123-d8dd-4869-9064-9213d1d77409"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "receive_time": 1716909683.340861,
+    "_doc": "2d3b0ca5-a7d1-4014-9e27-06737a834813"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "receive_time": 1716909682.8567684,
+    "_doc": "94e268d6-f854-4fa1-9cce-723db5c65ddb"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "receive_time": 1716909682.2420943,
+    "_doc": "7dc473c4-9947-4f90-bef0-0f3bece0adea"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:21",
+    "receive_time": 1716909681.483569,
+    "_doc": "0f43c58d-9ccf-47b4-a1f0-fa262ddbb56b"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:20",
+    "receive_time": 1716909680.8657606,
+    "_doc": "dfc6c2de-58ee-47e3-84e3-9c6ce284a328"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 15:21:19",
+    "receive_time": 1716909679.4157116,
+    "_doc": "7ae33baa-1b2a-451d-9567-54a35be6a98e"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 15:21:18",
+    "receive_time": 1716909678.417172,
+    "_doc": "a944c3ac-cd3e-4bb6-b005-a3acd9c374b7"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "receive_time": 1716909677.6669614,
+    "_doc": "1189993e-4f84-4a37-9fab-4f4d3cd313a6"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "receive_time": 1716909677.2372098,
+    "_doc": "1e1e1b8f-2c87-419c-ad64-01497a03120c"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "receive_time": 1716909676.7419534,
+    "_doc": "6fe28c9b-e36b-49e0-afc8-d422e425e126"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "receive_time": 1716909676.3070025,
+    "_doc": "ffad8aa2-d053-41ab-9a3e-a5116966c41b"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "receive_time": 1716909676.0166247,
+    "_doc": "e0b259ce-eaca-45b1-bfde-49c164f65a6c"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 15:21:13",
+    "receive_time": 1716909673.9881356,
+    "_doc": "4ae12b8e-f116-467b-905a-24407935b3f9"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:25:16",
+    "receive_time": 1716906316.1600733,
+    "_doc": "7709eaf5-c5f0-4697-8e55-b0c7999856b9"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:25:16",
+    "receive_time": 1716906316.1532013,
+    "_doc": "0f5276a3-ad55-478a-abc3-0116e72a130c"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:25:16",
+    "receive_time": 1716906316.1456842,
+    "_doc": "2a0cf328-6240-4f78-95e5-107de20fb275"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:25:16",
+    "receive_time": 1716906316.1384592,
+    "_doc": "90521d60-3f4d-4fca-bf33-8c1d9def6e77"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:25:16",
+    "receive_time": 1716906316.1254888,
+    "_doc": "f589511e-f802-4d71-8bb5-339c5496a358"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:25:00",
+    "receive_time": 1716906300.965684,
+    "_doc": "aaadb6b8-aeea-4b59-be2a-07d2eb3cd71f"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:25:00",
+    "receive_time": 1716906300.9607582,
+    "_doc": "38d80a4b-949f-4af5-842d-07bb3ffa3a44"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:25:00",
+    "receive_time": 1716906300.9524837,
+    "_doc": "cb60b2b3-6a28-425b-8aad-097fb72c1e7d"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:25:00",
+    "receive_time": 1716906300.9418898,
+    "_doc": "06e28954-619f-4e61-92f6-08ed78e2a724"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:25:00",
+    "receive_time": 1716906300.930825,
+    "_doc": "cb7ef543-6923-485e-ba8f-7c3434efb24d"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:24:45",
+    "receive_time": 1716906285.7555187,
+    "_doc": "ebd9de25-afe5-4c7d-a36b-e71ade2353e3"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:24:45",
+    "receive_time": 1716906285.7521174,
+    "_doc": "d8fab6b8-fd1d-4454-8cf5-a37b5c6188a3"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:24:45",
+    "receive_time": 1716906285.7499084,
+    "_doc": "db69330e-c8ac-4ec1-b437-6ee7b92bad00"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:24:45",
+    "receive_time": 1716906285.7389262,
+    "_doc": "8981efb5-f141-4575-b5c3-c7d62903fd39"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:24:45",
+    "receive_time": 1716906285.736126,
+    "_doc": "d86179c6-c673-439a-bb96-db8b64781da4"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:54",
+    "receive_time": 1716905874.2922428,
+    "_doc": "4b5c73f5-a5dc-455c-a810-3df3c965d1f8"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:53",
+    "receive_time": 1716905873.9639854,
+    "_doc": "0e8e5dea-bff7-40f1-bcb5-417526d57f1f"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:17:53",
+    "receive_time": 1716905873.6449163,
+    "_doc": "88859921-ae90-4717-a099-525beb336392"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:17:53",
+    "receive_time": 1716905873.6389213,
+    "_doc": "da7d6644-95d0-4291-b278-e61500e23616"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:17:53",
+    "receive_time": 1716905873.6328664,
+    "_doc": "32527d7a-a001-46ba-96ea-2fb029267884"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:38",
+    "receive_time": 1716905858.7684536,
+    "_doc": "248e4f6a-9444-4ef7-9016-680cd468a905"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:38",
+    "receive_time": 1716905858.760174,
+    "_doc": "8ab59eb1-c11a-4990-ab22-28d62eb6d765"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:17:38",
+    "receive_time": 1716905858.4528422,
+    "_doc": "05b843eb-a67b-4645-8cd1-61a56b9846d0"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:17:38",
+    "receive_time": 1716905858.444907,
+    "_doc": "38a091c4-09a1-481d-8acb-be7e06bee493"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:17:38",
+    "receive_time": 1716905858.4351256,
+    "_doc": "7eca13a4-b5fc-4b30-9dbb-d4d7d7bd78a6"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:23",
+    "receive_time": 1716905843.5845315,
+    "_doc": "4bb111ca-2c38-4958-8eca-d9f8e1f0bf4a"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5649,
+      "gta_short_ratio": 0.4351
+    },
+    "timestamp": "2024-05-28 14:17:23",
+    "receive_time": 1716905843.2558863,
+    "_doc": "a9e017af-bed3-40bc-bbb7-5bb2dcc9f48f"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.5919,
+      "gta_short_ratio": 0.4081
+    },
+    "timestamp": "2024-05-28 14:17:23",
+    "receive_time": 1716905843.2509203,
+    "_doc": "8fa0db21-5871-4e90-acf8-b58f5433198f"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5684,
+      "gta_short_ratio": 0.4316
+    },
+    "timestamp": "2024-05-28 14:17:23",
+    "receive_time": 1716905843.2436283,
+    "_doc": "d6c6eae1-c25a-4c27-bccb-31c04bb7c5ca"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.567,
+      "gta_short_ratio": 0.433
+    },
+    "timestamp": "2024-05-28 14:17:23",
+    "receive_time": 1716905843.2387152,
+    "_doc": "7a8f8359-afe0-4fc8-9048-29f7e781706a"
+  }
+]

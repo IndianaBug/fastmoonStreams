@@ -1,0 +1,142 @@
+[
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.00016597380610169
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "_doc": "65f79306-4586-48c6-9573-896174fe61cc"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:26",
+    "_doc": "c288e203-e57c-4503-bbd6-a97efa259365"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000161361406437059
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "f63b043b-8474-4c88-be5d-8ddea55ec3da"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "f0ffe64e-9d30-409d-b5ec-ac1b2d72e5bc"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000166489883214697
+    },
+    "timestamp": "2024-05-28 15:21:25",
+    "_doc": "17774b18-cc86-418f-b0bd-f83f58dd3487"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:24",
+    "_doc": "90647980-9d83-4bda-8aa9-86141f5e8831"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000164443889841949
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "_doc": "37f65cf1-1eb1-4200-b34d-ecbae631d494"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000160979130542268
+    },
+    "timestamp": "2024-05-28 15:21:23",
+    "_doc": "35d8e11e-0fc4-478a-8ca5-df318a532acc"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "_doc": "a8770b78-2042-4074-87d4-279d3864c18a"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:22",
+    "_doc": "75f222fc-6623-475b-9092-619bf6cde646"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000162923493964938
+    },
+    "timestamp": "2024-05-28 15:21:21",
+    "_doc": "c17ed9d5-c136-4570-833c-1e8b14e85cac"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.00016161520414788
+    },
+    "timestamp": "2024-05-28 15:21:20",
+    "_doc": "4d4d83ae-8898-474d-afc4-23655f284489"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000165887902254404
+    },
+    "timestamp": "2024-05-28 15:21:19",
+    "_doc": "61e3d287-0d0e-46d9-917c-24dded618e50"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000163890657895846
+    },
+    "timestamp": "2024-05-28 15:21:18",
+    "_doc": "47fcaf54-228b-456a-bab4-cbdf35edc887"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "_doc": "3bbf31f9-afc8-40fb-adba-d3543e4f8dee"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:17",
+    "_doc": "0c6d86fb-b1f2-40f5-a73a-1650f2d50522"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "_doc": "48965605-f244-4e24-8f66-3456b53363c7"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.000162830746040334
+    },
+    "timestamp": "2024-05-28 15:21:16",
+    "_doc": "c4f7977e-9be3-4cb7-ae52-6b8ac4ccc0a5"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "funding": 0.00016325743536763
+    },
+    "timestamp": "2024-05-28 15:21:14",
+    "_doc": "4eefe6fd-7efd-4e35-98d2-4b83a83ffa26"
+  },
+  {
+    "BTC-USDT@perpetual@htx": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-05-28 15:21:14",
+    "_doc": "715ee72f-dee5-44c0-839c-6910fb62b7a1"
+  }
+]

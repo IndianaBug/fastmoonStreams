@@ -332,9 +332,10 @@ class binance_on_message(on_message_helper):
         instruments_data["receive_time"] = time.time()
         return instruments_data
         
-    async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:str, market_state:dict, connection_data:str, key:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
+    async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         pos_data = {}
-        objective = key.split("_")[-1]
+        objective = data[:2]
+        data = data[2:]
         data_position = json.loads(data)
         if  data_position != []:
             data_position = data_position[0]
@@ -992,10 +993,11 @@ class deribit_on_message(on_message_helper):
         fundings = {}
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.item.instrument_name":
-                this_symbol = value
-                instType = "future" if any(char.isdigit() for char in value.split("-")[-1]) else "perpetual"
-                msids.append(f"{value}@{instType}@deribit")
-                symbols.append(value)
+                if value != None:
+                    this_symbol = value
+                    instType = "future" if any(char.isdigit() for char in value.split("-")[-1]) else "perpetual"
+                    msids.append(f"{value}@{instType}@deribit")
+                    symbols.append(value)
             if prefix == "result.item.mid_price":
                 if value != None:
                     prices.append(float(value))
@@ -1376,7 +1378,7 @@ class htx_on_message(on_message_helper):
         """
         pass
 
-    async def htx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, marginType, *args, **kwargs):
+    async def htx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
         data_per_marginType = json.loads(data).get("data")
         for data_instrument in data_per_marginType:
@@ -1393,9 +1395,9 @@ class htx_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def htx_api_perpetual_pos_posfutureperp_gta(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
+    async def htx_api_perpetual_pos_posfutureperp_gta(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
-        indicator_type = instrument.split("_")[-1]
+        indicator_type = "gta"
         pos_data = json.loads(data).get("data")
         if "contract_code" in pos_data:
             symbol = pos_data.get("contract_code")
@@ -1417,7 +1419,7 @@ class htx_on_message(on_message_helper):
         d["timestamp"] = self.process_timestamp_no_timestamp()
         return d
 
-    async def htx_api_perpetual_funding_fundperp(self, data:str, market_state:dict, connection_data:str, marginCoin, *args, **kwargs):
+    async def htx_api_perpetual_funding_fundperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
         instData = json.loads(data).get("data")[0]
         funding = float(instData.get("funding_rate"))
@@ -1795,12 +1797,15 @@ class gateio_on_message(on_message_helper):
             }
         return instruments_data
     
-    async def gateio_api_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
         ddd = {}
-        str_data = data
+        data_dict = json.loads(data)
+        str_data = data_dict.get("data")
+        instrument = data_dict.get("instrument")
+        
         if "open_interest_usd" in str_data:
             instrument_data = json.loads(str_data)[0]
             price = instrument_data.get("mark_price")
@@ -1824,19 +1829,22 @@ class gateio_on_message(on_message_helper):
         ddd["timestamp"] = self.process_timestamp_no_timestamp()         
         return ddd
 
-    async def gateio_api_perpetual_future_tta(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_future_tta(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/apiv4/en/#futures-stats
         """
         ddd = {}
-        instrument_data = json.loads(data)[0]
+        
+        data_dict = json.loads(data)
+        
+        instrument_data = data_dict.get("data")[0]
         price = instrument_data.get("mark_price")
         oi = instrument_data.get("open_interest_usd") / price
         lsr_taker = instrument_data.get("lsr_taker") # Long/short taker size ratio
         lsr_account = instrument_data.get("lsr_account")   # Long/short account number ratio
         top_lsr_account = instrument_data.get("top_lsr_account") # Top trader long/short account ratio
         top_lsr_size = instrument_data.get("top_lsr_size")   #  	Top trader long/short position ratio
-        symbol = instrument
+        symbol = data_dict.get("instrument")
         msid = f"{symbol}@perpetual@gateio"
         ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "price" : price}
         if msid not in market_state:
