@@ -711,11 +711,11 @@ class okx_on_message(on_message_helper):
         """
         """
         d = {}
-        oidata = json.loads(data)
-        symbol = oidata.get("data")[0].get("instId")
+        funddata = json.loads(data).get("data")[0]
+        symbol = funddata.get("instId")
         instType = get_okx_insttype(symbol)
         msid = f"{symbol}@{instType}@okx"
-        funding = float(oidata.get("data")[0].get("fundingRate"))
+        funding = float(funddata.get("fundingRate"))
         d[msid] = {"funding" : funding}
         if msid not in market_state:
             market_state[msid] = {}

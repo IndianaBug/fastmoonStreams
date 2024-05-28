@@ -289,8 +289,9 @@ class CommonFunctionality:
         while self.running.get(id_instrument):
             
             data = await fetch_method()
+            
             if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
-                data = objective + data
+                data = json.dumps({"data" : json.loads(data), "objective" : objective})
             if exchange == "gateio":
                 data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
                 
