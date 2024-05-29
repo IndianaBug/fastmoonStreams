@@ -162,7 +162,7 @@ bybit_api_perpetual_linear_oi_btcoifutureperp 3 26
 okx_api_perpetual_funding_btcfundperp 0 4
 __consumer_offsets 3 0
 binance_api_perpetual_inverse_gta_btcposfutureperp 4 44
-__consumer_offsets 36 0
+__consumer_offsets 36 542
 bybit_api_option_option_oioption_btc 2 2
 bingx_api_perpetual_funding_btcusdt 1 1
 binance_api_perpetual_inverse_oi_btcoifutureperp 4 16
