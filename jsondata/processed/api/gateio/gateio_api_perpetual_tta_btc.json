@@ -1,0 +1,46 @@
+[
+  {
+    "BTC_USD@perpetual@gateio": {
+      "ttp_size_ratio": 0.9066780328607402,
+      "tta_ratio": 1.763157894736842,
+      "gta_ratio": 2.7204301075268815,
+      "gta_size_ratio": 0,
+      "price": 67858.86
+    },
+    "timestamp": "2024-05-29 14:20:46",
+    "_doc": "efd38221-d8d9-4b83-95eb-b7bd2aa68fd6"
+  },
+  {
+    "BTC_USDT@perpetual@gateio": {
+      "ttp_size_ratio": 0,
+      "tta_ratio": 0,
+      "gta_ratio": 1.874549819927971,
+      "gta_size_ratio": 0,
+      "price": 67921.43
+    },
+    "timestamp": "2024-05-29 14:20:46",
+    "_doc": "05486235-b473-4fe8-b47a-a944cd22c319"
+  },
+  {
+    "BTC_USD@perpetual@gateio": {
+      "ttp_size_ratio": 0.9066780328607402,
+      "tta_ratio": 1.763157894736842,
+      "gta_ratio": 2.7204301075268815,
+      "gta_size_ratio": 3.170886075949367,
+      "price": 67858.86
+    },
+    "timestamp": "2024-05-29 14:20:25",
+    "_doc": "75086b7c-e184-4fca-8815-b59e4bace8f3"
+  },
+  {
+    "BTC_USDT@perpetual@gateio": {
+      "ttp_size_ratio": 0,
+      "tta_ratio": 0,
+      "gta_ratio": 1.874549819927971,
+      "gta_size_ratio": 0.8286073068320057,
+      "price": 67921.43
+    },
+    "timestamp": "2024-05-29 14:20:25",
+    "_doc": "865bbf40-d36a-4799-ac79-6960a1444e98"
+  }
+]

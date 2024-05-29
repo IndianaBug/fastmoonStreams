@@ -40,6 +40,8 @@ class CommonFunctionality:
         self._objectives = []
         self._tasks = {}
         self.running = {"coroutine_orchestrator" : False, "calibrate_instruments" : False}
+        
+        self.symbol_check_tries = 0
 
         
         
@@ -270,13 +272,20 @@ class CommonFunctionality:
         return fetch_method
     
     
-    async def _cancel_empty_coroutines(self, message, id_instrument, exchange):
+    async def _cancel_empty_coroutines(self, message, id_instrument, exchange, objective):
         message_encoded = message.encode("utf-8")
         size = sys.getsizeof(message_encoded)
         if exchange == "binance" and size < 40:
             await self._hault_coroutine(id_instrument)
+        if exchange == "binance" and objective == "oi":
+            message = json.loads(message)
+            if message.get("data") == []:
+                await self._hault_coroutine(id_instrument)
+        if exchange == "bitget" and objective=="funding":
+            message = json.loads(message)
+            if message.get("data") == []:
+                await self._hault_coroutine(id_instrument)
 
-    @errors_aiohttp
     async def _asyncronous_data_stream(self, id_instrument, exchange, margin_type, objective, instrument, special_param, special_method):
 
         """ Creates fetching coroutine for a specific symbol """
@@ -284,30 +293,28 @@ class CommonFunctionality:
         topic_name = self.connection_data.get("topic_name")
         pull_timeout = self.connection_data.get("pullTimeout")
         fetch_method = self._build_fetching_method(exchange, margin_type, objective, instrument, special_param, special_method)
-        symbol_check_tries = 0
         
         while self.running.get(id_instrument):
             
             data = await fetch_method()
             
-            if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
-                data = json.dumps({"data" : json.loads(data), "objective" : objective})
-            if exchange == "gateio":
-                data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
+            # if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
+            #     data = json.dumps({"data" : json.loads(data), "objective" : objective})
+            # if exchange == "gateio":
+            #     data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
                 
-            
             await self.send_message_to_topic(topic_name, data)
             # -------
             # print(data)
             message_encoded = data.encode("utf-8")
             print(sys.getsizeof(message_encoded), id_instrument)
             # -------
-            if symbol_check_tries < 5:
-                await self._cancel_empty_coroutines(data, id_instrument, exchange)
-                symbol_check_tries += 1
-            
+            if self.symbol_check_tries < 5:
+                await self._cancel_empty_coroutines(data, id_instrument, exchange, objective)
+                self.symbol_check_tries += 1
             await asyncio.sleep(pull_timeout)
             
+                        
 class binance_aoihttp_oioption_manager(CommonFunctionality):
     
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
@@ -329,6 +336,7 @@ class binance_aoihttp_oioption_manager(CommonFunctionality):
             self._instruments["option"] = expiries
             self._instruments_to_remove["option"] = instruments_to_remove
             self._instruments_to_add["option"] = instruments_to_add
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
 
 class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
@@ -362,6 +370,7 @@ class binance_aoihttp_posfutureperp_manager(CommonFunctionality):
                 self._instruments_to_add["inverse"] = []
             if self._inverse_count == 0:
                 self._inverse_count += 1
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
             
 class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
@@ -402,6 +411,7 @@ class binance_aoihttp_oifutureperp_manager(CommonFunctionality):
             self._instruments_to_remove["inverse"] = instruments_to_remove
             self._instruments_to_add["inverse"] = instruments_to_add
                         
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
             
 class binance_aoihttp_fundperp_manager(CommonFunctionality):
@@ -443,6 +453,7 @@ class binance_aoihttp_fundperp_manager(CommonFunctionality):
             self._instruments_to_remove["inverse"] = instruments_to_remove
             self._instruments_to_add["inverse"] = instruments_to_add
                                     
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
                 
 class bybit_aoihttp_oifutureperp_manager(CommonFunctionality):
@@ -479,7 +490,8 @@ class bybit_aoihttp_oifutureperp_manager(CommonFunctionality):
             self._instruments_to_remove["inverse"] = instruments_to_remove
             self._instruments_to_add["inverse"] = instruments_to_add
                                                 
-            await asyncio.sleep(symbols_update_interval)                
+            self.symbol_check_tries = 0
+            await asyncio.sleep(symbols_update_interval)            
 
 class bybit_aoihttp_posfutureperp_manager(CommonFunctionality):
     
@@ -517,7 +529,8 @@ class bybit_aoihttp_posfutureperp_manager(CommonFunctionality):
             self._instruments_to_remove["inverse"] = instruments_to_remove
             self._instruments_to_add["inverse"] = instruments_to_add
                                                 
-            await asyncio.sleep(symbols_update_interval)   
+            self.symbol_check_tries = 0
+            await asyncio.sleep(symbols_update_interval)
 
 class bybit_aoihttp_fundperp_manager(CommonFunctionality):
     
@@ -559,7 +572,8 @@ class bybit_aoihttp_fundperp_manager(CommonFunctionality):
             self._instruments_to_remove["inverse"] = instruments_to_remove
             self._instruments_to_add["inverse"] = instruments_to_add
                                                 
-            await asyncio.sleep(symbols_update_interval)   
+            self.symbol_check_tries = 0
+            await asyncio.sleep(symbols_update_interval)
 
 class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
     
@@ -593,6 +607,7 @@ class okx_aoihttp_oifutureperp_manager(CommonFunctionality):
             self._instruments_to_remove["future"] = instruments_to_remove
             self._instruments_to_add["future"] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
             
 class okx_aoihttp_fundperp_manager(CommonFunctionality):
@@ -618,6 +633,7 @@ class okx_aoihttp_fundperp_manager(CommonFunctionality):
             self._instruments_to_remove["perpetual"] = instruments_to_remove
             self._instruments_to_add["perpetual"] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
             
 class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
@@ -645,6 +661,7 @@ class bitget_aoihttp_oifutureperp_manager(CommonFunctionality):
             self._instruments_to_remove["perpetual"] = instruments_to_remove
             self._instruments_to_add["perpetual"] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
         
 class bitget_aoihttp_fundperp_manager(CommonFunctionality):
@@ -672,6 +689,7 @@ class bitget_aoihttp_fundperp_manager(CommonFunctionality):
             self._instruments_to_remove["perpetual"] = instruments_to_remove
             self._instruments_to_add["perpetual"] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
 
 class gateio_aoihttp_fundperp_manager(CommonFunctionality):
@@ -699,6 +717,7 @@ class gateio_aoihttp_fundperp_manager(CommonFunctionality):
                 self._instruments_to_remove[margin_type] = instruments_to_remove
                 self._instruments_to_add[margin_type] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
 
 class gateio_aoihttp_oifutureperp_manager(CommonFunctionality):
@@ -726,6 +745,7 @@ class gateio_aoihttp_oifutureperp_manager(CommonFunctionality):
                 self._instruments_to_remove[margin_type] = instruments_to_remove
                 self._instruments_to_add[margin_type] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
 
 class gateio_aoihttp_posfutureperp_manager(CommonFunctionality):
@@ -753,6 +773,7 @@ class gateio_aoihttp_posfutureperp_manager(CommonFunctionality):
                 self._instruments_to_remove[margin_type] = instruments_to_remove
                 self._instruments_to_add[margin_type] = instruments_to_add
                                                             
+            self.symbol_check_tries = 0
             await asyncio.sleep(symbols_update_interval)
 
 class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
@@ -774,6 +795,7 @@ class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
         self._instruments["future"] = self.inverse_future_contract_types_htx
         self._instruments["linear"] = ["-USDT.LinearPerpetual"]
         self._instruments["inverse"] = ["-USD"]
+        
 
 class htx_aiohttp_fundperp_manager(CommonFunctionality):
     

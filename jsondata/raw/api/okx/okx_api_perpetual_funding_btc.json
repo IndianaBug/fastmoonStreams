@@ -1,0 +1,170 @@
+[
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "oi": "2469407",
+        "oiCcy": "246.9407",
+        "ts": "1716992457015"
+      }
+    ],
+    "msg": "",
+    "_doc": "ba69253f-5ad1-426d-9faa-65b489deef64"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "oi": "2363693.99999999964",
+        "oiCcy": "23636.9399999999964",
+        "ts": "1716992457048"
+      }
+    ],
+    "msg": "",
+    "_doc": "0c255c44-3ab2-42b6-a80b-8df4e74155d7"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "oi": "8390193",
+        "oiCcy": "12362.4258676705688206",
+        "ts": "1716992457046"
+      }
+    ],
+    "msg": "",
+    "_doc": "ba750711-b91b-470c-bf91-aa909486f941"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "oi": "2363744.59999999948",
+        "oiCcy": "23637.4459999999948",
+        "ts": "1716992441775"
+      }
+    ],
+    "msg": "",
+    "_doc": "44f8ad94-3a3d-477d-b762-2e74768182d0"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "oi": "8391081",
+        "oiCcy": "12366.1029688087185269",
+        "ts": "1716992441774"
+      }
+    ],
+    "msg": "",
+    "_doc": "a6d71ccd-5275-4c0d-ab35-3918114ca9b4"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "oi": "2470531",
+        "oiCcy": "247.0531",
+        "ts": "1716992441770"
+      }
+    ],
+    "msg": "",
+    "_doc": "67e69b94-925a-4359-b612-b386a2ecad99"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "oi": "2471262",
+        "oiCcy": "247.1262",
+        "ts": "1716992426510"
+      }
+    ],
+    "msg": "",
+    "_doc": "b72651e9-2621-4e89-91fe-a3bd2b76be24"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "oi": "2363610.69999999952",
+        "oiCcy": "23636.1069999999952",
+        "ts": "1716992426508"
+      }
+    ],
+    "msg": "",
+    "_doc": "fc4988ea-8d01-46d5-a9fe-75c3449b595d"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "oi": "8390599",
+        "oiCcy": "12372.2483297182602233",
+        "ts": "1716992426510"
+      }
+    ],
+    "msg": "",
+    "_doc": "8f5bad25-43fa-4b6b-b3d1-0c6f3b37e3a5"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "oi": "8390599",
+        "oiCcy": "12367.1423033668946834",
+        "ts": "1716992411252"
+      }
+    ],
+    "msg": "",
+    "_doc": "46c4d57f-fc04-447b-9026-b2182e0fccc2"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "oi": "2363643.99999999952",
+        "oiCcy": "23636.4399999999952",
+        "ts": "1716992411250"
+      }
+    ],
+    "msg": "",
+    "_doc": "56a737d0-db96-41fd-a5b8-2d0c97fb2df8"
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "oi": "2469047",
+        "oiCcy": "246.9047",
+        "ts": "1716992411245"
+      }
+    ],
+    "msg": "",
+    "_doc": "9f4b441b-c4c1-42be-9058-76c1c64d8cae"
+  }
+]

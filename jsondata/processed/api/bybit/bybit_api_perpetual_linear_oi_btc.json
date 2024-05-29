@@ -1,0 +1,418 @@
+[
+  {
+    "BTC-31MAY24@future@bybit": {
+      "oi": 87.154
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.52213,
+    "_doc": "4d1ce45d-a941-4bab-8cc5-d3e2e36c5667"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "oi": 10.48169866
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.48897,
+    "_doc": "7f576da4-21bd-4643-aea8-84f8c6d020ec"
+  },
+  {
+    "BTC-28JUN24@future@bybit": {
+      "oi": 263.108
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.2040937,
+    "_doc": "19ed951b-53d5-4de6-a171-a2dcbb854449"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "oi": 0.11106049
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.1926374,
+    "_doc": "13ff7d27-6a10-4f06-b9cc-dc3e43dd24c9"
+  },
+  {
+    "BTC-07JUN24@future@bybit": {
+      "oi": 8.186
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.1753995,
+    "_doc": "b23cacaf-caa5-4b6d-ab77-b616ba78050c"
+  },
+  {
+    "BTC-28MAR25@future@bybit": {
+      "oi": 52.962
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.1660964,
+    "_doc": "0f2f8f56-fca9-4f4c-9db3-00ea08d59bee"
+  },
+  {
+    "BTC-14JUN24@future@bybit": {
+      "oi": 15.102
+    },
+    "timestamp": "2024-05-29 14:20:53",
+    "receive_time": 1716992453.1603696,
+    "_doc": "030b91b5-416f-4e2c-b8c3-38f8c2663b63"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "oi": 0.21825728
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8630035,
+    "_doc": "68bcc881-5952-446e-8dbc-3ff7218db31b"
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "oi": 823.314
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8564463,
+    "_doc": "420d99d1-6bc1-4119-b980-5159c044275b"
+  },
+  {
+    "BTC-26JUL24@future@bybit": {
+      "oi": 36.076
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8484135,
+    "_doc": "b50df648-1410-47ab-952e-80b33850af98"
+  },
+  {
+    "BTC-27SEP24@future@bybit": {
+      "oi": 85.766
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8431866,
+    "_doc": "689d296d-e890-4aac-b583-70ba825557e7"
+  },
+  {
+    "BTC-27DEC24@future@bybit": {
+      "oi": 145.454
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8350904,
+    "_doc": "46d03d7a-fc90-4b02-aaf2-cdc16c2c1861"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "oi": 58722.76
+    },
+    "timestamp": "2024-05-29 14:20:52",
+    "receive_time": 1716992452.8068662,
+    "_doc": "0eeda45c-ee4d-43f4-9ff6-610ab99341e4"
+  },
+  {
+    "BTC-31MAY24@future@bybit": {
+      "oi": 87.154
+    },
+    "timestamp": "2024-05-29 14:20:38",
+    "receive_time": 1716992438.3334177,
+    "_doc": "2d454cc9-e006-492e-80b7-a97c46ab3af6"
+  },
+  {
+    "BTC-07JUN24@future@bybit": {
+      "oi": 8.186
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.9890947,
+    "_doc": "cab32576-f587-4a61-a4cd-74d6fece5ab4"
+  },
+  {
+    "BTC-14JUN24@future@bybit": {
+      "oi": 15.102
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.987326,
+    "_doc": "7b167f9a-9f5d-4da6-aebf-02f4946c810c"
+  },
+  {
+    "BTC-28MAR25@future@bybit": {
+      "oi": 52.962
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.978599,
+    "_doc": "cd9a449a-7b51-41e6-8994-9e120af7e6f7"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "oi": 10.48169866
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.9716191,
+    "_doc": "5718907a-6b0a-4265-8ff0-65f05326be47"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "oi": 0.21825728
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.6832378,
+    "_doc": "0addceb1-18e4-48ca-a02b-9c1a8851d038"
+  },
+  {
+    "BTC-28JUN24@future@bybit": {
+      "oi": 263.108
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.6814315,
+    "_doc": "6a218c5b-53f3-442e-80b0-34d859a7f9e7"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "oi": 0.11106049
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.679758,
+    "_doc": "3bdbbe21-9635-4f92-acf0-e8ee3557cdea"
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "oi": 823.314
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.6771343,
+    "_doc": "35603215-a877-4cd1-a142-c197d12f32a0"
+  },
+  {
+    "BTC-27SEP24@future@bybit": {
+      "oi": 85.766
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.6652741,
+    "_doc": "1f2a8b5c-1b60-4b73-8f8d-a350a3de3cd2"
+  },
+  {
+    "BTC-26JUL24@future@bybit": {
+      "oi": 36.076
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.663102,
+    "_doc": "e4dcc7ec-e2be-4d61-8bb2-54bd26680615"
+  },
+  {
+    "BTC-27DEC24@future@bybit": {
+      "oi": 145.454
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.6550233,
+    "_doc": "809e437f-32b1-4460-958e-17418f6a4f97"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "oi": 58722.76
+    },
+    "timestamp": "2024-05-29 14:20:37",
+    "receive_time": 1716992437.617586,
+    "_doc": "d415dca7-d3cc-44f1-8290-3a22c4c15949"
+  },
+  {
+    "BTC-31MAY24@future@bybit": {
+      "oi": 87.154
+    },
+    "timestamp": "2024-05-29 14:20:23",
+    "receive_time": 1716992423.1483746,
+    "_doc": "60f0f6d0-3807-46ac-9eb6-d5048992a296"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "oi": 10.48169866
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.803428,
+    "_doc": "ee7472df-8618-4f58-870b-8fd7abcf4d09"
+  },
+  {
+    "BTC-07JUN24@future@bybit": {
+      "oi": 8.186
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.8009286,
+    "_doc": "ada6bf56-b74c-4eaa-8f25-1ffdb638761e"
+  },
+  {
+    "BTC-14JUN24@future@bybit": {
+      "oi": 15.102
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.7879705,
+    "_doc": "93fb8ff9-ccc2-47b6-88fb-ab8c02c97f4a"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "oi": 0.21825728
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4923768,
+    "_doc": "a5f11f16-bb5f-47ae-acce-a0e876e4b423"
+  },
+  {
+    "BTC-28JUN24@future@bybit": {
+      "oi": 263.108
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4909415,
+    "_doc": "6462105a-38ac-4c8b-9d11-824be71547cb"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "oi": 0.11106049
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4894931,
+    "_doc": "246a7069-d5dd-4b55-a5e3-3c9ba5e32723"
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "oi": 823.314
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4879594,
+    "_doc": "cf4da967-884b-497e-b118-4708e558de05"
+  },
+  {
+    "BTC-26JUL24@future@bybit": {
+      "oi": 36.076
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.479833,
+    "_doc": "3455f6c2-7b94-4bee-9cea-f0b58f6213f9"
+  },
+  {
+    "BTC-27SEP24@future@bybit": {
+      "oi": 85.766
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.459879,
+    "_doc": "c1e95ac7-ac1a-4d67-91fe-f5252360a63d"
+  },
+  {
+    "BTC-27DEC24@future@bybit": {
+      "oi": 145.454
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4507113,
+    "_doc": "0e4268cb-8398-48d4-8d03-d2986c53a393"
+  },
+  {
+    "BTC-28MAR25@future@bybit": {
+      "oi": 52.962
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.440851,
+    "_doc": "56cdc950-10ee-44f3-be5b-8ebb987314c9"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "oi": 58722.76
+    },
+    "timestamp": "2024-05-29 14:20:22",
+    "receive_time": 1716992422.4316158,
+    "_doc": "36efd322-694b-4edd-a197-36bac2e25aba"
+  },
+  {
+    "BTC-31MAY24@future@bybit": {
+      "oi": 87.154
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.6184118,
+    "_doc": "3d0e7a1d-61f0-4a15-899c-beb3c9b6bc4b"
+  },
+  {
+    "BTC-14JUN24@future@bybit": {
+      "oi": 15.102
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.599116,
+    "_doc": "9d7a8dd5-c146-43d5-bd50-9b26f486f324"
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "oi": 0.21825728
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2942066,
+    "_doc": "e55b4fcd-f4e1-4a8b-8e38-ab7c91e64e28"
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "oi": 823.314
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2928889,
+    "_doc": "a2f27a01-c2e7-4fb4-994b-9f33dc5f6e2f"
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "oi": 0.11106049
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2915423,
+    "_doc": "300dce64-4fe2-43ac-bfa9-3a55d31fa63d"
+  },
+  {
+    "BTC-28JUN24@future@bybit": {
+      "oi": 263.108
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.290174,
+    "_doc": "cdaa97a8-2656-4d68-a822-3a26ebbaf38d"
+  },
+  {
+    "BTC-07JUN24@future@bybit": {
+      "oi": 8.186
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.287266,
+    "_doc": "3b0ac19e-2f74-4098-bebc-aa384fd2baf4"
+  },
+  {
+    "BTC-26JUL24@future@bybit": {
+      "oi": 36.076
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2785528,
+    "_doc": "515c4b1d-1797-4178-a2a4-ac08c4fae4ac"
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "oi": 10.48169866
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2766588,
+    "_doc": "c2ec07d9-4abd-4d79-8a81-b18e80bce061"
+  },
+  {
+    "BTC-27DEC24@future@bybit": {
+      "oi": 145.454
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2686937,
+    "_doc": "a3316fa0-1dba-44cf-aba6-0f41362a2812"
+  },
+  {
+    "BTC-28MAR25@future@bybit": {
+      "oi": 52.962
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.264241,
+    "_doc": "bdb2edd7-dd1a-4171-b213-bf3facb1551d"
+  },
+  {
+    "BTC-27SEP24@future@bybit": {
+      "oi": 85.766
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.2568908,
+    "_doc": "1e7668f7-7d9c-44b5-a741-755deb78fa08"
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "oi": 58722.76
+    },
+    "timestamp": "2024-05-29 14:20:07",
+    "receive_time": 1716992407.249039,
+    "_doc": "d2d9ee21-bdd6-4dcc-9f85-646589616a12"
+  }
+]

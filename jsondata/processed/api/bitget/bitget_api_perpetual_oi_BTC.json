@@ -1,0 +1,121 @@
+[
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 811.573
+    },
+    "timestamp": "2024-05-29 14:20:48",
+    "_doc": "8d9ad636-da27-4a44-94ea-1af8f3b7e8d4"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 180.5401
+    },
+    "timestamp": "2024-05-29 14:20:48",
+    "_doc": "677fbee7-ad27-4a22-9428-a3a07d8bb044"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12144.388
+    },
+    "timestamp": "2024-05-29 14:20:48",
+    "_doc": "3b6ba374-3288-4cf9-a2ca-82a99928e8fd"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 102835.725
+    },
+    "timestamp": "2024-05-29 14:20:48",
+    "_doc": "e969e7d1-0d61-4170-a334-faf8455afda5"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 243.757
+    },
+    "timestamp": "2024-05-29 14:20:48",
+    "_doc": "8bf6e988-e739-489c-b8fe-68ac28120a28"
+  },
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 811.573
+    },
+    "timestamp": "2024-05-29 14:20:32",
+    "_doc": "bb3e0319-d01e-4a0f-8bc5-21cdafbf1935"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12144.388
+    },
+    "timestamp": "2024-05-29 14:20:32",
+    "_doc": "ea97adea-477e-43ca-aab4-397765631256"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 102836.546
+    },
+    "timestamp": "2024-05-29 14:20:32",
+    "_doc": "48537ad5-bfcc-419b-9288-717795f1d48f"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 180.5401
+    },
+    "timestamp": "2024-05-29 14:20:32",
+    "_doc": "778ee09f-d3d4-4068-9374-15c4565bdcd9"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 243.757
+    },
+    "timestamp": "2024-05-29 14:20:32",
+    "_doc": "33cc1732-e8ff-40af-9558-4cbb825ada74"
+  },
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 811.573
+    },
+    "timestamp": "2024-05-29 14:20:17",
+    "_doc": "11d17c48-3ce0-464b-8da5-0e12c9e8f35c"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 102841.025
+    },
+    "timestamp": "2024-05-29 14:20:17",
+    "_doc": "455302d4-2b30-4826-ae91-19521079da70"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12144.388
+    },
+    "timestamp": "2024-05-29 14:20:17",
+    "_doc": "ccd97f7e-21f8-4db4-bee7-75ead27ff4c5"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 243.757
+    },
+    "timestamp": "2024-05-29 14:20:17",
+    "_doc": "21d0bd3d-de08-407f-8ea7-2d70dfef67da"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 180.5313
+    },
+    "timestamp": "2024-05-29 14:20:17",
+    "_doc": "afa4707c-2f11-4482-97fe-8301d58a96d0"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 102887.678
+    },
+    "timestamp": "2024-05-29 14:19:42",
+    "_doc": "30f285a7-84d8-40ba-a094-150a8caec5db"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 180.5313
+    },
+    "timestamp": "2024-05-29 14:19:42",
+    "_doc": "03cd39c6-e796-4365-8744-c517a7729044"
+  }
+]

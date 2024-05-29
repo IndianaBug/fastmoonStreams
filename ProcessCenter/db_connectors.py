@@ -113,23 +113,32 @@ class PostgresConnector:
         
         
 class MockdbConnector:
+    
     def __init__(self, folder_path):
         self.folder_path =  folder_path
-
-    async def save(self, market_state, logger, pipe_type, data, connection_data, on_message:callable,):
-        """  pipe_type : id_ws, id_api, id_api_2 """
         
+    def build_fodlers(self, connection_data, pipe_type, is_raw=False):
         pipe_id = connection_data.get(pipe_type, connection_data.get("id_api"))
         folder_type = pipe_type.split("_")[1]
         exchange = connection_data.get("exchange")
-        folder_path = Path("/".join([self.folder_path, folder_type, exchange]))
+        folder_type_2 = "raw" if not is_raw else "processed"
+        
+        folder_path = Path("/".join([self.folder_path, folder_type_2, folder_type, exchange]))
         if not folder_path.exists():
             folder_path.mkdir(parents=True, exist_ok=True)
-        relative_file_path = "/".join([self.folder_path, folder_type, exchange, pipe_id]) + ".json"
-                
+        relative_file_path = "/".join([self.folder_path, folder_type_2, folder_type, exchange, pipe_id]) + ".json"
+        return pipe_id, relative_file_path
+
+    async def save(self, market_state, logger, pipe_type, data, connection_data, on_message:callable,):
+        """  pipe_type : id_ws, id_api, id_api_2 """
         try:
+            try:
+                data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
+                pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, True)
+            except Exception as e:
+                data = json.loads(data)
+                pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
             
-            data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
             data["_doc"] = str(uuid.uuid4())
             
             if not os.path.exists(relative_file_path):
@@ -151,6 +160,7 @@ class MockdbConnector:
                     await f.seek(0)
                     await f.truncate()
                     await f.write(json.dumps(content, indent=2))
+                    
         except FileNotFoundError as e:
             print(data)
             logger.error(f"FileNotFoundError of {pipe_id}: {e}")

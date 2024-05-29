@@ -1,0 +1,26 @@
+[
+  {
+    "XBTUSDTM@perpetual@kucoin": {
+      "oi": 6579.83,
+      "funding": 0.000251
+    },
+    "timestamp": "2024-05-29 14:20:47",
+    "_doc": "7412f888-3311-4df0-8a92-530cd3a6eeb9"
+  },
+  {
+    "XBTUSDTM@perpetual@kucoin": {
+      "oi": 6577.485000000001,
+      "funding": 0.000251
+    },
+    "timestamp": "2024-05-29 14:20:31",
+    "_doc": "25de3b6a-84da-4473-8a50-77efd3d88a86"
+  },
+  {
+    "XBTUSDTM@perpetual@kucoin": {
+      "oi": 6577.485000000001,
+      "funding": 0.000251
+    },
+    "timestamp": "2024-05-29 14:20:16",
+    "_doc": "3475b611-cd1d-42c6-b1be-eb0759bea6d9"
+  }
+]

@@ -334,30 +334,27 @@ class binance_on_message(on_message_helper):
         
     async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         pos_data = {}
-        objective = data[:2]
-        data = data[2:]
-        data_position = json.loads(data)
-        if  data_position != []:
-            data_position = data_position[0]
-            symbol = data_position.get("symbol") if "symbol" in data_position else data_position.get("pair")
-            instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
-            msid = f"{symbol}@{instType}@binance"
-            longAccount = float(data_position.get("longAccount")) if "longAccount" in data_position else float(data_position.get("longPosition"))
-            shortAccount = float(data_position.get("shortAccount")) if "shortAccount" in data_position else float(data_position.get("shortPosition"))
-            longShortRatio = float(data_position.get("longShortRatio"))
-            if msid in market_state:
-                market_state[msid][f"{objective}_long_ratio"] = longAccount
-                market_state[msid][f"{objective}_short_ratio"] = shortAccount
-                market_state[msid][f"{objective}_ratio"] = longShortRatio
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid][f"{objective}_long_ratio"] = longAccount
-                market_state[msid][f"{objective}_short_ratio"] = shortAccount
-                market_state[msid][f"{objective}_ratio"] = longShortRatio
-            pos_data[msid] = {}
-            pos_data[msid][f"{objective}_long_ratio"] = longAccount
-            pos_data[msid][f"{objective}_short_ratio"] = shortAccount
-            pos_data[msid][f"{objective}_ratio"] = longShortRatio
+        data = json.loads(data)
+        objective = data.get("objective")
+        data = data.get("data")[0]
+        symbol = data.get("symbol") if "symbol" in data else data.get("pair")
+        instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
+        msid = f"{symbol}@{instType}@binance"
+        
+        longAccount = float(data.get("longAccount")) if "longAccount" in data else float(data.get("longPosition"))
+        shortAccount = float(data.get("shortAccount")) if "shortAccount" in data else float(data.get("shortPosition"))
+        longShortRatio = float(data.get("longShortRatio"))
+            
+        if msid not in market_state:
+            market_state[msid] = {}
+        market_state[msid][f"{objective}_long_ratio"] = longAccount
+        market_state[msid][f"{objective}_short_ratio"] = shortAccount
+        market_state[msid][f"{objective}_ratio"] = longShortRatio
+                
+        pos_data[msid] = {}
+        pos_data[msid][f"{objective}_long_ratio"] = longAccount
+        pos_data[msid][f"{objective}_short_ratio"] = shortAccount
+        pos_data[msid][f"{objective}_ratio"] = longShortRatio
         pos_data.update({"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time()})
         return pos_data    
 
@@ -395,11 +392,12 @@ class bybit_on_message(on_message_helper):
         else:
             self.bybit_derivate_multiplier = bybit_derivate_multiplier
 
-    async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs): 
+    async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         d = {}
-        funddata = json.loads(data)
+        funddata = json.loads(data).get("result").get("list")[0]
+        instrument = funddata.get("symbol")
         msid = f"{instrument}@perpetual@bybit"
-        funding = float(funddata.get("result").get("list")[0].get("fundingRate"))
+        funding = float(funddata.get("fundingRate"))
         d[msid] = {"funding" : funding}
         if msid not in market_state:
             market_state[msid] = {}
@@ -713,8 +711,7 @@ class okx_on_message(on_message_helper):
         d = {}
         funddata = json.loads(data).get("data")[0]
         symbol = funddata.get("instId")
-        instType = get_okx_insttype(symbol)
-        msid = f"{symbol}@{instType}@okx"
+        msid = f"{symbol}@perpetual@okx"
         funding = float(funddata.get("fundingRate"))
         d[msid] = {"funding" : funding}
         if msid not in market_state:
@@ -992,29 +989,35 @@ class deribit_on_message(on_message_helper):
         this_symbol = ""
         fundings = {}
         for prefix, event, value in ijson.parse(data):
-            if prefix == "result.item.instrument_name":
+            if prefix == "item.result.item.instrument_name":
                 if value != None:
                     this_symbol = value
                     instType = "future" if any(char.isdigit() for char in value.split("-")[-1]) else "perpetual"
                     msids.append(f"{value}@{instType}@deribit")
-                    symbols.append(value)
-            if prefix == "result.item.mid_price":
+                    symbols.append(value)                
+            if prefix == "item.result.item.mid_price":
                 if value != None:
                     prices.append(float(value))
-            if prefix == "result.item.funding_8h":
-                instType = "future" if any(char.isdigit() for char in this_symbol.split("-")[-1]) else "perpetual"
-                if value != None:
-                    fundings[f"{this_symbol}@{instType}@deribit"] = {}
-                    fundings[f"{this_symbol}@{instType}@deribit"]["funding"] = float(value)
-            if prefix == "result.item.open_interest":
+            if prefix == "item.result.item.open_interest":
                 if value != None:
                     ois.append(float(value))
+            
+        counter_2 = 0
+        for prefix, event, value in ijson.parse(data):
+            if prefix == "item.result.item.funding_8h":
+                instType = "future" if any(char.isdigit() for char in symbols[counter_2].split("-")[-1]) else "perpetual"
+                if value != None:
+                    fundings[f"{symbols[counter_2]}@{instType}@deribit"] = {}
+                    fundings[f"{symbols[counter_2]}@{instType}@deribit"]["funding"] = float(value)
+                    counter_2 += 1
+                
+                
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
                 "symbol": symbols[i],
                 "oi": self.deribit_derivate_multiplier.get(symbols[i].split('-')[0])(ois[i], prices[-1], "oifuture"),
-            }
+            }       
         
         for key, item in fundings.items():
             for key_2, fun in item.items():
@@ -1853,9 +1856,11 @@ class gateio_on_message(on_message_helper):
         ddd["timestamp"] = self.process_timestamp_no_timestamp()  
         return ddd
     
-    async def gateio_api_perpetual_funding(self, data:str, market_state:dict, connection_data:str, instrument, *args, **kwargs):
+    async def gateio_api_perpetual_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         ddd = {}
+        data = json.loads(data)
         instrument_data = json.loads(data)[0]
+        instrument = data.get("instrument")
         msid = f"{instrument}@perpetual@gateio"
         ddd[msid]  = {"funding" : float(instrument_data.get("r"))}
         if msid not in market_state:
