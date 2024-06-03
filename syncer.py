@@ -4,10 +4,34 @@ from ProcessCenter.DataFlow import booksflow
 
 class ExchangeAPIClient():
     """ 
-    This class encompasses aiohttp and websockets methods for interacting with exchanges. 
-    It inherits from ExchangeAPIClient which combines methods from all ofo the exchanges
+
+        Attributes:
+        ----------
+        price_level_size : int
+            Defines the size of the price range used for aggregating data.
+        books_process_interval : int
+            Specifies the number of times book data is processed to extract information 
+            about canceled and reinforced books.
+        book_snap_interval : int
+            Indicates the number of columns in the pandas DataFrame used for processing book data.
+        book_ceil_thresh : float
+            Sets a threshold (in percentages) to exclude books with values exceeding this limit.
     """
-    def __init__(self, api_coinbase, secret_coinbase, api_kucoin, secret_kucoin, pass_kucoin, on_message_kwargs=None):
+    def __init__(
+            self, 
+            api_coinbase, 
+            secret_coinbase, 
+            api_kucoin, 
+            secret_kucoin, 
+            pass_kucoin,
+            price_level_size:float,
+            book_snap_interval=1,
+            books_process_interval=60,
+            book_ceil_thresh=5, 
+            on_message_kwargs=None,
+            mode = "production",
+                 ):
+        
         self.exchanges = {
             "binance" : binance(),
             "bybit" : bybit(),
@@ -21,6 +45,13 @@ class ExchangeAPIClient():
             "mexc" : mexc(),
             "gateio" : gateio(),
         }
+
+        self.price_level_size = price_level_size
+        self.books_process_interval = books_process_interval
+        self.book_snap_interval = book_snap_interval
+        self.book_ceil_thresh = book_ceil_thresh
+        self.mode = mode
+
         for exchange, client in self.exchanges.items():
             for method_name in dir(client):
                 if not method_name.startswith("__") and callable(getattr(client, method_name)):
@@ -51,17 +82,14 @@ class ExchangeAPIClient():
                 if "id_api_2" in connData:
                     meth = self.populate_with_on_message(connData, True)
                     connData["on_message_method_api_2"] = meth
-                flow_method = self.get_flow_class(connData)
-                connData["books_processor"] = 
-                    
+                connData = self.add_data_processor(connData)
                 d.append(connData)
         for exchange in apis:
             for api in apis[exchange]:
                 connData = self.get_method_connData("api", exchange, api)
                 meth = self.populate_with_on_message(connData)
                 connData["on_message_method_api"] = meth
-                
-                
+                connData = self.add_data_processor(connData)
                 d.append(connData)
         return d
     
@@ -173,17 +201,36 @@ class ExchangeAPIClient():
                 return getattr(self.onm, method)
 
                 
-    def get_flow_class(self, connection_data):
+    def add_data_processor(self, connection_data):
         """ Populates connection_data dictionary with immidiate flow processors"""
+
         objective = connection_data.get("objective")
+        exchange = connection_data.get("exchange")
+        inst_type = connection_data.get("instTypes") if "instTypes" in connection_data else connection_data.get("instType")
+        symbol = connection_data.get("instruments") if "instruments" in connection_data else connection_data.get("instrument")
+
         if objective == "depth":
-            return booksflow
+            connection_data["flowClass"] = booksflow(
+                exchange=exchange, 
+                symbol=symbol, 
+                inst_type=inst_type, 
+                price_level_size=self.price_level_size,
+                book_snap_interval = self.book_snap_interval,
+                books_process_interval = self.books_process_interval,
+                book_ceil_thresh = self.book_ceil_thresh,
+                ws_on_message = connection_data.get("on_message_method_ws"),
+                api_on_message = connection_data.get("on_message_method_api_2"),
+                mode = self.mode
+                )
+
+        return connection_data
+
         
         
         
 
             
-            
+             
 
 # c = ExchangeAPIClient("", "", "", "", "")
 

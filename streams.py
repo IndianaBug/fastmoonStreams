@@ -1,24 +1,24 @@
 from syncer import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 from config import coinbase_secret, coinbase_api, kucoin_api, kucoin_pass, kucoin_secret
 
-client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_secret, kucoin_pass)
+client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_secret, kucoin_pass, price_level_size=20, mode="testing")
 
 # Inspect what binance and bybit derivate symbols you may bulk with binance_get_marginType and binance_get_marginType
 # If those are of the same margin, you may mix the. Any websocet except depth
 
 ws = {
-    # "binance" : [
+    "binance" : [
     #     "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
     #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
     #     "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
     #     "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
-    #     "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+        "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
     #     "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
     #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
     #     "perpetual.trades.BTCUSD_PERP",                                   # ok
     #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
     #     "option.trades.BTC",                                              # ok
-    #     ],
+        ],
     # "bybit" : [
         # "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
         # "spot.depth.BTCUSDT.snap",                                          # ok ok
@@ -136,6 +136,8 @@ api = {
 
 
 connectionData = client.build_connection_data(ws, api)
+
+# print(connectionData)
 
 # c = 0
 # for e in connectionData:

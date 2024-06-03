@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-from dask.distributed import as_completed
-from dask.distributed import Client as dask_Client
 import dask
 from dataclasses import dataclass, field
 from typing import Dict, Optional, List
@@ -13,85 +11,54 @@ import asyncio
 import uuid
 import matplotlib.pyplot as plt
 import math
-
-from dask.distributed import Client
-import dask.dataframe as dd
 import pandas as pd
 import numpy as np
 import socket
 import multiprocessing as mp
 import logging
 
-class DaskClientSupport():
-    logger = logging.getLogger("Example")  # just a reference
-    def find_free_port(self, start=8787, end=8800):
-        for port in range(start, end):
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                try:
-                    s.bind(('', port))
-                    return port
-                except OSError:
-                    self.logger.error("Dask error, free port: %s", OSError, exc_info=True)
-                    continue
-        raise RuntimeError(f"No free ports available in range {start}-{end}")
-
-    def start_dask_client(self):
-        for attempt in range(5):
-            try:
-                # Check for an available port
-                free_port = self.find_free_port()
-                print(f"Using port: {free_port}")
-
-                # Initialize the Dask Client with the available port
-                client = Client(n_workers=1, threads_per_worker=1, port=free_port)
-                return client
-            except RuntimeError as e:
-                self.logger.error("Dask error, RuntimeError, reconnecting: %s", e, exc_info=True)
-                print(f"Attempt {attempt + 1}: {str(e)}")
-            except Exception as e:
-                self.logger.error("Dask error, Unexpected error: %s", e, exc_info=True)
-                print(f"Attempt {attempt + 1}: Unexpected error: {str(e)}")
-        raise RuntimeError("Failed to start Dask Client after several attempts")
+pd.set_option('future.no_silent_downcasting', True)
 
 @dataclass
 class OrderBook:
 
     def __init__(self, book_ceil_thresh):
       self.book_ceil_thresh = book_ceil_thresh
-      self.timestamp: Optional[float] = field(default_factory=lambda: time.time())
-      self.price: Optional[float] = None
-      self.bids: Dict[float, float] = field(default_factory=dict)
-      self.asks: Dict[float, float] = field(default_factory=dict)
+      self.timestamp = dict()
+      self.price = None
+      self.bids = dict()
+      self.asks = dict()
 
     async def update_bid(self, price: float, amount: float):
         if amount > 0:
             self.bids[price] = amount
-        else:
+        elif amount == 0 and price in self.bids:
             del self.bids[price]
 
     async def update_ask(self, price: float, amount: float):
         if amount > 0:
             self.asks[price] = amount
-        else:
+        elif amount == 0 and price in self.asks:
             del self.asks[price]
 
     async def update_data(self, data):
         """ updates all asks and bids at once """
+
         self.timestamp = data.get("timestamp")
+        
+        for bid_data in data.get("bids", []):
+            await self.update_bid(bid_data[0], bid_data[1])
 
-        for bid_data in data.get("bids"):
-            self.update_bid(bid_data[0], bid_data[1])
-
-        for ask_data in data.get("asks"):
-            self.update_bid(ask_data[0], ask_data[1])
-
+        for ask_data in data.get("asks", []):
+            await self.update_ask(ask_data[0], ask_data[1])
+        
         self.price = (max(self.bids.keys()) + min(self.asks.keys())) / 2
 
     async def trim_books(self):
-      for level in self.bids.keys():
+      for level in self.bids.copy().keys():
           if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
               del self.bids[level]
-      for level in self.asks.keys():
+      for level in self.asks.copy().keys():
           if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
               del self.asks[level]
 
@@ -115,14 +82,13 @@ class booksflow():
                  exchange : str,
                  symbol : str,
                  inst_type : str,
-                 exchange_symbol:str,
-                 level_size : int,
+                 price_level_size : int,
                  api_on_message : callable,
                  ws_on_message : callable,
-                 book_processing_timespan : int,
-                 books_snapshot_interval : int = 1,
+                 book_snap_interval : int = 1,
+                 books_process_interval : int = 60,
                  book_ceil_thresh = 5,
-                 npartitions = 5
+                 mode = "production",
                  ):
         """
             insType : spot, future, perpetual
@@ -134,61 +100,91 @@ class booksflow():
                                             books_snpshot_interval = (book_processing_timespan / books_snapshot_timestan_ratio)
                                             as books_snapshot_timestan_ratio must be < than book_processing_timespan
         """
+        self.mode = mode
+
         self.connection_data = dict()
         self.market_state = dict()
-        self.dask_client = dask_Client()
         # Identification
         self.exchange = exchange
         self.symbol = symbol
-        self.exchange_symbol = exchange_symbol
         self.inst_type = inst_type
         self.api_on_message = api_on_message
         self.ws_on_message = ws_on_message
-        self.level_size = float(level_size)
+        self.level_size = float(price_level_size)
         self.book_ceil_thresh = int(book_ceil_thresh)
-        self.npartitions = npartitions
-        self.book_processing_timespan = int(book_processing_timespan)
-        self.books_snapshot_interval = int(books_snapshot_interval)
+        self.book_snap_interval = int(book_snap_interval)
+        self.books_process_interval = int(books_process_interval)
         self.books = OrderBook(self.book_ceil_thresh)
-        self.processed_df = None
-        self.price = 0
-        self.running = False
         self.df = pd.DataFrame()
-        self.current_second = time.time()
-        self.previous_second = time.time()
-        self.counter = 0
+        self.processed_df = None
+        # Helpers
+        self.last_receive_time = 0
+        self.running = False
+
+    def find_level(self, price):
+        """ locates the bucket to which the price belongs"""
+        return np.ceil(price / self.level_size) * self.level_size
+    
+    def scale_current_timestamp(self):
+        """ scales timestamp to a propepr interval """
+        value = int(time.time() % 60)
+        h = int(60 / self.book_snap_interval)
+        scaled_value = value  * h / self.books_process_interval
+        return int(scaled_value)
 
     def pass_market_state(self, market_state):
+       """ passes marketstate dictionary"""
        self.market_state = market_state
 
     def pass_connection_data(self, connection_data):
+       """ passes connectiondata dictionary"""
        self.connection_data = connection_data
 
-    async def input_books(self, data:str, message_type:str, *args, **kwargs):
-        """ message_type : api, ws """
+    async def input_data_api(self, data:str):
+        """ inputs books from api into dataframe"""
         try:
-            if message_type == "api":
-                processed_books = self.api_on_message(data, self.market_state, self.connection_data)
-            elif message_type == "ws":
-                processed_books = self.ws_on_message(data, self.market_state, self.connection_data)
-            else:
-              return
-            await OrderBook.update_data(processed_books)
-        except (ValueError, TypeError, KeyError):
+            processed_data = await self.api_on_message(data, self.market_state, self.connection_data)
+            await self.books.update_data(processed_data)
+        except:
             return
 
-        self.current_second = datetime.datetime.strptime(self.OrderBook.timestamp, '%Y-%m-%d %H:%M:%S').second
-        if self.current_second - self.previous_second > 0 and self.counter < self.books_snapshot_interval:
-            self.counter+=1
-        elif self.counter >= self.books_snapshot_interval:
-            self.update_books_dataframe()
-            self.counter = 0
-        self.previous_second = datetime.datetime.strptime(self.OrderBook.timestamp, '%Y-%m-%d %H:%M:%S').second
+    async def input_data_ws(self, data:str):
+        """ inputs books from ws into dataframe"""
+        try:
+            processed_data = await self.ws_on_message(data, self.market_state, self.connection_data)
+            recieve_time = processed_data.get("receive_time")
+            if self.last_receive_time < recieve_time:
+                await self.books.update_data(processed_data)
+                self.last_receive_time = recieve_time
+            self.last_receive_time = recieve_time
+        except:
+            return
 
-
-    def find_level(self, price):
-        """ helper for snapshot creation"""
-        return np.ceil(price / self.level_size) * self.level_size
+    def input_into_pandas_df(self):
+        """ Inputs bids and asks into pandas dataframe """
+        prices = np.array(list(map(float, self.books.bids.keys())) + list(map(float, self.books.asks.keys())), dtype=np.float64)
+        amounts = np.array(list(map(float, self.books.bids.values())) + list(map(float, self.books.asks.values())), dtype=np.float64)
+        levels = [self.find_level(price) for price in  prices]
+        unique_levels, inverse_indices = np.unique(levels, return_inverse=True)
+        group_sums = np.bincount(inverse_indices, weights=amounts)
+        columns = [str(col) for col in unique_levels]
+        timestamp = self.scale_current_timestamp()
+        if self.df.empty or self.df == pd.DataFrame():
+            self.df = pd.DataFrame(0, index=list(range(timestamp)), columns=columns, dtype='float64')
+            # self.df = self.df.set_index(timestamp)
+            self.df.loc[timestamp] = group_sums
+            sorted_columns = sorted(map(float, self.df.columns))
+            self.df = self.df[map(str, sorted_columns)]
+        else:
+            old_levels = np.array(self.df.columns, dtype=np.float64)
+            new_levels = np.setdiff1d(np.array(columns, dtype=np.float64), old_levels)
+            for l in new_levels:
+                self.df[str(l)] = 0
+                self.df[str(l)]= self.df[str(l)].astype("float64")
+            sums = self.manipulate_arrays(old_levels, np.array(columns, dtype=np.float64), group_sums)
+            self.df.loc[timestamp] = sums
+            sorted_columns = sorted(map(float, self.df.columns))
+            self.df = self.df[map(str, sorted_columns)]
 
     @staticmethod
     def manipulate_arrays(old_levels, new_levels, new_values):
@@ -208,55 +204,46 @@ class booksflow():
             else:
                 sorted_new_values = np.append(sorted_new_values,0)
         return sorted_new_values
+    
+    async def schedule_snapshot(self):
+        """ creates task for input_into_pandas_df """
+        await asyncio.sleep(1)
+        try:
+            while True:
+                self.input_into_pandas_df()
+                print(self.df)
+                await asyncio.sleep(self.book_snap_interval)
+        except (Exception) as e:
+            print(e)
+            print("Task was cancelled")
+            raise
 
-    async def update_books_dataframe(self):
-        """ Inputs bids and asks into dask """
-        prices = np.array(list(map(float, self.OrderBook.bids.keys())) + list(map(float, self.OrderBook.asks.keys())), dtype=np.float64)
-        amounts = np.array(list(map(float, self.OrderBook.bids.values())) + list(map(float, self.OrderBook.asks.values())), dtype=np.float64)
-        levels = [self.find_level(price) for price in  prices]
-        unique_levels, inverse_indices = np.unique(levels, return_inverse=True)
-        group_sums = np.bincount(inverse_indices, weights=amounts)
-        columns = [str(col) for col in unique_levels]
+    async def schedule_processing_dataframe(self):
+        """ Generates dataframe of processed books """
+        try:
+            while True:
+                print(self.books_process_interval)
+                print(1)
+                await self.books.trim_books()
+                for col in self.df.columns:
+                    self.df[col] = self.df[col].replace(0, pd.NA).ffill()
+                    self.df[col] = self.df[col].replace(0, pd.NA).bfill()
+                self.processed_df = self.df.copy()
+                self.df = pd.DataFrame()
 
-
-        if self.df is None or self.df.npartitions == 0:
-            self.df = dask.from_pandas(pd.DataFrame(0, index=list(range(self.book_processing_timespan)), columns=columns, dtype='float64'), npartitions=self.npartitions)
-            self.df = self.df.set_index(self.counter)
-            self.df.loc[self.counter] = group_sums
-            sorted_columns = sorted(map(float, self.df.columns))
-            self.df = self.df[map(str, sorted_columns)]
-        else:
-            old_levels = np.array(self.df.columns, dtype=np.float64)
-            new_levels = np.setdiff1d(np.array(columns, dtype=np.float64), old_levels)
-            for l in new_levels:
-                self.df[str(l)] = 0
-                self.df[str(l)]= self.df[str(l)].astype("float64")
-            sums = self.manipulate_arrays(old_levels, np.array(columns, dtype=np.float64), group_sums)
-            self.df.loc[self.counter] = sums
-            sorted_columns = sorted(map(float, self.df.columns))
-            self.df = self.df[map(str, sorted_columns)]
-
-    async def generate_processed_dataframe(self):
-        """ generates snapshot of books with dask dataframe """
-        self.trim_books()
-        for col in self.df.columns:
-            self.df[col] = self.df[col].replace(0, pd.NA).ffill()
-            self.df[col] = self.df[col].replace(0, pd.NA).bfill()
-        self.processed_df = self.df.copy()
-        self.df = dask.from_pandas(pd.DataFrame())
-
-    async def schedule_data_processing(self, testing_mode=False, file_path=None):
-        """ schedules tasks for """
-        self.running = True
-        while self.running:
-            task_id = uuid.uuid4()
-            future = self.dask_client.submit(self.generate_processed_dataframe, task_id)
-            await asyncio.wrap_future(future)
-
-            asyncio.sleep(self.book_processing_timespan)
-
-            if testing_mode:
-              self.generate_data_for_plot(file_path)
+                await asyncio.sleep(15)
+                
+                # Uncomment for testing mode
+                if self.mode == "testing":
+                    self.generate_data_for_plot(f"sample_data/{self.connection_data.get('id_ws')}.json")
+        # except asyncio.CancelledError:
+        #     # Handle task cancellation
+        #     print("Task was cancelled")
+        #     # Perform any necessary cleanup here
+        #     raise
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            
 
     def generate_data_for_plot(self, file_path):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
@@ -264,7 +251,6 @@ class booksflow():
             if not all(row == 0):
                 timestamp = self.df[index].index
                 break
-
         plot_data = {
             'x': [float(x) for x in row.columns.tolist()],
             'y': row.values.tolist(),
@@ -272,7 +258,6 @@ class booksflow():
             'ylabel': 'Amount',
             'legend': [f'Books for every level at timestamp {timestamp}']
         }
-
         with open(file_path, 'w') as file:
             json.dump(plot_data, file)
             
@@ -532,3 +517,38 @@ class booksflow():
 #                     if "price" not in column and index != 0:
 #                         self.snapshot_total[common_columns] = self.snapshot_total[common_columns] + merged_df[column]
 #             self.snapshot_total.insert(0, 'price', self.snapshot_buys['price'])
+
+
+
+
+
+# class DaskClientSupport():
+#     logger = logging.getLogger("Example")  # just a reference
+#     def find_free_port(self, start=8787, end=8800):
+#         for port in range(start, end):
+#             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+#                 try:
+#                     s.bind(('', port))
+#                     return port
+#                 except OSError:
+#                     self.logger.error("Dask error, free port: %s", OSError, exc_info=True)
+#                     continue
+#         raise RuntimeError(f"No free ports available in range {start}-{end}")
+
+#     def start_dask_client(self):
+#         for attempt in range(5):
+#             try:
+#                 # Check for an available port
+#                 free_port = self.find_free_port()
+#                 print(f"Using port: {free_port}")
+
+#                 # Initialize the Dask Client with the available port
+#                 client = Client(n_workers=1, threads_per_worker=1, port=free_port)
+#                 return client
+#             except RuntimeError as e:
+#                 self.logger.error("Dask error, RuntimeError, reconnecting: %s", e, exc_info=True)
+#                 print(f"Attempt {attempt + 1}: {str(e)}")
+#             except Exception as e:
+#                 self.logger.error("Dask error, Unexpected error: %s", e, exc_info=True)
+#                 print(f"Attempt {attempt + 1}: Unexpected error: {str(e)}")
+#         raise RuntimeError("Failed to start Dask Client after several attempts")
