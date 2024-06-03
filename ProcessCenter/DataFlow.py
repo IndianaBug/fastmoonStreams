@@ -86,7 +86,7 @@ class booksflow():
                  api_on_message : callable,
                  ws_on_message : callable,
                  book_snap_interval : int = 1,
-                 books_process_interval : int = 60,
+                 books_process_interval : int = 10,
                  book_ceil_thresh = 5,
                  mode = "production",
                  ):
@@ -127,10 +127,9 @@ class booksflow():
     
     def scale_current_timestamp(self):
         """ scales timestamp to a propepr interval """
-        value = int(time.time() % 60)
-        h = int(60 / self.book_snap_interval)
-        scaled_value = value  * h / self.books_process_interval
-        return int(scaled_value)
+        current_timestamp = int(time.time() % 60)
+        scaled_timestamp = (self.books_process_interval * current_timestamp) / int(60 / self.books_process_interval)
+        return int(scaled_timestamp)
 
     def pass_market_state(self, market_state):
        """ passes marketstate dictionary"""
@@ -169,9 +168,9 @@ class booksflow():
         group_sums = np.bincount(inverse_indices, weights=amounts)
         columns = [str(col) for col in unique_levels]
         timestamp = self.scale_current_timestamp()
-        if self.df.empty or self.df == pd.DataFrame():
-            self.df = pd.DataFrame(0, index=list(range(timestamp)), columns=columns, dtype='float64')
-            # self.df = self.df.set_index(timestamp)
+        print(timestamp)
+        if self.df.empty:
+            self.df = pd.DataFrame(0, index=list(range(self.books_process_interval)), columns=columns, dtype='float64')
             self.df.loc[timestamp] = group_sums
             sorted_columns = sorted(map(float, self.df.columns))
             self.df = self.df[map(str, sorted_columns)]
@@ -208,46 +207,36 @@ class booksflow():
     async def schedule_snapshot(self):
         """ creates task for input_into_pandas_df """
         await asyncio.sleep(1)
-        try:
-            while True:
-                self.input_into_pandas_df()
-                print(self.df)
-                await asyncio.sleep(self.book_snap_interval)
-        except (Exception) as e:
-            print(e)
-            print("Task was cancelled")
-            raise
+        while True:
+            self.input_into_pandas_df()
+            # print(self.df)
+            await asyncio.sleep(self.book_snap_interval)
+
 
     async def schedule_processing_dataframe(self):
         """ Generates dataframe of processed books """
         try:
+            await asyncio.sleep(1)
             while True:
-                print(self.books_process_interval)
-                print(1)
+                await asyncio.sleep(self.books_process_interval)
                 await self.books.trim_books()
                 for col in self.df.columns:
                     self.df[col] = self.df[col].replace(0, pd.NA).ffill()
                     self.df[col] = self.df[col].replace(0, pd.NA).bfill()
                 self.processed_df = self.df.copy()
                 self.df = pd.DataFrame()
-
-                await asyncio.sleep(15)
-                
-                # Uncomment for testing mode
                 if self.mode == "testing":
                     self.generate_data_for_plot(f"sample_data/{self.connection_data.get('id_ws')}.json")
-        # except asyncio.CancelledError:
-        #     # Handle task cancellation
-        #     print("Task was cancelled")
-        #     # Perform any necessary cleanup here
-        #     raise
+        except asyncio.CancelledError:
+            print("Task was cancelled")
+            raise
         except Exception as e:
             print(f"An error occurred: {e}")
             
 
     def generate_data_for_plot(self, file_path):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
-        for index, row in self.df.iterrows():
+        for index, row in self.processed_df.iterrows():
             if not all(row == 0):
                 timestamp = self.df[index].index
                 break

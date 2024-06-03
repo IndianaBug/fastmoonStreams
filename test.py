@@ -30,7 +30,7 @@ async def main():
     tasks.append(asyncio.ensure_future(processor.input_data_api(data_api)))
     tasks.append(asyncio.ensure_future(input_data____()))
     tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
-    # tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
+    tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
     await asyncio.gather(*tasks, return_exceptions=True)
 
 if __name__ == "__main__":
