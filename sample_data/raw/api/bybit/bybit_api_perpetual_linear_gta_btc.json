@@ -1,0 +1,242 @@
+[
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDU24",
+          "buyRatio": "0.593",
+          "sellRatio": "0.407",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253542004
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "buyRatio": "0.5735",
+          "sellRatio": "0.4265",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253541978
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253541977
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253541959
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDM24",
+          "buyRatio": "0.5679",
+          "sellRatio": "0.4321",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253541583
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDU24",
+          "buyRatio": "0.593",
+          "sellRatio": "0.407",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253526710
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "buyRatio": "0.5735",
+          "sellRatio": "0.4265",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253526702
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253526697
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253526690
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDM24",
+          "buyRatio": "0.5679",
+          "sellRatio": "0.4321",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253526296
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "buyRatio": "0.5735",
+          "sellRatio": "0.4265",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253511406
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDM24",
+          "buyRatio": "0.5679",
+          "sellRatio": "0.4321",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253510981
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSDU24",
+          "buyRatio": "0.593",
+          "sellRatio": "0.407",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253510976
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253511410
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "buyRatio": "0.5669",
+          "sellRatio": "0.4331",
+          "timestamp": "1717250400000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253511410
+  }
+]

@@ -1,0 +1,548 @@
+[
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:03:07",
+        "price": 67753.5,
+        "quantity": 0.00012
+      }
+    ],
+    "receive_time": 1717372987.0,
+    "_doc": "89c09f8f-3aa2-4bd3-a1f8-0e3a1046a1aa"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:03:06",
+        "price": 67753.6,
+        "quantity": 0.00018
+      }
+    ],
+    "receive_time": 1717372986.0,
+    "_doc": "e76bd469-1b94-431c-aace-15d48a09288f"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:03:00",
+        "price": 67753.6,
+        "quantity": 2e-05
+      }
+    ],
+    "receive_time": 1717372980.0,
+    "_doc": "405c2063-f3f6-41ce-aa3f-5702b46c2e27"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:55",
+        "price": 67753.5,
+        "quantity": 0.00128
+      }
+    ],
+    "receive_time": 1717372975.0,
+    "_doc": "e1bf12c4-fb61-496c-99b7-e9d31f35b368"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:45",
+        "price": 67757.3,
+        "quantity": 0.06489
+      }
+    ],
+    "receive_time": 1717372965.0,
+    "_doc": "559c5a89-5129-452b-822f-b33e4a407dda"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:45",
+        "price": 67758.2,
+        "quantity": 0.09514
+      }
+    ],
+    "receive_time": 1717372965.0,
+    "_doc": "4b85a78b-8c43-45eb-bc6c-467ed1974201"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:42",
+        "price": 67760.0,
+        "quantity": 0.00248
+      }
+    ],
+    "receive_time": 1717372962.0,
+    "_doc": "be70ef1b-cd78-447f-a68d-f4a7ced9f8cf"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:41",
+        "price": 67760.0,
+        "quantity": 0.00127
+      }
+    ],
+    "receive_time": 1717372961.0,
+    "_doc": "b3c19ad6-e4b7-419c-9508-faa11576e77a"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:35",
+        "price": 67760.0,
+        "quantity": 0.00419
+      }
+    ],
+    "receive_time": 1717372955.0,
+    "_doc": "f7a446cd-3347-4e10-9ec2-9abfbf432dc8"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:23",
+        "price": 67760.1,
+        "quantity": 0.00061
+      }
+    ],
+    "receive_time": 1717372943.0,
+    "_doc": "ae53e894-c82d-4b6c-aa86-d2bb4b31fca7"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:18",
+        "price": 67760.1,
+        "quantity": 3e-05
+      }
+    ],
+    "receive_time": 1717372938.0,
+    "_doc": "9a013957-1939-43c5-8c07-026f5c52013e"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:56",
+        "price": 67753.5,
+        "quantity": 0.00147
+      }
+    ],
+    "receive_time": 1717372976.0,
+    "_doc": "1325dccb-b687-4675-a676-f8f9a326c366"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:17",
+        "price": 67760.1,
+        "quantity": 0.00027
+      }
+    ],
+    "receive_time": 1717372937.0,
+    "_doc": "dc9158f3-423f-40e3-907f-f547f26cc911"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:55",
+        "price": 67753.5,
+        "quantity": 0.00257
+      }
+    ],
+    "receive_time": 1717372975.0,
+    "_doc": "776bf2ed-25a0-42da-90cb-d97c1eb8e9cc"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:06",
+        "price": 67760.1,
+        "quantity": 0.0002
+      }
+    ],
+    "receive_time": 1717372926.0,
+    "_doc": "de05f874-29c9-40a4-b7fa-769f70d0d145"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:45",
+        "price": 67759.1,
+        "quantity": 0.08509
+      }
+    ],
+    "receive_time": 1717372965.0,
+    "_doc": "c2ae91ee-b960-419c-8a18-ed79372368a8"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:03",
+        "price": 67762.5,
+        "quantity": 0.02779
+      }
+    ],
+    "receive_time": 1717372923.0,
+    "_doc": "922edfde-8375-47d3-8d03-9652a1bd8f52"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:33",
+        "price": 67760.0,
+        "quantity": 0.0022
+      }
+    ],
+    "receive_time": 1717372953.0,
+    "_doc": "6027766f-03fe-4e08-b65b-ead17183afaa"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:02",
+        "price": 67764.7,
+        "quantity": 0.00023
+      }
+    ],
+    "receive_time": 1717372922.0,
+    "_doc": "f8670a8c-cbc2-46fb-9101-0eaa447d43e0"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:20",
+        "price": 67760.1,
+        "quantity": 0.00048
+      }
+    ],
+    "receive_time": 1717372940.0,
+    "_doc": "5b6bd6c7-e075-47d6-a265-c964d102bf2d"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:47",
+        "price": 67765.3,
+        "quantity": 0.00268
+      }
+    ],
+    "receive_time": 1717372907.0,
+    "_doc": "b2e30eb0-ec88-47b8-8f7d-484edf02274c"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:14",
+        "price": 67760.1,
+        "quantity": 0.00028
+      }
+    ],
+    "receive_time": 1717372934.0,
+    "_doc": "2a94bb1c-1120-4aad-828a-460160a0bfec"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:47",
+        "price": 67765.3,
+        "quantity": 0.00203
+      }
+    ],
+    "receive_time": 1717372907.0,
+    "_doc": "cb5d2df2-2170-4c22-a2ce-429953e52b70"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:02:11",
+        "price": 67760.1,
+        "quantity": 0.00047
+      }
+    ],
+    "receive_time": 1717372931.0,
+    "_doc": "9964cc86-a27d-41d4-a47b-0e8b4323abb4"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:38",
+        "price": 67765.3,
+        "quantity": 4e-05
+      }
+    ],
+    "receive_time": 1717372898.0,
+    "_doc": "200bb458-bd15-45a2-9030-88f4f4d8c268"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:02:02",
+        "price": 67765.2,
+        "quantity": 0.005
+      }
+    ],
+    "receive_time": 1717372922.0,
+    "_doc": "7842d494-50fd-4ef7-bb68-381a3618efb9"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:32",
+        "price": 67765.3,
+        "quantity": 0.00129
+      }
+    ],
+    "receive_time": 1717372892.0,
+    "_doc": "c93e1ac4-e588-4160-afe4-7901f180e764"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:46",
+        "price": 67765.3,
+        "quantity": 0.00244
+      }
+    ],
+    "receive_time": 1717372906.0,
+    "_doc": "15025759-683b-45b8-b5e0-2a62755cdc62"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "sell",
+        "timestamp": "2024-06-03 01:01:19",
+        "price": 67765.1,
+        "quantity": 0.00122
+      }
+    ],
+    "receive_time": 1717372879.0,
+    "_doc": "4e01c691-1351-435d-aa9e-42153dfd9b0a"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:35",
+        "price": 67765.3,
+        "quantity": 0.00116
+      }
+    ],
+    "receive_time": 1717372895.0,
+    "_doc": "aaf6904a-0d6e-42bd-abfd-d33b75b8d54f"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:17",
+        "price": 67762.3,
+        "quantity": 0.00735
+      }
+    ],
+    "receive_time": 1717372877.0,
+    "_doc": "f7eee7d3-a5b0-40c3-a7e7-32b16acd2364"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:34",
+        "price": 67765.3,
+        "quantity": 0.00071
+      }
+    ],
+    "receive_time": 1717372894.0,
+    "_doc": "500cb53e-5b96-4ef3-bbb9-f916284a8850"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:17",
+        "price": 67760.0,
+        "quantity": 0.00702
+      }
+    ],
+    "receive_time": 1717372877.0,
+    "_doc": "f370a265-7318-4a55-82c6-caca4aea19a8"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:34",
+        "price": 67765.3,
+        "quantity": 0.00127
+      }
+    ],
+    "receive_time": 1717372894.0,
+    "_doc": "d604b81d-c41c-445e-94bb-143a799767e2"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:17",
+        "price": 67758.1,
+        "quantity": 0.00292
+      }
+    ],
+    "receive_time": 1717372877.0,
+    "_doc": "d6d208d0-2fd3-410d-8803-75c09050667d"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:33",
+        "price": 67765.3,
+        "quantity": 0.00118
+      }
+    ],
+    "receive_time": 1717372893.0,
+    "_doc": "8eeb3bf1-daa5-4155-bf08-10ce1f522f2f"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:17",
+        "price": 67752.4,
+        "quantity": 0.10228
+      }
+    ],
+    "receive_time": 1717372877.0,
+    "_doc": "ae647e9a-ddd2-42b0-9213-a8c7582e15c9"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:32",
+        "price": 67765.3,
+        "quantity": 0.00222
+      }
+    ],
+    "receive_time": 1717372892.0,
+    "_doc": "ce34a67d-c9cd-4bb6-8720-bddba174555f"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:16",
+        "price": 67751.1,
+        "quantity": 0.00235
+      }
+    ],
+    "receive_time": 1717372876.0,
+    "_doc": "797327e2-672d-4d80-88b7-18da6c15f2f3"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:32",
+        "price": 67765.3,
+        "quantity": 0.00099
+      }
+    ],
+    "receive_time": 1717372892.0,
+    "_doc": "7a03fe26-d64b-4c2a-bdd2-d4b35f82d81c"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:16",
+        "price": 67751.1,
+        "quantity": 0.005
+      }
+    ],
+    "receive_time": 1717372876.0,
+    "_doc": "48758fd9-8f25-4656-9c9a-6b25db60196a"
+  },
+  {
+    "liquidations": [],
+    "trades": [
+      {
+        "side": "buy",
+        "timestamp": "2024-06-03 01:01:17",
+        "price": 67758.9,
+        "quantity": 0.02953
+      }
+    ],
+    "receive_time": 1717372877.0,
+    "_doc": "9394f754-c4e9-4cb5-bea2-60a4e74f2d4c"
+  }
+]

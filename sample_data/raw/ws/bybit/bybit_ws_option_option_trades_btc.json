@@ -1,0 +1,13 @@
+[
+  {
+    "success": true,
+    "conn_id": "edfe3e50-3e5a-4324-a9f5-2c8a832a261a",
+    "data": {
+      "failTopics": [],
+      "successTopics": [
+        "publicTrade.BTC"
+      ]
+    },
+    "type": "COMMAND_RESP"
+  }
+]

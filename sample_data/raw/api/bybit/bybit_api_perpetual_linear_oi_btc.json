@@ -1,0 +1,665 @@
+[
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCPERP",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "859.882",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043998%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541388
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28MAR25",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "77.286",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043983%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541384
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSD",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "1023001581.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885543%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541381
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "261.488",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044002%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541373
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27SEP24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "109.801",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043967%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541372
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-26JUL24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "43.984",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044001%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541359
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-07JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "18.30999999",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043975%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541357
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-21JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "7.452",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043968%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541340
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-14JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "15.822",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043988%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253541339
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27DEC24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "153.406",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043999%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253540950
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDT",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "56083.38400000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885495%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253540942
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDM24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "10700971.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885720%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253540926
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDU24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "22946319.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885494%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253540924
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27SEP24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "109.801",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043967%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253526097
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "261.488",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044002%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253526095
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28MAR25",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "77.286",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043983%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253526087
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSD",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "1023001581.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885543%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525687
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCPERP",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "859.882",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043998%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525685
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDM24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "10700971.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885720%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525677
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-21JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "7.452",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043968%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525660
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-26JUL24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "43.984",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044001%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525659
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-07JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "18.30999999",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043975%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525649
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-14JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "15.822",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043988%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525645
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDU24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "22946319.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885494%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525250
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27DEC24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "153.406",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043999%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525242
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDT",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "56083.38400000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885495%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253525235
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDM24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "10700971.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885720%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510411
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "261.488",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044002%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510408
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-28MAR25",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "77.286",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043983%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510410
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSD",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "1023001581.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885543%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510407
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-26JUL24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "43.984",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21044001%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510404
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-21JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "7.452",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043968%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510391
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27SEP24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "109.801",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043967%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253510375
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDU24",
+      "category": "inverse",
+      "list": [
+        {
+          "openInterest": "22946319.00000000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885494%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509981
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCPERP",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "859.882",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043998%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509977
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-07JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "18.30999999",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043975%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509965
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-14JUN24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "15.822",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043988%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509965
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTC-27DEC24",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "153.406",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D21043999%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509960
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "symbol": "BTCUSDT",
+      "category": "linear",
+      "list": [
+        {
+          "openInterest": "56083.38400000",
+          "timestamp": "1717253400000"
+        }
+      ],
+      "nextPageCursor": "lastid%3D110885495%26lasttime%3D1717253400"
+    },
+    "retExtInfo": {},
+    "time": 1717253509954
+  }
+]

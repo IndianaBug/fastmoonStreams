@@ -1,0 +1,5789 @@
+[
+  {
+    "BTC-14JUN24-76000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-76000-P",
+      "strike": 76000.0,
+      "days_left": 12,
+      "oi": 5.0
+    },
+    "BTC-2JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 1.1
+    },
+    "BTC-27DEC24-190000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-190000-C",
+      "strike": 190000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-85000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-85000-C",
+      "strike": 85000.0,
+      "days_left": 26,
+      "oi": 925.1
+    },
+    "BTC-26JUL24-66000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-66000-P",
+      "strike": 66000.0,
+      "days_left": 54,
+      "oi": 13.2
+    },
+    "BTC-28JUN24-58000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-58000-C",
+      "strike": 58000.0,
+      "days_left": 26,
+      "oi": 744.8
+    },
+    "BTC-7JUN24-95000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-95000-C",
+      "strike": 95000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-38000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-38000-C",
+      "strike": 38000.0,
+      "days_left": 26,
+      "oi": 1266.2
+    },
+    "BTC-14JUN24-105000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-105000-P",
+      "strike": 105000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-150000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-150000-P",
+      "strike": 150000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-42000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-42000-C",
+      "strike": 42000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-46000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-46000-P",
+      "strike": 46000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-56000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-56000-C",
+      "strike": 56000.0,
+      "days_left": 54,
+      "oi": 1.1
+    },
+    "BTC-27DEC24-20000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-20000-P",
+      "strike": 20000.0,
+      "days_left": 208,
+      "oi": 67.8
+    },
+    "BTC-28MAR25-82000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-82000-C",
+      "strike": 82000.0,
+      "days_left": 299,
+      "oi": 0.1
+    },
+    "BTC-28JUN24-48000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-48000-C",
+      "strike": 48000.0,
+      "days_left": 26,
+      "oi": 183.4
+    },
+    "BTC-7JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 5,
+      "oi": 10.0
+    },
+    "BTC-28MAR25-170000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-170000-P",
+      "strike": 170000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-44000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-44000-C",
+      "strike": 44000.0,
+      "days_left": 26,
+      "oi": 455.2
+    },
+    "BTC-28MAR25-84000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-84000-P",
+      "strike": 84000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-66000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-66000-P",
+      "strike": 66000.0,
+      "days_left": 208,
+      "oi": 1.0
+    },
+    "BTC-30AUG24-78000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-78000-P",
+      "strike": 78000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-105000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-105000-C",
+      "strike": 105000.0,
+      "days_left": 208,
+      "oi": 158.4
+    },
+    "BTC-27DEC24-75000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-75000-C",
+      "strike": 75000.0,
+      "days_left": 208,
+      "oi": 220.8
+    },
+    "BTC-27DEC24-54000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-54000-C",
+      "strike": 54000.0,
+      "days_left": 208,
+      "oi": 994.5
+    },
+    "BTC-21JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 19,
+      "oi": 0.8
+    },
+    "BTC-28MAR25-54000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-54000-C",
+      "strike": 54000.0,
+      "days_left": 299,
+      "oi": 25.8
+    },
+    "BTC-2JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 0,
+      "oi": 0.1
+    },
+    "BTC-3JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-180000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-180000-P",
+      "strike": 180000.0,
+      "days_left": 208,
+      "oi": 152.7
+    },
+    "BTC-14JUN24-58000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-58000-C",
+      "strike": 58000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-40000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-40000-C",
+      "strike": 40000.0,
+      "days_left": 54,
+      "oi": 55.0
+    },
+    "BTC-27SEP24-46000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-46000-P",
+      "strike": 46000.0,
+      "days_left": 117,
+      "oi": 433.6
+    },
+    "BTC-21JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 19,
+      "oi": 1.0
+    },
+    "BTC-28MAR25-62000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-62000-C",
+      "strike": 62000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-63000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-63000-C",
+      "strike": 63000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-76000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-76000-C",
+      "strike": 76000.0,
+      "days_left": 5,
+      "oi": 6.0
+    },
+    "BTC-26JUL24-88000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-88000-C",
+      "strike": 88000.0,
+      "days_left": 54,
+      "oi": 10.0
+    },
+    "BTC-14JUN24-77000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-77000-P",
+      "strike": 77000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-110000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-110000-C",
+      "strike": 110000.0,
+      "days_left": 299,
+      "oi": 203.3
+    },
+    "BTC-27DEC24-80000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-80000-C",
+      "strike": 80000.0,
+      "days_left": 208,
+      "oi": 190.1
+    },
+    "BTC-14JUN24-77000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-77000-C",
+      "strike": 77000.0,
+      "days_left": 12,
+      "oi": 25.0
+    },
+    "BTC-27DEC24-10000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-10000-C",
+      "strike": 10000.0,
+      "days_left": 208,
+      "oi": 279.5
+    },
+    "BTC-27SEP24-44000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-44000-P",
+      "strike": 44000.0,
+      "days_left": 117,
+      "oi": 787.8
+    },
+    "BTC-26JUL24-63000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-63000-C",
+      "strike": 63000.0,
+      "days_left": 54,
+      "oi": 2.1
+    },
+    "BTC-3JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-95000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-95000-P",
+      "strike": 95000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-180000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-180000-C",
+      "strike": 180000.0,
+      "days_left": 208,
+      "oi": 129.3
+    },
+    "BTC-26JUL24-50000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-50000-P",
+      "strike": 50000.0,
+      "days_left": 54,
+      "oi": 39.7
+    },
+    "BTC-27SEP24-100000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-100000-P",
+      "strike": 100000.0,
+      "days_left": 117,
+      "oi": 405.2
+    },
+    "BTC-28JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 26,
+      "oi": 447.9
+    },
+    "BTC-28JUN24-58000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-58000-P",
+      "strike": 58000.0,
+      "days_left": 26,
+      "oi": 181.6
+    },
+    "BTC-28JUN24-20000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-20000-P",
+      "strike": 20000.0,
+      "days_left": 26,
+      "oi": 374.5
+    },
+    "BTC-30AUG24-51000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-51000-C",
+      "strike": 51000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-100000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-100000-P",
+      "strike": 100000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-73000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-73000-P",
+      "strike": 73000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-53000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-53000-P",
+      "strike": 53000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 12,
+      "oi": 3.0
+    },
+    "BTC-28JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 26,
+      "oi": 947.3
+    },
+    "BTC-21JUN24-50000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-50000-P",
+      "strike": 50000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-60000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-60000-P",
+      "strike": 60000.0,
+      "days_left": 299,
+      "oi": 862.9
+    },
+    "BTC-7JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 5,
+      "oi": 27.4
+    },
+    "BTC-27DEC24-150000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-150000-P",
+      "strike": 150000.0,
+      "days_left": 208,
+      "oi": 57.5
+    },
+    "BTC-28JUN24-84000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-84000-P",
+      "strike": 84000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-90000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-90000-P",
+      "strike": 90000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-54000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-54000-P",
+      "strike": 54000.0,
+      "days_left": 117,
+      "oi": 184.2
+    },
+    "BTC-27SEP24-70000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-70000-C",
+      "strike": 70000.0,
+      "days_left": 117,
+      "oi": 865.2
+    },
+    "BTC-27SEP24-38000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-38000-C",
+      "strike": 38000.0,
+      "days_left": 117,
+      "oi": 367.1
+    },
+    "BTC-27DEC24-62000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-62000-C",
+      "strike": 62000.0,
+      "days_left": 208,
+      "oi": 131.2
+    },
+    "BTC-26JUL24-65000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-65000-P",
+      "strike": 65000.0,
+      "days_left": 54,
+      "oi": 3.2
+    },
+    "BTC-3JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-76000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-76000-P",
+      "strike": 76000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-170000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-170000-P",
+      "strike": 170000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-27SEP24-130000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-130000-C",
+      "strike": 130000.0,
+      "days_left": 117,
+      "oi": 267.0
+    },
+    "BTC-27SEP24-170000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-170000-P",
+      "strike": 170000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-94000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-94000-C",
+      "strike": 94000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-44000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-44000-C",
+      "strike": 44000.0,
+      "days_left": 54,
+      "oi": 0.2
+    },
+    "BTC-21JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-75000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-75000-C",
+      "strike": 75000.0,
+      "days_left": 54,
+      "oi": 21.2
+    },
+    "BTC-14JUN24-58000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-58000-P",
+      "strike": 58000.0,
+      "days_left": 12,
+      "oi": 9.6
+    },
+    "BTC-3JUN24-68500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-68500-P",
+      "strike": 68500.0,
+      "days_left": 1,
+      "oi": 25.0
+    },
+    "BTC-30AUG24-125000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-125000-C",
+      "strike": 125000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-28000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-28000-P",
+      "strike": 28000.0,
+      "days_left": 117,
+      "oi": 311.7
+    },
+    "BTC-26JUL24-79000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-79000-P",
+      "strike": 79000.0,
+      "days_left": 54,
+      "oi": 15.0
+    },
+    "BTC-28MAR25-58000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-58000-C",
+      "strike": 58000.0,
+      "days_left": 299,
+      "oi": 51.4
+    },
+    "BTC-27SEP24-120000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-120000-C",
+      "strike": 120000.0,
+      "days_left": 117,
+      "oi": 232.8
+    },
+    "BTC-21JUN24-35000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-35000-P",
+      "strike": 35000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-100000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-100000-C",
+      "strike": 100000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-160000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-160000-C",
+      "strike": 160000.0,
+      "days_left": 117,
+      "oi": 285.4
+    },
+    "BTC-28MAR25-80000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-80000-C",
+      "strike": 80000.0,
+      "days_left": 299,
+      "oi": 174.1
+    },
+    "BTC-26JUL24-56000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-56000-P",
+      "strike": 56000.0,
+      "days_left": 54,
+      "oi": 11.6
+    },
+    "BTC-2JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 0,
+      "oi": 3.1
+    },
+    "BTC-3JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-100000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-100000-P",
+      "strike": 100000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-100000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-100000-P",
+      "strike": 100000.0,
+      "days_left": 208,
+      "oi": 406.2
+    },
+    "BTC-26JUL24-95000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-95000-C",
+      "strike": 95000.0,
+      "days_left": 54,
+      "oi": 0.6
+    },
+    "BTC-28MAR25-72000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-72000-C",
+      "strike": 72000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-95000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-95000-P",
+      "strike": 95000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-80000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-80000-P",
+      "strike": 80000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-86000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-86000-C",
+      "strike": 86000.0,
+      "days_left": 299,
+      "oi": 0.6
+    },
+    "BTC-14JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 12,
+      "oi": 0.1
+    },
+    "BTC-27SEP24-80000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-80000-P",
+      "strike": 80000.0,
+      "days_left": 117,
+      "oi": 250.6
+    },
+    "BTC-30AUG24-54000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-54000-P",
+      "strike": 54000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-66500-P@option@deribit": {
+      "symbol": "BTC-4JUN24-66500-P",
+      "strike": 66500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-60000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-60000-P",
+      "strike": 60000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-83000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-83000-C",
+      "strike": 83000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-69500-C@option@deribit": {
+      "symbol": "BTC-4JUN24-69500-C",
+      "strike": 69500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-70500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-70500-P",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-55000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-55000-C",
+      "strike": 55000.0,
+      "days_left": 26,
+      "oi": 616.8
+    },
+    "BTC-14JUN24-35000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-35000-C",
+      "strike": 35000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-55000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-55000-P",
+      "strike": 55000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-83000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-83000-C",
+      "strike": 83000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-76000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-76000-C",
+      "strike": 76000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-65500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-65500-C",
+      "strike": 65500.0,
+      "days_left": 1,
+      "oi": 25.0
+    },
+    "BTC-7JUN24-105000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-105000-P",
+      "strike": 105000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-110000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-110000-P",
+      "strike": 110000.0,
+      "days_left": 26,
+      "oi": 716.7
+    },
+    "BTC-27DEC24-32000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-32000-C",
+      "strike": 32000.0,
+      "days_left": 208,
+      "oi": 89.3
+    },
+    "BTC-14JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-26000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-26000-C",
+      "strike": 26000.0,
+      "days_left": 117,
+      "oi": 182.8
+    },
+    "BTC-30AUG24-79000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-79000-P",
+      "strike": 79000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 26,
+      "oi": 13.7
+    },
+    "BTC-26JUL24-34000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-34000-C",
+      "strike": 34000.0,
+      "days_left": 54,
+      "oi": 75.0
+    },
+    "BTC-14JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 12,
+      "oi": 15.8
+    },
+    "BTC-26JUL24-94000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-94000-P",
+      "strike": 94000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-110000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-110000-C",
+      "strike": 110000.0,
+      "days_left": 54,
+      "oi": 5.4
+    },
+    "BTC-28MAR25-100000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-100000-P",
+      "strike": 100000.0,
+      "days_left": 299,
+      "oi": 82.1
+    },
+    "BTC-26JUL24-57000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-57000-P",
+      "strike": 57000.0,
+      "days_left": 54,
+      "oi": 11.1
+    },
+    "BTC-28JUN24-82000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-82000-C",
+      "strike": 82000.0,
+      "days_left": 26,
+      "oi": 2.2
+    },
+    "BTC-14JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 12,
+      "oi": 28.0
+    },
+    "BTC-7JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 5,
+      "oi": 0.2
+    },
+    "BTC-28MAR25-140000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-140000-C",
+      "strike": 140000.0,
+      "days_left": 299,
+      "oi": 216.6
+    },
+    "BTC-14JUN24-50000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-50000-C",
+      "strike": 50000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 26,
+      "oi": 1002.2
+    },
+    "BTC-30AUG24-67000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-67000-P",
+      "strike": 67000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-36000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-36000-C",
+      "strike": 36000.0,
+      "days_left": 117,
+      "oi": 512.2
+    },
+    "BTC-7JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 5,
+      "oi": 30.2
+    },
+    "BTC-30AUG24-70000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-70000-P",
+      "strike": 70000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-72000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-72000-C",
+      "strike": 72000.0,
+      "days_left": 54,
+      "oi": 6.6
+    },
+    "BTC-28MAR25-25000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-25000-C",
+      "strike": 25000.0,
+      "days_left": 299,
+      "oi": 0.2
+    },
+    "BTC-28MAR25-40000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-40000-P",
+      "strike": 40000.0,
+      "days_left": 299,
+      "oi": 180.0
+    },
+    "BTC-21JUN24-95000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-95000-C",
+      "strike": 95000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-74000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-74000-P",
+      "strike": 74000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-24000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-24000-C",
+      "strike": 24000.0,
+      "days_left": 117,
+      "oi": 168.5
+    },
+    "BTC-27DEC24-86000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-86000-C",
+      "strike": 86000.0,
+      "days_left": 208,
+      "oi": 7.3
+    },
+    "BTC-28MAR25-84000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-84000-C",
+      "strike": 84000.0,
+      "days_left": 299,
+      "oi": 0.1
+    },
+    "BTC-7JUN24-56000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-56000-C",
+      "strike": 56000.0,
+      "days_left": 5,
+      "oi": 0.5
+    },
+    "BTC-27DEC24-74000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-74000-C",
+      "strike": 74000.0,
+      "days_left": 208,
+      "oi": 0.3
+    },
+    "BTC-27SEP24-84000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-84000-C",
+      "strike": 84000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-46000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-46000-C",
+      "strike": 46000.0,
+      "days_left": 117,
+      "oi": 429.5
+    },
+    "BTC-7JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 5,
+      "oi": 25.0
+    },
+    "BTC-3JUN24-67500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-67500-P",
+      "strike": 67500.0,
+      "days_left": 1,
+      "oi": 0.1
+    },
+    "BTC-28MAR25-120000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-120000-C",
+      "strike": 120000.0,
+      "days_left": 299,
+      "oi": 140.5
+    },
+    "BTC-21JUN24-40000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-40000-C",
+      "strike": 40000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-64000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-64000-C",
+      "strike": 64000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-46000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-46000-P",
+      "strike": 46000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-74000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-74000-P",
+      "strike": 74000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-4JUN24-66500-C@option@deribit": {
+      "symbol": "BTC-4JUN24-66500-C",
+      "strike": 66500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-45000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-45000-C",
+      "strike": 45000.0,
+      "days_left": 12,
+      "oi": 25.0
+    },
+    "BTC-30AUG24-62000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-62000-C",
+      "strike": 62000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-15000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-15000-P",
+      "strike": 15000.0,
+      "days_left": 208,
+      "oi": 113.0
+    },
+    "BTC-27SEP24-140000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-140000-P",
+      "strike": 140000.0,
+      "days_left": 117,
+      "oi": 75.0
+    },
+    "BTC-28JUN24-78000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-78000-C",
+      "strike": 78000.0,
+      "days_left": 26,
+      "oi": 10.7
+    },
+    "BTC-27SEP24-95000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-95000-C",
+      "strike": 95000.0,
+      "days_left": 117,
+      "oi": 206.8
+    },
+    "BTC-27SEP24-88000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-88000-P",
+      "strike": 88000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-83000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-83000-P",
+      "strike": 83000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-40000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-40000-P",
+      "strike": 40000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-48000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-48000-C",
+      "strike": 48000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-27DEC24-85000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-85000-P",
+      "strike": 85000.0,
+      "days_left": 208,
+      "oi": 117.6
+    },
+    "BTC-26JUL24-61000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-61000-P",
+      "strike": 61000.0,
+      "days_left": 54,
+      "oi": 7.8
+    },
+    "BTC-26JUL24-135000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-135000-C",
+      "strike": 135000.0,
+      "days_left": 54,
+      "oi": 0.1
+    },
+    "BTC-7JUN24-90000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-90000-C",
+      "strike": 90000.0,
+      "days_left": 5,
+      "oi": 1.0
+    },
+    "BTC-30AUG24-52000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-52000-P",
+      "strike": 52000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-52000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-52000-P",
+      "strike": 52000.0,
+      "days_left": 117,
+      "oi": 367.3
+    },
+    "BTC-27SEP24-32000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-32000-C",
+      "strike": 32000.0,
+      "days_left": 117,
+      "oi": 190.7
+    },
+    "BTC-14JUN24-60000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-60000-P",
+      "strike": 60000.0,
+      "days_left": 12,
+      "oi": 97.2
+    },
+    "BTC-4JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-73000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-73000-C",
+      "strike": 73000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-45000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-45000-P",
+      "strike": 45000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-61000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-61000-P",
+      "strike": 61000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-81000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-81000-C",
+      "strike": 81000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-61000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-61000-C",
+      "strike": 61000.0,
+      "days_left": 5,
+      "oi": 76.3
+    },
+    "BTC-2JUN24-69500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-69500-C",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 1.0
+    },
+    "BTC-28JUN24-60000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-60000-C",
+      "strike": 60000.0,
+      "days_left": 26,
+      "oi": 1561.3
+    },
+    "BTC-28MAR25-95000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-95000-P",
+      "strike": 95000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-130000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-130000-P",
+      "strike": 130000.0,
+      "days_left": 299,
+      "oi": 261.1
+    },
+    "BTC-26JUL24-115000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-115000-P",
+      "strike": 115000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-80000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-80000-P",
+      "strike": 80000.0,
+      "days_left": 26,
+      "oi": 1400.0
+    },
+    "BTC-4JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-110000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-110000-C",
+      "strike": 110000.0,
+      "days_left": 117,
+      "oi": 453.7
+    },
+    "BTC-30AUG24-62000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-62000-P",
+      "strike": 62000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-50000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-50000-P",
+      "strike": 50000.0,
+      "days_left": 26,
+      "oi": 944.7
+    },
+    "BTC-28MAR25-85000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-85000-P",
+      "strike": 85000.0,
+      "days_left": 299,
+      "oi": 243.8
+    },
+    "BTC-28JUN24-42000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-42000-P",
+      "strike": 42000.0,
+      "days_left": 26,
+      "oi": 2556.4
+    },
+    "BTC-14JUN24-40000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-40000-C",
+      "strike": 40000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-86000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-86000-P",
+      "strike": 86000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-120000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-120000-P",
+      "strike": 120000.0,
+      "days_left": 208,
+      "oi": 74.2
+    },
+    "BTC-27SEP24-72000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-72000-C",
+      "strike": 72000.0,
+      "days_left": 117,
+      "oi": 25.0
+    },
+    "BTC-30AUG24-94000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-94000-P",
+      "strike": 94000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-135000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-135000-P",
+      "strike": 135000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-52000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-52000-C",
+      "strike": 52000.0,
+      "days_left": 26,
+      "oi": 674.3
+    },
+    "BTC-30AUG24-110000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-110000-P",
+      "strike": 110000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-115000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-115000-P",
+      "strike": 115000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-82000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-82000-C",
+      "strike": 82000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-27DEC24-46000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-46000-P",
+      "strike": 46000.0,
+      "days_left": 208,
+      "oi": 427.4
+    },
+    "BTC-7JUN24-80000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-80000-P",
+      "strike": 80000.0,
+      "days_left": 5,
+      "oi": 12.5
+    },
+    "BTC-30AUG24-59000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-59000-C",
+      "strike": 59000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-95000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-95000-P",
+      "strike": 95000.0,
+      "days_left": 54,
+      "oi": 25.0
+    },
+    "BTC-21JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-44000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-44000-P",
+      "strike": 44000.0,
+      "days_left": 26,
+      "oi": 1376.8
+    },
+    "BTC-30AUG24-80000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-80000-P",
+      "strike": 80000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-20000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-20000-P",
+      "strike": 20000.0,
+      "days_left": 299,
+      "oi": 35.6
+    },
+    "BTC-27DEC24-32000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-32000-P",
+      "strike": 32000.0,
+      "days_left": 208,
+      "oi": 360.6
+    },
+    "BTC-27DEC24-45000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-45000-P",
+      "strike": 45000.0,
+      "days_left": 208,
+      "oi": 380.1
+    },
+    "BTC-7JUN24-50000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-50000-P",
+      "strike": 50000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-110000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-110000-C",
+      "strike": 110000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-160000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-160000-P",
+      "strike": 160000.0,
+      "days_left": 117,
+      "oi": 47.5
+    },
+    "BTC-27DEC24-140000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-140000-P",
+      "strike": 140000.0,
+      "days_left": 208,
+      "oi": 95.5
+    },
+    "BTC-27SEP24-20000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-20000-C",
+      "strike": 20000.0,
+      "days_left": 117,
+      "oi": 282.5
+    },
+    "BTC-3JUN24-70500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-70500-C",
+      "strike": 70500.0,
+      "days_left": 1,
+      "oi": 21.7
+    },
+    "BTC-28MAR25-68000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-68000-P",
+      "strike": 68000.0,
+      "days_left": 299,
+      "oi": 0.1
+    },
+    "BTC-28MAR25-50000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-50000-P",
+      "strike": 50000.0,
+      "days_left": 299,
+      "oi": 426.1
+    },
+    "BTC-7JUN24-90000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-90000-P",
+      "strike": 90000.0,
+      "days_left": 5,
+      "oi": 7.0
+    },
+    "BTC-27SEP24-34000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-34000-P",
+      "strike": 34000.0,
+      "days_left": 117,
+      "oi": 617.9
+    },
+    "BTC-30AUG24-55000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-55000-C",
+      "strike": 55000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 12,
+      "oi": 4.2
+    },
+    "BTC-26JUL24-36000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-36000-P",
+      "strike": 36000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-58000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-58000-P",
+      "strike": 58000.0,
+      "days_left": 208,
+      "oi": 144.4
+    },
+    "BTC-30AUG24-52000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-52000-C",
+      "strike": 52000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-74000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-74000-C",
+      "strike": 74000.0,
+      "days_left": 117,
+      "oi": 25.1
+    },
+    "BTC-30AUG24-88000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-88000-P",
+      "strike": 88000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-52000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-52000-P",
+      "strike": 52000.0,
+      "days_left": 54,
+      "oi": 0.6
+    },
+    "BTC-27SEP24-90000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-90000-P",
+      "strike": 90000.0,
+      "days_left": 117,
+      "oi": 340.6
+    },
+    "BTC-27DEC24-88000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-88000-P",
+      "strike": 88000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-69500-P@option@deribit": {
+      "symbol": "BTC-4JUN24-69500-P",
+      "strike": 69500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-36000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-36000-C",
+      "strike": 36000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-34000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-34000-C",
+      "strike": 34000.0,
+      "days_left": 208,
+      "oi": 114.8
+    },
+    "BTC-30AUG24-69000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-69000-C",
+      "strike": 69000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-100000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-100000-C",
+      "strike": 100000.0,
+      "days_left": 26,
+      "oi": 317.9
+    },
+    "BTC-2JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-56000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-56000-P",
+      "strike": 56000.0,
+      "days_left": 208,
+      "oi": 650.1
+    },
+    "BTC-3JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-60000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-60000-C",
+      "strike": 60000.0,
+      "days_left": 54,
+      "oi": 0.7
+    },
+    "BTC-21JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-55000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-55000-C",
+      "strike": 55000.0,
+      "days_left": 208,
+      "oi": 901.3
+    },
+    "BTC-26JUL24-75000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-75000-P",
+      "strike": 75000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-30000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-30000-P",
+      "strike": 30000.0,
+      "days_left": 208,
+      "oi": 46.3
+    },
+    "BTC-28JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 26,
+      "oi": 4.0
+    },
+    "BTC-26JUL24-71000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-71000-P",
+      "strike": 71000.0,
+      "days_left": 54,
+      "oi": 0.2
+    },
+    "BTC-30AUG24-115000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-115000-C",
+      "strike": 115000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 12,
+      "oi": 1.1
+    },
+    "BTC-28MAR25-180000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-180000-C",
+      "strike": 180000.0,
+      "days_left": 299,
+      "oi": 37.1
+    },
+    "BTC-27SEP24-84000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-84000-P",
+      "strike": 84000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-130000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-130000-C",
+      "strike": 130000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-61000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-61000-P",
+      "strike": 61000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-120000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-120000-P",
+      "strike": 120000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-200000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-200000-P",
+      "strike": 200000.0,
+      "days_left": 299,
+      "oi": 121.0
+    },
+    "BTC-28JUN24-25000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-25000-P",
+      "strike": 25000.0,
+      "days_left": 26,
+      "oi": 246.9
+    },
+    "BTC-21JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 19,
+      "oi": 25.1
+    },
+    "BTC-2JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-52000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-52000-C",
+      "strike": 52000.0,
+      "days_left": 5,
+      "oi": 30.7
+    },
+    "BTC-7JUN24-57000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-57000-C",
+      "strike": 57000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-69000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-69000-C",
+      "strike": 69000.0,
+      "days_left": 54,
+      "oi": 4.8
+    },
+    "BTC-28MAR25-110000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-110000-P",
+      "strike": 110000.0,
+      "days_left": 299,
+      "oi": 115.3
+    },
+    "BTC-27DEC24-40000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-40000-C",
+      "strike": 40000.0,
+      "days_left": 208,
+      "oi": 179.4
+    },
+    "BTC-30AUG24-90000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-90000-C",
+      "strike": 90000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-94000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-94000-C",
+      "strike": 94000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-125000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-125000-P",
+      "strike": 125000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-82000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-82000-P",
+      "strike": 82000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-105000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-105000-P",
+      "strike": 105000.0,
+      "days_left": 117,
+      "oi": 84.5
+    },
+    "BTC-3JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-76000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-76000-C",
+      "strike": 76000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-120000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-120000-C",
+      "strike": 120000.0,
+      "days_left": 54,
+      "oi": 6.2
+    },
+    "BTC-21JUN24-110000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-110000-P",
+      "strike": 110000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-59000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-59000-P",
+      "strike": 59000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-44000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-44000-C",
+      "strike": 44000.0,
+      "days_left": 208,
+      "oi": 227.8
+    },
+    "BTC-30AUG24-66000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-66000-P",
+      "strike": 66000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-115000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-115000-C",
+      "strike": 115000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-86000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-86000-P",
+      "strike": 86000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-82000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-82000-C",
+      "strike": 82000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-115000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-115000-C",
+      "strike": 115000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-65000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-65000-P",
+      "strike": 65000.0,
+      "days_left": 208,
+      "oi": 163.4
+    },
+    "BTC-27SEP24-30000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-30000-C",
+      "strike": 30000.0,
+      "days_left": 117,
+      "oi": 205.5
+    },
+    "BTC-30AUG24-71000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-71000-C",
+      "strike": 71000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 5,
+      "oi": 28.0
+    },
+    "BTC-7JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-76000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-76000-C",
+      "strike": 76000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-78000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-78000-C",
+      "strike": 78000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-96000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-96000-P",
+      "strike": 96000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-56000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-56000-C",
+      "strike": 56000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-55000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-55000-C",
+      "strike": 55000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-78000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-78000-P",
+      "strike": 78000.0,
+      "days_left": 26,
+      "oi": 2.5
+    },
+    "BTC-26JUL24-49000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-49000-C",
+      "strike": 49000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-81000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-81000-C",
+      "strike": 81000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-105000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-105000-P",
+      "strike": 105000.0,
+      "days_left": 208,
+      "oi": 19.2
+    },
+    "BTC-3JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-54000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-54000-P",
+      "strike": 54000.0,
+      "days_left": 5,
+      "oi": 0.6
+    },
+    "BTC-27SEP24-68000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-68000-P",
+      "strike": 68000.0,
+      "days_left": 117,
+      "oi": 12.6
+    },
+    "BTC-2JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-75000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-75000-P",
+      "strike": 75000.0,
+      "days_left": 26,
+      "oi": 1392.0
+    },
+    "BTC-2JUN24-66500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-66500-C",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-35000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-35000-P",
+      "strike": 35000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-85000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-85000-C",
+      "strike": 85000.0,
+      "days_left": 117,
+      "oi": 390.6
+    },
+    "BTC-4JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-61000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-61000-C",
+      "strike": 61000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 5,
+      "oi": 0.3
+    },
+    "BTC-30AUG24-75000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-75000-C",
+      "strike": 75000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-68500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-68500-C",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 10.1
+    },
+    "BTC-26JUL24-96000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-96000-P",
+      "strike": 96000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 10.2
+    },
+    "BTC-27DEC24-54000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-54000-P",
+      "strike": 54000.0,
+      "days_left": 208,
+      "oi": 346.3
+    },
+    "BTC-30AUG24-105000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-105000-C",
+      "strike": 105000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-40000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-40000-P",
+      "strike": 40000.0,
+      "days_left": 208,
+      "oi": 1779.8
+    },
+    "BTC-14JUN24-79000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-79000-C",
+      "strike": 79000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-74000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-74000-C",
+      "strike": 74000.0,
+      "days_left": 299,
+      "oi": 75.0
+    },
+    "BTC-27DEC24-60000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-60000-P",
+      "strike": 60000.0,
+      "days_left": 208,
+      "oi": 453.0
+    },
+    "BTC-28JUN24-26000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-26000-C",
+      "strike": 26000.0,
+      "days_left": 26,
+      "oi": 1328.3
+    },
+    "BTC-26JUL24-51000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-51000-P",
+      "strike": 51000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-76000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-76000-P",
+      "strike": 76000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-73000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-73000-P",
+      "strike": 73000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-78000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-78000-P",
+      "strike": 78000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-64000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-64000-C",
+      "strike": 64000.0,
+      "days_left": 208,
+      "oi": 0.4
+    },
+    "BTC-27DEC24-64000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-64000-P",
+      "strike": 64000.0,
+      "days_left": 208,
+      "oi": 3.0
+    },
+    "BTC-27DEC24-78000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-78000-P",
+      "strike": 78000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-7JUN24-78000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-78000-P",
+      "strike": 78000.0,
+      "days_left": 5,
+      "oi": 0.2
+    },
+    "BTC-27DEC24-120000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-120000-C",
+      "strike": 120000.0,
+      "days_left": 208,
+      "oi": 281.8
+    },
+    "BTC-26JUL24-59000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-59000-C",
+      "strike": 59000.0,
+      "days_left": 54,
+      "oi": 0.6
+    },
+    "BTC-30AUG24-42000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-42000-C",
+      "strike": 42000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-24000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-24000-C",
+      "strike": 24000.0,
+      "days_left": 26,
+      "oi": 1325.9
+    },
+    "BTC-28MAR25-140000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-140000-P",
+      "strike": 140000.0,
+      "days_left": 299,
+      "oi": 245.1
+    },
+    "BTC-27SEP24-15000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-15000-P",
+      "strike": 15000.0,
+      "days_left": 117,
+      "oi": 251.9
+    },
+    "BTC-27DEC24-36000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-36000-P",
+      "strike": 36000.0,
+      "days_left": 208,
+      "oi": 523.1
+    },
+    "BTC-28JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 26,
+      "oi": 6.4
+    },
+    "BTC-21JUN24-80000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-80000-P",
+      "strike": 80000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 10.0
+    },
+    "BTC-28JUN24-28000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-28000-P",
+      "strike": 28000.0,
+      "days_left": 26,
+      "oi": 186.9
+    },
+    "BTC-26JUL24-38000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-38000-P",
+      "strike": 38000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-96000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-96000-C",
+      "strike": 96000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-73000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-73000-C",
+      "strike": 73000.0,
+      "days_left": 54,
+      "oi": 2.8
+    },
+    "BTC-27SEP24-22000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-22000-C",
+      "strike": 22000.0,
+      "days_left": 117,
+      "oi": 154.2
+    },
+    "BTC-2JUN24-68500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-68500-P",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 0.5
+    },
+    "BTC-7JUN24-45000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-45000-C",
+      "strike": 45000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-60000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-60000-C",
+      "strike": 60000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-105000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-105000-C",
+      "strike": 105000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-62000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-62000-P",
+      "strike": 62000.0,
+      "days_left": 208,
+      "oi": 269.0
+    },
+    "BTC-3JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 1,
+      "oi": 16.8
+    },
+    "BTC-21JUN24-85000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-85000-C",
+      "strike": 85000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-76000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-76000-P",
+      "strike": 76000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-82000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-82000-P",
+      "strike": 82000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-28000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-28000-C",
+      "strike": 28000.0,
+      "days_left": 117,
+      "oi": 238.4
+    },
+    "BTC-2JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 0.1
+    },
+    "BTC-28MAR25-90000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-90000-P",
+      "strike": 90000.0,
+      "days_left": 299,
+      "oi": 274.2
+    },
+    "BTC-27SEP24-38000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-38000-P",
+      "strike": 38000.0,
+      "days_left": 117,
+      "oi": 654.0
+    },
+    "BTC-3JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 19,
+      "oi": 10.0
+    },
+    "BTC-3JUN24-67500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-67500-C",
+      "strike": 67500.0,
+      "days_left": 1,
+      "oi": 10.1
+    },
+    "BTC-30AUG24-120000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-120000-P",
+      "strike": 120000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-44000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-44000-P",
+      "strike": 44000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-44000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-44000-P",
+      "strike": 44000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-84000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-84000-P",
+      "strike": 84000.0,
+      "days_left": 208,
+      "oi": 12.1
+    },
+    "BTC-28MAR25-56000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-56000-C",
+      "strike": 56000.0,
+      "days_left": 299,
+      "oi": 0.2
+    },
+    "BTC-26JUL24-57000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-57000-C",
+      "strike": 57000.0,
+      "days_left": 54,
+      "oi": 0.1
+    },
+    "BTC-30AUG24-81000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-81000-P",
+      "strike": 81000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-30000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-30000-C",
+      "strike": 30000.0,
+      "days_left": 299,
+      "oi": 60.1
+    },
+    "BTC-27DEC24-48000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-48000-P",
+      "strike": 48000.0,
+      "days_left": 208,
+      "oi": 732.3
+    },
+    "BTC-14JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-53000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-53000-P",
+      "strike": 53000.0,
+      "days_left": 54,
+      "oi": 2.8
+    },
+    "BTC-30AUG24-54000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-54000-C",
+      "strike": 54000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-58000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-58000-C",
+      "strike": 58000.0,
+      "days_left": 54,
+      "oi": 0.2
+    },
+    "BTC-28MAR25-66000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-66000-P",
+      "strike": 66000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-40000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-40000-C",
+      "strike": 40000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-40000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-40000-P",
+      "strike": 40000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-92000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-92000-P",
+      "strike": 92000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 5,
+      "oi": 32.5
+    },
+    "BTC-3JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-54000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-54000-C",
+      "strike": 54000.0,
+      "days_left": 26,
+      "oi": 673.3
+    },
+    "BTC-27DEC24-90000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-90000-C",
+      "strike": 90000.0,
+      "days_left": 208,
+      "oi": 270.8
+    },
+    "BTC-27SEP24-74000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-74000-P",
+      "strike": 74000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-80000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-80000-C",
+      "strike": 80000.0,
+      "days_left": 54,
+      "oi": 10.2
+    },
+    "BTC-28JUN24-26000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-26000-P",
+      "strike": 26000.0,
+      "days_left": 26,
+      "oi": 212.5
+    },
+    "BTC-14JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 12,
+      "oi": 0.4
+    },
+    "BTC-26JUL24-54000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-54000-C",
+      "strike": 54000.0,
+      "days_left": 54,
+      "oi": 62.5
+    },
+    "BTC-7JUN24-40000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-40000-P",
+      "strike": 40000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-85000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-85000-P",
+      "strike": 85000.0,
+      "days_left": 54,
+      "oi": 0.1
+    },
+    "BTC-14JUN24-56000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-56000-C",
+      "strike": 56000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 5,
+      "oi": 71.1
+    },
+    "BTC-7JUN24-57000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-57000-P",
+      "strike": 57000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-69500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-69500-P",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-46000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-46000-P",
+      "strike": 46000.0,
+      "days_left": 54,
+      "oi": 5.4
+    },
+    "BTC-7JUN24-54000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-54000-C",
+      "strike": 54000.0,
+      "days_left": 5,
+      "oi": 0.6
+    },
+    "BTC-7JUN24-60000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-60000-C",
+      "strike": 60000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-65000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-65000-C",
+      "strike": 65000.0,
+      "days_left": 117,
+      "oi": 308.8
+    },
+    "BTC-4JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-69000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-69000-C",
+      "strike": 69000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-88000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-88000-P",
+      "strike": 88000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-45000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-45000-C",
+      "strike": 45000.0,
+      "days_left": 208,
+      "oi": 115.0
+    },
+    "BTC-27DEC24-70000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-70000-C",
+      "strike": 70000.0,
+      "days_left": 208,
+      "oi": 384.4
+    },
+    "BTC-28MAR25-25000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-25000-P",
+      "strike": 25000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-46000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-46000-C",
+      "strike": 46000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-56000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-56000-P",
+      "strike": 56000.0,
+      "days_left": 5,
+      "oi": 6.7
+    },
+    "BTC-27SEP24-68000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-68000-C",
+      "strike": 68000.0,
+      "days_left": 117,
+      "oi": 25.0
+    },
+    "BTC-21JUN24-61000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-61000-P",
+      "strike": 61000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-75000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-75000-P",
+      "strike": 75000.0,
+      "days_left": 208,
+      "oi": 323.1
+    },
+    "BTC-28JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 26,
+      "oi": 534.8
+    },
+    "BTC-28JUN24-40000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-40000-P",
+      "strike": 40000.0,
+      "days_left": 26,
+      "oi": 853.8
+    },
+    "BTC-26JUL24-64000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-64000-P",
+      "strike": 64000.0,
+      "days_left": 54,
+      "oi": 0.8
+    },
+    "BTC-26JUL24-78000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-78000-C",
+      "strike": 78000.0,
+      "days_left": 54,
+      "oi": 0.5
+    },
+    "BTC-28JUN24-100000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-100000-P",
+      "strike": 100000.0,
+      "days_left": 26,
+      "oi": 1154.4
+    },
+    "BTC-28MAR25-68000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-68000-C",
+      "strike": 68000.0,
+      "days_left": 299,
+      "oi": 28.7
+    },
+    "BTC-7JUN24-58000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-58000-C",
+      "strike": 58000.0,
+      "days_left": 5,
+      "oi": 0.1
+    },
+    "BTC-27SEP24-140000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-140000-C",
+      "strike": 140000.0,
+      "days_left": 117,
+      "oi": 299.8
+    },
+    "BTC-27SEP24-75000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-75000-P",
+      "strike": 75000.0,
+      "days_left": 117,
+      "oi": 254.1
+    },
+    "BTC-28JUN24-84000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-84000-C",
+      "strike": 84000.0,
+      "days_left": 26,
+      "oi": 51.1
+    },
+    "BTC-26JUL24-76000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-76000-P",
+      "strike": 76000.0,
+      "days_left": 54,
+      "oi": 0.6
+    },
+    "BTC-26JUL24-77000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-77000-P",
+      "strike": 77000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-54000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-54000-P",
+      "strike": 54000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-110000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-110000-P",
+      "strike": 110000.0,
+      "days_left": 117,
+      "oi": 259.5
+    },
+    "BTC-14JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 12,
+      "oi": 67.2
+    },
+    "BTC-28MAR25-130000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-130000-C",
+      "strike": 130000.0,
+      "days_left": 299,
+      "oi": 165.8
+    },
+    "BTC-27SEP24-90000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-90000-C",
+      "strike": 90000.0,
+      "days_left": 117,
+      "oi": 631.6
+    },
+    "BTC-21JUN24-80000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-80000-C",
+      "strike": 80000.0,
+      "days_left": 19,
+      "oi": 0.2
+    },
+    "BTC-2JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 5.4
+    },
+    "BTC-28JUN24-15000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-15000-C",
+      "strike": 15000.0,
+      "days_left": 26,
+      "oi": 994.2
+    },
+    "BTC-27SEP24-72000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-72000-P",
+      "strike": 72000.0,
+      "days_left": 117,
+      "oi": 0.1
+    },
+    "BTC-30AUG24-65000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-65000-P",
+      "strike": 65000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-30000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-30000-P",
+      "strike": 30000.0,
+      "days_left": 117,
+      "oi": 4422.4
+    },
+    "BTC-28JUN24-34000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-34000-P",
+      "strike": 34000.0,
+      "days_left": 26,
+      "oi": 658.2
+    },
+    "BTC-28MAR25-35000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-35000-P",
+      "strike": 35000.0,
+      "days_left": 299,
+      "oi": 4.0
+    },
+    "BTC-30AUG24-130000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-130000-C",
+      "strike": 130000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-67000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-67000-C",
+      "strike": 67000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-78000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-78000-P",
+      "strike": 78000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-25000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-25000-C",
+      "strike": 25000.0,
+      "days_left": 208,
+      "oi": 230.7
+    },
+    "BTC-27SEP24-26000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-26000-P",
+      "strike": 26000.0,
+      "days_left": 117,
+      "oi": 262.3
+    },
+    "BTC-27SEP24-22000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-22000-P",
+      "strike": 22000.0,
+      "days_left": 117,
+      "oi": 4638.3
+    },
+    "BTC-14JUN24-75000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-75000-P",
+      "strike": 75000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-92000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-92000-C",
+      "strike": 92000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-170000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-170000-C",
+      "strike": 170000.0,
+      "days_left": 208,
+      "oi": 3.0
+    },
+    "BTC-7JUN24-105000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-105000-C",
+      "strike": 105000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 5,
+      "oi": 15.1
+    },
+    "BTC-28MAR25-78000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-78000-P",
+      "strike": 78000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-90000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-90000-C",
+      "strike": 90000.0,
+      "days_left": 19,
+      "oi": 0.1
+    },
+    "BTC-30AUG24-64000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-64000-C",
+      "strike": 64000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-82000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-82000-P",
+      "strike": 82000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-40000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-40000-C",
+      "strike": 40000.0,
+      "days_left": 299,
+      "oi": 76.1
+    },
+    "BTC-26JUL24-49000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-49000-P",
+      "strike": 49000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-15000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-15000-C",
+      "strike": 15000.0,
+      "days_left": 208,
+      "oi": 67.5
+    },
+    "BTC-28JUN24-46000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-46000-C",
+      "strike": 46000.0,
+      "days_left": 26,
+      "oi": 580.2
+    },
+    "BTC-28MAR25-72000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-72000-P",
+      "strike": 72000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-24000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-24000-P",
+      "strike": 24000.0,
+      "days_left": 117,
+      "oi": 267.5
+    },
+    "BTC-14JUN24-85000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-85000-C",
+      "strike": 85000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-28000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-28000-C",
+      "strike": 28000.0,
+      "days_left": 26,
+      "oi": 898.8
+    },
+    "BTC-27SEP24-44000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-44000-C",
+      "strike": 44000.0,
+      "days_left": 117,
+      "oi": 495.0
+    },
+    "BTC-26JUL24-92000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-92000-C",
+      "strike": 92000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-60000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-60000-C",
+      "strike": 60000.0,
+      "days_left": 208,
+      "oi": 475.3
+    },
+    "BTC-27DEC24-50000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-50000-P",
+      "strike": 50000.0,
+      "days_left": 208,
+      "oi": 507.7
+    },
+    "BTC-27DEC24-58000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-58000-C",
+      "strike": 58000.0,
+      "days_left": 208,
+      "oi": 505.4
+    },
+    "BTC-26JUL24-67000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-67000-C",
+      "strike": 67000.0,
+      "days_left": 54,
+      "oi": 86.1
+    },
+    "BTC-28JUN24-24000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-24000-P",
+      "strike": 24000.0,
+      "days_left": 26,
+      "oi": 184.7
+    },
+    "BTC-30AUG24-68000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-68000-C",
+      "strike": 68000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-66500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-66500-C",
+      "strike": 66500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-75000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-75000-P",
+      "strike": 75000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-100000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-100000-C",
+      "strike": 100000.0,
+      "days_left": 54,
+      "oi": 5.4
+    },
+    "BTC-28JUN24-22000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-22000-C",
+      "strike": 22000.0,
+      "days_left": 26,
+      "oi": 398.9
+    },
+    "BTC-30AUG24-71000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-71000-P",
+      "strike": 71000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-90000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-90000-C",
+      "strike": 90000.0,
+      "days_left": 299,
+      "oi": 84.6
+    },
+    "BTC-27SEP24-80000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-80000-C",
+      "strike": 80000.0,
+      "days_left": 117,
+      "oi": 245.2
+    },
+    "BTC-28JUN24-140000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-140000-C",
+      "strike": 140000.0,
+      "days_left": 26,
+      "oi": 478.4
+    },
+    "BTC-27SEP24-76000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-76000-C",
+      "strike": 76000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-34000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-34000-P",
+      "strike": 34000.0,
+      "days_left": 208,
+      "oi": 402.1
+    },
+    "BTC-27SEP24-86000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-86000-C",
+      "strike": 86000.0,
+      "days_left": 117,
+      "oi": 0.2
+    },
+    "BTC-21JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-68000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-68000-P",
+      "strike": 68000.0,
+      "days_left": 208,
+      "oi": 4.1
+    },
+    "BTC-4JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-78000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-78000-C",
+      "strike": 78000.0,
+      "days_left": 12,
+      "oi": 20.1
+    },
+    "BTC-14JUN24-55000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-55000-P",
+      "strike": 55000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-15000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-15000-P",
+      "strike": 15000.0,
+      "days_left": 26,
+      "oi": 526.1
+    },
+    "BTC-4JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-85000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-85000-P",
+      "strike": 85000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-74000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-74000-C",
+      "strike": 74000.0,
+      "days_left": 54,
+      "oi": 1.8
+    },
+    "BTC-30AUG24-65000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-65000-C",
+      "strike": 65000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-58000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-58000-P",
+      "strike": 58000.0,
+      "days_left": 54,
+      "oi": 3.2
+    },
+    "BTC-30AUG24-120000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-120000-C",
+      "strike": 120000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-63000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-63000-P",
+      "strike": 63000.0,
+      "days_left": 54,
+      "oi": 2.7
+    },
+    "BTC-28MAR25-64000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-64000-P",
+      "strike": 64000.0,
+      "days_left": 299,
+      "oi": 0.5
+    },
+    "BTC-21JUN24-40000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-40000-P",
+      "strike": 40000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 5,
+      "oi": 14.1
+    },
+    "BTC-30AUG24-135000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-135000-C",
+      "strike": 135000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-88000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-88000-C",
+      "strike": 88000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 26,
+      "oi": 2.8
+    },
+    "BTC-21JUN24-50000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-50000-C",
+      "strike": 50000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-67500-P@option@deribit": {
+      "symbol": "BTC-4JUN24-67500-P",
+      "strike": 67500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-30000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-30000-C",
+      "strike": 30000.0,
+      "days_left": 26,
+      "oi": 1276.1
+    },
+    "BTC-14JUN24-110000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-110000-C",
+      "strike": 110000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 12,
+      "oi": 12.5
+    },
+    "BTC-26JUL24-53000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-53000-C",
+      "strike": 53000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 5,
+      "oi": 4.4
+    },
+    "BTC-27DEC24-35000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-35000-P",
+      "strike": 35000.0,
+      "days_left": 208,
+      "oi": 595.9
+    },
+    "BTC-4JUN24-65500-C@option@deribit": {
+      "symbol": "BTC-4JUN24-65500-C",
+      "strike": 65500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-55000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-55000-C",
+      "strike": 55000.0,
+      "days_left": 12,
+      "oi": 0.1
+    },
+    "BTC-2JUN24-67500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-67500-C",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 2.8
+    },
+    "BTC-30AUG24-58000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-58000-P",
+      "strike": 58000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-52000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-52000-C",
+      "strike": 52000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-36000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-36000-C",
+      "strike": 36000.0,
+      "days_left": 26,
+      "oi": 1004.3
+    },
+    "BTC-27SEP24-75000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-75000-C",
+      "strike": 75000.0,
+      "days_left": 117,
+      "oi": 230.2
+    },
+    "BTC-7JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 5,
+      "oi": 4.5
+    },
+    "BTC-30AUG24-84000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-84000-P",
+      "strike": 84000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-56000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-56000-P",
+      "strike": 56000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-77000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-77000-C",
+      "strike": 77000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-48000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-48000-P",
+      "strike": 48000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 12,
+      "oi": 2.0
+    },
+    "BTC-14JUN24-59000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-59000-C",
+      "strike": 59000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-40000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-40000-P",
+      "strike": 40000.0,
+      "days_left": 117,
+      "oi": 426.3
+    },
+    "BTC-2JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 0,
+      "oi": 0.1
+    },
+    "BTC-28JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 26,
+      "oi": 375.4
+    },
+    "BTC-2JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-30000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-30000-P",
+      "strike": 30000.0,
+      "days_left": 299,
+      "oi": 36.9
+    },
+    "BTC-28JUN24-52000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-52000-P",
+      "strike": 52000.0,
+      "days_left": 26,
+      "oi": 1061.2
+    },
+    "BTC-27DEC24-100000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-100000-C",
+      "strike": 100000.0,
+      "days_left": 208,
+      "oi": 265.6
+    },
+    "BTC-27SEP24-56000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-56000-C",
+      "strike": 56000.0,
+      "days_left": 117,
+      "oi": 350.8
+    },
+    "BTC-27DEC24-55000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-55000-P",
+      "strike": 55000.0,
+      "days_left": 208,
+      "oi": 1546.6
+    },
+    "BTC-28JUN24-120000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-120000-C",
+      "strike": 120000.0,
+      "days_left": 26,
+      "oi": 1258.1
+    },
+    "BTC-14JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-110000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-110000-C",
+      "strike": 110000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-140000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-140000-P",
+      "strike": 140000.0,
+      "days_left": 26,
+      "oi": 278.6
+    },
+    "BTC-21JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-53000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-53000-C",
+      "strike": 53000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-55000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-55000-P",
+      "strike": 55000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-65500-P@option@deribit": {
+      "symbol": "BTC-4JUN24-65500-P",
+      "strike": 65500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-65500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-65500-P",
+      "strike": 65500.0,
+      "days_left": 0,
+      "oi": 0.6
+    },
+    "BTC-27SEP24-170000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-170000-C",
+      "strike": 170000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-64000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-64000-C",
+      "strike": 64000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-68000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-68000-P",
+      "strike": 68000.0,
+      "days_left": 54,
+      "oi": 3.6
+    },
+    "BTC-27DEC24-90000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-90000-P",
+      "strike": 90000.0,
+      "days_left": 208,
+      "oi": 328.6
+    },
+    "BTC-3JUN24-66500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-66500-P",
+      "strike": 66500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-95000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-95000-P",
+      "strike": 95000.0,
+      "days_left": 26,
+      "oi": 668.8
+    },
+    "BTC-3JUN24-70500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-70500-P",
+      "strike": 70500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-77000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-77000-P",
+      "strike": 77000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-70000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-70000-P",
+      "strike": 70000.0,
+      "days_left": 117,
+      "oi": 542.8
+    },
+    "BTC-28MAR25-45000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-45000-C",
+      "strike": 45000.0,
+      "days_left": 299,
+      "oi": 0.4
+    },
+    "BTC-28JUN24-30000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-30000-P",
+      "strike": 30000.0,
+      "days_left": 26,
+      "oi": 456.5
+    },
+    "BTC-27SEP24-78000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-78000-C",
+      "strike": 78000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-75000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-75000-C",
+      "strike": 75000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-200000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-200000-C",
+      "strike": 200000.0,
+      "days_left": 299,
+      "oi": 69.5
+    },
+    "BTC-28JUN24-20000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-20000-C",
+      "strike": 20000.0,
+      "days_left": 26,
+      "oi": 1668.7
+    },
+    "BTC-2JUN24-69500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-69500-P",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-86000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-86000-C",
+      "strike": 86000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-70000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-70000-P",
+      "strike": 70000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-68000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-68000-C",
+      "strike": 68000.0,
+      "days_left": 54,
+      "oi": 2.2
+    },
+    "BTC-28MAR25-42000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-42000-P",
+      "strike": 42000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 0,
+      "oi": 0.1
+    },
+    "BTC-7JUN24-61000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-61000-P",
+      "strike": 61000.0,
+      "days_left": 5,
+      "oi": 2.3
+    },
+    "BTC-21JUN24-100000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-100000-P",
+      "strike": 100000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-90000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-90000-C",
+      "strike": 90000.0,
+      "days_left": 26,
+      "oi": 592.1
+    },
+    "BTC-27DEC24-74000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-74000-P",
+      "strike": 74000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-55000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-55000-C",
+      "strike": 55000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-42000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-42000-C",
+      "strike": 42000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-85000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-85000-C",
+      "strike": 85000.0,
+      "days_left": 54,
+      "oi": 24.1
+    },
+    "BTC-30AUG24-60000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-60000-P",
+      "strike": 60000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 19,
+      "oi": 5.0
+    },
+    "BTC-7JUN24-58000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-58000-P",
+      "strike": 58000.0,
+      "days_left": 5,
+      "oi": 10.0
+    },
+    "BTC-28MAR25-105000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-105000-P",
+      "strike": 105000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-32000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-32000-C",
+      "strike": 32000.0,
+      "days_left": 26,
+      "oi": 844.3
+    },
+    "BTC-27DEC24-160000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-160000-P",
+      "strike": 160000.0,
+      "days_left": 208,
+      "oi": 40.5
+    },
+    "BTC-26JUL24-72000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-72000-P",
+      "strike": 72000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-60000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-60000-C",
+      "strike": 60000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-75000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-75000-C",
+      "strike": 75000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-58000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-58000-C",
+      "strike": 58000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-83000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-83000-P",
+      "strike": 83000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-110000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-110000-C",
+      "strike": 110000.0,
+      "days_left": 208,
+      "oi": 290.6
+    },
+    "BTC-30AUG24-64000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-64000-P",
+      "strike": 64000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 12,
+      "oi": 35.6
+    },
+    "BTC-28MAR25-35000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-35000-C",
+      "strike": 35000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-45000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-45000-C",
+      "strike": 45000.0,
+      "days_left": 117,
+      "oi": 506.1
+    },
+    "BTC-27DEC24-84000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-84000-C",
+      "strike": 84000.0,
+      "days_left": 208,
+      "oi": 0.2
+    },
+    "BTC-28JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 26,
+      "oi": 1003.5
+    },
+    "BTC-27SEP24-25000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-25000-C",
+      "strike": 25000.0,
+      "days_left": 117,
+      "oi": 1438.4
+    },
+    "BTC-30AUG24-57000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-57000-C",
+      "strike": 57000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-82000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-82000-C",
+      "strike": 82000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-66000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-66000-P",
+      "strike": 66000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-46000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-46000-C",
+      "strike": 46000.0,
+      "days_left": 208,
+      "oi": 354.5
+    },
+    "BTC-26JUL24-55000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-55000-P",
+      "strike": 55000.0,
+      "days_left": 54,
+      "oi": 0.4
+    },
+    "BTC-2JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-65000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-65000-C",
+      "strike": 65000.0,
+      "days_left": 54,
+      "oi": 1.1
+    },
+    "BTC-30AUG24-72000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-72000-C",
+      "strike": 72000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-90000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-90000-P",
+      "strike": 90000.0,
+      "days_left": 26,
+      "oi": 1304.4
+    },
+    "BTC-26JUL24-66000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-66000-C",
+      "strike": 66000.0,
+      "days_left": 54,
+      "oi": 2.5
+    },
+    "BTC-21JUN24-85000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-85000-P",
+      "strike": 85000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-57000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-57000-P",
+      "strike": 57000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-78000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-78000-P",
+      "strike": 78000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-75000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-75000-C",
+      "strike": 75000.0,
+      "days_left": 12,
+      "oi": 0.3
+    },
+    "BTC-27SEP24-42000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-42000-C",
+      "strike": 42000.0,
+      "days_left": 117,
+      "oi": 426.0
+    },
+    "BTC-14JUN24-95000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-95000-C",
+      "strike": 95000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-74000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-74000-C",
+      "strike": 74000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-72000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-72000-P",
+      "strike": 72000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-110000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-110000-P",
+      "strike": 110000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-66000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-66000-C",
+      "strike": 66000.0,
+      "days_left": 208,
+      "oi": 1.3
+    },
+    "BTC-27SEP24-76000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-76000-P",
+      "strike": 76000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 12,
+      "oi": 71.5
+    },
+    "BTC-21JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-105000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-105000-C",
+      "strike": 105000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-62000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-62000-P",
+      "strike": 62000.0,
+      "days_left": 54,
+      "oi": 19.8
+    },
+    "BTC-3JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-190000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-190000-C",
+      "strike": 190000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-125000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-125000-C",
+      "strike": 125000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 5,
+      "oi": 20.1
+    },
+    "BTC-3JUN24-65500-P@option@deribit": {
+      "symbol": "BTC-3JUN24-65500-P",
+      "strike": 65500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-150000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-150000-C",
+      "strike": 150000.0,
+      "days_left": 117,
+      "oi": 0.7
+    },
+    "BTC-2JUN24-65000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-65000-P",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 1.5
+    },
+    "BTC-7JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 5,
+      "oi": 73.7
+    },
+    "BTC-28JUN24-10000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-10000-P",
+      "strike": 10000.0,
+      "days_left": 26,
+      "oi": 799.4
+    },
+    "BTC-2JUN24-65500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-65500-C",
+      "strike": 65500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 12,
+      "oi": 5.3
+    },
+    "BTC-14JUN24-90000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-90000-C",
+      "strike": 90000.0,
+      "days_left": 12,
+      "oi": 9.5
+    },
+    "BTC-30AUG24-82000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-82000-P",
+      "strike": 82000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-69000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-69000-P",
+      "strike": 69000.0,
+      "days_left": 54,
+      "oi": 5.1
+    },
+    "BTC-28MAR25-44000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-44000-C",
+      "strike": 44000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-44000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-44000-P",
+      "strike": 44000.0,
+      "days_left": 54,
+      "oi": 28.7
+    },
+    "BTC-27DEC24-10000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-10000-P",
+      "strike": 10000.0,
+      "days_left": 208,
+      "oi": 121.7
+    },
+    "BTC-27SEP24-100000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-100000-C",
+      "strike": 100000.0,
+      "days_left": 117,
+      "oi": 280.2
+    },
+    "BTC-7JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 5,
+      "oi": 0.1
+    },
+    "BTC-28MAR25-46000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-46000-C",
+      "strike": 46000.0,
+      "days_left": 299,
+      "oi": 0.1
+    },
+    "BTC-27SEP24-15000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-15000-C",
+      "strike": 15000.0,
+      "days_left": 117,
+      "oi": 245.6
+    },
+    "BTC-30AUG24-58000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-58000-C",
+      "strike": 58000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-75000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-75000-P",
+      "strike": 75000.0,
+      "days_left": 5,
+      "oi": 0.7
+    },
+    "BTC-30AUG24-50000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-50000-P",
+      "strike": 50000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-120000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-120000-P",
+      "strike": 120000.0,
+      "days_left": 299,
+      "oi": 316.1
+    },
+    "BTC-3JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-100000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-100000-C",
+      "strike": 100000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-135000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-135000-P",
+      "strike": 135000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 12,
+      "oi": 22.3
+    },
+    "BTC-7JUN24-59000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-59000-C",
+      "strike": 59000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-90000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-90000-P",
+      "strike": 90000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-56000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-56000-P",
+      "strike": 56000.0,
+      "days_left": 26,
+      "oi": 387.3
+    },
+    "BTC-28JUN24-82000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-82000-P",
+      "strike": 82000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-86000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-86000-P",
+      "strike": 86000.0,
+      "days_left": 54,
+      "oi": 0.2
+    },
+    "BTC-27SEP24-58000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-58000-P",
+      "strike": 58000.0,
+      "days_left": 117,
+      "oi": 472.4
+    },
+    "BTC-28MAR25-75000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-75000-C",
+      "strike": 75000.0,
+      "days_left": 299,
+      "oi": 1.6
+    },
+    "BTC-26JUL24-47000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-47000-C",
+      "strike": 47000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-150000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-150000-C",
+      "strike": 150000.0,
+      "days_left": 299,
+      "oi": 197.7
+    },
+    "BTC-28MAR25-70000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-70000-P",
+      "strike": 70000.0,
+      "days_left": 299,
+      "oi": 792.4
+    },
+    "BTC-28MAR25-50000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-50000-C",
+      "strike": 50000.0,
+      "days_left": 299,
+      "oi": 107.7
+    },
+    "BTC-28MAR25-20000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-20000-C",
+      "strike": 20000.0,
+      "days_left": 299,
+      "oi": 95.7
+    },
+    "BTC-28JUN24-22000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-22000-P",
+      "strike": 22000.0,
+      "days_left": 26,
+      "oi": 224.1
+    },
+    "BTC-28JUN24-85000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-85000-P",
+      "strike": 85000.0,
+      "days_left": 26,
+      "oi": 1281.3
+    },
+    "BTC-28JUN24-56000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-56000-C",
+      "strike": 56000.0,
+      "days_left": 26,
+      "oi": 658.6
+    },
+    "BTC-26JUL24-100000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-100000-P",
+      "strike": 100000.0,
+      "days_left": 54,
+      "oi": 0.9
+    },
+    "BTC-21JUN24-61000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-61000-C",
+      "strike": 61000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-36000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-36000-P",
+      "strike": 36000.0,
+      "days_left": 26,
+      "oi": 953.7
+    },
+    "BTC-28JUN24-34000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-34000-C",
+      "strike": 34000.0,
+      "days_left": 26,
+      "oi": 1192.0
+    },
+    "BTC-27DEC24-42000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-42000-P",
+      "strike": 42000.0,
+      "days_left": 208,
+      "oi": 760.2
+    },
+    "BTC-28JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 26,
+      "oi": 29.7
+    },
+    "BTC-14JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 12,
+      "oi": 8.9
+    },
+    "BTC-28MAR25-80000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-80000-P",
+      "strike": 80000.0,
+      "days_left": 299,
+      "oi": 523.3
+    },
+    "BTC-21JUN24-70000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-70000-P",
+      "strike": 70000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-45000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-45000-P",
+      "strike": 45000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-58000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-58000-C",
+      "strike": 58000.0,
+      "days_left": 117,
+      "oi": 464.1
+    },
+    "BTC-27DEC24-30000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-30000-C",
+      "strike": 30000.0,
+      "days_left": 208,
+      "oi": 151.9
+    },
+    "BTC-28JUN24-25000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-25000-C",
+      "strike": 25000.0,
+      "days_left": 26,
+      "oi": 1116.9
+    },
+    "BTC-28MAR25-76000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-76000-P",
+      "strike": 76000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-48000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-48000-P",
+      "strike": 48000.0,
+      "days_left": 117,
+      "oi": 650.0
+    },
+    "BTC-28MAR25-86000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-86000-P",
+      "strike": 86000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-68500-C@option@deribit": {
+      "symbol": "BTC-4JUN24-68500-C",
+      "strike": 68500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 5,
+      "oi": 33.2
+    },
+    "BTC-28JUN24-120000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-120000-P",
+      "strike": 120000.0,
+      "days_left": 26,
+      "oi": 1151.5
+    },
+    "BTC-28JUN24-45000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-45000-P",
+      "strike": 45000.0,
+      "days_left": 26,
+      "oi": 3744.5
+    },
+    "BTC-27DEC24-130000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-130000-P",
+      "strike": 130000.0,
+      "days_left": 208,
+      "oi": 122.0
+    },
+    "BTC-14JUN24-76000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-76000-C",
+      "strike": 76000.0,
+      "days_left": 12,
+      "oi": 6.0
+    },
+    "BTC-26JUL24-55000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-55000-C",
+      "strike": 55000.0,
+      "days_left": 54,
+      "oi": 38.2
+    },
+    "BTC-27SEP24-54000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-54000-C",
+      "strike": 54000.0,
+      "days_left": 117,
+      "oi": 488.4
+    },
+    "BTC-27DEC24-110000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-110000-P",
+      "strike": 110000.0,
+      "days_left": 208,
+      "oi": 165.7
+    },
+    "BTC-14JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 12,
+      "oi": 18.8
+    },
+    "BTC-27SEP24-20000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-20000-P",
+      "strike": 20000.0,
+      "days_left": 117,
+      "oi": 112.3
+    },
+    "BTC-7JUN24-60000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-60000-P",
+      "strike": 60000.0,
+      "days_left": 5,
+      "oi": 25.9
+    },
+    "BTC-30AUG24-92000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-92000-C",
+      "strike": 92000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-34000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-34000-P",
+      "strike": 34000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-63000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-63000-P",
+      "strike": 63000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-48000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-48000-P",
+      "strike": 48000.0,
+      "days_left": 26,
+      "oi": 1173.9
+    },
+    "BTC-26JUL24-90000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-90000-P",
+      "strike": 90000.0,
+      "days_left": 54,
+      "oi": 0.1
+    },
+    "BTC-26JUL24-60000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-60000-P",
+      "strike": 60000.0,
+      "days_left": 54,
+      "oi": 8.8
+    },
+    "BTC-7JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 5,
+      "oi": 0.5
+    },
+    "BTC-2JUN24-75000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-75000-P",
+      "strike": 75000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 12,
+      "oi": 0.3
+    },
+    "BTC-28JUN24-35000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-35000-C",
+      "strike": 35000.0,
+      "days_left": 26,
+      "oi": 978.3
+    },
+    "BTC-27DEC24-130000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-130000-C",
+      "strike": 130000.0,
+      "days_left": 208,
+      "oi": 245.6
+    },
+    "BTC-7JUN24-100000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-100000-C",
+      "strike": 100000.0,
+      "days_left": 5,
+      "oi": 12.5
+    },
+    "BTC-28MAR25-150000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-150000-P",
+      "strike": 150000.0,
+      "days_left": 299,
+      "oi": 191.6
+    },
+    "BTC-7JUN24-30000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-30000-C",
+      "strike": 30000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-75000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-75000-C",
+      "strike": 75000.0,
+      "days_left": 26,
+      "oi": 389.7
+    },
+    "BTC-28MAR25-170000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-170000-C",
+      "strike": 170000.0,
+      "days_left": 299,
+      "oi": 6.4
+    },
+    "BTC-30AUG24-59000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-59000-P",
+      "strike": 59000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-84000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-84000-P",
+      "strike": 84000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-35000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-35000-C",
+      "strike": 35000.0,
+      "days_left": 117,
+      "oi": 481.0
+    },
+    "BTC-30AUG24-46000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-46000-C",
+      "strike": 46000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-69000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-69000-P",
+      "strike": 69000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-61000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-61000-C",
+      "strike": 61000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 5,
+      "oi": 31.6
+    },
+    "BTC-2JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 10.1
+    },
+    "BTC-26JUL24-48000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-48000-P",
+      "strike": 48000.0,
+      "days_left": 54,
+      "oi": 6.3
+    },
+    "BTC-26JUL24-71000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-71000-C",
+      "strike": 71000.0,
+      "days_left": 54,
+      "oi": 0.6
+    },
+    "BTC-14JUN24-78000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-78000-P",
+      "strike": 78000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-60000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-60000-P",
+      "strike": 60000.0,
+      "days_left": 26,
+      "oi": 1358.4
+    },
+    "BTC-27SEP24-95000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-95000-P",
+      "strike": 95000.0,
+      "days_left": 117,
+      "oi": 219.3
+    },
+    "BTC-28JUN24-95000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-95000-C",
+      "strike": 95000.0,
+      "days_left": 26,
+      "oi": 296.3
+    },
+    "BTC-27SEP24-52000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-52000-C",
+      "strike": 52000.0,
+      "days_left": 117,
+      "oi": 464.0
+    },
+    "BTC-27DEC24-52000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-52000-P",
+      "strike": 52000.0,
+      "days_left": 208,
+      "oi": 811.0
+    },
+    "BTC-28MAR25-85000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-85000-C",
+      "strike": 85000.0,
+      "days_left": 299,
+      "oi": 277.8
+    },
+    "BTC-27SEP24-60000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-60000-P",
+      "strike": 60000.0,
+      "days_left": 117,
+      "oi": 318.1
+    },
+    "BTC-14JUN24-70000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-70000-C",
+      "strike": 70000.0,
+      "days_left": 12,
+      "oi": 81.0
+    },
+    "BTC-3JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 10.0
+    },
+    "BTC-27DEC24-72000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-72000-C",
+      "strike": 72000.0,
+      "days_left": 208,
+      "oi": 261.2
+    },
+    "BTC-21JUN24-77000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-77000-C",
+      "strike": 77000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-45000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-45000-C",
+      "strike": 45000.0,
+      "days_left": 54,
+      "oi": 117.6
+    },
+    "BTC-7JUN24-80000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-80000-C",
+      "strike": 80000.0,
+      "days_left": 5,
+      "oi": 4.3
+    },
+    "BTC-21JUN24-76000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-76000-C",
+      "strike": 76000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-44000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-44000-P",
+      "strike": 44000.0,
+      "days_left": 208,
+      "oi": 621.1
+    },
+    "BTC-28JUN24-38000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-38000-P",
+      "strike": 38000.0,
+      "days_left": 26,
+      "oi": 1338.3
+    },
+    "BTC-27SEP24-34000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-34000-C",
+      "strike": 34000.0,
+      "days_left": 117,
+      "oi": 246.9
+    },
+    "BTC-27SEP24-40000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-40000-C",
+      "strike": 40000.0,
+      "days_left": 117,
+      "oi": 450.5
+    },
+    "BTC-27DEC24-88000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-88000-C",
+      "strike": 88000.0,
+      "days_left": 208,
+      "oi": 0.8
+    },
+    "BTC-7JUN24-75000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-75000-C",
+      "strike": 75000.0,
+      "days_left": 5,
+      "oi": 103.3
+    },
+    "BTC-26JUL24-79000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-79000-C",
+      "strike": 79000.0,
+      "days_left": 54,
+      "oi": 20.9
+    },
+    "BTC-28MAR25-75000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-75000-P",
+      "strike": 75000.0,
+      "days_left": 299,
+      "oi": 3.0
+    },
+    "BTC-26JUL24-54000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-54000-P",
+      "strike": 54000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-27DEC24-80000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-80000-P",
+      "strike": 80000.0,
+      "days_left": 208,
+      "oi": 175.8
+    },
+    "BTC-21JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 19,
+      "oi": 1.2
+    },
+    "BTC-21JUN24-105000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-105000-C",
+      "strike": 105000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-45000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-45000-P",
+      "strike": 45000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 12,
+      "oi": 21.7
+    },
+    "BTC-28MAR25-92000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-92000-P",
+      "strike": 92000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-77000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-77000-P",
+      "strike": 77000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-140000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-140000-P",
+      "strike": 140000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-82000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-82000-C",
+      "strike": 82000.0,
+      "days_left": 54,
+      "oi": 9.3
+    },
+    "BTC-30AUG24-56000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-56000-P",
+      "strike": 56000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-51000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-51000-C",
+      "strike": 51000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-64000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-64000-C",
+      "strike": 64000.0,
+      "days_left": 54,
+      "oi": 11.6
+    },
+    "BTC-27DEC24-86000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-86000-P",
+      "strike": 86000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-27DEC24-52000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-52000-C",
+      "strike": 52000.0,
+      "days_left": 208,
+      "oi": 1022.0
+    },
+    "BTC-30AUG24-77000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-77000-C",
+      "strike": 77000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 26,
+      "oi": 53.4
+    },
+    "BTC-30AUG24-51000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-51000-P",
+      "strike": 51000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-62000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-62000-P",
+      "strike": 62000.0,
+      "days_left": 117,
+      "oi": 206.6
+    },
+    "BTC-30AUG24-92000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-92000-P",
+      "strike": 92000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-10000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-10000-P",
+      "strike": 10000.0,
+      "days_left": 117,
+      "oi": 332.5
+    },
+    "BTC-30AUG24-75000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-75000-P",
+      "strike": 75000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-66000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-66000-C",
+      "strike": 66000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-55000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-55000-C",
+      "strike": 55000.0,
+      "days_left": 117,
+      "oi": 1748.6
+    },
+    "BTC-30AUG24-90000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-90000-P",
+      "strike": 90000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-42000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-42000-P",
+      "strike": 42000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-95000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-95000-P",
+      "strike": 95000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-160000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-160000-C",
+      "strike": 160000.0,
+      "days_left": 299,
+      "oi": 124.8
+    },
+    "BTC-28MAR25-48000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-48000-P",
+      "strike": 48000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-68500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-68500-C",
+      "strike": 68500.0,
+      "days_left": 1,
+      "oi": 8.6
+    },
+    "BTC-26JUL24-40000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-40000-P",
+      "strike": 40000.0,
+      "days_left": 54,
+      "oi": 53.8
+    },
+    "BTC-4JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-105000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-105000-P",
+      "strike": 105000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-84000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-84000-C",
+      "strike": 84000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-35000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-35000-C",
+      "strike": 35000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-70000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-70000-C",
+      "strike": 70000.0,
+      "days_left": 299,
+      "oi": 41.0
+    },
+    "BTC-28JUN24-55000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-55000-P",
+      "strike": 55000.0,
+      "days_left": 26,
+      "oi": 790.4
+    },
+    "BTC-27DEC24-95000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-95000-P",
+      "strike": 95000.0,
+      "days_left": 208,
+      "oi": 57.7
+    },
+    "BTC-30AUG24-48000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-48000-C",
+      "strike": 48000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-190000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-190000-P",
+      "strike": 190000.0,
+      "days_left": 208,
+      "oi": 2.7
+    },
+    "BTC-4JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 12,
+      "oi": 9.9
+    },
+    "BTC-28JUN24-32000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-32000-P",
+      "strike": 32000.0,
+      "days_left": 26,
+      "oi": 430.7
+    },
+    "BTC-30AUG24-50000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-50000-C",
+      "strike": 50000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-88000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-88000-C",
+      "strike": 88000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-30000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-30000-P",
+      "strike": 30000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-55000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-55000-P",
+      "strike": 55000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-45000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-45000-P",
+      "strike": 45000.0,
+      "days_left": 54,
+      "oi": 35.9
+    },
+    "BTC-7JUN24-64000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-64000-P",
+      "strike": 64000.0,
+      "days_left": 5,
+      "oi": 72.3
+    },
+    "BTC-26JUL24-125000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-125000-P",
+      "strike": 125000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-50000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-50000-C",
+      "strike": 50000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-130000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-130000-C",
+      "strike": 130000.0,
+      "days_left": 26,
+      "oi": 7.5
+    },
+    "BTC-7JUN24-65000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-65000-C",
+      "strike": 65000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-35000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-35000-C",
+      "strike": 35000.0,
+      "days_left": 208,
+      "oi": 183.7
+    },
+    "BTC-28MAR25-52000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-52000-P",
+      "strike": 52000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-80000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-80000-C",
+      "strike": 80000.0,
+      "days_left": 26,
+      "oi": 1149.5
+    },
+    "BTC-30AUG24-140000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-140000-C",
+      "strike": 140000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-80000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-80000-C",
+      "strike": 80000.0,
+      "days_left": 12,
+      "oi": 0.1
+    },
+    "BTC-7JUN24-78000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-78000-C",
+      "strike": 78000.0,
+      "days_left": 5,
+      "oi": 0.2
+    },
+    "BTC-28MAR25-88000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-88000-P",
+      "strike": 88000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-68000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-68000-C",
+      "strike": 68000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-2JUN24-66500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-66500-P",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 1.1
+    },
+    "BTC-2JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-2JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-88000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-88000-C",
+      "strike": 88000.0,
+      "days_left": 299,
+      "oi": 0.5
+    },
+    "BTC-26JUL24-59000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-59000-P",
+      "strike": 59000.0,
+      "days_left": 54,
+      "oi": 6.5
+    },
+    "BTC-21JUN24-62000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-62000-C",
+      "strike": 62000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-58000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-58000-P",
+      "strike": 58000.0,
+      "days_left": 19,
+      "oi": 2.6
+    },
+    "BTC-26JUL24-90000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-90000-C",
+      "strike": 90000.0,
+      "days_left": 54,
+      "oi": 1.8
+    },
+    "BTC-30AUG24-60000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-60000-C",
+      "strike": 60000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-115000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-115000-P",
+      "strike": 115000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-36000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-36000-C",
+      "strike": 36000.0,
+      "days_left": 208,
+      "oi": 105.8
+    },
+    "BTC-27DEC24-78000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-78000-C",
+      "strike": 78000.0,
+      "days_left": 208,
+      "oi": 0.2
+    },
+    "BTC-7JUN24-59000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-59000-P",
+      "strike": 59000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-65000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-65000-P",
+      "strike": 65000.0,
+      "days_left": 117,
+      "oi": 413.9
+    },
+    "BTC-30AUG24-76000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-76000-P",
+      "strike": 76000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 5,
+      "oi": 126.3
+    },
+    "BTC-27SEP24-130000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-130000-P",
+      "strike": 130000.0,
+      "days_left": 117,
+      "oi": 134.5
+    },
+    "BTC-27DEC24-65000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-65000-C",
+      "strike": 65000.0,
+      "days_left": 208,
+      "oi": 521.9
+    },
+    "BTC-26JUL24-105000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-105000-C",
+      "strike": 105000.0,
+      "days_left": 54,
+      "oi": 26.6
+    },
+    "BTC-26JUL24-47000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-47000-P",
+      "strike": 47000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-2JUN24-67500-P@option@deribit": {
+      "symbol": "BTC-2JUN24-67500-P",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 221.0
+    },
+    "BTC-30AUG24-80000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-80000-C",
+      "strike": 80000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 12,
+      "oi": 7.0
+    },
+    "BTC-2JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-40000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-40000-C",
+      "strike": 40000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-85000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-85000-P",
+      "strike": 85000.0,
+      "days_left": 117,
+      "oi": 179.4
+    },
+    "BTC-28MAR25-190000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-190000-P",
+      "strike": 190000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-52000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-52000-C",
+      "strike": 52000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-3JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-160000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-160000-P",
+      "strike": 160000.0,
+      "days_left": 299,
+      "oi": 252.0
+    },
+    "BTC-27SEP24-66000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-66000-C",
+      "strike": 66000.0,
+      "days_left": 117,
+      "oi": 0.4
+    },
+    "BTC-28JUN24-54000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-54000-P",
+      "strike": 54000.0,
+      "days_left": 26,
+      "oi": 453.5
+    },
+    "BTC-27DEC24-95000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-95000-C",
+      "strike": 95000.0,
+      "days_left": 208,
+      "oi": 204.5
+    },
+    "BTC-2JUN24-70500-C@option@deribit": {
+      "symbol": "BTC-2JUN24-70500-C",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 3.0
+    },
+    "BTC-14JUN24-79000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-79000-P",
+      "strike": 79000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-66000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-66000-P",
+      "strike": 66000.0,
+      "days_left": 5,
+      "oi": 59.7
+    },
+    "BTC-27SEP24-105000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-105000-C",
+      "strike": 105000.0,
+      "days_left": 117,
+      "oi": 314.6
+    },
+    "BTC-26JUL24-62000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-62000-C",
+      "strike": 62000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-26JUL24-67000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-67000-P",
+      "strike": 67000.0,
+      "days_left": 54,
+      "oi": 2.7
+    },
+    "BTC-2JUN24-68000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-68000-C",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 24.9
+    },
+    "BTC-30AUG24-79000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-79000-C",
+      "strike": 79000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 5,
+      "oi": 30.1
+    },
+    "BTC-27DEC24-160000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-160000-C",
+      "strike": 160000.0,
+      "days_left": 208,
+      "oi": 113.7
+    },
+    "BTC-7JUN24-85000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-85000-C",
+      "strike": 85000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-38000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-38000-C",
+      "strike": 38000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-45000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-45000-C",
+      "strike": 45000.0,
+      "days_left": 26,
+      "oi": 1047.0
+    },
+    "BTC-27DEC24-20000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-20000-C",
+      "strike": 20000.0,
+      "days_left": 208,
+      "oi": 130.0
+    },
+    "BTC-27SEP24-62000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-62000-C",
+      "strike": 62000.0,
+      "days_left": 117,
+      "oi": 799.1
+    },
+    "BTC-14JUN24-71000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-71000-P",
+      "strike": 71000.0,
+      "days_left": 12,
+      "oi": 17.2
+    },
+    "BTC-27SEP24-10000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-10000-C",
+      "strike": 10000.0,
+      "days_left": 117,
+      "oi": 205.6
+    },
+    "BTC-21JUN24-67000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-67000-P",
+      "strike": 67000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-52000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-52000-P",
+      "strike": 52000.0,
+      "days_left": 5,
+      "oi": 14.5
+    },
+    "BTC-2JUN24-72000-C@option@deribit": {
+      "symbol": "BTC-2JUN24-72000-C",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 8.0
+    },
+    "BTC-30AUG24-70000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-70000-C",
+      "strike": 70000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-77000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-77000-P",
+      "strike": 77000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-84000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-84000-C",
+      "strike": 84000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-28JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 26,
+      "oi": 0.4
+    },
+    "BTC-27SEP24-64000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-64000-P",
+      "strike": 64000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-62000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-62000-P",
+      "strike": 62000.0,
+      "days_left": 26,
+      "oi": 107.2
+    },
+    "BTC-27DEC24-56000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-56000-C",
+      "strike": 56000.0,
+      "days_left": 208,
+      "oi": 604.0
+    },
+    "BTC-30AUG24-96000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-96000-C",
+      "strike": 96000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-50000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-50000-C",
+      "strike": 50000.0,
+      "days_left": 26,
+      "oi": 916.1
+    },
+    "BTC-27DEC24-42000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-42000-C",
+      "strike": 42000.0,
+      "days_left": 208,
+      "oi": 147.3
+    },
+    "BTC-14JUN24-110000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-110000-P",
+      "strike": 110000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-130000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-130000-P",
+      "strike": 130000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-35000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-35000-P",
+      "strike": 35000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-14JUN24-100000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-100000-P",
+      "strike": 100000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-74000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-74000-P",
+      "strike": 74000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-82000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-82000-P",
+      "strike": 82000.0,
+      "days_left": 208,
+      "oi": 0.1
+    },
+    "BTC-30AUG24-78000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-78000-C",
+      "strike": 78000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-61000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-61000-C",
+      "strike": 61000.0,
+      "days_left": 54,
+      "oi": 0.3
+    },
+    "BTC-27DEC24-48000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-48000-C",
+      "strike": 48000.0,
+      "days_left": 208,
+      "oi": 548.7
+    },
+    "BTC-28JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 26,
+      "oi": 13.5
+    },
+    "BTC-14JUN24-50000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-50000-P",
+      "strike": 50000.0,
+      "days_left": 12,
+      "oi": 0.4
+    },
+    "BTC-28MAR25-58000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-58000-P",
+      "strike": 58000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-73000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-73000-C",
+      "strike": 73000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-100000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-100000-C",
+      "strike": 100000.0,
+      "days_left": 299,
+      "oi": 124.8
+    },
+    "BTC-30AUG24-105000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-105000-P",
+      "strike": 105000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-25000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-25000-P",
+      "strike": 25000.0,
+      "days_left": 117,
+      "oi": 191.1
+    },
+    "BTC-21JUN24-72000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-72000-P",
+      "strike": 72000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-42000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-42000-P",
+      "strike": 42000.0,
+      "days_left": 117,
+      "oi": 673.9
+    },
+    "BTC-27DEC24-150000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-150000-C",
+      "strike": 150000.0,
+      "days_left": 208,
+      "oi": 81.8
+    },
+    "BTC-21JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-50000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-50000-P",
+      "strike": 50000.0,
+      "days_left": 117,
+      "oi": 389.9
+    },
+    "BTC-27SEP24-35000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-35000-P",
+      "strike": 35000.0,
+      "days_left": 117,
+      "oi": 392.7
+    },
+    "BTC-14JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-14JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-62000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-62000-P",
+      "strike": 62000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-36000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-36000-P",
+      "strike": 36000.0,
+      "days_left": 117,
+      "oi": 729.2
+    },
+    "BTC-4JUN24-68500-P@option@deribit": {
+      "symbol": "BTC-4JUN24-68500-P",
+      "strike": 68500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-35000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-35000-P",
+      "strike": 35000.0,
+      "days_left": 26,
+      "oi": 453.7
+    },
+    "BTC-26JUL24-130000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-130000-P",
+      "strike": 130000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-81000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-81000-P",
+      "strike": 81000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-25000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-25000-P",
+      "strike": 25000.0,
+      "days_left": 208,
+      "oi": 1427.6
+    },
+    "BTC-27DEC24-50000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-50000-C",
+      "strike": 50000.0,
+      "days_left": 208,
+      "oi": 694.4
+    },
+    "BTC-7JUN24-85000-P@option@deribit": {
+      "symbol": "BTC-7JUN24-85000-P",
+      "strike": 85000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-67000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-67000-C",
+      "strike": 67000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-60000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-60000-C",
+      "strike": 60000.0,
+      "days_left": 117,
+      "oi": 397.1
+    },
+    "BTC-21JUN24-35000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-35000-C",
+      "strike": 35000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-40000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-40000-C",
+      "strike": 40000.0,
+      "days_left": 26,
+      "oi": 661.1
+    },
+    "BTC-30AUG24-63000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-63000-P",
+      "strike": 63000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-68000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-68000-P",
+      "strike": 68000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-76000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-76000-C",
+      "strike": 76000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-66000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-66000-C",
+      "strike": 66000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-4JUN24-73000-P@option@deribit": {
+      "symbol": "BTC-4JUN24-73000-P",
+      "strike": 73000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-120000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-120000-P",
+      "strike": 120000.0,
+      "days_left": 117,
+      "oi": 176.9
+    },
+    "BTC-3JUN24-71000-C@option@deribit": {
+      "symbol": "BTC-3JUN24-71000-C",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 28.5
+    },
+    "BTC-27SEP24-55000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-55000-P",
+      "strike": 55000.0,
+      "days_left": 117,
+      "oi": 182.3
+    },
+    "BTC-3JUN24-69000-P@option@deribit": {
+      "symbol": "BTC-3JUN24-69000-P",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-70000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-70000-P",
+      "strike": 70000.0,
+      "days_left": 208,
+      "oi": 322.1
+    },
+    "BTC-28MAR25-45000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-45000-P",
+      "strike": 45000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-56000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-56000-P",
+      "strike": 56000.0,
+      "days_left": 117,
+      "oi": 330.9
+    },
+    "BTC-21JUN24-78000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-78000-C",
+      "strike": 78000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-27SEP24-48000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-48000-C",
+      "strike": 48000.0,
+      "days_left": 117,
+      "oi": 508.6
+    },
+    "BTC-27DEC24-85000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-85000-C",
+      "strike": 85000.0,
+      "days_left": 208,
+      "oi": 75.2
+    },
+    "BTC-21JUN24-45000-C@option@deribit": {
+      "symbol": "BTC-21JUN24-45000-C",
+      "strike": 45000.0,
+      "days_left": 19,
+      "oi": 25.0
+    },
+    "BTC-26JUL24-77000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-77000-C",
+      "strike": 77000.0,
+      "days_left": 54,
+      "oi": 0.1
+    },
+    "BTC-30AUG24-100000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-100000-C",
+      "strike": 100000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-80000-P@option@deribit": {
+      "symbol": "BTC-26JUL24-80000-P",
+      "strike": 80000.0,
+      "days_left": 54,
+      "oi": 2.0
+    },
+    "BTC-27DEC24-76000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-76000-P",
+      "strike": 76000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-140000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-140000-C",
+      "strike": 140000.0,
+      "days_left": 208,
+      "oi": 190.6
+    },
+    "BTC-30AUG24-42000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-42000-P",
+      "strike": 42000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-74000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-74000-C",
+      "strike": 74000.0,
+      "days_left": 26,
+      "oi": 15.3
+    },
+    "BTC-28JUN24-130000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-130000-P",
+      "strike": 130000.0,
+      "days_left": 26,
+      "oi": 1.9
+    },
+    "BTC-27SEP24-50000-C@option@deribit": {
+      "symbol": "BTC-27SEP24-50000-C",
+      "strike": 50000.0,
+      "days_left": 117,
+      "oi": 419.4
+    },
+    "BTC-28MAR25-180000-P@option@deribit": {
+      "symbol": "BTC-28MAR25-180000-P",
+      "strike": 180000.0,
+      "days_left": 299,
+      "oi": 186.5
+    },
+    "BTC-30AUG24-44000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-44000-C",
+      "strike": 44000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-26JUL24-70000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-70000-C",
+      "strike": 70000.0,
+      "days_left": 54,
+      "oi": 9.5
+    },
+    "BTC-26JUL24-86000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-86000-C",
+      "strike": 86000.0,
+      "days_left": 54,
+      "oi": 50.3
+    },
+    "BTC-26JUL24-76000-C@option@deribit": {
+      "symbol": "BTC-26JUL24-76000-C",
+      "strike": 76000.0,
+      "days_left": 54,
+      "oi": 10.1
+    },
+    "BTC-28JUN24-10000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-10000-C",
+      "strike": 10000.0,
+      "days_left": 26,
+      "oi": 500.2
+    },
+    "BTC-3JUN24-69500-C@option@deribit": {
+      "symbol": "BTC-3JUN24-69500-C",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 6.0
+    },
+    "BTC-27SEP24-32000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-32000-P",
+      "strike": 32000.0,
+      "days_left": 117,
+      "oi": 513.0
+    },
+    "BTC-27SEP24-45000-P@option@deribit": {
+      "symbol": "BTC-27SEP24-45000-P",
+      "strike": 45000.0,
+      "days_left": 117,
+      "oi": 662.6
+    },
+    "BTC-21JUN24-68000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-68000-P",
+      "strike": 68000.0,
+      "days_left": 19,
+      "oi": 23.9
+    },
+    "BTC-4JUN24-67500-C@option@deribit": {
+      "symbol": "BTC-4JUN24-67500-C",
+      "strike": 67500.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-27DEC24-38000-C@option@deribit": {
+      "symbol": "BTC-27DEC24-38000-C",
+      "strike": 38000.0,
+      "days_left": 208,
+      "oi": 132.4
+    },
+    "BTC-28MAR25-48000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-48000-C",
+      "strike": 48000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-64000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-64000-C",
+      "strike": 64000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-21JUN24-74000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-74000-P",
+      "strike": 74000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-110000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-110000-C",
+      "strike": 110000.0,
+      "days_left": 26,
+      "oi": 1108.2
+    },
+    "BTC-4JUN24-63000-C@option@deribit": {
+      "symbol": "BTC-4JUN24-63000-C",
+      "strike": 63000.0,
+      "days_left": 2,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-60000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-60000-C",
+      "strike": 60000.0,
+      "days_left": 299,
+      "oi": 81.0
+    },
+    "BTC-27DEC24-38000-P@option@deribit": {
+      "symbol": "BTC-27DEC24-38000-P",
+      "strike": 38000.0,
+      "days_left": 208,
+      "oi": 307.4
+    },
+    "BTC-14JUN24-56000-P@option@deribit": {
+      "symbol": "BTC-14JUN24-56000-P",
+      "strike": 56000.0,
+      "days_left": 12,
+      "oi": 26.0
+    },
+    "BTC-28JUN24-46000-P@option@deribit": {
+      "symbol": "BTC-28JUN24-46000-P",
+      "strike": 46000.0,
+      "days_left": 26,
+      "oi": 1221.8
+    },
+    "BTC-21JUN24-105000-P@option@deribit": {
+      "symbol": "BTC-21JUN24-105000-P",
+      "strike": 105000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-72000-P@option@deribit": {
+      "symbol": "BTC-30AUG24-72000-P",
+      "strike": 72000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-30AUG24-66000-C@option@deribit": {
+      "symbol": "BTC-30AUG24-66000-C",
+      "strike": 66000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC-7JUN24-50000-C@option@deribit": {
+      "symbol": "BTC-7JUN24-50000-C",
+      "strike": 50000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC-28MAR25-95000-C@option@deribit": {
+      "symbol": "BTC-28MAR25-95000-C",
+      "strike": 95000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC-28JUN24-42000-C@option@deribit": {
+      "symbol": "BTC-28JUN24-42000-C",
+      "strike": 42000.0,
+      "days_left": 26,
+      "oi": 442.9
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  }
+]

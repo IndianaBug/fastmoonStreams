@@ -1,6 +1,6 @@
 deribit_repeat_response_code = -1130
 
-deribit_endpoint = "wss://test.deribit.com/ws/api/v2"
+deribit_endpoint = "wss://www.deribit.com/ws/api/v2"
 
 deribit_marginCoins = ["BTC", "ETH", "USDC", "USDT", "EURR"]
 
@@ -25,9 +25,9 @@ deribit_instType_map = {
 }
 
 deribit_ws_params_map = {
-    "depth" : lambda symbol, kind: {"channels": [f"book.{symbol}.none.20.agg2"]},
-    "trades" : lambda symbol, kind: {"channels": [f"trades.{symbol}.agg2"]},
-    "tradesagg" : lambda symbol, kind: {"channels": [f"trades.{kind}.{symbol}.agg2"]},
+    "depth" : lambda symbol, kind: {"channels": [f"book.{symbol}.agg2"]},  
+    "trades" : lambda symbol, kind: {"channels": [f"trades.{symbol}.100ms"]},
+    "tradesagg" : lambda symbol, kind: {"channels": [f"trades.{kind}.{symbol}.100ms"]},
     "heartbeats": lambda symbol, kind: {},
 }
 

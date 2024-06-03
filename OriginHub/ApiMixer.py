@@ -20,7 +20,81 @@ class logger_instance():
     def exception(self, *args, **kwargs):
         pass
 
-class CommonFunctionality:
+
+class DecoratorsClass:
+
+    @staticmethod
+    def backoff_exception_(func):
+        """ 
+            wrapper for aiohttp tasks
+            necessary attributes must be passed from SupplyEngine class
+        """
+        @wraps(func)
+        async def inner_coroutine_manager(self, *args, **kwargs):
+            connection_start_time = time.time()
+            id_api = self.connection_data.get("id_api")
+            try:
+                await func(self, *args, **kwargs) # inside must be infinite iterator
+            except aiohttp_recoverable_errors as e:
+                self.logger.exception("Error from %s: %s", id_api, e, exc_info=True)
+                if "CONNECTION_DURATION" in self.producer_metrics:
+                    duration = time.time() - connection_start_time
+                    self.CONNECTION_DURATION.labels(websocket_id=id_api).set(duration)
+                if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
+                raise
+            except Exception as e:
+                if "ERRORS_DISCONNECTS" in self.producer_metrics:
+                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
+                self.stop_orchestrator()
+                for task in self._tasks.keys():
+                    await self._hault_coroutine(task)
+                self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", id_api, e, exc_info=True)
+                
+        def wrapper(self, *args, **kwargs):
+            return backoff.on_exception(
+                backoff.expo,
+                aiohttp_recoverable_errors,
+                max_tries=self.max_reconnect_retries,
+                max_time=300
+            )(inner_coroutine_manager)(self, *args, **kwargs)
+
+        return wrapper
+    
+    @staticmethod
+    def errors_aiohttp(func):
+        """ logs errors of a single aiohttp method"""
+        @wraps(func)
+        async def inner_wrapper_task_generator(self, *args, **kwargs):
+            id_ = self.connection_data.get("id")
+            try:
+                return await func(self, *args, **kwargs)
+            except asyncio.TimeoutError as e:
+                self.logger.exception("Couldnt create tasks, Unexpected error in %s, %s, error message:%s", func.__name__, id_, e)
+            except asyncio.CancelledError as e:
+                self.logger.exception("Operation was cancelled %s, %s, error message:%s", func.__name__, id_, e)
+            except ValueError as e:
+                self.logger.exception("ValueError in %s, %s, error message:%s", func.__name__, id_, e)
+            except KeyError as e:
+                self.logger.exception("KeyError in %s, %s, error message:%s", func.__name__, id_, e)
+            except ConnectionError as e:
+                self.logger.exception(f"ConnectionError in {func.__name__}: {e}")
+                self.logger.exception("ConnectionError, error message:%s",  e)
+            except IndexError as e:
+                self.logger.exception("IndexError in %s, %s, error message:%s", func.__name__, id_, e)
+            except TypeError as e:
+                self.logger.exception("TypeError in  %s, %s, error message:%s", func.__name__, id_, e)
+            except AttributeError as e:
+                self.logger.exception("AttributeError in %s, %s, error message:%s", func.__name__, id_, e)
+            except RuntimeError as e:
+                self.logger.exception("RuntimeError in %s, %s, error message:%s", func.__name__, id_, e)
+            except Exception as e:
+                self.logger.exception("Operation was cancelled %s, %s, error message:%s", func.__name__, id_, e)
+                raise
+        return inner_wrapper_task_generator
+
+
+class CommonFunctionality(DecoratorsClass):
     
     """ Common functionalities class betweem apimixers"""
     
@@ -33,17 +107,14 @@ class CommonFunctionality:
         self.fetcher = fetcher
         self.send_message_to_topic = send_message_to_topic
         self.logger = logger_instance()
-
         self._instruments_to_remove = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
         self._instruments_to_add = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
         self._instruments = {"option":[], "linear":[], "inverse":[], "perpetual":[], "future":[]}
         self._objectives = []
         self._tasks = {}
         self.running = {"coroutine_orchestrator" : False, "calibrate_instruments" : False}
-        
         self.symbol_check_tries = 0
 
-        
         
     def start_orchestrator(self):
         """ starts caroutins """
@@ -83,77 +154,8 @@ class CommonFunctionality:
             self.logger.exception("Couldn't cancel caroutine of %s, message: %s", id_instrument, e, exc_info=True)
         del self._tasks[id_instrument]
                 
-    @staticmethod
-    def errors_aiohttp(func):
-        """ logs errors of a single aiohttp method"""
-        @wraps(func)
-        async def inner_wrapper_task_generator(self, *args, **kwargs):
-            id_ = self.connection_data.get("id")
-            try:
-                return await func(self, *args, **kwargs)
-            except asyncio.TimeoutError as e:
-                self.logger.exception("Couldnt create tasks, Unexpected error in %s, %s, error message:%s", func.__name__, id_, e)
-            except asyncio.CancelledError as e:
-                self.logger.exception("Operation was cancelled %s, %s, error message:%s", func.__name__, id_, e)
-            except ValueError as e:
-                self.logger.exception("ValueError in %s, %s, error message:%s", func.__name__, id_, e)
-            except KeyError as e:
-                self.logger.exception("KeyError in %s, %s, error message:%s", func.__name__, id_, e)
-            except ConnectionError as e:
-                self.logger.exception(f"ConnectionError in {func.__name__}: {e}")
-                self.logger.exception("ConnectionError, error message:%s",  e)
-            except IndexError as e:
-                self.logger.exception("IndexError in %s, %s, error message:%s", func.__name__, id_, e)
-            except TypeError as e:
-                self.logger.exception("TypeError in  %s, %s, error message:%s", func.__name__, id_, e)
-            except AttributeError as e:
-                self.logger.exception("AttributeError in %s, %s, error message:%s", func.__name__, id_, e)
-            except RuntimeError as e:
-                self.logger.exception("RuntimeError in %s, %s, error message:%s", func.__name__, id_, e)
-            except Exception as e:
-                self.logger.exception("Operation was cancelled %s, %s, error message:%s", func.__name__, id_, e)
-                raise
-        return inner_wrapper_task_generator
-
-    @staticmethod
-    def backoff_exception_(func):
-        """ 
-            wrapper for aiohttp tasks
-            necessary attributes must be passed from SupplyEngine class
-        """
-        @wraps(func)
-        async def inner_coroutine_manager(self, *args, **kwargs):
-            connection_start_time = time.time()
-            id_api = self.connection_data.get("id_api")
-            try:
-                await func(self, *args, **kwargs) # inside must be infinite iterator
-            except aiohttp_recoverable_errors as e:
-                self.logger.exception("Error from %s: %s", id_api, e, exc_info=True)
-                if "CONNECTION_DURATION" in self.producer_metrics:
-                    duration = time.time() - connection_start_time
-                    self.CONNECTION_DURATION.labels(websocket_id=id_api).set(duration)
-                if "ERRORS_DISCONNECTS" in self.producer_metrics:
-                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
-                raise
-            except Exception as e:
-                if "ERRORS_DISCONNECTS" in self.producer_metrics:
-                    self.ERRORS_DISCONNECTS.labels(websocket_id=id_api).inc()
-                self.stop_orchestrator()
-                for task in self._tasks.keys():
-                    await self._hault_coroutine(task)
-                self.logger.exception("Error from %s: %s. The coroutine was completely closed or broken", id_api, e, exc_info=True)
-                
-        def wrapper(self, *args, **kwargs):
-            return backoff.on_exception(
-                backoff.expo,
-                aiohttp_recoverable_errors,
-                max_tries=self.max_reconnect_retries,
-                max_time=300
-            )(inner_coroutine_manager)(self, *args, **kwargs)
-
-        return wrapper
-        
-    @backoff_exception_
+    
+    @DecoratorsClass.backoff_exception_
     async def start_coroutines_orchestrator(self, lag, *args, **kwargs):
         """ 
             manages fetching coroutines.
@@ -273,17 +275,22 @@ class CommonFunctionality:
     
     
     async def _cancel_empty_coroutines(self, message, id_instrument, exchange, objective):
-        message_encoded = message.encode("utf-8")
-        size = sys.getsizeof(message_encoded)
-        if exchange == "binance" and size < 40:
-            await self._hault_coroutine(id_instrument)
-        if exchange == "binance" and objective == "oi":
+
+        if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
             message = json.loads(message)
             if message.get("data") == []:
+                await self._hault_coroutine(id_instrument)
+        if exchange == "binance" and objective == "oi":
+            message = json.loads(message)
+            if int(message.get("code")) == -4108 or message.get("msg") == "Symbol is on delivering or delivered or settling or closed or pre-trading.":
                 await self._hault_coroutine(id_instrument)
         if exchange == "bitget" and objective=="funding":
             message = json.loads(message)
             if message.get("data") == []:
+                await self._hault_coroutine(id_instrument)
+        if exchange == "bybit" and objective=="funding":
+            message = json.loads(message)
+            if message.get("result").get("list") == []:
                 await self._hault_coroutine(id_instrument)
 
     async def _asyncronous_data_stream(self, id_instrument, exchange, margin_type, objective, instrument, special_param, special_method):
@@ -298,23 +305,22 @@ class CommonFunctionality:
             
             data = await fetch_method()
             
-            # if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
-            #     data = json.dumps({"data" : json.loads(data), "objective" : objective})
-            # if exchange == "gateio":
-            #     data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
+            if exchange == "binance" and objective in ["tta", "ttp", "gta"]:
+                data = json.dumps({"data" : json.loads(data), "objective" : objective})
+            if exchange == "gateio":
+                data = json.dumps({"data" : json.loads(data), "instrument" : instrument})
                 
             await self.send_message_to_topic(topic_name, data)
             # -------
             # print(data)
-            message_encoded = data.encode("utf-8")
-            print(sys.getsizeof(message_encoded), id_instrument)
+            # message_encoded = data.encode("utf-8")
+            # print(sys.getsizeof(message_encoded), id_instrument)
             # -------
             if self.symbol_check_tries < 5:
                 await self._cancel_empty_coroutines(data, id_instrument, exchange, objective)
                 self.symbol_check_tries += 1
             await asyncio.sleep(pull_timeout)
-            
-                        
+                              
 class binance_aoihttp_oioption_manager(CommonFunctionality):
     
     def __init__ (self, underlying_asset, binance_get_option_expiries_method:callable, aiohttpfetch:callable):
@@ -617,7 +623,7 @@ class okx_aoihttp_fundperp_manager(CommonFunctionality):
         self.underlying_asset = underlying_asset
         self.get_symbols_perpetual = info_perpetual
         self.fetcher = aiohttpfetch
-        self._objectives = ["oi"]
+        self._objectives = ["funding"]
 
     @CommonFunctionality.errors_aiohttp
     async def _calibrate_instruments(self, symbols_update_interval):
@@ -796,7 +802,6 @@ class htx_aiohttp_oifutureperp_manager(CommonFunctionality):
         self._instruments["linear"] = ["-USDT.LinearPerpetual"]
         self._instruments["inverse"] = ["-USD"]
         
-
 class htx_aiohttp_fundperp_manager(CommonFunctionality):
     
     def __init__ (self, underlying_asset, inverse_future_contract_types_htx, htx_aiohttpFetch:callable):

@@ -1,0 +1,162 @@
+[
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.4631305
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.4442632
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5644,
+      "gta_short_ratio": 0.4356
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.0155466
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5734,
+      "gta_short_ratio": 0.4266
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.5638428
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.592,
+      "gta_short_ratio": 0.408
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.5548418
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.755536
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.7425237
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5644,
+      "gta_short_ratio": 0.4356
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.732743
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5734,
+      "gta_short_ratio": 0.4266
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.32187
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.592,
+      "gta_short_ratio": 0.408
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.2948787
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:25",
+    "receive_time": 1717264045.4738839
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:25",
+    "receive_time": 1717264045.463554
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5644,
+      "gta_short_ratio": 0.4356
+    },
+    "timestamp": "2024-06-01 18:47:25",
+    "receive_time": 1717264045.4475126
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.592,
+      "gta_short_ratio": 0.408
+    },
+    "timestamp": "2024-06-01 18:47:25",
+    "receive_time": 1717264045.020881
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5734,
+      "gta_short_ratio": 0.4266
+    },
+    "timestamp": "2024-06-01 18:47:25",
+    "receive_time": 1717264045.0078564
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:10",
+    "receive_time": 1717264030.1885123
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "gta_long_ratio": 0.5666,
+      "gta_short_ratio": 0.4334
+    },
+    "timestamp": "2024-06-01 18:47:09",
+    "receive_time": 1717264029.7571487
+  },
+  {
+    "BTCUSDM24@perpetual@bybit": {
+      "gta_long_ratio": 0.5644,
+      "gta_short_ratio": 0.4356
+    },
+    "timestamp": "2024-06-01 18:47:09",
+    "receive_time": 1717264029.750149
+  },
+  {
+    "BTCUSDU24@perpetual@bybit": {
+      "gta_long_ratio": 0.592,
+      "gta_short_ratio": 0.408
+    },
+    "timestamp": "2024-06-01 18:47:09",
+    "receive_time": 1717264029.736148
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "gta_long_ratio": 0.5734,
+      "gta_short_ratio": 0.4266
+    },
+    "timestamp": "2024-06-01 18:47:09",
+    "receive_time": 1717264029.7252345
+  }
+]

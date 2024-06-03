@@ -1,0 +1,33 @@
+[
+  {
+    "status": "ok",
+    "data": [
+      {
+        "estimated_rate": null,
+        "funding_rate": "0.000100000000000000",
+        "contract_code": "BTC-USDT",
+        "symbol": "BTC",
+        "fee_asset": "USDT",
+        "funding_time": "1717257600000",
+        "next_funding_time": null,
+        "trade_partition": "USDT"
+      }
+    ],
+    "ts": 1717253531720
+  },
+  {
+    "status": "ok",
+    "data": [
+      {
+        "estimated_rate": null,
+        "funding_rate": "0.000254373158932336",
+        "contract_code": "BTC-USD",
+        "symbol": "BTC",
+        "fee_asset": "BTC",
+        "funding_time": "1717257600000",
+        "next_funding_time": null
+      }
+    ],
+    "ts": 1717253531075
+  }
+]

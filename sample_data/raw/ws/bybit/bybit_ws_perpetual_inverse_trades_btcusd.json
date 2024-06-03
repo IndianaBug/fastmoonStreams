@@ -1,0 +1,26 @@
+[
+  {
+    "topic": "publicTrade.BTCUSD",
+    "type": "snapshot",
+    "ts": 1717270201240,
+    "data": [
+      {
+        "T": 1717270201238,
+        "s": "BTCUSD",
+        "S": "Sell",
+        "v": "1",
+        "p": "67723.50",
+        "L": "MinusTick",
+        "i": "545e2094-bfa5-524e-a3fa-aab79acda99a",
+        "BT": false
+      }
+    ]
+  },
+  {
+    "success": true,
+    "ret_msg": "",
+    "conn_id": "12b348a5-8b5b-4fd3-8c3f-ab5f4e43bfe9",
+    "req_id": "vj2cjsecOa",
+    "op": "subscribe"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "option-trades",
+      "instType": "OPTION",
+      "instFamily": "BTC-USD"
+    },
+    "connId": "0d3ab0d5"
+  }
+]

@@ -1,0 +1,4444 @@
+[
+  {
+    "time": 1717338490,
+    "time_ms": 1717338490187,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590798896,
+      "create_time": 1717338490,
+      "create_time_ms": "1717338490177.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68356.3",
+      "range": "40468079-40468079"
+    }
+  },
+  {
+    "time": 1717338487,
+    "time_ms": 1717338487775,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590798246,
+      "create_time": 1717338487,
+      "create_time_ms": "1717338487766.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01461",
+      "price": "68343.7",
+      "range": "40468078-40468078"
+    }
+  },
+  {
+    "time": 1717338487,
+    "time_ms": 1717338487774,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590798245,
+      "create_time": 1717338487,
+      "create_time_ms": "1717338487766.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68343.7",
+      "range": "40468077-40468077"
+    }
+  },
+  {
+    "time": 1717338486,
+    "time_ms": 1717338486962,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797899,
+      "create_time": 1717338486,
+      "create_time_ms": "1717338486955.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68343.6",
+      "range": "40468076-40468076"
+    }
+  },
+  {
+    "time": 1717338486,
+    "time_ms": 1717338486789,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797859,
+      "create_time": 1717338486,
+      "create_time_ms": "1717338486780.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68343.7",
+      "range": "40468075-40468075"
+    }
+  },
+  {
+    "time": 1717338484,
+    "time_ms": 1717338484347,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797140,
+      "create_time": 1717338484,
+      "create_time_ms": "1717338484339.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0731",
+      "price": "68354.4",
+      "range": "40468074-40468074"
+    }
+  },
+  {
+    "time": 1717338484,
+    "time_ms": 1717338484346,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797134,
+      "create_time": 1717338484,
+      "create_time_ms": "1717338484328.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.15883",
+      "price": "68354.4",
+      "range": "40468073-40468073"
+    }
+  },
+  {
+    "time": 1717338484,
+    "time_ms": 1717338484311,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797100,
+      "create_time": 1717338484,
+      "create_time_ms": "1717338484303.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.05882",
+      "price": "68354.4",
+      "range": "40468072-40468072"
+    }
+  },
+  {
+    "time": 1717338484,
+    "time_ms": 1717338484311,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590797099,
+      "create_time": 1717338484,
+      "create_time_ms": "1717338484302.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01358",
+      "price": "68354.4",
+      "range": "40468071-40468071"
+    }
+  },
+  {
+    "time": 1717338483,
+    "time_ms": 1717338483802,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796939,
+      "create_time": 1717338483,
+      "create_time_ms": "1717338483793.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.002",
+      "price": "68356.7",
+      "range": "40468070-40468070"
+    }
+  },
+  {
+    "time": 1717338483,
+    "time_ms": 1717338483625,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796889,
+      "create_time": 1717338483,
+      "create_time_ms": "1717338483616.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68356.7",
+      "range": "40468069-40468069"
+    }
+  },
+  {
+    "time": 1717338483,
+    "time_ms": 1717338483366,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796824,
+      "create_time": 1717338483,
+      "create_time_ms": "1717338483359.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68356.8",
+      "range": "40468068-40468068"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482383,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796476,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482367.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0804",
+      "price": "68358.9",
+      "range": "40468067-40468067"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482383,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796475,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482367.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0002",
+      "price": "68358.9",
+      "range": "40468066-40468066"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482383,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796473,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482367.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00075",
+      "price": "68358.9",
+      "range": "40468064-40468064"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482383,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796474,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482367.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01782",
+      "price": "68358.9",
+      "range": "40468065-40468065"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482382,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796457,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482363.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01441",
+      "price": "68358.9",
+      "range": "40468062-40468062"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482382,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796458,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482363.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.03525",
+      "price": "68358.9",
+      "range": "40468063-40468063"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482381,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796456,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482363.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00294",
+      "price": "68358.9",
+      "range": "40468061-40468061"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482368,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796430,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482349.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01147",
+      "price": "68358.9",
+      "range": "40468060-40468060"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482368,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796429,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482349.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0144",
+      "price": "68358.9",
+      "range": "40468059-40468059"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482368,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796428,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482349.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0144",
+      "price": "68358.9",
+      "range": "40468058-40468058"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482367,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796427,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482349.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68358.9",
+      "range": "40468057-40468057"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482299,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796414,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482272.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00276",
+      "price": "68359",
+      "range": "40468056-40468056"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482298,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796413,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482272.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00054",
+      "price": "68359",
+      "range": "40468055-40468055"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482146,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796369,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482134.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68355.9",
+      "range": "40468054-40468054"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482131,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796367,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482121.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68354.5",
+      "range": "40468053-40468053"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482130,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796366,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482120.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02934",
+      "price": "68354.4",
+      "range": "40468052-40468052"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482128,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796365,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482117.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01457",
+      "price": "68354.4",
+      "range": "40468051-40468051"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482127,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796363,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482117.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01441",
+      "price": "68354.4",
+      "range": "40468049-40468049"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482127,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796364,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482117.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0144",
+      "price": "68354.4",
+      "range": "40468050-40468050"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482127,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796362,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482117.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00053",
+      "price": "68354.4",
+      "range": "40468048-40468048"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482097,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796326,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482083.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01756",
+      "price": "68354.3",
+      "range": "40468047-40468047"
+    }
+  },
+  {
+    "time": 1717338482,
+    "time_ms": 1717338482097,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796325,
+      "create_time": 1717338482,
+      "create_time_ms": "1717338482083.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00244",
+      "price": "68354.3",
+      "range": "40468046-40468046"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481870,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796222,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481863.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68354.4",
+      "range": "40468045-40468045"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481768,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796178,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481757.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.04169",
+      "price": "68354.4",
+      "range": "40468044-40468044"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481767,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796177,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481757.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00008",
+      "price": "68354.4",
+      "range": "40468043-40468043"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481481,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796114,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481425.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00305",
+      "price": "68354.3",
+      "range": "40468042-40468042"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481481,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796104,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481350.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.04396",
+      "price": "68354.3",
+      "range": "40468041-40468041"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481352,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796099,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481343.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.16063",
+      "price": "68354.3",
+      "range": "40468040-40468040"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480942,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795976,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480827.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68349.6",
+      "range": "40468037-40468037"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795957,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00008",
+      "price": "68352.8",
+      "range": "40468034-40468034"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795951,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00015",
+      "price": "68351.1",
+      "range": "40468028-40468028"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480819,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795950,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68351.1",
+      "range": "40468027-40468027"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480819,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795949,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68351.1",
+      "range": "40468026-40468026"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480819,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795946,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68349.9",
+      "range": "40468023-40468023"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795954,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68351.1",
+      "range": "40468031-40468031"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480697,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795937,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0001",
+      "price": "68347.9",
+      "range": "40468020-40468020"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480819,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795948,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68351.1",
+      "range": "40468025-40468025"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795934,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00011",
+      "price": "68346.9",
+      "range": "40468017-40468017"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480697,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795939,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01",
+      "price": "68348.9",
+      "range": "40468022-40468022"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795933,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0001",
+      "price": "68346.9",
+      "range": "40468016-40468016"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795930,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00027",
+      "price": "68344.6",
+      "range": "40468013-40468013"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795928,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68343.7",
+      "range": "40468011-40468011"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795916,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480670.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00875",
+      "price": "68338.8",
+      "range": "40468001-40468001"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795923,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480677.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0095",
+      "price": "68335.6",
+      "range": "40468007-40468007"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795913,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480667.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00498",
+      "price": "68338.8",
+      "range": "40467998-40467998"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795922,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480677.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0105",
+      "price": "68335.8",
+      "range": "40468006-40468006"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480693,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795911,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480660.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.004",
+      "price": "68338.8",
+      "range": "40467997-40467997"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795917,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480670.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00053",
+      "price": "68338.8",
+      "range": "40468002-40468002"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480548,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795837,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68337.8",
+      "range": "40467989-40467989"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480548,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795839,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68338.1",
+      "range": "40467991-40467991"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795815,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68336.1",
+      "range": "40467985-40467985"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480548,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795838,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68338.1",
+      "range": "40467990-40467990"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795809,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68335.7",
+      "range": "40467979-40467979"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480547,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795835,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68337.5",
+      "range": "40467987-40467987"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481352,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796098,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481343.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0144",
+      "price": "68354.3",
+      "range": "40468039-40468039"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795807,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00049",
+      "price": "68335.7",
+      "range": "40467977-40467977"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795808,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68335.7",
+      "range": "40467978-40467978"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480942,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795970,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480816.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00006",
+      "price": "68349.6",
+      "range": "40468036-40468036"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795955,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68351.1",
+      "range": "40468032-40468032"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795798,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00027",
+      "price": "68333.3",
+      "range": "40467968-40467968"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795806,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00082",
+      "price": "68334.4",
+      "range": "40467976-40467976"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795958,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68353.4",
+      "range": "40468035-40468035"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795952,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00029",
+      "price": "68351.1",
+      "range": "40468029-40468029"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480543,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795794,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68330.2",
+      "range": "40467964-40467964"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795803,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68333.3",
+      "range": "40467973-40467973"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795953,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00014",
+      "price": "68351.1",
+      "range": "40468030-40468030"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480819,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795947,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68351",
+      "range": "40468024-40468024"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480387,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795747,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480358.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68327.7",
+      "range": "40467959-40467959"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795802,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00027",
+      "price": "68333.3",
+      "range": "40467972-40467972"
+    }
+  },
+  {
+    "time": 1717338481,
+    "time_ms": 1717338481352,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590796097,
+      "create_time": 1717338481,
+      "create_time_ms": "1717338481343.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02055",
+      "price": "68354.3",
+      "range": "40468038-40468038"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480697,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795936,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68346.9",
+      "range": "40468019-40468019"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480697,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795938,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68348.4",
+      "range": "40468021-40468021"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480386,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795720,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480338.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00578",
+      "price": "68326.5",
+      "range": "40467954-40467954"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795800,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68333.3",
+      "range": "40467970-40467970"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480820,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795956,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480762.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68351.1",
+      "range": "40468033-40468033"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795932,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68346.9",
+      "range": "40468015-40468015"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795929,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00432",
+      "price": "68343.7",
+      "range": "40468012-40468012"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480254,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795670,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00012",
+      "price": "68323.5",
+      "range": "40467948-40467948"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795799,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68333.3",
+      "range": "40467969-40467969"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795935,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68346.9",
+      "range": "40468018-40468018"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795927,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480680.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68343.4",
+      "range": "40468010-40468010"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795926,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480680.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68342.9",
+      "range": "40468009-40468009"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480254,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795669,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00013",
+      "price": "68322.4",
+      "range": "40467947-40467947"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480543,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795795,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68331.3",
+      "range": "40467965-40467965"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480696,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795931,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480681.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0002",
+      "price": "68344.8",
+      "range": "40468014-40468014"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795925,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480680.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.03309",
+      "price": "68342.2",
+      "range": "40468008-40468008"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795919,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480671.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68340.9",
+      "range": "40468004-40468004"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795667,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68322.4",
+      "range": "40467945-40467945"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480543,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795788,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480413.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0731",
+      "price": "68328.3",
+      "range": "40467963-40467963"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480695,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795920,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480671.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68341.1",
+      "range": "40468005-40468005"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795915,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.008",
+      "price": "68338.8",
+      "range": "40468000-40468000"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480549,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795844,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01965",
+      "price": "68338.8",
+      "range": "40467996-40467996"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480252,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795661,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00715",
+      "price": "68320.7",
+      "range": "40467939-40467939"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480387,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795748,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480358.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00081",
+      "price": "68329",
+      "range": "40467960-40467960"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795918,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480670.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0035",
+      "price": "68339.2",
+      "range": "40468003-40468003"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480694,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795914,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01144",
+      "price": "68338.8",
+      "range": "40467999-40467999"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480548,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795841,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68338.1",
+      "range": "40467993-40467993"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480251,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795656,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467934-40467934"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480386,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795722,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480339.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.07912",
+      "price": "68326.5",
+      "range": "40467956-40467956"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480547,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795816,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00076",
+      "price": "68336.5",
+      "range": "40467986-40467986"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480549,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795843,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68338.1",
+      "range": "40467995-40467995"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480548,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795840,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68338.1",
+      "range": "40467992-40467992"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480251,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795655,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467933-40467933"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480269,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795675,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480244.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00008",
+      "price": "68326.5",
+      "range": "40467952-40467952"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795814,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68336.1",
+      "range": "40467984-40467984"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480549,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795842,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0001",
+      "price": "68338.1",
+      "range": "40467994-40467994"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795813,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68335.7",
+      "range": "40467983-40467983"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480250,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795652,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68318.4",
+      "range": "40467930-40467930"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480269,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795672,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480244.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68324.5",
+      "range": "40467949-40467949"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795811,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68335.7",
+      "range": "40467981-40467981"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480547,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795836,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480486.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68337.8",
+      "range": "40467988-40467988"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795812,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00006",
+      "price": "68335.7",
+      "range": "40467982-40467982"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795642,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00017",
+      "price": "68317.6",
+      "range": "40467927-40467927"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480252,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795659,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467937-40467937"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480543,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795797,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68333.3",
+      "range": "40467967-40467967"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480546,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795810,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68335.7",
+      "range": "40467980-40467980"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480544,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795801,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00007",
+      "price": "68333.3",
+      "range": "40467971-40467971"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795640,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68317.5",
+      "range": "40467925-40467925"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480252,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795658,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68320.4",
+      "range": "40467936-40467936"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480542,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795787,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480413.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.06384",
+      "price": "68328.3",
+      "range": "40467962-40467962"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795805,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00069",
+      "price": "68333.3",
+      "range": "40467975-40467975"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795668,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00008",
+      "price": "68322.4",
+      "range": "40467946-40467946"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795638,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.2325",
+      "price": "68316.7",
+      "range": "40467923-40467923"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480251,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795654,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68320.4",
+      "range": "40467932-40467932"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480387,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795749,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480358.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68329.1",
+      "range": "40467961-40467961"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480545,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795804,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00104",
+      "price": "68333.3",
+      "range": "40467974-40467974"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795666,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00012",
+      "price": "68322.4",
+      "range": "40467944-40467944"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480247,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795631,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00011",
+      "price": "68316.2",
+      "range": "40467916-40467916"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480250,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795644,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00347",
+      "price": "68318.4",
+      "range": "40467929-40467929"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480386,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795721,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480338.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.07333",
+      "price": "68326.5",
+      "range": "40467955-40467955"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480543,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795796,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480434.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00013",
+      "price": "68333.3",
+      "range": "40467966-40467966"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795663,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68322.1",
+      "range": "40467941-40467941"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480221,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795618,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480210.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.06222",
+      "price": "68302.9",
+      "range": "40467907-40467907"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480250,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795643,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68317.8",
+      "range": "40467928-40467928"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480269,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795676,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480244.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00219",
+      "price": "68326.5",
+      "range": "40467953-40467953"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480387,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795746,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480358.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01886",
+      "price": "68326.5",
+      "range": "40467958-40467958"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480252,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795662,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480225.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00466",
+      "price": "68320.7",
+      "range": "40467940-40467940"
+    }
+  },
+  {
+    "time": 1717338476,
+    "time_ms": 1717338476763,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794882,
+      "create_time": 1717338476,
+      "create_time_ms": "1717338476756.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02",
+      "price": "68302.8",
+      "range": "40467906-40467906"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795637,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00018",
+      "price": "68316.2",
+      "range": "40467922-40467922"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480269,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795674,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480244.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68324.7",
+      "range": "40467951-40467951"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480387,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795745,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480356.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.10869",
+      "price": "68326.5",
+      "range": "40467957-40467957"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480252,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795660,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467938-40467938"
+    }
+  },
+  {
+    "time": 1717338476,
+    "time_ms": 1717338476559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794840,
+      "create_time": 1717338476,
+      "create_time_ms": "1717338476549.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "1.19408",
+      "price": "68312.5",
+      "range": "40467905-40467905"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480248,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795634,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68316.2",
+      "range": "40467919-40467919"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480269,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795673,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480244.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0006",
+      "price": "68324.5",
+      "range": "40467950-40467950"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795665,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00006",
+      "price": "68322.4",
+      "range": "40467943-40467943"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480251,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795657,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467935-40467935"
+    }
+  },
+  {
+    "time": 1717338475,
+    "time_ms": 1717338475244,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794553,
+      "create_time": 1717338475,
+      "create_time_ms": "1717338475234.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68313.7",
+      "range": "40467901-40467901"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480248,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795632,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68316.2",
+      "range": "40467917-40467917"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480253,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795664,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480233.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68322.2",
+      "range": "40467942-40467942"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480251,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795653,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480223.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68320.4",
+      "range": "40467931-40467931"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480248,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795636,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00071",
+      "price": "68316.2",
+      "range": "40467921-40467921"
+    }
+  },
+  {
+    "time": 1717338474,
+    "time_ms": 1717338474027,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794285,
+      "create_time": 1717338474,
+      "create_time_ms": "1717338474016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68310.3",
+      "range": "40467898-40467898"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480247,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795629,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68315.7",
+      "range": "40467914-40467914"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795641,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68317.5",
+      "range": "40467926-40467926"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480249,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795639,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480216.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02104",
+      "price": "68317.4",
+      "range": "40467924-40467924"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480247,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795627,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02929",
+      "price": "68315.1",
+      "range": "40467913-40467913"
+    }
+  },
+  {
+    "time": 1717338474,
+    "time_ms": 1717338474026,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794284,
+      "create_time": 1717338474,
+      "create_time_ms": "1717338474016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68309.6",
+      "range": "40467897-40467897"
+    }
+  },
+  {
+    "time": 1717338476,
+    "time_ms": 1717338476141,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794747,
+      "create_time": 1717338476,
+      "create_time_ms": "1717338476131.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00293",
+      "price": "68315.5",
+      "range": "40467903-40467903"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480248,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795635,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68316.2",
+      "range": "40467920-40467920"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480248,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795633,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68316.2",
+      "range": "40467918-40467918"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480221,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795621,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480210.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.07319",
+      "price": "68302.9",
+      "range": "40467910-40467910"
+    }
+  },
+  {
+    "time": 1717338466,
+    "time_ms": 1717338466555,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792518,
+      "create_time": 1717338466,
+      "create_time_ms": "1717338466545.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00012",
+      "price": "68294.3",
+      "range": "40467874-40467874"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473089,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794092,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473078.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68308.1",
+      "range": "40467895-40467895"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480247,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795630,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480215.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68315.7",
+      "range": "40467915-40467915"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480247,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795626,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480214.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.18503",
+      "price": "68312.1",
+      "range": "40467912-40467912"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480221,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795619,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480210.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68302.9",
+      "range": "40467908-40467908"
+    }
+  },
+  {
+    "time": 1717338466,
+    "time_ms": 1717338466554,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792517,
+      "create_time": 1717338466,
+      "create_time_ms": "1717338466545.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68294",
+      "range": "40467873-40467873"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473086,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794090,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473075.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00075",
+      "price": "68307.6",
+      "range": "40467893-40467893"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480246,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795625,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480214.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00414",
+      "price": "68310.9",
+      "range": "40467911-40467911"
+    }
+  },
+  {
+    "time": 1717338480,
+    "time_ms": 1717338480221,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590795620,
+      "create_time": 1717338480,
+      "create_time_ms": "1717338480210.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01382",
+      "price": "68302.9",
+      "range": "40467909-40467909"
+    }
+  },
+  {
+    "time": 1717338475,
+    "time_ms": 1717338475244,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794552,
+      "create_time": 1717338475,
+      "create_time_ms": "1717338475234.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68313.1",
+      "range": "40467900-40467900"
+    }
+  },
+  {
+    "time": 1717338463,
+    "time_ms": 1717338463606,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590791807,
+      "create_time": 1717338463,
+      "create_time_ms": "1717338463599.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0002",
+      "price": "68294",
+      "range": "40467872-40467872"
+    }
+  },
+  {
+    "time": 1717338470,
+    "time_ms": 1717338470056,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590793397,
+      "create_time": 1717338470,
+      "create_time_ms": "1717338470048.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.22028",
+      "price": "68300",
+      "range": "40467884-40467884"
+    }
+  },
+  {
+    "time": 1717338476,
+    "time_ms": 1717338476140,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794746,
+      "create_time": 1717338476,
+      "create_time_ms": "1717338476131.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00007",
+      "price": "68315.5",
+      "range": "40467902-40467902"
+    }
+  },
+  {
+    "time": 1717338476,
+    "time_ms": 1717338476427,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794796,
+      "create_time": 1717338476,
+      "create_time_ms": "1717338476419.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68315.4",
+      "range": "40467904-40467904"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473081,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794088,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473074.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0002",
+      "price": "68306.9",
+      "range": "40467891-40467891"
+    }
+  },
+  {
+    "time": 1717338456,
+    "time_ms": 1717338456561,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590790219,
+      "create_time": 1717338456,
+      "create_time_ms": "1717338456551.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68294.2",
+      "range": "40467870-40467870"
+    }
+  },
+  {
+    "time": 1717338467,
+    "time_ms": 1717338467946,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792912,
+      "create_time": 1717338467,
+      "create_time_ms": "1717338467937.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68300",
+      "range": "40467882-40467882"
+    }
+  },
+  {
+    "time": 1717338474,
+    "time_ms": 1717338474026,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794283,
+      "create_time": 1717338474,
+      "create_time_ms": "1717338474016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00017",
+      "price": "68309.5",
+      "range": "40467896-40467896"
+    }
+  },
+  {
+    "time": 1717338475,
+    "time_ms": 1717338475244,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794551,
+      "create_time": 1717338475,
+      "create_time_ms": "1717338475234.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68312.5",
+      "range": "40467899-40467899"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473026,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794084,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00014",
+      "price": "68302.8",
+      "range": "40467888-40467888"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454083,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789509,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454073.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68291.4",
+      "range": "40467864-40467864"
+    }
+  },
+  {
+    "time": 1717338467,
+    "time_ms": 1717338467832,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792869,
+      "create_time": 1717338467,
+      "create_time_ms": "1717338467824.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.8678",
+      "price": "68296.5",
+      "range": "40467880-40467880"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473085,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794089,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473075.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68306.9",
+      "range": "40467892-40467892"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473089,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794091,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473077.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68307.6",
+      "range": "40467894-40467894"
+    }
+  },
+  {
+    "time": 1717338467,
+    "time_ms": 1717338467825,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792863,
+      "create_time": 1717338467,
+      "create_time_ms": "1717338467811.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0035",
+      "price": "68297.6",
+      "range": "40467879-40467879"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453703,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789407,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453689.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00014",
+      "price": "68291.3",
+      "range": "40467862-40467862"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454083,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789513,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454073.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68292.6",
+      "range": "40467868-40467868"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473081,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794087,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473072.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68306.1",
+      "range": "40467890-40467890"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473026,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794083,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68302.8",
+      "range": "40467887-40467887"
+    }
+  },
+  {
+    "time": 1717338466,
+    "time_ms": 1717338466555,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792521,
+      "create_time": 1717338466,
+      "create_time_ms": "1717338466545.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68294.4",
+      "range": "40467877-40467877"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453440,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789329,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453434.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00015",
+      "price": "68291.3",
+      "range": "40467860-40467860"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454083,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789511,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454073.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68291.8",
+      "range": "40467866-40467866"
+    }
+  },
+  {
+    "time": 1717338473,
+    "time_ms": 1717338473027,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590794085,
+      "create_time": 1717338473,
+      "create_time_ms": "1717338473016.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68303",
+      "range": "40467889-40467889"
+    }
+  },
+  {
+    "time": 1717338470,
+    "time_ms": 1717338470057,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590793399,
+      "create_time": 1717338470,
+      "create_time_ms": "1717338470050.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0002",
+      "price": "68301.1",
+      "range": "40467886-40467886"
+    }
+  },
+  {
+    "time": 1717338466,
+    "time_ms": 1717338466555,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792520,
+      "create_time": 1717338466,
+      "create_time_ms": "1717338466545.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68294.4",
+      "range": "40467876-40467876"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453398,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789313,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453386.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00011",
+      "price": "68287.8",
+      "range": "40467859-40467859"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454083,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789510,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454073.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68291.4",
+      "range": "40467865-40467865"
+    }
+  },
+  {
+    "time": 1717338470,
+    "time_ms": 1717338470056,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590793396,
+      "create_time": 1717338470,
+      "create_time_ms": "1717338470048.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00015",
+      "price": "68300",
+      "range": "40467883-40467883"
+    }
+  },
+  {
+    "time": 1717338470,
+    "time_ms": 1717338470056,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590793398,
+      "create_time": 1717338470,
+      "create_time_ms": "1717338470050.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0012",
+      "price": "68300.8",
+      "range": "40467885-40467885"
+    }
+  },
+  {
+    "time": 1717338455,
+    "time_ms": 1717338455120,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789798,
+      "create_time": 1717338455,
+      "create_time_ms": "1717338455112.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0022",
+      "price": "68293.7",
+      "range": "40467869-40467869"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453397,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789311,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453386.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68287.6",
+      "range": "40467857-40467857"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454082,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789508,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454072.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00014",
+      "price": "68291.3",
+      "range": "40467863-40467863"
+    }
+  },
+  {
+    "time": 1717338467,
+    "time_ms": 1717338467824,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792862,
+      "create_time": 1717338467,
+      "create_time_ms": "1717338467811.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00877",
+      "price": "68296.5",
+      "range": "40467878-40467878"
+    }
+  },
+  {
+    "time": 1717338467,
+    "time_ms": 1717338467945,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792911,
+      "create_time": 1717338467,
+      "create_time_ms": "1717338467937.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68299.8",
+      "range": "40467881-40467881"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453105,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789127,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00089",
+      "price": "68286",
+      "range": "40467855-40467855"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453088,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789117,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453074.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00017",
+      "price": "68283.1",
+      "range": "40467846-40467846"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453105,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789125,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68286",
+      "range": "40467853-40467853"
+    }
+  },
+  {
+    "time": 1717338458,
+    "time_ms": 1717338458277,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590790634,
+      "create_time": 1717338458,
+      "create_time_ms": "1717338458269.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00164",
+      "price": "68293.9",
+      "range": "40467871-40467871"
+    }
+  },
+  {
+    "time": 1717338466,
+    "time_ms": 1717338466555,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590792519,
+      "create_time": 1717338466,
+      "create_time_ms": "1717338466545.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68294.3",
+      "range": "40467875-40467875"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453105,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789126,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00009",
+      "price": "68286",
+      "range": "40467854-40467854"
+    }
+  },
+  {
+    "time": 1717338442,
+    "time_ms": 1717338442385,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590785772,
+      "create_time": 1717338442,
+      "create_time_ms": "1717338442376.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01104",
+      "price": "68281",
+      "range": "40467842-40467842"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789122,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68286",
+      "range": "40467850-40467850"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453397,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789312,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453386.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00084",
+      "price": "68287.8",
+      "range": "40467858-40467858"
+    }
+  },
+  {
+    "time": 1717338454,
+    "time_ms": 1717338454083,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789512,
+      "create_time": 1717338454,
+      "create_time_ms": "1717338454073.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00014",
+      "price": "68292.2",
+      "range": "40467867-40467867"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789121,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68285.7",
+      "range": "40467849-40467849"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439685,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784920,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68275.8",
+      "range": "40467835-40467835"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789119,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68284.4",
+      "range": "40467847-40467847"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453397,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789310,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453386.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68287.6",
+      "range": "40467856-40467856"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453613,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789372,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453604.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.008",
+      "price": "68291.3",
+      "range": "40467861-40467861"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453064,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789114,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453054.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.05041",
+      "price": "68281.5",
+      "range": "40467843-40467843"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439684,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784918,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00006",
+      "price": "68275.8",
+      "range": "40467833-40467833"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453080,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789115,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453069.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00017",
+      "price": "68282.8",
+      "range": "40467844-40467844"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789124,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68286",
+      "range": "40467852-40467852"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453080,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789116,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453069.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00021",
+      "price": "68283.1",
+      "range": "40467845-40467845"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439685,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784922,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00351",
+      "price": "68276.8",
+      "range": "40467837-40467837"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439684,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784915,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68275",
+      "range": "40467830-40467830"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439686,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784926,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.01576",
+      "price": "68281.5",
+      "range": "40467841-40467841"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789123,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00021",
+      "price": "68286",
+      "range": "40467851-40467851"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439684,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784919,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00028",
+      "price": "68275.8",
+      "range": "40467834-40467834"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439683,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784912,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00013",
+      "price": "68275",
+      "range": "40467827-40467827"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439683,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784914,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68275",
+      "range": "40467829-40467829"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439685,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784924,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00003",
+      "price": "68279",
+      "range": "40467839-40467839"
+    }
+  },
+  {
+    "time": 1717338453,
+    "time_ms": 1717338453104,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590789120,
+      "create_time": 1717338453,
+      "create_time_ms": "1717338453090.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00008",
+      "price": "68285.2",
+      "range": "40467848-40467848"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439684,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784917,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00007",
+      "price": "68275.8",
+      "range": "40467832-40467832"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439659,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784911,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68272.5",
+      "range": "40467826-40467826"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784870,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68269.5",
+      "range": "40467815-40467815"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439685,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784923,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68277.3",
+      "range": "40467838-40467838"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439686,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784925,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68281.2",
+      "range": "40467840-40467840"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439659,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784910,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68272.5",
+      "range": "40467825-40467825"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439658,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784906,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00021",
+      "price": "68272.5",
+      "range": "40467821-40467821"
+    }
+  },
+  {
+    "time": 1717338438,
+    "time_ms": 1717338438700,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784581,
+      "create_time": 1717338438,
+      "create_time_ms": "1717338438691.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0058",
+      "price": "68267",
+      "range": "40467809-40467809"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439683,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784913,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68275",
+      "range": "40467828-40467828"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439685,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784921,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68276.8",
+      "range": "40467836-40467836"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439659,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784909,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00005",
+      "price": "68272.5",
+      "range": "40467824-40467824"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439456,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784815,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439406.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68267.1",
+      "range": "40467810-40467810"
+    }
+  },
+  {
+    "time": 1717338409,
+    "time_ms": 1717338409190,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590776049,
+      "create_time": 1717338409,
+      "create_time_ms": "1717338409182.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68245",
+      "range": "40467768-40467768"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439560,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784897,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439549.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00082",
+      "price": "68271.3",
+      "range": "40467819-40467819"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439684,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784916,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439669.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68275.7",
+      "range": "40467831-40467831"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439659,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784908,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00023",
+      "price": "68272.5",
+      "range": "40467823-40467823"
+    }
+  },
+  {
+    "time": 1717338436,
+    "time_ms": 1717338436557,
+    "channel": "spot.trades",
+    "event": "subscribe",
+    "payload": [
+      "BTC_USDT"
+    ],
+    "result": {
+      "status": "success"
+    },
+    "requestId": "258d8c48e5a3179b9d7da641bf52e1b4"
+  },
+  {
+    "time": 1717338387,
+    "time_ms": 1717338387991,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590769874,
+      "create_time": 1717338387,
+      "create_time_ms": "1717338387983.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.02382",
+      "price": "68252.1",
+      "range": "40467766-40467766"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784871,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00011",
+      "price": "68270",
+      "range": "40467816-40467816"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439658,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784907,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439647.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68272.5",
+      "range": "40467822-40467822"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439560,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784898,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439549.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00025",
+      "price": "68271.3",
+      "range": "40467820-40467820"
+    }
+  },
+  {
+    "time": 1717338399,
+    "time_ms": 1717338399558,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590773440,
+      "create_time": 1717338399,
+      "create_time_ms": "1717338399549.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00006",
+      "price": "68244.9",
+      "range": "40467767-40467767"
+    }
+  },
+  {
+    "time": 1717338387,
+    "time_ms": 1717338387956,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590769873,
+      "create_time": 1717338387,
+      "create_time_ms": "1717338387947.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.0055",
+      "price": "68252.1",
+      "range": "40467765-40467765"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439558,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784867,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68269.5",
+      "range": "40467812-40467812"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784880,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439511.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00011",
+      "price": "68270.8",
+      "range": "40467818-40467818"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784869,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00013",
+      "price": "68269.5",
+      "range": "40467814-40467814"
+    }
+  },
+  {
+    "time": 1717338387,
+    "time_ms": 1717338387955,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590769872,
+      "create_time": 1717338387,
+      "create_time_ms": "1717338387947.0",
+      "side": "sell",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.005",
+      "price": "68252.1",
+      "range": "40467764-40467764"
+    }
+  },
+  {
+    "time": 1717338385,
+    "time_ms": 1717338385872,
+    "channel": "spot.trades",
+    "event": "subscribe",
+    "payload": [
+      "BTC_USDT"
+    ],
+    "result": {
+      "status": "success"
+    },
+    "requestId": "acd44ac21eb5c5feacdf17abb6753674"
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439558,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784866,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00004",
+      "price": "68269.5",
+      "range": "40467811-40467811"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439559,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784879,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439511.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68270.8",
+      "range": "40467817-40467817"
+    }
+  },
+  {
+    "time": 1717338439,
+    "time_ms": 1717338439558,
+    "channel": "spot.trades",
+    "event": "update",
+    "result": {
+      "id": 9590784868,
+      "create_time": 1717338439,
+      "create_time_ms": "1717338439497.0",
+      "side": "buy",
+      "currency_pair": "BTC_USDT",
+      "amount": "0.00002",
+      "price": "68269.5",
+      "range": "40467813-40467813"
+    }
+  }
+]

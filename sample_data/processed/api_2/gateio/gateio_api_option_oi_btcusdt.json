@@ -1,0 +1,3376 @@
+[
+  {
+    "BTC_USDT-20240603-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-72000-P",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-72000-C",
+      "strike": 72000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-71000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-71000-P",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-71000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-71000-C",
+      "strike": 71000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-70500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-70500-P",
+      "strike": 70500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-70500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-70500-C",
+      "strike": 70500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-70000-P",
+      "strike": 70000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-70000-C",
+      "strike": 70000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-69500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-69500-P",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-69500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-69500-C",
+      "strike": 69500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-69000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-69000-P",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-69000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-69000-C",
+      "strike": 69000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-68500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-68500-P",
+      "strike": 68500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-68500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-68500-C",
+      "strike": 68500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-68000-P",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-68000-C",
+      "strike": 68000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-67500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-67500-P",
+      "strike": 67500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-67500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-67500-C",
+      "strike": 67500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-67000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-67000-P",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-67000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-67000-C",
+      "strike": 67000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-66500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-66500-P",
+      "strike": 66500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-66500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-66500-C",
+      "strike": 66500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-66000-P",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-66000-C",
+      "strike": 66000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-65500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-65500-P",
+      "strike": 65500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-65500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-65500-C",
+      "strike": 65500.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-65000-P",
+      "strike": 65000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-65000-C",
+      "strike": 65000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240603-64000-P",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240603-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240603-64000-C",
+      "strike": 64000.0,
+      "days_left": 1,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-72000-P",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-72000-C",
+      "strike": 72000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-71000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-71000-P",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-71000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-71000-C",
+      "strike": 71000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-70500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-70500-P",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-70500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-70500-C",
+      "strike": 70500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-70000-P",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-70000-C",
+      "strike": 70000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-69500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-69500-P",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-69500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-69500-C",
+      "strike": 69500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-69000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-69000-P",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-69000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-69000-C",
+      "strike": 69000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-68500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-68500-P",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-68500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-68500-C",
+      "strike": 68500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-68000-P",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-68000-C",
+      "strike": 68000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-67500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-67500-P",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-67500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-67500-C",
+      "strike": 67500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-67000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-67000-P",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-67000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-67000-C",
+      "strike": 67000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-66500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-66500-P",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-66500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-66500-C",
+      "strike": 66500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-66000-P",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-66000-C",
+      "strike": 66000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-65500-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-65500-P",
+      "strike": 65500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-65500-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-65500-C",
+      "strike": 65500.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-65000-P",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-65000-C",
+      "strike": 65000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240602-64000-P",
+      "strike": 64000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240602-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240602-64000-C",
+      "strike": 64000.0,
+      "days_left": 0,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-95000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-95000-P",
+      "strike": 95000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-95000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-95000-C",
+      "strike": 95000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-90000-P",
+      "strike": 90000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-90000-C",
+      "strike": 90000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-85000-P",
+      "strike": 85000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-85000-C",
+      "strike": 85000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-80000-P",
+      "strike": 80000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-80000-C",
+      "strike": 80000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-78000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-78000-P",
+      "strike": 78000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-78000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-78000-C",
+      "strike": 78000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-76000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-76000-P",
+      "strike": 76000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-76000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-76000-C",
+      "strike": 76000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-74000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-74000-P",
+      "strike": 74000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-74000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-74000-C",
+      "strike": 74000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-72000-P",
+      "strike": 72000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-72000-C",
+      "strike": 72000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-70000-P",
+      "strike": 70000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-70000-C",
+      "strike": 70000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-68000-P",
+      "strike": 68000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-68000-C",
+      "strike": 68000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-66000-P",
+      "strike": 66000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-66000-C",
+      "strike": 66000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-64000-P",
+      "strike": 64000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-64000-C",
+      "strike": 64000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-62000-P",
+      "strike": 62000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-62000-C",
+      "strike": 62000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-60000-P",
+      "strike": 60000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-60000-C",
+      "strike": 60000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-58000-P",
+      "strike": 58000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-58000-C",
+      "strike": 58000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-56000-P",
+      "strike": 56000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-56000-C",
+      "strike": 56000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-54000-P",
+      "strike": 54000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-54000-C",
+      "strike": 54000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-50000-P",
+      "strike": 50000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-50000-C",
+      "strike": 50000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-45000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240830-45000-P",
+      "strike": 45000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240830-45000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240830-45000-C",
+      "strike": 45000.0,
+      "days_left": 89,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-85000-P",
+      "strike": 85000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-85000-C",
+      "strike": 85000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-80000-P",
+      "strike": 80000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-80000-C",
+      "strike": 80000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-78000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-78000-P",
+      "strike": 78000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-78000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-78000-C",
+      "strike": 78000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-76000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-76000-P",
+      "strike": 76000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-76000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-76000-C",
+      "strike": 76000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-74000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-74000-P",
+      "strike": 74000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-74000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-74000-C",
+      "strike": 74000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-72000-P",
+      "strike": 72000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-72000-C",
+      "strike": 72000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-71000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-71000-P",
+      "strike": 71000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-71000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-71000-C",
+      "strike": 71000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-70000-P",
+      "strike": 70000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-70000-C",
+      "strike": 70000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-69000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-69000-P",
+      "strike": 69000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-69000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-69000-C",
+      "strike": 69000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-68000-P",
+      "strike": 68000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-68000-C",
+      "strike": 68000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-67000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-67000-P",
+      "strike": 67000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-67000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-67000-C",
+      "strike": 67000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-66000-P",
+      "strike": 66000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-66000-C",
+      "strike": 66000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-65000-P",
+      "strike": 65000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-65000-C",
+      "strike": 65000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-64000-P",
+      "strike": 64000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-64000-C",
+      "strike": 64000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-62000-P",
+      "strike": 62000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-62000-C",
+      "strike": 62000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-60000-P",
+      "strike": 60000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-60000-C",
+      "strike": 60000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-58000-P",
+      "strike": 58000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-58000-C",
+      "strike": 58000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240621-56000-P",
+      "strike": 56000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240621-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240621-56000-C",
+      "strike": 56000.0,
+      "days_left": 19,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-65000-P",
+      "strike": 65000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-65000-C",
+      "strike": 65000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-75000-P",
+      "strike": 75000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-75000-C",
+      "strike": 75000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-56000-P",
+      "strike": 56000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-56000-C",
+      "strike": 56000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-66000-P",
+      "strike": 66000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-66000-C",
+      "strike": 66000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-76000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-76000-P",
+      "strike": 76000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-76000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-76000-C",
+      "strike": 76000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-67000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-67000-P",
+      "strike": 67000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-67000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-67000-C",
+      "strike": 67000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-60000-P",
+      "strike": 60000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-77000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-77000-P",
+      "strike": 77000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-60000-C",
+      "strike": 60000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-77000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-77000-C",
+      "strike": 77000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-70000-P",
+      "strike": 70000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-70000-C",
+      "strike": 70000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-58000-P",
+      "strike": 58000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-58000-C",
+      "strike": 58000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-80000-P",
+      "strike": 80000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-80000-C",
+      "strike": 80000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-68000-P",
+      "strike": 68000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-68000-C",
+      "strike": 68000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-61000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-61000-P",
+      "strike": 61000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-78000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-78000-P",
+      "strike": 78000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-61000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-61000-C",
+      "strike": 61000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-78000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-78000-C",
+      "strike": 78000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-71000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-71000-P",
+      "strike": 71000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-71000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-71000-C",
+      "strike": 71000.0,
+      "days_left": 5,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240607-69000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-69000-P",
+      "strike": 69000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-69000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-69000-C",
+      "strike": 69000.0,
+      "days_left": 5,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240607-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-62000-P",
+      "strike": 62000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-62000-C",
+      "strike": 62000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-72000-P",
+      "strike": 72000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-72000-C",
+      "strike": 72000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-63000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-63000-P",
+      "strike": 63000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-63000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-63000-C",
+      "strike": 63000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-73000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-73000-P",
+      "strike": 73000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-73000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-73000-C",
+      "strike": 73000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-54000-P",
+      "strike": 54000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-54000-C",
+      "strike": 54000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-64000-P",
+      "strike": 64000.0,
+      "days_left": 5,
+      "oi": 0.08
+    },
+    "BTC_USDT-20240607-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-64000-C",
+      "strike": 64000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-74000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240607-74000-P",
+      "strike": 74000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240607-74000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240607-74000-C",
+      "strike": 74000.0,
+      "days_left": 5,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-54000-P",
+      "strike": 54000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-54000-C",
+      "strike": 54000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-64000-P",
+      "strike": 64000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-64000-C",
+      "strike": 64000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-35000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-35000-P",
+      "strike": 35000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-35000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-35000-C",
+      "strike": 35000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-74000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-74000-P",
+      "strike": 74000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-74000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-74000-C",
+      "strike": 74000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-45000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-45000-P",
+      "strike": 45000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-45000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-45000-C",
+      "strike": 45000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-85000-P",
+      "strike": 85000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-85000-C",
+      "strike": 85000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-56000-P",
+      "strike": 56000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-56000-C",
+      "strike": 56000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-95000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-95000-P",
+      "strike": 95000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-95000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-95000-C",
+      "strike": 95000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-66000-P",
+      "strike": 66000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-66000-C",
+      "strike": 66000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-76000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-76000-P",
+      "strike": 76000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-76000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-76000-C",
+      "strike": 76000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-40000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-40000-P",
+      "strike": 40000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-40000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-40000-C",
+      "strike": 40000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-50000-P",
+      "strike": 50000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-50000-C",
+      "strike": 50000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-60000-P",
+      "strike": 60000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-60000-C",
+      "strike": 60000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-70000-P",
+      "strike": 70000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-70000-C",
+      "strike": 70000.0,
+      "days_left": 54,
+      "oi": 0.2
+    },
+    "BTC_USDT-20240726-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-58000-P",
+      "strike": 58000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-80000-P",
+      "strike": 80000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-58000-C",
+      "strike": 58000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-80000-C",
+      "strike": 80000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-68000-P",
+      "strike": 68000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-90000-P",
+      "strike": 90000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-68000-C",
+      "strike": 68000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-90000-C",
+      "strike": 90000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-78000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-78000-P",
+      "strike": 78000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-78000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-78000-C",
+      "strike": 78000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-52000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-52000-P",
+      "strike": 52000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-52000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-52000-C",
+      "strike": 52000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-62000-P",
+      "strike": 62000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-62000-C",
+      "strike": 62000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240726-72000-P",
+      "strike": 72000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240726-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240726-72000-C",
+      "strike": 72000.0,
+      "days_left": 54,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-56000-C",
+      "strike": 56000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-66000-P",
+      "strike": 66000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-66000-C",
+      "strike": 66000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-76000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-76000-P",
+      "strike": 76000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-76000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-76000-C",
+      "strike": 76000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-67000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-67000-P",
+      "strike": 67000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-67000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-67000-C",
+      "strike": 67000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-60000-P",
+      "strike": 60000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-60000-C",
+      "strike": 60000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-70000-P",
+      "strike": 70000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-70000-C",
+      "strike": 70000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-58000-P",
+      "strike": 58000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-58000-C",
+      "strike": 58000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-80000-P",
+      "strike": 80000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-80000-C",
+      "strike": 80000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-68000-P",
+      "strike": 68000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-68000-C",
+      "strike": 68000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-78000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-78000-P",
+      "strike": 78000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-78000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-78000-C",
+      "strike": 78000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-71000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-71000-P",
+      "strike": 71000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-71000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-71000-C",
+      "strike": 71000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-69000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-69000-P",
+      "strike": 69000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-69000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-69000-C",
+      "strike": 69000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-62000-P",
+      "strike": 62000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-62000-C",
+      "strike": 62000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-72000-P",
+      "strike": 72000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-72000-C",
+      "strike": 72000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-82000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-82000-P",
+      "strike": 82000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-82000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-82000-C",
+      "strike": 82000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-73000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-73000-P",
+      "strike": 73000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-73000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-73000-C",
+      "strike": 73000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-64000-P",
+      "strike": 64000.0,
+      "days_left": 12,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240614-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-64000-C",
+      "strike": 64000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-74000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-74000-P",
+      "strike": 74000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-74000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-74000-C",
+      "strike": 74000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-65000-P",
+      "strike": 65000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-65000-C",
+      "strike": 65000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-75000-P",
+      "strike": 75000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240614-75000-C",
+      "strike": 75000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240614-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240614-56000-P",
+      "strike": 56000.0,
+      "days_left": 12,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-85000-C",
+      "strike": 85000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-56000-P",
+      "strike": 56000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-56000-C",
+      "strike": 56000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-95000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-95000-P",
+      "strike": 95000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-27000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-27000-P",
+      "strike": 27000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-95000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-95000-C",
+      "strike": 95000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-27000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-27000-C",
+      "strike": 27000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-66000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-66000-P",
+      "strike": 66000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-66000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-66000-C",
+      "strike": 66000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-20000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-20000-P",
+      "strike": 20000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-37000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-37000-P",
+      "strike": 37000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-20000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-20000-C",
+      "strike": 20000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-37000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-37000-C",
+      "strike": 37000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-30000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-30000-P",
+      "strike": 30000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-47000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-47000-P",
+      "strike": 47000.0,
+      "days_left": 26,
+      "oi": 0.09
+    },
+    "BTC_USDT-20240628-30000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-30000-C",
+      "strike": 30000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-47000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-47000-C",
+      "strike": 47000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-40000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-40000-P",
+      "strike": 40000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-40000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-40000-C",
+      "strike": 40000.0,
+      "days_left": 26,
+      "oi": 0.05
+    },
+    "BTC_USDT-20240628-28000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-28000-P",
+      "strike": 28000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-50000-P",
+      "strike": 50000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-28000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-28000-C",
+      "strike": 28000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-50000-C",
+      "strike": 50000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-38000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-38000-P",
+      "strike": 38000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-38000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-38000-C",
+      "strike": 38000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-60000-P",
+      "strike": 60000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-60000-C",
+      "strike": 60000.0,
+      "days_left": 26,
+      "oi": 0.25
+    },
+    "BTC_USDT-20240628-31000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-31000-P",
+      "strike": 31000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-48000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-48000-P",
+      "strike": 48000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-31000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-31000-C",
+      "strike": 31000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-48000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-48000-C",
+      "strike": 48000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-70000-P",
+      "strike": 70000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-70000-C",
+      "strike": 70000.0,
+      "days_left": 26,
+      "oi": 0.45
+    },
+    "BTC_USDT-20240628-41000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-41000-P",
+      "strike": 41000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-58000-P",
+      "strike": 58000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-41000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-41000-C",
+      "strike": 41000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-58000-C",
+      "strike": 58000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-80000-P",
+      "strike": 80000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-29000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-29000-P",
+      "strike": 29000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-80000-C",
+      "strike": 80000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-29000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-29000-C",
+      "strike": 29000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-51000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-51000-P",
+      "strike": 51000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-68000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-68000-P",
+      "strike": 68000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-51000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-51000-C",
+      "strike": 51000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-68000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-68000-C",
+      "strike": 68000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-90000-P",
+      "strike": 90000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-22000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-22000-P",
+      "strike": 22000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-39000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-39000-P",
+      "strike": 39000.0,
+      "days_left": 26,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240628-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-90000-C",
+      "strike": 90000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-22000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-22000-C",
+      "strike": 22000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-39000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-39000-C",
+      "strike": 39000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-32000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-32000-P",
+      "strike": 32000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-49000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-49000-P",
+      "strike": 49000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-32000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-32000-C",
+      "strike": 32000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-49000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-49000-C",
+      "strike": 49000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-42000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-42000-P",
+      "strike": 42000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-42000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-42000-C",
+      "strike": 42000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-52000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-52000-P",
+      "strike": 52000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-52000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-52000-C",
+      "strike": 52000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-62000-P",
+      "strike": 62000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-62000-C",
+      "strike": 62000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-33000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-33000-P",
+      "strike": 33000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-33000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-33000-C",
+      "strike": 33000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-72000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-72000-P",
+      "strike": 72000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-72000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-72000-C",
+      "strike": 72000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-43000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-43000-P",
+      "strike": 43000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-43000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-43000-C",
+      "strike": 43000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-53000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-53000-P",
+      "strike": 53000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-53000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-53000-C",
+      "strike": 53000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-24000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-24000-P",
+      "strike": 24000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-24000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-24000-C",
+      "strike": 24000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-34000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-34000-P",
+      "strike": 34000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-34000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-34000-C",
+      "strike": 34000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-44000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-44000-P",
+      "strike": 44000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-44000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-44000-C",
+      "strike": 44000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-15000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-15000-P",
+      "strike": 15000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-15000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-15000-C",
+      "strike": 15000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-54000-P",
+      "strike": 54000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-54000-C",
+      "strike": 54000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-25000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-25000-P",
+      "strike": 25000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-25000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-25000-C",
+      "strike": 25000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-64000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-64000-P",
+      "strike": 64000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-64000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-64000-C",
+      "strike": 64000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-35000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-35000-P",
+      "strike": 35000.0,
+      "days_left": 26,
+      "oi": 0.1
+    },
+    "BTC_USDT-20240628-35000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-35000-C",
+      "strike": 35000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-45000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-45000-P",
+      "strike": 45000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-45000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-45000-C",
+      "strike": 45000.0,
+      "days_left": 26,
+      "oi": 0.07
+    },
+    "BTC_USDT-20240628-55000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-55000-P",
+      "strike": 55000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-55000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-55000-C",
+      "strike": 55000.0,
+      "days_left": 26,
+      "oi": 0.1
+    },
+    "BTC_USDT-20240628-26000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-26000-P",
+      "strike": 26000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-26000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-26000-C",
+      "strike": 26000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-65000-P",
+      "strike": 65000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-65000-C",
+      "strike": 65000.0,
+      "days_left": 26,
+      "oi": 0.1
+    },
+    "BTC_USDT-20240628-36000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-36000-P",
+      "strike": 36000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-36000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-36000-C",
+      "strike": 36000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-75000-P",
+      "strike": 75000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-75000-C",
+      "strike": 75000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-46000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-46000-P",
+      "strike": 46000.0,
+      "days_left": 26,
+      "oi": 0.09
+    },
+    "BTC_USDT-20240628-46000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240628-46000-C",
+      "strike": 46000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240628-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240628-85000-P",
+      "strike": 85000.0,
+      "days_left": 26,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-70000-P",
+      "strike": 70000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-70000-C",
+      "strike": 70000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-80000-P",
+      "strike": 80000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-80000-C",
+      "strike": 80000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-90000-P",
+      "strike": 90000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-90000-C",
+      "strike": 90000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-200000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-200000-P",
+      "strike": 200000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-100000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-100000-P",
+      "strike": 100000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-200000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-200000-C",
+      "strike": 200000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-100000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-100000-C",
+      "strike": 100000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-110000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-110000-P",
+      "strike": 110000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-110000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-110000-C",
+      "strike": 110000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-120000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-120000-P",
+      "strike": 120000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-120000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-120000-C",
+      "strike": 120000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-130000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-130000-P",
+      "strike": 130000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-130000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-130000-C",
+      "strike": 130000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-140000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-140000-P",
+      "strike": 140000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-140000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-140000-C",
+      "strike": 140000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-150000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-150000-P",
+      "strike": 150000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-150000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-150000-C",
+      "strike": 150000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-160000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-160000-P",
+      "strike": 160000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-160000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-160000-C",
+      "strike": 160000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-180000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-180000-P",
+      "strike": 180000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-180000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-180000-C",
+      "strike": 180000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-65000-P",
+      "strike": 65000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-65000-C",
+      "strike": 65000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-75000-P",
+      "strike": 75000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-75000-C",
+      "strike": 75000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-85000-P",
+      "strike": 85000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-85000-C",
+      "strike": 85000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-20000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-20000-P",
+      "strike": 20000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-20000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-20000-C",
+      "strike": 20000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-30000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-30000-P",
+      "strike": 30000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-30000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-30000-C",
+      "strike": 30000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-40000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-40000-P",
+      "strike": 40000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-40000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-40000-C",
+      "strike": 40000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-50000-P",
+      "strike": 50000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-50000-C",
+      "strike": 50000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20250328-60000-P",
+      "strike": 60000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20250328-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20250328-60000-C",
+      "strike": 60000.0,
+      "days_left": 299,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-80000-C",
+      "strike": 80000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-90000-P",
+      "strike": 90000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-39000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-39000-P",
+      "strike": 39000.0,
+      "days_left": 208,
+      "oi": 0.01
+    },
+    "BTC_USDT-20241227-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-90000-C",
+      "strike": 90000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-39000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-39000-C",
+      "strike": 39000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-100000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-100000-P",
+      "strike": 100000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-100000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-100000-C",
+      "strike": 100000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-110000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-110000-P",
+      "strike": 110000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-110000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-110000-C",
+      "strike": 110000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-42000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-42000-P",
+      "strike": 42000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-42000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-42000-C",
+      "strike": 42000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-120000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-120000-P",
+      "strike": 120000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-120000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-120000-C",
+      "strike": 120000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-52000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-52000-P",
+      "strike": 52000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-52000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-52000-C",
+      "strike": 52000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-62000-P",
+      "strike": 62000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-62000-C",
+      "strike": 62000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-43000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-43000-P",
+      "strike": 43000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-43000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-43000-C",
+      "strike": 43000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-34000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-34000-P",
+      "strike": 34000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-34000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-34000-C",
+      "strike": 34000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-44000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-44000-P",
+      "strike": 44000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-44000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-44000-C",
+      "strike": 44000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-54000-P",
+      "strike": 54000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-54000-C",
+      "strike": 54000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-25000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-25000-P",
+      "strike": 25000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-25000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-25000-C",
+      "strike": 25000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-45000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-45000-P",
+      "strike": 45000.0,
+      "days_left": 208,
+      "oi": 0.09
+    },
+    "BTC_USDT-20241227-45000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-45000-C",
+      "strike": 45000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-55000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-55000-P",
+      "strike": 55000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-55000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-55000-C",
+      "strike": 55000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-65000-P",
+      "strike": 65000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-65000-C",
+      "strike": 65000.0,
+      "days_left": 208,
+      "oi": 0.38
+    },
+    "BTC_USDT-20241227-36000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-36000-P",
+      "strike": 36000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-36000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-36000-C",
+      "strike": 36000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-75000-P",
+      "strike": 75000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-75000-C",
+      "strike": 75000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-46000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-46000-P",
+      "strike": 46000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-46000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-46000-C",
+      "strike": 46000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-85000-P",
+      "strike": 85000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-85000-C",
+      "strike": 85000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-56000-P",
+      "strike": 56000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-56000-C",
+      "strike": 56000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-30000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-30000-P",
+      "strike": 30000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-47000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-47000-P",
+      "strike": 47000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-30000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-30000-C",
+      "strike": 30000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-47000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-47000-C",
+      "strike": 47000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-40000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-40000-P",
+      "strike": 40000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-40000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-40000-C",
+      "strike": 40000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-50000-P",
+      "strike": 50000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-50000-C",
+      "strike": 50000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-38000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-38000-P",
+      "strike": 38000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-60000-P",
+      "strike": 60000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-38000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-38000-C",
+      "strike": 38000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-60000-C",
+      "strike": 60000.0,
+      "days_left": 208,
+      "oi": 0.32
+    },
+    "BTC_USDT-20241227-48000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-48000-P",
+      "strike": 48000.0,
+      "days_left": 208,
+      "oi": 0.09
+    },
+    "BTC_USDT-20241227-48000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-48000-C",
+      "strike": 48000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-70000-P",
+      "strike": 70000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-70000-C",
+      "strike": 70000.0,
+      "days_left": 208,
+      "oi": 0.35000000000000003
+    },
+    "BTC_USDT-20241227-41000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-41000-P",
+      "strike": 41000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-58000-P",
+      "strike": 58000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-41000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-41000-C",
+      "strike": 41000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20241227-80000-P",
+      "strike": 80000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20241227-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20241227-58000-C",
+      "strike": 58000.0,
+      "days_left": 208,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-45000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-45000-C",
+      "strike": 45000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-55000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-55000-P",
+      "strike": 55000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-55000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-55000-C",
+      "strike": 55000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-26000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-26000-P",
+      "strike": 26000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-26000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-26000-C",
+      "strike": 26000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-65000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-65000-P",
+      "strike": 65000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-65000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-65000-C",
+      "strike": 65000.0,
+      "days_left": 117,
+      "oi": 0.15
+    },
+    "BTC_USDT-20240927-36000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-36000-P",
+      "strike": 36000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-36000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-36000-C",
+      "strike": 36000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-75000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-75000-P",
+      "strike": 75000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-75000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-75000-C",
+      "strike": 75000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-46000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-46000-P",
+      "strike": 46000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-46000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-46000-C",
+      "strike": 46000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-85000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-85000-P",
+      "strike": 85000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-85000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-85000-C",
+      "strike": 85000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-56000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-56000-P",
+      "strike": 56000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-56000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-56000-C",
+      "strike": 56000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-27000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-27000-P",
+      "strike": 27000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-27000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-27000-C",
+      "strike": 27000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-20000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-20000-P",
+      "strike": 20000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-37000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-37000-P",
+      "strike": 37000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-20000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-20000-C",
+      "strike": 20000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-37000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-37000-C",
+      "strike": 37000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-30000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-30000-P",
+      "strike": 30000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-47000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-47000-P",
+      "strike": 47000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-30000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-30000-C",
+      "strike": 30000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-47000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-47000-C",
+      "strike": 47000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-18000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-18000-P",
+      "strike": 18000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-40000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-40000-P",
+      "strike": 40000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-18000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-18000-C",
+      "strike": 18000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-40000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-40000-C",
+      "strike": 40000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-28000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-28000-P",
+      "strike": 28000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-50000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-50000-P",
+      "strike": 50000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-28000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-28000-C",
+      "strike": 28000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-50000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-50000-C",
+      "strike": 50000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-38000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-38000-P",
+      "strike": 38000.0,
+      "days_left": 117,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240927-60000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-60000-P",
+      "strike": 60000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-38000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-38000-C",
+      "strike": 38000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-60000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-60000-C",
+      "strike": 60000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-31000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-31000-P",
+      "strike": 31000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-48000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-48000-P",
+      "strike": 48000.0,
+      "days_left": 117,
+      "oi": 0.09
+    },
+    "BTC_USDT-20240927-31000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-31000-C",
+      "strike": 31000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-48000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-48000-C",
+      "strike": 48000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-70000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-70000-P",
+      "strike": 70000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-70000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-70000-C",
+      "strike": 70000.0,
+      "days_left": 117,
+      "oi": 0.3
+    },
+    "BTC_USDT-20240927-41000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-41000-P",
+      "strike": 41000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-58000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-58000-P",
+      "strike": 58000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-41000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-41000-C",
+      "strike": 41000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-58000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-58000-C",
+      "strike": 58000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-80000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-80000-P",
+      "strike": 80000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-29000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-29000-P",
+      "strike": 29000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-80000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-80000-C",
+      "strike": 80000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-51000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-51000-P",
+      "strike": 51000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-29000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-29000-C",
+      "strike": 29000.0,
+      "days_left": 117,
+      "oi": 0.1
+    },
+    "BTC_USDT-20240927-51000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-51000-C",
+      "strike": 51000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-90000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-90000-P",
+      "strike": 90000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-22000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-22000-P",
+      "strike": 22000.0,
+      "days_left": 117,
+      "oi": 0.08
+    },
+    "BTC_USDT-20240927-39000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-39000-P",
+      "strike": 39000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-90000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-90000-C",
+      "strike": 90000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-22000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-22000-C",
+      "strike": 22000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-39000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-39000-C",
+      "strike": 39000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-32000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-32000-P",
+      "strike": 32000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-49000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-49000-P",
+      "strike": 49000.0,
+      "days_left": 117,
+      "oi": 0.09
+    },
+    "BTC_USDT-20240927-32000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-32000-C",
+      "strike": 32000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-49000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-49000-C",
+      "strike": 49000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-42000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-42000-P",
+      "strike": 42000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-42000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-42000-C",
+      "strike": 42000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-52000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-52000-P",
+      "strike": 52000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-52000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-52000-C",
+      "strike": 52000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-23000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-23000-P",
+      "strike": 23000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-23000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-23000-C",
+      "strike": 23000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-62000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-62000-P",
+      "strike": 62000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-62000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-62000-C",
+      "strike": 62000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-33000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-33000-P",
+      "strike": 33000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-33000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-33000-C",
+      "strike": 33000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-43000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-43000-P",
+      "strike": 43000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-43000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-43000-C",
+      "strike": 43000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-24000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-24000-P",
+      "strike": 24000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-24000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-24000-C",
+      "strike": 24000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-34000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-34000-P",
+      "strike": 34000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-34000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-34000-C",
+      "strike": 34000.0,
+      "days_left": 117,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240927-44000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-44000-P",
+      "strike": 44000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-44000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-44000-C",
+      "strike": 44000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-15000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-15000-P",
+      "strike": 15000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-15000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-15000-C",
+      "strike": 15000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-54000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-54000-P",
+      "strike": 54000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-54000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-54000-C",
+      "strike": 54000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-25000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-25000-P",
+      "strike": 25000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-25000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-25000-C",
+      "strike": 25000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-35000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-35000-P",
+      "strike": 35000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-100000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-100000-P",
+      "strike": 100000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-35000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-35000-C",
+      "strike": 35000.0,
+      "days_left": 117,
+      "oi": 0.01
+    },
+    "BTC_USDT-20240927-100000-C@option@gateio": {
+      "symbol": "BTC_USDT-20240927-100000-C",
+      "strike": 100000.0,
+      "days_left": 117,
+      "oi": 0.0
+    },
+    "BTC_USDT-20240927-45000-P@option@gateio": {
+      "symbol": "BTC_USDT-20240927-45000-P",
+      "strike": 45000.0,
+      "days_left": 117,
+      "oi": 0.05
+    }
+  }
+]

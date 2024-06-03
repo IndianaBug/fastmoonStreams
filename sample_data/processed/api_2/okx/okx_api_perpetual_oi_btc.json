@@ -1,0 +1,446 @@
+[
+  {
+    "BTC-USDC-240628@future@okx": {
+      "oi": 8.7025
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-240927@future@okx": {
+      "oi": 457.632
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-240614@future@okx": {
+      "oi": 17.843
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-240726@future@okx": {
+      "oi": 50.091
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDC-240614@future@okx": {
+      "oi": 0.5072
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDC-240927@future@okx": {
+      "oi": 5.2023
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDC-240607@future@okx": {
+      "oi": 0.6811
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-240607@future@okx": {
+      "oi": 137.72866542174543
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-241227@future@okx": {
+      "oi": 1268.8704042933493
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-240607@future@okx": {
+      "oi": 80.402
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-240628@future@okx": {
+      "oi": 608.1290000000001
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-240628@future@okx": {
+      "oi": 3333.6127248521716
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-241227@future@okx": {
+      "oi": 542.194
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "oi": 266.122
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-240927@future@okx": {
+      "oi": 2609.809011709269
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-240726@future@okx": {
+      "oi": 77.57261094336103
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "oi": 22546.62299999999
+    },
+    "timestamp": "2024-06-01 18:47:58"
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "oi": 11991.990892415923
+    },
+    "timestamp": "2024-06-01 18:47:43"
+  },
+  {
+    "BTC-USD-240614@future@okx": {
+      "oi": 42.408298679015395
+    },
+    "timestamp": "2024-06-01 18:47:43"
+  },
+  {
+    "BTC-USDC-240628@future@okx": {
+      "oi": 8.7025
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-240614@future@okx": {
+      "oi": 17.704
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDC-240607@future@okx": {
+      "oi": 0.6811
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-240726@future@okx": {
+      "oi": 50.11
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-240927@future@okx": {
+      "oi": 457.55300000000005
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-240607@future@okx": {
+      "oi": 137.81142622812484
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDC-240614@future@okx": {
+      "oi": 0.5072
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDC-240927@future@okx": {
+      "oi": 5.2023
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-241227@future@okx": {
+      "oi": 1268.4901573841455
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-240607@future@okx": {
+      "oi": 80.323
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-240628@future@okx": {
+      "oi": 608.306
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "oi": 266.1558
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "oi": 22550.01699999999
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-240927@future@okx": {
+      "oi": 2608.606311650513
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-240628@future@okx": {
+      "oi": 3332.0907619903446
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USDT-241227@future@okx": {
+      "oi": 542.1959999999999
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-240726@future@okx": {
+      "oi": 77.62024394468534
+    },
+    "timestamp": "2024-06-01 18:47:42"
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "oi": 11996.856388948941
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-240614@future@okx": {
+      "oi": 42.28401185776604
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-240607@future@okx": {
+      "oi": 137.8406072218652
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDC-240927@future@okx": {
+      "oi": 5.2023
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-240726@future@okx": {
+      "oi": 50.11
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-240927@future@okx": {
+      "oi": 457.55300000000005
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDC-240614@future@okx": {
+      "oi": 0.5072
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-240614@future@okx": {
+      "oi": 17.837
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDC-240607@future@okx": {
+      "oi": 0.6811
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-240607@future@okx": {
+      "oi": 80.312
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-241227@future@okx": {
+      "oi": 1268.7587548753365
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-240726@future@okx": {
+      "oi": 77.63667970705039
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-240628@future@okx": {
+      "oi": 608.372
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "oi": 266.2028
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-240927@future@okx": {
+      "oi": 2609.1882879387804
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-240628@future@okx": {
+      "oi": 3333.28644323287
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-241227@future@okx": {
+      "oi": 542.1959999999999
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "oi": 22551.39799999999
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USDC-240628@future@okx": {
+      "oi": 8.7025
+    },
+    "timestamp": "2024-06-01 18:47:27"
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "oi": 11999.265472467065
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USD-240614@future@okx": {
+      "oi": 42.28864562600701
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USD-240607@future@okx": {
+      "oi": 137.88681167661832
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USDT-240726@future@okx": {
+      "oi": 50.11
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USDC-240607@future@okx": {
+      "oi": 0.6811
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USD-240628@future@okx": {
+      "oi": 3333.6517273244244
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USDT-241227@future@okx": {
+      "oi": 542.1959999999999
+    },
+    "timestamp": "2024-06-01 18:47:12"
+  },
+  {
+    "BTC-USD-241227@future@okx": {
+      "oi": 1268.8977940479576
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDC-240927@future@okx": {
+      "oi": 5.2023
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USD-240927@future@okx": {
+      "oi": 2609.4623732347645
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDT-240614@future@okx": {
+      "oi": 17.837
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDC-240614@future@okx": {
+      "oi": 0.5072
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDT-240628@future@okx": {
+      "oi": 608.336
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "oi": 266.2028
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDT-240607@future@okx": {
+      "oi": 80.312
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USD-240726@future@okx": {
+      "oi": 77.64518765993745
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDT-240927@future@okx": {
+      "oi": 457.54400000000004
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "oi": 22547.00699999999
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  },
+  {
+    "BTC-USDC-240628@future@okx": {
+      "oi": 8.7025
+    },
+    "timestamp": "2024-06-01 18:47:11"
+  }
+]

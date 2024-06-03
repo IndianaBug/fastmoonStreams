@@ -1,0 +1,206 @@
+[
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253540786
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCPERP",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253540766
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253540381
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253540374
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253539947
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253525073
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCPERP",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253525056
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253524663
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253524661
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253524662
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCUSDT",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253509376
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "linear",
+      "list": [
+        {
+          "symbol": "BTCPERP",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253509364
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253509360
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": [
+        {
+          "symbol": "BTCUSD",
+          "fundingRate": "0.0001",
+          "fundingRateTimestamp": "1717228800000"
+        }
+      ]
+    },
+    "retExtInfo": {},
+    "time": 1717253509358
+  },
+  {
+    "retCode": 0,
+    "retMsg": "OK",
+    "result": {
+      "category": "inverse",
+      "list": []
+    },
+    "retExtInfo": {},
+    "time": 1717253509358
+  }
+]

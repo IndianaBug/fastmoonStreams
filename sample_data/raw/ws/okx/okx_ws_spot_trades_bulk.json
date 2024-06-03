@@ -1,0 +1,324 @@
+[
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDC"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDC",
+        "tradeId": "30090455",
+        "px": "67708",
+        "sz": "0.00020461",
+        "side": "sell",
+        "ts": "1717271290096",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187849",
+        "px": "67761.2",
+        "sz": "0.0029743",
+        "side": "sell",
+        "ts": "1717271284103",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187847",
+        "px": "67761.2",
+        "sz": "0.003318",
+        "side": "sell",
+        "ts": "1717271283136",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187846",
+        "px": "67761.2",
+        "sz": "0.00207083",
+        "side": "sell",
+        "ts": "1717271282341",
+        "count": "4"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187842",
+        "px": "67761.3",
+        "sz": "0.0037663",
+        "side": "buy",
+        "ts": "1717271282338",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187841",
+        "px": "67761.2",
+        "sz": "0.0001902",
+        "side": "sell",
+        "ts": "1717271281321",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDC"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDC",
+        "tradeId": "30090454",
+        "px": "67708",
+        "sz": "0.01328839",
+        "side": "sell",
+        "ts": "1717271280083",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187840",
+        "px": "67761.3",
+        "sz": "0.00200031",
+        "side": "buy",
+        "ts": "1717271279353",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187839",
+        "px": "67761.2",
+        "sz": "0.00028206",
+        "side": "sell",
+        "ts": "1717271276690",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187838",
+        "px": "67761.2",
+        "sz": "0.0014568",
+        "side": "sell",
+        "ts": "1717271272994",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDC"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDC",
+        "tradeId": "30090453",
+        "px": "67708",
+        "sz": "0.005007",
+        "side": "sell",
+        "ts": "1717271270329",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187837",
+        "px": "67761.2",
+        "sz": "0.00031429",
+        "side": "sell",
+        "ts": "1717271269055",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187836",
+        "px": "67761.3",
+        "sz": "0.00057649",
+        "side": "buy",
+        "ts": "1717271266947",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187835",
+        "px": "67761.3",
+        "sz": "0.00045613",
+        "side": "buy",
+        "ts": "1717271266528",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187834",
+        "px": "67761.3",
+        "sz": "0.00001003",
+        "side": "buy",
+        "ts": "1717271265981",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187833",
+        "px": "67761.3",
+        "sz": "0.00001",
+        "side": "buy",
+        "ts": "1717271264389",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187832",
+        "px": "67762.6",
+        "sz": "0.00014764",
+        "side": "sell",
+        "ts": "1717271264385",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "data": [
+      {
+        "instId": "BTC-USDT",
+        "tradeId": "533187831",
+        "px": "67762.7",
+        "sz": "0.00011",
+        "side": "sell",
+        "ts": "1717271264385",
+        "count": "2"
+      }
+    ]
+  },
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDC"
+    },
+    "connId": "20a379ca"
+  },
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "trades",
+      "instId": "BTC-USDT"
+    },
+    "connId": "20a379ca"
+  }
+]

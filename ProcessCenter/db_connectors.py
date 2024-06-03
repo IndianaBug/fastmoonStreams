@@ -131,7 +131,14 @@ class MockdbConnector:
 
     async def save(self, market_state, logger, pipe_type, data, connection_data, on_message:callable,):
         """  pipe_type : id_ws, id_api, id_api_2 """
+
+        pipe_id = connection_data.get("id_api") if "id_api" in connection_data else connection_data.get("id_ws")
+
         try:
+
+            # data = json.loads(data)
+            # pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
+
             try:
                 data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
                 pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, True)

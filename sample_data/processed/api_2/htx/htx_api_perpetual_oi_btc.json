@@ -1,0 +1,74 @@
+[
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 621.995439367545
+    },
+    "timestamp": "2024-06-01 18:47:50"
+  },
+  {
+    "BTC240614@perpetual@htx": {
+      "oi": 0.04570590784244082
+    },
+    "timestamp": "2024-06-01 18:47:50"
+  },
+  {
+    "BTC-USDT-240614@future@htx": {
+      "oi": 0.636
+    },
+    "BTC-USDT@perpetual@htx": {
+      "oi": 8842.741
+    },
+    "BTC-USDT-240607@future@htx": {
+      "oi": 7.162
+    },
+    "timestamp": "2024-06-01 18:47:50"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.17565905728359948
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTC240628@perpetual@htx": {
+      "oi": 18.44954127365262
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTC-USD@perpetual@htx": {
+      "oi": 622.4288361025447
+    },
+    "timestamp": "2024-06-01 18:47:29"
+  },
+  {
+    "BTC240614@perpetual@htx": {
+      "oi": 0.041282755470591716
+    },
+    "timestamp": "2024-06-01 18:47:29"
+  },
+  {
+    "BTC-USDT-240614@future@htx": {
+      "oi": 0.624
+    },
+    "BTC-USDT@perpetual@htx": {
+      "oi": 8842.597
+    },
+    "BTC-USDT-240607@future@htx": {
+      "oi": 7.18
+    },
+    "timestamp": "2024-06-01 18:47:29"
+  },
+  {
+    "BTC240607@perpetual@htx": {
+      "oi": 0.17268625873449311
+    },
+    "timestamp": "2024-06-01 18:47:29"
+  },
+  {
+    "BTC240628@perpetual@htx": {
+      "oi": 18.449584514477834
+    },
+    "timestamp": "2024-06-01 18:47:29"
+  }
+]

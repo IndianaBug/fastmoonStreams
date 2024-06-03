@@ -1,0 +1,86 @@
+[
+  {
+    "BTCPERP@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:54",
+    "receive_time": 1717264074.7655864
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "funding": 0.00017586
+    },
+    "timestamp": "2024-06-01 18:47:54",
+    "receive_time": 1717264074.4064121
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:53",
+    "receive_time": 1717264073.9329348
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "funding": 0.00017586
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.1113548
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0623562
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.6613896
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "funding": 0.00017586
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.4321024
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.397138
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.370131
+  },
+  {
+    "BTCUSD@perpetual@bybit": {
+      "funding": 0.00017586
+    },
+    "timestamp": "2024-06-01 18:47:08",
+    "receive_time": 1717264028.1498308
+  },
+  {
+    "BTCUSDT@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:07",
+    "receive_time": 1717264027.7181938
+  },
+  {
+    "BTCPERP@perpetual@bybit": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:07",
+    "receive_time": 1717264027.7021787
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 259.7248
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 99658.096
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 787.961
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12205.488
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 245.0
+    },
+    "timestamp": "2024-06-01 18:47:49"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 259.7248
+    },
+    "timestamp": "2024-06-01 18:47:34"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12205.488
+    },
+    "timestamp": "2024-06-01 18:47:34"
+  },
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 787.961
+    },
+    "timestamp": "2024-06-01 18:47:34"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 99721.126
+    },
+    "timestamp": "2024-06-01 18:47:34"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 245.0
+    },
+    "timestamp": "2024-06-01 18:47:34"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "oi": 259.7248
+    },
+    "timestamp": "2024-06-01 18:47:18"
+  },
+  {
+    "BTCUSDM24@perpetual@bitget": {
+      "oi": 787.961
+    },
+    "timestamp": "2024-06-01 18:47:18"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "oi": 12205.118
+    },
+    "timestamp": "2024-06-01 18:47:18"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "oi": 99715.325
+    },
+    "timestamp": "2024-06-01 18:47:18"
+  },
+  {
+    "BTCUSDU24@perpetual@bitget": {
+      "oi": 245.0
+    },
+    "timestamp": "2024-06-01 18:47:18"
+  }
+]

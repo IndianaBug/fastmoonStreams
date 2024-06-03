@@ -7,6 +7,7 @@ import faust
 from typing import AsyncIterator
 import sys
 
+
 app = StreamApp(
             connection_data=connectionData, 
             id = "XBT_All_Streams",
@@ -22,10 +23,10 @@ def agents(connection_data):
     for cd in connection_data:
         if "id_api" in cd:
             agents.append(app.create_api_agent(cd))
-        # elif "id_ws" in cd and cd.get("objective") == "depth":
-        #     agents.append(app.create_wsbooks_agent(cd))
-        # else:
-        #     agents.append(app.create_ws_agent(cd))
+        elif "id_ws" in cd and cd.get("objective") == "depth":
+            agents.append(app.create_wsbooks_agent(cd))
+        else:
+            agents.append(app.create_ws_agent(cd))
     return agents
 
 def attach_agent(agent, cd):
@@ -35,6 +36,7 @@ def attach_agent(agent, cd):
             
 for agent, cd in zip(agents(app.connection_data), app.connection_data):
     attach_agent(agent, cd)
+    
 
 
 # async def periodic_cleanup():
@@ -48,3 +50,4 @@ for agent, cd in zip(agents(app.connection_data), app.connection_data):
 
 if __name__ == "__main__":
     app.main()
+    

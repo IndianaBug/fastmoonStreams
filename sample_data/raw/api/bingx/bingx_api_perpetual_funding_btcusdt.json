@@ -1,0 +1,24 @@
+[
+  {
+    "code": 0,
+    "msg": "",
+    "data": {
+      "symbol": "BTC-USDT",
+      "markPrice": "67811.9",
+      "indexPrice": "67805.9",
+      "lastFundingRate": "0.00013160",
+      "nextFundingTime": 1717257600000
+    }
+  },
+  {
+    "code": 0,
+    "msg": "",
+    "data": {
+      "symbol": "BTC-USDT",
+      "markPrice": "67812.2",
+      "indexPrice": "67806.7",
+      "lastFundingRate": "0.00013160",
+      "nextFundingTime": 1717257600000
+    }
+  }
+]

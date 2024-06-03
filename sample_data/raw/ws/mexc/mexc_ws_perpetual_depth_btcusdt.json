@@ -1,0 +1,10412 @@
+[
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812133
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441,
+          5085,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799812134
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812132
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812131
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812130
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812129
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812128
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812127
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812125
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812124
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812126
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812121
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812122
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812123
+    },
+    "channel": "push.depth",
+    "ts": 1717338515643
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812119
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812117
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812118
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812120
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812113
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812115
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812116
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812114
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812111
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812112
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812109
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812110
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812107
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812108
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812105
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.8,
+          2963,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812106
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812104
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812101
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812103
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812100
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812102
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812099
+    },
+    "channel": "push.depth",
+    "ts": 1717338515642
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799812098
+    },
+    "channel": "push.depth",
+    "ts": 1717338515641
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68451.1,
+          112952,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812096
+    },
+    "channel": "push.depth",
+    "ts": 1717338515640
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68451,
+          88603,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812095
+    },
+    "channel": "push.depth",
+    "ts": 1717338515640
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68451.2,
+          107139,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812097
+    },
+    "channel": "push.depth",
+    "ts": 1717338515640
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.9,
+          89599,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812094
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.7,
+          102191,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812092
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.8,
+          104054,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812093
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.6,
+          114265,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812091
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.5,
+          100397,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812090
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.3,
+          106039,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812088
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.4,
+          107803,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812089
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.1,
+          101252,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812086
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450,
+          112619,
+          17
+        ]
+      ],
+      "bids": [],
+      "version": 16799812085
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.8,
+          91539,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812083
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68450.2,
+          112701,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812087
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.9,
+          92195,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799812084
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.6,
+          96274,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812081
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.7,
+          110088,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812082
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.4,
+          114878,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812079
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.5,
+          112583,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812080
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.3,
+          99996,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812078
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.2,
+          108680,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812077
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449.1,
+          90341,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812076
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68449,
+          105855,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812075
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.8,
+          104994,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812073
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.9,
+          111600,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812074
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.6,
+          93063,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812071
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.7,
+          98825,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812072
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.5,
+          89917,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812070
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.4,
+          95531,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812069
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.2,
+          87403,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812067
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.3,
+          102599,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812068
+    },
+    "channel": "push.depth",
+    "ts": 1717338515639
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448.1,
+          101167,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812066
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68448,
+          91135,
+          3
+        ]
+      ],
+      "bids": [],
+      "version": 16799812065
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.8,
+          94046,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812063
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.9,
+          97719,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812064
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.7,
+          97222,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812062
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.5,
+          105035,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812060
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.6,
+          93829,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812061
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.3,
+          93611,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812058
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68447.4,
+          88234,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812059
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.8,
+          64810,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812056
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.9,
+          72823,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812057
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.7,
+          68311,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812055
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.6,
+          65085,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812054
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.5,
+          62717,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812053
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.3,
+          79838,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812051
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.4,
+          73395,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812052
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.1,
+          70420,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812049
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381.2,
+          73081,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812050
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68381,
+          64345,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812048
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.8,
+          67130,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812046
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.9,
+          77789,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812047
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.7,
+          81251,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812045
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.5,
+          77310,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812043
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.6,
+          74234,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812044
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.4,
+          71896,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799812042
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.3,
+          78530,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812041
+    },
+    "channel": "push.depth",
+    "ts": 1717338515638
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.2,
+          66025,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812040
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380.1,
+          73014,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812039
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68380,
+          74658,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812038
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.9,
+          78466,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812037
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.8,
+          74278,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812036
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.7,
+          74881,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812035
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.5,
+          68509,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812033
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.6,
+          77557,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812034
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.4,
+          69239,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812032
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.3,
+          67129,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812031
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.2,
+          66943,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812030
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379,
+          75114,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812028
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812026
+    },
+    "channel": "push.depth",
+    "ts": 1717338515621
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68379.1,
+          74275,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799812029
+    },
+    "channel": "push.depth",
+    "ts": 1717338515637
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812027
+    },
+    "channel": "push.depth",
+    "ts": 1717338515621
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812023
+    },
+    "channel": "push.depth",
+    "ts": 1717338515621
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812024
+    },
+    "channel": "push.depth",
+    "ts": 1717338515621
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812025
+    },
+    "channel": "push.depth",
+    "ts": 1717338515621
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812022
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812021
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812020
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812019
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          261,
+          1
+        ]
+      ],
+      "version": 16799812017
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812018
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812015
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812016
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812014
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812013
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812012
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812009
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812011
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812010
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370,
+          442,
+          1
+        ]
+      ],
+      "version": 16799812008
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812007
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812006
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812005
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812004
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812001
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812003
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812002
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811999
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799812000
+    },
+    "channel": "push.depth",
+    "ts": 1717338515620
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.1,
+          78429,
+          1
+        ]
+      ],
+      "version": 16799811998
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.3,
+          82646,
+          1
+        ]
+      ],
+      "version": 16799811996
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.2,
+          81312,
+          1
+        ]
+      ],
+      "version": 16799811997
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.5,
+          82488,
+          1
+        ]
+      ],
+      "version": 16799811994
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.4,
+          69321,
+          1
+        ]
+      ],
+      "version": 16799811995
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.6,
+          68459,
+          1
+        ]
+      ],
+      "version": 16799811993
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.8,
+          77287,
+          1
+        ]
+      ],
+      "version": 16799811991
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.9,
+          66071,
+          1
+        ]
+      ],
+      "version": 16799811990
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372.7,
+          74105,
+          1
+        ]
+      ],
+      "version": 16799811992
+    },
+    "channel": "push.depth",
+    "ts": 1717338515616
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373,
+          76181,
+          1
+        ]
+      ],
+      "version": 16799811989
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.2,
+          78876,
+          1
+        ]
+      ],
+      "version": 16799811987
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.1,
+          62522,
+          1
+        ]
+      ],
+      "version": 16799811988
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.3,
+          63371,
+          1
+        ]
+      ],
+      "version": 16799811986
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.4,
+          79703,
+          1
+        ]
+      ],
+      "version": 16799811985
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.5,
+          62387,
+          1
+        ]
+      ],
+      "version": 16799811984
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.6,
+          82185,
+          1
+        ]
+      ],
+      "version": 16799811983
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.7,
+          69186,
+          1
+        ]
+      ],
+      "version": 16799811982
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.8,
+          65460,
+          1
+        ]
+      ],
+      "version": 16799811981
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68373.9,
+          75101,
+          1
+        ]
+      ],
+      "version": 16799811980
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.1,
+          63191,
+          1
+        ]
+      ],
+      "version": 16799811978
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374,
+          68737,
+          1
+        ]
+      ],
+      "version": 16799811979
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.3,
+          73841,
+          1
+        ]
+      ],
+      "version": 16799811976
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.2,
+          66285,
+          1
+        ]
+      ],
+      "version": 16799811977
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.4,
+          67912,
+          1
+        ]
+      ],
+      "version": 16799811975
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.6,
+          63952,
+          1
+        ]
+      ],
+      "version": 16799811973
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.7,
+          70894,
+          1
+        ]
+      ],
+      "version": 16799811972
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.5,
+          66991,
+          1
+        ]
+      ],
+      "version": 16799811974
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.8,
+          66172,
+          1
+        ]
+      ],
+      "version": 16799811971
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68374.9,
+          80548,
+          1
+        ]
+      ],
+      "version": 16799811970
+    },
+    "channel": "push.depth",
+    "ts": 1717338515615
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811969
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811968
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811966
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811967
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811964
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811965
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811963
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811962
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811961
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811960
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811959
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811956
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811958
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811953
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811955
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811954
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811957
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811951
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811952
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811950
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811949
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811948
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811947
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811946
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811945
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811944
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811942
+    },
+    "channel": "push.depth",
+    "ts": 1717338515596
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811941
+    },
+    "channel": "push.depth",
+    "ts": 1717338515596
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811943
+    },
+    "channel": "push.depth",
+    "ts": 1717338515597
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68296.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811939
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68296.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811938
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68296,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811937
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68296.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811940
+    },
+    "channel": "push.depth",
+    "ts": 1717338515596
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811935
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811936
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811934
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811933
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811932
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811931
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811930
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811929
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811928
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811926
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811925
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68295,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811927
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811924
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811922
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811920
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811921
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811923
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811919
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811918
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68294,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811917
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811916
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811915
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811914
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811913
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811912
+    },
+    "channel": "push.depth",
+    "ts": 1717338515595
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811911
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811910
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.1,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811908
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811907
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68293.2,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811909
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811906
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811903
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811902
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811904
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811905
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.9,
+          82756,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811900
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68292.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811901
+    },
+    "channel": "push.depth",
+    "ts": 1717338515594
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.8,
+          65725,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811899
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.7,
+          73141,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811898
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.5,
+          75885,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811896
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.6,
+          75975,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811897
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.4,
+          64484,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811895
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.3,
+          77076,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811894
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.2,
+          73206,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811893
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377.1,
+          63520,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811892
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68377,
+          70769,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811891
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.9,
+          83458,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811890
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.8,
+          73479,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811889
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.7,
+          69075,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811888
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.6,
+          70041,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811887
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.5,
+          77637,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811886
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.3,
+          65834,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811884
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.2,
+          83285,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811883
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.4,
+          77266,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811885
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376.1,
+          80447,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811882
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68376,
+          69867,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811881
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.9,
+          66815,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811880
+    },
+    "channel": "push.depth",
+    "ts": 1717338515592
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.7,
+          69365,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811878
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.8,
+          78162,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811879
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.5,
+          73078,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811876
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.6,
+          71393,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811877
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.4,
+          63630,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811875
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.3,
+          72311,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811874
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.2,
+          80434,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811873
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375.1,
+          70500,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811872
+    },
+    "channel": "push.depth",
+    "ts": 1717338515591
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68299.9,
+          103735,
+          1
+        ]
+      ],
+      "version": 16799811869
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68299.7,
+          102662,
+          1
+        ]
+      ],
+      "version": 16799811871
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68299.8,
+          92545,
+          1
+        ]
+      ],
+      "version": 16799811870
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300,
+          101129,
+          5
+        ]
+      ],
+      "version": 16799811868
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.1,
+          87116,
+          1
+        ]
+      ],
+      "version": 16799811867
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.2,
+          88652,
+          1
+        ]
+      ],
+      "version": 16799811866
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.3,
+          92733,
+          1
+        ]
+      ],
+      "version": 16799811865
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.4,
+          96589,
+          1
+        ]
+      ],
+      "version": 16799811864
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.6,
+          89278,
+          1
+        ]
+      ],
+      "version": 16799811862
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.5,
+          92137,
+          1
+        ]
+      ],
+      "version": 16799811863
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.7,
+          109788,
+          1
+        ]
+      ],
+      "version": 16799811861
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.9,
+          106622,
+          1
+        ]
+      ],
+      "version": 16799811859
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68300.8,
+          98503,
+          1
+        ]
+      ],
+      "version": 16799811860
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.1,
+          117198,
+          1
+        ]
+      ],
+      "version": 16799811857
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301,
+          114278,
+          1
+        ]
+      ],
+      "version": 16799811858
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.2,
+          98163,
+          1
+        ]
+      ],
+      "version": 16799811856
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.3,
+          95862,
+          1
+        ]
+      ],
+      "version": 16799811855
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.5,
+          104741,
+          1
+        ]
+      ],
+      "version": 16799811853
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.6,
+          106100,
+          1
+        ]
+      ],
+      "version": 16799811852
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.4,
+          97129,
+          1
+        ]
+      ],
+      "version": 16799811854
+    },
+    "channel": "push.depth",
+    "ts": 1717338515590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.7,
+          103578,
+          1
+        ]
+      ],
+      "version": 16799811851
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.8,
+          114913,
+          1
+        ]
+      ],
+      "version": 16799811850
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.1,
+          96123,
+          1
+        ]
+      ],
+      "version": 16799811847
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68301.9,
+          99372,
+          1
+        ]
+      ],
+      "version": 16799811849
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302,
+          112106,
+          1
+        ]
+      ],
+      "version": 16799811848
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.3,
+          90830,
+          1
+        ]
+      ],
+      "version": 16799811845
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.2,
+          90365,
+          1
+        ]
+      ],
+      "version": 16799811846
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.4,
+          104818,
+          1
+        ]
+      ],
+      "version": 16799811844
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.6,
+          98641,
+          1
+        ]
+      ],
+      "version": 16799811842
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.5,
+          109303,
+          1
+        ]
+      ],
+      "version": 16799811843
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.7,
+          106218,
+          1
+        ]
+      ],
+      "version": 16799811841
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.8,
+          88192,
+          1
+        ]
+      ],
+      "version": 16799811840
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68302.9,
+          89582,
+          1
+        ]
+      ],
+      "version": 16799811839
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303,
+          110670,
+          1
+        ]
+      ],
+      "version": 16799811838
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.2,
+          96060,
+          1
+        ]
+      ],
+      "version": 16799811836
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.1,
+          88528,
+          1
+        ]
+      ],
+      "version": 16799811837
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.4,
+          113136,
+          1
+        ]
+      ],
+      "version": 16799811834
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.3,
+          115405,
+          1
+        ]
+      ],
+      "version": 16799811835
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.5,
+          98003,
+          1
+        ]
+      ],
+      "version": 16799811833
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68303.6,
+          94805,
+          1
+        ]
+      ],
+      "version": 16799811832
+    },
+    "channel": "push.depth",
+    "ts": 1717338515589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          7959319,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811831
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          3131110,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811830
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          3715870,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811829
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          3756300,
+          1
+        ]
+      ],
+      "version": 16799811828
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          3776000,
+          1
+        ]
+      ],
+      "version": 16799811827
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          3685980,
+          1
+        ]
+      ],
+      "version": 16799811826
+    },
+    "channel": "push.depth",
+    "ts": 1717338515588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.1,
+          69835,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811825
+    },
+    "channel": "push.depth",
+    "ts": 1717338515585
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          11808209,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811824
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          6896030,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811823
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          8849770,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811822
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          7625500,
+          2
+        ]
+      ],
+      "version": 16799811821
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          7537340,
+          2
+        ]
+      ],
+      "version": 16799811819
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          11239720,
+          2
+        ]
+      ],
+      "version": 16799811820
+    },
+    "channel": "push.depth",
+    "ts": 1717338515584
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811816
+    },
+    "channel": "push.depth",
+    "ts": 1717338515579
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          83920,
+          1
+        ]
+      ],
+      "version": 16799811818
+    },
+    "channel": "push.depth",
+    "ts": 1717338515579
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          80363,
+          1
+        ]
+      ],
+      "version": 16799811817
+    },
+    "channel": "push.depth",
+    "ts": 1717338515579
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.8,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811814
+    },
+    "channel": "push.depth",
+    "ts": 1717338515579
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.9,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811815
+    },
+    "channel": "push.depth",
+    "ts": 1717338515579
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.7,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811813
+    },
+    "channel": "push.depth",
+    "ts": 1717338515578
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.5,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811811
+    },
+    "channel": "push.depth",
+    "ts": 1717338515578
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.6,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811812
+    },
+    "channel": "push.depth",
+    "ts": 1717338515578
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.3,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811809
+    },
+    "channel": "push.depth",
+    "ts": 1717338515578
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.4,
+          0,
+          0
+        ]
+      ],
+      "version": 16799811810
+    },
+    "channel": "push.depth",
+    "ts": 1717338515578
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.3,
+          79777,
+          1
+        ]
+      ],
+      "version": 16799811808
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.4,
+          69763,
+          1
+        ]
+      ],
+      "version": 16799811807
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.5,
+          69664,
+          1
+        ]
+      ],
+      "version": 16799811806
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.6,
+          71236,
+          1
+        ]
+      ],
+      "version": 16799811805
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.7,
+          76939,
+          1
+        ]
+      ],
+      "version": 16799811804
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.8,
+          65248,
+          1
+        ]
+      ],
+      "version": 16799811803
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.9,
+          74897,
+          1
+        ]
+      ],
+      "version": 16799811802
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68372,
+          76688,
+          1
+        ]
+      ],
+      "version": 16799811801
+    },
+    "channel": "push.depth",
+    "ts": 1717338515574
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68437,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811800
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811799
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811798
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811797
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811795
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811796
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811794
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811793
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811791
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811792
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68436,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811790
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811789
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811788
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811787
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811786
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811783
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811784
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811785
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811782
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811780
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811779
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68435.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811781
+    },
+    "channel": "push.depth",
+    "ts": 1717338515572
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811777
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811778
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811776
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811774
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811775
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811773
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811772
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811771
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68434,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811770
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811769
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811768
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811767
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811766
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.2,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811762
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811765
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811764
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811763
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68444.3,
+          105478,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811760
+    },
+    "channel": "push.depth",
+    "ts": 1717338515568
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68433.1,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811761
+    },
+    "channel": "push.depth",
+    "ts": 1717338515571
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68444.1,
+          105880,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811758
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68444,
+          97883,
+          4
+        ]
+      ],
+      "bids": [],
+      "version": 16799811757
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68444.2,
+          102962,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811759
+    },
+    "channel": "push.depth",
+    "ts": 1717338515568
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.8,
+          87627,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811755
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.9,
+          116609,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811756
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.7,
+          92802,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811754
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.6,
+          109318,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811753
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.5,
+          99765,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811752
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.3,
+          91308,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811750
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.4,
+          113233,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811751
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.2,
+          90683,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811749
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443.1,
+          95743,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811748
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68443,
+          108928,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811747
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.9,
+          90241,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811746
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.8,
+          115829,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811745
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.6,
+          110263,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811743
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.7,
+          105458,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811744
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.4,
+          88143,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811741
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.5,
+          93656,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811742
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.3,
+          110670,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811740
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.2,
+          87325,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811739
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442.1,
+          93198,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811738
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68442,
+          109480,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811737
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.9,
+          98498,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811736
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.7,
+          95561,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811734
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.6,
+          107309,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811733
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.8,
+          116151,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811735
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.2,
+          94138,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811729
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.5,
+          117441,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811732
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.4,
+          86994,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811731
+    },
+    "channel": "push.depth",
+    "ts": 1717338515567
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.3,
+          116445,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811730
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441.1,
+          110544,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811728
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.9,
+          93484,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811726
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68441,
+          94735,
+          3
+        ]
+      ],
+      "bids": [],
+      "version": 16799811727
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.8,
+          101030,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811725
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.7,
+          117586,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811724
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.5,
+          87426,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811722
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.6,
+          94774,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811723
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68440.4,
+          100420,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811721
+    },
+    "channel": "push.depth",
+    "ts": 1717338515566
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811720
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.9,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811717
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811719
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.8,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811716
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811718
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.6,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811714
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          11802,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811715
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          19387,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811712
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811713
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          0,
+          0
+        ]
+      ],
+      "bids": [],
+      "version": 16799811711
+    },
+    "channel": "push.depth",
+    "ts": 1717338515564
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68375,
+          63524,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811710
+    },
+    "channel": "push.depth",
+    "ts": 1717338515561
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.9,
+          72720,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811709
+    },
+    "channel": "push.depth",
+    "ts": 1717338515561
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.8,
+          62309,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811708
+    },
+    "channel": "push.depth",
+    "ts": 1717338515561
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.7,
+          75254,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811707
+    },
+    "channel": "push.depth",
+    "ts": 1717338515560
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.6,
+          70065,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811706
+    },
+    "channel": "push.depth",
+    "ts": 1717338515560
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.5,
+          72589,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811705
+    },
+    "channel": "push.depth",
+    "ts": 1717338515560
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.4,
+          82314,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811704
+    },
+    "channel": "push.depth",
+    "ts": 1717338515560
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.3,
+          64073,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811703
+    },
+    "channel": "push.depth",
+    "ts": 1717338515560
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          91677,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811702
+    },
+    "channel": "push.depth",
+    "ts": 1717338515446
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          94184,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811701
+    },
+    "channel": "push.depth",
+    "ts": 1717338515446
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          115112,
+          2
+        ]
+      ],
+      "version": 16799811700
+    },
+    "channel": "push.depth",
+    "ts": 1717338515420
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          95965,
+          2
+        ]
+      ],
+      "version": 16799811699
+    },
+    "channel": "push.depth",
+    "ts": 1717338515420
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          80363,
+          1
+        ]
+      ],
+      "version": 16799811698
+    },
+    "channel": "push.depth",
+    "ts": 1717338515233
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          83920,
+          1
+        ]
+      ],
+      "version": 16799811697
+    },
+    "channel": "push.depth",
+    "ts": 1717338515233
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.2,
+          71421,
+          1
+        ]
+      ],
+      "version": 16799811696
+    },
+    "channel": "push.depth",
+    "ts": 1717338515233
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.3,
+          79322,
+          1
+        ]
+      ],
+      "version": 16799811695
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          64777,
+          1
+        ]
+      ],
+      "version": 16799811693
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.7,
+          70720,
+          1
+        ]
+      ],
+      "version": 16799811694
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.7,
+          76192,
+          1
+        ]
+      ],
+      "version": 16799811692
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.5,
+          70618,
+          1
+        ]
+      ],
+      "version": 16799811691
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.1,
+          79514,
+          1
+        ]
+      ],
+      "version": 16799811690
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          105121,
+          2
+        ]
+      ],
+      "version": 16799811689
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          79679,
+          1
+        ]
+      ],
+      "version": 16799811688
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.5,
+          66511,
+          1
+        ]
+      ],
+      "version": 16799811687
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.5,
+          67613,
+          1
+        ]
+      ],
+      "version": 16799811686
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.9,
+          64372,
+          1
+        ]
+      ],
+      "version": 16799811684
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.8,
+          81939,
+          1
+        ]
+      ],
+      "version": 16799811685
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369,
+          62598,
+          1
+        ]
+      ],
+      "version": 16799811681
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          112072,
+          2
+        ]
+      ],
+      "version": 16799811683
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.7,
+          72366,
+          1
+        ]
+      ],
+      "version": 16799811682
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.3,
+          65541,
+          1
+        ]
+      ],
+      "version": 16799811680
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.1,
+          69579,
+          1
+        ]
+      ],
+      "version": 16799811677
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.6,
+          81257,
+          1
+        ]
+      ],
+      "version": 16799811679
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.4,
+          79838,
+          1
+        ]
+      ],
+      "version": 16799811676
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.4,
+          69620,
+          1
+        ]
+      ],
+      "version": 16799811678
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.3,
+          63499,
+          1
+        ]
+      ],
+      "version": 16799811675
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.6,
+          63367,
+          1
+        ]
+      ],
+      "version": 16799811674
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.8,
+          63731,
+          1
+        ]
+      ],
+      "version": 16799811673
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370,
+          79383,
+          2
+        ]
+      ],
+      "version": 16799811669
+    },
+    "channel": "push.depth",
+    "ts": 1717338515231
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.4,
+          80917,
+          1
+        ]
+      ],
+      "version": 16799811671
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          66306,
+          2
+        ]
+      ],
+      "version": 16799811668
+    },
+    "channel": "push.depth",
+    "ts": 1717338515231
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.2,
+          62782,
+          1
+        ]
+      ],
+      "version": 16799811672
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.6,
+          79866,
+          1
+        ]
+      ],
+      "version": 16799811670
+    },
+    "channel": "push.depth",
+    "ts": 1717338515232
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.3,
+          125893,
+          2
+        ]
+      ],
+      "version": 16799811666
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.9,
+          81835,
+          1
+        ]
+      ],
+      "version": 16799811667
+    },
+    "channel": "push.depth",
+    "ts": 1717338515231
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.5,
+          138157,
+          2
+        ]
+      ],
+      "version": 16799811664
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.4,
+          151568,
+          2
+        ]
+      ],
+      "version": 16799811665
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.6,
+          128638,
+          2
+        ]
+      ],
+      "version": 16799811663
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.8,
+          137471,
+          2
+        ]
+      ],
+      "version": 16799811661
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.7,
+          139996,
+          2
+        ]
+      ],
+      "version": 16799811662
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369,
+          128301,
+          2
+        ]
+      ],
+      "version": 16799811659
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68368.9,
+          133673,
+          2
+        ]
+      ],
+      "version": 16799811660
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.2,
+          155252,
+          2
+        ]
+      ],
+      "version": 16799811657
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.3,
+          156962,
+          2
+        ]
+      ],
+      "version": 16799811656
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.1,
+          141728,
+          2
+        ]
+      ],
+      "version": 16799811658
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.4,
+          146571,
+          2
+        ]
+      ],
+      "version": 16799811655
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.5,
+          152348,
+          2
+        ]
+      ],
+      "version": 16799811654
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.7,
+          136674,
+          2
+        ]
+      ],
+      "version": 16799811652
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.8,
+          150852,
+          2
+        ]
+      ],
+      "version": 16799811651
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.6,
+          159255,
+          2
+        ]
+      ],
+      "version": 16799811653
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68369.9,
+          155174,
+          2
+        ]
+      ],
+      "version": 16799811650
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370,
+          162008,
+          3
+        ]
+      ],
+      "version": 16799811649
+    },
+    "channel": "push.depth",
+    "ts": 1717338515227
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.1,
+          152689,
+          2
+        ]
+      ],
+      "version": 16799811648
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.2,
+          131805,
+          2
+        ]
+      ],
+      "version": 16799811647
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.3,
+          148211,
+          2
+        ]
+      ],
+      "version": 16799811646
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.4,
+          154850,
+          2
+        ]
+      ],
+      "version": 16799811645
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.5,
+          146792,
+          2
+        ]
+      ],
+      "version": 16799811644
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.6,
+          149448,
+          2
+        ]
+      ],
+      "version": 16799811643
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.7,
+          132965,
+          2
+        ]
+      ],
+      "version": 16799811642
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          172221,
+          3
+        ]
+      ],
+      "version": 16799811641
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          160139,
+          2
+        ]
+      ],
+      "version": 16799811638
+    },
+    "channel": "push.depth",
+    "ts": 1717338515225
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          131051,
+          3
+        ]
+      ],
+      "version": 16799811640
+    },
+    "channel": "push.depth",
+    "ts": 1717338515226
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          194392,
+          3
+        ]
+      ],
+      "version": 16799811639
+    },
+    "channel": "push.depth",
+    "ts": 1717338515225
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          70720,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811636
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          82382,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811635
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          127132,
+          2
+        ]
+      ],
+      "version": 16799811637
+    },
+    "channel": "push.depth",
+    "ts": 1717338515225
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.7,
+          65397,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811634
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.8,
+          74525,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811633
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.1,
+          71274,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811631
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.2,
+          80621,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811632
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.3,
+          75588,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811629
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          92485,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811628
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.1,
+          68820,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811630
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373,
+          67124,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811625
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.8,
+          72270,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811626
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374,
+          78400,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811627
+    },
+    "channel": "push.depth",
+    "ts": 1717338515215
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.6,
+          72405,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811624
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.9,
+          66885,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811623
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.2,
+          70632,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811622
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.3,
+          75665,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811620
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.5,
+          83515,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811621
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372,
+          69592,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811619
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.8,
+          66657,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811617
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          107627,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811618
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.2,
+          65067,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811616
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.6,
+          65369,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811615
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          72290,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811613
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.4,
+          69420,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811614
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.9,
+          71766,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811612
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.9,
+          67070,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811611
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.6,
+          65194,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811610
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.4,
+          62354,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811609
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.7,
+          78266,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811608
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.5,
+          74431,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811607
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          62297,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811606
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.1,
+          70966,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811605
+    },
+    "channel": "push.depth",
+    "ts": 1717338515214
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.1,
+          149837,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811603
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374.2,
+          138692,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811604
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68374,
+          144325,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811602
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.9,
+          152610,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811601
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.8,
+          134575,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811600
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.7,
+          138617,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811599
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.6,
+          144339,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811598
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.5,
+          148189,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811597
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.4,
+          130353,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811596
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.3,
+          155336,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811595
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.2,
+          143414,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811594
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373.1,
+          148102,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811593
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.9,
+          135582,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811591
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68373,
+          140125,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811592
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.8,
+          157582,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811590
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.6,
+          143786,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811588
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.5,
+          146046,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811587
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.7,
+          141843,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811589
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.3,
+          147112,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811585
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.4,
+          144752,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811586
+    },
+    "channel": "push.depth",
+    "ts": 1717338515210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.2,
+          156247,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811584
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372.1,
+          135909,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811583
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68372,
+          135642,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811582
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.9,
+          129908,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811581
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.8,
+          145680,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811580
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          174268,
+          3
+        ]
+      ],
+      "bids": [],
+      "version": 16799811579
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.6,
+          134744,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811578
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          141537,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811576
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          164102,
+          3
+        ]
+      ],
+      "bids": [],
+      "version": 16799811577
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          137311,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811575
+    },
+    "channel": "push.depth",
+    "ts": 1717338515209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          3848890,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811574
+    },
+    "channel": "push.depth",
+    "ts": 1717338515079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          3764920,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811573
+    },
+    "channel": "push.depth",
+    "ts": 1717338515079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          5133900,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811572
+    },
+    "channel": "push.depth",
+    "ts": 1717338515079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          3869200,
+          1
+        ]
+      ],
+      "version": 16799811571
+    },
+    "channel": "push.depth",
+    "ts": 1717338515079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          7463720,
+          1
+        ]
+      ],
+      "version": 16799811570
+    },
+    "channel": "push.depth",
+    "ts": 1717338515079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          3851360,
+          1
+        ]
+      ],
+      "version": 16799811569
+    },
+    "channel": "push.depth",
+    "ts": 1717338515078
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          10346860,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811568
+    },
+    "channel": "push.depth",
+    "ts": 1717338515075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          6779760,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811567
+    },
+    "channel": "push.depth",
+    "ts": 1717338515075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          9074030,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811566
+    },
+    "channel": "push.depth",
+    "ts": 1717338515075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          7656550,
+          2
+        ]
+      ],
+      "version": 16799811565
+    },
+    "channel": "push.depth",
+    "ts": 1717338515075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          11179020,
+          2
+        ]
+      ],
+      "version": 16799811564
+    },
+    "channel": "push.depth",
+    "ts": 1717338515074
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          7799070,
+          2
+        ]
+      ],
+      "version": 16799811563
+    },
+    "channel": "push.depth",
+    "ts": 1717338515074
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          93382,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811562
+    },
+    "channel": "push.depth",
+    "ts": 1717338515035
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          91886,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811561
+    },
+    "channel": "push.depth",
+    "ts": 1717338515035
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          71617,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811560
+    },
+    "channel": "push.depth",
+    "ts": 1717338515026
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          69247,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811559
+    },
+    "channel": "push.depth",
+    "ts": 1717338515026
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          91858,
+          2
+        ]
+      ],
+      "version": 16799811558
+    },
+    "channel": "push.depth",
+    "ts": 1717338515010
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371,
+          110472,
+          2
+        ]
+      ],
+      "version": 16799811557
+    },
+    "channel": "push.depth",
+    "ts": 1717338515010
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          67100,
+          1
+        ]
+      ],
+      "version": 16799811556
+    },
+    "channel": "push.depth",
+    "ts": 1717338515004
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          65006,
+          2
+        ]
+      ],
+      "version": 16799811555
+    },
+    "channel": "push.depth",
+    "ts": 1717338515004
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          90645,
+          3
+        ]
+      ],
+      "version": 16799811554
+    },
+    "channel": "push.depth",
+    "ts": 1717338514883
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          75014,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811553
+    },
+    "channel": "push.depth",
+    "ts": 1717338514668
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          92191,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811552
+    },
+    "channel": "push.depth",
+    "ts": 1717338514619
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          92278,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811551
+    },
+    "channel": "push.depth",
+    "ts": 1717338514619
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          7689050,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811536
+    },
+    "channel": "push.depth",
+    "ts": 1717338514583
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          98606,
+          2
+        ]
+      ],
+      "version": 16799811548
+    },
+    "channel": "push.depth",
+    "ts": 1717338514599
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          71617,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811549
+    },
+    "channel": "push.depth",
+    "ts": 1717338514612
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          62355,
+          1
+        ]
+      ],
+      "version": 16799811531
+    },
+    "channel": "push.depth",
+    "ts": 1717338514211
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          80460,
+          1
+        ]
+      ],
+      "version": 16799811546
+    },
+    "channel": "push.depth",
+    "ts": 1717338514593
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          3014840,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811543
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          84026,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811529
+    },
+    "channel": "push.depth",
+    "ts": 1717338514209
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          66641,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811550
+    },
+    "channel": "push.depth",
+    "ts": 1717338514612
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          6497970,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811544
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          6820460,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811537
+    },
+    "channel": "push.depth",
+    "ts": 1717338514583
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          71617,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811528
+    },
+    "channel": "push.depth",
+    "ts": 1717338514202
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          64745,
+          1
+        ]
+      ],
+      "version": 16799811545
+    },
+    "channel": "push.depth",
+    "ts": 1717338514593
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          3787350,
+          1
+        ]
+      ],
+      "version": 16799811541
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          75064,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811532
+    },
+    "channel": "push.depth",
+    "ts": 1717338514426
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          64745,
+          1
+        ]
+      ],
+      "version": 16799811524
+    },
+    "channel": "push.depth",
+    "ts": 1717338514182
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          3940130,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811542
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          3947710,
+          1
+        ]
+      ],
+      "version": 16799811539
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          90384,
+          2
+        ]
+      ],
+      "version": 16799811547
+    },
+    "channel": "push.depth",
+    "ts": 1717338514599
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          69247,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811527
+    },
+    "channel": "push.depth",
+    "ts": 1717338514202
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          3898720,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811521
+    },
+    "channel": "push.depth",
+    "ts": 1717338514079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          10396690,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811538
+    },
+    "channel": "push.depth",
+    "ts": 1717338514583
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          7734650,
+          2
+        ]
+      ],
+      "version": 16799811535
+    },
+    "channel": "push.depth",
+    "ts": 1717338514583
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          3715300,
+          1
+        ]
+      ],
+      "version": 16799811540
+    },
+    "channel": "push.depth",
+    "ts": 1717338514588
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          3748920,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811519
+    },
+    "channel": "push.depth",
+    "ts": 1717338514078
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          3805620,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811520
+    },
+    "channel": "push.depth",
+    "ts": 1717338514079
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          7533280,
+          2
+        ]
+      ],
+      "version": 16799811534
+    },
+    "channel": "push.depth",
+    "ts": 1717338514582
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          114475,
+          2
+        ]
+      ],
+      "version": 16799811526
+    },
+    "channel": "push.depth",
+    "ts": 1717338514188
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.7,
+          76994,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811530
+    },
+    "channel": "push.depth",
+    "ts": 1717338514210
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          3847340,
+          1
+        ]
+      ],
+      "version": 16799811516
+    },
+    "channel": "push.depth",
+    "ts": 1717338514078
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          3947300,
+          1
+        ]
+      ],
+      "version": 16799811518
+    },
+    "channel": "push.depth",
+    "ts": 1717338514078
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          7795050,
+          2
+        ]
+      ],
+      "version": 16799811533
+    },
+    "channel": "push.depth",
+    "ts": 1717338514582
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          96514,
+          2
+        ]
+      ],
+      "version": 16799811525
+    },
+    "channel": "push.depth",
+    "ts": 1717338514188
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          3817980,
+          1
+        ]
+      ],
+      "version": 16799811517
+    },
+    "channel": "push.depth",
+    "ts": 1717338514078
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          7767200,
+          2
+        ]
+      ],
+      "version": 16799811512
+    },
+    "channel": "push.depth",
+    "ts": 1717338514075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          12669640,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811514
+    },
+    "channel": "push.depth",
+    "ts": 1717338514075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          7149800,
+          2
+        ]
+      ],
+      "version": 16799811510
+    },
+    "channel": "push.depth",
+    "ts": 1717338514074
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          96031,
+          2
+        ]
+      ],
+      "version": 16799811523
+    },
+    "channel": "push.depth",
+    "ts": 1717338514181
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          7634070,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811515
+    },
+    "channel": "push.depth",
+    "ts": 1717338514075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          64488,
+          1
+        ]
+      ],
+      "version": 16799811509
+    },
+    "channel": "push.depth",
+    "ts": 1717338514063
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.4,
+          83712,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811507
+    },
+    "channel": "push.depth",
+    "ts": 1717338513800
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.5,
+          102161,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811508
+    },
+    "channel": "push.depth",
+    "ts": 1717338513800
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          76190,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811522
+    },
+    "channel": "push.depth",
+    "ts": 1717338514089
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          7508150,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811513
+    },
+    "channel": "push.depth",
+    "ts": 1717338514075
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.2,
+          64566,
+          1
+        ]
+      ],
+      "version": 16799811500
+    },
+    "channel": "push.depth",
+    "ts": 1717338513734
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.6,
+          94895,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811505
+    },
+    "channel": "push.depth",
+    "ts": 1717338513789
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          78063,
+          2
+        ]
+      ],
+      "version": 16799811503
+    },
+    "channel": "push.depth",
+    "ts": 1717338513777
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.8,
+          67100,
+          1
+        ]
+      ],
+      "version": 16799811501
+    },
+    "channel": "push.depth",
+    "ts": 1717338513770
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          6680110,
+          2
+        ]
+      ],
+      "version": 16799811511
+    },
+    "channel": "push.depth",
+    "ts": 1717338514074
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          76193,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811499
+    },
+    "channel": "push.depth",
+    "ts": 1717338513695
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68371.1,
+          80460,
+          1
+        ]
+      ],
+      "version": 16799811502
+    },
+    "channel": "push.depth",
+    "ts": 1717338513770
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          3759230,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811494
+    },
+    "channel": "push.depth",
+    "ts": 1717338513590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.3,
+          76263,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811497
+    },
+    "channel": "push.depth",
+    "ts": 1717338513629
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          68371.6,
+          69550,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811506
+    },
+    "channel": "push.depth",
+    "ts": 1717338513789
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          8864020,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811495
+    },
+    "channel": "push.depth",
+    "ts": 1717338513590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          3735350,
+          1
+        ]
+      ],
+      "bids": [],
+      "version": 16799811496
+    },
+    "channel": "push.depth",
+    "ts": 1717338513590
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          3819900,
+          1
+        ]
+      ],
+      "version": 16799811493
+    },
+    "channel": "push.depth",
+    "ts": 1717338513589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          3302460,
+          1
+        ]
+      ],
+      "version": 16799811491
+    },
+    "channel": "push.depth",
+    "ts": 1717338513589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370.9,
+          109349,
+          3
+        ]
+      ],
+      "version": 16799811504
+    },
+    "channel": "push.depth",
+    "ts": 1717338513777
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          2862130,
+          1
+        ]
+      ],
+      "version": 16799811492
+    },
+    "channel": "push.depth",
+    "ts": 1717338513589
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67325.9,
+          7540420,
+          2
+        ]
+      ],
+      "version": 16799811487
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67345.6,
+          7100100,
+          2
+        ]
+      ],
+      "version": 16799811485
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69417.2,
+          7557880,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811490
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          68370,
+          83067,
+          2
+        ]
+      ],
+      "version": 16799811498
+    },
+    "channel": "push.depth",
+    "ts": 1717338513662
+  },
+  {
+    "channel": "rs.sub.depth",
+    "data": "success",
+    "ts": 1717338513539
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [],
+      "bids": [
+        [
+          67335.7,
+          6708110,
+          2
+        ]
+      ],
+      "version": 16799811486
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  },
+  {
+    "channel": "pong",
+    "data": 1717338513553,
+    "ts": 1717338513553
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69396.9,
+          7658150,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811488
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  },
+  {
+    "symbol": "BTC_USDT",
+    "data": {
+      "asks": [
+        [
+          69407.1,
+          14645650,
+          2
+        ]
+      ],
+      "bids": [],
+      "version": 16799811489
+    },
+    "channel": "push.depth",
+    "ts": 1717338513585
+  }
+]

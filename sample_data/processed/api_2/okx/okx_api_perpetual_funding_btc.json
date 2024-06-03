@@ -1,0 +1,65 @@
+[
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "funding": 0.0001008752008797
+    },
+    "timestamp": "2024-06-01 18:47:43",
+    "receive_time": 1717264063.6971018
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "funding": 0.0001938620405736
+    },
+    "timestamp": "2024-06-01 18:47:43",
+    "receive_time": 1717264063.684479
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "funding": 0.0002070898490618
+    },
+    "timestamp": "2024-06-01 18:47:43",
+    "receive_time": 1717264063.6551383
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "funding": 0.0001938620405736
+    },
+    "timestamp": "2024-06-01 18:47:28",
+    "receive_time": 1717264048.2740283
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "funding": 0.0001008752008797
+    },
+    "timestamp": "2024-06-01 18:47:28",
+    "receive_time": 1717264048.2660291
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "funding": 0.0002070898490618
+    },
+    "timestamp": "2024-06-01 18:47:28",
+    "receive_time": 1717264048.2274597
+  },
+  {
+    "BTC-USDT-SWAP@perpetual@okx": {
+      "funding": 0.0001008752008797
+    },
+    "timestamp": "2024-06-01 18:47:12",
+    "receive_time": 1717264032.854465
+  },
+  {
+    "BTC-USD-SWAP@perpetual@okx": {
+      "funding": 0.0001938620405736
+    },
+    "timestamp": "2024-06-01 18:47:12",
+    "receive_time": 1717264032.8484666
+  },
+  {
+    "BTC-USDC-SWAP@perpetual@okx": {
+      "funding": 0.0002070898490618
+    },
+    "timestamp": "2024-06-01 18:47:12",
+    "receive_time": 1717264032.8424675
+  }
+]

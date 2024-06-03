@@ -1,0 +1,23 @@
+[
+  {
+    "BTC_USDT@perpetual@mexc": {
+      "oi": 13420.9023,
+      "funding": 0.00011,
+      "timestamp": "2024-06-01 18:47:54"
+    }
+  },
+  {
+    "BTC_USDT@perpetual@mexc": {
+      "oi": 13287.169800000001,
+      "funding": 0.00011,
+      "timestamp": "2024-06-01 18:47:39"
+    }
+  },
+  {
+    "BTC_USDT@perpetual@mexc": {
+      "oi": 13281.278100000001,
+      "funding": 0.00011,
+      "timestamp": "2024-06-01 18:47:23"
+    }
+  }
+]

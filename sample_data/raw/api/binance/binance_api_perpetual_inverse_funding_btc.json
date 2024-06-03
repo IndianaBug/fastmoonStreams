@@ -1,0 +1,122 @@
+[
+  [
+    {
+      "symbol": "BTCDOMUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "2318.47956116"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67672.36980851"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSD_PERP",
+      "fundingTime": 1717228800001,
+      "fundingRate": "0.00010000",
+      "markPrice": "67604.10000000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCSTUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "0.91910000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDC",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67611.00000000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSD_PERP",
+      "fundingTime": 1717228800001,
+      "fundingRate": "0.00010000",
+      "markPrice": "67604.10000000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCDOMUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "2318.47956116"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCSTUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "0.91910000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDC",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67611.00000000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67672.36980851"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67672.36980851"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCDOMUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "2318.47956116"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCSTUSDT",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "0.91910000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSDC",
+      "fundingTime": 1717228800000,
+      "fundingRate": "0.00010000",
+      "markPrice": "67611.00000000"
+    }
+  ],
+  [
+    {
+      "symbol": "BTCUSD_PERP",
+      "fundingTime": 1717228800001,
+      "fundingRate": "0.00010000",
+      "markPrice": "67604.10000000"
+    }
+  ]
+]

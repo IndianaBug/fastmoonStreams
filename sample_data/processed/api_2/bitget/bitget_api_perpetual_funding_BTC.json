@@ -1,0 +1,56 @@
+[
+  {
+    "BTCPERP@perpetual@bitget": {
+      "funding": 0.0006
+    },
+    "timestamp": "2024-06-01 18:47:48"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "funding": 0.000126
+    },
+    "timestamp": "2024-06-01 18:47:48"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "funding": 0.000119
+    },
+    "timestamp": "2024-06-01 18:47:48"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "funding": 0.0006
+    },
+    "timestamp": "2024-06-01 18:47:33"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "funding": 0.000119
+    },
+    "timestamp": "2024-06-01 18:47:33"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "funding": 0.000126
+    },
+    "timestamp": "2024-06-01 18:47:33"
+  },
+  {
+    "BTCPERP@perpetual@bitget": {
+      "funding": 0.0006
+    },
+    "timestamp": "2024-06-01 18:47:17"
+  },
+  {
+    "BTCUSD@perpetual@bitget": {
+      "funding": 0.000126
+    },
+    "timestamp": "2024-06-01 18:47:17"
+  },
+  {
+    "BTCUSDT@perpetual@bitget": {
+      "funding": 0.000119
+    },
+    "timestamp": "2024-06-01 18:47:17"
+  }
+]

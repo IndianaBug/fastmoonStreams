@@ -3,7 +3,7 @@ import asyncio
 import aiohttp
 import json
 import importlib
-import kafka.errors
+import aiokafka.errors as kafka
 
 import websockets.exceptions
 
@@ -51,29 +51,29 @@ from kafka.errors import RETRY_ERROR_TYPES
 kafka_reconnect_errors = RETRY_ERROR_TYPES
 
 kafka_message_errors = (
-    kafka.errors.OffsetMetadataTooLargeError,
-    kafka.errors.StaleControllerEpochError,
-    kafka.errors.MessageSizeTooLargeError,
-    kafka.errors.ReplicaNotAvailableError,
-    kafka.errors.BrokerNotAvailableError,
-    kafka.errors.RequestTimedOutError,
-    kafka.errors.NotLeaderForPartitionError,
-    kafka.errors.InvalidRequiredAcksError,
-    kafka.errors.CorruptRecordException,
-    kafka.errors.InvalidTopicError,
-    kafka.errors.ClusterAuthorizationFailedError,
-    kafka.errors.GroupAuthorizationFailedError,
-    kafka.errors.RecordListTooLargeError,
-    kafka.errors.UnknownTopicOrPartitionError,
-    kafka.errors.TopicAuthorizationFailedError
+    kafka.OffsetMetadataTooLargeError,
+    kafka.StaleControllerEpochError,
+    kafka.MessageSizeTooLargeError,
+    kafka.ReplicaNotAvailableError,
+    kafka.BrokerNotAvailableError,
+    kafka.RequestTimedOutError,
+    kafka.NotLeaderForPartitionError,
+    kafka.InvalidRequiredAcksError,
+    kafka.CorruptRecordException,
+    kafka.InvalidTopicError,
+    kafka.ClusterAuthorizationFailedError,
+    kafka.GroupAuthorizationFailedError,
+    kafka.RecordListTooLargeError,
+    kafka.UnknownTopicOrPartitionError,
+    kafka.TopicAuthorizationFailedError
 )
 
 restart_producer_errors = (
-    kafka.errors.NotEnoughReplicasError,
-    kafka.errors.NotEnoughReplicasAfterAppendError,
-    kafka.errors.InvalidReplicationFactorError,
-    kafka.errors.InvalidRequestError,
-    kafka.errors.UnsupportedVersionError,
+    kafka.NotEnoughReplicasError,
+    kafka.NotEnoughReplicasAfterAppendError,
+    kafka.InvalidReplicationFactorError,
+    kafka.InvalidRequestError,
+    kafka.UnsupportedVersionError,
     asyncio.TimeoutError,
     ConnectionError,
 )

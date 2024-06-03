@@ -1,0 +1,26 @@
+[
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "liquidation-orders",
+      "instType": "OPTION"
+    },
+    "connId": "26b2922e"
+  },
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "liquidation-orders",
+      "instType": "SWAP"
+    },
+    "connId": "26b2922e"
+  },
+  {
+    "event": "subscribe",
+    "arg": {
+      "channel": "liquidation-orders",
+      "instType": "FUTURES"
+    },
+    "connId": "26b2922e"
+  }
+]

@@ -15,11 +15,16 @@ sudo apt-get install python3.7
 sudo apt-get install python3.7-venv
 python3.7 -m venv fastmoonVenv
 
+C:\coding\fastmoon\fastmoonVenv\env\Scripts\activate
 
+# Consumer
+cd C:\coding\fastmoon\fastmoonStreams
+C:\coding\fastmoon\fastmoonVenv\v3.9\Scripts\activate
+faust -A consumer worker -l info --web-port=6066
 
 Windows:
 cd C:\coding\fastmoon\fastmoonStreams
-C:\coding\fastmoon\fastmoonVenv\env\Scripts\activate
+C:\coding\fastmoon\fastmoonVenv\v3.9\Scripts\activate
 
 zookeeper: 
 
@@ -53,3 +58,13 @@ consumer: faust -A c worker -l info --web-port=6066
 Maybe:
 --- high level of logging with elasticsearch, longstash and kibana
 
+
+
+
+
+
+
+
+
+# Windows venv
+C:\Users\Pasha\AppData\Local\Programs\Python\Python39\python.exe  -m venv v3.9

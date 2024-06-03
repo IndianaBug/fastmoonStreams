@@ -1,0 +1,16 @@
+[
+  {
+    "success": true,
+    "ret_msg": "",
+    "conn_id": "e2fbe711-57d2-48dd-8658-e363be026999",
+    "req_id": "aE01CZU4rd",
+    "op": "subscribe"
+  },
+  {
+    "success": true,
+    "ret_msg": "",
+    "conn_id": "e8c95791-d2ad-4ab5-8d6a-729ef76bf8e2",
+    "req_id": "Da9gjGAZ5e",
+    "op": "subscribe"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "BTC_USD@perpetual@gateio": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:45"
+  },
+  {
+    "BTC_USDT@perpetual@gateio": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:45"
+  },
+  {
+    "BTC_USD@perpetual@gateio": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:24"
+  },
+  {
+    "BTC_USDT@perpetual@gateio": {
+      "funding": 0.0001
+    },
+    "timestamp": "2024-06-01 18:47:24"
+  }
+]

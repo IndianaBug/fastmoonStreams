@@ -1,0 +1,650 @@
+[
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6544,
+      "gta_short_ratio": 0.3456,
+      "gta_ratio": 1.8935
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.2611406
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "gta_long_ratio": 0.6147,
+      "gta_short_ratio": 0.3853,
+      "gta_ratio": 1.5954
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.2391672
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "ttp_long_ratio": 0.6227,
+      "ttp_short_ratio": 0.3773,
+      "ttp_ratio": 1.6505
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.2183807
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "gta_long_ratio": 0.7563,
+      "gta_short_ratio": 0.2437,
+      "gta_ratio": 3.1034
+    },
+    "timestamp": "2024-06-01 18:47:56",
+    "receive_time": 1717264076.1363492
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "gta_long_ratio": 0.5668,
+      "gta_short_ratio": 0.4332,
+      "gta_ratio": 1.3084
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.8831837
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.6134,
+      "ttp_short_ratio": 0.3866,
+      "ttp_ratio": 1.5863
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.7993457
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "ttp_long_ratio": 0.6846,
+      "ttp_short_ratio": 0.3154,
+      "ttp_ratio": 2.1702
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.2128432
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "tta_long_ratio": 0.6097,
+      "tta_short_ratio": 0.3903,
+      "tta_ratio": 1.5621
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.184844
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "tta_long_ratio": 0.7559,
+      "tta_short_ratio": 0.2441,
+      "tta_ratio": 3.0967
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.1768441
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "tta_long_ratio": 0.5897,
+      "tta_short_ratio": 0.4103,
+      "tta_ratio": 1.4372
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.145843
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.6698,
+      "tta_short_ratio": 0.3302,
+      "tta_ratio": 2.0285
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.1278446
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "ttp_long_ratio": 0.7284,
+      "ttp_short_ratio": 0.2716,
+      "ttp_ratio": 2.6823
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0918443
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6719,
+      "gta_short_ratio": 0.3281,
+      "gta_ratio": 2.0479
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0738747
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "gta_long_ratio": 0.6019,
+      "gta_short_ratio": 0.3981,
+      "gta_ratio": 1.5119
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.066843
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "tta_long_ratio": 0.5882,
+      "tta_short_ratio": 0.4118,
+      "tta_ratio": 1.4284
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0578442
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "ttp_long_ratio": 0.546,
+      "ttp_short_ratio": 0.454,
+      "ttp_ratio": 1.2026
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0448453
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.5097,
+      "ttp_short_ratio": 0.4903,
+      "ttp_ratio": 1.0397
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0348444
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.5995,
+      "tta_short_ratio": 0.4005,
+      "tta_ratio": 1.4969
+    },
+    "timestamp": "2024-06-01 18:47:55",
+    "receive_time": 1717264075.0188355
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6544,
+      "gta_short_ratio": 0.3456,
+      "gta_ratio": 1.8935
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.1868672
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "ttp_long_ratio": 0.6227,
+      "ttp_short_ratio": 0.3773,
+      "ttp_ratio": 1.6505
+    },
+    "timestamp": "2024-06-01 18:47:40",
+    "receive_time": 1717264060.1048687
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "gta_long_ratio": 0.7563,
+      "gta_short_ratio": 0.2437,
+      "gta_ratio": 3.1034
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.9734678
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "gta_long_ratio": 0.5668,
+      "gta_short_ratio": 0.4332,
+      "gta_ratio": 1.3084
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.7726488
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.6134,
+      "ttp_short_ratio": 0.3866,
+      "ttp_ratio": 1.5863
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.6472943
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "ttp_long_ratio": 0.6846,
+      "ttp_short_ratio": 0.3154,
+      "ttp_ratio": 2.1702
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0943563
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.6698,
+      "tta_short_ratio": 0.3302,
+      "tta_ratio": 2.0285
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0783563
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "gta_long_ratio": 0.6147,
+      "gta_short_ratio": 0.3853,
+      "gta_ratio": 1.5954
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0673559
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "tta_long_ratio": 0.6097,
+      "tta_short_ratio": 0.3903,
+      "tta_ratio": 1.5621
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.054355
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "tta_long_ratio": 0.5897,
+      "tta_short_ratio": 0.4103,
+      "tta_ratio": 1.4372
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0423563
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "tta_long_ratio": 0.7559,
+      "tta_short_ratio": 0.2441,
+      "tta_ratio": 3.0967
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.013356
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "ttp_long_ratio": 0.7284,
+      "ttp_short_ratio": 0.2716,
+      "ttp_ratio": 2.6823
+    },
+    "timestamp": "2024-06-01 18:47:39",
+    "receive_time": 1717264059.0053556
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "gta_long_ratio": 0.6019,
+      "gta_short_ratio": 0.3981,
+      "gta_ratio": 1.5119
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.9503574
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6719,
+      "gta_short_ratio": 0.3281,
+      "gta_ratio": 2.0479
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.9153569
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "ttp_long_ratio": 0.546,
+      "ttp_short_ratio": 0.454,
+      "ttp_ratio": 1.2026
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.8763566
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.5098,
+      "ttp_short_ratio": 0.4902,
+      "ttp_ratio": 1.0399
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.8593569
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "tta_long_ratio": 0.5882,
+      "tta_short_ratio": 0.4118,
+      "tta_ratio": 1.4284
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.8373566
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.5995,
+      "tta_short_ratio": 0.4005,
+      "tta_ratio": 1.4969
+    },
+    "timestamp": "2024-06-01 18:47:38",
+    "receive_time": 1717264058.829355
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6544,
+      "gta_short_ratio": 0.3456,
+      "gta_ratio": 1.8935
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.9703028
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "ttp_long_ratio": 0.6227,
+      "ttp_short_ratio": 0.3773,
+      "ttp_ratio": 1.6505
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.91637
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "gta_long_ratio": 0.7563,
+      "gta_short_ratio": 0.2437,
+      "gta_ratio": 3.1034
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.8647923
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "gta_long_ratio": 0.5668,
+      "gta_short_ratio": 0.4332,
+      "gta_ratio": 1.3084
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.6156805
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.6134,
+      "ttp_short_ratio": 0.3866,
+      "ttp_ratio": 1.5863
+    },
+    "timestamp": "2024-06-01 18:47:23",
+    "receive_time": 1717264043.4701004
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "ttp_long_ratio": 0.6846,
+      "ttp_short_ratio": 0.3154,
+      "ttp_ratio": 2.1702
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.8563251
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "tta_long_ratio": 0.6097,
+      "tta_short_ratio": 0.3903,
+      "tta_ratio": 1.5621
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.8363223
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "gta_long_ratio": 0.6147,
+      "gta_short_ratio": 0.3853,
+      "gta_ratio": 1.5954
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.828323
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "tta_long_ratio": 0.5897,
+      "tta_short_ratio": 0.4103,
+      "tta_ratio": 1.4372
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.8203232
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "ttp_long_ratio": 0.7284,
+      "ttp_short_ratio": 0.2716,
+      "ttp_ratio": 2.6823
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7963228
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "tta_long_ratio": 0.7559,
+      "tta_short_ratio": 0.2441,
+      "tta_ratio": 3.0967
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7853239
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6719,
+      "gta_short_ratio": 0.3281,
+      "gta_ratio": 2.0479
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.771323
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.6698,
+      "tta_short_ratio": 0.3302,
+      "tta_ratio": 2.0285
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7613537
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "gta_long_ratio": 0.6019,
+      "gta_short_ratio": 0.3981,
+      "gta_ratio": 1.5119
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7403245
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "ttp_long_ratio": 0.546,
+      "ttp_short_ratio": 0.454,
+      "ttp_ratio": 1.2026
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7323236
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.5098,
+      "ttp_short_ratio": 0.4902,
+      "ttp_ratio": 1.0399
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.7024956
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "tta_long_ratio": 0.5882,
+      "tta_short_ratio": 0.4118,
+      "tta_ratio": 1.4284
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.6944969
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.5995,
+      "tta_short_ratio": 0.4005,
+      "tta_ratio": 1.4969
+    },
+    "timestamp": "2024-06-01 18:47:22",
+    "receive_time": 1717264042.6635025
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6543,
+      "gta_short_ratio": 0.3457,
+      "gta_ratio": 1.8927
+    },
+    "timestamp": "2024-06-01 18:47:07",
+    "receive_time": 1717264027.856054
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "gta_long_ratio": 0.7563,
+      "gta_short_ratio": 0.2437,
+      "gta_ratio": 3.1034
+    },
+    "timestamp": "2024-06-01 18:47:07",
+    "receive_time": 1717264027.6821804
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "gta_long_ratio": 0.5668,
+      "gta_short_ratio": 0.4332,
+      "gta_ratio": 1.3084
+    },
+    "timestamp": "2024-06-01 18:47:07",
+    "receive_time": 1717264027.498461
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "tta_long_ratio": 0.5897,
+      "tta_short_ratio": 0.4103,
+      "tta_ratio": 1.4372
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.7201924
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "ttp_long_ratio": 0.6846,
+      "ttp_short_ratio": 0.3154,
+      "ttp_ratio": 2.1702
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.7001908
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.6134,
+      "ttp_short_ratio": 0.3866,
+      "ttp_ratio": 1.5863
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6881902
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "gta_long_ratio": 0.6147,
+      "gta_short_ratio": 0.3853,
+      "gta_ratio": 1.5954
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6811905
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "tta_long_ratio": 0.6105,
+      "tta_short_ratio": 0.3895,
+      "tta_ratio": 1.5674
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6721904
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.6698,
+      "tta_short_ratio": 0.3302,
+      "tta_ratio": 2.0285
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.66619
+  },
+  {
+    "BTCUSDT@perpetual@binance": {
+      "gta_long_ratio": 0.6719,
+      "gta_short_ratio": 0.3281,
+      "gta_ratio": 2.0479
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6591904
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "tta_long_ratio": 0.7559,
+      "tta_short_ratio": 0.2441,
+      "tta_ratio": 3.0967
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6511915
+  },
+  {
+    "BTCUSD@perpetual@binance": {
+      "ttp_long_ratio": 0.546,
+      "ttp_short_ratio": 0.454,
+      "ttp_ratio": 1.2026
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6381912
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "ttp_long_ratio": 0.7284,
+      "ttp_short_ratio": 0.2716,
+      "ttp_ratio": 2.6823
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6261911
+  },
+  {
+    "BTCUSDC@perpetual@binance": {
+      "ttp_long_ratio": 0.6227,
+      "ttp_short_ratio": 0.3773,
+      "ttp_ratio": 1.6505
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.6051912
+  },
+  {
+    "BTCUSDT_240628@future@binance": {
+      "gta_long_ratio": 0.6019,
+      "gta_short_ratio": 0.3981,
+      "gta_ratio": 1.5119
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.59819
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "ttp_long_ratio": 0.5098,
+      "ttp_short_ratio": 0.4902,
+      "ttp_ratio": 1.0399
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.5871918
+  },
+  {
+    "BTCDOMUSDT@perpetual@binance": {
+      "tta_long_ratio": 0.5995,
+      "tta_short_ratio": 0.4005,
+      "tta_ratio": 1.4969
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.5741923
+  },
+  {
+    "BTCUSDT_240927@future@binance": {
+      "tta_long_ratio": 0.5882,
+      "tta_short_ratio": 0.4118,
+      "tta_ratio": 1.4284
+    },
+    "timestamp": "2024-06-01 18:47:06",
+    "receive_time": 1717264026.5581918
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "code": 0,
+    "msg": "",
+    "data": {
+      "openInterest": "659425031.56",
+      "symbol": "BTC-USDT",
+      "time": 1717253532236
+    }
+  },
+  {
+    "code": 0,
+    "msg": "",
+    "data": {
+      "openInterest": "659687956.77",
+      "symbol": "BTC-USDT",
+      "time": 1717253516956
+    }
+  }
+]

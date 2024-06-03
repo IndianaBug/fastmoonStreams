@@ -10,7 +10,6 @@ from functools import wraps, partial
 import io
 import sys
 import backoff
-import aiocouch
 from aiokafka import AIOKafkaProducer
 import websockets
 from websockets import WebSocketClientProtocol
@@ -32,7 +31,145 @@ def should_give_up(exc):
 
 base_path = Path(__file__).parent.parent
 
-class keepalive():
+class DecoratorsPatters:
+
+    @staticmethod
+    def keepalive_decorator(func):
+        """ Pattern of keep alive for every exchange"""
+        async def wrapper(self, *args, **kwargs):
+            connection_data = kwargs.get('connection_data')
+            websocket = kwargs.get('websocket')
+            logger = kwargs.get('logger')
+            id_ws = connection_data.get("id_ws", "unknown")
+            exchange = connection_data.get("exchange")  
+            
+            if exchange == "kucoin":
+                pingInterval, pingTimeout = args[0].get_kucoin_pingInterval(connection_data)
+                args[0].kucoin_pp_intervals[id_ws] = {
+                    "pingInterval": pingInterval,
+                    "pingTimeout": pingTimeout
+                }
+            
+            args[0].keep_alives_running[id_ws] = True
+            
+            while args[0].keep_alives_running.get(id_ws, False):
+                try:
+                    await func(self, websocket, connection_data, logger, *args, **kwargs)
+                except aiohttp_recoverable_errors as e:
+                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
+                    args[0].KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchange=exchange, websocket_id=id_ws).inc()
+                    raise
+                except Exception as e:
+                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
+                    args[0].KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchange=exchange).inc()
+                    break
+        def backoff_inner_wrapper(self, *args, **kwargs):
+            return backoff.on_exception(backoff.expo,
+                    WebSocketException,
+                    max_tries=self.max_reconnect_retries)(wrapper)(self, *args, **kwargs)
+        return backoff_inner_wrapper
+    
+    @staticmethod
+    def websocket_wrapper(keepalattr=None):
+        """ pattern for every websocket connection, errors and logging """
+        def wrapper(func):
+            async def inner_websocket_wrapper(self, *args, **kwargs):
+                connection_data = args[0]
+                id_ws = connection_data.get('id_ws')
+                connection_message = connection_data.get("msg_method")()
+                self.ws_messages[id_ws] = connection_message
+                websocket = await self.__wsaenter__(connection_data)
+                connection_start_time = time.time() 
+                try:
+                    
+                    await websocket.send(json.dumps(connection_message))
+                    
+                    if keepalattr:
+                        keep_alive_method = getattr(self, keepalattr)
+                        asyncio.create_task(keep_alive_method(self, websocket=websocket, connection_data=connection_data, logger=self.logger))
+                                            
+                    while websocket.open:
+                        try:
+                            await func(self, connection_data=connection_data, websocket=websocket, *args, **kwargs)
+                        except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e: 
+                            self.logger.error("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
+                            self.process_disconnects_metrics(id_ws, connection_start_time)
+                            raise
+                            
+                except asyncio.TimeoutError as e:
+                    self.logger.error("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
+                except Exception as e:
+                    self.logger.error("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
+                finally:
+                    # metrics
+                    if "CONNECTION_DURATION" in self.producer_metrics:
+                        duration = time.time() - connection_start_time
+                        self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
+
+                    # safe heartbeat exit
+                    if kwargs.get("keep_alive_caroutine_attr") is not None:
+                        await self.stop_keepalive(connection_data)
+                    else:
+                        if "heartbeat" in id_ws:
+                            
+                            related_ws, heartbeat_key = self._get_related_ws(connection_data)
+                            are_all_down = all(not self.websockets.get(id_ws).open for id_ws in related_ws)
+                            
+                            if are_all_down:
+                                heartbeat_websocket = self.websockets.get(heartbeat_key)
+                                cd = [x for x in self.connection_data if x.get("id_ws") == heartbeat_websocket][0]
+                                self.__wsaexit__(websocket, cd)
+                    
+                    self.logger.info("WebSocket connection for %s has ended.", id_ws)
+                    await self.__wsaexit__(websocket, connection_data)
+                        
+            def backoff_inner_websocket_wrapper(self, *args, **kwargs):
+                return backoff.on_exception(
+                    backoff.expo,
+                    (WebSocketException, TimeoutError, ConnectionClosed),
+                    max_tries=self.max_reconnect_retries,
+                    on_backoff=self.on_backoff
+                )(inner_websocket_wrapper)(self, *args, **kwargs)
+
+            return backoff_inner_websocket_wrapper
+        return wrapper
+    
+
+    @staticmethod
+    def handle_kafka_errors_backup(func):
+        """
+            Decorator for error and reconnecting handling
+        """
+        max_retries = 0
+        @wraps(func)
+        async def wrapper(self, *args, **kwargs):
+            max_retries = self.max_reconnect_retries
+            try:
+                return await func(self, *args, **kwargs)
+            except kafka_RETRY_ERROR_TYPES as e:
+                if len(args) != 0:
+                    self.logger.error("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
+                else:
+                    self.logger.error("%s", e, exc_info=True)
+                raise
+            except TopicAlreadyExistsError:
+                self.logger.info("Topic already exists, skipping to the next iteration...")
+            except restart_producer_errors as e:
+                self.logger.error("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
+                await self.reconnect_producer()
+            except kafka_giveup_errors as e:
+                self.logger.error("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
+                await self.producer.stop()
+        return backoff.on_exception(
+            backoff.expo,
+            kafka_RETRY_ERROR_TYPES,
+            max_tries=max_retries,
+            max_time=300,
+            giveup=should_give_up
+        )(wrapper)
+
+
+class keepalive(DecoratorsPatters):
     """
         docs references:
             binance: https://binance-docs.github.io/apidocs/spot/en/#websocket-market-streams
@@ -89,41 +226,6 @@ class keepalive():
     def __init__(self, max_reconnect_retries=8, *args, **kwargs):
         self.max_reconnect_retries = max_reconnect_retries
 
-    @staticmethod
-    def keepalive_decorator(func):
-        """ Pattern of keep alive for every exchange"""
-        async def wrapper(self, *args, **kwargs):
-            connection_data = kwargs.get('connection_data')
-            websocket = kwargs.get('websocket')
-            logger = kwargs.get('logger')
-            id_ws = connection_data.get("id_ws", "unknown")
-            exchange = connection_data.get("exchange")  
-            
-            if exchange == "kucoin":
-                pingInterval, pingTimeout = args[0].get_kucoin_pingInterval(connection_data)
-                args[0].kucoin_pp_intervals[id_ws] = {
-                    "pingInterval": pingInterval,
-                    "pingTimeout": pingTimeout
-                }
-            
-            args[0].keep_alives_running[id_ws] = True
-            
-            while args[0].keep_alives_running.get(id_ws, False):
-                try:
-                    await func(self, websocket, connection_data, logger, *args, **kwargs)
-                except aiohttp_recoverable_errors as e:
-                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-                    args[0].KEEP_ALIVE_ERRORS.labels(error_type='recoverable_error', exchange=exchange, websocket_id=id_ws).inc()
-                    raise
-                except Exception as e:
-                    logger.error("Keep-Alive error, connection closed: %s, ID_WS: %s", e, id_ws, exc_info=True)
-                    args[0].KEEP_ALIVE_DISCONNECTS.labels(websocket_id=id_ws, exchange=exchange).inc()
-                    break
-        def backoff_inner_wrapper(self, *args, **kwargs):
-            return backoff.on_exception(backoff.expo,
-                    WebSocketException,
-                    max_tries=self.max_reconnect_retries)(wrapper)(self, *args, **kwargs)
-        return backoff_inner_wrapper
 
     def get_kucoin_pingInterval(self, conData):
         """ dynamicall gets ping interval of a kucoin websocket connection """
@@ -136,52 +238,52 @@ class keepalive():
         """ stop keep alive """
         self.keep_alives_running[connection_data.get("id_ws")] = False
 
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def binance_keepalive_func(self, *args, **kwargs):
         """ binance sends you ping and you respond with pong. NOT NEEDED"""
         websocket = kwargs.get("websocket")
         await websocket.pong(b"") 
         await asyncio.sleep(self.binance_pp_interval) 
 
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def bybit_keepalive(self, *args, **kwargs):
         """ initialize bybit keep alive caroutine"""
         id_ws = kwargs.get("connection_data").get("id_ws")
         websocket = kwargs.get("websocket")
-        await websocket.ping(json.dumps({"op": "ping"})) 
-        print("Ping sent to %s", id_ws)
+        await websocket.send(json.dumps({"op": "ping"})) 
+        print(f"Ping sent to {id_ws}")
         await asyncio.sleep(self.bybit_pp_interval) 
     
-    @keepalive_decorator 
+    @DecoratorsPatters.keepalive_decorator
     async def okx_keepalive(self, *args, **kwargs):
         """ initialize okx keep alive caroutine"""
         websocket = kwargs.get("websocket")
         await websocket.send("ping") 
         await asyncio.sleep(self.okx_pp_interval) 
     
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def bitget_keepalive(self, *args, **kwargs):
         """ initialize bitget keep alive caroutine"""
         websocket = kwargs.get("websocket")
         await websocket.send("ping") 
         await asyncio.sleep(self.bitget_pp_interval) 
     
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def bingx_keepalive(self, *args, **kwargs):
         """ initialize bingx keep alive caroutine (ONLY FOR PERPETUAL WEBSOCKETS)"""
         websocket = kwargs.get("websocket")
         await websocket.send("Pong") 
         await asyncio.sleep(self.bingx_pp_interval) 
 
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def kucoin_keepalive(self, *args, **kwargs):
         """ initialize kucoin keep alive caroutine"""
         websocket = kwargs.get("websocket")
         connection_data = kwargs.get("connection_data")
-        await websocket.send({"id": str(connection_data.get("connection_id")), "type": "ping"})
+        await websocket.send(json.dumps({"id": str(connection_data.get("connection_id")), "type": "ping"}))
         await asyncio.sleep(self.kucoin_pp_intervals.get(connection_data.get("id_ws")).get("pingInterval", 18000)) 
     
-    @keepalive_decorator  
+    @DecoratorsPatters.keepalive_decorator
     async def mexc_keepalive(self, *args, **kwargs):
         """ initialize mexc keep alive caroutine"""
         websocket = kwargs.get("websocket")
@@ -192,7 +294,7 @@ class keepalive():
             await websocket.send(json.dumps({"method": "ping"})) 
         await asyncio.sleep(self.mexc_pp_interval) 
 
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def htx_keepalive(self, *args, **kwargs):
         """ initialize mexc keep alive caroutine"""
         websocket = kwargs.get("websocket")
@@ -200,7 +302,7 @@ class keepalive():
         await websocket.send(json.dumps({"method": "ping"}))
         await asyncio.sleep(self.mexc_pp_interval) 
     
-    @keepalive_decorator
+    @DecoratorsPatters.keepalive_decorator
     async def gateio_keepalive(self, *args, **kwargs):
         """ initialize gateio keep alive caroutine"""
         websocket = kwargs.get("websocket")
@@ -223,7 +325,7 @@ class publisher(keepalive):
     def __init__(self, 
                 connection_data,
                 kafka_host = 'localhost:9092',
-                num_partitions = 5,
+                num_partitions = 2,
                 replication_factor = 1,
                 producer_reconnection_attempts = 5, 
                 prometeus_start_server = 9090,
@@ -256,10 +358,34 @@ class publisher(keepalive):
         self.producer = None
         self.producer_running = False
         self.producer_reconnection_attempts = producer_reconnection_attempts
-        self.admin = AdminClient({'bootstrap.servers': self.kafka_host})
+        self.admin = AdminClient(
+            {
+                'bootstrap.servers': self.kafka_host, 
+                'message.max.bytes': 10485760,
+                'max.partition.fetch.bytes': 10485760,
+                'request.timeout.ms': 30000, 
+                'delivery.timeout.ms': 60000,
+                'auto.offset.reset': 'earliest',
+                'fetch.message.max.bytes': 10485760,
+                'max.partition.fetch.bytes': 10485760,
+                'session.timeout.ms': 60000 ,
+                'compression.type': 'gzip',
+                'debug': 'msg' 
+                }
+            )
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
-        self.kafka_topics = [NewTopic(cond.get("topic_name"), num_partitions=self.num_partitions, replication_factor=self.replication_factor) for cond in self.connection_data]
+        self.kafka_topics = [
+            NewTopic(
+                cond.get("topic_name"), 
+                num_partitions=self.num_partitions, 
+                replication_factor=self.replication_factor,
+                config={
+                    'max.message.bytes': '10485760'  
+                }
+                ) 
+                for cond in self.connection_data
+                ]
         self.kafka_topics_names = [cond.get("topic_name") for cond in self.connection_data]
         # websockets setup
         self.ws_messages = {} #ids were dynamicall generated upon creating websockets. IF you need them, extract them from here
@@ -306,6 +432,9 @@ class publisher(keepalive):
             self.DISK_IO = Gauge('server_disk_io_bytes', 'Disk I/O of the server')
         if "NETWORK_IO" in producer_metrics:
             self.NETWORK_IO = Gauge('server_network_io_bytes', 'Network I/O of the server')
+
+        
+        self.heartbeats_ids = {}
 
 
     #  Producer setup
@@ -390,7 +519,8 @@ class publisher(keepalive):
                     
     def _get_related_ws(self, connection_data):
         exchnage = connection_data.get("exchange").lower()
-        symbol = connection_data.get("symbol").lower()
+        s = connection_data.get("instruments")
+        symbol = s.lower() if isinstance(s, str) else s[0].lower()
         symbol = ''.join(char for char in symbol if char in string.ascii_letters or char in string.digits)
         key = ""
         for heartbeats_key in self.ws_related_to_heartbeat_channel.keys():
@@ -443,70 +573,6 @@ class publisher(keepalive):
         if "RECONNECT_ATTEMPTS" in self.producer_metrics:
             self.RECONNECT_ATTEMPTS.labels(websocket_id=id_).inc()
         self.logger.info("Reconnecting to WebSocket ID %s. Attempt %s", id_, {details['tries']})
-    
-    @staticmethod
-    def websocket_wrapper(keepalattr=None):
-        """ pattern for every websocket connection, errors and logging """
-        def wrapper(func):
-            async def inner_websocket_wrapper(self, *args, **kwargs):
-                connection_data = args[0]
-                id_ws = connection_data.get('id_ws')
-                connection_message = connection_data.get("msg_method")()
-                self.ws_messages[id_ws] = connection_message
-                websocket = await self.__wsaenter__(connection_data)
-                connection_start_time = time.time() 
-                try:
-                    await websocket.send(json.dumps(connection_message))
-                    
-                    if keepalattr:
-                        keep_alive_method = getattr(self, keepalattr)
-                        asyncio.create_task(keep_alive_method(self, websocket=websocket, connection_data=connection_data, logger=self.logger))
-                                            
-                    while websocket.open:
-                        try:
-                            await func(self, connection_data=connection_data, websocket=websocket, *args, **kwargs)
-                        except (websockets_heartbeats_errors, WebSocketException, TimeoutError) as e: 
-                            self.logger.error("WebSocket error or disconnection for %s, %s", id_ws, e, exc_info=True)
-                            self.process_disconnects_metrics(id_ws, connection_start_time)
-                            raise
-                            
-                except asyncio.TimeoutError as e:
-                    self.logger.error("WebSocket connection timed out for %s, %s", id_ws, e, exc_info=True)
-                except Exception as e:
-                    self.logger.error("Failed to establish WebSocket connection for %s, %s", id_ws, e, exc_info=True)
-                finally:
-                    # metrics
-                    if "CONNECTION_DURATION" in self.producer_metrics:
-                        duration = time.time() - connection_start_time
-                        self.CONNECTION_DURATION.labels(websocket_id=id_ws).set(duration)
-
-                    # safe heartbeat exit
-                    if kwargs.get("keep_alive_caroutine_attr") is not None:
-                        await self.stop_keepalive(connection_data)
-                    else:
-                        if "heartbeat" in id_ws:
-                            
-                            related_ws, heartbeat_key = self._get_related_ws(connection_data)
-                            are_all_down = all(not self.websockets.get(id_ws).open for id_ws in related_ws)
-                            
-                            if are_all_down:
-                                heartbeat_websocket = self.websockets.get(heartbeat_key)
-                                cd = [x for x in self.connection_data if x.get("id_ws") == heartbeat_websocket][0]
-                                self.__wsaexit__(websocket, cd)
-                    
-                    self.logger.info("WebSocket connection for %s has ended.", id_ws)
-                    await self.__wsaexit__(websocket, connection_data)
-                        
-            def backoff_inner_websocket_wrapper(self, *args, **kwargs):
-                return backoff.on_exception(
-                    backoff.expo,
-                    (WebSocketException, TimeoutError, ConnectionClosed),
-                    max_tries=self.max_reconnect_retries,
-                    on_backoff=self.on_backoff
-                )(inner_websocket_wrapper)(self, *args, **kwargs)
-
-            return backoff_inner_websocket_wrapper
-        return wrapper
 
     def process_disconnects_metrics(self, id_ws, connection_start_time):
         """ pattern of processing disconnects"""
@@ -551,7 +617,7 @@ class publisher(keepalive):
             self.logger.error("%s interval timeout exceeded for WebSocket ID %s", word,  id_ws, exc_info=True)
             raise TimeoutError(f"{word} interval timeout exceeded for WebSocket ID {id_ws}")
 
-    @websocket_wrapper(keepalattr=None)
+    @DecoratorsPatters.websocket_wrapper(keepalattr=None)
     async def binance_ws(self, *args, **kwargs):
         """ wrapper function for binance ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -564,7 +630,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.binance_timeout_interval)
     
-    @websocket_wrapper(keepalattr="bybit_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="bybit_keepalive")
     async def bybit_ws(self, *args, **kwargs):
         """ wrapper function for bybit ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -577,7 +643,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.bybit_timeout_interval, "Pong")
     
-    @websocket_wrapper(keepalattr="okx_keepalive")                       
+    @DecoratorsPatters.websocket_wrapper(keepalattr="okx_keepalive")                       
     async def okx_ws(self, *args, **kwargs):
         """ wrapper function for okx ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -590,7 +656,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.okx_timeout_interval, "Pong")
     
-    @websocket_wrapper(keepalattr=None)
+    @DecoratorsPatters.websocket_wrapper(keepalattr=None)
     async def deribit_ws(self, *args, **kwargs):
         """ wrapper function for deribit ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -601,7 +667,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.process_ws_metrics(id_ws, message, latency_start_time)
 
-    @websocket_wrapper(keepalattr=None)
+    @DecoratorsPatters.websocket_wrapper(keepalattr=None)
     async def deribit_heartbeats(self, *args, **kwargs):
         """ wrapper function for deribit heartbeat ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -610,22 +676,21 @@ class publisher(keepalive):
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         message = json.loads(message)
-        self.process_ws_metrics(id_ws, message, latency_start_time)
-        if message.get("method") == "heartbeat":
-            print("Received heartbeat from Deribit server.")
-        elif message.get("result") == "ok":
+        self.process_ws_metrics(id_ws, json.dumps(message), latency_start_time)
+        if message.get("result") == "ok":
+            self.heartbeats_ids[id_ws] = message["id"]
+        if message.get("params", {}).get("type") == "test_request":
             test_response = {
                 "jsonrpc": "2.0",
-                "id": message["id"],
-                "result": {
-                    "method": "public/test"   
-                }
+                "id": self.heartbeats_ids[id_ws],
+                "method": "public/test",
+                "params": {}
             }
             await websocket.send(json.dumps(test_response))
         interval = connection_data.get("msg", {}).get("params", {}).get("interval", 5)
         self.ws_process_logger(id_ws, interval, "Heartbeat")
 
-    @websocket_wrapper(keepalattr="bitget_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="bitget_keepalive")
     async def bitget_ws(self, *args, **kwargs):
         """ wrapper function for bitget ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -638,7 +703,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.bitget_timeout_interval, "Pong")
 
-    @websocket_wrapper(keepalattr="kucoin_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="kucoin_keepalive")
     async def kucoin_ws(self, *args, **kwargs):
         """ wrapper function for kucoin ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -652,7 +717,7 @@ class publisher(keepalive):
         interval = self.kucoin_pp_intervals.get(id_ws).get("pingTimeout", 10000)
         self.ws_process_logger(id_ws, interval, "Pong")
     
-    @websocket_wrapper(keepalattr="bingx_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="bingx_keepalive")
     async def bingx_ws(self, *args, **kwargs):
         """ wrapper function for bingx ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -676,7 +741,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.bingx_timeout_interval, "Ping")
 
-    @websocket_wrapper(keepalattr="mexc_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="mexc_keepalive")
     async def mexc_ws(self, *args, **kwargs):
         """ wrapper function for mexc ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -691,7 +756,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.mexc_timeout_interval, "Pong")
 
-    @websocket_wrapper(keepalattr="gateio_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="gateio_keepalive")
     async def gateio_ws(self, *args, **kwargs):
         """ wrapper function for gateio ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -704,7 +769,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.mexc_timeout_interval, "Ping")
     
-    @websocket_wrapper(keepalattr="htx_keepalive")
+    @DecoratorsPatters.websocket_wrapper(keepalattr="htx_keepalive")
     async def htx_ws(self, *args, **kwargs):
         """ wrapper function for htx ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -717,7 +782,7 @@ class publisher(keepalive):
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
         self.ws_process_logger(id_ws, self.htx_timeout_interval, "Pong")
     
-    @websocket_wrapper(keepalattr=None)
+    @DecoratorsPatters.websocket_wrapper(keepalattr=None)
     async def coinbase_ws(self, *args, **kwargs):
         """ wrapper function for coinbase ws websocket """
         connection_data = kwargs.get("connection_data")
@@ -726,11 +791,19 @@ class publisher(keepalive):
         id_ws = connection_data.get("id_ws")
         message = await websocket.recv()
         self.process_ws_metrics(id_ws, message, latency_start_time)
+        size_in_bytes = sys.getsizeof(message)
+        #print(size_in_bytes)
         await self.send_message_to_topic(connection_data.get("topic_name"), message)
 
-    @websocket_wrapper(keepalattr=None)
+
+    @DecoratorsPatters.websocket_wrapper(keepalattr=None)
     async def coinbase_heartbeats(self, *args, **kwargs):
         """ coinbase heartbeats"""
+        connection_data = kwargs.get("connection_data")
+        websocket = kwargs.get("websocket")
+        latency_start_time = time.time()
+        id_ws = connection_data.get("id_ws")
+        message = await websocket.recv()
         pass
     
     # aiohttp caroutine related
@@ -751,8 +824,8 @@ class publisher(keepalive):
                     message = await connection_data.get("aiohttpMethod")()
                     self.process_ws_metrics(id_api, message, latency_start_time)
                     await self.send_message_to_topic(topic, message)
-                    message_encoded = message.encode("utf-8")
-                    print(sys.getsizeof(message_encoded))
+                    # message_encoded = message.encode("utf-8")
+                    # print(sys.getsizeof(message_encoded))
                     await asyncio.sleep(connection_data.get("pullTimeout"))
             except aiohttp_recoverable_errors as e:
                 self.logger.error("Error from %s: %s", connection_data.get('id_api'), e, exc_info=True)
@@ -776,45 +849,7 @@ class publisher(keepalive):
 
     # Kafka server related    
 
-    @staticmethod
-    def handle_kafka_errors_backup(func):
-        """
-            Decorator for error and reconnecting handling
-        """
-        max_retries = 0
-        @wraps(func)
-        async def wrapper(self, *args, **kwargs):
-            max_retries = self.max_reconnect_retries
-            try:
-                return await func(self, *args, **kwargs)
-            except kafka_RETRY_ERROR_TYPES as e:
-                if len(args) != 0:
-                    self.logger.error("%s raised for topic %s: %s", type(e).__name__, args[1].get("topic_name"), e, exc_info=True)
-                else:
-                    self.logger.error("%s", e, exc_info=True)
-                raise
-            except TopicAlreadyExistsError:
-                self.logger.info("Topic already exists, skipping to the next iteration...")
-            except restart_producer_errors as e:
-                self.logger.error("kafka_restart_errors raised, reconnecting producer... %s", e, exc_info=True)
-                await self.reconnect_producer()
-            except kafka_message_errors as e:
-                if len(args) != 0:
-                    self.logger.error("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", args[1].get("topic_name"),  e, exc_info=True)
-                else:
-                    self.logger.error("%s", e, exc_info=True)
-            except kafka_giveup_errors as e:
-                self.logger.error("kafka_giveup_errors raised, stopping producer... %s", e, exc_info=True)
-                await self.producer.stop()
-        return backoff.on_exception(
-            backoff.expo,
-            kafka_RETRY_ERROR_TYPES,
-            max_tries=max_retries,
-            max_time=300,
-            giveup=should_give_up
-        )(wrapper)
-
-    @handle_kafka_errors_backup
+    @DecoratorsPatters.handle_kafka_errors_backup
     async def start_producer(self):
         """
             Starts producer with handling
@@ -859,12 +894,15 @@ class publisher(keepalive):
             self.logger.info("Topic already exists, skipping to the next iteration... %s", e)
 
             
-    @handle_kafka_errors_backup
     async def send_message_to_topic(self, topic_name, message):
         """
             Ensures messages are send while dealing with errors
         """
-        await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+        try:
+            await self.producer.send_and_wait(topic_name, message.encode("utf-8"))
+        except kafka_message_errors as e:
+            self.logger.error("kafka_send_errors raised, Sending messages to topic %s is impossible due to: %s", topic_name,  e, exc_info=True)
+            await self.producer.flush()
     
     def describe_topics(self):
         """
@@ -929,10 +967,12 @@ class publisher(keepalive):
             if "id_ws" in connection_dict:
                 connection_message = connection_dict.get("msg_method")()
                 exchange = connection_dict.get("exchange")
-                if connection_message.get("channel") != "heartbeats":                                      
-                    ws_method = getattr(self, f"{exchange}_ws", None)
                 if connection_message.get("channel") == "heartbeats":
                     ws_method = getattr(self, f"{exchange}_heartbeats", None)
+                elif connection_message.get("method") == '/public/set_heartbeat':
+                    ws_method = getattr(self, f"{exchange}_heartbeats", None)
+                else:
+                    ws_method = getattr(self, f"{exchange}_ws", None)
                 tasks.append(asyncio.ensure_future(ws_method(connection_dict)))
                     
             if "id_api" in connection_dict:

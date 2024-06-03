@@ -1,0 +1,191 @@
+[
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001881594689454",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0002871259796606",
+        "settFundingRate": "0.0001557781572363",
+        "settState": "settled",
+        "ts": "1717253537038"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001962722139498",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.0075",
+        "method": "current_period",
+        "minFundingRate": "-0.0075",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0002841886303880",
+        "settFundingRate": "0.0001934511206362",
+        "settState": "settled",
+        "ts": "1717253537601"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001295375299781",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0001482171905395",
+        "settFundingRate": "0.0001333679012867",
+        "settState": "settled",
+        "ts": "1717253537054"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001960914686456",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.0075",
+        "method": "current_period",
+        "minFundingRate": "-0.0075",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0002030716244696",
+        "settFundingRate": "0.0001934511206362",
+        "settState": "settled",
+        "ts": "1717253464596"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001877815778629",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0000420855532847",
+        "settFundingRate": "0.0001557781572363",
+        "settState": "settled",
+        "ts": "1717253464032"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001296089369514",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0001231961356249",
+        "settFundingRate": "0.0001333679012867",
+        "settState": "settled",
+        "ts": "1717253464047"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001296089369514",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDT-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0001231961356249",
+        "settFundingRate": "0.0001333679012867",
+        "settState": "settled",
+        "ts": "1717253464047"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001960914686456",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USDC-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.0075",
+        "method": "current_period",
+        "minFundingRate": "-0.0075",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0002030716244696",
+        "settFundingRate": "0.0001934511206362",
+        "settState": "settled",
+        "ts": "1717253464596"
+      }
+    ],
+    "msg": ""
+  },
+  {
+    "code": "0",
+    "data": [
+      {
+        "fundingRate": "0.0001877815778629",
+        "fundingTime": "1717257600000",
+        "instId": "BTC-USD-SWAP",
+        "instType": "SWAP",
+        "maxFundingRate": "0.00375",
+        "method": "current_period",
+        "minFundingRate": "-0.00375",
+        "nextFundingRate": "",
+        "nextFundingTime": "1717286400000",
+        "premium": "0.0000420855532847",
+        "settFundingRate": "0.0001557781572363",
+        "settState": "settled",
+        "ts": "1717253464032"
+      }
+    ],
+    "msg": ""
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "topic": "/contractMarket/execution:XBTUSDTM",
+    "type": "message",
+    "subject": "match",
+    "sn": 1753480088007,
+    "data": {
+      "symbol": "XBTUSDTM",
+      "sequence": 1753480088007,
+      "makerUserId": "65084a4d1916210001ecd8c2",
+      "side": "buy",
+      "size": 140,
+      "price": "68253.1",
+      "takerOrderId": "186751993543405568",
+      "takerUserId": "63f8f152a255800001a1d5a5",
+      "makerOrderId": "186751885758177281",
+      "tradeId": "1753480088007",
+      "ts": 1717338346994000000
+    }
+  },
+  {
+    "topic": "/contractMarket/execution:XBTUSDTM",
+    "type": "message",
+    "subject": "match",
+    "sn": 1753480080178,
+    "data": {
+      "symbol": "XBTUSDTM",
+      "sequence": 1753480080178,
+      "makerUserId": "61378bd77513280006cfb4d5",
+      "side": "sell",
+      "size": 1,
+      "price": "68253",
+      "takerOrderId": "186751975256322048",
+      "takerUserId": "625849707a2dd9000122a893",
+      "makerOrderId": "186751885837869056",
+      "tradeId": "1753480080178",
+      "ts": 1717338342597000000
+    }
+  },
+  {
+    "topic": "/contractMarket/execution:XBTUSDTM",
+    "type": "message",
+    "subject": "match",
+    "sn": 1753480069830,
+    "data": {
+      "symbol": "XBTUSDTM",
+      "sequence": 1753480069830,
+      "makerUserId": "65084a4d1916210001ecd8c2",
+      "side": "buy",
+      "size": 1,
+      "price": "68253.1",
+      "takerOrderId": "186751947703844864",
+      "takerUserId": "62befe15721d8d000119f7c8",
+      "makerOrderId": "186751885758177281",
+      "tradeId": "1753480069830",
+      "ts": 1717338336018000000
+    }
+  },
+  {
+    "id": "6436407080",
+    "type": "ack"
+  },
+  {
+    "id": "roYN7sTnzU",
+    "type": "welcome"
+  }
+]

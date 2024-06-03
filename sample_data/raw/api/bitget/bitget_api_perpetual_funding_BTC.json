@@ -1,0 +1,86 @@
+[
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253534396,
+    "data": [
+      {
+        "symbol": "BTCUSDT",
+        "fundingRate": "0.000121",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253534397,
+    "data": [
+      {
+        "symbol": "BTCUSD",
+        "fundingRate": "0.000118",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253534383,
+    "data": [
+      {
+        "symbol": "BTCPERP",
+        "fundingRate": "0.0006",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253519033,
+    "data": [
+      {
+        "symbol": "BTCPERP",
+        "fundingRate": "0.0006",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253519028,
+    "data": []
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253519025,
+    "data": []
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253519014,
+    "data": [
+      {
+        "symbol": "BTCUSD",
+        "fundingRate": "0.000118",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253519007,
+    "data": [
+      {
+        "symbol": "BTCUSDT",
+        "fundingRate": "0.000121",
+        "fundingTime": "1717228800000"
+      }
+    ]
+  }
+]

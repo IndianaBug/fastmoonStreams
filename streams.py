@@ -8,132 +8,146 @@ client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_sec
 
 ws = {
     # "binance" : [
-        # "spot.depth.BTCUSDT.snap", 
-        # "spot.depth.BTCFDUSD.snap", 
-        # "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD", 
-        # "perpetual.depth.BTCUSDT.snap", 
-    #     "perpetual.depth.BTCUSD_PERP.snap", 
-    #     "perpetual.trades.BTCUSDT.BTCUSDC", 
-    #     "perpetual.liquidations.BTCUSDT.BTCUSDC",
-    #     "perpetual.trades.BTCUSD_PERP", 
-    #     "perpetual.liquidations.BTCUSD_PERP",
-    #     "option.trades.BTC",
+    #     "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
+    #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
+    #     "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
+    #     "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
+    #     "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+    #     "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
+    #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
+    #     "perpetual.trades.BTCUSD_PERP",                                   # ok
+    #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
+    #     "option.trades.BTC",                                              # ok
+    #     ],
+    # "bybit" : [
+        # "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
+        # "spot.depth.BTCUSDT.snap",                                          # ok ok
+        # "spot.depth.BTCUSDC.snap",                                          # ok ok 
+        # "perpetual.depth.BTCUSDT.snap",                                     # ok ok
+        # "perpetual.depth.BTCUSD.snap",                                      # ok ok
+        # "perpetual.trades.BTCUSDT.BTCPERP",                                 # ok
+        # "perpetual.trades.BTCUSD",                                          # ok
+        # "perpetual.liquidations.BTCUSDT.BTCPERP",                           # ok
+        # "perpetual.liquidations.BTCUSD",                                    # ok
+        # "option.trades.BTC",                                                # ok
         # ],
-    "bybit" : [
-        # "spot.trades.BTCUSDT.BTCUSDC",
-    #     "spot.depth.BTCUSDT.snap", 
-        # "spot.depth.BTCUSDC.snap", 
-    #     "perpetual.depth.BTCUSDT.snap", 
-    #     "perpetual.depth.BTCUSD.snap", 
-    #     "perpetual.trades.BTCUSDT.BTCPERP", 
-        # "perpetual.trades.BTCUSD", 
-        # "perpetual.liquidations.BTCUSDT.BTCPERP", 
-    #     "perpetual.liquidations.BTCUSD", 
-    #     "option.trades.BTC",
-        ],
-    "okx" : [
-        # "spot.depth.BTC-USDT.snap", 
-        # "spot.trades.BTC-USDT.BTC-USDC",
-        # "perpetual.depth.BTC-USDT-SWAP.snap", 
-        # "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP", 
-        # "perpetual.liquidations.SWAP.FUTURES.OPTION",
-        # "option.optionTrades.BTC-USD",
-        ],
-    "deribit" : [
-        # "perpetual.depth.BTC-PERPETUAL.snap", 
-    #     "future.tradesagg.BTC",
-    #     "option.tradesagg.BTC", 
-        # "perpetual.heartbeats.BTC",
-        # "perpetual.heartbeats.BTC-PERPETUAL"     
-        ],
-    "bitget" : [
-        # "spot.depth.BTCUSDT.snap", 
-        # "perpetual.trades.BTCUSDT.BTCUSDC",
-        # "perpetual.depth.BTCUSDT.snap", 
-        # "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",
-        ],
-    "bingx" : [
-        # "spot.trades.BTC-USDT", 
-        # "perpetual.trades.BTC-USDT",
-        # "spot.depth.BTC-USDT"
-        ],
-    "kucoin" : [
-        # "spot.depth.BTC-USDT.snap", 
-    #     "spot.trades.BTC-USDT",
-    #     "perpetual.depth.XBTUSDTM.snap", 
-    #     "perpetual.trades.XBTUSDTM",
-        ],
-    "gateio" : [
-        # "spot.depth.BTC_USDT.snap", 
-        # "spot.trades.BTC_USDT",
-        # "perpetual.depth.BTC_USDT.snap", 
-        # "perpetual.trades.BTC_USDT", 
-        ],
-    "mexc" : [
-        # "spot.depth.BTCUSDT.snap", 
-    #     "spot.trades.BTCUSDT",
-    #    "perpetual.depth.BTC_USDT.snap",  
-    #     "perpetual.trades.BTC_USDT",
-        ],
-    "coinbase" : [
-        # "spot.depth.BTC-USD.snap", 
-        # "spot.trades.BTC-USD", 
-        # "spot.heartbeats.BTC-USD",
-        ],
+    # "okx" : [
+    #     "spot.depth.BTC-USDT.snap",                                             # ok ok
+    #     "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
+    #     "perpetual.depth.BTC-USDT-SWAP.snap",                                   # ok ok 
+    #     "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP",            # ok
+    #     "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
+    #     "option.optionTrades.BTC-USD",                                          # ok
+    #     ],
+    # "deribit" : [                                                               
+    #     "perpetual.heartbeats.BTC-PERPETUAL",                                   # ok 
+    #     "perpetual.depth.BTC-PERPETUAL.snap",                                   # ok # ok 
+    #     "future.tradesagg.BTC",                                                 # ok
+    #     "option.tradesagg.BTC",                                                 # ok
+    #     # liquidations                                                          # ok
+    #     ],
+    # "bitget" : [
+    #     "spot.depth.BTCUSDT.snap",                                              # ok ok
+    #     "spot.trades.BTCUSDT.BTCUSDC",                                          # ok
+    #     "perpetual.depth.BTCUSDT.snap",                                         # ok ok
+    #     "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",                              # ok
+    #     ],
+    # "bingx" : [
+    #     "spot.trades.BTC-USDT",                                                 # ok
+    #     "perpetual.trades.BTC-USDT",                                            # ok
+    #     "spot.depth.BTC-USDT.snap"                                              # ok ok
+    #     ],
+    # "kucoin" : [
+    #     "spot.depth.BTC-USDT.snap",                                             # ok ok
+    #     "spot.trades.BTC-USDT",                                                 # ok
+    #     "perpetual.depth.XBTUSDTM.snap",                                        # ok ok
+    #     "perpetual.trades.XBTUSDTM",                                            # ok
+    #     ],
+    # "gateio" : [
+    #     "spot.depth.BTC_USDT.snap",                                             # ok ok
+    #     "spot.trades.BTC_USDT",                                                 # ok
+    #     "perpetual.depth.BTC_USDT.snap",                                        # api ok ok
+    #     "perpetual.trades.BTC_USDT",                                            # ok
+    #     # liquidations                                                          # ok
+    #     ],
+    # "mexc" : [
+    #     "spot.depth.BTCUSDT.snap",                                              # ok ok
+    #     "spot.trades.BTCUSDT",                                                  # ok
+    #    "perpetual.depth.BTC_USDT.snap",                                         # api ok
+    #     "perpetual.trades.BTC_USDT",                                            # ok
+    #     ],
+    # "coinbase" : [
+    #     "spot.depth.BTC-USD.snap",                                              # ok ok
+    #     "spot.trades.BTC-USD",                                                  # ok
+    #     "spot.heartbeats.BTC-USD",                                              # ok
+    #     ],
 }
 
 api = {
-    "binance" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
-        "option.oi.BTC.15.spec",
-        ],
-    "bybit" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.gta.BTC.15.spec",
-        "option.oioption.BTC.15"
-        ],
-    "okx" : [
-        "perpetual.oi.BTC.15.spec", 
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.gta.BTC.15",
-        "option.oi.BTC-USD.15",
-        ],
-    "deribit" : [
-        "future.oifunding.BTC.15",  
-        "option.oifunding.BTC.15",
-        ],
-    "bitget" : [
-        "perpetual.funding.BTC.15.spec", 
-        "perpetual.oi.BTC.15.spec", 
-    ],
-    "bingx" : [
-        "perpetual.funding.BTC-USDT.15", 
-        "perpetual.oi.BTC-USDT.15",  
-        "perpetual.depth.BTC-USDT.30",  
-        ],
-    "kucoin" : [
-        "perpetual.oifunding.XBTUSDTM.15",
-        ],
-    "gateio" : [
-        "perpetual.funding.BTC.20.spec",  
-        "perpetual.oi.BTC.20.spec",    
-        "perpetual.tta.BTC.20.spec",    
-        "option.oi.BTC_USDT.20",
-        ],
-    "mexc" : [
-        "perpetual.oifunding.BTC_USDT.15",
-        ],
-    "htx" : [
-        "perpetual.oi.BTC.20.spec", 
-        "perpetual.funding.BTC.60.spec", 
-        "perpetual.gta.BTC.60.spec",
-        ],
+    # "binance" : [
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15.spec",         # nein
+    #     "option.oi.BTC.15.spec",
+    #     ],
+    # "bybit" : [                               # ok
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15.spec",
+    #     "option.oioption.BTC.15"
+    #     ],
+    # "okx" : [                                # ok
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15",
+    #     "option.oi.BTC-USD.15",
+    #     ],
+    # "deribit" : [
+    #     "future.oifunding.BTC.60",            # ok
+    #     "option.oifunding.BTC.60",
+    #     ],
+    # "bitget" : [                               # ok
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    # ],
+    # "bingx" : [                                 # ok
+    #     "perpetual.funding.BTC-USDT.15", 
+    #     "perpetual.oi.BTC-USDT.15",  
+    #     "perpetual.depth.BTC-USDT.30",  
+    #     ],
+    # "kucoin" : [
+    #     "perpetual.oifunding.XBTUSDTM.15",          # ok
+    #     ],
+    # "gateio" : [
+    #     "perpetual.funding.BTC.20.spec",  
+    #     "perpetual.oi.BTC.20.spec",    
+    #     "perpetual.tta.BTC.20.spec",    
+    #     "option.oi.BTC_USDT.60",            # nothing here
+    #     ],
+    # "mexc" : [                               # ok
+    #     "perpetual.oifunding.BTC_USDT.15",
+    #     ],
+    # "htx" : [                                # ok
+    #     "perpetual.oi.BTC.20.spec", 
+    #     "perpetual.funding.BTC.60.spec", 
+    #     "perpetual.gta.BTC.60.spec",
+    #     ],
 }
 
+
 connectionData = client.build_connection_data(ws, api)
+
+# c = 0
+# for e in connectionData:
+#     c +=1
+#     print(e)
+#     if c == 1000:
+#         break
+
+
+import asyncio
+# data = next(data for data in connectionData if "binance_ws_perpetual" in data.get("id_ws"))
+# print(data)
 
 # for e in connectionData:
 #     print("----")

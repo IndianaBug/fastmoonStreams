@@ -52,7 +52,7 @@ class CommunicationsManager:
             response = requests.get(connection_data.get("url"), params=connection_data.get("params"), headers=connection_data.get("headers"))
             if response.status_code == 200:
                 try:
-                    return json.load(response)
+                    return response.text
                 except Exception as e:
                     print(e)
                     
@@ -71,7 +71,7 @@ class CommunicationsManager:
         headers = connection_data.get("headers")
         payload = connection_data.get("payload")
         response = requests.request("GET", url, headers=headers, data=payload)
-        return json.load(response)
+        return response
 
     @classmethod
     def make_httpRequest(cls, connection_data):
@@ -84,7 +84,7 @@ class CommunicationsManager:
             connection_data.get("headers"),
             )
         res = conn.getresponse()
-        response = json.loads(res.read())
+        response = res.read().decode()
         return response
         
     @classmethod
@@ -1268,12 +1268,17 @@ class bingx(CommunicationsManager, bingxInfo):
                                 "exchange":"bingx", 
                                 "instruments": symbol_names[0],
                                 "instTypes": instTypes[0],
-                                "objectives":objectives[0], 
+                                "objective":objectives[0], 
                                 "url" : endpoint,
                                 "msg" : message,
                                 "msg_method" : partial(self.build_bingx_ws_message, instTypes[0], objectives[0], symbols[0]),
                                 "exchange_symbols" : symbols,
                             }
+        
+        if needSnap is True:
+            connection_data["id_api_2"] = f"bingx_api_{instTypes[0]}_{objectives[0]}_{symbol_names[0]}"
+            connection_data["1stBooksSnapMethod"] = partial(self.bingx_fetch, instTypes[0], objectives[0], symbols[0])
+
         connection_data["topic_name"] = connection_data["id_ws"]
 
         return connection_data
@@ -1521,7 +1526,7 @@ class deribit(CommunicationsManager, deribitInfo):
                     "jsonrpc": "2.0", 
                     "id": generate_random_integer(10),
                     "method": "/public/set_heartbeat",
-                    "params": {"interval" : 5}
+                    "params": {"interval" :11}
             }
         if "heartbeats" not in objectives:
             for par in paramss:
@@ -1542,6 +1547,7 @@ class deribit(CommunicationsManager, deribitInfo):
                 "type" : "api",
                 "id_api" : f"deribit_api_{instType}_{objective}_{symbol_name}",
                 "exchange":"deribit", 
+                "symbol": symbol,
                 "instrument": symbol_name,
                 "instType": instType,
                 "objective": objective, 
@@ -1999,7 +2005,7 @@ class gateio(CommunicationsManager, gateioInfo):
                 "objective": objective, 
                 "pullTimeout" : pullTimeout,
                 "aiohttpMethod" : None,
-                "exchange_symbols" : symbol,
+                "exchange_symbol" : symbol,
                 "api_call_manager" : "",
                 "coroutine_manager" : False,
                 "is_special" : special_method,

@@ -26,42 +26,21 @@ class ExchangeAPIClient():
                     setattr(self, method_name, getattr(client, method_name))
         self.onm = MessageProcessor.on_message(**on_message_kwargs) if on_message_kwargs != None else MessageProcessor.on_message()
 
-    def build_connection_data_test(self, wss={}, apis={}):
-        d = []
-        for exchange in wss:
-            for ws in wss[exchange]:
-                try:
-                    connData = self.get_method_connData("ws", exchange, ws)
-                except:
-                    connData = exchange + " " + ws +" is fucked"
-                d.append(connData)
-        for exchange in apis:
-            for api in apis[exchange]:
-                try:
-                    connData = self.get_method_connData("api", exchange, api)
-                except Exception as e:
-                    print(exchange + " " + api +" is fucked")
-                    connData = exchange + " " + api +" is fucked"
-                d.append(connData)
-        return d
-
-
-
     def build_connection_data(self, wss={}, apis={}):
         d = []
         for exchange in wss:
             for ws in wss[exchange]:
                 connData = self.get_method_connData("ws", exchange, ws)
-                meth = self.populate_with_on_message(connData.get("id_ws"))
+                meth = self.populate_with_on_message(connData)
                 connData["on_message_method_ws"] = meth
                 if "id_api_2" in connData:
-                    meth = self.populate_with_on_message(connData.get("id_api_2"))
+                    meth = self.populate_with_on_message(connData, True)
                     connData["on_message_method_api_2"] = meth
                 d.append(connData)
         for exchange in apis:
             for api in apis[exchange]:
                 connData = self.get_method_connData("api", exchange, api)
-                meth = self.populate_with_on_message(connData.get("id_api"))
+                meth = self.populate_with_on_message(connData)
                 connData["on_message_method_api"] = meth
                 d.append(connData)
         return d
@@ -110,8 +89,7 @@ class ExchangeAPIClient():
             return  function(instTypes, objectives, symbols, needSnap)
         if type_ == "api":
             return  function(instTypes[0], objectives[0], symbols[0], pullTimeout, special_method)
-        
-        
+         
     def get_methods(self):
         return [method for method in dir(self) if callable(getattr(self, method)) and not method.startswith("__")]
 
@@ -160,31 +138,32 @@ class ExchangeAPIClient():
                             merged_dict[key][sub_key] += sub_value
         return merged_dict
 
-    def populate_with_on_message(self, id):
+    def populate_with_on_message(self, connection_data, api_2=False):
+        """ attaches on_message_method to the connection data dictionary"""
         on_methods = self.onm.get_methods()
-        idlist = id.split("_")[:-1]
-        # print(on_methods)
+        type_ = connection_data.get("type") if api_2 is False else "api"
+        exchange = connection_data.get("exchange")
+        standarized_margin = connection_data.get("standarized_margin", exchange)
+        inst_type = connection_data.get("instTypes") if "instTypes" in connection_data else connection_data.get("instType")
+        objective = connection_data.get("objective")
+        items_to_check = inst_type.split("_") + [type_, standarized_margin, objective, exchange]
         for method in on_methods:
-            for ident in idlist:
-                if ident in method:
-                    T = True
-                if ident not in method:
-                    T = False
-                    break
-                if ident == idlist[-1] and T == True:
-                    return getattr(self.onm, method)
+            is_method = all(id_ in method for id_ in items_to_check)
+            if is_method:
+                return getattr(self.onm, method)
+
                 
-    def populate_with_flow(self, id_):
-        if "depth" in id_:
-            return Flow.booksflow
-        if "trades" in id_:
-            return Flow.tradesflow
-        if "option" in id_ and "oi" in id_:
-            return Flow.Ooiflow
-        if "oi" in _id and "opiton" not in id_:
-            return Flow.oiflow
-        if "liquidations" in id_:
-            return Flow.liquidationsflow
+    # def populate_with_flow(self, id_):
+    #     if "depth" in id_:
+    #         return Flow.booksflow
+    #     if "trades" in id_:
+    #         return Flow.tradesflow
+    #     if "option" in id_ and "oi" in id_:
+    #         return Flow.Ooiflow
+    #     if "oi" in _id and "opiton" not in id_:
+    #         return Flow.oiflow
+    #     if "liquidations" in id_:
+    #         return Flow.liquidationsflow
             
             
 

@@ -1,0 +1,142 @@
+[
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253535559,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDU24",
+          "size": "249.626"
+        }
+      ],
+      "ts": "1717253535559"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253535426,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDT",
+          "size": "99498.275"
+        }
+      ],
+      "ts": "1717253535426"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253535394,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCPERP",
+          "size": "211.0312"
+        }
+      ],
+      "ts": "1717253535395"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253535385,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSD",
+          "size": "12344.919"
+        }
+      ],
+      "ts": "1717253535386"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253535381,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDM24",
+          "size": "802.853"
+        }
+      ],
+      "ts": "1717253535381"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253520083,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDU24",
+          "size": "249.626"
+        }
+      ],
+      "ts": "1717253520083"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253520022,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDT",
+          "size": "99502.439"
+        }
+      ],
+      "ts": "1717253520023"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253520039,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCPERP",
+          "size": "211.0312"
+        }
+      ],
+      "ts": "1717253520040"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253520025,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSDM24",
+          "size": "802.853"
+        }
+      ],
+      "ts": "1717253520025"
+    }
+  },
+  {
+    "code": "00000",
+    "msg": "success",
+    "requestTime": 1717253520015,
+    "data": {
+      "openInterestList": [
+        {
+          "symbol": "BTCUSD",
+          "size": "12344.919"
+        }
+      ],
+      "ts": "1717253520015"
+    }
+  }
+]

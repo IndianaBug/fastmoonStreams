@@ -1,0 +1,152 @@
+[
+  {
+    "symbol": "BTCUSDT_240628",
+    "openInterest": "2537.644",
+    "time": 1717253534031
+  },
+  {
+    "symbol": "BTCUSDC",
+    "openInterest": "3768.561",
+    "time": 1717253529456
+  },
+  {
+    "symbol": "BTCUSD_240927",
+    "pair": "BTCUSD",
+    "openInterest": "2828526",
+    "contractType": "NEXT_QUARTER",
+    "time": 1717253498749
+  },
+  {
+    "symbol": "BTCUSD_240628",
+    "pair": "BTCUSD",
+    "openInterest": "2415204",
+    "contractType": "CURRENT_QUARTER",
+    "time": 1717253526274
+  },
+  {
+    "symbol": "BTCUSD_PERP",
+    "pair": "BTCUSD",
+    "openInterest": "15617585",
+    "contractType": "PERPETUAL",
+    "time": 1717253533000
+  },
+  {
+    "symbol": "BTCUSDT",
+    "openInterest": "76555.413",
+    "time": 1717253536091
+  },
+  {
+    "symbol": "BTCDOMUSDT",
+    "openInterest": "2183.981",
+    "time": 1717253498122
+  },
+  {
+    "symbol": "BTCUSDT_240927",
+    "openInterest": "874.863",
+    "time": 1717253526256
+  },
+  {
+    "code": -4108,
+    "msg": "Symbol is on delivering or delivered or settling or closed or pre-trading."
+  },
+  {
+    "symbol": "BTCUSDC",
+    "openInterest": "3769.459",
+    "time": 1717253514174
+  },
+  {
+    "symbol": "BTCUSDT_240628",
+    "openInterest": "2537.643",
+    "time": 1717253515902
+  },
+  {
+    "symbol": "BTCUSD_240927",
+    "pair": "BTCUSD",
+    "openInterest": "2828549",
+    "contractType": "NEXT_QUARTER",
+    "time": 1717253420048
+  },
+  {
+    "symbol": "BTCUSD_240628",
+    "pair": "BTCUSD",
+    "openInterest": "2415131",
+    "contractType": "CURRENT_QUARTER",
+    "time": 1717253495695
+  },
+  {
+    "code": -4108,
+    "msg": "Symbol is on delivering or delivered or settling or closed or pre-trading."
+  },
+  {
+    "symbol": "BTCDOMUSDT",
+    "openInterest": "2183.981",
+    "time": 1717253498122
+  },
+  {
+    "symbol": "BTCUSD_PERP",
+    "pair": "BTCUSD",
+    "openInterest": "15617616",
+    "contractType": "PERPETUAL",
+    "time": 1717253500224
+  },
+  {
+    "symbol": "BTCUSDT_240927",
+    "openInterest": "874.866",
+    "time": 1717253502847
+  },
+  {
+    "symbol": "BTCUSDT",
+    "openInterest": "76553.420",
+    "time": 1717253516988
+  },
+  {
+    "symbol": "BTCUSDC",
+    "openInterest": "3768.259",
+    "time": 1717253502859
+  },
+  {
+    "code": -4108,
+    "msg": "Symbol is on delivering or delivered or settling or closed or pre-trading."
+  },
+  {
+    "symbol": "BTCUSDT",
+    "openInterest": "76553.717",
+    "time": 1717253504947
+  },
+  {
+    "symbol": "BTCUSD_240628",
+    "pair": "BTCUSD",
+    "openInterest": "2415131",
+    "contractType": "CURRENT_QUARTER",
+    "time": 1717253495695
+  },
+  {
+    "symbol": "BTCUSD_PERP",
+    "pair": "BTCUSD",
+    "openInterest": "15618459",
+    "contractType": "PERPETUAL",
+    "time": 1717253468825
+  },
+  {
+    "symbol": "BTCUSDT_240927",
+    "openInterest": "874.866",
+    "time": 1717253499017
+  },
+  {
+    "symbol": "BTCUSD_240927",
+    "pair": "BTCUSD",
+    "openInterest": "2828549",
+    "contractType": "NEXT_QUARTER",
+    "time": 1717253420048
+  },
+  {
+    "symbol": "BTCUSDT_240628",
+    "openInterest": "2537.623",
+    "time": 1717253498972
+  },
+  {
+    "symbol": "BTCDOMUSDT",
+    "openInterest": "2183.981",
+    "time": 1717253498122
+  }
+]

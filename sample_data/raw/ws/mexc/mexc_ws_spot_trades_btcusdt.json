@@ -1,0 +1,892 @@
+[
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.058831",
+          "S": 2,
+          "t": 1717338525040
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338525042
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.74",
+          "v": "0.065992",
+          "S": 1,
+          "t": 1717338524940
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338524943
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.936232",
+          "S": 2,
+          "t": 1717338524796
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338524797
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.52",
+          "v": "0.021070",
+          "S": 2,
+          "t": 1717338523902
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523904
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.60",
+          "v": "0.098930",
+          "S": 2,
+          "t": 1717338523902
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523904
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.019614",
+          "S": 2,
+          "t": 1717338523771
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523772
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.002974",
+          "S": 2,
+          "t": 1717338523755
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523770
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.10",
+          "v": "0.066872",
+          "S": 2,
+          "t": 1717338523723
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523725
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68345.64",
+          "v": "0.469118",
+          "S": 2,
+          "t": 1717338523558
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523560
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.09",
+          "v": "0.464784",
+          "S": 2,
+          "t": 1717338523558
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523560
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.58",
+          "v": "0.243846",
+          "S": 2,
+          "t": 1717338523558
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523560
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.50",
+          "v": "0.220613",
+          "S": 2,
+          "t": 1717338523558
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523560
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.037360",
+          "S": 2,
+          "t": 1717338523558
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523559
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.09",
+          "v": "0.000570",
+          "S": 2,
+          "t": 1717338523552
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523554
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.009616",
+          "S": 2,
+          "t": 1717338523502
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523504
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.002998",
+          "S": 2,
+          "t": 1717338523392
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523394
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.003012",
+          "S": 2,
+          "t": 1717338523385
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523387
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.59",
+          "v": "0.002934",
+          "S": 2,
+          "t": 1717338523346
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523348
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.60",
+          "v": "0.003002",
+          "S": 2,
+          "t": 1717338523252
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523254
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.58",
+          "v": "0.000063",
+          "S": 2,
+          "t": 1717338523165
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523173
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.002868",
+          "S": 2,
+          "t": 1717338523165
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523173
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.227638",
+          "S": 2,
+          "t": 1717338523164
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523166
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.003107",
+          "S": 2,
+          "t": 1717338523095
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523097
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.66",
+          "v": "0.002960",
+          "S": 2,
+          "t": 1717338523056
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338523058
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.67",
+          "v": "0.029931",
+          "S": 2,
+          "t": 1717338522325
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522338
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.70",
+          "v": "0.441360",
+          "S": 2,
+          "t": 1717338522186
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522201
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.67",
+          "v": "0.193930",
+          "S": 2,
+          "t": 1717338522186
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522201
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.521539",
+          "S": 2,
+          "t": 1717338522186
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522201
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.74",
+          "v": "0.000200",
+          "S": 1,
+          "t": 1717338522160
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522163
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.73",
+          "v": "0.000125",
+          "S": 2,
+          "t": 1717338522013
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338522017
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68357.00",
+          "v": "0.002998",
+          "S": 1,
+          "t": 1717338521381
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338521383
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68356.99",
+          "v": "0.106292",
+          "S": 2,
+          "t": 1717338521317
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338521319
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68357.00",
+          "v": "0.138313",
+          "S": 1,
+          "t": 1717338521280
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338521282
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68357.00",
+          "v": "0.002436",
+          "S": 1,
+          "t": 1717338521164
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338521166
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.88",
+          "v": "0.015044",
+          "S": 1,
+          "t": 1717338520378
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338520380
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.80",
+          "v": "0.488450",
+          "S": 1,
+          "t": 1717338520378
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338520380
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.79",
+          "v": "0.002927",
+          "S": 2,
+          "t": 1717338520167
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338520172
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.80",
+          "v": "0.003527",
+          "S": 1,
+          "t": 1717338520167
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338520172
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.79",
+          "v": "0.004266",
+          "S": 2,
+          "t": 1717338519792
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338519793
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.79",
+          "v": "0.002927",
+          "S": 2,
+          "t": 1717338519663
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338519665
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68352.79",
+          "v": "0.074088",
+          "S": 2,
+          "t": 1717338519496
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338519498
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68349.99",
+          "v": "0.005715",
+          "S": 1,
+          "t": 1717338519182
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338519186
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68346.48",
+          "v": "0.003012",
+          "S": 1,
+          "t": 1717338518901
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338518904
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.000400",
+          "S": 1,
+          "t": 1717338518163
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338518165
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.066872",
+          "S": 1,
+          "t": 1717338518025
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338518027
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.019614",
+          "S": 1,
+          "t": 1717338517517
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338517519
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.034199",
+          "S": 1,
+          "t": 1717338517163
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338517165
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.003038",
+          "S": 1,
+          "t": 1717338516866
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338516867
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.11",
+          "v": "0.039721",
+          "S": 2,
+          "t": 1717338516852
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338516854
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68340.12",
+          "v": "0.154022",
+          "S": 1,
+          "t": 1717338516581
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338516583
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68318.00",
+          "v": "0.005311",
+          "S": 1,
+          "t": 1717338515160
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338515162
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68318.00",
+          "v": "0.106292",
+          "S": 1,
+          "t": 1717338514361
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338514364
+  },
+  {
+    "id": 0,
+    "code": 0,
+    "msg": "PONG"
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68318.00",
+          "v": "0.074088",
+          "S": 1,
+          "t": 1717338514095
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338514097
+  },
+  {
+    "id": 0,
+    "code": 0,
+    "msg": "spot@public.deals.v3.api@BTCUSDT"
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68318.00",
+          "v": "1.156829",
+          "S": 1,
+          "t": 1717338513245
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338513247
+  },
+  {
+    "c": "spot@public.deals.v3.api@BTCUSDT",
+    "d": {
+      "deals": [
+        {
+          "p": "68318.00",
+          "v": "0.058831",
+          "S": 1,
+          "t": 1717338513646
+        }
+      ],
+      "e": "spot@public.deals.v3.api"
+    },
+    "s": "BTCUSDT",
+    "t": 1717338513647
+  }
+]

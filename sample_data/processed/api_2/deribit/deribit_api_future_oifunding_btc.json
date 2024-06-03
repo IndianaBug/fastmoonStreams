@@ -1,0 +1,38 @@
+[
+  {
+    "BTC-PERPETUAL@perpetual@deribit": {
+      "symbol": "BTC-PERPETUAL",
+      "oi": 11445.782875376706,
+      "funding": 6.85e-06
+    },
+    "BTC-28JUN24@future@deribit": {
+      "symbol": "BTC-28JUN24",
+      "oi": 192.77267151214323
+    },
+    "BTC-28MAR25@future@deribit": {
+      "symbol": "BTC-28MAR25",
+      "oi": 157.22015245523843
+    },
+    "BTC-7JUN24@future@deribit": {
+      "symbol": "BTC-7JUN24",
+      "oi": 1.4808580039000176
+    },
+    "BTC-27SEP24@future@deribit": {
+      "symbol": "BTC-27SEP24",
+      "oi": 144.79004431838328
+    },
+    "BTC-27DEC24@future@deribit": {
+      "symbol": "BTC-27DEC24",
+      "oi": 275.57179223541925
+    },
+    "BTC-14JUN24@future@deribit": {
+      "symbol": "BTC-14JUN24",
+      "oi": 0.0
+    },
+    "BTC-26JUL24@future@deribit": {
+      "symbol": "BTC-26JUL24",
+      "oi": 0.0
+    },
+    "timestamp": "2024-06-01 18:47:10"
+  }
+]

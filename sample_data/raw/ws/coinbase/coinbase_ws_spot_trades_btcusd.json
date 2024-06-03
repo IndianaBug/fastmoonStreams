@@ -1,0 +1,2045 @@
+[
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:25.221422503Z",
+    "sequence_num": 44,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774433",
+            "price": "67879.48",
+            "size": "0.01458105",
+            "time": "2024-06-02T17:19:25.198902Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:23.72203904Z",
+    "sequence_num": 43,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774432",
+            "price": "67872.94",
+            "size": "0.00062713",
+            "time": "2024-06-02T17:19:23.661665Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:23.421610028Z",
+    "sequence_num": 42,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774431",
+            "price": "67877.82",
+            "size": "0.00000058",
+            "time": "2024-06-02T17:19:23.386586Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774430",
+            "price": "67872.9",
+            "size": "0.00146082",
+            "time": "2024-06-02T17:19:23.358406Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:23.121935286Z",
+    "sequence_num": 41,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774429",
+            "price": "67872.89",
+            "size": "0.00002602",
+            "time": "2024-06-02T17:19:23.084474Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:23.021567592Z",
+    "sequence_num": 40,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774428",
+            "price": "67872.9",
+            "size": "0.00002127",
+            "time": "2024-06-02T17:19:22.988188Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:22.522059924Z",
+    "sequence_num": 39,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774427",
+            "price": "67868.63",
+            "size": "0.0022",
+            "time": "2024-06-02T17:19:22.424766Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:22.321415645Z",
+    "sequence_num": 38,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774426",
+            "price": "67876.79",
+            "size": "0.00010313",
+            "time": "2024-06-02T17:19:22.303406Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774425",
+            "price": "67878.91",
+            "size": "0.00001929",
+            "time": "2024-06-02T17:19:22.302857Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774424",
+            "price": "67879.15",
+            "size": "0.01",
+            "time": "2024-06-02T17:19:22.302857Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774423",
+            "price": "67879.97",
+            "size": "0.00044196",
+            "time": "2024-06-02T17:19:22.302857Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774422",
+            "price": "67880",
+            "size": "0.00001465",
+            "time": "2024-06-02T17:19:22.302857Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774421",
+            "price": "67880",
+            "size": "0.000016",
+            "time": "2024-06-02T17:19:22.302857Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774420",
+            "price": "67884.02",
+            "size": "0.00014769",
+            "time": "2024-06-02T17:19:22.286814Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774419",
+            "price": "67884.12",
+            "size": "0.00000465",
+            "time": "2024-06-02T17:19:22.286814Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:21.221673948Z",
+    "sequence_num": 37,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774418",
+            "price": "67885.2",
+            "size": "0.00728968",
+            "time": "2024-06-02T17:19:21.199149Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:20.222564131Z",
+    "sequence_num": 36,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774417",
+            "price": "67888.02",
+            "size": "0.00379086",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774416",
+            "price": "67887.11",
+            "size": "0.07365169",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774415",
+            "price": "67886.61",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774414",
+            "price": "67886.6",
+            "size": "0.07959108",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774413",
+            "price": "67885.72",
+            "size": "0.00077368",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774412",
+            "price": "67885.69",
+            "size": "0.015",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774411",
+            "price": "67884.13",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:20.159116Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:20.12547092Z",
+    "sequence_num": 35,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774410",
+            "price": "67885.72",
+            "size": "0.00002616",
+            "time": "2024-06-02T17:19:20.08992Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:19.92181646Z",
+    "sequence_num": 34,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774409",
+            "price": "67884.13",
+            "size": "0.001397",
+            "time": "2024-06-02T17:19:19.898479Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:19.521654742Z",
+    "sequence_num": 33,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774408",
+            "price": "67888.01",
+            "size": "0.00576228",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774407",
+            "price": "67886.59",
+            "size": "0.07365225",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774406",
+            "price": "67886.58",
+            "size": "0.04419138",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774405",
+            "price": "67884.13",
+            "size": "0.00339409",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774404",
+            "price": "67884.13",
+            "size": "0.06",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774403",
+            "price": "67884.13",
+            "size": "0.05",
+            "time": "2024-06-02T17:19:19.422815Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:19.22147611Z",
+    "sequence_num": 32,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774402",
+            "price": "67884.12",
+            "size": "0.00911",
+            "time": "2024-06-02T17:19:19.147787Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:18.621236275Z",
+    "sequence_num": 31,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774401",
+            "price": "67888.02",
+            "size": "0.001",
+            "time": "2024-06-02T17:19:18.562299Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:18.421261568Z",
+    "sequence_num": 30,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774400",
+            "price": "67885.19",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:18.359344Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:18.020847563Z",
+    "sequence_num": 29,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774399",
+            "price": "67888.01",
+            "size": "0.03799",
+            "time": "2024-06-02T17:19:17.986961Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774398",
+            "price": "67888.01",
+            "size": "0.02078931",
+            "time": "2024-06-02T17:19:17.986532Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774397",
+            "price": "67888.08",
+            "size": "0.00016069",
+            "time": "2024-06-02T17:19:17.986532Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:17.921798703Z",
+    "sequence_num": 28,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774396",
+            "price": "67891.16",
+            "size": "0.00001925",
+            "time": "2024-06-02T17:19:17.813656Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:16.922207916Z",
+    "sequence_num": 27,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774395",
+            "price": "67892.01",
+            "size": "0.00472295",
+            "time": "2024-06-02T17:19:16.826469Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:16.821416329Z",
+    "sequence_num": 26,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774394",
+            "price": "67892",
+            "size": "0.00209256",
+            "time": "2024-06-02T17:19:16.761042Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774393",
+            "price": "67894.21",
+            "size": "0.01431202",
+            "time": "2024-06-02T17:19:16.727519Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:15.522219655Z",
+    "sequence_num": 25,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774392",
+            "price": "67895.09",
+            "size": "0.00073203",
+            "time": "2024-06-02T17:19:15.482365Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774391",
+            "price": "67895.12",
+            "size": "0.0002",
+            "time": "2024-06-02T17:19:15.420308Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:14.821293127Z",
+    "sequence_num": 24,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774390",
+            "price": "67896.51",
+            "size": "0.001764",
+            "time": "2024-06-02T17:19:14.793709Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:14.321554668Z",
+    "sequence_num": 23,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774389",
+            "price": "67896.72",
+            "size": "0.00728966",
+            "time": "2024-06-02T17:19:14.260158Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:13.821173494Z",
+    "sequence_num": 22,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774388",
+            "price": "67896.72",
+            "size": "0.00104938",
+            "time": "2024-06-02T17:19:13.707484Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:13.522477444Z",
+    "sequence_num": 21,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774387",
+            "price": "67896.72",
+            "size": "0.0002",
+            "time": "2024-06-02T17:19:13.418578Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774386",
+            "price": "67896.5",
+            "size": "0.0025",
+            "time": "2024-06-02T17:19:13.405713Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:13.221986059Z",
+    "sequence_num": 20,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774385",
+            "price": "67896.46",
+            "size": "0.00062612",
+            "time": "2024-06-02T17:19:13.143758Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:13.121862352Z",
+    "sequence_num": 19,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774384",
+            "price": "67896.72",
+            "size": "0.06",
+            "time": "2024-06-02T17:19:13.083427Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:12.521875714Z",
+    "sequence_num": 18,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774383",
+            "price": "67896.35",
+            "size": "0.0003",
+            "time": "2024-06-02T17:19:12.421435Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:11.821983644Z",
+    "sequence_num": 17,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774382",
+            "price": "67896.02",
+            "size": "0.0006",
+            "time": "2024-06-02T17:19:11.791112Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:11.121614404Z",
+    "sequence_num": 16,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774381",
+            "price": "67896.72",
+            "size": "0.00080892",
+            "time": "2024-06-02T17:19:11.036866Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:07.721792173Z",
+    "sequence_num": 13,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774378",
+            "price": "67896.63",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:07.649429Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774377",
+            "price": "67895.43",
+            "size": "0.07224382",
+            "time": "2024-06-02T17:19:07.649429Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:05.422084356Z",
+    "sequence_num": 6,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774360",
+            "price": "67904",
+            "size": "0.0001701",
+            "time": "2024-06-02T17:19:05.36588Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:07.120993781Z",
+    "sequence_num": 11,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774375",
+            "price": "67895.43",
+            "size": "0.0000316",
+            "time": "2024-06-02T17:19:07.095115Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:04.121493527Z",
+    "sequence_num": 4,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774358",
+            "price": "67904.01",
+            "size": "0.000046",
+            "time": "2024-06-02T17:19:04.079565Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774357",
+            "price": "67904.01",
+            "size": "0.00001543",
+            "time": "2024-06-02T17:19:04.077079Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:06.325503737Z",
+    "sequence_num": 8,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774364",
+            "price": "67901.95",
+            "size": "0.00013306",
+            "time": "2024-06-02T17:19:06.294003Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774363",
+            "price": "67902",
+            "size": "0.00006694",
+            "time": "2024-06-02T17:19:06.294003Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774362",
+            "price": "67904",
+            "size": "0.0005799",
+            "time": "2024-06-02T17:19:06.23746Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:09.721091717Z",
+    "sequence_num": 15,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774380",
+            "price": "67897.31",
+            "size": "0.00000229",
+            "time": "2024-06-02T17:19:09.633391Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:07.221587146Z",
+    "sequence_num": 12,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774376",
+            "price": "67894.77",
+            "size": "0.0002844",
+            "time": "2024-06-02T17:19:07.193858Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:03.821797723Z",
+    "sequence_num": 3,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774356",
+            "price": "67905.09",
+            "size": "0.07363218",
+            "time": "2024-06-02T17:19:03.778076Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:05.721281996Z",
+    "sequence_num": 7,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774361",
+            "price": "67904.01",
+            "size": "0.00285961",
+            "time": "2024-06-02T17:19:05.704379Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:09.321858869Z",
+    "sequence_num": 14,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774379",
+            "price": "67896.02",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:09.254736Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:06.621545559Z",
+    "sequence_num": 10,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774374",
+            "price": "67892.53",
+            "size": "0.00054731",
+            "time": "2024-06-02T17:19:06.51934Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:03.690709066Z",
+    "sequence_num": 0,
+    "events": [
+      {
+        "type": "snapshot",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774351",
+            "price": "67910",
+            "size": "0.000016",
+            "time": "2024-06-02T17:19:03.537238Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774350",
+            "price": "67910.01",
+            "size": "0.0859117",
+            "time": "2024-06-02T17:19:03.537238Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774349",
+            "price": "67910.01",
+            "size": "0.01",
+            "time": "2024-06-02T17:19:03.526964Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774348",
+            "price": "67910.01",
+            "size": "0.0000883",
+            "time": "2024-06-02T17:19:03.387095Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774347",
+            "price": "67910.02",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:03.317655Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774346",
+            "price": "67911.96",
+            "size": "0.00013128",
+            "time": "2024-06-02T17:19:02.578503Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774345",
+            "price": "67910.33",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:02.473374Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774344",
+            "price": "67910.01",
+            "size": "0.00007539",
+            "time": "2024-06-02T17:19:02.091834Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774343",
+            "price": "67915.6",
+            "size": "0.0000716",
+            "time": "2024-06-02T17:19:01.946033Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774342",
+            "price": "67920.26",
+            "size": "0.14723147",
+            "time": "2024-06-02T17:19:01.80569Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774341",
+            "price": "67917.66",
+            "size": "0.00016069",
+            "time": "2024-06-02T17:19:01.80569Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774340",
+            "price": "67917.65",
+            "size": "0.00831015",
+            "time": "2024-06-02T17:19:01.80569Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774339",
+            "price": "67917.47",
+            "size": "0.00729681",
+            "time": "2024-06-02T17:19:01.80569Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774338",
+            "price": "67916.73",
+            "size": "0.07361956",
+            "time": "2024-06-02T17:19:01.80569Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774337",
+            "price": "67910.92",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:01.805456Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774336",
+            "price": "67915.03",
+            "size": "0.02196494",
+            "time": "2024-06-02T17:19:01.641735Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774335",
+            "price": "67915.77",
+            "size": "0.01564025",
+            "time": "2024-06-02T17:19:01.641735Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774334",
+            "price": "67918.19",
+            "size": "0.00016069",
+            "time": "2024-06-02T17:19:01.604546Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774333",
+            "price": "67922.12",
+            "size": "0.00688366",
+            "time": "2024-06-02T17:19:01.541584Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774332",
+            "price": "67922.12",
+            "size": "0.23538991",
+            "time": "2024-06-02T17:19:01.529409Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774331",
+            "price": "67922.12",
+            "size": "0.0341402",
+            "time": "2024-06-02T17:19:01.528712Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774330",
+            "price": "67922.12",
+            "size": "0.09165481",
+            "time": "2024-06-02T17:19:01.527761Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774329",
+            "price": "67927.29",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:01.500839Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774328",
+            "price": "67925.21",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:01.48225Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774327",
+            "price": "67918.18",
+            "size": "0.25929548",
+            "time": "2024-06-02T17:19:01.477303Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774326",
+            "price": "67918.18",
+            "size": "0.01792005",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774325",
+            "price": "67918.48",
+            "size": "0.00016069",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774324",
+            "price": "67920",
+            "size": "0.00007343",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774323",
+            "price": "67920",
+            "size": "0.000016",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774322",
+            "price": "67920.05",
+            "size": "0.03241615",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774321",
+            "price": "67923.45",
+            "size": "0.00764419",
+            "time": "2024-06-02T17:19:01.476683Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774320",
+            "price": "67923.45",
+            "size": "0.21082847",
+            "time": "2024-06-02T17:19:01.474935Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774319",
+            "price": "67923.46",
+            "size": "0.13108367",
+            "time": "2024-06-02T17:19:01.474935Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774318",
+            "price": "67924.95",
+            "size": "0.00025222",
+            "time": "2024-06-02T17:19:01.474935Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774317",
+            "price": "67925.85",
+            "size": "0.03775729",
+            "time": "2024-06-02T17:19:01.474935Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774316",
+            "price": "67925.85",
+            "size": "0.34804277",
+            "time": "2024-06-02T17:19:01.474411Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774315",
+            "price": "67927.1",
+            "size": "0.1",
+            "time": "2024-06-02T17:19:01.474411Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774314",
+            "price": "67930.11",
+            "size": "0.06968188",
+            "time": "2024-06-02T17:19:01.474411Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774313",
+            "price": "67930.11",
+            "size": "0.02481813",
+            "time": "2024-06-02T17:19:01.473391Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774312",
+            "price": "67932.43",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:01.473391Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774311",
+            "price": "67933.63",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:01.473391Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774310",
+            "price": "67935.36",
+            "size": "0.05756695",
+            "time": "2024-06-02T17:19:01.459636Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774309",
+            "price": "67935.36",
+            "size": "0.14163344",
+            "time": "2024-06-02T17:19:01.459422Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774308",
+            "price": "67938.37",
+            "size": "0.08831654",
+            "time": "2024-06-02T17:19:01.459422Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774307",
+            "price": "67924.72",
+            "size": "0.0677049",
+            "time": "2024-06-02T17:19:01.458938Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774306",
+            "price": "67924.72",
+            "size": "0.09234278",
+            "time": "2024-06-02T17:19:01.458431Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774305",
+            "price": "67924.89",
+            "size": "0.04",
+            "time": "2024-06-02T17:19:01.458431Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774304",
+            "price": "67925.84",
+            "size": "0.643",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774303",
+            "price": "67926.92",
+            "size": "0.44165911",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774302",
+            "price": "67928.77",
+            "size": "0.00002208",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774301",
+            "price": "67928.78",
+            "size": "0.00735386",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774300",
+            "price": "67929.05",
+            "size": "0.02206158",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774299",
+            "price": "67930.1",
+            "size": "0.1575",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774298",
+            "price": "67931.5",
+            "size": "0.00073198",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774297",
+            "price": "67931.94",
+            "size": "0.02",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774296",
+            "price": "67931.95",
+            "size": "0.22081079",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774295",
+            "price": "67933.14",
+            "size": "0.19920037",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774294",
+            "price": "67934.68",
+            "size": "0.00016069",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774293",
+            "price": "67935.34",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774292",
+            "price": "67935.35",
+            "size": "0.3320006",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774291",
+            "price": "67938.38",
+            "size": "0.08831652",
+            "time": "2024-06-02T17:19:01.457772Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774290",
+            "price": "67937.37",
+            "size": "0.02301541",
+            "time": "2024-06-02T17:19:01.45558Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774289",
+            "price": "67937.45",
+            "size": "0.1471942",
+            "time": "2024-06-02T17:19:01.45558Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774288",
+            "price": "67938.29",
+            "size": "0.00011745",
+            "time": "2024-06-02T17:19:01.45558Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774287",
+            "price": "67938.36",
+            "size": "0.02577",
+            "time": "2024-06-02T17:19:01.45558Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774286",
+            "price": "67938.37",
+            "size": "0.13696355",
+            "time": "2024-06-02T17:19:01.45558Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774285",
+            "price": "67938.97",
+            "size": "0.05836488",
+            "time": "2024-06-02T17:19:01.450631Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774284",
+            "price": "67939.4",
+            "size": "0.07197002",
+            "time": "2024-06-02T17:19:01.450631Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774283",
+            "price": "67939.41",
+            "size": "0.08814835",
+            "time": "2024-06-02T17:19:01.450631Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774282",
+            "price": "67939.41",
+            "size": "0.00725797",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774281",
+            "price": "67939.52",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774280",
+            "price": "67940.31",
+            "size": "0.073594",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774279",
+            "price": "67941.61",
+            "size": "0.01030227",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774278",
+            "price": "67941.79",
+            "size": "0.01030227",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774277",
+            "price": "67941.91",
+            "size": "0.01030227",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774276",
+            "price": "67942.16",
+            "size": "0.1649257",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774275",
+            "price": "67942.17",
+            "size": "0.01471793",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774274",
+            "price": "67942.33",
+            "size": "0.015",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774273",
+            "price": "67942.6",
+            "size": "0.00459759",
+            "time": "2024-06-02T17:19:01.450364Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774272",
+            "price": "67945.4",
+            "size": "0.00402108",
+            "time": "2024-06-02T17:19:01.083159Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774271",
+            "price": "67945.83",
+            "size": "0.00416447",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774270",
+            "price": "67945.64",
+            "size": "0.00153411",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774269",
+            "price": "67945.61",
+            "size": "0.015",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774268",
+            "price": "67945.57",
+            "size": "0.0001686",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774267",
+            "price": "67945.54",
+            "size": "0.02362813",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774266",
+            "price": "67945.51",
+            "size": "0.00850117",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774265",
+            "price": "67945.45",
+            "size": "0.00039252",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774264",
+            "price": "67945.45",
+            "size": "0.0072336",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774263",
+            "price": "67945.45",
+            "size": "0.01911884",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774262",
+            "price": "67945.43",
+            "size": "0.00672555",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774261",
+            "price": "67945.42",
+            "size": "0.1125",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774260",
+            "price": "67945.39",
+            "size": "0.03029459",
+            "time": "2024-06-02T17:19:00.64707Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774259",
+            "price": "67941.92",
+            "size": "0.00154193",
+            "time": "2024-06-02T17:18:59.043155Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774258",
+            "price": "67946.35",
+            "size": "0.01291612",
+            "time": "2024-06-02T17:18:58.662861Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774257",
+            "price": "67946.33",
+            "size": "0.01738732",
+            "time": "2024-06-02T17:18:58.662861Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774256",
+            "price": "67946.22",
+            "size": "0.00298298",
+            "time": "2024-06-02T17:18:58.662861Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774255",
+            "price": "67946.18",
+            "size": "0.00283103",
+            "time": "2024-06-02T17:18:58.662861Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774254",
+            "price": "67945.38",
+            "size": "0.01311277",
+            "time": "2024-06-02T17:18:57.875481Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774253",
+            "price": "67945.38",
+            "size": "0.00870142",
+            "time": "2024-06-02T17:18:57.875481Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774252",
+            "price": "67945.37",
+            "size": "0.01347776",
+            "time": "2024-06-02T17:18:57.875481Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "subscriptions",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:03.690787675Z",
+    "sequence_num": 1,
+    "events": [
+      {
+        "subscriptions": {
+          "market_trades": [
+            "BTC-USD"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:03.722161857Z",
+    "sequence_num": 2,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774355",
+            "price": "67904.01",
+            "size": "0.059",
+            "time": "2024-06-02T17:19:03.647076Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774354",
+            "price": "67904.01",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:03.647076Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774353",
+            "price": "67904.01",
+            "size": "0.06",
+            "time": "2024-06-02T17:19:03.647076Z",
+            "side": "SELL"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774352",
+            "price": "67904.01",
+            "size": "0.05",
+            "time": "2024-06-02T17:19:03.647076Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:04.821020967Z",
+    "sequence_num": 5,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774359",
+            "price": "67904.17",
+            "size": "0.03291563",
+            "time": "2024-06-02T17:19:04.713007Z",
+            "side": "SELL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "channel": "market_trades",
+    "client_id": "",
+    "timestamp": "2024-06-02T17:19:06.420905806Z",
+    "sequence_num": 9,
+    "events": [
+      {
+        "type": "update",
+        "trades": [
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774373",
+            "price": "67900",
+            "size": "0.00021969",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774372",
+            "price": "67900",
+            "size": "0.06885666",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774371",
+            "price": "67900",
+            "size": "0.015",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774370",
+            "price": "67900",
+            "size": "0.00029337",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774369",
+            "price": "67900",
+            "size": "0.00459642",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774368",
+            "price": "67900",
+            "size": "0.00273789",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774367",
+            "price": "67900",
+            "size": "0.00004393",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774366",
+            "price": "67901",
+            "size": "0.000016",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          },
+          {
+            "product_id": "BTC-USD",
+            "trade_id": "648774365",
+            "price": "67901.95",
+            "size": "0.00002763",
+            "time": "2024-06-02T17:19:06.381404Z",
+            "side": "BUY"
+          }
+        ]
+      }
+    ]
+  }
+]

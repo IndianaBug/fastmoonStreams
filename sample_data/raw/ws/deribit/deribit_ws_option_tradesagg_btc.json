@@ -1,0 +1,24 @@
+[
+  {
+    "jsonrpc": "2.0",
+    "id": 9627538509,
+    "result": [
+      "trades.option.BTC.100ms"
+    ],
+    "usIn": 1717349028086907,
+    "usOut": 1717349028087075,
+    "usDiff": 168,
+    "testnet": false
+  },
+  {
+    "jsonrpc": "2.0",
+    "id": 3082391367,
+    "result": [
+      "trades.option.BTC.100ms"
+    ],
+    "usIn": 1717348824418184,
+    "usOut": 1717348824418323,
+    "usDiff": 139,
+    "testnet": false
+  }
+]

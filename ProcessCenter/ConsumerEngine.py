@@ -4,7 +4,6 @@ import asyncio
 from typing import AsyncIterator
 import logging
 from logging.handlers import RotatingFileHandler
-import aiocouch
 import faust
 import backoff
 from .errors import faust_proceed_errors, faust_backup_errors, faust_message_errors, faust_shutdown_errors
@@ -15,41 +14,41 @@ from .db_connectors import PostgresConnector, MockdbConnector, AsyncClickHouseCo
 backoff_retries = 8
 
 
-async def handle_backoff(self, details):
-    """handles what to do on recoverable exceptions"""
-    exception = details['exception']
-    if isinstance(exception, aiocouch.exception.UnauthorizedError):
-        await self.couchdb_refresh_credentials()
-    elif isinstance(exception, aiocouch.exception.ConflictError):
-        await self.couchdb_merge_conflicts()
-    elif isinstance(exception, aiocouch.exception.ExpectationFailedError):
-        await self.couchdb_fix_request_header()
-    elif isinstance(exception, faust_message_errors):
-        await self.couchdb_fix_request_header()
+# async def handle_backoff(self, details):
+#     """handles what to do on recoverable exceptions"""
+#     exception = details['exception']
+#     if isinstance(exception, aiocouch.exception.UnauthorizedError):
+#         await self.couchdb_refresh_credentials()
+#     elif isinstance(exception, aiocouch.exception.ConflictError):
+#         await self.couchdb_merge_conflicts()
+#     elif isinstance(exception, aiocouch.exception.ExpectationFailedError):
+#         await self.couchdb_fix_request_header()
+#     elif isinstance(exception, faust_message_errors):
+#         await self.couchdb_fix_request_header()
         
-def faust_errors_wrapper(func):
-    """ pattern of couchdb and mochdb errors"""
-    @backoff.on_exception(
-        backoff.expo,
-        faust_backup_errors,
-        max_tries=backoff_retries, 
-        on_backoff=partial(handle_backoff)
-    )
-    async def wrapper(self, *args, **kwargs):
-        try:
-            await func(self, *args, **kwargs)
-        except faust_backup_errors as e:
-            self.logger.error("faust recoverable error: %s, retrying", e, exc_info=True)
-            raise
-        except (faust_message_errors, faust_proceed_errors):
-            self.logger.error("faust message error: %s", e, exc_info=True)
-            await self.faust_error_on_message()
-        except faust_shutdown_errors:
-            # Handle unrecoverable errors here (e.g., clean up resources, notify user)
-            pass
-    # async def wrapper_with_backoff(self, *args, **kwargs):
-    #     return await backoff.on_exception(backoff.expo, faust_backup_errors, max_tries=backoff_retries, on_backoff=partial(handle_backoff, self))(partial(wrapper, self), *args, **kwargs)
-    return wrapper
+# def faust_errors_wrapper(func):
+#     """ pattern of couchdb and mochdb errors"""
+#     @backoff.on_exception(
+#         backoff.expo,
+#         faust_backup_errors,
+#         max_tries=backoff_retries, 
+#         on_backoff=partial(handle_backoff)
+#     )
+#     async def wrapper(self, *args, **kwargs):
+#         try:
+#             await func(self, *args, **kwargs)
+#         except faust_backup_errors as e:
+#             self.logger.error("faust recoverable error: %s, retrying", e, exc_info=True)
+#             raise
+#         except (faust_message_errors, faust_proceed_errors):
+#             self.logger.error("faust message error: %s", e, exc_info=True)
+#             await self.faust_error_on_message()
+#         except faust_shutdown_errors:
+#             # Handle unrecoverable errors here (e.g., clean up resources, notify user)
+#             pass
+#     # async def wrapper_with_backoff(self, *args, **kwargs):
+#     #     return await backoff.on_exception(backoff.expo, faust_backup_errors, max_tries=backoff_retries, on_backoff=partial(handle_backoff, self))(partial(wrapper, self), *args, **kwargs)
+#     return wrapper
 
 
 
@@ -91,7 +90,6 @@ class StreamApp(faust.App):
         self.mode = mode
 
         self.market_state = {} # lates data dictionary, everyhting except trades and depth
-        self.deribit_depths = self.fetch_initial_deribit_depth()
         
         #database related
         self.sqldb = None
@@ -108,8 +106,9 @@ class StreamApp(faust.App):
         self.postgres_password=postgres_password,
         self.postgres_dbname=postgres_dbname,
         
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.async_init())
+        self.loop = asyncio.get_event_loop()
+        self.loop.run_until_complete(self.async_init())
+        self.deribit_depths = self.fetch_initial_deribit_depth()
 
 
     async def async_init(self):
@@ -200,7 +199,7 @@ class StreamApp(faust.App):
     #@websocket_errors_wrapper
     def fetch_initial_deribit_depth(self):
         deribit_depths = [x for x in self.connection_data if x["exchange"]=="deribit" and x["objective"]=="depth"]
-        deribit_depths = {x.get("id_api_2") : asyncio.run(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
+        deribit_depths = {x.get("id_api_2") : self.loop.run_until_complete(ws_fetcher_helper(x.get("1stBooksSnapMethod"))) for x in deribit_depths}
         return deribit_depths
 
     def setup_logger(self, log_file, maxBytes=10*1024*1024, backupCount=5):
@@ -245,41 +244,41 @@ class StreamApp(faust.App):
             # ClickHouse
             print("Postgres and Clickhouse databases are ready!")
 
-    # def create_wsbooks_agent(self, cd : dict):
-    #     """
-    #         cd : dictionary with connection data
-    #              Creating a single agent (with the help of closures)
-    #              https://github.com/robinhood/faust/issues/300
+    def create_wsbooks_agent(self, cd : dict):
+        """
+            cd : dictionary with connection data
+                 Creating a single agent (with the help of closures)
+                 https://github.com/robinhood/faust/issues/300
             
-    #         Note that if above code will run after app is already started, you need to start your new agents manually.
-    #         new_agent = app.agent(channel=..., name=...)(agent_coro)
-    #         new_agent.start()        
-    #     """
-    #     @faust_errors_wrapper
-    #     async def process_wsbooks_agent(self, stream: faust.StreamT) -> AsyncIterator:
-    #         """Handler for websocket topics of orderbooks"""
-    #         exchange = cd.get("exchange")
-    #         if exchange != "deribit":
-    #             data = cd.get("1stBooksSnapMethod")()
-    #         if exchange == "deribit":
-    #             id_ = cd.get("id_api_2")
-    #             data = self.deribit_depths.get(id_)
-    #             del self.deribit_depths[id_]
-    #         await self.insert_into_database(pipe_type="id_api_2", data=data, connection_data=cd, on_message=cd.get("on_message_method_api_2"))
-    #         async for byte_data in stream:
-    #             await self.insert_into_database(pipe_type="id_ws", data=byte_data.decode(), connection_data=cd, on_message=cd.get("on_message_method_ws"))
-    #             yield byte_data
-    #     return process_wsbooks_agent
+            Note that if above code will run after app is already started, you need to start your new agents manually.
+            new_agent = app.agent(channel=..., name=...)(agent_coro)
+            new_agent.start()        
+        """
+        # @faust_errors_wrapper
+        async def process_wsbooks_agent(stream: faust.StreamT) -> AsyncIterator:
+            """Handler for websocket topics of orderbooks"""
+            exchange = cd.get("exchange")
+            if exchange != "deribit":
+                data = cd.get("1stBooksSnapMethod")()
+            if exchange == "deribit":
+                id_ = cd.get("id_api_2")
+                data = self.deribit_depths.get(id_)
+                del self.deribit_depths[id_]
+            await self.insert_into_database(pipe_type="id_api_2", data=data, connection_data=cd, on_message=cd.get("on_message_method_api_2"))
+            async for byte_data in stream:
+                await self.insert_into_database(pipe_type="id_ws", data=byte_data.decode(), connection_data=cd, on_message=cd.get("on_message_method_ws"))
+                yield byte_data
+        return process_wsbooks_agent
 
-    # def create_ws_agent(self, cd : dict):
-    #     """Handler for regular websocket topics"""
-    #     @faust_errors_wrapper
-    #     async def process_ws_agent(self, stream: faust.StreamT) -> AsyncIterator:
-    #         """ Configuration of the API agent"""
-    #         async for byte_data in stream:
-    #             await self.insert_into_database(pipe_type="id_ws", data=byte_data.decode(), connection_data=cd, on_message=cd.get("on_message_method_ws"))
-    #             yield byte_data
-    #     return process_ws_agent
+    def create_ws_agent(self, cd : dict):
+        """Handler for regular websocket topics"""
+        # @faust_errors_wrapper
+        async def process_ws_agent(stream: faust.StreamT) -> AsyncIterator:
+            """ Configuration of the API agent"""
+            async for byte_data in stream:
+                await self.insert_into_database(pipe_type="id_ws", data=byte_data.decode(), connection_data=cd, on_message=cd.get("on_message_method_ws"))
+                yield byte_data
+        return process_ws_agent
     
     def create_api_agent(self, cd : dict):
         """Handler for api topics"""

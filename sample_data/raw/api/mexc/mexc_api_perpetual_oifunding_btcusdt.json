@@ -1,0 +1,80 @@
+[
+  {
+    "success": true,
+    "code": 0,
+    "data": {
+      "contractId": 10,
+      "symbol": "BTC_USDT",
+      "lastPrice": 67848.1,
+      "bid1": 67848,
+      "ask1": 67848.1,
+      "volume24": 224709806,
+      "amount24": 1517500841.42632,
+      "holdVol": 135191457,
+      "lower24Price": 66700.5,
+      "high24Price": 68118.9,
+      "riseFallRate": 0.0088,
+      "riseFallValue": 595.4,
+      "indexPrice": 67807.5,
+      "fairPrice": 67845,
+      "fundingRate": 0.000133,
+      "maxBidPrice": 74588.2,
+      "minAskPrice": 61026.7,
+      "timestamp": 1717253538129,
+      "riseFallRates": {
+        "zone": "UTC+8",
+        "r": 0.0088,
+        "v": 595.4,
+        "r7": -0.0071,
+        "r30": 0.1931,
+        "r90": 0.0972,
+        "r180": 0.7065,
+        "r365": 1.5237
+      },
+      "riseFallRatesOfTimezone": [
+        -0.0039,
+        0.0039,
+        0.0088
+      ]
+    }
+  },
+  {
+    "success": true,
+    "code": 0,
+    "data": {
+      "contractId": 10,
+      "symbol": "BTC_USDT",
+      "lastPrice": 67853.6,
+      "bid1": 67853.5,
+      "ask1": 67853.6,
+      "volume24": 224681262,
+      "amount24": 1517307177.66229,
+      "holdVol": 135290424,
+      "lower24Price": 66700.5,
+      "high24Price": 68118.9,
+      "riseFallRate": 0.0089,
+      "riseFallValue": 600.9,
+      "indexPrice": 67807.5,
+      "fairPrice": 67844.3,
+      "fundingRate": 0.000133,
+      "maxBidPrice": 74588.2,
+      "minAskPrice": 61026.7,
+      "timestamp": 1717253523118,
+      "riseFallRates": {
+        "zone": "UTC+8",
+        "r": 0.0089,
+        "v": 600.9,
+        "r7": -0.007,
+        "r30": 0.1932,
+        "r90": 0.0973,
+        "r180": 0.7066,
+        "r365": 1.5239
+      },
+      "riseFallRatesOfTimezone": [
+        -0.0038,
+        0.004,
+        0.0089
+      ]
+    }
+  }
+]

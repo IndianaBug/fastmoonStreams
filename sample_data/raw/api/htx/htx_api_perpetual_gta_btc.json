@@ -1,0 +1,1412 @@
+[
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.498,
+          "sell_ratio": 0.502,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USD"
+    },
+    "ts": 1717253533002
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.595,
+          "sell_ratio": 0.382,
+          "locked_ratio": 0.023,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.604,
+          "sell_ratio": 0.375,
+          "locked_ratio": 0.021,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC"
+    },
+    "ts": 1717253532828
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-FUTURES",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "trade_partition": "USDT"
+    },
+    "ts": 1717253532796
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.5,
+          "sell_ratio": 0.5,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC"
+    },
+    "ts": 1717253532792
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.45,
+          "sell_ratio": 0.55,
+          "locked_ratio": 0.0,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.454,
+          "sell_ratio": 0.546,
+          "locked_ratio": 0.0,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.454,
+          "sell_ratio": 0.546,
+          "locked_ratio": 0.0,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.409,
+          "sell_ratio": 0.591,
+          "locked_ratio": 0.0,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.428,
+          "sell_ratio": 0.572,
+          "locked_ratio": 0.0,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.454,
+          "sell_ratio": 0.546,
+          "locked_ratio": 0.0,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-FUTURES",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "trade_partition": "USDT"
+    },
+    "ts": 1717253532740
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.31,
+          "locked_ratio": 0.04,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.04,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.04,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.04,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.04,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.63,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.04,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.04,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.64,
+          "sell_ratio": 0.33,
+          "locked_ratio": 0.03,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.65,
+          "sell_ratio": 0.32,
+          "locked_ratio": 0.03,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "business_type": "swap",
+      "pair": "BTC-USDT",
+      "trade_partition": "USDT"
+    },
+    "ts": 1717253532727
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.475,
+          "sell_ratio": 0.525,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.472,
+          "sell_ratio": 0.528,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.473,
+          "sell_ratio": 0.527,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.475,
+          "sell_ratio": 0.525,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.475,
+          "sell_ratio": 0.525,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.475,
+          "sell_ratio": 0.525,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.475,
+          "sell_ratio": 0.525,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.474,
+          "sell_ratio": 0.526,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "business_type": "swap",
+      "pair": "BTC-USDT",
+      "trade_partition": "USDT"
+    },
+    "ts": 1717253532725
+  },
+  {
+    "status": "ok",
+    "data": {
+      "list": [
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717244700000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717245000000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717245300000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717245600000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717245900000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717246200000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717246500000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717246800000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717247100000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717247400000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717247700000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717248000000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717248300000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717248600000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717248900000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717249200000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717249500000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717249800000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717250100000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717250400000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717250700000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717251000000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717251300000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717251600000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717251900000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717252200000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717252500000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717252800000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717253100000
+        },
+        {
+          "buy_ratio": 0.25,
+          "sell_ratio": 0.75,
+          "locked_ratio": 0.0,
+          "ts": 1717253400000
+        }
+      ],
+      "symbol": "BTC",
+      "contract_code": "BTC-USD"
+    },
+    "ts": 1717253532101
+  }
+]

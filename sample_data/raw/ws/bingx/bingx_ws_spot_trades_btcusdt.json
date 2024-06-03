@@ -1,0 +1,173 @@
+[
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338302788,
+      "T": 1717338302758,
+      "e": "trade",
+      "m": true,
+      "p": "68239.39",
+      "q": "0.24430389251721038",
+      "s": "BTC-USDT",
+      "t": "104989908"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338301921,
+      "T": 1717338301888,
+      "e": "trade",
+      "m": true,
+      "p": "68239.49",
+      "q": "0.07931830528041753",
+      "s": "BTC-USDT",
+      "t": "104989907"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338299857,
+      "T": 1717338299823,
+      "e": "trade",
+      "m": false,
+      "p": "68239.13",
+      "q": "0.09300054528831185",
+      "s": "BTC-USDT",
+      "t": "104989906"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338299320,
+      "T": 1717338299284,
+      "e": "trade",
+      "m": false,
+      "p": "68238.69",
+      "q": "0.06986085313185232",
+      "s": "BTC-USDT",
+      "t": "104989905"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338298794,
+      "T": 1717338298762,
+      "e": "trade",
+      "m": true,
+      "p": "68239.08",
+      "q": "0.08263747547592963",
+      "s": "BTC-USDT",
+      "t": "104989903"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338295283,
+      "T": 1717338295259,
+      "e": "trade",
+      "m": true,
+      "p": "68239.04",
+      "q": "0.14591984794630058",
+      "s": "BTC-USDT",
+      "t": "104989894"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338294407,
+      "T": 1717338294374,
+      "e": "trade",
+      "m": true,
+      "p": "68238.98",
+      "q": "0.14918260806615105",
+      "s": "BTC-USDT",
+      "t": "104989892"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338292977,
+      "T": 1717338292944,
+      "e": "trade",
+      "m": false,
+      "p": "68239.47",
+      "q": "0.046472748103113935",
+      "s": "BTC-USDT",
+      "t": "104989887"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338292413,
+      "T": 1717338292394,
+      "e": "trade",
+      "m": true,
+      "p": "68239.66",
+      "q": "0.00001",
+      "s": "BTC-USDT",
+      "t": "104989886"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "id": "pqe8Bdwjm2DCBMXjUs90",
+    "msg": "SUCCESS",
+    "timestamp": 1717338290104
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338291799,
+      "T": 1717338291763,
+      "e": "trade",
+      "m": true,
+      "p": "68240.20",
+      "q": "0.053978410086723064",
+      "s": "BTC-USDT",
+      "t": "104989884"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  },
+  {
+    "code": 0,
+    "data": {
+      "E": 1717338290431,
+      "T": 1717338290397,
+      "e": "trade",
+      "m": false,
+      "p": "68240.40",
+      "q": "0.08925567552359014",
+      "s": "BTC-USDT",
+      "t": "104989881"
+    },
+    "dataType": "BTC-USDT@trade",
+    "success": true
+  }
+]
