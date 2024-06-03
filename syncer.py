@@ -1,5 +1,6 @@
 from OriginHub.ExchangeGateway import *
-from ProcessCenter import Flow, MessageProcessor
+from ProcessCenter import MessageProcessor
+from ProcessCenter.DataFlow import booksflow
 
 class ExchangeAPIClient():
     """ 
@@ -26,6 +27,20 @@ class ExchangeAPIClient():
                     setattr(self, method_name, getattr(client, method_name))
         self.onm = MessageProcessor.on_message(**on_message_kwargs) if on_message_kwargs != None else MessageProcessor.on_message()
 
+
+                #  exchange : str,
+                #  symbol : str,
+                #  inst_type : str,
+                #  exchange_symbol:str,
+                #  level_size : int,
+                #  api_on_message : callable,
+                #  ws_on_message : callable,
+                #  book_processing_timespan : int,
+                #  books_snapshot_interval : int = 1,
+                #  book_ceil_thresh = 5,
+                #  npartitions = 5
+
+
     def build_connection_data(self, wss={}, apis={}):
         d = []
         for exchange in wss:
@@ -36,12 +51,17 @@ class ExchangeAPIClient():
                 if "id_api_2" in connData:
                     meth = self.populate_with_on_message(connData, True)
                     connData["on_message_method_api_2"] = meth
+                flow_method = self.get_flow_class(connData)
+                connData["books_processor"] = 
+                    
                 d.append(connData)
         for exchange in apis:
             for api in apis[exchange]:
                 connData = self.get_method_connData("api", exchange, api)
                 meth = self.populate_with_on_message(connData)
                 connData["on_message_method_api"] = meth
+                
+                
                 d.append(connData)
         return d
     
@@ -153,17 +173,15 @@ class ExchangeAPIClient():
                 return getattr(self.onm, method)
 
                 
-    # def populate_with_flow(self, id_):
-    #     if "depth" in id_:
-    #         return Flow.booksflow
-    #     if "trades" in id_:
-    #         return Flow.tradesflow
-    #     if "option" in id_ and "oi" in id_:
-    #         return Flow.Ooiflow
-    #     if "oi" in _id and "opiton" not in id_:
-    #         return Flow.oiflow
-    #     if "liquidations" in id_:
-    #         return Flow.liquidationsflow
+    def get_flow_class(self, connection_data):
+        """ Populates connection_data dictionary with immidiate flow processors"""
+        objective = connection_data.get("objective")
+        if objective == "depth":
+            return booksflow
+        
+        
+        
+
             
             
 
