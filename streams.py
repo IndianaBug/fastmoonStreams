@@ -1,7 +1,15 @@
 from syncer import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 from config import coinbase_secret, coinbase_api, kucoin_api, kucoin_pass, kucoin_secret
 
-client = ExchangeAPIClient(coinbase_api, coinbase_secret, kucoin_api, kucoin_secret, kucoin_pass, price_level_size=20, mode="testing")
+client = ExchangeAPIClient(
+    coinbase_api, 
+    coinbase_secret,
+    kucoin_api,
+    kucoin_secret, 
+    kucoin_pass, 
+    price_level_size=20, 
+    mode="testing"
+    )
 
 # Inspect what binance and bybit derivate symbols you may bulk with binance_get_marginType and binance_get_marginType
 # If those are of the same margin, you may mix the. Any websocet except depth
