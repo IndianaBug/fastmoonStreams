@@ -20,6 +20,28 @@ import logging
 pd.set_option('future.no_silent_downcasting', True)
 
 @dataclass
+class MarketState:
+    """Market state data container with access and update methods."""
+    _data: dict = dict() 
+
+    def retrive_data(self, symbol, objective):
+        """ gets only a certain data """
+        return self._data.get(symbol, {}).get(objective)
+    
+    def retrive_symbol_data(self, symbol):
+        """ gets datarelated to the instrument """
+        return self._data.get(symbol)
+    
+    def update(self, symbol_data):
+        """ Updates data of a symbol """
+        self._data.update(symbol_data)
+    
+    # REMOVE STUFF SOMEHOW TO PREVEN THE state from exapanding due to expiration 
+    # Add somehting, if it wasnt updated for a day, then remove symbols
+
+    
+
+@dataclass
 class OrderBook:
 
     def __init__(self, book_ceil_thresh):
@@ -71,7 +93,6 @@ class OrderBook:
             return 9999999999
         
         
-        
 class booksflow():
     """
         Important notes:
@@ -116,7 +137,7 @@ class booksflow():
         self.books_process_interval = int(books_process_interval)
         self.books = OrderBook(self.book_ceil_thresh)
         self.df = pd.DataFrame()
-        self.processed_df = None
+        self.dfp = pd.DataFrame()
         # Helpers
         self.last_receive_time = 0
         self.running = False
@@ -125,11 +146,6 @@ class booksflow():
         """ locates the bucket to which the price belongs"""
         return np.ceil(price / self.level_size) * self.level_size
     
-    def scale_current_timestamp(self):
-        """ scales timestamp to a propepr interval """
-        current_timestamp = int(time.time() % 60)
-        scaled_timestamp = (self.books_process_interval * current_timestamp) / int(60 / self.books_process_interval)
-        return int(scaled_timestamp)
 
     def pass_market_state(self, market_state):
        """ passes marketstate dictionary"""
@@ -158,17 +174,29 @@ class booksflow():
             self.last_receive_time = recieve_time
         except:
             return
+        
+    def dump_df_to_csv(self, location, type_):
+        if type_ == 1:
+            self.df.to_csv(location, index=False)
+        if type_ == 2:
+            self.dfp.to_csv(location, index=False)
 
-    def input_into_pandas_df(self):
+
+    async def input_into_pandas_df(self):
         """ Inputs bids and asks into pandas dataframe """
+        
+        await self.books.trim_books()
+        
         prices = np.array(list(map(float, self.books.bids.keys())) + list(map(float, self.books.asks.keys())), dtype=np.float64)
+        
         amounts = np.array(list(map(float, self.books.bids.values())) + list(map(float, self.books.asks.values())), dtype=np.float64)
+        
         levels = [self.find_level(price) for price in  prices]
+        
         unique_levels, inverse_indices = np.unique(levels, return_inverse=True)
         group_sums = np.bincount(inverse_indices, weights=amounts)
         columns = [str(col) for col in unique_levels]
-        timestamp = self.scale_current_timestamp()
-        print(timestamp)
+        timestamp = int(time.time() % self.books_process_interval)
         if self.df.empty:
             self.df = pd.DataFrame(0, index=list(range(self.books_process_interval)), columns=columns, dtype='float64')
             self.df.loc[timestamp] = group_sums
@@ -184,6 +212,9 @@ class booksflow():
             self.df.loc[timestamp] = sums
             sorted_columns = sorted(map(float, self.df.columns))
             self.df = self.df[map(str, sorted_columns)]
+                
+        # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books_unprocessed.csv", 1)
+        
 
     @staticmethod
     def manipulate_arrays(old_levels, new_levels, new_values):
@@ -208,7 +239,7 @@ class booksflow():
         """ creates task for input_into_pandas_df """
         await asyncio.sleep(1)
         while True:
-            self.input_into_pandas_df()
+            await self.input_into_pandas_df()
             # print(self.df)
             await asyncio.sleep(self.book_snap_interval)
 
@@ -219,14 +250,20 @@ class booksflow():
             await asyncio.sleep(1)
             while True:
                 await asyncio.sleep(self.books_process_interval)
-                await self.books.trim_books()
+                
+                # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books.csv", 1)
+
                 for col in self.df.columns:
                     self.df[col] = self.df[col].replace(0, pd.NA).ffill()
                     self.df[col] = self.df[col].replace(0, pd.NA).bfill()
-                self.processed_df = self.df.copy()
+                self.dfp = self.df.copy()
+                
+                # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books_processed.csv", 2)
+                
                 self.df = pd.DataFrame()
+                
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/{self.connection_data.get('id_ws')}.json")
+                    self.generate_data_for_plot(f"sample_data/books_{self.connection_data.get('id_ws')}.json")
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -236,19 +273,21 @@ class booksflow():
 
     def generate_data_for_plot(self, file_path):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
-        for index, row in self.processed_df.iterrows():
-            if not all(row == 0):
-                timestamp = self.df[index].index
-                break
-        plot_data = {
-            'x': [float(x) for x in row.columns.tolist()],
-            'y': row.values.tolist(),
-            'xlabel': 'Level',
-            'ylabel': 'Amount',
-            'legend': [f'Books for every level at timestamp {timestamp}']
-        }
-        with open(file_path, 'w') as file:
-            json.dump(plot_data, file)
+        try:
+            for index, row in self.dfp.iterrows():
+                if not all(row == 0):
+                    break
+            plot_data = {
+                'x': [float(x) for x in row.index.tolist()],
+                'y': row.values.tolist(),
+                'xlabel': 'Level',
+                'ylabel': 'Amount',
+                'legend': f'Books for every level at timestamp {index}'
+            }
+            with open(file_path, 'w') as file:
+                json.dump(plot_data, file)
+        except Exception as e:
+            print(e)
             
 
 
