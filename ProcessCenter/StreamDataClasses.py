@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 import asyncio
 import time
 from numba import jit
+from typing import List, Dict, Optional
+import 
 
 @dataclass
 class MarketState:
@@ -118,7 +120,6 @@ class OrderBook:
         except:
             return 9999999999
         
-
 @dataclass
 class MarketTradesLiquidations:
 
@@ -213,3 +214,157 @@ class MarketTradesLiquidations:
         self.longs.clear()
         self.shorts.clear()
         self.last_ltimestamp = 0
+        
+@dataclass
+class OpenInterestEntry:
+    timestamp: float
+    instrument: str
+    open_interest: float
+    price : float
+    
+@dataclass
+class OpenInterest:
+    data: List[OpenInterestEntry] = field(default_factory=list)
+    last_values: Dict[str, int] = field(default_factory=dict)
+
+    def add_entry(self, timestamp: float, instrument: str, open_interest: float, price : float):
+        entry = OpenInterestEntry(timestamp, instrument, open_interest, price)
+        self.data.append(entry)
+        self.last_values[instrument] = open_interest
+
+    def get_entries_by_instrument(self, instrument: str) -> List[OpenInterestEntry]:
+        return [entry for entry in self.data if entry.instrument == instrument]
+
+    def get_entries_by_timestamp(self, timestamp: float) -> List[OpenInterestEntry]:
+        return [entry for entry in self.data if entry.timestamp == timestamp]
+
+    def get_last_value(self, instrument: str) -> Optional[int]:
+        return self.last_values.get(instrument)
+
+    def calculate_change(self, instrument: str, new_open_interest: int) -> Optional[int]:
+        last_value = self.get_last_value(instrument)
+        if last_value is not None:
+            return new_open_interest - last_value
+        return None
+
+    def reset_data(self):
+        self.data = []
+
+    def __str__(self):
+        return '\n'.join(str(entry) for entry in self.data)
+    
+@dataclass
+class OptionInstrument:
+    symbol: str
+    strike: float
+    days_left: int
+    oi: float
+    option_type: str  # 'C' for Call, 'P' for Put
+
+@dataclass
+class OptionInstrumentsData:
+    instruments: Dict[str, OptionInstrument] = field(default_factory=dict)
+
+    def add_instrument(self, key: str, instrument: OptionInstrument):
+        self.instruments[key] = instrument
+
+    def add_instruments_bulk(self, bulk_data: Dict[str, Dict]):
+        for key, data in bulk_data.items():
+            days_left = data["days_left"]
+            if days_left >= 0:
+                instrument = OptionInstrument(
+                    symbol=data["symbol"],
+                    strike=data["strike"],
+                    days_left=days_left,
+                    oi=data["oi"],
+                    option_type=data["symbol"][-1]  # Extracting option type from the symbol
+                )
+            self.add_instrument(key, instrument)
+
+    def get_instrument(self, key: str) -> OptionInstrument:
+        return self.instruments.get(key)
+
+    def remove_instrument(self, key: str):
+        if key in self.instruments:
+            del self.instruments[key]
+
+    def reset_data(self):
+        self.instruments = {}
+
+    def get_summary(self) -> Dict[str, List]:
+        strikes = [instrument.strike for instrument in self.instruments.values()]
+        countdowns = [instrument.days_left for instrument in self.instruments.values()]
+        oi = [instrument.oi for instrument in self.instruments.values()]
+        return {"strikes": strikes, "countdowns": countdowns, "oi": oi}
+    
+    def get_summary_by_option_type(self) -> Dict[str, Dict[str, List]]:
+        summary = {"Call": {"strikes": [], "countdowns": [], "oi": []},
+                   "Put": {"strikes": [], "countdowns": [], "oi": []}}
+
+        for instrument in self.instruments.values():
+            option_category = "Call" if instrument.option_type == 'C' else "Put"
+            summary[option_category]["strikes"].append(instrument.strike)
+            summary[option_category]["countdowns"].append(instrument.days_left)
+            summary[option_category]["oi"].append(instrument.oi)
+
+        return summary
+
+    def __str__(self):
+        return '\n'.join(f"{key}: {vars(instrument)}" for key, instrument in self.instruments.items())
+    
+@dataclass
+class PositionData:
+
+    symbol: str
+    
+    gta_long_ratio: Optional[float] = None
+    gta_short_ratio: Optional[float] = None
+    gta_ratio: Optional[float] = None
+    gta_size_ratio: Optional[float] = None
+
+    tta_long_ratio: Optional[float] = None
+    tta_short_ratio: Optional[float] = None
+    tta_ratio: Optional[float] = None
+    tta_size_ratio: Optional[float] = None
+
+    ttp_long_ratio: Optional[float] = None
+    ttp_short_ratio: Optional[float] = None
+    ttp_ratio: Optional[float] = None
+    ttp_size_ratio: Optional[float] = None
+    
+    funding: Optional[float] = None
+
+    def update_from_dict(self, data: dict):
+        for key, value in data.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+            else:
+                print(f"Warning: '{key}' is not a valid attribute of {self.__class__.__name__}")
+
+@dataclass
+class InstrumentsData:
+    
+    # update_data = {"tta_ratio": 1.6, "funding": 0.02}
+    # instruments_data.update_position("ETHUSDT", update_data)
+    
+    instruments: Dict[str, PositionData] = field(default_factory=dict)
+    
+    def add_position(self, symbol: str, **kwargs):
+        self.instruments[symbol] = PositionData(symbol=symbol, **kwargs)
+
+    def update_position(self, symbol: str, data: dict):
+        if symbol not in self.instruments:
+            self.instruments[symbol] = PositionData(symbol=symbol)
+        self.instruments[symbol].update_from_dict(data)
+
+    def get_position(self, symbol: str) -> Optional[PositionData]:
+        return self.instruments.get(symbol)
+
+    def get_all_positions(self) -> Dict[str, PositionData]:
+        return self.instruments
+
+    def reset_data(self):
+        self.instruments = {}
+
+    def __str__(self):
+        return '\n'.join(f"{symbol}: {vars(data)}" for symbol, data in self.instruments.items())

@@ -296,7 +296,7 @@ class binance_on_message(on_message_helper):
         price = market_state.get(f"{symbol}@{instType}@binance", {}).get("price", 1000000000)
         amount = self.binance_derivate_multiplier.get(ss)(float(oidata.get("openInterest")), price)
         msid = f"{symbol}@{instType}@binance"
-        l[msid] = {"oi" : amount}
+        l[msid] = {"oi" : amount, "price" : price}
         if msid in market_state:
             market_state[msid]["oi"] = amount
         if msid not in market_state:
@@ -744,7 +744,7 @@ class okx_on_message(on_message_helper):
     async def okx_api_gta_perpetual_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
-        label = "BTC@future@perpetual@okx" 
+        label = "BTC@perpetual@okx" 
         if label not in market_state:
             market_state[label] = {}
         count = 0
