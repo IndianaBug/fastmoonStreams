@@ -833,55 +833,37 @@ class ooiflow():
             if value < r and value >= ppr[index-1]:
                 return r
 
-class indicatorflow():
-    """
-        Can be used for the processing of any simple indicator
-        Saves the indicators data in a dictionary data.
-    """
-    def __init__ (self, instrument : str, exchange : str, insType : str, indType : str,  lookup : callable):
-        """
-            insType : perpetual, spot option ....
-            indType : give a name to the indicator
-        """
-        self.instrument = instrument
+class pfflow():
+    """ Can be used to process fundings and position data"""
+    def __init__ (self,
+                 exchange : str,
+                 symbol : str,
+                 on_message : callable,
+                 mode = "production",
+                 ):
+        self.connection_data = dict()
+        self.market_state = dict()
         self.exchange = exchange
-        self.insType = insType
-        self.indType = indType
-        self.lookup = lookup
-        self.data = dict()
+        self.symbol = symbol
+        self.on_message = on_message
+        self.data = InstrumentsData()
+        self.mode = mode
+        
+    def pass_market_state(self, market_state):
+       """ passes marketstate dictionary"""
+       self.market_state = market_state
 
-    def retrive_data(self, key):
-        """
-            timestamp, ratio, price
-            longAccount, shortAccount if applicable
-        """
-        return self.data.get(key, None)
+    def pass_connection_data(self, connection_data):
+       """ passes connectiondata dictionary"""
+       self.connection_data = connection_data
+       
+    def input_data(self, data:str):
+        processed_data = self.on_message(data, self.connection_data, self.market_state)
+        for symbol in processed_data:
+            self.InstrumentsData.update_position(symbol, processed_data.get("symbol"))
+            
+    def retrive_data_by_instrument(self, instrument):
+        self.InstrumentsData.get_position(instrument)
 
-    def input_binance_gta_tta_ttp(self, data):
-        """
-            Needs to be used for global tradesrs accountrs, positions and top traders accounts and positions of binance
-        """
-        longAccount, shortAccount, longShortRation, price, timestamp = self.lookup(data)
-        self.data["timestamp"] = timestamp
-        self.data["longAccount"]  = longAccount
-        self.data["shortAccount"]  = shortAccount
-        self.data["ratio"]  = longShortRation
-        self.data["price"]  = price
-
-    def input_bybit_gta(self, data):
-        """
-            Processor of bybit global traders buy adn sell ratio
-        """
-        buyRation, sellRation, price, timestamp = self.lookup(data)
-        self.data["timestamp"] = timestamp
-        self.data["ratio"]  = buyRation / sellRation
-        self.data["price"]  = price
-
-    def input_okx_gta(self, data):
-        """
-            OKx's ration is about all BTC futures contracts
-        """
-        ratio, price, timestamp = self.lookup(data)
-        self.data["timestamp"] = timestamp
-        self.data["ratio"]  = ratio
-        self.data["price"]  = price
+    def retrive_data(self):
+        self.data.get_all_positions()
