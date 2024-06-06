@@ -18,12 +18,12 @@ ws = {
     "binance" : [
     #     "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
     #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
-        "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
+        # "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
     #     "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
-        # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
-    #     "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
+        "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+        # "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
     #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
-    #     "perpetual.trades.BTCUSD_PERP",                                   # ok
+        # "perpetual.trades.BTCUSD_PERP",                                   # ok
     #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
     #     "option.trades.BTC",                                              # ok
         ],

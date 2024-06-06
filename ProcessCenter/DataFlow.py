@@ -84,7 +84,7 @@ class booksflow():
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, connection_data):
        """ passes connectiondata dictionary"""
        self.connection_data = connection_data
 
@@ -144,8 +144,8 @@ class booksflow():
             sorted_columns = sorted(map(float, self.df.columns))
             self.df = self.df[map(str, sorted_columns)]
         
-        if self.mode == "testing":
-            print(self.df)     
+        # if self.mode == "testing":
+        #     print(self.df)     
 
     @staticmethod
     def manipulate_arrays(old_levels, new_levels, new_values):
@@ -208,7 +208,7 @@ class booksflow():
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         name = self.connection_data.get("id_ws")
-        filepath = f"{self.folderpath}/sample_data/plots/{name}.csv"
+        filepath = f"{self.folderpath}/sample_data/plots/books_{name}.csv"
         try:
             for index, row in self.dfp.iterrows():
                 if not all(row == 0):
@@ -228,7 +228,7 @@ class booksflow():
     def dump_df_to_csv(self, dftype):
         """ processed, raw"""
         name = self.connection_data.get("id_ws")
-        file_path = f"{self.folderpath}/sample_data/pandasdf/{dftype}/{name}.csv"
+        file_path = f"{self.folderpath}/sample_data/dfpandas/{dftype}/books_{name}.csv"
         if dftype == "raw":
             self.df.to_csv(file_path, index=False)
         if dftype == "processed":

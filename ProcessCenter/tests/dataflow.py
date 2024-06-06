@@ -14,22 +14,21 @@ from streams import connection_data
 flow_types = ["booksflow", "tradesflow", "oiflow", "liqflow", "fundingflow", "gtaflow", "ttaflow", "ttpflow"]
 
 
-class _test_booksflow():
+class _test_flow():
     
-    def __init__(self, stream_id_parts, market_state = {"BTCUSD_PERP@perpetual@binance" : {"price" : 70000}}, connection_data = connection_data):
-        self.stream_id_parts = stream_id_parts
+    def __init__(self, stream_data, market_state = {"BTCUSD_PERP@perpetual@binance" : {"price" : 70000}}):
         self.market_state = market_state
-        self.connection_data = connection_data
+        self.stream_data = stream_data
+        self.processors = self.return_processors()
 
-    def return_processor(self):
-        """ LAzy unit test of booksflow class """
-        stream_data =  self.connection_data.get(next(all(part in id_ for part in self.stream_id_parts.spllit("_")) for id_ in connection_data))
-        processors_names = [x for x in stream_data if flow_types]
+    def return_processors(self):
+        """ Testing of any flow """
+        processors_names = [x for x in self.stream_data if flow_types]
         processors = {}
         for processor_name in processors_names:
-            processor = stream_data.get("flowClass")
-            processor.pass_market_state(market_state=self.market_state)
-            processor.pass_connection_data(stream_data)
+            processor = self.stream_data.get(processor_name)
+            processor.pass_market_state(self.market_state)
+            processor.pass_stream_data(self.stream_data)
             processors[processor_name] = processor 
             processor.pass_savefolder_path(parent_dir)
         return processors 
@@ -53,59 +52,35 @@ class _test_booksflow():
         await processor.input_data(json.dumps(json.loads(data)[0]))
         await asyncio.sleep(1)
 
-    async def flow_test(self, path_dataws=None, path_dataapi=None, path_dataapi2=None):
+    async def flow_test(self):
         """ Lazy unit test of booksflow module """
-        exchange = path_dataws.split("_")[0] if path_dataws else path_dataapi.split("_")[0]
-        path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{path_dataapi}.json"
-        path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{path_dataapi2}.json"
-        path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{path_dataws}.json"
+        exchange = self.stream_data.get("id_ws").split("_")[0] if self.stream_data.get("id_ws") else self.stream_data.get("id_api").split("_")[0]
+        path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{self.stream_data.get('id_api')}.json"
+        path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{self.stream_data.get('id_api_2')}.json"
+        path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{self.stream_data.get('id_ws')}.json"
         dataapi = json.dumps(json.load(open(path_api, "r"))[0])
         dataws = json.load(open(path_ws, "r"))
         dataapi2 = json.dumps(json.load(open(path_api_2, "r"))[0])
-        processors = self.return_processor()
         
-        for processor in processors:
+        for processor in self.processors:
             if processor == "booksflow":
-                await self.input_apiws_books(dataws, dataapi2, processor)
+                await self.input_apiws_books(dataws, dataapi2, self.self.processors.get(processor))
             if processor in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
-                self.input_apiws_data(dataapi, processor)
+                self.input_apiws_data(dataapi, self.self.processors.get(processor))
             if processor in ["liqflow", "tradesflow"]:
-                self.input_apiws_data(dataws, processor)
+                self.input_apiws_data(dataws, self.self.processors.get(processor))
         
     async def main(self):
         tasks = []
-        tasks.append(asyncio.ensure_future(processor.flow_test()))
+        tasks.append(asyncio.ensure_future(self.flow_test()))
         await asyncio.gather(*tasks, return_exceptions=True)
         
-# if __name__ == "__main__":
-#     asyncio.run(main())
-
-
-# binance_api_perpetual_depth_btcusdperp
-# binance_ws_perpetual_inverse_depth_btcusdperp
-    
-
-booksdlow_test()
-
-processor = connection_data[0].get("flowClass")
-processor.pass_market_state(market_state={})
-processor.pass_connection_data({})
-
-
-# async def input_data____():
-#     for d in data_ws[::-1]:
-#         await processor.input_data_ws(json.dumps(d))
-#         await asyncio.sleep(1)
-
-# async def main():
-#     tasks = []
-#     tasks.append(asyncio.ensure_future(processor.input_data_api(data_api)))
-#     tasks.append(asyncio.ensure_future(input_data____()))
-#     tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
-#     tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
-#     await asyncio.gather(*tasks, return_exceptions=True)
 
 # if __name__ == "__main__":
-#     asyncio.run(main())
-
+#     stream_data = None
+#     market_state = None
+#     test_class = _test_flow(stream_data, market_state)
+#     # or gather flow test to test in bulk
+#     asyncio.run(test_class.main())
+        
 
