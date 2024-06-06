@@ -26,7 +26,7 @@ class ExchangeAPIClient():
             pass_kucoin,
             price_level_size:float,
             book_snap_interval=2,
-            books_process_interval=10,
+            process_interval=10,
             book_ceil_thresh=5, 
             on_message_kwargs=None,
             mode = "production",
@@ -47,7 +47,7 @@ class ExchangeAPIClient():
         }
 
         self.price_level_size = price_level_size
-        self.books_process_interval = books_process_interval
+        self.process_interval = process_interval
         self.book_snap_interval = book_snap_interval
         self.book_ceil_thresh = book_ceil_thresh
         self.mode = mode
@@ -202,82 +202,90 @@ class ExchangeAPIClient():
 
                 
     def add_data_processor(self, connection_data):
-        """ Populates connection_data dictionary with immidiate flow processors"""
+        """ 
+            Populates connection_data dictionary with immidiate flow processors
+            Deribit and gateio tradesAPI of derivates contains liquidations
+        """
 
         objective = connection_data.get("objective")
         exchange = connection_data.get("exchange")
         inst_type = connection_data.get("instTypes") if "instTypes" in connection_data else connection_data.get("instType")
         symbol = connection_data.get("instruments") if "instruments" in connection_data else connection_data.get("instrument")
+        on_message_method = connection_data.get("on_message_method_ws") if "on_message_method_ws" in connection_data else connection_data.get("on_message_method_api")
 
         if objective == "depth":
-            connection_data["flowClass"] = booksflow(
+            connection_data["booksflow"] = booksflow(
                 exchange=exchange, 
                 symbol=symbol, 
                 inst_type=inst_type, 
                 price_level_size=self.price_level_size,
                 book_snap_interval = self.book_snap_interval,
-                books_process_interval = self.books_process_interval,
+                books_process_interval = self.process_interval,
                 book_ceil_thresh = self.book_ceil_thresh,
-                ws_on_message = connection_data.get("on_message_method_ws"),
+                ws_on_message = on_message_method,
                 api_on_message = connection_data.get("on_message_method_api_2"),
                 mode = self.mode
                 )
 
-        elif objective in ["trades", "tradesagg", ""]:
-            connection_data["flowClass"] = booksflow(
-                exchange=exchange, 
-                symbol=symbol, 
-                inst_type=inst_type, 
-                price_level_size=self.price_level_size,
-                book_snap_interval = self.book_snap_interval,
-                books_process_interval = self.books_process_interval,
-                book_ceil_thresh = self.book_ceil_thresh,
-                ws_on_message = connection_data.get("on_message_method_ws"),
-                api_on_message = connection_data.get("on_message_method_api_2"),
-                mode = self.mode
-                )
-
-        elif objective == "oi":
-            connection_data["flowClass"] = booksflow(
-                exchange=exchange, 
-                symbol=symbol, 
-                inst_type=inst_type, 
-                price_level_size=self.price_level_size,
-                book_snap_interval = self.book_snap_interval,
-                books_process_interval = self.books_process_interval,
-                book_ceil_thresh = self.book_ceil_thresh,
-                ws_on_message = connection_data.get("on_message_method_ws"),
-                api_on_message = connection_data.get("on_message_method_api_2"),
-                mode = self.mode
-                )
+        elif objective in ["trades", "tradesagg"]:
+            
+            if exchange in ["deribit", "gateio"]:
+                connection_data["liqflow"] = liqflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    inst_type=inst_type, 
+                    price_level_size=self.price_level_size,
+                    liquidations_process_interval = self.process_interval,
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
+            connection_data["tradesflow"] = tradesflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    inst_type=inst_type, 
+                    price_level_size=self.price_level_size,
+                    trades_process_interval = self.process_interval,
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
 
         elif objective == "liquidations":
-            connection_data["flowClass"] = booksflow(
-                exchange=exchange, 
-                symbol=symbol, 
-                inst_type=inst_type, 
-                price_level_size=self.price_level_size,
-                book_snap_interval = self.book_snap_interval,
-                books_process_interval = self.books_process_interval,
-                book_ceil_thresh = self.book_ceil_thresh,
-                ws_on_message = connection_data.get("on_message_method_ws"),
-                api_on_message = connection_data.get("on_message_method_api_2"),
-                mode = self.mode
-                )
+            connection_data["liqflow"] = liqflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    inst_type=inst_type, 
+                    price_level_size=self.price_level_size,
+                    liquidations_process_interval = self.process_interval,
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
 
-        elif objective == "depth":
-            connection_data["flowClass"] = booksflow(
-                exchange=exchange, 
-                symbol=symbol, 
-                inst_type=inst_type, 
-                price_level_size=self.price_level_size,
-                book_snap_interval = self.book_snap_interval,
-                books_process_interval = self.books_process_interval,
-                book_ceil_thresh = self.book_ceil_thresh,
-                ws_on_message = connection_data.get("on_message_method_ws"),
-                api_on_message = connection_data.get("on_message_method_api_2"),
-                mode = self.mode
-                )
+        elif objective in ["oi", "oifunding", "funding"]:
+            if objective in ["oifunding", "oi"]:
+                connection_data["oiflow"] = oiflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    inst_type=inst_type, 
+                    price_level_size=self.price_level_size,
+                    oi_process_interval = self.process_interval,
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
+            if objective in ["oifunding", "funding"]:
+                connection_data["fundingflow"] = pfflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
+
+        elif objective == ["gta", "tta", "ttp"]:
+            connection_data[objective+"flow"] = pfflow(   
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    on_message = on_message_method,
+                    mode = self.mode
+                    )
 
         return connection_data
 

@@ -1,0 +1,74 @@
+When do I even need to create tests?
+
+Unit test
+If your code has complex logic, numerous edge cases, or is prone to subtle bugs, unit tests can help ensure each piece functions correctly in isolation.
+If your functions or classes are reusable across different parts of your application or in other projects, unit tests help ensure they work correctly in different contexts.
+Unit tests allow you to catch bugs early in the development process, which can save time and effort compared to debugging integrated systems.
+As you modify and extend your code, unit tests help ensure new changes don’t break existing functionality.
+Well-written unit tests can serve as documentation for how your code is supposed to work.
+With unit tests, you can refactor your code more confidently, knowing that tests will catch any unintended changes in behavior.
+
+When to do integration test?
+If your code is straightforward and has minimal internal dependencies, integration tests might suffice.
+If time is limited, you might prioritize integration tests that verify the behavior of larger parts of the system.
+If ensuring the end-to-end functionality is more critical than verifying individual components, integration tests might be more beneficial.
+In early stages of development or prototyping, you might skip unit tests in favor of quickly building and validating the entire system.
+
+
+
+
+
+
+Unit Tests:
+Purpose: Validate individual components or functions in isolation.
+Typical Tools: unittest, pytest.
+
+Integration Tests
+Purpose: Test the interaction between multiple components or systems to ensure they work together as expected.
+Typical Tools: pytest, unittest, integration-test-frameworks.
+
+Functional Tests
+Purpose: Test specific functions or features to ensure they produce the correct outputs.
+Typical Tools: selenium, cucumber.
+
+End-to-End (E2E) Tests
+Purpose: Test the entire application flow from start to finish to ensure the system behaves as expected in a production-like environment.
+Typical Tools: cypress, selenium.
+
+Regression Tests
+Purpose: Ensure that new changes do not introduce new bugs in existing functionality.
+Typical Tools: Can be a suite of automated unit, integration, or E2E tests.
+
+Performance Tests
+Purpose: Assess the speed, responsiveness, and stability of the application under a particular workload.
+Typical Tools: JMeter, Locust.
+
+Security Tests
+Purpose: Identify vulnerabilities, risks, and ensure that data is protected.
+Typical Tools: OWASP ZAP, Burp Suite.
+
+Usability Tests
+Purpose: Evaluate how user-friendly and intuitive the application is.
+Typical Methods: User studies, A/B testing.
+
+Acceptance Tests
+Purpose: Verify the system meets business requirements and is ready for delivery.
+Typical Tools: FitNesse, cucumber.
+
+
+
+
+Questions to Ask Before Testing:
+What are the critical components or features that need testing?
+This helps in designing test cases with known expected results.
+Identifying these ensures that the component can handle extreme or unusual inputs gracefully.
+Determines if integration testing is necessary and what dependencies need to be considered.
+This helps in planning performance testing to ensure the component meets necessary speed and efficiency criteria.
+Identifies if security testing is needed to uncover vulnerabilities.
+Ensures that acceptance tests align with what the end user or stakeholder expects from the system.
+Helps in designing regression tests to ensure past bugs do not reoccur.
+Determines if the tests will be run in a development, staging, or production environment and what specific configurations are needed.
+Defines the criteria for passing and failing tests to ensure consistent evaluation.
+Ensures that the right tools are used for efficient and effective testing.
+Helps in planning the breadth and depth of tests, including the extent of automated vs. manual testing.
+Ensures that tests remain relevant and useful as the system evolves, which includes planning for test maintenance.

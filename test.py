@@ -5,15 +5,14 @@ import asyncio
 
 from streams import connectionData as connection_data
 
+path_api = "sample_data/raw/api_2/binance/binance_api_perpetual_depth_btcusdperp.json"
+path_api_2 = "sample_data/raw/api_2/binance/binance_api_perpetual_depth_btcusdperp.json"
+path_ws = "sample_data/raw/ws/binance/binance_ws_perpetual_inverse_depth_btcusdperp.json"
 
-path = "/workspaces/fastmoonStreams/sample_data/raw/api_2/binance/binance_api_perpetual_depth_btcusdperp.json"
-# path = "C:\\coding\\fastmoon\\fastmoonStreams\\sample_data\\raw\\api_2\\binance\\binance_api_perpetual_depth_btcusdperp.json"
-data_api = json.dumps(json.load(open(path, "r"))[0])
+data_api = json.dumps(json.load(open(path_api_2, "r"))[0])
+data_ws = json.load(open(path_ws, "r"))
 
-path_2 = "/workspaces/fastmoonStreams/sample_data/raw/ws/binance/binance_ws_perpetual_inverse_depth_btcusdperp.json"
-# path_2 = "C:\\coding\\fastmoon\\fastmoonStreams\\sample_data\\raw\ws\\binance\\binance_ws_perpetual_inverse_depth_btcusdperp.json"
-data_ws = json.load(open(path_2, "r"))
-
+print(data_api)
 
 processor = connection_data[0].get("flowClass")
 processor.pass_market_state(market_state={})
@@ -35,6 +34,10 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+    
+    
     
     
     

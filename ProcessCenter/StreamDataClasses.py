@@ -3,7 +3,6 @@ import asyncio
 import time
 from numba import jit
 from typing import List, Dict, Optional
-import 
 
 @dataclass
 class MarketState:

@@ -72,7 +72,10 @@ class booksflow():
         # Helpers
         self.last_receive_time = 0
         self.running = False
-
+        
+        # Helper for testing
+        self.folderpath = ""
+        
     def find_level(self, price):
         """ locates the bucket to which the price belongs"""
         return np.ceil(price / self.level_size) * self.level_size
@@ -84,6 +87,10 @@ class booksflow():
     def pass_connection_data(self, connection_data):
        """ passes connectiondata dictionary"""
        self.connection_data = connection_data
+
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
 
     async def input_data_api(self, data:str):
         """ inputs books from api into dataframe"""
@@ -104,12 +111,6 @@ class booksflow():
             self.last_receive_time = recieve_time
         except:
             return
-        
-    def dump_df_to_csv(self, location, type_):
-        if type_ == 1:
-            self.df.to_csv(location, index=False)
-        if type_ == 2:
-            self.dfp.to_csv(location, index=False)
 
 
     async def input_into_pandas_df(self):
@@ -142,9 +143,9 @@ class booksflow():
             self.df.loc[timestamp] = sums
             sorted_columns = sorted(map(float, self.df.columns))
             self.df = self.df[map(str, sorted_columns)]
-                
-        # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books_unprocessed.csv", 1)
         
+        if self.mode == "testing":
+            print(self.df)     
 
     @staticmethod
     def manipulate_arrays(old_levels, new_levels, new_values):
@@ -181,19 +182,22 @@ class booksflow():
             while True:
                 await asyncio.sleep(self.books_process_interval)
                 
-                # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books.csv", 1)
+                if self.mode == "testing":
+                    self.dump_df_to_csv("raw")
 
                 for col in self.df.columns:
                     self.df[col] = self.df[col].replace(0, pd.NA).ffill()
                     self.df[col] = self.df[col].replace(0, pd.NA).bfill()
                 self.dfp = self.df.copy()
                 
-                # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/books_processed.csv", 2)
+                if self.mode == "testing":
+                    self.dump_df_to_csv("processed")
                 
                 self.df = pd.DataFrame()
                 
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/books_{self.connection_data.get('id_ws')}.json")
+                    self.generate_data_for_plot()
+                    
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -201,8 +205,10 @@ class booksflow():
             print(f"An error occurred: {e}")
             
 
-    def generate_data_for_plot(self, file_path):
+    def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
+        name = self.connection_data.get("id_ws")
+        filepath = f"{self.folderpath}/sample_data/plots/{name}.csv"
         try:
             for index, row in self.dfp.iterrows():
                 if not all(row == 0):
@@ -214,10 +220,19 @@ class booksflow():
                 'ylabel': 'Amount',
                 'legend': f'Books for every level at timestamp {index}, {self.exchange}, {self.symbol}'
             }
-            with open(file_path, 'w') as file:
+            with open(filepath, 'w') as file:
                 json.dump(plot_data, file)
         except Exception as e:
             print(e)
+            
+    def dump_df_to_csv(self, dftype):
+        """ processed, raw"""
+        name = self.connection_data.get("id_ws")
+        file_path = f"{self.folderpath}/sample_data/pandasdf/{dftype}/{name}.csv"
+        if dftype == "raw":
+            self.df.to_csv(file_path, index=False)
+        if dftype == "processed":
+            self.dfp.to_csv(file_path, index=False)
             
 class tradesflow():
     """
@@ -373,7 +388,7 @@ class oiflow():
                  inst_type : str,
                  price_level_size : int,
                  on_message : callable,
-                 trades_process_interval : int = 10,
+                 oi_process_interval : int = 10,
                  mode = "production",
                  ):
         """
@@ -388,7 +403,7 @@ class oiflow():
         self.inst_type = inst_type
         self.on_message = on_message
         self.price_level_size = float(price_level_size)
-        self.oi_process_interval = trades_process_interval
+        self.oi_process_interval = oi_process_interval
         # helpers
         self.dfp = pd.DataFrame()
         self.ois = OpenInterest()

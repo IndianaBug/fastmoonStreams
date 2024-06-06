@@ -18,9 +18,9 @@ ws = {
     "binance" : [
     #     "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
     #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
-    #     "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
+        "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
     #     "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
-        "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+        # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
     #     "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
     #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
     #     "perpetual.trades.BTCUSD_PERP",                                   # ok
@@ -143,22 +143,7 @@ api = {
 }
 
 
-connectionData = client.build_connection_data(ws, api)
-
-# print(connectionData)
-
-# c = 0
-# for e in connectionData:
-#     c +=1
-#     print(e)
-#     if c == 1000:
-#         break
+connection_data = client.build_connection_data(ws, api)
 
 
-import asyncio
-# data = next(data for data in connectionData if "binance_ws_perpetual" in data.get("id_ws"))
-# print(data)
-
-# for e in connectionData:
-#     print("----")
-#     print(e)
+print(connection_data)
