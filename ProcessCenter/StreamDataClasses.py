@@ -1,8 +1,10 @@
 from dataclasses import dataclass, field
 import asyncio
 import time
-from numba import jit
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
+import pandas as pd
+import uuid
+import rapidjson as json
 
 @dataclass
 class MarketState:
@@ -28,7 +30,6 @@ class MarketState:
         """Sets value for key in symbol's data (creates dict if needed)."""
         self._data[symbol] = {}
 
-    @jit(nopython=True)
     def update_from_dict(self, data_dict):
         """Updates with new data based on condition."""
         for symbol, symbol_data in data_dict.items():
@@ -37,7 +38,6 @@ class MarketState:
             self._data[symbol].update(symbol_data)
             self._data[symbol]['update_time'] = time.time()
     
-    @jit(nopython=True)
     async def remove_dead_instruments(self, check_interval):
         while True:
             current_time = time.time()
@@ -46,7 +46,6 @@ class MarketState:
                 del self._data[symbol]
             await asyncio.sleep(self.symbol_remove_timeout) 
     
-    @jit(nopython=True)
     def retrive_data_by_objective(self, objectives:list=[], inst_types:list=[], exchanges:list=[]):
         """ Retrives data by objective. If instrument type is passed in a list, these will be ignored"""
         data = {obj : {} for obj in objectives}
@@ -57,7 +56,6 @@ class MarketState:
                     data[obj][instrument] = self.retrive_data(instrument, obj)
         return data
 
-    @jit(nopython=True)
     def retrive_data_by_exchange(self, exchanges:list=[], objectives:list=[]):
         """ Retrives data by objective. If instrument type is passed in a list, these will be ignored"""
         data = {exchange : {obj : {} for obj in objectives} for exchange in exchanges}
@@ -73,23 +71,26 @@ class OrderBook:
 
     def __init__(self, book_ceil_thresh):
       self.book_ceil_thresh = book_ceil_thresh
-      self.timestamp = dict()
+      self.timestamp = field(default_factory=dict)
       self.price = None
-      self.bids = dict()
-      self.asks = dict()
+      self.bids = field(default_factory=dict)
+      self.asks = field(default_factory=dict)
 
+    #@jit(nopython=True)
     async def update_bid(self, price: float, amount: float):
         if amount > 0:
             self.bids[price] = amount
         elif amount == 0 and price in self.bids:
             del self.bids[price]
 
+    #@jit(nopython=True)
     async def update_ask(self, price: float, amount: float):
         if amount > 0:
             self.asks[price] = amount
         elif amount == 0 and price in self.asks:
             del self.asks[price]
 
+    #@jit(nopython=True)
     async def update_data(self, data):
         """ updates all asks and bids at once """
 
@@ -103,6 +104,7 @@ class OrderBook:
         
         self.price = (max(self.bids.keys()) + min(self.asks.keys())) / 2
 
+    #@jit(nopython=True)
     async def trim_books(self):
       for level in self.bids.copy().keys():
           if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
@@ -112,6 +114,7 @@ class OrderBook:
               del self.asks[level]
 
     @staticmethod
+    #@jit(nopython=True)
     def compute_percentage_variation(new_value, old_value):
         try:
             percentage_difference = abs((new_value - old_value) / old_value) * 100
@@ -127,15 +130,14 @@ class MarketTradesLiquidations:
             {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}, ...], "liquidations" : [...], "receive_time" : receive_time}
     """
 
-    buys : dict = field(default_factory=dict)
-    sells : dict = field(default_factory=dict)
-    longs : dict = field(default_factory=dict)
-    shorts : dict = field(default_factory=dict)
+    buys = field(default_factory=dict)
+    sells = field(default_factory=dict)
+    longs = field(default_factory=dict)
+    shorts = field(default_factory=dict)
     last_timestamp = 0
     last_ltimestamp = 0
     price = 0
 
-    @jit(nopython=True)
     async def add_trades(self, data):
         """ adds trades in bulk"""
         for trade in data.get("trades"):
@@ -148,7 +150,6 @@ class MarketTradesLiquidations:
             elif side == "sell":
                 await self.add_sell(timestamp, price, quantity)
 
-    @jit(nopython=True)
     async def add_liquidations(self, data):
         """ adds liquidations in bulk"""
         for trade in data.get("liquidations"):
@@ -161,7 +162,6 @@ class MarketTradesLiquidations:
             elif side == "sell":
                 await self.add_long(timestamp, price, quantity)
     
-    @jit(nopython=True)
     async def add_sell(self, timestamp: float, price: float, quantity: float):
         """ adds a sell trade"""
         if quantity > 0 and self.last_timestamp < timestamp:
@@ -171,7 +171,6 @@ class MarketTradesLiquidations:
             self.price = price
         self.last_timestamp = timestamp
 
-    @jit(nopython=True)
     async def add_buy(self, timestamp: float, price: float, quantity: float):
         """ adds a buys trade"""
         if quantity > 0 and self.last_timestamp < timestamp:
@@ -182,7 +181,6 @@ class MarketTradesLiquidations:
         self.last_timestamp = timestamp
 
 
-    @jit(nopython=True)
     async def add_short(self, timestamp: float, price: float, quantity: float):
         """ adds a sell trade"""
         if quantity > 0 and self.last_ltimestamp < timestamp:
@@ -191,7 +189,6 @@ class MarketTradesLiquidations:
             self.shorts[timestamp].append({"price" : price, "quantity" : quantity})
         self.last_ltimestamp = timestamp
 
-    @jit(nopython=True)
     async def add_long(self, timestamp: float, price: float, quantity: float):
         """ adds a buys trade"""
         if quantity > 0 and self.last_ltimestamp < timestamp:
@@ -200,14 +197,12 @@ class MarketTradesLiquidations:
             self.longs[timestamp].append({"price" : price, "quantity" : quantity})
         self.last_ltimestamp = timestamp
     
-    @jit(nopython=True)
     async def reset_trades(self):
         """ resets trades data """
         self.buys.clear()
         self.sells.clear()
         self.last_timestamp = 0
 
-    @jit(nopython=True)
     async def reset_liquidations(self):
         """ resets liquidations data """
         self.longs.clear()
@@ -215,101 +210,98 @@ class MarketTradesLiquidations:
         self.last_ltimestamp = 0
         
 @dataclass
-class OpenInterestEntry:
-    timestamp: float
-    instrument: str
-    open_interest: float
-    price : float
-    
-@dataclass
 class OpenInterest:
-    data: List[OpenInterestEntry] = field(default_factory=list)
-    last_values: Dict[str, int] = field(default_factory=dict)
+    data = field(default_factory=dict) # a dictionary of Instrument: List[OpenInterestEntry]
+    last_values = field(default_factory=dict)
 
-    def add_entry(self, timestamp: float, instrument: str, open_interest: float, price : float):
-        entry = OpenInterestEntry(timestamp, instrument, open_interest, price)
-        self.data.append(entry)
+    async def add_entry(self, timestamp: float, instrument: str, open_interest: float, price : float):
+
+        entry = {"timestamp": timestamp, "open_interest": open_interest, "price" : price}
+
+        if instrument not in self.data:
+            self.data[instrument] = []
+        self.data[instrument].append(entry)
         self.last_values[instrument] = open_interest
+        # await asyncio.sleep(0.3) # for testing
+ 
 
-    def get_entries_by_instrument(self, instrument: str) -> List[OpenInterestEntry]:
-        return [entry for entry in self.data if entry.instrument == instrument]
-
-    def get_entries_by_timestamp(self, timestamp: float) -> List[OpenInterestEntry]:
-        return [entry for entry in self.data if entry.timestamp == timestamp]
-
-    def get_last_value(self, instrument: str) -> Optional[int]:
+    async def get_last_value(self, instrument: str) -> Optional[int]:
         return self.last_values.get(instrument)
 
-    def calculate_change(self, instrument: str, new_open_interest: int) -> Optional[int]:
-        last_value = self.get_last_value(instrument)
-        if last_value is not None:
-            return new_open_interest - last_value
-        return None
+    async def get_unique_instruments(self):
+        return  list(self.data.keys())
 
-    def reset_data(self):
-        self.data = []
+    async def reset_data(self):
+        self.data = dict()
 
-    def __str__(self):
+    async def __str__(self):
         return '\n'.join(str(entry) for entry in self.data)
     
 @dataclass
-class OptionInstrument:
-    symbol: str
-    strike: float
-    days_left: int
-    oi: float
-    option_type: str  # 'C' for Call, 'P' for Put
-
-@dataclass
 class OptionInstrumentsData:
-    instruments: Dict[str, OptionInstrument] = field(default_factory=dict)
+    
+    data = field(default_factory=dict) # a dictionary of Instrument: List[OpenInterestEntry]
 
-    def add_instrument(self, key: str, instrument: OptionInstrument):
-        self.instruments[key] = instrument
+    async def add_data_bulk(self, bulk_data):
 
-    def add_instruments_bulk(self, bulk_data: Dict[str, Dict]):
-        for key, data in bulk_data.items():
-            days_left = data["days_left"]
-            if days_left >= 0:
-                instrument = OptionInstrument(
-                    symbol=data["symbol"],
-                    strike=data["strike"],
-                    days_left=days_left,
-                    oi=data["oi"],
-                    option_type=data["symbol"][-1]  # Extracting option type from the symbol
-                )
-            self.add_instrument(key, instrument)
+        for instrument, data in bulk_data.items():
 
-    def get_instrument(self, key: str) -> OptionInstrument:
-        return self.instruments.get(key)
+            if isinstance(data, dict):
+                days_left = data.get("days_left")
+                oi = data.get("oi")
 
-    def remove_instrument(self, key: str):
-        if key in self.instruments:
-            del self.instruments[key]
+                if days_left >= 0 and oi > 0:
+                    oidata = {
+                        "instrument" : data.get("symbol"),
+                        "strike" : data.get("strike"),
+                        "days_left" : data.get("days_left"),
+                        "oi" : data.get("oi"),
+                        "price" : data.get("price"),
+                        "option_type" : data.get("symbol")[-1],
+                    }
+                    self.data[instrument] = oidata
+
+                if instrument in self.data and oi <= 0:
+                    del self.data[instrument]
+
 
     def reset_data(self):
-        self.instruments = {}
+        self.data = {}
 
     def get_summary(self) -> Dict[str, List]:
-        strikes = [instrument.strike for instrument in self.instruments.values()]
-        countdowns = [instrument.days_left for instrument in self.instruments.values()]
-        oi = [instrument.oi for instrument in self.instruments.values()]
-        return {"strikes": strikes, "countdowns": countdowns, "oi": oi}
+        strikes = [instrument.get("strike") for instrument in self.data.values()]
+        countdowns = [instrument.get("days_left") for instrument in self.data.values()]
+        ois = [instrument.get("oi") for instrument in self.data.values()]
+        prices = [instrument.get("price") for instrument in self.data.values()]
+        return {"strikes": strikes, "countdowns": countdowns, "ois": ois, "prices" : prices}
     
     def get_summary_by_option_type(self) -> Dict[str, Dict[str, List]]:
-        summary = {"Call": {"strikes": [], "countdowns": [], "oi": []},
-                   "Put": {"strikes": [], "countdowns": [], "oi": []}}
 
-        for instrument in self.instruments.values():
-            option_category = "Call" if instrument.option_type == 'C' else "Put"
-            summary[option_category]["strikes"].append(instrument.strike)
-            summary[option_category]["countdowns"].append(instrument.days_left)
-            summary[option_category]["oi"].append(instrument.oi)
+        summary = {
+            "Call": {
+                "strikes": [], "countdowns": [], "ois": [], "prices" : []
+                },
+            "Put": {
+                "strikes": [], "countdowns": [], "ois": [], "prices" : [] 
+                }
+            }
 
-        return summary
+        for instrument, data in self.data.items():
+
+            option_category = "Call" if data.get("option_type") == 'C' else "Put"
+
+            summary[option_category]["strikes"].append(data.get("strike"))
+
+            summary[option_category]["countdowns"].append(data.get("days_left"))
+
+            summary[option_category]["ois"].append(data.get("oi"))
+
+            summary[option_category]["prices"].append(data.get("price"))
+
+        return summary.get("Call"), summary.get("Put")
 
     def __str__(self):
-        return '\n'.join(f"{key}: {vars(instrument)}" for key, instrument in self.instruments.items())
+        return '\n'.join(f"{key}: {vars(instrument)}" for key, instrument in self.data.items())
     
 @dataclass
 class PositionData:
@@ -343,8 +335,6 @@ class PositionData:
 @dataclass
 class InstrumentsData:
     
-    # update_data = {"tta_ratio": 1.6, "funding": 0.02}
-    # instruments_data.update_position("ETHUSDT", update_data)
     
     instruments: Dict[str, PositionData] = field(default_factory=dict)
     
@@ -367,3 +357,133 @@ class InstrumentsData:
 
     def __str__(self):
         return '\n'.join(f"{symbol}: {vars(data)}" for symbol, data in self.instruments.items())
+    
+
+def default_map_dictionary() -> Dict[str, Dict]:
+    return {
+        "books" : {
+            "spot" : dict(),
+            "future" : dict(),
+        },
+        "canceled_books" : {
+            "spot" : dict(),
+            "future" : dict(),
+        },
+        "reinforced_books" : {
+            "spot" : dict(),
+            "future" : dict(),
+        },
+        "trades" : {
+            "spot" : dict(),
+            "future" : dict(),
+            "option" : dict(),
+        },
+        "oi_deltas" : {
+            "future" : dict(),
+            "option" : dict(),
+        },
+        "liquidations" : {
+            "future" : dict(),
+        }
+    }
+
+@dataclass
+class AggregationDataHolder:
+    """ Data holder for aggregation and extraction"""
+
+    timestamp : float = time.time()
+    global_data : Dict[str, float] = field(default_factory=dict)
+    instrument_data : Dict[Dict[str, float]] = field(default_factory=dict)
+
+    maps : Dict[Dict[Dict[str, float]]] = field(default_factory=default_map_dictionary)
+    
+    tick_data : Dict[Dict[str, List[Dict[str, float]]]] = field(default_factory=dict)
+
+    dataframes_to_merge: Dict[str, List] = field(default_factory=lambda: {
+        "books_spot": {},
+        "books_future": {},
+        "trades_spot": {},
+        "trades_future": {},
+        "trades_option": {},
+        "oi_delta_future": {},
+        "oi_option": {},
+        "liquidations_future": {},
+    })
+
+    merged_dataframes: Dict[str, pd.DataFrame] = field(default_factory=lambda: {
+        "books_spot": pd.DataFrame(),
+        "books_future": pd.DataFrame(),
+        "trades_spot": pd.DataFrame(),
+        "trades_future": pd.DataFrame(),
+        "trades_option": pd.DataFrame(),
+        "oi_delta_future": pd.DataFrame(),
+        "oi_option": pd.DataFrame(),
+        "liquidations_future": pd.DataFrame(),
+    })
+
+
+    def add_data_to_merge(self, aggregatation_type: str, id_, df: pd.DataFrame):
+        """ Insert dataframe into the dataframes_to_merge"""
+        self.dataframes_to_merge[aggregatation_type][id_] = df
+
+    def add_merged_datadrame(self, aggregatation_type: str, df: pd.DataFrame):
+        """ Insert dataframe into the dataframes_to_merge"""
+        self.merged_dataframes[aggregatation_type] = df
+
+
+    def generate_unique_id(self) -> str:
+        """Generates a unique identifier using UUID4."""
+        return str(uuid.uuid4())
+    
+    def retrive_data(self):
+        """ Retrives data is json format to insert into database"""
+        return {
+            "id" : self.generate_unique_id(),
+            "timestamp" : time.time(),
+            "global_data" : self.global_data,
+            "instrument_data" : self.instrument_data,
+            "maps" : self.maps,
+            "tick_data" : self.tick_data
+        }
+    
+    def insert_books_spot(self, id_, df):
+        """Insert books into the spot dataframe"""
+        self.books_spot[id_] = df
+
+    def insert_books_future(self, id_, df):
+        "''Insert books into the future dataframe''"
+        self.books_future[id_] = df
+
+    def insert_trades_spot(self, id_, df):
+        """Insert trades into the spot dataframe"""
+        self.trades_spot[id_] = df
+
+    def insert_trades_future(self, id_, df):
+        """Insert trades into the future dataframe"""
+        self.trades_future[id_] = df
+
+    def insert_trades_option(self, id_, df):
+        """Insert trades into the option dataframe"""
+        self.trades_option[id_] = df
+
+    def insert_oi_delta_future(self, id_, df):
+        """Insert open interest delta into the future dataframe"""
+        self.oi_delta_future[id_] = df
+    
+    def insert_oi_option(self, id_, df):
+        """Insert open interest into the option dataframe"""
+        self.oi_option[id_] = df
+    
+    def insert_global_data(self, data:dict):
+        """ Insert global data into the dataframe """
+        self.global_data.update(data)
+
+    def insert_instrument_data(self, data:dict):
+        self.instrument_data.update(data)
+
+    def insert_maps(self, objective:str, isnt_type:str, data:dict):
+        """ Insert maps into the dataframe """
+        self.maps[objective][isnt_type].update(data)
+
+    def insert_tick_data(self, data:dict):
+        self.tick_data.update(data)

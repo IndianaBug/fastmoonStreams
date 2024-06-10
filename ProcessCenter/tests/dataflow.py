@@ -4,13 +4,13 @@ import json
 import asyncio
 import os
 import sys
+from ProcessCenter.DataFlow import MarketDataFusion
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, "../.."))
 sys.path.append(parent_dir)
 
-from streams import connection_data
 flow_types = ["booksflow", "tradesflow", "oiflow", "liqflow", "fundingflow", "gtaflow", "ttaflow", "ttpflow"]
 
 
@@ -23,7 +23,7 @@ class _test_flow():
 
     def return_processors(self):
         """ Testing of any flow """
-        processors_names = [x for x in self.stream_data if flow_types]
+        processors_names = [x for x in self.stream_data if x in flow_types]
         processors = {}
         for processor_name in processors_names:
             processor = self.stream_data.get(processor_name)
@@ -35,46 +35,96 @@ class _test_flow():
     
     async def input_apiws_books(self, data_ws, data_api,  processor):
         """ helper """
-        await asyncio.sleep(1)
-        await processor.input_data_api(json.dumps(json.loads(data_api)[0]))
-        for d in data_ws[::-1]:
-            await processor.input_data_ws(json.dumps(d))
+        try:
+            data_ws = json.load(data_ws)
+            data_api = json.load(data_api)
             await asyncio.sleep(1)
+            await processor.input_data_api(json.dumps(data_api[0]))
+            for d in data_ws[::-1]:
+                await processor.input_data_ws(json.dumps(d))
+                await asyncio.sleep(1)
+                # print(processor.books.bids)
+        except Exception as e:
+            print(e)
 
     async def input_apiws_data(self, data, processor):
         """ helper """
-        for d in data[::-1]:
-            await processor.input_data(json.dumps(d))
-            await asyncio.sleep(1)
+        try:
+            data = json.load(data)
+            for d in data[::-1]:
+                await processor.input_data(json.dumps(d))
+        except Exception as e:
+            print(e)
             
-    async def input_api2_data(self, data, processor):
-        """ helper """
-        await processor.input_data(json.dumps(json.loads(data)[0]))
-        await asyncio.sleep(1)
 
-    async def flow_test(self):
+    async def cereate_tasks(self):
         """ Lazy unit test of booksflow module """
-        exchange = self.stream_data.get("id_ws").split("_")[0] if self.stream_data.get("id_ws") else self.stream_data.get("id_api").split("_")[0]
-        path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{self.stream_data.get('id_api')}.json"
-        path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{self.stream_data.get('id_api_2')}.json"
-        path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{self.stream_data.get('id_ws')}.json"
-        dataapi = json.dumps(json.load(open(path_api, "r"))[0])
-        dataws = json.load(open(path_ws, "r"))
-        dataapi2 = json.dumps(json.load(open(path_api_2, "r"))[0])
-        
-        for processor in self.processors:
-            if processor == "booksflow":
-                await self.input_apiws_books(dataws, dataapi2, self.self.processors.get(processor))
-            if processor in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
-                self.input_apiws_data(dataapi, self.self.processors.get(processor))
-            if processor in ["liqflow", "tradesflow"]:
-                self.input_apiws_data(dataws, self.self.processors.get(processor))
-        
+        try:
+
+            tasks = []
+
+            exchange = self.stream_data.get("exchange") #.split("_")[0] if self.stream_data.get("id_ws") else self.stream_data.get("id_api").split("_")[0]
+
+            path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{self.stream_data.get('id_api')}.json"
+
+            path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{self.stream_data.get('id_api_2')}.json"
+
+            path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{self.stream_data.get('id_ws')}.json"
+
+            if self.stream_data.get("id_api", "") != "":
+                dataapi = open(path_api, "r")
+            if self.stream_data.get("id_ws", "") != "":
+                dataws = open(path_ws, "r")
+            if self.stream_data.get("id_api_2", "") != "":
+                dataapi2 = open(path_api_2, "r")
+            
+            for processor in self.processors:
+                if processor == "booksflow":
+                    tasks.append(asyncio.ensure_future(self.input_apiws_books(dataws, dataapi2, self.processors.get(processor))))
+                    tasks.append(asyncio.ensure_future(self.processors.get(processor).schedule_snapshot()))
+                elif processor in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
+                    tasks.append(asyncio.ensure_future(self.input_apiws_data(dataapi, self.processors.get(processor))))
+                elif processor in ["liqflow", "tradesflow"]:
+                    tasks.append(asyncio.ensure_future(self.input_apiws_data(dataws, self.processors.get(processor))))
+
+                try:
+                    tasks.append(asyncio.ensure_future(self.processors.get(processor).schedule_processing_dataframe()))
+                except:
+                    pass
+
+            return tasks
+
+        except Exception as e:
+            
+            id_ = self.stream_data.get("id_api") if "id_api" in self.stream_data else self.stream_data.get("id_ws")
+
+            print(f"Something went wrong with {id_} : {e}")        
+
     async def main(self):
-        tasks = []
-        tasks.append(asyncio.ensure_future(self.flow_test()))
+        tasks = await self.cereate_tasks()
         await asyncio.gather(*tasks, return_exceptions=True)
+
+
+class test_mergers():
+
+    fusion = MarketDataFusion(
+        books_aggregation_interval = 10,
+    )
+
+    def test_books(self, isnt_type):
+        """ Test if books are merged correctly """
+        directory_path = parent_dir+f"\\sample_data\\dfpandas\\processed\\"
+        entries = os.listdir(directory_path)
+        files = [entry for entry in entries if os.path.isfile(os.path.join(directory_path, entry))]
+        files = [file for file in files if "processed_books" in file and "perpetual" in file]
+        dataframes = [pd.read_csv(directory_path+"\\"+file) for file in files]
+        self.fusion.merge_books(dataframes)
+
+        return dataframes
         
+
+    
+
 
 # if __name__ == "__main__":
 #     stream_data = None

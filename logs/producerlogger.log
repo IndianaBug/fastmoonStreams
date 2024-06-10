@@ -2976,3 +2976,6 @@ Traceback (most recent call last):
     raise MessageSizeTooLargeError(
 kafka.errors.MessageSizeTooLargeError: [Error 10] MessageSizeTooLargeError: The message is 4136991 bytes when serialized which is larger than the maximum request size you have configured with the max_request_size configuration
 2024-06-03 01:23:23,005 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bingx_ws_spot_depth_btcusdt' already exists."}
+2024-06-09 22:06:52,212 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'binance_api_perpetual_inverse_gta_btcposfutureperp' already exists."}
+2024-06-09 22:06:52,212 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'bybit_api_perpetual_linear_gta_btcposfutureperp' already exists."}
+2024-06-09 22:06:52,213 - OriginHub.SupplyEngine - INFO - Topic already exists, skipping to the next iteration... KafkaError{code=TOPIC_ALREADY_EXISTS,val=36,str="Topic 'okx_api_perpetual_gta_btc' already exists."}

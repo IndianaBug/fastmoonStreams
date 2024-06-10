@@ -1,4 +1,4 @@
-from streams import connectionData
+from streams import connection_data
 from ProcessCenter.ConsumerEngine import StreamApp
 import asyncio
 from functools import partial
@@ -9,7 +9,7 @@ import sys
 
 
 app = StreamApp(
-            connection_data=connectionData, 
+            connection_data=connection_data, 
             id = "XBT_All_Streams",
             broker = "kafka://localhost:9092",
             topic_partitions=5,

@@ -136,15 +136,15 @@ class MockdbConnector:
 
         try:
 
-            # data = json.loads(data)
-            # pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
+            data = json.loads(data)
+            pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
 
-            try:
-                data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
-                pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, True)
-            except Exception as e:
-                data = json.loads(data)
-                pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
+            # try:
+            #     data = await on_message(data=data, market_state=market_state, connection_data=connection_data)
+            #     pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, True)
+            # except Exception as e:
+            #     data = json.loads(data)
+            #     pipe_id, relative_file_path = self.build_fodlers(connection_data, pipe_type, False)
             
             data["_doc"] = str(uuid.uuid4())
             

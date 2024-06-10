@@ -16,14 +16,15 @@ import numpy as np
 import socket
 import multiprocessing as mp
 import logging
-from .StreamDataClasses import OrderBook, MarketTradesLiquidations, OpenInterest, OptionInstrumentsData, InstrumentsData
+from .StreamDataClasses import OrderBook, MarketTradesLiquidations, OpenInterest, OptionInstrumentsData, InstrumentsData, AggregationDataHolder
+import copy
 
 pd.set_option('future.no_silent_downcasting', True)
 
 
 # Fix books stuff
 # Different trades, different measures. Probably more than a single process method needed, fixit
-        
+
 class booksflow():
     """
         Important notes:
@@ -68,7 +69,7 @@ class booksflow():
         self.books_process_interval = int(books_process_interval)
         self.books = OrderBook(self.book_ceil_thresh)
         self.df = pd.DataFrame()
-        self.dfp = pd.DataFrame()
+        self.df_books = pd.DataFrame()
         # Helpers
         self.last_receive_time = 0
         self.running = False
@@ -111,7 +112,6 @@ class booksflow():
             self.last_receive_time = recieve_time
         except:
             return
-
 
     async def input_into_pandas_df(self):
         """ Inputs bids and asks into pandas dataframe """
@@ -174,7 +174,6 @@ class booksflow():
             # print(self.df)
             await asyncio.sleep(self.book_snap_interval)
 
-
     async def schedule_processing_dataframe(self):
         """ Generates dataframe of processed books """
         try:
@@ -188,7 +187,7 @@ class booksflow():
                 for col in self.df.columns:
                     self.df[col] = self.df[col].replace(0, pd.NA).ffill()
                     self.df[col] = self.df[col].replace(0, pd.NA).bfill()
-                self.dfp = self.df.copy()
+                self.df_books = self.df.copy()
                 
                 if self.mode == "testing":
                     self.dump_df_to_csv("processed")
@@ -204,11 +203,10 @@ class booksflow():
         except Exception as e:
             print(f"An error occurred: {e}")
             
-
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         name = self.connection_data.get("id_ws")
-        filepath = f"{self.folderpath}/sample_data/plots/books_{name}.csv"
+        filepath = f"{self.folderpath}\\sample_data\\plots\\books_{name}.json"
         try:
             for index, row in self.dfp.iterrows():
                 if not all(row == 0):
@@ -216,6 +214,7 @@ class booksflow():
             plot_data = {
                 'x': [float(x) for x in row.index.tolist()],
                 'y': row.values.tolist(),
+                'price' : self.find_level(self.books.price),
                 'xlabel': 'Level',
                 'ylabel': 'Amount',
                 'legend': f'Books for every level at timestamp {index}, {self.exchange}, {self.symbol}'
@@ -228,11 +227,11 @@ class booksflow():
     def dump_df_to_csv(self, dftype):
         """ processed, raw"""
         name = self.connection_data.get("id_ws")
-        file_path = f"{self.folderpath}/sample_data/dfpandas/{dftype}/books_{name}.csv"
+        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\{dftype}\\{dftype}_books_{name}.csv"
         if dftype == "raw":
             self.df.to_csv(file_path, index=False)
         if dftype == "processed":
-            self.dfp.to_csv(file_path, index=False)
+            self.df_books.to_csv(file_path, index=False)
             
 class tradesflow():
     """
@@ -254,7 +253,7 @@ class tradesflow():
             price_level_size : the magnitude of the level to aggragate upon (measured in unites of the quote to base pair)
             on_message : function to extract details from the response
         """
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
@@ -263,13 +262,15 @@ class tradesflow():
         self.price_level_size = float(price_level_size)
         self.trades_process_interval = trades_process_interval
         # helpers
-        self.dfpbuys = pd.DataFrame()
-        self.dfpsells = pd.DataFrame()
-        self.dfptotal = pd.DataFrame()
+        self.dfbuys = pd.DataFrame()
+        self.dfsells = pd.DataFrame()
+        self.df_trades_total = pd.DataFrame()
+        self.df_trades_delta = pd.DataFrame()
         self.Trades = MarketTradesLiquidations()
         self.buys = dict()
         self.sells = dict()
 
+        self.folderpath = ""
         self.mode = mode
 
     def find_level(self, price):
@@ -280,15 +281,19 @@ class tradesflow():
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, stream_data):
        """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
+       self.stream_data = stream_data
 
-    def input_data(self, data, *args, **kwargs) :
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
+
+    async def input_data(self, data, *args, **kwargs) :
         """ inputs data"""
         try:
-            processed_data = self.on_message(data, self.connection_data, self.market_state)
-            self.Trades.add_trades(processed_data)
+            processed_data = await self.on_message(data, self.stream_data, self.market_state)
+            await self.Trades.add_trades(processed_data)
         except:
             return
     
@@ -297,39 +302,88 @@ class tradesflow():
             Common method to process trades and update the DataFrame
             type_ : buys or sells
         """
+
         data_object = self.Trades.buys if type_ == "buys" else self.Trades.sells
-        df = pd.DataFrame(0, index=list(range(0, self.trades_process_interval)))
-        for timestamp in data_object:
-            for trade in data_object.get("timestamp"):
-                price = trade.get("price")
-                quantity = trade.get("quantity")
-                index_timestamp = int(timestamp % self.trades_process_interval)
-                level = self.find_level(price)
-                current_columns = (map(float, [x for x in df.columns.tolist()]))
-                if level not in current_columns:
-                    df[str(level)] = 0
-                    df[str(level)] = df[str(level)].astype("float64")
-                    df.loc[index_timestamp, str(level)] += quantity
-                else:
-                    df.loc[index_timestamp, str(level)] += quantity
-        return df.fillna(0, inplace = True)
+        df = pd.DataFrame(index=list(range(0, self.trades_process_interval)))
+
+        trades = [
+            [int(t % self.trades_process_interval), str(self.find_level(trade["price"])), trade["quantity"]]
+            for t in data_object for trade in data_object[t]
+        ]
+
+        df = pd.DataFrame(trades, columns=['timestamp', 'level', 'quantity'])
+        grouped_df = df.groupby(['timestamp', 'level'])['quantity'].sum().reset_index()
+        transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').reset_index()
+        transposed_df.columns.name = None
+        transposed_df.columns = [str(col) if col != 'timestamp' else 'timestamp' for col in transposed_df.columns]
+        transposed_df.set_index('timestamp', inplace=True)
+        transposed_df = transposed_df.reindex(range(self.trades_process_interval), fill_value=0).reset_index()
+        transposed_df = transposed_df.drop(columns=['timestamp'])
+        return transposed_df
+    
+    @staticmethod
+    def merge_suffixes(n):
+        """
+            The maximum amount of datasets to aggregate is the len(alphabet). 
+            Modify this function to get more aggregation possibilities
+        """
+        alphabet = 'xyzabcdefghijklmnopqrstuvw'
+        suffixes = [f'{alphabet[i]}' for i in range(n)]
+        return suffixes
+
+    def merge_columns_by_suffix(self, df, obj):
+        """ 
+            Helper function to merge columns by suffix
+            obj : 'sum' or 'delta'
+        """
+        base_columns = set(col.split('_', 1)[1] for col in df.columns)
+        merged_columns = {}
+
+        for base in base_columns:
+            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
+            if obj == 'sum':
+                merged_columns[base] = df[matching_columns].sum(axis=1)
+            elif obj == 'delta':
+                merged_columns[base] = df[matching_columns[0]].fillna(0)
+                for col in matching_columns[1:]:
+                    merged_columns[base] -= df[col].fillna(0)
+            else:
+                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
+        merged_df = pd.DataFrame(merged_columns)
+        return merged_df
+    
+    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
+        """ 
+            Merges multiple books into one dataframe
+            books : List[pd.DataFrame] -- list of books to merge
+        """
+        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
+        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
+        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
+        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
+        concatenated_df = concatenated_df[map(str, sorted_columns)]
+        return concatenated_df
 
     def make_dataframes(self):
         """ generates processed dataframes of trades """
         self.dfbuys = self.create_pandas_dataframe("buys")
         self.dfsells = self.create_pandas_dataframe("sells")
-        # Merge dfs
-        merged_df = pd.merge(self.dfbuys.copy(), self.dfsells.copy(), left_index=True, right_index=True, how='outer', suffixes=('_buys', '_sells')).fillna(0)
-        common_columns_dic = {column.split("_")[0] : [] for column in merged_df.columns.tolist()}
-        for column in merged_df.columns.tolist():
-            common_columns_dic[column.split("_")[0]].append(column)
-        self.dftotal = pd.DataFrame(0, index=list(range(0, self.trades_process_interval)), dtype='float64')
-        for common_columns in common_columns_dic.keys():
-            for index, column in enumerate(common_columns_dic[common_columns]):
-                if index == 0 :
-                    self.dftotal[common_columns] = merged_df[column]
-                else:
-                    self.dftotal[common_columns] = self.dftotal[common_columns] + merged_df[column]
+        self.df_trades_total = self.merge_dataframes([self.dfbuys, self.dfsells], "sum")
+        self.df_trades_delta = self.merge_dataframes([self.dfbuys, self.dfsells], "delta")
+
+
+    def dump_df_to_csv(self, dftype):
+        """ processed, raw"""
+        name = self.stream_data.get("id_ws")
+        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\{dftype}_trades_{self.inst_type}_{name}.csv"
+        if dftype == "buys":
+            self.dfbuys.to_csv(file_path, index=False)
+        if dftype == "sells":
+            self.dfsells.to_csv(file_path, index=False)
+        if dftype == "total":
+            self.df_trades_total.to_csv(file_path, index=False)
+        if dftype == "delta":
+            self.df_trades_delta.to_csv(file_path, index=False)
 
 
     async def schedule_processing_dataframe(self):
@@ -339,14 +393,18 @@ class tradesflow():
             while True:
                 await asyncio.sleep(self.trades_process_interval)
                 self.make_dataframes()
-                # self.dfpbuys.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/trades_buys.csv", index=False)
-                # self.dfpsells.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/trades_sells.csv", index=False)
-                # self.dfptotal.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/trades_total.csv", index=False)
-                self.buys = self.Trades.buys
-                self.sells = self.Trades.sells
-                self.Trades.reset_trades()
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/trades_{self.connection_data.get('id_ws')}.json")
+                    self.dump_df_to_csv("buys")
+                    self.dump_df_to_csv("sells")
+                    self.dump_df_to_csv("total")
+                    self.dump_df_to_csv("delta")
+
+                self.buys = copy.copy(self.Trades.buys)
+                self.sells = copy.copy(self.Trades.sells)
+
+                await self.Trades.reset_trades()
+                if self.mode == "testing":
+                    self.generate_data_for_plot()
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -354,25 +412,27 @@ class tradesflow():
             print(f"An error occurred: {e}")
 
 
-    def generate_data_for_plot(self, file_path):
+    def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            for type_, df in {"sells" : self.dfbuys, "buys" : self.dfsells, "total" : self.dftotal}.items():
+
+            name = self.stream_data.get("id_ws")
+
+            for type_, df in {"buys" : self.dfbuys, "sells" : self.dfsells, "total" : self.df_trades_total, "delta" : self.df_trades_delta}.items():
+
+                filepath = f"{self.folderpath}\\sample_data\\plots\\trades_{type_}_{self.inst_type}_{name}.json"
 
                 plot_data = {
                     'x': [float(x) for x in df.columns],
                     'y': df.sum().tolist(),
                     'xlabel': 'Level',
                     'ylabel': 'Amount',
-                    'legend': f'Trades sum over {self.trades_process_interval}, {self.exchange}, {self.symbol} '
+                    'legend': f'Trades sum/delta over {self.trades_process_interval}, {self.exchange}, {type_}, {self.symbol} '
                 }
 
-                splitted_file_path = file_path.split(".")
-                splitted_file_path[0] = splitted_file_path+"_"+type_
-                file_path = ".".join(splitted_file_path)
-
-                with open(file_path, 'w') as file:
+                with open(filepath, 'w') as file:
                     json.dump(plot_data, file)
+
         except Exception as e:
             print(e)
 
@@ -396,7 +456,7 @@ class oiflow():
             price_level_size : the magnitude of the level to aggragate upon (measured in unites of the quote to base pair)
             on_message : function to extract details from the response
         """
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
@@ -405,10 +465,15 @@ class oiflow():
         self.price_level_size = float(price_level_size)
         self.oi_process_interval = oi_process_interval
         # helpers
-        self.dfp = pd.DataFrame()
-        self.ois = OpenInterest()
+        self.df_ois_delta = pd.DataFrame()
+        self.OIS = OpenInterest()
         self.mode = mode
-        self.last_recieve_time = 0
+        self.folderpath = ""
+        self.last_recieve_time =  {}
+
+        self.ois = {}
+        self.oi_changes = {}
+        self.data = []
 
     def find_level(self, price):
         """ locates the bucket to which the price belongs"""
@@ -418,9 +483,13 @@ class oiflow():
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, stream_data):
        """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
+       self.stream_data = stream_data
+
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
 
     async def input_data(self, data:str):
         """ 
@@ -428,43 +497,92 @@ class oiflow():
             on message returns  {symbols : {"oi" : value,}, "timestamp" : "", "receive_time"}
         """
         try:
-            oidata = await self.on_message(data, self.market_state, self.connection_data)
-            timestamp = oidata.get("receive_time")
-            if timestamp > self.last_recieve_time:
+            oidata = await self.on_message(data, self.market_state, self.stream_data)
+            symbol = next(iter(oidata))
+            timestamp = oidata.get("timestamp")
+            if timestamp > self.last_recieve_time.get(symbol, 0):
                 for symbol in oidata:
                     oi = oidata.get(symbol).get("oi")
-                    self.ois.add_entry(timestamp, symbol, oi)
-            self.last_recieve_time = timestamp
-        except Exception:
+                    price = oidata.get(symbol).get("price")
+                    await self.OIS.add_entry(timestamp, symbol, oi, price)
+                    self.last_recieve_time[symbol] = timestamp
+        except:
             return
+
+    @staticmethod
+    def merge_suffixes(n):
+        """
+            The maximum amount of datasets to aggregate is the len(alphabet). 
+            Modify this function to get more aggregation possibilities
+        """
+        alphabet = 'xyzabcdefghijklmnopqrstuvw'
+        suffixes = [f'_{alphabet[i]}' for i in range(n)]
+        return suffixes
+    
+    def merge_columns_by_suffix(self, df):
+        base_columns = set(col.split('_', 1)[1] for col in df.columns)
+        merged_columns = {}
+        for base in base_columns:
+            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
+            merged_columns[base] = df[matching_columns].sum(axis=1)
+        merged_df = pd.DataFrame(merged_columns)
+        return merged_df
+    
+    def merge_dataframes(self, dataframes : List[pd.DataFrame]) -> pd.DataFrame:
+        """ 
+            Merges multiple books into one dataframe
+            books : List[pd.DataFrame] -- list of books to merge
+        """
+        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
+        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
+        concatenated_df = self.merge_columns_by_suffix(concatenated_df)
+        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
+        concatenated_df = concatenated_df[map(str, sorted_columns)]
+        return concatenated_df
+    
         
     def make_dataframe(self):
         """ creates dataframe of OIs"""
-        
-        dfp = pd.DataFrame(0, index=list(range(0, self.oi_process_interval)))
-        
-        for data_point in self.ois.data:
-            timestamp =  data_point.timestamp
-            instrument =  data_point.instrument
-            open_interest =  data_point.open_interest
-            price = data_point.price
-            previous_oi = self.ois.last_values.get(instrument)
-            if previous_oi:
-                index_time = int(timestamp % self.oi_process_interval)
-                price_level = self.find_level(price)
-                current_columns = (map(float, [x for x in dfp.columns.tolist()]))
-                if price_level not in current_columns:
-                    dfp[str(price_level)] = 0
-                    dfp[str(price_level)] = dfp[str(price_level)].astype("float64")
-                    dfp[index_time, str(price_level)] = open_interest - previous_oi
-                else:
-                    dfp[index_time, str(price_level)] = open_interest - previous_oi
+
+        processed_oi_by_instrument = {instrument : [] for instrument in self.OIS.data}
                 
-            self.ois.last_values[instrument] = open_interest
-    
-        self.dfp = dfp
-    
-    
+        for instrument in self.OIS.data:
+            for entry in self.OIS.data.get(instrument):
+                open_interest = entry.get("open_interest")
+                price = entry.get("price")
+                timestamp = entry.get("timestamp")
+                oi_difference = open_interest - self.ois.get(instrument, open_interest)
+                if oi_difference != 0:
+                    if timestamp not in self.oi_changes:
+                        self.oi_changes[timestamp] = []
+                    self.oi_changes[timestamp].append({"oi" : oi_difference,  "price" : price})
+
+                processed_oi_data = [
+                    int(timestamp % self.oi_process_interval), 
+                    str(self.find_level(price)), 
+                    oi_difference
+                    ]
+                self.ois[instrument] = open_interest
+                processed_oi_by_instrument[instrument].append(processed_oi_data)
+        
+        dataframes = []
+        for instrument in processed_oi_by_instrument:
+            df = pd.DataFrame(processed_oi_by_instrument.get(instrument), columns=['timestamp', 'level', 'quantity'])
+            grouped_df = df.groupby(['timestamp', 'level'])['quantity'].sum().reset_index()
+            transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').reset_index()
+            transposed_df.columns.name = None
+            transposed_df.columns = [str(col) if col != 'timestamp' else 'timestamp' for col in transposed_df.columns]
+            transposed_df.set_index('timestamp', inplace=True)
+            transposed_df = transposed_df.reindex(range(self.oi_process_interval), fill_value=0).reset_index()
+            transposed_df = transposed_df.drop(columns=['timestamp'])    
+            dataframes.append(transposed_df)
+        
+        if len(dataframes) > 1:
+            self.df_ois_delta = self.merge_dataframes(dataframes)
+        else:
+            self.df_ois_delta = dataframes[0]
+
+
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         try:
@@ -472,33 +590,40 @@ class oiflow():
             while True:
                 await asyncio.sleep(self.oi_process_interval)
                 self.make_dataframe()
-                # self.dfp.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/ois.csv", index=False)
-                # self.dump_df_to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/ois.csv")
-                self.ois.reset_data()
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/ois_{self.connection_data.get('id_ws')}.json")
+                    name = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
+                    self.dfp.to_csv(f"{self.folderpath}\\sample_data\\dfpandas\\processed\\ois_{name}.csv", index=False)
+
+                self.data = copy.copy(self.increases)
+                self.increases = []
+                await self.ois.reset_data()
+                if self.mode == "testing":
+                    self.generate_data_for_plot()
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
         except Exception as e:
             print(f"An error occurred: {e}")
-
-
-    def generate_data_for_plot(self, file_path):
+        
+    def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
-        # ax.bar(categories, values, color=['green' if v >= 0 else 'red' for v in values])
         try:
+
+            name = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
+
+            filepath = f"{self.folderpath}\\sample_data\\plots\\ois_{name}.json"
+
             plot_data = {
                 'x': [float(x) for x in self.dfp.columns],
                 'y': self.dfp.sum().tolist(),
-                'color' : ['green' if v >= 0 else 'red' for v in self.dfp.sum().tolist()],
                 'xlabel': 'Level',
                 'ylabel': 'Amount',
-                'legend': f'Ois increases over {self.oi_process_interval}, {self.exchange}, {self.symbol} '
+                'legend': f'Trades sum over {self.oi_process_interval}, {self.exchange}, {self.symbol} '
             }
 
-            with open(file_path, 'w') as file:
+            with open(filepath, 'w') as file:
                 json.dump(plot_data, file)
+
         except Exception as e:
             print(e)
 
@@ -522,7 +647,7 @@ class liqflow():
             price_level_size : the magnitude of the level to aggragate upon (measured in unites of the quote to base pair)
             on_message : function to extract details from the response
         """
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
@@ -531,73 +656,129 @@ class liqflow():
         self.price_level_size = float(price_level_size)
         self.liquidations_process_interval = liquidations_process_interval
         # helpers
-        self.dfpbuys = pd.DataFrame()
-        self.dfpsells = pd.DataFrame()
-        self.dfptotal = pd.DataFrame()
+        self.dflongs = pd.DataFrame()
+        self.dfshorts = pd.DataFrame()
+        self.df_liquidations_total = pd.DataFrame()
+        self.df_liquidations_delta = pd.DataFrame()
         self.Liquidations = MarketTradesLiquidations()
         self.shorts = dict()
         self.longs = dict()
+
+        self.folderpath = ""
         self.mode = mode
 
     def find_level(self, price):
         """ locates the bucket to which the price belongs"""
         return np.ceil(price / self.price_level_size) * self.price_level_size
-    
+
     def pass_market_state(self, market_state):
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, stream_data):
        """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
+       self.stream_data = stream_data
+
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
 
     def input_data(self, data, *args, **kwargs) :
         """ inputs data"""
         try:
-            processed_data = self.on_message(data, self.connection_data, self.market_state)
+            processed_data = self.on_message(data, self.stream_data, self.market_state)
             self.Liquidations.add_liquidations(processed_data)
         except:
             return
+        
+
+    
+    @staticmethod
+    def merge_suffixes(n):
+        """
+            The maximum amount of datasets to aggregate is the len(alphabet). 
+            Modify this function to get more aggregation possibilities
+        """
+        alphabet = 'xyzabcdefghijklmnopqrstuvw'
+        suffixes = [f'{alphabet[i]}' for i in range(n)]
+        return suffixes
+
+    def merge_columns_by_suffix(self, df, obj):
+        """ 
+            Helper function to merge columns by suffix
+            obj : 'sum' or 'delta'
+        """
+        base_columns = set(col.split('_', 1)[1] for col in df.columns)
+        merged_columns = {}
+
+        for base in base_columns:
+            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
+            if obj == 'sum':
+                merged_columns[base] = df[matching_columns].sum(axis=1)
+            elif obj == 'delta':
+                merged_columns[base] = df[matching_columns[0]].fillna(0)
+                for col in matching_columns[1:]:
+                    merged_columns[base] -= df[col].fillna(0)
+            else:
+                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
+        merged_df = pd.DataFrame(merged_columns)
+        return merged_df
+    
+    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
+        """ 
+            Merges multiple books into one dataframe
+            books : List[pd.DataFrame] -- list of books to merge
+        """
+        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
+        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
+        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
+        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
+        concatenated_df = concatenated_df[map(str, sorted_columns)]
+        return concatenated_df
+
     
     def create_pandas_dataframe(self, type_):
         """
-            Common method to process trades and update the DataFrame
-            type_ : buys or sells
+            Common method to process liquidations and update the DataFrame
+            type_ : longs or shorts
         """
-        data_object = self.Liquidations.buys if type_ == "buys" else self.Liquidations.sells
-        df = pd.DataFrame(0, index=list(range(0, self.liquidations_process_interval)))
-        for timestamp in data_object:
-            for trade in data_object.get("timestamp"):
-                price = trade.get("price")
-                quantity = trade.get("quantity")
-                index_timestamp = int(timestamp % self.liquidations_process_interval)
-                level = self.find_level(price)
-                current_columns = (map(float, [x for x in df.columns.tolist()]))
-                if level not in current_columns:
-                    df[str(level)] = 0
-                    df[str(level)] = df[str(level)].astype("float64")
-                    df.loc[index_timestamp, str(level)] += quantity
-                else:
-                    df.loc[index_timestamp, str(level)] += quantity
-        return df.fillna(0, inplace = True)
+        data_object = self.Liquidations.longs if type_ == "longs" else self.Liquidations.shorts
+        df = pd.DataFrame(index=list(range(0, self.liquidations_process_interval)))
+
+        trades = [
+            [int(t % self.liquidations_process_interval), str(self.find_level(trade["price"])), trade["quantity"]]
+            for t in data_object for trade in data_object[t]
+        ]
+
+        df = pd.DataFrame(trades, columns=['timestamp', 'level', 'quantity'])
+        grouped_df = df.groupby(['timestamp', 'level'])['quantity'].sum().reset_index()
+        transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').reset_index()
+        transposed_df.columns.name = None
+        transposed_df.columns = [str(col) if col != 'timestamp' else 'timestamp' for col in transposed_df.columns]
+        transposed_df.set_index('timestamp', inplace=True)
+        transposed_df = transposed_df.reindex(range(self.liquidations_process_interval), fill_value=0).reset_index()
+        transposed_df = transposed_df.drop(columns=['timestamp'])
+    
+        return transposed_df
+
 
     def make_dataframes(self):
         """ generates processed dataframes of trades """
-        self.dfpbuys = self.create_pandas_dataframe("buys")
-        self.dfpsells = self.create_pandas_dataframe("sells")
-        # Merge dfs
-        merged_df = pd.merge(self.dfpbuys.copy(), self.dfpsells.copy(), left_index=True, right_index=True, how='outer', suffixes=('_buys', '_sells')).fillna(0)
-        common_columns_dic = {column.split("_")[0] : [] for column in merged_df.columns.tolist()}
-        for column in merged_df.columns.tolist():
-            common_columns_dic[column.split("_")[0]].append(column)
-        self.dftotal = pd.DataFrame(0, index=list(range(0, self.liquidations_process_interval)), dtype='float64')
-        for common_columns in common_columns_dic.keys():
-            for index, column in enumerate(common_columns_dic[common_columns]):
-                if index == 0 :
-                    self.dfptotal[common_columns] = merged_df[column]
-                else:
-                    self.dfptotal[common_columns] = self.dfptotal[common_columns] + merged_df[column]
+        self.dflongs = self.create_pandas_dataframe("longs")
+        self.dfshorts = self.create_pandas_dataframe("shorts")
+        self.df_liquidations_total = self.merge_dataframes([self.dflongs, self.dfshorts], "sum")
+        self.df_liquidations_delta = self.merge_dataframes([self.dflongs, self.dfshorts], "delta")
 
+    def dump_df_to_csv(self, dftype):
+        """ processed, raw"""
+        name = self.stream_data.get("id_ws")
+        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\{dftype}_liquidations_{name}.csv"
+        if dftype == "longs":
+            self.dflongs.to_csv(file_path, index=False)
+        if dftype == "shorts":
+            self.dfshorts.to_csv(file_path, index=False)
+        if dftype == "total":
+            self.df_liquidations_total.to_csv(file_path, index=False)
 
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
@@ -606,14 +787,17 @@ class liqflow():
             while True:
                 await asyncio.sleep(self.liquidations_process_interval)
                 self.make_dataframes()
-                # self.dfpbuys.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/liquidations_longs.csv", index=False)
-                # self.dfpsells.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/liquidations_shorts.csv", index=False)
-                # self.dfptotal.to_csv("/workspaces/fastmoonStreams/sample_data/pandasdf/liquidations_total.csv", index=False)
-                self.shorts = self.Liquidations.shorts
-                self.longs = self.Liquidations.longs
-                self.Liquidations.reset_liquidations()
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/liquidations_{self.connection_data.get('id_ws')}.json")
+                    self.dump_df_to_csv("longs")
+                    self.dump_df_to_csv("shorts")
+                    self.dump_df_to_csv("total")
+                    self.dump_df_to_csv("delta")
+
+                self.longs = copy.copy(self.Liquidations.buys)
+                self.shorts = copy.copy(self.Liquidations.sells)
+                await self.Liquidations.reset_liquidations()
+                if self.mode == "testing":
+                    self.generate_data_for_plot()
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -621,25 +805,27 @@ class liqflow():
             print(f"An error occurred: {e}")
 
 
-    def generate_data_for_plot(self, file_path):
+    def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            for type_, df in {"sells" : self.dfpbuys, "buys" : self.dfpsells, "total" : self.dfptotal}.items():
+
+            name = self.stream_data.get("id_ws") if self.stream_data.get("id_ws") else self.stream_data.get("id_api")
+
+            for type_, df in {"longs" : self.dflongs, "shorts" : self.dfshorts, "total" : self.df_liquidations_total, "delta" : self.df_liquidations_delta}.items():
+
+                filepath = f"{self.folderpath}\\sample_data\\plots\\liquidations_{type_}_{name}.json"
 
                 plot_data = {
                     'x': [float(x) for x in df.columns],
                     'y': df.sum().tolist(),
                     'xlabel': 'Level',
                     'ylabel': 'Amount',
-                    'legend': f'Liquidations sum over {self.liquidations_process_interval}, {self.exchange}, {self.symbol} '
+                    'legend':f'Liquidations ({type_}) over {self.liquidations_process_interval}.s on {self.exchange}, {self.inst_type} ({self.symbol})'
                 }
 
-                splitted_file_path = file_path.split(".")
-                splitted_file_path[0] = splitted_file_path+"_"+type_
-                file_path = ".".join(splitted_file_path)
-
-                with open(file_path, 'w') as file:
+                with open(filepath, 'w') as file:
                     json.dump(plot_data, file)
+
         except Exception as e:
             print(e)
 
@@ -665,7 +851,7 @@ class ooiflow():
                  **kwargs,
                  ):
         """ Cool init method"""
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
@@ -675,63 +861,53 @@ class ooiflow():
         self.expiry_windows = expiry_windows
         self.option_process_interval = option_process_interval
         self.odata = OptionInstrumentsData()
-        self.dfpc = dict()
-        self.dfpp = dict()
+        self.dfc = pd.DataFrame()
+        self.dfp = pd.DataFrame()
         self.mode = mode
         self.index_price_symbol = index_price_symbol
         
-    def input_data(self, data:str):
+    async def input_data(self, data:str):
         try:
-            processed_data = self.on_message(data, self.connection_data, self.market_state)
-            self.odata.add_instruments_bulk(processed_data)
-        except Exception:
+        
+            processed_data = await self.on_message(data, self.market_state, self.stream_data)
+            await self.odata.add_data_bulk(processed_data)
+            
+        except Exception as e:
             return
 
     def pass_market_state(self, market_state):
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, stream_data):
        """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
+       self.stream_data = stream_data
+
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
+
+    @staticmethod
+    def weighted_avg(df, value_column, weight_column):
+        return np.average(df[value_column], weights=df[weight_column])
+
+    def process_option_data(self, data:dict):
+        """ processes option data"""
+
+        df = pd.DataFrame(data)
+        grouped_df = df.groupby(['countdowns', 'strikes']).apply(
+            lambda x: pd.Series({
+                'weighted_avg_price': self.weighted_avg(x, 'prices', 'ois'),
+                'total_open_interest': x['ois'].sum()
+            })
+                ).reset_index()
+        return grouped_df
        
     def create_dataframes(self):
         """ creates puts and calls dataframes """
-        timestamp = time.time()
-        data = self.odata.get_summary_by_option_type()
-        for side in data:
-            options_data = data.get(side)
-            df = pd.DataFrame(options_data).groupby(['countdown', 'strikes']).sum().reset_index()
-            df = df[(df != 0).all(axis=1)]
-            dictDataFrame = self.build_option_dataframes(self.expiry_windows, self.pranges)
-            helper = self.oiflowOption_dictionary_helper(dictDataFrame, options_data.get("countdowns"))
-            fullPranges = self.oiflowOption_getranges(self.pranges)
-            current_price = self.market_state.get(self.index_price_symbol).get("price", 100000000000000)
-            for dfid in helper.keys():
-                empty_df = pd.DataFrame()
-                for countdown in helper[dfid]:
-                    d = df[df['countdown'] == countdown ].drop(columns=['countdown'])
-                    d['pcd'] = df['strikes'].apply(lambda x : self.getpcd(current_price, x))
-                    d['range'] = d['pcd'].apply(lambda x: self.oiflowOption_choose_range(fullPranges, x))
-                    d = d.groupby(['range']).sum().reset_index().drop(columns=["strikes", "pcd"]).set_index('range')
-                    missing_values = np.setdiff1d(fullPranges, d.index.values)
-                    new_rows = pd.DataFrame({'oi': 0}, index=missing_values)
-                    combined_df = pd.concat([d, new_rows])
-                    combined_df = combined_df.transpose() 
-                    combined_df['timestamp'] = pd.to_datetime(timestamp)
-                    combined_df.set_index('timestamp', inplace=True)
-                    combined_df = combined_df.sort_index(axis=1)
-                    empty_df = pd.concat([empty_df, combined_df], ignore_index=True)
-                empty_df  = empty_df.sum(axis=0).values.T
-                try:
-                    dictDataFrame[dfid].loc[pd.to_datetime(timestamp)] = empty_df
-                except:
-                    pass
-            if side == "Call":
-                self.dfpc = dictDataFrame.copy()
-            if side == "Put": 
-                self.dfpp = dictDataFrame.copy()   
-                
+        call_data, put_data = self.odata.get_summary_by_option_type()
+        self.dfp = self.process_option_data(put_data)
+        self.dfc = self.process_option_data(call_data)
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         try:
@@ -740,113 +916,21 @@ class ooiflow():
                 await asyncio.sleep(self.option_process_interval)
                 self.create_dataframes()
                 if self.mode == "testing":
-                    self.generate_data_for_plot(f"sample_data/oioption_{self.connection_data.get('id_ws')}.json")
+                    self.dump_df_to_csv()
+
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
         except Exception as e:
             print(f"An error occurred: {e}")
 
-
-    def generate_data_for_plot(self, file_path):
-        """ generates data for plots of options at a random timestamp to verify any discrepancies, good for testing """
-        try:
-            for type_, dict_ in zip(["Puts", "Calls"], [self.dfpp, self.dfpc]):
-                for expiration in dict_:
-                    df = dict_.get(expiration).transpose()
-                    df = pd.Series(df.values.transpose()[0], index=df.index.values)
-                    plot_data = {
-                        'x': df.index,
-                        'y': df.values,
-                        'xlabel': 'Level',
-                        'ylabel': 'Amount',
-                        'legend': f'Options oi data over {self.option_process_interval}, {self.exchange}, {self.symbol}, {type_}, {expiration} '
-                    }
-                    splitted_file_path = file_path.split(".")
-                    splitted_file_path[0] = splitted_file_path+"_"+type_+expiration
-                    file_path = ".".join(splitted_file_path)
-                    with open(file_path, 'w') as file:
-                        json.dump(plot_data, file)
-        except Exception as e:
-            print(e)
-                
-            
-    def build_option_dataframes(self, expiration_ranges, ppr):
-        columns = self.oiflowOption_getcolumns(ppr)
-        df_dic = {}
-        for i, exp_range in enumerate(expiration_ranges):
-            if i in [0, len(expiration_ranges)-1]:
-                df_dic[f'{int(exp_range)}'] = pd.DataFrame(columns=columns, dtype="float64") #.set_index('timestamp')
-                df_dic[f'{int(exp_range)}']['timestamp'] = pd.to_datetime([])
-                df_dic[f'{int(exp_range)}'].set_index('timestamp', inplace=True)
-            if i in [len(expiration_ranges)-1]:
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}'] = pd.DataFrame(columns=columns, dtype="float64") #.set_index('timestamp')
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}']['timestamp'] = pd.to_datetime([])
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}'].set_index('timestamp', inplace=True)
-            else:
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}'] = pd.DataFrame(columns=columns, dtype="float64") #.set_index('timestamp')
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}']['timestamp'] = pd.to_datetime([])
-                df_dic[f'{int(expiration_ranges[i-1])}_{int(exp_range)}'].set_index('timestamp', inplace=True)
-        df_dic.pop(f"{int(np.max(expiration_ranges))}_{int(np.min(expiration_ranges))}")
-        return df_dic
-    
-    @staticmethod
-    def oiflowOption_getcolumns(price_percentage_ranges: np.array):
-        price_percentage_ranges = np.unique(np.sort(np.concatenate((price_percentage_ranges, -price_percentage_ranges)), axis=0))
-        price_percentage_ranges[price_percentage_ranges == -0] = 0
-        price_percentage_ranges[price_percentage_ranges == price_percentage_ranges[0]] = 0
-        price_percentage_ranges = np.unique(price_percentage_ranges)
-        columns = np.concatenate((np.array(['timestamp']), price_percentage_ranges), axis=0)
-        return columns
-    
-    @staticmethod
-    def oiflowOption_getranges(price_percentage_ranges: np.array):
-        price_percentage_ranges = np.unique(np.sort(np.concatenate((price_percentage_ranges, -price_percentage_ranges)), axis=0))
-        price_percentage_ranges[price_percentage_ranges == -0] = 0
-        price_percentage_ranges[price_percentage_ranges == price_percentage_ranges[0]] = 0
-        price_percentage_ranges = np.unique(price_percentage_ranges)
-        return price_percentage_ranges
-
-    @staticmethod
-    def oiflowOption_dictionary_helper(dfs, countdowns):
-        countdown_ranges = list(dfs.keys())
-        countdowns = np.unique(countdowns)
-        countdown_ranges_flt = sorted(list(set(([float(item) for sublist in [x.split('_') for x in countdown_ranges] for item in sublist]))))
-        mx = max(countdown_ranges_flt)
-        mn = min(countdown_ranges_flt)
-        l = {key: [] for key in countdown_ranges}
-        for index, cf in enumerate(countdown_ranges_flt):
-            for v in countdowns.tolist():
-                if cf == mn and v <= cf:
-                    l[str(int(cf))].append(v)
-                if cf != mn and v <= cf and v > countdown_ranges_flt[index-1]:
-                    l[f"{str(int(countdown_ranges_flt[index-1]))}_{str(int(cf))}"].append(v)
-                if cf == mx and v > cf:
-                    l[str(int(cf))].append(v)
-            return l
-    
-    @staticmethod
-    def getpcd(center, value):
-        if center == 0 and value > center:
-            return float(100)
-        if value == 0 and value < center:
-            return float(9999999999)
-        else:
-            diff = value - center
-            average = (center + value) / 2
-            percentage_diff = (diff / average) * 100
-            return percentage_diff
+    def dump_df_to_csv(self):
+        """ helper function to dump dataframes to csv """
+        id_ = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
         
-        
-    @staticmethod
-    def oiflowOption_choose_range(ppr, value):
-        for index, r in enumerate(ppr):
-            if index == 0 and value < r:
-                return ppr[0]
-            if index == len(ppr)-1 and value > r:
-                return ppr[-1]
-            if value < r and value >= ppr[index-1]:
-                return r
+        for type_, dff in zip(["Puts", "Calls"], [self.dfp, self.dfc]):
+            file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\oioption_{type_}_{id_}.csv"
+            dff.to_csv(file_path, index=False)
 
 class pfflow():
     """ Can be used to process fundings and position data"""
@@ -856,29 +940,239 @@ class pfflow():
                  on_message : callable,
                  mode = "production",
                  ):
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
         self.on_message = on_message
-        self.data = InstrumentsData()
+        self.data_holder = InstrumentsData()
         self.mode = mode
+        self.folderpath = ""
         
     def pass_market_state(self, market_state):
        """ passes marketstate dictionary"""
        self.market_state = market_state
 
-    def pass_connection_data(self, connection_data):
+    def pass_stream_data(self, stream_data):
        """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
+       self.stream_data = stream_data
+
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
        
-    def input_data(self, data:str):
-        processed_data = self.on_message(data, self.connection_data, self.market_state)
-        for symbol in processed_data:
-            self.InstrumentsData.update_position(symbol, processed_data.get("symbol"))
+    async def input_data(self, data:str):
+
+        try:
+            processed_data = await self.on_message(data,  self.market_state, self.stream_data)
+            for symbol in processed_data:
+                if symbol not in ["receive_time", "timestamp"]:
+                    data = processed_data.get(symbol)
+                    self.data_holder.update_position(symbol, data)
+        except Exception as e:
+            pass
             
     def retrive_data_by_instrument(self, instrument):
-        self.InstrumentsData.get_position(instrument)
+        self.data_holder.get_position(instrument)
 
     def retrive_data(self):
-        self.data.get_all_positions()
+        self.data_holder.get_all_positions()
+
+class MarketDataFusion:
+    """ Mergers for pandas dataframes """
+    def __init__(
+            self, 
+            options_price_ranges: np.array = np.array([0.0, 1.0, 2.0, 5.0, 10.0]), 
+            options_index_price_symbols:dict = {"binance" : "BTCUSDT@spot@binance"}, 
+            options_expiry_windows: np.array = np.array([0.0, 1.0, 3.0, 7.0]),
+            books_spot_aggregation_interval = 60,
+            books_future_aggregation_interval = 60,
+            trades_spot_aggregation_interval = 60,
+            trades_future_aggregation_interval = 60,
+            trades_option_aggregation_interval = 60,
+            oidelta_future_aggregation_interval = 60,
+            liquidations_future_aggregation_interval = 60,
+            oi_options_aggregation_interval = 60,
+            canceled_books_spot_aggregation_interval = 60,
+            canceled_books_future_aggregation_interval = 60,
+            mode = "production"
+            ):
+        """ 
+            options_price_ranges : np.array -- aggregates option open_interest data based on price 
+            options_index_price_symbols : dict -- if there is an index price for an option, this dict contains the symbol of the index
+            options_expiry_windows : np.array  -- aggregates option open_interest data based on expiry
+        """
+        self.options_price_ranges = options_price_ranges
+        self.options_index_price_symbols : dict = options_index_price_symbols
+        self.options_expiry_windows : np.array = options_expiry_windows
+
+        self.market_state = dict()
+
+        # Aggregation
+
+        self.aggregation_intervals = {
+            "books_spot": books_spot_aggregation_interval,
+            "books_future": books_future_aggregation_interval,
+            "trades_spot": trades_spot_aggregation_interval,
+            "trades_future": trades_future_aggregation_interval,
+            "trades_option": trades_option_aggregation_interval,
+            "oi_delta_future": oidelta_future_aggregation_interval,
+            "liquidations_future": liquidations_future_aggregation_interval,
+            "oi_options": oi_options_aggregation_interval,
+            "canceled_books_spot": canceled_books_spot_aggregation_interval,
+            "canceled_books_future": canceled_books_future_aggregation_interval"
+        }
+        self.mode = mode
+
+        #dataholders
+        self.data_holder = AggregationDataHolder()
+
+    def pass_market_state(self, market_state):
+       """ passes marketstate dictionary"""
+       self.market_state = market_state
+
+    def pass_data_holder(self, data_holder):
+       """ passes marketstate dictionary"""
+       self.data_holder = data_holder
+
+    @staticmethod
+    def is_valid_dataframe(df):
+        return df is not None and isinstance(df, pd.DataFrame)
+    
+    @staticmethod
+    def merge_suffixes(n):
+        """
+            The maximum amount of datasets to aggregate is the len(alphabet). 
+            Modify this function to get more aggregation possibilities
+        """
+        alphabet = 'xyzabcdefghijklmnopqrstuvw'
+        suffixes = [f'{alphabet[i]}' for i in range(n)]
+        return suffixes
+    
+    def merge_columns_by_suffix(self, df, obj):
+        """ 
+            Helper function to merge columns by suffix
+            obj : 'sum' or 'delta'
+        """
+        base_columns = set(col.split('_', 1)[1] for col in df.columns)
+        merged_columns = {}
+
+        for base in base_columns:
+            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
+            if obj == 'sum':
+                merged_columns[base] = df[matching_columns].sum(axis=1)
+            elif obj == 'delta':
+                merged_columns[base] = df[matching_columns[0]].fillna(0)
+                for col in matching_columns[1:]:
+                    merged_columns[base] -= df[col].fillna(0)
+            else:
+                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
+        merged_df = pd.DataFrame(merged_columns)
+        return merged_df
+    
+    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
+        """ 
+            Merges multiple books into one dataframe
+            books : List[pd.DataFrame] -- list of books to merge
+        """
+        dataframes = [df for df in dataframes if self.is_valid_dataframe(df)]
+        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
+        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
+        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
+        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
+        concatenated_df = concatenated_df[map(str, sorted_columns)]
+        return concatenated_df
+
+    @staticmethod
+    def merge_multiple_dictionaries(dicts : List[dict]) -> dict:
+        """ Helper function to merge dictionaries of trades """
+        merged_dict = {}
+        all_keys = set()
+        for d in dicts:
+            all_keys.update(d.keys())
+        for key in all_keys:
+            merged_dict[key] = []
+            for d in dicts:
+                merged_dict[key].extend(d.get(key, []))
+        return merged_dict
+    
+
+    async def schedule_books_aggregation(self, aggregation_type:str):
+        """ 
+            Schedules aggregation of books over certain instrument type 
+            aggregation_type : self.aggregation_intervals.keys()
+        """
+        try:
+            interval = self.aggregation_intervals.get(aggregation_type)
+            await asyncio.sleep(1)
+            while True:
+
+                await asyncio.sleep(interval)
+
+                if aggregation_type not in  ["canceled_books_spot", "canceled_books_future"]:
+                    list_of_dataframes = list(self.data_holder.dataframes_to_merge.get(aggregation_type))
+                    self.data_holder.merged_dataframes[aggregation_type] = self.merge_dataframes(list_of_dataframes, "sum")
+                else:
+                    inst_type = aggregation_type.split("_")[-1]
+                    books = self.data_holder.merged_dataframes.get(f"books_{inst_type}")
+                    trades = self.data_holder.merged_dataframes.get(f"trades_{inst_type}")
+                    list_of_dataframes = list(books, trades)
+                    self.data_holder.merged_dataframes[aggregation_type] = self.merge_dataframes(list_of_dataframes, "delta")
+
+
+
+
+                    self.books_spot = self.merge_dataframes(marged_data_holder.get("books"))
+                    , dict(zip(concatenated_df.columns.tolist(), concatenated_df.iloc[-1].values))
+
+        except asyncio.CancelledError:
+            print("Task was cancelled")
+            raise
+        except Exception as e:
+            print(f"An error occurred: {e}")    
+    
+    async def schedule_aggregation(self, marged_data_holder:List[pd.DataFrame], inst_type:str, objective : str):
+        """ 
+            Schedules aggregation of a certain objective over certain instrument type 
+        """
+        try:
+            await asyncio.sleep(1)
+            while True:
+                await asyncio.sleep(self.books_aggregation_interval)
+                df_books, books_dict = self.merge_dataframes(marged_data_holder.get("books"))
+
+        except asyncio.CancelledError:
+            print("Task was cancelled")
+            raise
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+        return dict(zip(self.books.columns.tolist(), self.books.iloc[-1].values))
+
+# Global data 
+
+{
+
+}
+
+
+# Spot books MAP
+# Perp books MAO
+# Spot Canceled books MAP
+# Spot Reinforced books MAP
+# Perp Canceled books MAP
+# Perp Reinforced books MAO
+
+# Spot Trades ALL
+# Perp/Future/Option Trades ALL
+# Spot Trades MAP
+# Perp/Future/Option Trades MAP
+
+# Perp Liquidations ALL
+# Perp Liquidations MAP
+
+# OI change MAP
+# VIOV MAP
+
+# Option OI per instrument
+

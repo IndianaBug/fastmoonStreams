@@ -3025,3 +3025,116 @@
 2024-06-03 01:23:38,940 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
 2024-06-03 01:23:38,965 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
 2024-06-03 01:23:38,966 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!
+2024-06-09 22:05:22,719 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Starting...
+2024-06-09 22:05:26,861 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Stopping...
+2024-06-09 22:05:26,862 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
+2024-06-09 22:05:26,869 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
+2024-06-09 22:05:26,869 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!
+2024-06-09 22:05:44,112 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Starting...
+2024-06-09 22:05:44,202 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Stopping...
+2024-06-09 22:05:44,203 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
+2024-06-09 22:05:44,214 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
+2024-06-09 22:05:44,215 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!
+2024-06-09 22:05:52,797 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Starting...
+2024-06-09 22:05:53,925 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Started.
+2024-06-09 22:05:54,182 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,184 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of okx_api_perpetual_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,186 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,186 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,188 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of okx_api_perpetual_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,189 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,190 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,192 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of okx_api_perpetual_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,193 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,194 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,195 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,196 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,197 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,198 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,199 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,200 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,200 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,201 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,202 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,203 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,204 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,204 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,205 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,206 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,207 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,208 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,209 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,209 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,210 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,212 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,212 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,213 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,214 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,215 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,216 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,217 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,218 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,219 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of bybit_api_perpetual_linear_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,219 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,220 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,222 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,223 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,224 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,224 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,225 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,226 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,227 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,228 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,229 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,230 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,231 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,232 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,233 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,234 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,234 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,235 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,236 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,237 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,238 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,238 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,239 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,240 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,241 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,242 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,243 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,245 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,245 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,246 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,248 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,248 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,249 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,250 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,251 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,252 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,253 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,253 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,254 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,255 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,256 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,257 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,258 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,258 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,259 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:54,260 - ProcessCenter.ConsumerEngine - ERROR - Unexpected error handling file operations of binance_api_perpetual_inverse_gta_btc: 'str' object does not support item assignment
+2024-06-09 22:05:58,250 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Stopping...
+2024-06-09 22:05:58,253 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Wait for streams...
+2024-06-09 22:05:58,270 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
+2024-06-09 22:05:58,295 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
+2024-06-09 22:05:58,295 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!
+2024-06-09 22:06:38,091 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Starting...
+2024-06-09 22:06:42,185 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Stopping...
+2024-06-09 22:06:42,185 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
+2024-06-09 22:06:42,193 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
+2024-06-09 22:06:42,194 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!
+2024-06-09 22:06:53,040 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Starting...
+2024-06-09 22:06:54,167 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Started.
+2024-06-09 22:07:03,034 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Stopping...
+2024-06-09 22:07:03,036 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Wait for streams...
+2024-06-09 22:07:03,038 - ProcessCenter.ConsumerEngine - INFO - [^-StreamApp]: Flush producer buffer...
+2024-06-09 22:07:03,057 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: Shutting down...
+2024-06-09 22:07:03,058 - ProcessCenter.ConsumerEngine - DEBUG - [^-StreamApp]: -Stopped!

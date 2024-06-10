@@ -1,6 +1,7 @@
 from OriginHub.ExchangeGateway import *
 from ProcessCenter import MessageProcessor
-from ProcessCenter.DataFlow import booksflow, tradesflow, oiflow, liqflow, pfflow
+from ProcessCenter.DataFlow import booksflow, tradesflow, oiflow, liqflow, pfflow, ooiflow
+import numpy as np
 
 class ExchangeAPIClient():
     """ 
@@ -16,6 +17,18 @@ class ExchangeAPIClient():
             Indicates the number of columns in the pandas DataFrame used for processing book data.
         book_ceil_thresh : float
             Sets a threshold (in percentages) to exclude books with values exceeding this limit.
+        option_process_interval : int
+            Specifies the number of times open_interest data is processed to extract information for options
+        option_pranges : np.array
+            Defines the price range used for aggregating data for options
+        option_expiry_windows : np.array
+            Defines the expiry windows used for aggregating data for options
+        
+        So the option OI data will be grouped by option expiry window and price range.
+        
+        option_index_price_symbols : dict
+            Defines the index price symbol for each exchange. (Not necessary but may be usefull if there is a lack of information for instruments prices
+
     """
     def __init__(
             self, 
@@ -27,7 +40,17 @@ class ExchangeAPIClient():
             price_level_size:float,
             book_snap_interval=2,
             process_interval=10,
-            book_ceil_thresh=5, 
+            book_ceil_thresh=5,
+            option_process_interval=60, 
+            option_pranges:np.array = np.array([0.0, 1.0, 2.0, 5.0, 10.0]),
+            option_index_price_symbols:dict = {
+                "binance" : "BTCUSDT@spot@binance",
+                "bybit" : "BTCUSDT@spot@bybit",
+                "deribit" : "BTC-PERPETUAL@perpetual@deribit",
+                "gateio" : "BTC_USDT@spot@gateio",
+                "okx" : "BTC-USDT@spot@okx",
+                },
+            option_expiry_windows:np.array=np.array([0.0, 1.0, 3.0, 7.0]),
             on_message_kwargs=None,
             mode = "production",
                  ):
@@ -50,6 +73,10 @@ class ExchangeAPIClient():
         self.process_interval = process_interval
         self.book_snap_interval = book_snap_interval
         self.book_ceil_thresh = book_ceil_thresh
+        self.option_process_interval = option_process_interval
+        self.option_pranges = option_pranges
+        self.option_expiry_windows = option_expiry_windows
+        self.option_index_price_symbols = option_index_price_symbols
         self.mode = mode
 
         for exchange, client in self.exchanges.items():
@@ -260,7 +287,7 @@ class ExchangeAPIClient():
                     mode = self.mode
                     )
 
-        elif objective in ["oi", "oifunding", "funding"]:
+        elif objective in ["oi", "oifunding", "funding"] and inst_type != "option":
             if objective in ["oifunding", "oi"]:
                 connection_data["oiflow"] = oiflow(
                     exchange=exchange, 
@@ -278,8 +305,20 @@ class ExchangeAPIClient():
                     on_message = on_message_method,
                     mode = self.mode
                     )
+        
+        elif objective in ["oi", "oifunding", "oioption"] and inst_type == "option":
+                connection_data["oiflow"] = ooiflow(
+                    exchange=exchange, 
+                    symbol=symbol, 
+                    pranges=self.option_pranges, 
+                    index_price_symbol=self.option_index_price_symbols.get(exchange),
+                    expiry_windows = self.option_expiry_windows,
+                    on_message = on_message_method,
+                    option_process_interval = self.option_process_interval,
+                    mode = self.mode
+                    )
 
-        elif objective == ["gta", "tta", "ttp"]:
+        elif objective in ["gta", "tta", "ttp"]:
             connection_data[objective+"flow"] = pfflow(   
                     exchange=exchange, 
                     symbol=symbol, 
