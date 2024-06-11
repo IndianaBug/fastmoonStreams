@@ -70,27 +70,26 @@ class MarketState:
 class OrderBook:
 
     def __init__(self, book_ceil_thresh):
-      self.book_ceil_thresh = book_ceil_thresh
-      self.timestamp = field(default_factory=dict)
-      self.price = None
-      self.bids = field(default_factory=dict)
-      self.asks = field(default_factory=dict)
+        self.book_ceil_thresh = book_ceil_thresh
+        self.timestamp = 0
+        self.price = None
+        self.bids : dict = field(default_factory=dict)
+        self.asks : dict = field(default_factory=dict)
 
-    #@jit(nopython=True)
     async def update_bid(self, price: float, amount: float):
+        """ updates bid"""
         if amount > 0:
             self.bids[price] = amount
         elif amount == 0 and price in self.bids:
             del self.bids[price]
 
-    #@jit(nopython=True)
     async def update_ask(self, price: float, amount: float):
+        """ updates ask """
         if amount > 0:
             self.asks[price] = amount
         elif amount == 0 and price in self.asks:
             del self.asks[price]
 
-    #@jit(nopython=True)
     async def update_data(self, data):
         """ updates all asks and bids at once """
 
@@ -106,16 +105,17 @@ class OrderBook:
 
     #@jit(nopython=True)
     async def trim_books(self):
-      for level in self.bids.copy().keys():
-          if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
-              del self.bids[level]
-      for level in self.asks.copy().keys():
-          if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
-              del self.asks[level]
+        """ trims books if needed"""
+        for level in self.bids.copy().keys():
+            if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
+                del self.bids[level]
+        for level in self.asks.copy().keys():
+            if abs(self.compute_percentage_variation(float(level), self.price)) > self.book_ceil_thresh:
+                del self.asks[level]
 
     @staticmethod
-    #@jit(nopython=True)
     def compute_percentage_variation(new_value, old_value):
+        """ Computes percentage variation"""
         try:
             percentage_difference = abs((new_value - old_value) / old_value) * 100
             return percentage_difference
@@ -130,10 +130,10 @@ class MarketTradesLiquidations:
             {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}, ...], "liquidations" : [...], "receive_time" : receive_time}
     """
 
-    buys = field(default_factory=dict)
-    sells = field(default_factory=dict)
-    longs = field(default_factory=dict)
-    shorts = field(default_factory=dict)
+    buys : dict = field(default_factory=dict)
+    sells : dict = field(default_factory=dict)
+    longs : dict = field(default_factory=dict)
+    shorts : dict = field(default_factory=dict)
     last_timestamp = 0
     last_ltimestamp = 0
     price = 0
@@ -211,11 +211,19 @@ class MarketTradesLiquidations:
         
 @dataclass
 class OpenInterest:
-    data = field(default_factory=dict) # a dictionary of Instrument: List[OpenInterestEntry]
-    last_values = field(default_factory=dict)
+    """ Data holder of processed Open interest values by future/perpetual instrument, ready to be processed or merged"""
+    
+    data : dict = field(default_factory=dict)
+    last_values : dict = field(default_factory=dict)
 
     async def add_entry(self, timestamp: float, instrument: str, open_interest: float, price : float):
-
+        """
+            Args:
+                timestamp (float): unix
+                instrument (str): str
+                open_interest (float): float
+                price (float): float
+        """
         entry = {"timestamp": timestamp, "open_interest": open_interest, "price" : price}
 
         if instrument not in self.data:
@@ -226,21 +234,25 @@ class OpenInterest:
  
 
     async def get_last_value(self, instrument: str) -> Optional[int]:
+        """ gets last values """
         return self.last_values.get(instrument)
 
     async def get_unique_instruments(self):
+        """ getse unique instrumet"""
         return  list(self.data.keys())
 
     async def reset_data(self):
+        """ resets data """
         self.data = dict()
 
-    async def __str__(self):
+    def __str__(self):
+        """ __str__"""
         return '\n'.join(str(entry) for entry in self.data)
     
 @dataclass
 class OptionInstrumentsData:
     
-    data = field(default_factory=dict) # a dictionary of Instrument: List[OpenInterestEntry]
+    data : dict = field(default_factory=dict) # a dictionary of Instrument: List[OpenInterestEntry]
 
     async def add_data_bulk(self, bulk_data):
 
@@ -358,7 +370,6 @@ class InstrumentsData:
     def __str__(self):
         return '\n'.join(f"{symbol}: {vars(data)}" for symbol, data in self.instruments.items())
     
-
 def default_map_dictionary() -> Dict[str, Dict]:
     return {
         "books" : {
@@ -396,40 +407,66 @@ class AggregationDataHolder:
     instrument_data : Dict[Dict[str, float]] = field(default_factory=dict)
 
     maps : Dict[Dict[Dict[str, float]]] = field(default_factory=default_map_dictionary)
-    
     tick_data : Dict[Dict[str, List[Dict[str, float]]]] = field(default_factory=dict)
-
-    dataframes_to_merge: Dict[str, List] = field(default_factory=lambda: {
-        "books_spot": {},
-        "books_future": {},
-        "trades_spot": {},
-        "trades_future": {},
-        "trades_option": {},
-        "oi_delta_future": {},
-        "oi_option": {},
-        "liquidations_future": {},
+    
+    tick_trades: Dict[str, Dict] = field(default_factory=lambda: {
+        "spot": {},
+        "perpetual" : {},
+        "future" : {},
+        "option" : {},
     })
 
-    merged_dataframes: Dict[str, pd.DataFrame] = field(default_factory=lambda: {
+    tick_liquidations: Dict[str, Dict] = field(default_factory=lambda: {
+        "perpetual" : {},
+        "future" : {},
+        "option" : {},
+    })
+    
+    tick_ois_delta: Dict[str, Dict] = field(default_factory=lambda: {
+        "perpetual" : {},
+        "future" : {},
+        "option" : {},
+    })
+
+    dataframes_to_merge: Dict = field(default_factory=lambda: {
+        "books_spot": {},
+        "books_perpetual": {},
+        "books_future": {},
+        "trades_spot": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
+        "trades_perpetual": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
+        "trades_future": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
+        "trades_option": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
+        "oi_deltas_perpetual": {},
+        "oi_deltas_future": {},
+        "ois_option": {"puts" : {}, "calls" : {}},
+        "liquidations_perpetual": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
+        "liquidations_option": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
+        "liquidations_future": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
+    })
+
+    merged_dataframes: Dict = field(default_factory=lambda: {
         "books_spot": pd.DataFrame(),
         "books_future": pd.DataFrame(),
-        "trades_spot": pd.DataFrame(),
-        "trades_future": pd.DataFrame(),
-        "trades_option": pd.DataFrame(),
+        "books_perpetual": pd.DataFrame(),
+        "trades_spot": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        "trades_future": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        "trades_perpetual": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        "trades_option": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
         "oi_delta_future": pd.DataFrame(),
-        "oi_option": pd.DataFrame(),
-        "liquidations_future": pd.DataFrame(),
+        "oi_delta_perpetual": pd.DataFrame(),
+        "oi_delta_option": pd.DataFrame(),
+        "oi_option": pd.DataFrame(),  # Fix
+        "liquidations_future": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        "liquidations_perpetual": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        "liquidations_option": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+        
     })
-
-
-    def add_data_to_merge(self, aggregatation_type: str, id_, df: pd.DataFrame):
-        """ Insert dataframe into the dataframes_to_merge"""
-        self.dataframes_to_merge[aggregatation_type][id_] = df
-
-    def add_merged_datadrame(self, aggregatation_type: str, df: pd.DataFrame):
-        """ Insert dataframe into the dataframes_to_merge"""
-        self.merged_dataframes[aggregatation_type] = df
-
+    
+    instrument_data: Dict[str, pd.DataFrame] = field(default_factory=lambda: {
+        "funding_rate" : {},
+        "price" : {},
+        ""
+    })
 
     def generate_unique_id(self) -> str:
         """Generates a unique identifier using UUID4."""
@@ -446,44 +483,4 @@ class AggregationDataHolder:
             "tick_data" : self.tick_data
         }
     
-    def insert_books_spot(self, id_, df):
-        """Insert books into the spot dataframe"""
-        self.books_spot[id_] = df
 
-    def insert_books_future(self, id_, df):
-        "''Insert books into the future dataframe''"
-        self.books_future[id_] = df
-
-    def insert_trades_spot(self, id_, df):
-        """Insert trades into the spot dataframe"""
-        self.trades_spot[id_] = df
-
-    def insert_trades_future(self, id_, df):
-        """Insert trades into the future dataframe"""
-        self.trades_future[id_] = df
-
-    def insert_trades_option(self, id_, df):
-        """Insert trades into the option dataframe"""
-        self.trades_option[id_] = df
-
-    def insert_oi_delta_future(self, id_, df):
-        """Insert open interest delta into the future dataframe"""
-        self.oi_delta_future[id_] = df
-    
-    def insert_oi_option(self, id_, df):
-        """Insert open interest into the option dataframe"""
-        self.oi_option[id_] = df
-    
-    def insert_global_data(self, data:dict):
-        """ Insert global data into the dataframe """
-        self.global_data.update(data)
-
-    def insert_instrument_data(self, data:dict):
-        self.instrument_data.update(data)
-
-    def insert_maps(self, objective:str, isnt_type:str, data:dict):
-        """ Insert maps into the dataframe """
-        self.maps[objective][isnt_type].update(data)
-
-    def insert_tick_data(self, data:dict):
-        self.tick_data.update(data)

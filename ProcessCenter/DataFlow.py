@@ -21,11 +21,102 @@ import copy
 
 pd.set_option('future.no_silent_downcasting', True)
 
+class CommonFlowFunctionalities():
+    
+    level_size = 20
+    stream_data = {}
+    inst_type = ""
+    
+    def find_level(self, price):
+        """ locates the bucket to which the price belongs"""
+        return np.ceil(price / self.level_size) * self.level_size
+    
+    def pass_data_holder(self, data_holder):
+        self.data_holder = data_holder
+    
+    def pass_market_state(self, market_state):
+       """ passes marketstate dictionary"""
+       self.market_state = market_state
 
-# Fix books stuff
-# Different trades, different measures. Probably more than a single process method needed, fixit
+    def pass_stream_data(self, connection_data):
+       """ passes connectiondata dictionary"""
+       self.connection_data = connection_data
 
-class booksflow():
+    def pass_savefolder_path(self, folderpath):
+       """ passes connectiondata dictionary"""
+       self.folderpath = folderpath
+       
+    def get_id(self):
+        return self.stream_data.get("id_ws") if self.stream_data.get("id_ws") else self.stream_data.get("id_api")
+    
+    def get_inst_type(self):
+        return "future" if self.inst_type in ["perpetual", "future"] else self.inst_type
+
+    @staticmethod
+    def merge_suffixes(n):
+        """
+            The maximum amount of datasets to aggregate is the len(alphabet). 
+            Modify this function to get more aggregation possibilities
+        """
+        alphabet = 'xyzabcdefghijklmnopqrstuvw'
+        suffixes = [f'{alphabet[i]}' for i in range(n)]
+        return suffixes
+
+    def merge_columns_by_suffix(self, df, obj):
+        """ 
+            Helper function to merge columns by suffix
+            obj : 'sum' or 'delta'
+        """
+        base_columns = set(col.split('_', 1)[1] for col in df.columns)
+        merged_columns = {}
+
+        for base in base_columns:
+            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
+            if obj == 'sum':
+                merged_columns[base] = df[matching_columns].sum(axis=1)
+            elif obj == 'delta':
+                merged_columns[base] = df[matching_columns[0]].fillna(0)
+                for col in matching_columns[1:]:
+                    merged_columns[base] -= df[col].fillna(0)
+            else:
+                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
+        merged_df = pd.DataFrame(merged_columns)
+        return merged_df
+    
+    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
+        """ 
+            Merges multiple books into one dataframe
+            books : List[pd.DataFrame] -- list of books to merge
+        """
+        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
+        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
+        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
+        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
+        concatenated_df = concatenated_df[map(str, sorted_columns)]
+        return concatenated_df
+    
+    @staticmethod
+    def merge_ticks_buys_sells(uptick_data, down_tick):
+        """ merges tick data of trades and liquidations """
+        down_tick = {
+                key: [{"amount": -entry["amount"], "price": entry["price"]} for entry in value]
+                for key, value in down_tick.items()
+            }
+        merged_data = {key: uptick_data.get(key, []) + down_tick.get(key, []) for key in set(uptick_data) | set(down_tick)}
+        return merged_data
+
+    @staticmethod
+    def merge_ticks(*dicts):
+        """ merges dictionaries of ticks"""
+        merged_data = {}
+        for data in dicts:
+            for key, values in data.items():
+                if key not in merged_data:
+                    merged_data[key] = []
+                merged_data[key].extend(values)
+        return merged_data
+
+class booksflow(CommonFlowFunctionalities):
     """
         Important notes:
             If the book is above book_ceil_thresh from the current price, it will be omited.
@@ -55,8 +146,10 @@ class booksflow():
         """
         self.mode = mode
 
-        self.connection_data = dict()
+        self.stream_data = dict()
         self.market_state = dict()
+        self.data_holder = AggregationDataHolder()
+        self.folderpath = ""
         # Identification
         self.exchange = exchange
         self.symbol = symbol
@@ -69,7 +162,6 @@ class booksflow():
         self.books_process_interval = int(books_process_interval)
         self.books = OrderBook(self.book_ceil_thresh)
         self.df = pd.DataFrame()
-        self.df_books = pd.DataFrame()
         # Helpers
         self.last_receive_time = 0
         self.running = False
@@ -77,21 +169,6 @@ class booksflow():
         # Helper for testing
         self.folderpath = ""
         
-    def find_level(self, price):
-        """ locates the bucket to which the price belongs"""
-        return np.ceil(price / self.level_size) * self.level_size
-    
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, connection_data):
-       """ passes connectiondata dictionary"""
-       self.connection_data = connection_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
 
     async def input_data_api(self, data:str):
         """ inputs books from api into dataframe"""
@@ -187,7 +264,11 @@ class booksflow():
                 for col in self.df.columns:
                     self.df[col] = self.df[col].replace(0, pd.NA).ffill()
                     self.df[col] = self.df[col].replace(0, pd.NA).bfill()
-                self.df_books = self.df.copy()
+                
+                
+                id_ = self.get_id()
+                inst_type = self.get_inst_type()
+                self.data_holder.dataframes_to_merge[f"books_{inst_type}"][id_] = self.df.copy()
                 
                 if self.mode == "testing":
                     self.dump_df_to_csv("processed")
@@ -205,10 +286,10 @@ class booksflow():
             
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
-        name = self.connection_data.get("id_ws")
+        name = self.get_id()
         filepath = f"{self.folderpath}\\sample_data\\plots\\books_{name}.json"
         try:
-            for index, row in self.dfp.iterrows():
+            for index, row in self.df.iterrows():
                 if not all(row == 0):
                     break
             plot_data = {
@@ -217,7 +298,7 @@ class booksflow():
                 'price' : self.find_level(self.books.price),
                 'xlabel': 'Level',
                 'ylabel': 'Amount',
-                'legend': f'Books for every level at timestamp {index}, {self.exchange}, {self.symbol}'
+                'legend': f'BooksSnap, {name}'
             }
             with open(filepath, 'w') as file:
                 json.dump(plot_data, file)
@@ -231,9 +312,9 @@ class booksflow():
         if dftype == "raw":
             self.df.to_csv(file_path, index=False)
         if dftype == "processed":
-            self.df_books.to_csv(file_path, index=False)
+            self.df.to_csv(file_path, index=False)
             
-class tradesflow():
+class tradesflow(CommonFlowFunctionalities):
     """
         Important notes:
             Aggregation explanation:  If the level_size is 20, books between [0-20) go to level 20, [20, 40) go to level 40, and so forth.
@@ -255,39 +336,20 @@ class tradesflow():
         """
         self.stream_data = dict()
         self.market_state = dict()
+        self.data_holder = AggregationDataHolder()
+        self.Trades = MarketTradesLiquidations()
+        
         self.exchange = exchange
         self.symbol = symbol
         self.inst_type = inst_type
         self.on_message = on_message
         self.price_level_size = float(price_level_size)
         self.trades_process_interval = trades_process_interval
-        # helpers
-        self.dfbuys = pd.DataFrame()
-        self.dfsells = pd.DataFrame()
-        self.df_trades_total = pd.DataFrame()
-        self.df_trades_delta = pd.DataFrame()
-        self.Trades = MarketTradesLiquidations()
-        self.buys = dict()
-        self.sells = dict()
-
+        
+        # helpers        
         self.folderpath = ""
         self.mode = mode
 
-    def find_level(self, price):
-        """ locates the bucket to which the price belongs"""
-        return np.ceil(price / self.price_level_size) * self.price_level_size
-    
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, stream_data):
-       """ passes connectiondata dictionary"""
-       self.stream_data = stream_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
 
     async def input_data(self, data, *args, **kwargs) :
         """ inputs data"""
@@ -321,57 +383,25 @@ class tradesflow():
         transposed_df = transposed_df.drop(columns=['timestamp'])
         return transposed_df
     
-    @staticmethod
-    def merge_suffixes(n):
-        """
-            The maximum amount of datasets to aggregate is the len(alphabet). 
-            Modify this function to get more aggregation possibilities
-        """
-        alphabet = 'xyzabcdefghijklmnopqrstuvw'
-        suffixes = [f'{alphabet[i]}' for i in range(n)]
-        return suffixes
-
-    def merge_columns_by_suffix(self, df, obj):
-        """ 
-            Helper function to merge columns by suffix
-            obj : 'sum' or 'delta'
-        """
-        base_columns = set(col.split('_', 1)[1] for col in df.columns)
-        merged_columns = {}
-
-        for base in base_columns:
-            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
-            if obj == 'sum':
-                merged_columns[base] = df[matching_columns].sum(axis=1)
-            elif obj == 'delta':
-                merged_columns[base] = df[matching_columns[0]].fillna(0)
-                for col in matching_columns[1:]:
-                    merged_columns[base] -= df[col].fillna(0)
-            else:
-                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
-        merged_df = pd.DataFrame(merged_columns)
-        return merged_df
-    
-    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
-        """ 
-            Merges multiple books into one dataframe
-            books : List[pd.DataFrame] -- list of books to merge
-        """
-        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
-        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
-        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
-        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
-        concatenated_df = concatenated_df[map(str, sorted_columns)]
-        return concatenated_df
-
     def make_dataframes(self):
         """ generates processed dataframes of trades """
-        self.dfbuys = self.create_pandas_dataframe("buys")
-        self.dfsells = self.create_pandas_dataframe("sells")
-        self.df_trades_total = self.merge_dataframes([self.dfbuys, self.dfsells], "sum")
-        self.df_trades_delta = self.merge_dataframes([self.dfbuys, self.dfsells], "delta")
-
-
+        id_ = self.get_id()
+        inst_type = self.get_inst_type()
+        data_holder_key = f"trades_{inst_type}"
+        
+        buys = self.create_pandas_dataframe("buys")
+        sells = self.create_pandas_dataframe("sells")
+        dataframes = {
+            "buys": buys.copy(),
+            "sells": sells.copy(),
+            "total": self.merge_dataframes([buys, sells], "sum"),
+            "delta": self.merge_dataframes([buys, sells], "delta")
+        }
+        for type_, df in dataframes.items():                
+            if id_ not in self.data_holder.dataframes_to_merge[data_holder_key]:
+                self.data_holder.dataframes_to_merge[data_holder_key][type_] = {}
+            self.data_holder.dataframes_to_merge[data_holder_key][type_].update({id_ : df})
+        
     def dump_df_to_csv(self, dftype):
         """ processed, raw"""
         name = self.stream_data.get("id_ws")
@@ -385,40 +415,56 @@ class tradesflow():
         if dftype == "delta":
             self.df_trades_delta.to_csv(file_path, index=False)
 
-
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         try:
             await asyncio.sleep(1)
             while True:
                 await asyncio.sleep(self.trades_process_interval)
+                
                 self.make_dataframes()
+                
                 if self.mode == "testing":
                     self.dump_df_to_csv("buys")
                     self.dump_df_to_csv("sells")
                     self.dump_df_to_csv("total")
                     self.dump_df_to_csv("delta")
-
-                self.buys = copy.copy(self.Trades.buys)
-                self.sells = copy.copy(self.Trades.sells)
+                
+                inst_type = self.get_inst_type()
+                _id = self.get_id()
+                
+                if inst_type not in self.data_holder.tick_trades:
+                    self.self.data_holder.tick_trades[inst_type] = {}
+                    
+                self.data_holder.tick_trades[inst_type][_id] = self.merge_ticks_buys_sells(self.Trades.buys, self.Trades.sells)
 
                 await self.Trades.reset_trades()
+                
                 if self.mode == "testing":
+                    
                     self.generate_data_for_plot()
+                
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
         except Exception as e:
             print(f"An error occurred: {e}")
 
-
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
+            
+            id_ = self.stream_data.get("id_ws") if self.stream_data.get("id_ws") else self.stream_data.get("id_api")
+            inst_type = "future" if inst_type in ["future", "perpetual"] else inst_type
 
-            name = self.stream_data.get("id_ws")
+            name = self.stream_data.get("id_ws") if self.stream_data.get("id_ws") else self.stream_data.get("id_api")
 
-            for type_, df in {"buys" : self.dfbuys, "sells" : self.dfsells, "total" : self.df_trades_total, "delta" : self.df_trades_delta}.items():
+            for type_, df in {
+                    "buys" : self.data_holder.get(inst_type).get("buys").get(id_),
+                    "sells" : self.data_holder.get(inst_type).get("sells").get(id_),
+                    "total" : self.data_holder.get(inst_type).get("total").get(id_),
+                    "delta" : self.data_holder.get(inst_type).get("delta").get(id_),
+                    }.items():
 
                 filepath = f"{self.folderpath}\\sample_data\\plots\\trades_{type_}_{self.inst_type}_{name}.json"
 
@@ -427,7 +473,7 @@ class tradesflow():
                     'y': df.sum().tolist(),
                     'xlabel': 'Level',
                     'ylabel': 'Amount',
-                    'legend': f'Trades sum/delta over {self.trades_process_interval}, {self.exchange}, {type_}, {self.symbol} '
+                    'legend': f'Trades_{type_}, {name}'
                 }
 
                 with open(filepath, 'w') as file:
@@ -436,7 +482,7 @@ class tradesflow():
         except Exception as e:
             print(e)
 
-class oiflow():
+class oiflow(CommonFlowFunctionalities):
     """
         Important notes:
             Aggregation explanation:  If the level_size is 20, books between [0-20) go to level 20, [20, 40) go to level 40, and so forth.
@@ -456,6 +502,7 @@ class oiflow():
             price_level_size : the magnitude of the level to aggragate upon (measured in unites of the quote to base pair)
             on_message : function to extract details from the response
         """
+        self.data_holder = AggregationDataHolder()
         self.stream_data = dict()
         self.market_state = dict()
         self.exchange = exchange
@@ -471,25 +518,9 @@ class oiflow():
         self.folderpath = ""
         self.last_recieve_time =  {}
 
-        self.ois = {}
-        self.oi_changes = {}
+        self.last_ois_by_instrument = {}
+        self.oi_changes = dict()
         self.data = []
-
-    def find_level(self, price):
-        """ locates the bucket to which the price belongs"""
-        return np.ceil(price / self.price_level_size) * self.price_level_size
-    
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, stream_data):
-       """ passes connectiondata dictionary"""
-       self.stream_data = stream_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
 
     async def input_data(self, data:str):
         """ 
@@ -508,38 +539,6 @@ class oiflow():
                     self.last_recieve_time[symbol] = timestamp
         except:
             return
-
-    @staticmethod
-    def merge_suffixes(n):
-        """
-            The maximum amount of datasets to aggregate is the len(alphabet). 
-            Modify this function to get more aggregation possibilities
-        """
-        alphabet = 'xyzabcdefghijklmnopqrstuvw'
-        suffixes = [f'_{alphabet[i]}' for i in range(n)]
-        return suffixes
-    
-    def merge_columns_by_suffix(self, df):
-        base_columns = set(col.split('_', 1)[1] for col in df.columns)
-        merged_columns = {}
-        for base in base_columns:
-            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
-            merged_columns[base] = df[matching_columns].sum(axis=1)
-        merged_df = pd.DataFrame(merged_columns)
-        return merged_df
-    
-    def merge_dataframes(self, dataframes : List[pd.DataFrame]) -> pd.DataFrame:
-        """ 
-            Merges multiple books into one dataframe
-            books : List[pd.DataFrame] -- list of books to merge
-        """
-        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
-        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
-        concatenated_df = self.merge_columns_by_suffix(concatenated_df)
-        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
-        concatenated_df = concatenated_df[map(str, sorted_columns)]
-        return concatenated_df
-    
         
     def make_dataframe(self):
         """ creates dataframe of OIs"""
@@ -547,11 +546,12 @@ class oiflow():
         processed_oi_by_instrument = {instrument : [] for instrument in self.OIS.data}
                 
         for instrument in self.OIS.data:
+            
             for entry in self.OIS.data.get(instrument):
                 open_interest = entry.get("open_interest")
                 price = entry.get("price")
                 timestamp = entry.get("timestamp")
-                oi_difference = open_interest - self.ois.get(instrument, open_interest)
+                oi_difference = open_interest - self.last_ois_by_instrument.get(instrument, open_interest)
                 if oi_difference != 0:
                     if timestamp not in self.oi_changes:
                         self.oi_changes[timestamp] = []
@@ -562,10 +562,11 @@ class oiflow():
                     str(self.find_level(price)), 
                     oi_difference
                     ]
-                self.ois[instrument] = open_interest
+                self.last_ois_by_instrument[instrument] = open_interest
                 processed_oi_by_instrument[instrument].append(processed_oi_data)
         
         dataframes = []
+        
         for instrument in processed_oi_by_instrument:
             df = pd.DataFrame(processed_oi_by_instrument.get(instrument), columns=['timestamp', 'level', 'quantity'])
             grouped_df = df.groupby(['timestamp', 'level'])['quantity'].sum().reset_index()
@@ -577,10 +578,12 @@ class oiflow():
             transposed_df = transposed_df.drop(columns=['timestamp'])    
             dataframes.append(transposed_df)
         
-        if len(dataframes) > 1:
-            self.df_ois_delta = self.merge_dataframes(dataframes)
-        else:
-            self.df_ois_delta = dataframes[0]
+        id_ = self.get_id()
+        inst_type = self.get_inst_type()
+        key = f"oi_deltas_{inst_type}"
+        if key not in self.data_holder.dataframes_to_merge:
+            self.self.data_holder.dataframes_to_merge = {}
+        self.data_holder.dataframes_to_merge[key][id_] = self.merge_dataframes(dataframes, "sum")
 
 
     async def schedule_processing_dataframe(self):
@@ -589,14 +592,21 @@ class oiflow():
             await asyncio.sleep(1)
             while True:
                 await asyncio.sleep(self.oi_process_interval)
+                
                 self.make_dataframe()
+                
+                name = self.get_id()
+                inst_type = self.get_inst_type()
+                
                 if self.mode == "testing":
-                    name = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
-                    self.dfp.to_csv(f"{self.folderpath}\\sample_data\\dfpandas\\processed\\ois_{name}.csv", index=False)
+                    key = f"oi_deltas_{inst_type}"
+                    self.data_holder.dataframes_to_merge[key][name].to_csv(f"{self.folderpath}\\sample_data\\dfpandas\\processed\\ois_{name}.csv", index=False)
 
-                self.data = copy.copy(self.increases)
-                self.increases = []
-                await self.ois.reset_data()
+                self.tick_ois_delta[inst_type].update({name : self.oi_changes})                 
+                
+                self.oi_changes = {}
+                await self.OIS.reset_data()
+                
                 if self.mode == "testing":
                     self.generate_data_for_plot()
         except asyncio.CancelledError:
@@ -609,16 +619,19 @@ class oiflow():
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
 
-            name = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
+            name = self.get_id()
+            inst_type = self.get_inst_type()
+            
+            df = self.data_holder.dataframes_to_merge[inst_type][name]
 
             filepath = f"{self.folderpath}\\sample_data\\plots\\ois_{name}.json"
 
             plot_data = {
-                'x': [float(x) for x in self.dfp.columns],
-                'y': self.dfp.sum().tolist(),
+                'x': [float(x) for x in df.columns],
+                'y': df.sum().tolist(),
                 'xlabel': 'Level',
                 'ylabel': 'Amount',
-                'legend': f'Trades sum over {self.oi_process_interval}, {self.exchange}, {self.symbol} '
+                'legend': f'OI_deltas, {name}'
             }
 
             with open(filepath, 'w') as file:
@@ -627,7 +640,7 @@ class oiflow():
         except Exception as e:
             print(e)
 
-class liqflow():
+class liqflow(CommonFlowFunctionalities):
     """
         Important notes:
             Aggregation explanation:  If the level_size is 20, books between [0-20) go to level 20, [20, 40) go to level 40, and so forth.
@@ -667,21 +680,6 @@ class liqflow():
         self.folderpath = ""
         self.mode = mode
 
-    def find_level(self, price):
-        """ locates the bucket to which the price belongs"""
-        return np.ceil(price / self.price_level_size) * self.price_level_size
-
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, stream_data):
-       """ passes connectiondata dictionary"""
-       self.stream_data = stream_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
 
     def input_data(self, data, *args, **kwargs) :
         """ inputs data"""
@@ -690,52 +688,7 @@ class liqflow():
             self.Liquidations.add_liquidations(processed_data)
         except:
             return
-        
-
     
-    @staticmethod
-    def merge_suffixes(n):
-        """
-            The maximum amount of datasets to aggregate is the len(alphabet). 
-            Modify this function to get more aggregation possibilities
-        """
-        alphabet = 'xyzabcdefghijklmnopqrstuvw'
-        suffixes = [f'{alphabet[i]}' for i in range(n)]
-        return suffixes
-
-    def merge_columns_by_suffix(self, df, obj):
-        """ 
-            Helper function to merge columns by suffix
-            obj : 'sum' or 'delta'
-        """
-        base_columns = set(col.split('_', 1)[1] for col in df.columns)
-        merged_columns = {}
-
-        for base in base_columns:
-            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
-            if obj == 'sum':
-                merged_columns[base] = df[matching_columns].sum(axis=1)
-            elif obj == 'delta':
-                merged_columns[base] = df[matching_columns[0]].fillna(0)
-                for col in matching_columns[1:]:
-                    merged_columns[base] -= df[col].fillna(0)
-            else:
-                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
-        merged_df = pd.DataFrame(merged_columns)
-        return merged_df
-    
-    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
-        """ 
-            Merges multiple books into one dataframe
-            books : List[pd.DataFrame] -- list of books to merge
-        """
-        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
-        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
-        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
-        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
-        concatenated_df = concatenated_df[map(str, sorted_columns)]
-        return concatenated_df
-
     
     def create_pandas_dataframe(self, type_):
         """
@@ -744,13 +697,11 @@ class liqflow():
         """
         data_object = self.Liquidations.longs if type_ == "longs" else self.Liquidations.shorts
         df = pd.DataFrame(index=list(range(0, self.liquidations_process_interval)))
-
-        trades = [
+        liquidations = [
             [int(t % self.liquidations_process_interval), str(self.find_level(trade["price"])), trade["quantity"]]
             for t in data_object for trade in data_object[t]
         ]
-
-        df = pd.DataFrame(trades, columns=['timestamp', 'level', 'quantity'])
+        df = pd.DataFrame(liquidations, columns=['timestamp', 'level', 'quantity'])
         grouped_df = df.groupby(['timestamp', 'level'])['quantity'].sum().reset_index()
         transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').reset_index()
         transposed_df.columns.name = None
@@ -758,46 +709,77 @@ class liqflow():
         transposed_df.set_index('timestamp', inplace=True)
         transposed_df = transposed_df.reindex(range(self.liquidations_process_interval), fill_value=0).reset_index()
         transposed_df = transposed_df.drop(columns=['timestamp'])
-    
         return transposed_df
 
 
     def make_dataframes(self):
-        """ generates processed dataframes of trades """
-        self.dflongs = self.create_pandas_dataframe("longs")
-        self.dfshorts = self.create_pandas_dataframe("shorts")
-        self.df_liquidations_total = self.merge_dataframes([self.dflongs, self.dfshorts], "sum")
-        self.df_liquidations_delta = self.merge_dataframes([self.dflongs, self.dfshorts], "delta")
+        """ generates processed dataframes of liquidations """
+
+        id_ = self.get_id()
+        inst_type = self.get_inst_type()
+        data_holder_key = f"liquidations_{inst_type}"
+        
+        longs = self.create_pandas_dataframe("longs")
+        shorts = self.create_pandas_dataframe("shorts")
+        dataframes = {
+            "buys": longs,
+            "sells": shorts,
+            "total": self.merge_dataframes([longs, shorts], "sum"),
+            "delta": self.merge_dataframes([longs, shorts], "delta")
+        }
+        for type_, df in dataframes.items():                
+            if id_ not in self.data_holder.dataframes_to_merge[data_holder_key]:
+                self.data_holder.dataframes_to_merge[data_holder_key][type_] = {}
+            self.data_holder.dataframes_to_merge[data_holder_key][type_].update({id_ : df})
+        
 
     def dump_df_to_csv(self, dftype):
         """ processed, raw"""
-        name = self.stream_data.get("id_ws")
-        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\{dftype}_liquidations_{name}.csv"
+        
+        id_ = self.get_id()
+        inst_type = self.get_inst_type()
+        data_holder_key = f"liquidations_{inst_type}"
+        
+        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\{dftype}_liquidations_{id_}.csv"
         if dftype == "longs":
-            self.dflongs.to_csv(file_path, index=False)
+            self.data_holder.dataframes_to_merge[data_holder_key][dftype].to_csv(file_path, index=False)
         if dftype == "shorts":
-            self.dfshorts.to_csv(file_path, index=False)
+            self.data_holder.dataframes_to_merge[data_holder_key][dftype].to_csv(file_path, index=False)
         if dftype == "total":
-            self.df_liquidations_total.to_csv(file_path, index=False)
+            self.data_holder.dataframes_to_merge[data_holder_key][dftype].to_csv(file_path, index=False)
+        if dftype == "delta":
+            self.data_holder.dataframes_to_merge[data_holder_key][dftype].to_csv(file_path, index=False)
 
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         try:
             await asyncio.sleep(1)
             while True:
+                
                 await asyncio.sleep(self.liquidations_process_interval)
+                
                 self.make_dataframes()
+                
                 if self.mode == "testing":
+                    
                     self.dump_df_to_csv("longs")
                     self.dump_df_to_csv("shorts")
                     self.dump_df_to_csv("total")
                     self.dump_df_to_csv("delta")
 
-                self.longs = copy.copy(self.Liquidations.buys)
-                self.shorts = copy.copy(self.Liquidations.sells)
+
+                inst_type = self.get_inst_type()
+                id_ = self.get_id()
+                
+                if inst_type not in self.data_holder.tick_liquidations:
+                    self.self.data_holder.tick_liquidations[inst_type] = {}    
+                self.data_holder.tick_liquidations[inst_type][id_] = self.merge_ticks_buys_sells(self.Liquidations.longs, self.Liquidations.shorts)
+                
                 await self.Liquidations.reset_liquidations()
+                
                 if self.mode == "testing":
                     self.generate_data_for_plot()
+                
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -809,7 +791,7 @@ class liqflow():
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
 
-            name = self.stream_data.get("id_ws") if self.stream_data.get("id_ws") else self.stream_data.get("id_api")
+            name = self.get_id()
 
             for type_, df in {"longs" : self.dflongs, "shorts" : self.dfshorts, "total" : self.df_liquidations_total, "delta" : self.df_liquidations_delta}.items():
 
@@ -820,7 +802,7 @@ class liqflow():
                     'y': df.sum().tolist(),
                     'xlabel': 'Level',
                     'ylabel': 'Amount',
-                    'legend':f'Liquidations ({type_}) over {self.liquidations_process_interval}.s on {self.exchange}, {self.inst_type} ({self.symbol})'
+                    'legend':f'Liquidations, {name}'
                 }
 
                 with open(filepath, 'w') as file:
@@ -829,7 +811,7 @@ class liqflow():
         except Exception as e:
             print(e)
 
-class ooiflow():
+class ooiflow(CommonFlowFunctionalities):
 
     """ 
         example:
@@ -853,6 +835,7 @@ class ooiflow():
         """ Cool init method"""
         self.stream_data = dict()
         self.market_state = dict()
+        self.data_holder = AggregationDataHolder()
         self.exchange = exchange
         self.symbol = symbol
         self.inst_type = "option"
@@ -875,18 +858,6 @@ class ooiflow():
         except Exception as e:
             return
 
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, stream_data):
-       """ passes connectiondata dictionary"""
-       self.stream_data = stream_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
-
     @staticmethod
     def weighted_avg(df, value_column, weight_column):
         return np.average(df[value_column], weights=df[weight_column])
@@ -906,17 +877,25 @@ class ooiflow():
     def create_dataframes(self):
         """ creates puts and calls dataframes """
         call_data, put_data = self.odata.get_summary_by_option_type()
-        self.dfp = self.process_option_data(put_data)
-        self.dfc = self.process_option_data(call_data)
+        
+        id_ = self.get_id()
+        data_holder_key = f"ois_option"
+        self.data_holder[data_holder_key]["puts"][id_] = self.process_option_data(put_data)
+        self.data_holder[data_holder_key]["calls"][id_] = self.process_option_data(call_data)
+        
+    
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         try:
             await asyncio.sleep(1)
             while True:
+                
                 await asyncio.sleep(self.option_process_interval)
+                
                 self.create_dataframes()
                 if self.mode == "testing":
                     self.dump_df_to_csv()
+                    self.generate_data_for_plot()
 
         except asyncio.CancelledError:
             print("Task was cancelled")
@@ -926,13 +905,43 @@ class ooiflow():
 
     def dump_df_to_csv(self):
         """ helper function to dump dataframes to csv """
-        id_ = self.stream_data.get("id_ws") if "id_ws" in self.stream_data else self.stream_data.get("id_api")
         
-        for type_, dff in zip(["Puts", "Calls"], [self.dfp, self.dfc]):
+        id_ = self.get_id()
+        data_holder_key = f"ois_option"
+        dfp = self.data_holder[data_holder_key]["puts"][id_]
+        dfc = self.data_holder[data_holder_key]["calls"][id_]
+        
+        for type_, dff in zip(["Puts", "Calls"], [dfp, dfc]):
             file_path = f"{self.folderpath}\\sample_data\\dfpandas\\processed\\oioption_{type_}_{id_}.csv"
             dff.to_csv(file_path, index=False)
+            
+    def generate_data_for_plot(self):
+        """ generates plot of option OIS at a random timestamp to verify any discrepancies, good for testing """
+        try:
 
-class pfflow():
+            id_ = self.get_id()
+            data_holder_key = f"oi_option"
+            df_dict = {"put" : self.data_holder[data_holder_key]["puts"][id_], "call" : self.data_holder[data_holder_key]["calls"][id_]}
+            
+            for option_type, df in df_dict.items():
+                
+                filepath = f"{self.folderpath}\\sample_data\\plots\\oi_option_{option_type}_{id_}.json"
+                grouped = df.groupby('strike').sum()
+                
+                plot_data = {
+                    'x': grouped["strike"].tolist(),
+                    'y': grouped["total_open_interest"].tolist(),
+                    'xlabel': 'Strike',
+                    'ylabel': 'Open Interest',
+                    'legend':f'Option OI, {id_}'
+                }
+                with open(filepath, 'w') as file:
+                    json.dump(plot_data, file)
+
+        except Exception as e:
+            print(e)
+
+class pfflow(CommonFlowFunctionalities):
     """ Can be used to process fundings and position data"""
     def __init__ (self,
                  exchange : str,
@@ -941,25 +950,14 @@ class pfflow():
                  mode = "production",
                  ):
         self.stream_data = dict()
+        self.data_holder = AggregationDataHolder()
         self.market_state = dict()
         self.exchange = exchange
         self.symbol = symbol
         self.on_message = on_message
-        self.data_holder = InstrumentsData()
+        self.instrument_data = InstrumentsData()
         self.mode = mode
         self.folderpath = ""
-        
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_stream_data(self, stream_data):
-       """ passes connectiondata dictionary"""
-       self.stream_data = stream_data
-
-    def pass_savefolder_path(self, folderpath):
-       """ passes connectiondata dictionary"""
-       self.folderpath = folderpath
        
     async def input_data(self, data:str):
 
@@ -968,17 +966,17 @@ class pfflow():
             for symbol in processed_data:
                 if symbol not in ["receive_time", "timestamp"]:
                     data = processed_data.get(symbol)
-                    self.data_holder.update_position(symbol, data)
+                    self.instrument_data.update_position(symbol, data)
         except Exception as e:
             pass
             
     def retrive_data_by_instrument(self, instrument):
-        self.data_holder.get_position(instrument)
+        self.instrument_data.get_position(instrument)
 
     def retrive_data(self):
-        self.data_holder.get_all_positions()
+        self.instrument_data.get_all_positions()
 
-class MarketDataFusion:
+class MarketDataFusion(CommonFlowFunctionalities):
     """ Mergers for pandas dataframes """
     def __init__(
             self, 
@@ -1007,8 +1005,7 @@ class MarketDataFusion:
         self.options_expiry_windows : np.array = options_expiry_windows
 
         self.market_state = dict()
-
-        # Aggregation
+        self.folderpath = ""
 
         self.aggregation_intervals = {
             "books_spot": books_spot_aggregation_interval,
@@ -1020,81 +1017,12 @@ class MarketDataFusion:
             "liquidations_future": liquidations_future_aggregation_interval,
             "oi_options": oi_options_aggregation_interval,
             "canceled_books_spot": canceled_books_spot_aggregation_interval,
-            "canceled_books_future": canceled_books_future_aggregation_interval"
+            "canceled_books_future": canceled_books_future_aggregation_interval
         }
+        
         self.mode = mode
-
-        #dataholders
         self.data_holder = AggregationDataHolder()
 
-    def pass_market_state(self, market_state):
-       """ passes marketstate dictionary"""
-       self.market_state = market_state
-
-    def pass_data_holder(self, data_holder):
-       """ passes marketstate dictionary"""
-       self.data_holder = data_holder
-
-    @staticmethod
-    def is_valid_dataframe(df):
-        return df is not None and isinstance(df, pd.DataFrame)
-    
-    @staticmethod
-    def merge_suffixes(n):
-        """
-            The maximum amount of datasets to aggregate is the len(alphabet). 
-            Modify this function to get more aggregation possibilities
-        """
-        alphabet = 'xyzabcdefghijklmnopqrstuvw'
-        suffixes = [f'{alphabet[i]}' for i in range(n)]
-        return suffixes
-    
-    def merge_columns_by_suffix(self, df, obj):
-        """ 
-            Helper function to merge columns by suffix
-            obj : 'sum' or 'delta'
-        """
-        base_columns = set(col.split('_', 1)[1] for col in df.columns)
-        merged_columns = {}
-
-        for base in base_columns:
-            matching_columns = [col for col in df.columns if col.endswith(f'_{base}')]
-            if obj == 'sum':
-                merged_columns[base] = df[matching_columns].sum(axis=1)
-            elif obj == 'delta':
-                merged_columns[base] = df[matching_columns[0]].fillna(0)
-                for col in matching_columns[1:]:
-                    merged_columns[base] -= df[col].fillna(0)
-            else:
-                raise ValueError("The 'obj' parameter must be either 'sum' or 'delta'")
-        merged_df = pd.DataFrame(merged_columns)
-        return merged_df
-    
-    def merge_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
-        """ 
-            Merges multiple books into one dataframe
-            books : List[pd.DataFrame] -- list of books to merge
-        """
-        dataframes = [df for df in dataframes if self.is_valid_dataframe(df)]
-        concatenated_df = pd.concat(dataframes, axis=1, keys=self.merge_suffixes(len(dataframes)))
-        concatenated_df.columns = [f'{suffix}_{col}' for suffix, col in concatenated_df.columns]
-        concatenated_df = self.merge_columns_by_suffix(concatenated_df, obj)
-        sorted_columns = sorted(map(float, [c for c in concatenated_df]))
-        concatenated_df = concatenated_df[map(str, sorted_columns)]
-        return concatenated_df
-
-    @staticmethod
-    def merge_multiple_dictionaries(dicts : List[dict]) -> dict:
-        """ Helper function to merge dictionaries of trades """
-        merged_dict = {}
-        all_keys = set()
-        for d in dicts:
-            all_keys.update(d.keys())
-        for key in all_keys:
-            merged_dict[key] = []
-            for d in dicts:
-                merged_dict[key].extend(d.get(key, []))
-        return merged_dict
     
 
     async def schedule_books_aggregation(self, aggregation_type:str):
