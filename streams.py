@@ -283,8 +283,12 @@ def create_global_datastructures(
     """
     global_data_structure = {}
     
-    if metric == "trades" and {"stablecoin", "fiat", "merge_spot_trades"}.issubset(args):
-        global_data_structure["price_spot"] = 0
+    conditions = [
+        ({"stablecoin", "fiat", "merge_spot_trades"}, "price_fiat_stablecoin_", True),
+        ({"stablecoin"}, "price_stablecoin", False),
+        ({"fiat"}, "price_fiat", False)
+    ]
+        
             
         
             
