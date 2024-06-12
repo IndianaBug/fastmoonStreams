@@ -399,80 +399,132 @@ def default_map_dictionary() -> Dict[str, Dict]:
     }
 
 @dataclass
-class AggregationDataHolder:
-    """ Data holder for aggregation and extraction"""
+class MarketState:
+    """
+    This class holds all market data, sanitized data, and data needed for processing.
 
-    timestamp : float = time.time()
-    global_data : Dict[str, float] = field(default_factory=dict)
-    instrument_data : Dict[Dict[str, float]] = field(default_factory=dict)
+    Attributes:
+        staging_data:
+            * timestamp: Current UNIX timestamp
+            * instrument_data: 
+                Data of prices, volume, open interest, funding rate, liquidations, and some exchange positions data
+                for every instrument type (e.g., spot, future, perpetual, etc.)
+            * global_data: 
+                Data of prices, volume, open interest, funding rate, and liquidations.
+                It is the aggregate of all instrument data by instrument type such as spot, future, etc.
+                Price and funding are weighted, everything elese is group-summed
+            * maps:
+                Order books, trades, and open interest deltas (ticks), canceled books, and reinforced books.
+                This is aggregated data over all instrument types originating from different exchanges.
+                Also, aggregation must happend over a certain price range
+            * ticks: 
+                Trades, liquidations, and open interest deltas over a certain period of time.
+                This is aggregated data over all instrument types originating from different exchanges. Instead of the snapshot being 
+                taken at the end of each period, it encapsulates every market action made over a certain period of time.
 
-    maps : Dict[Dict[Dict[str, float]]] = field(default_factory=default_map_dictionary)
-    tick_data : Dict[Dict[str, List[Dict[str, float]]]] = field(default_factory=dict)
-    
-    tick_trades: Dict[str, Dict] = field(default_factory=lambda: {
-        "spot": {},
-        "perpetual" : {},
-        "future" : {},
-        "option" : {},
-    })
+        raw_data:
+            * dataframes_to_merge:
+                A dictionary of dataframes that will be merged together, grouped by instrument type.
+            * merged_dataframes:
+                These will be used to extract canceled and reinforced books as well as to create maps.
+            * ticks_data_to_merge:
+                All ticks of trades, open interest deltas, and liquidations grouped by instrument types.
+                Ticks contain all market actions over a certain period of time.
+                Will be needed to input into ticks.
+            
+            Each raw_data will contain a timestamp for a corresponding data object in order to ensure the old data wasnt merged.
+            If there is old data, the software will notify
+    """
+    def __init__(self, streams_data):
+        self.streams_data = streams_data
+        self.staging_data : dict = field(default_factory=lambda :  {
+                "timestamp": 0,
+                "global": {
+                    "price": {"spot": 0, "perpetual" : 0, "option": 0},
+                    "buys": {"spot": 0,  "perpetual": 0, "option": 0},
+                    "sells": {"spot": 0, "perpetual": 0, "option": 0},
+                    "oi": {"perpetual": 0, "option": 0},    # Caution
+                    "longs": 0,
+                    "shorts": 0,
+                    "funding_rate": 0,
+                },
+                "by_instrument": {
+                    "price": {"spot": {}, "perpetual": {}},
+                    "open_interest": {},     # Cation
+                    "funding_rate": {},
+                    "ttp_long_ratio": {},
+                    "ttp_short_ratio": {},
+                    "ttp_ratio": {},
+                    "tta_long_ratio": {},
+                    "tta_short_ratio": {},
+                    "tta_ratio": {},
+                    "gta_long_ratio": {},
+                    "gta_short_ratio": {},
+                    "gta_ratio": {},
+                    "tta_size_ratio": {},
+                },
+                "maps": {
+                    "books": {"spot": {}, "perpetual": {}},
+                    "buys": {"spot": {}, "perpetual": {}, "option": {}},
+                    "sells": {"spot": {}, "perpetual": {}, "option": {}},
+                    "longs": {},
+                    "shorts": {},
+                    "canceled_books": {"spot": {}, "perpetual": {},},
+                    "reinforced_books": { "spot": {}, "perpetual": {}},
+                    "oi_deltas" : {},
+                },
+                "ticks": {
+                    "trades": {"spot": {}, "perpetual": {}, "option": {}},
+                    "liquidations": {},
+                    "oit_deltas": {},
+                },
+                "option_open_interest" : {}
+            }) 
+        self.raw_data = {
+            "dataframes_to_merge": {
+                "books" : {"spot" : {}, "perpetual" : {}},
+                "trades" : {
+                    "spot" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
+                    "perpetual" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
+                    "option" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
+                            },
+                "oi_deltas" : {},
+                "oi_option" : {},
+                "liquidations" : {}
+            },
+            "ticks_data_to_merge": {
+                "trades" : {"spot" : {}, "perpetual" : {}, "option" : {}},
+                "oit_deltas" : {},
+                "liquidations" : {},  
+            },
+            "merged_dataframes": {
+                "books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
+                "trades" : {
+                    "spot" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
+                    "perpetual" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
+                    "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}
+                            },
+                "oi_deltas" : pd.DataFrame(),
+                "oi_option" : pd.DataFrame(),
+                "liquidations" : pd.DataFrame(),
+                "canceled_books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
+                "reinforced_books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
+            },
+        }
+        # Remove Staging Data based on streams data!
 
-    tick_liquidations: Dict[str, Dict] = field(default_factory=lambda: {
-        "perpetual" : {},
-        "future" : {},
-        "option" : {},
-    })
-    
-    tick_ois_delta: Dict[str, Dict] = field(default_factory=lambda: {
-        "perpetual" : {},
-        "future" : {},
-        "option" : {},
-    })
+        # Insert into Staging Data
+        # Global Data
+        # 
 
-    dataframes_to_merge: Dict = field(default_factory=lambda: {
-        "books_spot": {},
-        "books_perpetual": {},
-        "books_future": {},
-        "trades_spot": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
-        "trades_perpetual": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
-        "trades_future": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
-        "trades_option": {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}},
-        "oi_deltas_perpetual": {},
-        "oi_deltas_future": {},
-        "ois_option": {"puts" : {}, "calls" : {}},
-        "liquidations_perpetual": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
-        "liquidations_option": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
-        "liquidations_future": {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}},
-    })
 
-    merged_dataframes: Dict = field(default_factory=lambda: {
-        "books_spot": pd.DataFrame(),
-        "books_future": pd.DataFrame(),
-        "books_perpetual": pd.DataFrame(),
-        "trades_spot": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "trades_future": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "trades_perpetual": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "trades_option": {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "oi_delta_future": pd.DataFrame(),
-        "oi_delta_perpetual": pd.DataFrame(),
-        "oi_delta_option": pd.DataFrame(),
-        "oi_option": pd.DataFrame(),  # Fix
-        "liquidations_future": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "liquidations_perpetual": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        "liquidations_option": {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
-        
-    })
-    
-    instrument_data: Dict[str, pd.DataFrame] = field(default_factory=lambda: {
-        "funding_rate" : {},
-        "price" : {},
-        ""
-    })
+
 
     def generate_unique_id(self) -> str:
         """Generates a unique identifier using UUID4."""
         return str(uuid.uuid4())
     
-    def retrive_data(self):
+    def retrive_all_data(self, drop):
         """ Retrives data is json format to insert into database"""
         return {
             "id" : self.generate_unique_id(),

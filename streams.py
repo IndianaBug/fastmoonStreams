@@ -20,10 +20,10 @@ ws = {
     "binance" : [
         # "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
     #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
-        # "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
+        "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
         # "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
         # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
-        "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
+        # "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
     #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
         # "perpetual.trades.BTCUSD_PERP",                                   # ok
     #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
@@ -94,24 +94,24 @@ ws = {
 }
 
 api = {
-    "binance" : [
-        # "perpetual.funding.BTC.15.spec", 
-        # "perpetual.oi.BTC.15.spec", 
-        # "perpetual.gta.BTC.15.spec",         # nein
-        # "option.oi.BTC.15.spec",
-        ],
-    "bybit" : [                               # ok
+    # "binance" : [
     #     "perpetual.funding.BTC.15.spec", 
     #     "perpetual.oi.BTC.15.spec", 
-        # "perpetual.gta.BTC.15.spec",
+    #     "perpetual.gta.BTC.15.spec",         # nein
+    #     "option.oi.BTC.15.spec",
+    #     ],
+    # "bybit" : [                               # ok
+    #     "perpetual.funding.BTC.15.spec", 
+    #     "perpetual.oi.BTC.15.spec", 
+    #     "perpetual.gta.BTC.15.spec",
     #     "option.oioption.BTC.15"
-        ],
-    "okx" : [                                # ok
+    #     ],
+    # "okx" : [                                # ok
     #     "perpetual.oi.BTC.15.spec", 
     #     "perpetual.funding.BTC.15.spec", 
-        # "perpetual.gta.BTC.15",
+    #     "perpetual.gta.BTC.15",
     #     "option.oi.BTC-USD.15",
-        ],
+    #     ],
     # "deribit" : [
     #     "future.oifunding.BTC.60",            # ok
     #     "option.oifunding.BTC.60",
@@ -148,4 +148,3 @@ api = {
 connection_data = client.build_connection_data(ws, api)
 
 
-# print(connection_data)

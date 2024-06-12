@@ -16,8 +16,11 @@ import numpy as np
 import socket
 import multiprocessing as mp
 import logging
-from .StreamDataClasses import OrderBook, MarketTradesLiquidations, OpenInterest, OptionInstrumentsData, InstrumentsData, AggregationDataHolder
+from .StreamDataClasses import OrderBook, MarketTradesLiquidations, OpenInterest, OptionInstrumentsData, InstrumentsData 
 import copy
+
+class AggregationDataHolder:
+    pass
 
 pd.set_option('future.no_silent_downcasting', True)
 
@@ -1051,7 +1054,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
 
 
                     self.books_spot = self.merge_dataframes(marged_data_holder.get("books"))
-                    , dict(zip(concatenated_df.columns.tolist(), concatenated_df.iloc[-1].values))
+                    #, dict(zip(concatenated_df.columns.tolist(), concatenated_df.iloc[-1].values))
 
         except asyncio.CancelledError:
             print("Task was cancelled")
