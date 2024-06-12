@@ -18,16 +18,16 @@ client = ExchangeAPIClient(
 
 ws = {
     "binance" : [
-        # "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
-    #     "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
+        "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
+        "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
         "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
-        # "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
-        # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
-        # "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
-    #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
-        # "perpetual.trades.BTCUSD_PERP",                                   # ok
-    #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
-    #     "option.trades.BTC",                                              # ok
+        "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
+        "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+        "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
+        "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
+        "perpetual.trades.BTCUSD_PERP",                                   # ok
+        "perpetual.liquidations.BTCUSD_PERP",                             # ok
+        "option.trades.BTC",                                              # ok
         ],
     "bybit" : [
         # "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
@@ -147,4 +147,152 @@ api = {
 
 connection_data = client.build_connection_data(ws, api)
 
+# print(connection_data)
 
+def create_metrics_datastructure(self, 
+                                 streams_data : dict,
+                                 merge_spot_books:bool=False,
+                                 merge_spot_trades:bool=False,
+                                 merge_derivate_books:str=None,
+                                 merge_derivate_trades:str=None,
+                                 merge_derivate_oi_deltas:str=None,
+                                 merge_liquidations:str=None,
+                                 ):
+    """ 
+    Creates a metrics data structure based on the provided arguments and streams data.
+
+    Args:
+        streams_data (dict): The data streams to be used for metrics creation.
+        merge_spot_books (bool, optional): 
+            True - merges fiat and stablecoin books into one.
+            False - separates fiat and stablecoin books. Defaults to False.
+        merge_spot_trades (bool, optional): 
+            True - merges fiat and stablecoin trades into one.
+            False - separates fiat and stablecoin trades. Defaults to False.
+        merge_derivative_books (str, optional): 
+            Specifies the type of derivative books to merge. Options are:
+                - 'future_perpetual'
+                - 'future_perpetual_option'
+                - None (default)
+        merge_derivative_trades (str, optional): 
+            Specifies the type of derivative trades to merge. Options are:
+                - 'future_perpetual'
+                - 'future_perpetual_option'
+                - None (default)
+        merge_derivative_oi_deltas (str, optional): 
+            True - merges future and perpetual oi deltas.
+            False - does not merge them.
+            None - (default)
+        merge_liquidations (str, optional): 
+            Specifies the type of liquidations to merge. Options are:
+                - 'future_perpetual'
+                - 'future_perpetual_option'
+                - None (default)
+    """
+    
+    global_metrics = {}
+    by_instrument = {}
+    aggregated_maps = {}
+    ticks = {}
+    oi_option = {}
+    
+    for stream_data in streams_data:
+        metric = stream_data.get("objective") if stream_data.get("objective") else stream_data.get("objectives")
+        inst_type = stream_data.get("instType") if stream_data.get("instType") else stream_data.get("instTypes")
+        
+        if metric == "trades":
+            for submetric in ["price", "buys", "sells"]:
+                global_metrics[f"{submetric}_{inst_type}"] = 0
+                if submetric != "price":
+                    aggregated_maps[f"{submetric}_{inst_type}"] = {}
+            by_instrument[f"price_{inst_type}"] = {}
+            ticks[f"trades_{inst_type}"] = {}
+            
+        if metric == "depth":
+            pass
+
+        if metric == "oi":
+            pass
+
+        if metric == "liquidation":
+            pass
+
+        if metric == "funding":
+            pass
+        
+        if metric in ["gta", "tta", "ttp"]:
+            pass
+        
+def create_global_datastructures(
+                            metric, 
+                            *args,
+                            **kwargs,
+                            ):
+    """
+    Arguments:
+        metric: price, trades, oi, liquidations, funding
+        *args : perpetual, future, fiat, option, spot, merge_spot_trades, merge_perpetual_future_trades
+                merge_perpetual_future_option_trades, merge_perpetual_future_oi,
+                merge_perpetual_future_liquidations, merge_perpetual_future_option_liquidations
+        
+    
+    Possible Types of Global Metrics:
+
+        price_fiat: Weighted average price of fiat currency pairs based on trading volume.
+        price_stablecoin: Weighted average price of stablecoin pairs based on trading volume.
+        price_spot: Combined weighted average price of fiat and stablecoin pairs by volume.
+        price_perpetual: Weighted average price of perpetual contract pairs by volume.
+
+        buys_spot: Aggregate volume of fiat and stablecoin spot instruments on market buy orders.
+        buys_fiat: Total volume of fiat currency buys in the market.
+        buys_stablecoin: Total volume of stablecoin buys in the market.
+        buys_perpetual: Total volume of perpetual contract buys.
+        buys_future: Total volume of futures contract buys.
+        buys_perpetual_future: Aggregate buys in both perpetual and future contracts.
+        buys_perpetual_future_option: Combination of buys in perpetual, future, and option contracts.
+        buys_option: Total volume of option contract buys.
+
+        sells_spot: Aggregate volume of fiat and stablecoin spot instruments on market sell orders.
+        sells_fiat: Total volume of fiat currency sells in the market.
+        sells_stablecoin: Total volume of stablecoin sells in the market.
+        sells_perpetual: Total volume of perpetual contract sells.
+        sells_future: Total volume of futures contract sells.
+        sells_perpetual_future: Aggregate sells in both perpetual and future contracts.
+        sells_perpetual_future_option: Combination of sells in perpetual, future, and option contracts.
+        sells_option: Total volume of option contract sells.
+
+        oi_perpetual: Open interest in perpetual contracts.
+        oi_future: Open interest in futures contracts.
+        oi_perpetual_future: Combined open interest in both perpetual and futures contracts.
+        oi_option: Open interest in options contracts.
+        oi_perpetual_future_option: Combined open interest in perpetual, futures, and options contracts.
+
+        longs_perpetual: Total long positions in perpetual contracts.
+        longs_future: Total long positions in futures contracts.
+        longs_perpetual_future: Combined long positions in both perpetual and futures contracts.
+        longs_perpetual_future_option: Combination of long positions in perpetual, futures, and options contracts.
+        longs_option: Total long positions in options contracts.
+
+        shorts_perpetual: Total short positions in perpetual contracts.
+        shorts_future: Total short positions in futures contracts.
+        shorts_perpetual_future: Combined short positions in both perpetual and futures contracts.
+        shorts_perpetual_future_option: Combination of short positions in perpetual, futures, and options contracts.
+        shorts_option: Total short positions in options contracts.
+
+        funding_rate: Weighted average of funding rate over open interest.
+    """
+    global_data_structure = {}
+    
+    if metric == "trades" and {"stablecoin", "fiat", "merge_spot_trades"}.issubset(args):
+        global_data_structure["price_spot"] = 0
+            
+        
+            
+        
+
+# Global :  price_fiat, # weighted price of fiat pairs
+#           price_stablecoin, # weighted price of stable_coin pairs, by total volume
+#           price_spot, # weighted price of stablecoin and fiat price by volume
+#           price_perpetual # weighted price of perpetual pairs by volume
+
+            # Chatgpt, do the same for buys (market_buys but lets call it buys and sells) and open interest

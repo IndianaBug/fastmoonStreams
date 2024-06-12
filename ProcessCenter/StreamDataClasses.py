@@ -398,7 +398,7 @@ def default_map_dictionary() -> Dict[str, Dict]:
         }
     }
 
-@dataclass
+
 class MarketState:
     """
     This class holds all market data, sanitized data, and data needed for processing.
@@ -437,20 +437,34 @@ class MarketState:
     """
     def __init__(self, streams_data):
         self.streams_data = streams_data
-        self.staging_data : dict = field(default_factory=lambda :  {
+        self.staging_data = {
                 "timestamp": 0,
                 "global": {
-                    "price": {"spot": 0, "perpetual" : 0, "option": 0},
-                    "buys": {"spot": 0,  "perpetual": 0, "option": 0},
-                    "sells": {"spot": 0, "perpetual": 0, "option": 0},
-                    "oi": {"perpetual": 0, "option": 0},    # Caution
+                    "price_spot" : 0,
+                    "price_perpetual" : 0,
+                    "price_future" : 0,
+                    "price_derivate" : 0,
+                    
+                    "buys_spot": 0,
+                    "buys_perpetual" : 0,
+                    "buys_option" : 0,
+                    "sells_spot" : 0,
+                    "sells_perpetual" : 0,
+                    "sells_option" : 0,
+                    "oi_perpetual" : 0,
+                    "oi_option" : 0,
+                    "oi_future" : 0,
                     "longs": 0,
                     "shorts": 0,
                     "funding_rate": 0,
                 },
                 "by_instrument": {
-                    "price": {"spot": {}, "perpetual": {}},
-                    "open_interest": {},     # Cation
+                    "price_spot": {},
+                    "price_perpetual" : {},
+                    "price_future" : {},
+                    "oi_perpetual" : {},
+                    "oi_option" : {},
+                    "oi_future" : {},
                     "funding_rate": {},
                     "ttp_long_ratio": {},
                     "ttp_short_ratio": {},
@@ -463,23 +477,32 @@ class MarketState:
                     "gta_ratio": {},
                     "tta_size_ratio": {},
                 },
-                "maps": {
-                    "books": {"spot": {}, "perpetual": {}},
-                    "buys": {"spot": {}, "perpetual": {}, "option": {}},
-                    "sells": {"spot": {}, "perpetual": {}, "option": {}},
+                "aggregated_maps": {
+                    "books_spot": {},
+                    "books_perpetual" : {},
+                    "buys_spot": {},
+                    "buys_perpetual": {},
+                    "buys_option": {},
+                    "sells_spot": {},
+                    "sells_perpetual": {},
+                    "sells_option": {},
                     "longs": {},
                     "shorts": {},
-                    "canceled_books": {"spot": {}, "perpetual": {},},
-                    "reinforced_books": { "spot": {}, "perpetual": {}},
-                    "oi_deltas" : {},
+                    "canceled_books_spot": {},
+                    "canceled_books_perpetual": {},
+                    "reinforced_books_spot": {},
+                    "reinforced_books_perpetual": {},
+                    "oi_deltas_future" : {},
                 },
                 "ticks": {
-                    "trades": {"spot": {}, "perpetual": {}, "option": {}},
+                    "trades_spot": {},
+                    "trades_perpetual": {},
+                    "trades_option": {},
                     "liquidations": {},
-                    "oit_deltas": {},
+                    "oi_deltas_future": {},
                 },
-                "option_open_interest" : {}
-            }) 
+                "oi_option" : {}
+            }
         self.raw_data = {
             "dataframes_to_merge": {
                 "books" : {"spot" : {}, "perpetual" : {}},
@@ -511,6 +534,15 @@ class MarketState:
                 "reinforced_books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
             },
         }
+        
+    def input_data(self, metric : str, symbol : str, quantity : float):
+        """ inputs data by metric """
+        self.staging_data["by_instrument"][metric].update({symbol : quantity})
+    
+    def remove_unnecessary_keys(self):
+        pass
+        
+        
         # Remove Staging Data based on streams data!
 
         # Insert into Staging Data
