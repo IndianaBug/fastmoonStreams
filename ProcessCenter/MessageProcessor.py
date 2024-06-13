@@ -32,6 +32,7 @@ class on_message_helper():
         you need to fetch initial binance futures prices. all futures
 
     """
+    default_price_value = 1000000000000000000
 
     @classmethod
     def convert_books(cls, data):
@@ -152,9 +153,10 @@ class binance_on_message(on_message_helper):
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
         imid = f"{symbol}@{instType}@binance"
-        backup_price =  market_state.get(self.backup_symbol_binance, {}).get("price", 1000000000000000000)
-        current_price = market_state.get(imid, {}).get("price", backup_price)
-
+        
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
+        current_price = market_state.get_data("price_future", imid, backup_price)
+        
         for prefix, event, value in ijson.parse(data):
             if prefix == "bids.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
@@ -225,8 +227,8 @@ class binance_on_message(on_message_helper):
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
         imid = f"{symbol}@{instType}@binance"
-        backup_price =  market_state.get(self.backup_symbol_binance, {}).get("price", 1000000000000000000)
-        current_price = market_state.get(imid, {}).get("price", backup_price)
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
+        current_price = market_state.get_data("price_future", imid, backup_price)
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "b.item.item" and previous_map_event == "start_array":
@@ -248,8 +250,7 @@ class binance_on_message(on_message_helper):
     async def binance_ws_spot_perpetual_future_option_linear_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
         symbol = data.get("s")
-        instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
-        instType = "option" if len(symbol.split("-")) == 4 else instType
+        instType = connection_data.get("instType") if connection_data.get("instType") else connection_data.get("instTypes")        
         msid = f"{symbol}@{instType}@binance"
         quantity = float(data.get("q"))
         price = float(data.get("p"))
@@ -257,6 +258,10 @@ class binance_on_message(on_message_helper):
         timestamp = float(data.get("E")) / 1000
         # timestamp = self.process_timestamp(timestamp, 1000)
         receive_time = float(data.get("E")) / 1000
+        
+        if instType != "option":
+            instType = "future" if instType == "perpetual" else instType
+            market_state.input_data(f"price_{instType}", msid, price)
 
         return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
 
@@ -270,11 +275,7 @@ class binance_on_message(on_message_helper):
         side = "buy" if data.get("m") is True else "sell"
         timestamp = float(data.get("E")) / 1000
         # timestamp = self.process_timestamp(timestamp, 1000)
-        if msid in market_state:
-            market_state[msid]["price"] = price
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["price"] = price
+        market_state.input_data("price_future", msid, price)
         receive_time = float(data.get("E")) / 1000
         return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
 
@@ -306,17 +307,15 @@ class binance_on_message(on_message_helper):
         ss = symbol.split("_")[0]
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
 
-        backup_price =  market_state.get(self.backup_symbol_binance, {}).get("price", 1000000000000000000)        
-        price = market_state.get(f"{symbol}@{instType}@binance", {}).get("price", backup_price)
+        msid = f"{symbol}@{instType}@binance"
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
+        price = market_state.get_data("price_future", msid, backup_price)
         
         amount = self.binance_derivate_multiplier.get(ss)(float(oidata.get("openInterest")), price)
-        msid = f"{symbol}@{instType}@binance"
         l[msid] = {"oi" : amount, "price" : price}
-        if msid in market_state:
-            market_state[msid]["oi"] = amount
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["oi"] = amount
+        
+        market_state.input_data("oi_future", msid, amount)
+
         l["timestamp"] = time.time()
         l["receive_time"] = time.time()
         return l
@@ -330,8 +329,9 @@ class binance_on_message(on_message_helper):
         strikes = []
         days_left = []
         ois = []
+        
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
 
-        backup_price =  market_state.get(self.backup_symbol_binance, {}).get("price", 1000000000000000000)
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "item.symbol":
@@ -344,6 +344,7 @@ class binance_on_message(on_message_helper):
                 ois.append(float(value))
             instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
+            
             instruments_data[msid] = {
                 "symbol": symbols[i],
                 "strike": strikes[i],
@@ -367,12 +368,10 @@ class binance_on_message(on_message_helper):
         longAccount = float(data.get("longAccount")) if "longAccount" in data else float(data.get("longPosition"))
         shortAccount = float(data.get("shortAccount")) if "shortAccount" in data else float(data.get("shortPosition"))
         longShortRatio = float(data.get("longShortRatio"))
-            
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid][f"{objective}_long_ratio"] = longAccount
-        market_state[msid][f"{objective}_short_ratio"] = shortAccount
-        market_state[msid][f"{objective}_ratio"] = longShortRatio
+        
+        market_state.input_data(f"{objective}_long_ratio", msid, longAccount)
+        market_state.input_data(f"{objective}_short_ratio", msid, shortAccount)
+        market_state.input_data(f"{objective}_ratio", msid, longShortRatio)
                 
         pos_data[msid] = {}
         pos_data[msid][f"{objective}_long_ratio"] = longAccount
@@ -389,7 +388,9 @@ class binance_on_message(on_message_helper):
         msid = f"{symbol}@perpetual@binance"
         if msid not in market_state:
             market_state[msid] = {}
-        market_state[msid]["funding"]  = float(funding)
+            
+        market_state.input_data(f"funding", msid, float(funding))
+
         if msid not in d:
             d[msid] = {}
         d[msid]["funding"] = float(funding)
@@ -426,9 +427,9 @@ class bybit_on_message(on_message_helper):
         msid = f"{instrument}@perpetual@bybit"
         funding = float(funddata.get("fundingRate"))
         d[msid] = {"funding" : funding}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["funding"] = funding
+        
+        market_state.input_data(f"funding", msid, funding)
+
         d["timestamp"] = time.time()
         d["receive_time"] = time.time()
         return d
@@ -441,15 +442,15 @@ class bybit_on_message(on_message_helper):
         instType = "future" if len(symbol.split("-")) == 2 else "perpetual"
         oi = float(oidata.get("result").get("list")[0].get("openInterest"))
         msid = f"{symbol}@{instType}@bybit"
-
-        backup_price =  market_state.get(self.backup_symbol_bybit, {}).get("price", 1000000000000000000)
-        price = market_state.get(msid, {}).get("price", backup_price) if msid in market_state else market_state.get(f"{msid.split('-')[0]}USDT@spot@bybit", {}).get("price", backup_price)
         
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
+        price = market_state.get_data("price_future", msid, backup_price)
+
         oi = self.bybit_derivate_multiplier.get(underlying)(oi, price)
-        d[msid] = {"oi" : oi, "price" : price}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["oi"] = oi       
+        
+        market_state.input_data(f"oi_future", msid, oi)
+        
+        d[msid] = {"oi" : oi, "price" : price}    
         d["timestamp"] = time.time()
         d["receive_time"] = time.time()
         return d
@@ -465,10 +466,10 @@ class bybit_on_message(on_message_helper):
             "gta_long_ratio" : buyRatio,
             "gta_short_ratio" : sellRatio
         }
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["gta_long_ratio"] = buyRatio
-        market_state[msid]["gta_short_ratio"] = sellRatio
+        
+        market_state.input_data(f"gta_long_ratio", msid, buyRatio)
+        market_state.input_data(f"gta_short_ratio", msid, sellRatio)
+        
         d["timestamp"] = time.time()
         d["receive_time"] = time.time()
         return d
@@ -517,10 +518,10 @@ class bybit_on_message(on_message_helper):
 
         instType = "future" if symbol.split("-")[-1].isdigit() else "perpetual"
         
-        backup_price =  market_state.get(self.backup_symbol_bybit, {}).get("price", 1000000000000000000)
         imid = f"{symbol}@{instType}@bybit"
-        current_price = market_state.get(imid, {}).get("price", backup_price)
-
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
+        current_price = market_state.get_data("price_future", imid, backup_price)
+        
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.b.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
@@ -539,7 +540,7 @@ class bybit_on_message(on_message_helper):
         d = {"timestamp" : float(timestamp) / 1000, "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
-    async def bybit_ws_spot_linear_perpetual_future_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
+    async def bybit_ws_spot_linear_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -591,9 +592,9 @@ class bybit_on_message(on_message_helper):
 
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
-        backup_price =  market_state.get(self.backup_symbol_bybit, {}).get("price", 1000000000000000000)
-        imid = f"{symbol}@{instType}@binance"
-        current_price = market_state.get(imid, {}).get("price", backup_price)
+        imid = f"{symbol}@{instType}@bybit"
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
+        current_price = market_state.get_data("price_future", imid, backup_price)
                 
         for prefix, event, value in ijson.parse(data):
             if prefix == "data.b.item.item" and previous_map_event == "start_array":
@@ -629,12 +630,11 @@ class bybit_on_message(on_message_helper):
             instType = "perpetual" if len(symbol.split("_")) == 1 else "future"
             instType = "option" if len(symbol.split(symbol)) > 3 else instType
             msid = f"{symbol}@{instType}@bybit"
+            
             if instType != "option":
-                if msid in market_state:
-                    market_state[msid]["price"] = price
-                if msid not in market_state:
-                    market_state[msid] = {}
-                    market_state[msid]["price"] = price
+                d = "future" if instType == "perpetual" else instType
+                market_state.input_data(f"price_{d}", msid, price)
+
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
     async def bybit_ws_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -652,11 +652,7 @@ class bybit_on_message(on_message_helper):
             instType = "perpetual" if len(symbol.split("_")) == 1 else "future"
             instType = "option" if len(symbol.split(symbol)) > 3 else instType
             msid = f"{symbol}@{instType}@bybit"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
+            market_state.input_data(f"price_future", msid, price)
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 
     async def bybit_ws_linear_perpetual_future_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -769,9 +765,7 @@ class okx_on_message(on_message_helper):
         msid = f"{symbol}@perpetual@okx"
         funding = float(funddata.get("fundingRate"))
         d[msid] = {"funding" : funding}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["funding"] = funding
+        market_state.input_data(f"funding", msid, funding)
         d["timestamp"] = time.time()
         d["receive_time"] = time.time()
         return d
@@ -795,7 +789,7 @@ class okx_on_message(on_message_helper):
         d["timestamp"] = time.time()
         d[label] = {}
         d[label]["gta_ratio"] = gta
-        market_state[label] = {"gta_ratio" : gta}
+        market_state.input_data(f"funding", label, gta)
         return d
 
     async def okx_api_oifutureperp_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -813,9 +807,9 @@ class okx_on_message(on_message_helper):
 
         price = market_state.get(f"{symbol}@{instType}@okx", {}).get("price", backup_price)
         d[msid] = {"oi" : oi, "price" : price}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["oi"] = oi  
+        
+        market_state.input_data(f"oi_future", msid, oi)
+        
         d["timestamp"] = time.time()
         return d
 
@@ -851,7 +845,7 @@ class okx_on_message(on_message_helper):
             }
         return instruments_data
 
-    async def okx_api_ws_spot_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
+    async def okx_api_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
         previous_map_event = ""
@@ -895,10 +889,10 @@ class okx_on_message(on_message_helper):
         symbol = connection_data.get("exchange_symbols")[0]
         ss = "-".join(symbol.split("-")[:2])
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
-
-        backup_price =  market_state.get(self.backup_symbol_okx, {}).get("price", 1000000000000000000)
         imid = f"{symbol}@{instType}@okx"
-        current_price = market_state.get(imid, {}).get("price", backup_price)
+        
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
+        current_price = market_state.get_data("price_future", imid, backup_price)
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "data.item.bids.item.item" and previous_map_event == "start_array":
@@ -949,11 +943,7 @@ class okx_on_message(on_message_helper):
             amount = float(trade.get('sz'))
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
             msid = f"{trade.get('instId')}@spot@okx"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
+            market_state.input_data(f"price_spot", msid, price)
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}     
     
     async def okx_ws_linear_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -971,11 +961,7 @@ class okx_on_message(on_message_helper):
 
             instType = connection_data.get("instType")
             msid = f"{trade.get('instId')}@{instType}@okx"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
+            market_state.input_data(f"price_future", msid, price)
 
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}          
 
@@ -1042,6 +1028,10 @@ class deribit_on_message(on_message_helper):
                 ois.append(float(value))
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
+            
+            imid = 
+            market_state.get(f"{symbols[i]}@option@deribit", {}).get("price", backup_price)
+            
             instruments_data[msid] = {
                 "symbol": symbols[i],
                 "strike": strikes[i],
@@ -1100,9 +1090,11 @@ class deribit_on_message(on_message_helper):
                 instruments_data[key][key_2] = fun
 
         for msid, data in instruments_data.items():
-            if msid not in market_state:
-                market_state[msid] = {}
-            market_state[msid].update(data)
+            for metric, value in data.items():
+                if metric != "symbol":
+                    metric = "oi_future" if metric == "oi" else metric
+                    metric = "price_future" if metric == "price" else metric
+                    market_state.input_data(metric, msid, value)
         
         instruments_data["timestamp"] = time.time()
 
@@ -1130,12 +1122,9 @@ class deribit_on_message(on_message_helper):
             instType = "future" if any(char.isdigit() for char in trade.get("instrument_name").split("-")[-1]) else "perpetual"
             instType = "option" if len(trade.get("instrument_name").split("-")) > 2 else instType
             msid = f"{trade.get('instrument_name')}@{instType}@deribit"
+            
             if instType != "option":
-                if msid in market_state:
-                    market_state[msid]["price"] = price
-                if msid not in market_state:
-                    market_state[msid] = {}
-                    market_state[msid]["price"] = price
+                market_state.input_data("price_future", msid, price)
             
         return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
 

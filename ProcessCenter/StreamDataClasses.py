@@ -406,10 +406,10 @@ class MarketState:
     Attributes:
         staging_data:
             * timestamp: Current UNIX timestamp
-            * instrument_data: 
+            * by_instrument: 
                 Data of prices, volume, open interest, funding rate, liquidations, and some exchange positions data
                 for every instrument type (e.g., spot, future, perpetual, etc.)
-            * global_data: 
+            * global: 
                 Data of prices, volume, open interest, funding rate, and liquidations.
                 It is the aggregate of all instrument data by instrument type such as spot, future, etc.
                 Price and funding are weighted, everything elese is group-summed
@@ -437,111 +437,182 @@ class MarketState:
     """
     def __init__(self, streams_data):
         self.streams_data = streams_data
-        self.staging_data = {
-                "timestamp": 0,
-                "global": {
-                    "price_spot" : 0,
-                    "price_perpetual" : 0,
-                    "price_future" : 0,
-                    "price_derivate" : 0,
-                    
-                    "buys_spot": 0,
-                    "buys_perpetual" : 0,
-                    "buys_option" : 0,
-                    "sells_spot" : 0,
-                    "sells_perpetual" : 0,
-                    "sells_option" : 0,
-                    "oi_perpetual" : 0,
-                    "oi_option" : 0,
-                    "oi_future" : 0,
-                    "longs": 0,
-                    "shorts": 0,
-                    "funding_rate": 0,
-                },
-                "by_instrument": {
-                    "price_spot": {},
-                    "price_perpetual" : {},
-                    "price_future" : {},
-                    "oi_perpetual" : {},
-                    "oi_option" : {},
-                    "oi_future" : {},
-                    "funding_rate": {},
-                    "ttp_long_ratio": {},
-                    "ttp_short_ratio": {},
-                    "ttp_ratio": {},
-                    "tta_long_ratio": {},
-                    "tta_short_ratio": {},
-                    "tta_ratio": {},
-                    "gta_long_ratio": {},
-                    "gta_short_ratio": {},
-                    "gta_ratio": {},
-                    "tta_size_ratio": {},
-                },
-                "aggregated_maps": {
-                    "books_spot": {},
-                    "books_perpetual" : {},
-                    "buys_spot": {},
-                    "buys_perpetual": {},
-                    "buys_option": {},
-                    "sells_spot": {},
-                    "sells_perpetual": {},
-                    "sells_option": {},
-                    "longs": {},
-                    "shorts": {},
-                    "canceled_books_spot": {},
-                    "canceled_books_perpetual": {},
-                    "reinforced_books_spot": {},
-                    "reinforced_books_perpetual": {},
-                    "oi_deltas_future" : {},
-                },
-                "ticks": {
-                    "trades_spot": {},
-                    "trades_perpetual": {},
-                    "trades_option": {},
-                    "liquidations": {},
-                    "oi_deltas_future": {},
-                },
-                "oi_option" : {}
-            }
-        self.raw_data = {
-            "dataframes_to_merge": {
-                "books" : {"spot" : {}, "perpetual" : {}},
-                "trades" : {
-                    "spot" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
-                    "perpetual" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
-                    "option" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
-                            },
-                "oi_deltas" : {},
-                "oi_option" : {},
-                "liquidations" : {}
-            },
-            "ticks_data_to_merge": {
-                "trades" : {"spot" : {}, "perpetual" : {}, "option" : {}},
-                "oit_deltas" : {},
-                "liquidations" : {},  
-            },
-            "merged_dataframes": {
-                "books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
-                "trades" : {
-                    "spot" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
-                    "perpetual" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
-                    "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}
-                            },
-                "oi_deltas" : pd.DataFrame(),
-                "oi_option" : pd.DataFrame(),
-                "liquidations" : pd.DataFrame(),
-                "canceled_books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
-                "reinforced_books" : {"spot" : pd.DataFrame(), "perpetual" : pd.DataFrame()},
-            },
+        self.staging_data = self.create_marketstate_datastructure(self.streams_data)
+        self.raw_data = self.create_raw_datastructure()
+        self.futures_last_updates = {}
+
+    def create_marketstate_datastructure(self, streams_data, *args, **kwargs,):
+        """ 
+            Creates datastructed based on selected streams
+        """
+        global_data_structure = {}
+        byinsttument_structure = {}
+        aggregated_maps_structure = {}
+        ticks = {}
+        oi_option = False
+        metrics_to_insttype = [(s.get("objective"), s.get("instTypes") if s.get("instTypes") else s.get("instType")) for s in streams_data]
+        
+        if {("trades", "spot")}.issubset(metrics_to_insttype):
+            global_data_structure["price_spot"] = 0
+            global_data_structure["buys_spot"] = 0
+            global_data_structure["sells_spot"] = 0
+            
+            byinsttument_structure["price_spot"] = {}
+            aggregated_maps_structure["buys_spot"] = {}
+            aggregated_maps_structure["sells_spot"] = {}
+            
+            ticks["trades_spot"] = {}
+            
+        if {("trades", "perpetual")}.issubset(metrics_to_insttype) or {("trades", "future")}.issubset(metrics_to_insttype):
+            global_data_structure["price_future"] = 0
+            global_data_structure["buys_future"] = 0
+            global_data_structure["sells_future"] = 0
+            byinsttument_structure["price_future"] = {}
+            aggregated_maps_structure["buys_future"] = {}
+            aggregated_maps_structure["sells_future"] = {}
+            
+            ticks["trades_future"] = {}
+            
+        if {("trades", "option")}.issubset(metrics_to_insttype) or {("trades", "optionTrades")}.issubset(metrics_to_insttype):
+            global_data_structure["buys_option"] = 0
+            global_data_structure["sells_option"] = 0
+            aggregated_maps_structure["buys_option"] = {}
+            aggregated_maps_structure["sells_option"] = {}
+            ticks["trades_option"] = {}
+        if {("oi", "perpetual")}.issubset(metrics_to_insttype) or {("oi", "future")}.issubset(metrics_to_insttype):
+            global_data_structure["oi_future"] = 0
+            byinsttument_structure["oi_future"] = {}
+            aggregated_maps_structure["oi_delta"] = {}
+            ticks["oi_delta"] = {}
+        if {("oi", "option")}.issubset(metrics_to_insttype) or {("oi", "oioption")}.issubset(metrics_to_insttype):
+            global_data_structure["oi_option"] = 0
+            oi_option = True
+        if "liquidations" in [x.get("objective") for x in streams_data]:
+            global_data_structure["longs"] = 0
+            global_data_structure["shorts"] = 0
+            aggregated_maps_structure["longs"] = {}
+            aggregated_maps_structure["shorts"] = {}
+            ticks["liquidations"] = {}
+        if "funding" in [x.get("objective") for x in streams_data]:
+            global_data_structure["funding"] = 0
+            byinsttument_structure["funding"] = {}
+        if "oifunding" in [x.get("objective") for x in streams_data]:
+            global_data_structure["oi_future"] = 0
+            global_data_structure["funding"] = 0
+            byinsttument_structure["funding"] = {}
+            aggregated_maps_structure["oi_delta"] = {}
+            ticks["oi_delta"] = {}
+            
+        if {("depth", "spot")}.issubset(metrics_to_insttype):
+            aggregated_maps_structure["depth_spot"] = {}
+            if "make_canceled_books" in args:
+                aggregated_maps_structure["cdepth_spot"] = {}
+            if "make_reinforced_books" in args:
+                aggregated_maps_structure["rdepth_spot"] = {}
+
+        if {("depth", "perpetual")}.issubset(metrics_to_insttype):
+            aggregated_maps_structure["depth_future"] = {}
+            if "make_canceled_books" in args:
+                aggregated_maps_structure["cdepth_future"] = {}
+            if "make_reinforced_books" in args:
+                aggregated_maps_structure["rdepth_future"] = {}
+        
+        if {("gta", "perpetual")}.issubset(metrics_to_insttype):
+            byinsttument_structure["ttp_long_ratio"] = {}
+            byinsttument_structure["ttp_short_ratio"] = {}
+            byinsttument_structure["ttp_ratio"] = {}
+            byinsttument_structure["tta_long_ratio"] = {}
+            byinsttument_structure["tta_short_ratio"] = {}
+            byinsttument_structure["tta_ratio"] = {}
+            byinsttument_structure["gta_long_ratio"] = {}
+            byinsttument_structure["gta_short_ratio"] = {}
+            byinsttument_structure["gta_ratio"] = {}
+            byinsttument_structure["tta_size_ratio"] = {}
+            byinsttument_structure["ttp_size_ratio"] = {}
+            byinsttument_structure["gta_size_ratio"] = {}
+
+        d = {
+            "global" : global_data_structure,
+            "by_instrument" : byinsttument_structure,
+            "maps" : aggregated_maps_structure,
+            "ticks" : ticks
         }
         
+        if oi_option:
+            d["oi_option"] = {}
+        return d
+    
+    def create_raw_datastructure(self):
+        """ creates datastructure that will be merged"""
+        d = {
+                "dataframes_to_merge": {
+                    "depth" : {
+                        "spot" : {}, 
+                        "future" : {}
+                        },
+                    "trades" : {
+                        "spot" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
+                        "future" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
+                        "option" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
+                                },
+                    "oi_delta" : {},
+                    "oi_option" : {},
+                    "liquidations" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
+                },
+                "ticks_data_to_merge": {
+                    "trades" : {"spot" : {}, "future" : {}, "option" : {}},
+                    "oi_delta" : {},
+                    "liquidations" : {},  
+                },
+                "merged_dataframes": {
+                    "depth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
+                    "trades" : {
+                        "spot" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
+                        "future" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
+                        "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}
+                                },
+                    "oi_delta" : pd.DataFrame(),
+                    "oi_option" : pd.DataFrame(),
+                    "liquidations" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+                    "cdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
+                    "rdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
+                },
+            }
+        return d
+            
     def input_data(self, metric : str, symbol : str, quantity : float):
         """ inputs data by metric """
         self.staging_data["by_instrument"][metric].update({symbol : quantity})
+
+    def get_data(self, metric : str, symbol : str, default_value=None):
+        """ inputs data by metric """
+        self.staging_data.get("by_instrument", {}).get(metric, {}).get(symbol, default_value)
     
-    def remove_unnecessary_keys(self):
+    def input_dataframe(self, *keys):
+        """ inputs dataframe to a certain dictionary"""
+        current_level = self.raw_data
+        for key in keys:
+            if isinstance(current_level, dict) and key in current_level:
+                current_level = current_level[key]
+            else:
+                return None  
+        return current_level
+    
+    def calculate_global_metrics(self,):
+        """ calculates global metrics"""
         pass
-        
+    
+    def remove_expired_instruments(self):
+        pass
+
+    # async def remove_dead_instruments(self, check_interval):
+    #     while True:
+    #         current_time = time.time()
+    #         symbols_to_remove = [symbol for symbol, data in self._data.items() if current_time - data.get('update_time', 0) > self.expiration_timeout]
+    #         for symbol in symbols_to_remove:
+    #             del self._data[symbol]
+    #         await asyncio.sleep(self.symbol_remove_timeout) 
+    
         
         # Remove Staging Data based on streams data!
 

@@ -5,3 +5,11 @@ coinbase_api = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8
 kucoin_api = "65d92cc0291aa2000118b67b"
 kucoin_secret = "3d449464-ab5e-4415-9950-ae31648fe90c"
 kucoin_pass = "sN038-(!UK}4"
+
+
+fiats = [
+    "usd", "eur", "rub", "try", "uah", "kzt", "inr", 
+    "gbp", "krw", "aud", "chf", "czk", "dkk", "nok", 
+    "nzd", "pln", "sek", "zar", "huf", "ils"
+]
+stablecoins = ["usdt", "usdc", "busd", "dai", "tusd", "fdusd"]
