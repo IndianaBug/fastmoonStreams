@@ -99,7 +99,7 @@ class binance_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : self.process_timestamp_no_timestamp(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
         return d
 
     async def binance_api_perpetual_future_linear_depth(self, data:str, *args, **kwargs):  #-> 'on_message_helper.depth':
@@ -128,7 +128,7 @@ class binance_on_message(on_message_helper):
                 timestamp = float(value)
                 break
         
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp/1000,  "bids" : bids, "asks" : asks}
         return d
 
     async def binance_api_perpetual_future_inverse_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.depth':
@@ -141,7 +141,7 @@ class binance_on_message(on_message_helper):
         
         for prefix, event, value in ijson.parse(data):
             if prefix == "T":
-                timestamp = value
+                timestamp = float(value)
             if prefix == "symbol":
                 symbol = value
             if timestamp != None and symbol != None:
@@ -173,7 +173,7 @@ class binance_on_message(on_message_helper):
             previous_map_event = event
         
 
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp/1000,  "bids" : bids, "asks" : asks}
         return d
 
     async def binance_ws_spot_perpetual_future_linear_depth(self, data:str,  *args, **kwargs): # -> 'on_message_helper.depth':
@@ -204,7 +204,7 @@ class binance_on_message(on_message_helper):
             previous_map_event = event
 
 
-        return {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        return {"timestamp" : timestamp/1000, "bids" : bids, "asks" : asks}
     
     async def binance_ws_perpetual_future_inverse_depth(self, data:str, market_state, connection_data, *args, **kwargs): # -> 'on_message_helper.depth':
         bids = []
@@ -216,7 +216,7 @@ class binance_on_message(on_message_helper):
         
         for prefix, event, value in ijson.parse(data):
             if prefix == "T":
-                timestamp = value
+                timestamp = float(value)
             if prefix == "s":
                 symbol = value
             if timestamp != None and symbol != None:
@@ -244,7 +244,7 @@ class binance_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
-        d = {"timestamp" : self.process_timestamp(timestamp, 1000), "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp/1000, "bids" : bids, "asks" : asks}
         return d
 
     async def binance_ws_spot_perpetual_future_option_linear_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
@@ -263,7 +263,7 @@ class binance_on_message(on_message_helper):
             instType = "future" if instType == "perpetual" else instType
             market_state.input_data(f"price_{instType}", msid, price)
 
-        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
+        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "timestamp" : receive_time}
 
     async def binance_ws_perpetual_future_inverse_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
@@ -277,7 +277,7 @@ class binance_on_message(on_message_helper):
         # timestamp = self.process_timestamp(timestamp, 1000)
         market_state.input_data("price_future", msid, price)
         receive_time = float(data.get("E")) / 1000
-        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "receive_time" : receive_time}
+        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "timestamp" : receive_time}
 
     async def binance_ws_perpetual_future_option_linear_liquidations(self, data:str, *args, **kwargs): #  -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
@@ -287,7 +287,7 @@ class binance_on_message(on_message_helper):
         timestamp = float(data.get("E")) / 1000
         # timestamp = self.process_timestamp(timestamp, 1000)
         receive_time = float(data.get("E")) / 1000
-        return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "receive_time" : receive_time}
+        return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : receive_time}
 
     async def binance_ws_perpetual_future_inverse_liquidations(self, data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
@@ -297,7 +297,7 @@ class binance_on_message(on_message_helper):
         timestamp = float(data.get("E")) / 1000
         # timestamp = self.process_timestamp(timestamp, 1000)
         receive_time = float(data.get("E")) / 1000
-        return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "receive_time" : receive_time}
+        return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : receive_time}
 
     async def binance_api_perpetual_linear_inverse_oi_oifutureperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
 
@@ -308,6 +308,7 @@ class binance_on_message(on_message_helper):
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
 
         msid = f"{symbol}@{instType}@binance"
+        
         backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
         price = market_state.get_data("price_future", msid, backup_price)
         
@@ -317,7 +318,6 @@ class binance_on_message(on_message_helper):
         market_state.input_data("oi_future", msid, amount)
 
         l["timestamp"] = time.time()
-        l["receive_time"] = time.time()
         return l
 
     async def binance_api_oioption_oi_option(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -350,10 +350,9 @@ class binance_on_message(on_message_helper):
                 "strike": strikes[i],
                 "days_left": days_left[i],
                 "oi": ois[i],
-                "price":  market_state.get(f"{symbols[i]}@option@binance", {}).get("price", backup_price),
+                "price":  backup_price,
             }
         instruments_data["timestamp"] = time.time()
-        instruments_data["receive_time"] = time.time()
         return instruments_data
         
     async def binance_api_posfutureperp_perpetual_future_linear_inverse_gta_tta_ttp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
@@ -394,7 +393,7 @@ class binance_on_message(on_message_helper):
         if msid not in d:
             d[msid] = {}
         d[msid]["funding"] = float(funding)
-        d.update({"timestamp" : time.time(), "receive_time" : time.time()})
+        d.update({"timestamp" : time.time()})
         return d
 
 class bybit_on_message(on_message_helper):
@@ -431,7 +430,6 @@ class bybit_on_message(on_message_helper):
         market_state.input_data(f"funding", msid, funding)
 
         d["timestamp"] = time.time()
-        d["receive_time"] = time.time()
         return d
 
     async def bybit_api_oifutureperp_linear_inverse_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
@@ -452,7 +450,6 @@ class bybit_on_message(on_message_helper):
         
         d[msid] = {"oi" : oi, "price" : price}    
         d["timestamp"] = time.time()
-        d["receive_time"] = time.time()
         return d
 
     async def bybit_api_posfutureperp_perpetual_linear_inverse_future_gta(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
@@ -471,10 +468,9 @@ class bybit_on_message(on_message_helper):
         market_state.input_data(f"gta_short_ratio", msid, sellRatio)
         
         d["timestamp"] = time.time()
-        d["receive_time"] = time.time()
         return d
 
-    async def bybit_api_spot_linear_perpetual_future_option_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
+    async def bybit_api_spot_linear_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         bids = []
         asks = []
         previous_map_event = ""
@@ -495,7 +491,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : time.time(),"receive_time" : time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks}
         return d    
 
     async def bybit_api_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
@@ -537,7 +533,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : float(timestamp) / 1000, "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : float(timestamp) / 1000,  "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_spot_linear_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
@@ -549,7 +545,7 @@ class bybit_on_message(on_message_helper):
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "ts":
-                timestamp = value
+                timestamp = float(value)
             if prefix == "data.s":
                 symbol = value
 
@@ -569,7 +565,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
         
-        d = {"timestamp" : timestamp / 1000, "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp / 1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -582,7 +578,7 @@ class bybit_on_message(on_message_helper):
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "ts":
-                timestamp = value
+                timestamp = float(value)
             if prefix == "data.s":
                 symbol = value
             if timestamp != None and symbol != None:
@@ -611,7 +607,7 @@ class bybit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
         
-        d = {"timestamp" : timestamp / 1000, "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp / 1000, "bids" : bids, "asks" : asks}
         return d
 
     async def bybit_ws_linear_spot_perpetual_future_option_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
@@ -635,7 +631,7 @@ class bybit_on_message(on_message_helper):
                 d = "future" if instType == "perpetual" else instType
                 market_state.input_data(f"price_{d}", msid, price)
 
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def bybit_ws_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -653,7 +649,7 @@ class bybit_on_message(on_message_helper):
             instType = "option" if len(symbol.split(symbol)) > 3 else instType
             msid = f"{symbol}@{instType}@bybit"
             market_state.input_data(f"price_future", msid, price)
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def bybit_ws_linear_perpetual_future_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -666,7 +662,7 @@ class bybit_on_message(on_message_helper):
         price = float(trade.get("price"))
         size = float(trade.get("size"))
         liquidations.append([{"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp}])
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def bybit_ws_inverse_perpetual_future_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         data = json.loads(data)
@@ -680,7 +676,7 @@ class bybit_on_message(on_message_helper):
         price = float(trade.get("price"))
         size = self.bybit_derivate_multiplier.get(symbol)(float(trade.get("size")), price)
         liquidations.append([{"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp}])
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def bybit_api_oioption_oi_option(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> Tuple[np.array, np.array, np.array, float, str]:
         """
@@ -691,8 +687,7 @@ class bybit_on_message(on_message_helper):
         strikes = []
         days_left = []
         ois = []
-
-        backup_price =  market_state.get(self.backup_symbol_bybit, {}).get("price", 1000000000000000000)
+        underlying_prices = []
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.list.item.symbol":
@@ -703,6 +698,9 @@ class bybit_on_message(on_message_helper):
                 days_left.append(calculate_option_time_to_expire_bybit(option_data[1]))
             if prefix == "result.list.item.openInterest":
                 ois.append(float(value))
+            if prefix == "result.list.item.underlyingPrice":
+                underlying_prices.append(float(value))
+                
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
@@ -710,10 +708,9 @@ class bybit_on_message(on_message_helper):
                 "strike": strikes[i],
                 "days_left": days_left[i],
                 "oi": ois[i],
-                "price" : market_state.get(f"{symbols[i]}@option@bybit", {}).get("price", backup_price),
+                "price" : underlying_prices[i],
             }
         instruments_data["timestamp"] =  time.time()
-        instruments_data["receive_time"] = time.time()
         return instruments_data
 
 class okx_on_message(on_message_helper):
@@ -767,7 +764,6 @@ class okx_on_message(on_message_helper):
         d[msid] = {"funding" : funding}
         market_state.input_data(f"funding", msid, funding)
         d["timestamp"] = time.time()
-        d["receive_time"] = time.time()
         return d
 
     async def okx_api_gta_perpetual_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -823,7 +819,7 @@ class okx_on_message(on_message_helper):
         days_left = []
         ois = []
 
-        backup_price =  market_state.get(self.backup_symbol_okx, {}).get("price", 1000000000000000000)
+        backup_price =  market_state.get_data("price", self.backup_symbol_okx, self.default_price_value)
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "data.item.instId":
@@ -841,8 +837,9 @@ class okx_on_message(on_message_helper):
                 "strike": strikes[i],
                 "days_left": days_left[i],
                 "oi": ois[i],
-                "price" : market_state.get(f"{symbols[i]}@option@okx", {}).get("price", backup_price)
+                "price" : backup_price
             }
+        instruments_data["timestamp"] = time.time()
         return instruments_data
 
     async def okx_api_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -871,7 +868,7 @@ class okx_on_message(on_message_helper):
                 string_count = 0
             previous_map_event = event
 
-        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks, "receive_time" : time.time() }
+        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks }
         return d
     
     async def okx_api_ws_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -891,7 +888,7 @@ class okx_on_message(on_message_helper):
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         imid = f"{symbol}@{instType}@okx"
         
-        backup_price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_okx, self.default_price_value)
         current_price = market_state.get_data("price_future", imid, backup_price)
 
         for prefix, event, value in ijson.parse(data):
@@ -913,7 +910,7 @@ class okx_on_message(on_message_helper):
                 string_count = 0
             previous_map_event = event
 
-        d = {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks, "receive_time" : time.time()}
+        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def okx_ws_option_trades_optionTrades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -929,7 +926,7 @@ class okx_on_message(on_message_helper):
             timestamp = float(trade.get("ts")) / 1000
             amount = float(trade.get('fillVol'))
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}   
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}   
     
     async def okx_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -944,7 +941,7 @@ class okx_on_message(on_message_helper):
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
             msid = f"{trade.get('instId')}@spot@okx"
             market_state.input_data(f"price_spot", msid, price)
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}     
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}     
     
     async def okx_ws_linear_inverse_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -963,13 +960,12 @@ class okx_on_message(on_message_helper):
             msid = f"{trade.get('instId')}@{instType}@okx"
             market_state.input_data(f"price_future", msid, price)
 
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}          
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}          
 
     async def okx_ws_future_perpetual_option_liquidations(self, data:str, market_state:dict, connection_data:str, instIdTarget=False, *args, **kwargs):
         data = json.loads(data)
         trades = []
         liquidations = []     
-        t = None  
         for liquidation in data.get("data"):
             instType = liquidation.get("instType")
             instId = liquidation.get("instId")
@@ -980,7 +976,7 @@ class okx_on_message(on_message_helper):
             else:
                 if instIdTarget == instType:
                     self.helper_okx_liqs(liquidation, instType, liquidations, multiplier_symbol) 
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : t}   
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : time.time()}   
 
 class deribit_on_message(on_message_helper):
 
@@ -1014,8 +1010,7 @@ class deribit_on_message(on_message_helper):
         strikes = []
         days_left = []
         ois = []
-
-        backup_price =  market_state.get(self.backup_symbol_deribit, {}).get("price", 1000000000000000000)
+        underlying_prices = []
         
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.item.instrument_name":
@@ -1026,18 +1021,18 @@ class deribit_on_message(on_message_helper):
                 days_left.append(calculate_option_time_to_expire_deribit(option_data[1]))
             if prefix == "result.item.open_interest":
                 ois.append(float(value))
+            if prefix == "result.item.underlying_price":
+                ois.append(float(value))
+                
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
-            
-            imid = 
-            market_state.get(f"{symbols[i]}@option@deribit", {}).get("price", backup_price)
             
             instruments_data[msid] = {
                 "symbol": symbols[i],
                 "strike": strikes[i],
                 "days_left": days_left[i],
                 "oi": ois[i],
-                "price" : market_state.get(f"{symbols[i]}@option@deribit", {}).get("price", backup_price),
+                "price" : underlying_prices[i],
             }
         instruments_data["timestamp"] = time.time()
         return instruments_data
@@ -1126,7 +1121,7 @@ class deribit_on_message(on_message_helper):
             if instType != "option":
                 market_state.input_data("price_future", msid, price)
             
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def deribit_api_perpetual_future_depth(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         bids = []
@@ -1159,7 +1154,7 @@ class deribit_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks, "receive_time" : time.time()}
+        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks}
         return d
         
     async def deribit_ws_perpetual_future_depth(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
@@ -1180,7 +1175,10 @@ class deribit_on_message(on_message_helper):
                 break
 
         instType = "future" if any(char.isdigit() for char in symbol.split("-")[-1]) else "perpetual"
-        price = market_state.get(f"{symbol}@{instType}@deribit", {}).get("price", 10000000000)
+        imid = f"{symbol}@{instType}@deribit"
+        
+        backup_price = market_state.get_data("price", self.backup_symbol_deribit, self.default_price_value)
+        price = market_state.get_data("price", imid, backup_price)
         
         for prefix, event, value in ijson.parse(data):
             if prefix == "params.data.bids.item.item" and previous_map_event == "string":
@@ -1229,7 +1227,7 @@ class bitget_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
-        return {"timestamp" : self.process_timestamp_no_timestamp(), "bids" : bids, "asks" : asks}
+        return {"timestamp" : time.time(), "bids" : bids, "asks" : asks}
 
     async def bitget_ws_spot_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
@@ -1258,7 +1256,7 @@ class bitget_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : timestamp/1000, "receive_time" : timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" : timestamp/1000,  "bids" : bids, "asks" : asks}
         return d
 
     async def bitget_ws_inverse_perpetual_future_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1276,13 +1274,11 @@ class bitget_on_message(on_message_helper):
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
             msid = f"{symbol}@{instType}@bitget"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
+            pit = "future" if instType == "perpetual" else instType
+            market_state.input_data(f"price_{pit}", msid, price)
+
             
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def bitget_api_oi_perpetual_oifutureperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
@@ -1292,9 +1288,7 @@ class bitget_on_message(on_message_helper):
         d[msid] = {}
         oi = float(instrument_data.get("openInterestList")[0].get("size"))
         d[msid]["oi"] = oi
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["oi"] = oi
+        market_state.input_data(f"oi_future", msid, oi)
         timestamp = time.time()
         d["timestamp"] = timestamp
         return d
@@ -1310,9 +1304,7 @@ class bitget_on_message(on_message_helper):
         funding = float(instrument_data.get("fundingRate"))
         d[msid] = {}
         d[msid]["funding"] = funding
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["funding"] = funding
+        market_state.input_data(f"funding", msid, oi)
         timestamp = time.time()
         d["timestamp"] = timestamp
         return d
@@ -1346,7 +1338,7 @@ class bingx_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(),  "bids" : bids, "asks" : asks}
         return d
 
     async def bingx_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1371,7 +1363,7 @@ class bingx_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" : time.time(), "receive_time" : time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" : time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def bingx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1383,9 +1375,8 @@ class bingx_on_message(on_message_helper):
         openInterest = openInterest / market_state.get(s, {}).get("price", 100000)
         d = {s : {"oi" : openInterest}}
         d["timestamp"] = timestamp
-        if s not in market_state:
-            market_state[s] = {}
-        market_state[s]["oi"] = openInterest
+        
+        market_state.input_data(f"oi_future", s, openInterest)
         return d
 
     async def bingx_api_perpetual_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1395,9 +1386,7 @@ class bingx_on_message(on_message_helper):
         s = f"{ss}@perpetual@bingx"
         d = {s : {"oi" : funding}}
         d["timestamp"] = time.time()
-        if s not in market_state:
-            market_state[s] = {}
-        market_state[s]["funding"] = funding
+        market_state.input_data(f"funding", s, funding)
         return d
     
     async def bingx_ws_trades_perpetual(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1414,13 +1403,9 @@ class bingx_on_message(on_message_helper):
             trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
             msid = f"{symbol}@perpetual@bingx"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
+            market_state.input_data(f"price_future", msid, price)
             
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
     
     async def bingx_ws_trades_spot(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1435,12 +1420,8 @@ class bingx_on_message(on_message_helper):
         receive_time = float(trade.get("t")) / 1000 
         trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
         msid = f"{symbol}@spot@bingx"
-        if msid in market_state:
-            market_state[msid]["price"] = price
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["price"] = price
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        market_state.input_data(f"price_spot", msid, price)
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
 class htx_on_message(on_message_helper):
 
@@ -1459,10 +1440,7 @@ class htx_on_message(on_message_helper):
             instType = "future" if data_instrument.get("business_type") == "futures" else "perpetual"
             msid = f"{symbol}@{instType}@htx"
             d[msid] = {"oi" :  oi}
-
-            if msid not in market_state:
-                market_state[msid] = {}
-            market_state[msid]["oi"] = oi
+            market_state.input_data(f"oi_future", msid, oi)
 
         d["timestamp"] = time.time()
         return d
@@ -1482,11 +1460,10 @@ class htx_on_message(on_message_helper):
         long_ratio = float(pos_data.get("list")[0].get("buy_ratio"))
         short_ratio = float(pos_data.get("list")[0].get("sell_ratio"))
         d[msid] = {f"{indicator_type}_long_ratio" : long_ratio, f"{indicator_type}_short_ratio" : short_ratio}
+        
+        market_state.input_data(f"{indicator_type}_long_ratio", msid, long_ratio)
+        market_state.input_data(f"{indicator_type}_short_ratio", msid, short_ratio)
 
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid][f"{indicator_type}_long_ratio"] = long_ratio
-        market_state[msid][f"{indicator_type}_short_ratio"] = short_ratio
 
         d["timestamp"] = time.time()
         return d
@@ -1498,9 +1475,7 @@ class htx_on_message(on_message_helper):
         contract_code = instData.get("contract_code")
         msid = f"{contract_code}@perpetual@htx"
         d[msid] = {"funding" : funding}
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid][f"funding"] = funding
+        market_state.input_data("funding", msid, funding)
         d["timestamp"] = time.time()
         return d
 
@@ -1534,13 +1509,9 @@ class kucoin_on_message(on_message_helper):
         trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
         msid = f"{symbol}@spot@kucoin"
-        if msid in market_state:
-            market_state[msid]["price"] = price
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["price"] = price
+        market_state.input_data("price_spot", msid, price)
             
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
     async def kucoin_ws_perpetual_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1555,13 +1526,9 @@ class kucoin_on_message(on_message_helper):
         trades.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
         msid = f"{symbol}@perpetual@kucoin"
-        if msid in market_state:
-            market_state[msid]["price"] = price
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["price"] = price
+        market_state.input_data("price_future", msid, price)
             
-        return {"trades" : trades, "liquidations" : liquidations, "receive_time" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
     
     async def kucoin_api_perpetual_oi_funding_oifunding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1574,8 +1541,8 @@ class kucoin_on_message(on_message_helper):
         funding = float(data.get("fundingFeeRate"))
         msid = f"{symbol}@perpetual@kucoin"
 
-        backup_price = market_state.get(self.backup_symbol_kucoin, {}).get("price", 1000000000000000000)
-        price = market_state.get(msid, {}).get("price", backup_price)
+        backup_price = market_state.get_data("price_future", self.backup_symbol_kucoin, self.default_price_value)
+        price = market_state.get_data("price_future", msid, backup_price)
 
         d[msid] = {"oi" : oi, "funding" : funding, "price" : price}
         if msid not in market_state:
@@ -1607,7 +1574,7 @@ class kucoin_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def kucoin_api_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1617,8 +1584,10 @@ class kucoin_on_message(on_message_helper):
         helper_list = []
         symbol = None
         
-        backup_price =  market_state.get(self.backup_symbol_kucoin, {}).get("price", 1000000000000000000)
-        price = market_state.get(f"{symbol}@perpetual@kucoin", {}).get("price", backup_price)
+        msid = f"{symbol}@perpetual@kucoin"
+        backup_price = market_state.get_data("price_future", self.backup_symbol_kucoin, self.default_price_value)
+        price = market_state.get_data("price_future", msid, backup_price)
+    
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "data.symbol":
@@ -1640,7 +1609,7 @@ class kucoin_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(),  "bids" : bids, "asks" : asks}
         return d
 
     async def kucoin_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1649,23 +1618,26 @@ class kucoin_on_message(on_message_helper):
         for side in ["asks", "bids"]:
             books = [[x[0], x[1]] for x in self.convert_books(data.get("data").get("changes").get(side))]
             d[side] = books
-        d["timestamp"] = data.get("data").get("time") / 1000
-        d["receive_time"] = data.get("data").get("time") / 1000
+        d["timestamp"] = float(data.get("data").get("time")) / 1000
         return d
 
     async def kucoin_ws_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
-        backup_price =  market_state.get(self.backup_symbol_kucoin, {}).get("price", 1000000000000000000)
+        
+        backup_price = market_state.get_data("price_future", self.backup_symbol_kucoin, self.default_price_value)
+        
         d = {}
         symbol = data.get("topic").split(":")[-1]
+        msid = f"{symbol}@perpetual@kucoin"
+        price = market_state.get_data("price_future", msid, backup_price)
+        
         change = data.get("data").get("change").split(",")
         for side in ["asks", "bids"]:
             side2 = "buy" if side == "bids" else "sell"
-            price = market_state.get(f"{symbol}@perpetual@kucoin", backup_price)
+                        
             books = [float(change[0]), self.kucoin_derivate_multiplier.get(symbol)(float(change[-1]), price)] if side2 == change[1] else [[]]
             d[side] = books
-        d["timestamp"] = data.get("data").get("timestamp") / 1000
-        d["receive_time"] = data.get("data").get("timestamp") / 1000
+        d["timestamp"] = float(data.get("data").get("timestamp")) / 1000
         return d
     
 class mexc_on_message(on_message_helper):
@@ -1701,12 +1673,9 @@ class mexc_on_message(on_message_helper):
             ttt.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
 
             msid = f"{symbol}@spot@mexc"
-            if msid in market_state:
-                market_state[msid]["price"] = price
-            if msid not in market_state:
-                market_state[msid] = {}
-                market_state[msid]["price"] = price
-        return {"trades" : ttt, "liquidations" : lll, "receive_time" : receive_time}
+            market_state.input_data("price_spot", msid, price)
+            
+        return {"trades" : ttt, "liquidations" : lll, "timestamp" : receive_time}
 
     async def mexc_ws_perpetual_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1722,12 +1691,9 @@ class mexc_on_message(on_message_helper):
         trades.append([side, amount, price, timestamp])
 
         msid = f"{symbol}@perpetual@mexc"
-        if msid in market_state:
-            market_state[msid]["price"] = price
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["price"] = price
-        return {"trades" : trades, "liquidations" : [], "receive_time" : receive_time}
+        market_state.input_data("price_future", msid, price)
+        
+        return {"trades" : trades, "liquidations" : [], "timestamp" : receive_time}
 
     async def mexc_api_perpetual_oi_funding_oifunding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
 
@@ -1744,14 +1710,10 @@ class mexc_on_message(on_message_helper):
         timestamp = time.time()
         funding = float(data.get("data").get("fundingRate"))
         d[msid] = {"oi" : oi, "funding" : funding, "timestamp" : timestamp, "price" : price}
+        
+        market_state.input_data("funding", msid, funding)
+        market_state.input_data("oi_future", msid, oi)
 
-        if msid in market_state:
-            market_state[msid]["funding"] = funding
-            market_state[msid]["oi"] = oi
-        if msid not in market_state:
-            market_state[msid] = {}
-            market_state[msid]["funding"] = funding
-            market_state[msid]["oi"] = oi
         return d
 
     async def mexc_api_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1763,8 +1725,9 @@ class mexc_on_message(on_message_helper):
         number_count = 0
 
         symbol = connection_data.get("exchange_symbols")[0]
-        backup_price =  market_state.get(self.backup_symbol_mexc, {}).get("price", 1000000000000000000)
-        current_price = market_state.get(f"{symbol}@perpetual@mexc", {}).get("price", backup_price)
+        msid = f"{symbol}@perpetual@mexc"
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_mexc, self.default_price_value)
+        current_price = market_state.get_data("price_future", msid, backup_price)
 
         for prefix, event, value in ijson.parse(data):
             if prefix == "data.bids.item.item" and previous_map_event == "start_array":
@@ -1785,7 +1748,7 @@ class mexc_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def mexc_api_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1810,7 +1773,7 @@ class mexc_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def mexc_ws_perpetual_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1825,7 +1788,7 @@ class mexc_on_message(on_message_helper):
         asks = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("asks")] if data.get("asks") != [] else []
         bids = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("bids")] if data.get("bids") != [] else []
 
-        d = {"timestamp" :  timestamp/ 1000, "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  timestamp/ 1000,  "bids" : bids, "asks" : asks}
         return d
 
     async def mexc_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1838,7 +1801,7 @@ class mexc_on_message(on_message_helper):
         bids = [[float(bid.get("p")), float(bid.get("v"))] for bid in bidsdata] if bidsdata != [] else bidsdata
         asksdata = data.get("d").get("asks") if "asks" in data.get("d") else []
         asks = [[float(bid.get("p")), float(bid.get("v"))] for bid in asksdata] if asksdata != [] else asksdata
-        d = {"timestamp" :  timestamp / 1000, "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  timestamp / 1000, "bids" : bids, "asks" : asks}
         return d
 
 class gateio_on_message(on_message_helper):
@@ -1873,7 +1836,7 @@ class gateio_on_message(on_message_helper):
 
         symbol = connection_data.get("exchange_symbol")
 
-        backup_price =  market_state.get(self.backup_symbol_gateio, {}).get("price", 1000000000000000000)
+        backup_price =  market_state.get_data("price_future", self.backup_symbol_gateio, self.backup_symbol_gateio)
 
         msids = []
         symbols = []
@@ -1897,8 +1860,9 @@ class gateio_on_message(on_message_helper):
                 "strike": strikes[i],
                 "days_left": days_left[i],
                 "oi": ois[i],
-                "price": market_state.get(f"{symbols[i]}@option@gateio", {}).get("price", backup_price)
+                "price": backup_price
             }
+        instruments_data["timestamp"] = time.time()
         return instruments_data
     
     async def gateio_api_perpetual_future_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -1916,9 +1880,9 @@ class gateio_on_message(on_message_helper):
             oi = data.get("open_interest_usd") / price
             msid = f"{instrument}@perpetual@gateio"
             ddd[msid] = {"price" : price, "oi" : oi}
-            if msid not in market_state:
-                market_state[msid] = {}
-            market_state[msid].update(ddd[msid]) 
+            
+            market_state.input_data("oi_future", msid, ddd[msid])
+            
         if "total_size" in data:
             sdm = "_".join(instrument.split("_")[:-1])
             price = float(data.get("mark_price"))
@@ -1926,9 +1890,9 @@ class gateio_on_message(on_message_helper):
             oi = self.gateio_derivate_multiplier.get("perpetual_future").get(sdm)(oi)
             msid = f"{instrument}@future@gateio"
             ddd[msid] = {"price" : price, "oi" : oi}
-            if msid not in market_state:
-                market_state[msid] = {}
-            market_state[msid].update(ddd[msid])
+
+            market_state.input_data("oi_future", msid, ddd[msid])
+
         ddd["timestamp"] = time.time()      
         return ddd
 
@@ -1950,9 +1914,12 @@ class gateio_on_message(on_message_helper):
         symbol = data_dict.get("instrument")
         msid = f"{symbol}@perpetual@gateio"
         ddd[msid]  = {"ttp_size_ratio" : top_lsr_size , "tta_ratio" : top_lsr_account, "gta_ratio" : lsr_account, "gta_size_ratio" : lsr_taker, "price" : price}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid].update(ddd[msid]) 
+        
+        market_state.input_data("ttp_size_ratio", msid, top_lsr_size)
+        market_state.input_data("tta_ratio", msid, top_lsr_account)
+        market_state.input_data("gta_ratio", msid, lsr_account)
+        market_state.input_data("gta_size_ratio", lsr_taker)
+        
         ddd["timestamp"] = time.time()
         return ddd
     
@@ -1963,9 +1930,9 @@ class gateio_on_message(on_message_helper):
         instrument = data.get("instrument")
         msid = f"{instrument}@perpetual@gateio"
         ddd[msid]  = {"funding" : float(instrument_data.get("r"))}
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid].update(ddd[msid]) 
+        
+        market_state.input_data("funding", msid, ddd[msid])
+
         ddd["timestamp"] = time.time()
         return ddd
 
@@ -1993,7 +1960,7 @@ class gateio_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(),  "bids" : bids, "asks" : asks}
 
         return d
 
@@ -2019,7 +1986,7 @@ class gateio_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(),  "bids" : bids, "asks" : asks}
 
         return d
 
@@ -2050,7 +2017,7 @@ class gateio_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  timestamp / 1000, "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  timestamp / 1000,  "bids" : bids, "asks" : asks}
 
         return d
 
@@ -2088,7 +2055,7 @@ class gateio_on_message(on_message_helper):
                 helper_list = []
             previous_map_event = event
 
-        d = {"timestamp" :  timestamp/1000, "receive_time" :timestamp/1000, "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  timestamp/1000,  "bids" : bids, "asks" : asks}
 
         return d
 
@@ -2108,11 +2075,9 @@ class gateio_on_message(on_message_helper):
         trades.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
 
         msid = f"{connection_data.get('exchange_symbol')}@spot@gateio"
-        if msid not in market_state:
-            market_state[msid] = {}
-        market_state[msid]["price"] = price
+        market_state.input_data("price_spot", msid, price)
 
-        return {"liquidations" : liquidations, "trades" : trades, "receive_time" : receive_time}
+        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : receive_time}
 
     async def gateio_ws_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
@@ -2136,9 +2101,10 @@ class gateio_on_message(on_message_helper):
                 liquidations.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
             else:
                 trades.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
-            market_state[msid]["price"] = price
+            
+            market_state.input_data("price_future", msid, price)
 
-        return {"liquidations" : liquidations, "trades" : trades, "receive_time" : receive_time}
+        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : receive_time}
 
 class coinbase_on_message(on_message_helper):
 
@@ -2171,7 +2137,7 @@ class coinbase_on_message(on_message_helper):
 
         timestamp = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
 
-        d = {"timestamp" :  time.time(), "receive_time" :time.time(), "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  time.time(), "bids" : bids, "asks" : asks}
         return d
 
     async def coinbase_ws_spot_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -2208,7 +2174,7 @@ class coinbase_on_message(on_message_helper):
         receive_time = int(receive_time.timestamp() * 1000)
         timestamp = int(receive_time.timestamp() * 1000)
 
-        d = {"timestamp" :  timestamp, "receive_time" :receive_time, "bids" : bids, "asks" : asks}
+        d = {"timestamp" :  timestamp,  "bids" : bids, "asks" : asks}
         return d
 
     async def coinbase_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
@@ -2230,7 +2196,7 @@ class coinbase_on_message(on_message_helper):
             trades.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
             market_state[msid]["price"] = price
 
-        return {"liquidations" : liquidations, "trades" : trades, "receive_time" : receive_time}
+        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : receive_time}
 
 class on_message(binance_on_message, bybit_on_message, okx_on_message, deribit_on_message, bitget_on_message, 
                  bingx_on_message, htx_on_message, kucoin_on_message, mexc_on_message, gateio_on_message, coinbase_on_message):

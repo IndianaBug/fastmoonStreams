@@ -5,66 +5,7 @@ from typing import List, Dict, Optional, Tuple
 import pandas as pd
 import uuid
 import rapidjson as json
-
-@dataclass
-class MarketState:
-    """ 
-      Holds market data for instruments
-      
-      Every instrument should be named like this symbol@instType@exchange
-    """
-    _data : dict = field(default_factory=dict)
-    
-    expiration_timeout = 600
-    symbol_remove_timeout = 600
-
-    def retrive_data(self, symbol, objective, default_return=None):
-        """Gets value for key in symbol's data."""
-        return self._data.get(symbol, {}).get(objective, default_return)
-
-    def retrive_symbol_data(self, symbol, default_return=None):
-        """Gets value for key in symbol's data."""
-        return self._data.get(symbol, default_return)
-
-    def create_symbol_dict(self, symbol):
-        """Sets value for key in symbol's data (creates dict if needed)."""
-        self._data[symbol] = {}
-
-    def update_from_dict(self, data_dict):
-        """Updates with new data based on condition."""
-        for symbol, symbol_data in data_dict.items():
-            if symbol not in self._data:
-                self.create_symbol_dict(symbol)
-            self._data[symbol].update(symbol_data)
-            self._data[symbol]['update_time'] = time.time()
-    
-    async def remove_dead_instruments(self, check_interval):
-        while True:
-            current_time = time.time()
-            symbols_to_remove = [symbol for symbol, data in self._data.items() if current_time - data.get('update_time', 0) > self.expiration_timeout]
-            for symbol in symbols_to_remove:
-                del self._data[symbol]
-            await asyncio.sleep(self.symbol_remove_timeout) 
-    
-    def retrive_data_by_objective(self, objectives:list=[], inst_types:list=[], exchanges:list=[]):
-        """ Retrives data by objective. If instrument type is passed in a list, these will be ignored"""
-        data = {obj : {} for obj in objectives}
-        for instrument in self._data:
-            isnt_type = instrument.split("@")[1]
-            if isnt_type in inst_types:
-                for obj in objectives:
-                    data[obj][instrument] = self.retrive_data(instrument, obj)
-        return data
-
-    def retrive_data_by_exchange(self, exchanges:list=[], objectives:list=[]):
-        """ Retrives data by objective. If instrument type is passed in a list, these will be ignored"""
-        data = {exchange : {obj : {} for obj in objectives} for exchange in exchanges}
-        for instrument in self._data:
-            exchange = instrument.split("@")[-1]
-            if exchange in exchanges:
-                for obj in objectives:
-                    data[exchange][obj][instrument] = self._data.get(instrument).get(obj)
-        return data
+from datetime import datetime
 
 @dataclass
 class OrderBook:
@@ -370,33 +311,6 @@ class InstrumentsData:
     def __str__(self):
         return '\n'.join(f"{symbol}: {vars(data)}" for symbol, data in self.instruments.items())
     
-def default_map_dictionary() -> Dict[str, Dict]:
-    return {
-        "books" : {
-            "spot" : dict(),
-            "future" : dict(),
-        },
-        "canceled_books" : {
-            "spot" : dict(),
-            "future" : dict(),
-        },
-        "reinforced_books" : {
-            "spot" : dict(),
-            "future" : dict(),
-        },
-        "trades" : {
-            "spot" : dict(),
-            "future" : dict(),
-            "option" : dict(),
-        },
-        "oi_deltas" : {
-            "future" : dict(),
-            "option" : dict(),
-        },
-        "liquidations" : {
-            "future" : dict(),
-        }
-    }
 
 
 class MarketState:
@@ -435,11 +349,12 @@ class MarketState:
             Each raw_data will contain a timestamp for a corresponding data object in order to ensure the old data wasnt merged.
             If there is old data, the software will notify
     """
-    def __init__(self, streams_data):
+    def __init__(self, streams_data, dead_instruments_timeout=600):
+        """ dead_instruments_timeout : timeinterval for removing expired futures"""
         self.streams_data = streams_data
+        self.dead_instruments_timeout = dead_instruments_timeout
         self.staging_data = self.create_marketstate_datastructure(self.streams_data)
         self.raw_data = self.create_raw_datastructure()
-        self.futures_last_updates = {}
 
     def create_marketstate_datastructure(self, streams_data, *args, **kwargs,):
         """ 
@@ -588,7 +503,7 @@ class MarketState:
         """ inputs data by metric """
         self.staging_data.get("by_instrument", {}).get(metric, {}).get(symbol, default_value)
     
-    def input_dataframe(self, *keys):
+    def input_dataframe_ticks(self, *keys):
         """ inputs dataframe to a certain dictionary"""
         current_level = self.raw_data
         for key in keys:
@@ -597,45 +512,63 @@ class MarketState:
             else:
                 return None  
         return current_level
-    
-    def calculate_global_metrics(self,):
-        """ calculates global metrics"""
-        pass
-    
-    def remove_expired_instruments(self):
-        pass
-
-    # async def remove_dead_instruments(self, check_interval):
-    #     while True:
-    #         current_time = time.time()
-    #         symbols_to_remove = [symbol for symbol, data in self._data.items() if current_time - data.get('update_time', 0) > self.expiration_timeout]
-    #         for symbol in symbols_to_remove:
-    #             del self._data[symbol]
-    #         await asyncio.sleep(self.symbol_remove_timeout) 
-    
         
-        # Remove Staging Data based on streams data!
+    def merge_dataframes(self, dataframes:list):
+        pass
+    
+    def merge_ticks(self, ticks:list):
+        pass
+    
+    def remove_dead_byinstrument_instruments(self):
+        """ removes expired future instruments of by_insturment datastruvcture """
+        for instrument in self.staging_data.get("by_instrument").get("oi_future").copy():
+            if self.is_contract_expired(instrument):
+                del self.staging_data["by_instrument"]["oi_future"][instrument]
 
-        # Insert into Staging Data
-        # Global Data
-        # 
+    def remove_dead_dataframes_to_merge(self):
+        """ removes expired future instruments from df to merge datastructure"""
+        for instrument in self.raw_data.get("dataframes_to_merge").get("oi_delta").copy():
+            if self.is_contract_expired(instrument):
+                del self.raw_data["dataframes_to_merge"]["oi_delta"][instrument]
 
+    def remove_dead_ticks_to_merge(self):
+        """ removes expired future instruments from ticks datastructure"""
+        for instrument in self.raw_data.get("ticks_data_to_merge").get("oi_delta").copy():
+            if self.is_contract_expired(instrument):
+                del self.raw_data["ticks_data_to_merge"]["oi_delta"][instrument]
+                
+    async def create_task_remove_expired_instruments(self):
+        """ Asyncronious task for removing dead instruments """
+        while True:
+            self.remove_dead_byinstrument_instruments()
+            await asyncio.sleep(self.dead_instruments_timeout)
 
-
+    @staticmethod
+    def is_contract_expired(contract_str):
+        """ hellper for removing expired contracts """
+        contract_str = contract_str.split("@")[0]
+        normalized_str = contract_str.replace('"', '').replace('_', '-').split("-")[-1]
+        if len(normalized_str) == 8 and normalized_str.isdigit():
+            date = datetime.strptime(normalized_str, '%Y%m%d')
+        elif len(normalized_str) == 6 and normalized_str.isdigit():
+            date = datetime.strptime(normalized_str, '%y%m%d')
+        else:
+            date = datetime.strptime(normalized_str, '%d%b%y')
+        today_date = datetime.now().date()
+        return date.date() <= today_date
 
     def generate_unique_id(self) -> str:
         """Generates a unique identifier using UUID4."""
         return str(uuid.uuid4())
-    
-    def retrive_all_data(self, drop):
+
+    def calculate_global_metrics(self,):
+        """ calculates global metrics"""
+        for metric in self.staging_data.get("by_instrument"):
+            if True:
+                pass
+        
+    def retrive_staging_data(self):
         """ Retrives data is json format to insert into database"""
-        return {
-            "id" : self.generate_unique_id(),
-            "timestamp" : time.time(),
-            "global_data" : self.global_data,
-            "instrument_data" : self.instrument_data,
-            "maps" : self.maps,
-            "tick_data" : self.tick_data
-        }
+        return self.staging_data
     
 
