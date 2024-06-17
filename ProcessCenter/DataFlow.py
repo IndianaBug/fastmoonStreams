@@ -1001,6 +1001,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
                     self.dump_df_to_csv(aggregation_type, mergeddf)
 
                     # HEREH START HERE
+                    # Add ticks aggregation straight with trades
 
                     self.generate_trades_data_for_plot(inst_type, trade_type, mergeddf)
         except asyncio.CancelledError:
