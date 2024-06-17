@@ -221,10 +221,10 @@ class OptionInstrumentsData:
 
         summary = {
             "Call": {
-                "strikes": [], "countdowns": [], "ois": [], "prices" : []
+                "strikes": [], "days_left": [], "ois": [], "prices" : []
                 },
             "Put": {
-                "strikes": [], "countdowns": [], "ois": [], "prices" : [] 
+                "strikes": [], "days_left": [], "ois": [], "prices" : [] 
                 }
             }
 
@@ -386,8 +386,8 @@ class MarketState:
         if {("oi", "perpetual")}.issubset(metrics_to_insttype) or {("oi", "future")}.issubset(metrics_to_insttype):
             global_data_structure["oi_future"] = 0
             byinsttument_structure["oi_future"] = {}
-            aggregated_maps_structure["oi_delta"] = {}
-            ticks["oi_delta"] = {}
+            aggregated_maps_structure["oi_deltas"] = {}
+            ticks["oi_deltas"] = {}
         if {("oi", "option")}.issubset(metrics_to_insttype) or {("oi", "oioption")}.issubset(metrics_to_insttype):
             global_data_structure["oi_option"] = 0
             oi_option = True
@@ -405,7 +405,7 @@ class MarketState:
             global_data_structure["funding"] = 0
             byinsttument_structure["funding"] = {}
             aggregated_maps_structure["oi_delta"] = {}
-            ticks["oi_delta"] = {}
+            ticks["oi_deltas"] = {}
             
         if {("depth", "spot")}.issubset(metrics_to_insttype):
             aggregated_maps_structure["depth_spot"] = {}
@@ -460,7 +460,7 @@ class MarketState:
                         "option" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
                                 },
                     "oi_deltas" : {},
-                    "oi_option" : {},
+                    "oi_options" : {"calls" : {}, "puts" : {}},
                     "liquidations" : {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}}
                 },
                 "ticks_data_to_merge": {

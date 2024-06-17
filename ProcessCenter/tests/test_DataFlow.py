@@ -9,14 +9,26 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, "../.."))
 sys.path.append(parent_dir)
 
-flow_types = ["depthflow", "tradesflow", "oiflow", "liqflow", "fundingflow", "gtaflow", "ttaflow", "ttpflow"]
+flow_types = ["depthflow", "tradesflow", "oiflow", "liqflow", "fundingflow"]
 
 from ProcessCenter.DataFlow import MarketDataFusion
 from ProcessCenter.StreamDataClasses import MarketState
 from streams import streams_data, merge_types
 
 market_state = MarketState(streams_data)
-fusor = MarketDataFusion(mode="testing")
+fusor = MarketDataFusion(
+    depth_spot_aggregation_interval = None,
+    depth_future_aggregation_interval = None,
+    trades_spot_aggregation_interval = None,
+    trades_future_aggregation_interval = None,
+    trades_option_aggregation_interval = None,
+    oi_deltas_aggregation_interval = None,
+    liquidations_future_aggregation_interval = None,
+    oi_options_aggregation_interval = None,
+    canceled_books_spot_aggregation_interval = None,
+    canceled_books_future_aggregation_interval = None,
+    mode="testing"
+    )
 ### Reference All dependencies
 
 def reference_dependencies_to_processor():
@@ -30,10 +42,7 @@ def reference_dependencies_to_processor():
     fusor.reference_market_state(market_state)
     fusor.reference_saving_directory(parent_dir)
     
-
 reference_dependencies_to_processor()
-
-## Simulate streams
 
 async def input_apiws_books(data_ws, data_api,  processor):
     """ helper to input books """
@@ -95,11 +104,9 @@ async def cereate_tasks_single_dataflow(stream_data):
 def cereate_tasks_datafusion():
     """ Creates tasks so you can run them at once"""
     tasks = []
-    for aggregation_type in merge_types:
-        if aggregation_type in ["depth_spot", "depth_future"]:
-            tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_depth(aggregation_type)))
-        if aggregation_type in ["trades_spot", "trades_future", "trades_option"]:
-            tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_trades(aggregation_type)))
+    for aggregation_type in fusor.aggregation_intervals:
+        if fusor.aggregation_intervals.get(aggregation_type):
+            tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_depth(aggregation_lag = 1, aggregation_type=aggregation_type)))
     return tasks
 
 async def run_all_tasks():
@@ -111,72 +118,39 @@ async def run_all_tasks():
             all_tasks.append(asyncio.ensure_future(task))
     for task in cereate_tasks_datafusion():
         all_tasks.append(asyncio.ensure_future(task))
-    # print(all_tasks)
-    await asyncio.gather(*tasks, return_exceptions=True)
 
-
+    try:
+        await asyncio.wait([all_tasks], timeout=20)
+    except asyncio.TimeoutError:
+        print("Timed out!")
+    finally:
+        for task in all_tasks:
+            task.cancel()
+        await asyncio.gather(all_tasks, return_exceptions=True)
+        print("All tasks are cancelled.")
 
 if __name__ == "__main__":
     asyncio.run(run_all_tasks())
 
-# Pytest
 
 
-
-
-# def depthflow_tester(stream_data):
-#     """ depth datafrlow tester """
-#     message = "Wrong parts: "
-#     _id = stream_data.get("id_ws") or stream_data.get("id_api")
-#     inst_type = stream_data.get("instType") or stream_data.get("instTypes")
-#     dataframe = market_state.raw_data.get("depth").get(inst_type).get(_id)
-#     is_dataframe = isinstance(dataframe, pd.DataFrame)
-#     is_empty = (is_dataframe != 0).any(axis=1).any() if is_dataframe else False
-#     wrong_parts = []
-#     if not is_dataframe:
-#         wrong_parts.append("NO dataframe found")
-#     if not is_empty:
-#         wrong_parts.append("Dataframe is empty")
-
-#     if wrong_parts:
-#         message += _id + ", ".join(wrong_parts) + "."
-#         return message
-#     else:
-#         return True
+def check_dataframes_empty(data, path="", parent_key=""):
+    """ Recursively checks if any pandas DataFrame in a nested dictionary is empty,
+        with specific exceptions for certain keys under 'ticks_data_to_merge'.
+    """
+    if isinstance(data, dict):
+        for key, value in data.items():
+            new_path = f"{path}.{key}" if path else key
+            if parent_key == "ticks_data_to_merge" and key in ["spot", "future", "option", "oi_delta", "liquidations"]:
+                if isinstance(value, dict) and not value:  # Checks if dictionary is empty
+                    assert False, f"Dictionary at {new_path} is empty but shouldn't be"
+            check_dataframes_empty(value, new_path, key)
+    elif isinstance(data, pd.DataFrame):
+        assert not data.empty, f"DataFrame at {path} is empty"
+    else:
+        pass
 
                  
 
-#     async def main(self):
-#         tasks = await self.cereate_tasks()
-#         await asyncio.gather(*tasks, return_exceptions=True)
-
-
-# class test_mergers():
-
-#     fusion = MarketDataFusion(
-#         books_aggregation_interval = 10,
-#     )
-
-#     def test_books(self, isnt_type):
-#         """ Test if books are merged correctly """
-#         directory_path = parent_dir+f"\\sample_data\\dfpandas\\processed\\"
-#         entries = os.listdir(directory_path)
-#         files = [entry for entry in entries if os.path.isfile(os.path.join(directory_path, entry))]
-#         files = [file for file in files if "processed_books" in file and "perpetual" in file]
-#         dataframes = [pd.read_csv(directory_path+"\\"+file) for file in files]
-#         self.fusion.merge_books(dataframes)
-
-#         return dataframes
-        
-
-    
-
-
-# if __name__ == "__main__":
-#     stream_data = None
-#     market_state = None
-#     test_class = _test_flow(stream_data, market_state)
-#     # or gather flow test to test in bulk
-#     asyncio.run(test_class.main())
         
 

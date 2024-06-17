@@ -299,12 +299,13 @@ class ExchangeAPIClient():
                     mode = self.mode
                     )
             if objective in ["oifunding", "funding"]:
-                connection_data["fundingflow"] = pfflow(
-                    exchange=exchange, 
-                    symbol=symbol, 
-                    on_message = on_message_method,
-                    mode = self.mode
-                    )
+                pass
+                # connection_data["fundingflow"] = pfflow(
+                #     exchange=exchange, 
+                #     symbol=symbol, 
+                #     on_message = on_message_method,
+                #     mode = self.mode
+                #     )
         
         elif objective in ["oi", "oifunding", "oioption"] and inst_type == "option":
                 connection_data["oiflow"] = ooiflow(
@@ -318,13 +319,13 @@ class ExchangeAPIClient():
                     mode = self.mode
                     )
 
-        elif objective in ["gta", "tta", "ttp"]:
-            connection_data[objective+"flow"] = pfflow(   
-                    exchange=exchange, 
-                    symbol=symbol, 
-                    on_message = on_message_method,
-                    mode = self.mode
-                    )
+        # elif objective in ["gta", "tta", "ttp"]:
+        #     connection_data[objective+"flow"] = pfflow(   
+        #             exchange=exchange, 
+        #             symbol=symbol, 
+        #             on_message = on_message_method,
+        #             mode = self.mode
+        #             )
 
         return connection_data
 
