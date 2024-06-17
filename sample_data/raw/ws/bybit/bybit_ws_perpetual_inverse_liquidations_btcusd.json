@@ -1,16 +1,14 @@
 [
   {
-    "success": true,
-    "ret_msg": "",
-    "conn_id": "e2fbe711-57d2-48dd-8658-e363be026999",
-    "req_id": "aE01CZU4rd",
-    "op": "subscribe"
-  },
-  {
-    "success": true,
-    "ret_msg": "",
-    "conn_id": "e8c95791-d2ad-4ab5-8d6a-729ef76bf8e2",
-    "req_id": "Da9gjGAZ5e",
-    "op": "subscribe"
-  }
+    "topic": "liquidation.BTCUSDT",
+    "type": "snapshot",
+    "ts": 1703485237953,
+    "data": {
+        "updatedTime": 1703485237953,
+        "symbol": "BTCUSDT",
+        "side": "Sell",
+        "size": "0.003",
+        "price": "43511.70"
+    }
+}
 ]

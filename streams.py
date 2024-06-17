@@ -1,6 +1,23 @@
 from syncer import ExchangeAPIClient, binance_get_marginType, bybit_get_marginType
 from config import coinbase_secret, coinbase_api, kucoin_api, kucoin_pass, kucoin_secret, fiats, stablecoins
 
+
+merge_types = [
+    "depth_spot", 
+    # "depth_future", 
+    # "trades_spot", 
+    # "trades_future", 
+    # "trades_option", 
+    # "oi_delta_future", 
+    # "liquidations_future",
+    # "oi_options", 
+    # "cdepth_spot", 
+    # "cdepth_future", 
+    # "rdepth_spot", 
+    # "rdepth_future"
+    ]
+
+
 client = ExchangeAPIClient(
     coinbase_api, 
     coinbase_secret,
@@ -8,7 +25,7 @@ client = ExchangeAPIClient(
     kucoin_secret, 
     kucoin_pass, 
     price_level_size=20, 
-    process_interval=10,
+    process_interval=5,
     mode="testing",
     option_process_interval=2
     )
@@ -18,21 +35,21 @@ client = ExchangeAPIClient(
 
 ws = {
     "binance" : [
-        "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
+        # "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
         # "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
         # "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
-        # "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
-        # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
+    #     "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
+    #     "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
     #     "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
     #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
     #     "perpetual.trades.BTCUSD_PERP",                                   # ok
-    #     "perpetual.liquidations.BTCUSD_PERP",                             # ok
+        "perpetual.liquidations.BTCUSD_PERP",                             # ok
     #     "option.trades.BTC",                                              # ok
         ],
     "bybit" : [
-        "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
-    #     "spot.depth.BTCUSDT.snap",                                          # ok ok
-    #     "spot.depth.BTCUSDC.snap",                                          # ok ok 
+        # "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
+        # "spot.depth.BTCUSDT.snap",                                          # ok ok
+        # "spot.depth.BTCUSDC.snap",                                          # ok ok 
     #     "perpetual.depth.BTCUSDT.snap",                                     # ok ok
     #     "perpetual.depth.BTCUSD.snap",                                      # ok ok
     #     "perpetual.trades.BTCUSDT.BTCPERP",                                 # ok
@@ -41,21 +58,21 @@ ws = {
     #     "perpetual.liquidations.BTCUSD",                                    # ok
     #     "option.trades.BTC",                                                # ok
         ],
-    # "okx" : [
+    "okx" : [
     #     "spot.depth.BTC-USDT.snap",                                             # ok ok
-    #     "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
+        # "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
     #     "perpetual.depth.BTC-USDT-SWAP.snap",                                   # ok ok 
     #     "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP",            # ok
     #     "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
     #     "option.optionTrades.BTC-USD",                                          # ok
-    #     ],
-    "deribit" : [                                                               
+        ],
+    # "deribit" : [                                                               
     #     "perpetual.heartbeats.BTC-PERPETUAL",                                   # ok 
     #     "perpetual.depth.BTC-PERPETUAL.snap",                                   # ok # ok 
-        "future.tradesagg.BTC",                                                 # ok
+    #     "future.tradesagg.BTC",                                                 # ok
     #     "option.tradesagg.BTC",                                                 # ok
     #     # liquidations                                                          # ok
-        ],
+    #     ],
     # "bitget" : [
     #     "spot.depth.BTCUSDT.snap",                                              # ok ok
     #     "spot.trades.BTCUSDT.BTCUSDC",                                          # ok
@@ -145,7 +162,7 @@ api = {
 }
 
 
-connection_data = client.build_connection_data(ws, api)
+streams_data = client.build_connection_data(ws, api)
 
 
     

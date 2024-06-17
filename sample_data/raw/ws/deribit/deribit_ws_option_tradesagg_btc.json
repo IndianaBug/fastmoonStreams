@@ -12,13 +12,37 @@
   },
   {
     "jsonrpc": "2.0",
-    "id": 3082391367,
-    "result": [
-      "trades.option.BTC.100ms"
-    ],
-    "usIn": 1717348824418184,
-    "usOut": 1717348824418323,
-    "usDiff": 139,
-    "testnet": false
+    "method": "subscription",
+    "params": {
+      "channel": "trades.future.BTC.100ms",
+      "data": [
+        {
+          "trade_id": "303843226",
+          "contracts": 2.0,
+          "instrument_name": "BTC-7JUN24",
+          "tick_direction": 2,
+          "trade_seq": 51670,
+          "mark_price": 68032.1,
+          "index_price": 67861.18,
+          "direction": "sell",
+          "amount": 20.0,
+          "price": 68035.0,
+          "timestamp": 1717348827282
+        },
+        {
+          "trade_id": "303843227",
+          "contracts": 1.0,
+          "instrument_name": "BTC-7JUN24",
+          "tick_direction": 3,
+          "trade_seq": 51671,
+          "mark_price": 68032.1,
+          "index_price": 67861.18,
+          "direction": "sell",
+          "amount": 10.0,
+          "price": 68035.0,
+          "timestamp": 1717348827282
+        }
+      ]
+    }
   }
 ]

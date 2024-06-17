@@ -1,6 +1,8 @@
 [
   [
     {
+      "instrument" : "BTC_USDT_20240607",
+      "data" : [{ 
       "basis_value": "230.03",
       "total_size": "28",
       "basis_rate": "0.206374",
@@ -18,9 +20,14 @@
       "contract": "BTC_USDT_20240607",
       "low_24h": "66882.7",
       "volume_24h_base": "1"
-    }
+    }]
+    
+  }
   ],
   [
+    {
+      "instrument" : "BTC_USDT_20240614",
+      "data" : [
     {
       "basis_value": "224.75",
       "total_size": "1",
@@ -40,8 +47,13 @@
       "low_24h": "66936.9",
       "volume_24h_base": "1"
     }
+  ]
+  }
   ],
   [
+    {
+      "instrument" : "BTC_USDT",
+      "data" :[
     {
       "time": 1717253400,
       "lsr_taker": 0,
@@ -58,65 +70,8 @@
       "top_lsr_account": 1,
       "long_liq_usd": 0
     }
-  ],
-  [
-    {
-      "time": 1717253400,
-      "lsr_taker": 0,
-      "lsr_account": 2.9497206703910615,
-      "long_liq_size": 0,
-      "short_liq_size": 0,
-      "open_interest": 11643555,
-      "short_liq_usd": 0,
-      "mark_price": 67702.63,
-      "top_lsr_size": 0.9004543257040718,
-      "short_liq_amount": 0,
-      "long_liq_amount": 0,
-      "open_interest_usd": 11643555,
-      "top_lsr_account": 1.8378378378378377,
-      "long_liq_usd": 0
-    }
-  ],
-  [
-    {
-      "basis_value": "653.18",
-      "total_size": "7088",
-      "basis_rate": "0.130224",
-      "volume_24h_quote": "99008",
-      "volume_24h_settle": "99008",
-      "high_24h": "68663.6",
-      "change_percentage": "0.50",
-      "mark_price": "68459.86",
-      "index_price": "67806.68",
-      "volume_24h": "14476",
-      "highest_bid": "68400.7",
-      "last": "68394.9",
-      "settle_price": "0",
-      "lowest_ask": "68518.9",
-      "contract": "BTC_USDT_20240628",
-      "low_24h": "67270.2",
-      "volume_24h_base": "1"
-    }
-  ],
-  [
-    {
-      "basis_value": "3133.68",
-      "total_size": "3197",
-      "basis_rate": "0.142953",
-      "volume_24h_quote": "94648",
-      "volume_24h_settle": "94648",
-      "high_24h": "71139.7",
-      "change_percentage": "0.53",
-      "mark_price": "70940.36",
-      "index_price": "67806.68",
-      "volume_24h": "13342",
-      "highest_bid": "70891.5",
-      "last": "70940.4",
-      "settle_price": "0",
-      "lowest_ask": "70989.2",
-      "contract": "BTC_USDT_20240927",
-      "low_24h": "69591.8",
-      "volume_24h_base": "1"
-    }
   ]
+  }
+  
+]
 ]

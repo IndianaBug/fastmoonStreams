@@ -1,6 +1,6 @@
 # from ProcessCenter.tests.dataflow import _test_flow, test_mergers
-from streams import connection_data as streams_data
-from ProcessCenter.tests.message_process import MessageProcessTester
+from streams import streams_data
+from ProcessCenter.tests.test_messageProcess import MessageProcessTester
 import asyncio
 import unittest
 
@@ -27,7 +27,9 @@ import unittest
 
 
 message_test = MessageProcessTester()
-message_test.setUpClass(streams_data, 0.5)
+message_test.setUpClass()
+
+
 
 if __name__ == '__main__':
     unittest.main()

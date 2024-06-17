@@ -6,6 +6,11 @@ kucoin_api = "65d92cc0291aa2000118b67b"
 kucoin_secret = "3d449464-ab5e-4415-9950-ae31648fe90c"
 kucoin_pass = "sN038-(!UK}4"
 
+merge_types = [
+    "depth_spot", "depth_future", "trades_spot", "trades_future", 
+    "trades_option", "oi_delta_future", "liquidations_future",
+    "oi_options", "cdepth_spot", "cdepth_future", "rdepth_spot", "rdepth_future"
+    ]
 
 fiats = [
     "usd", "eur", "rub", "try", "uah", "kzt", "inr", 
@@ -13,3 +18,5 @@ fiats = [
     "nzd", "pln", "sek", "zar", "huf", "ils"
 ]
 stablecoins = ["usdt", "usdc", "busd", "dai", "tusd", "fdusd"]
+
+message_processor_fail_threshold = 0.1

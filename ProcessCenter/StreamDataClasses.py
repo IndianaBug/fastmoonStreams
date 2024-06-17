@@ -7,15 +7,15 @@ import uuid
 import rapidjson as json
 from datetime import datetime
 
-@dataclass
+
 class OrderBook:
 
     def __init__(self, book_ceil_thresh):
         self.book_ceil_thresh = book_ceil_thresh
         self.timestamp = 0
         self.price = None
-        self.bids : dict = field(default_factory=dict)
-        self.asks : dict = field(default_factory=dict)
+        self.bids = {}
+        self.asks = {}
 
     async def update_bid(self, price: float, amount: float):
         """ updates bid"""
@@ -44,7 +44,6 @@ class OrderBook:
         
         self.price = (max(self.bids.keys()) + min(self.asks.keys())) / 2
 
-    #@jit(nopython=True)
     async def trim_books(self):
         """ trims books if needed"""
         for level in self.bids.copy().keys():
@@ -61,7 +60,7 @@ class OrderBook:
             percentage_difference = abs((new_value - old_value) / old_value) * 100
             return percentage_difference
         except:
-            return 9999999999
+            return 9999999999999999999999999999999999
         
 @dataclass
 class MarketTradesLiquidations:
@@ -157,30 +156,20 @@ class OpenInterest:
     data : dict = field(default_factory=dict)
     last_values : dict = field(default_factory=dict)
 
-    async def add_entry(self, timestamp: float, instrument: str, open_interest: float, price : float):
+    async def add_entry(self, symbol, data_dict):
         """
             Args:
                 timestamp (float): unix
                 instrument (str): str
-                open_interest (float): float
+                oi (float): float
                 price (float): float
         """
-        entry = {"timestamp": timestamp, "open_interest": open_interest, "price" : price}
+        self.data[symbol] = data_dict
 
-        if instrument not in self.data:
-            self.data[instrument] = []
-        self.data[instrument].append(entry)
-        self.last_values[instrument] = open_interest
-        # await asyncio.sleep(0.3) # for testing
- 
-
-    async def get_last_value(self, instrument: str) -> Optional[int]:
-        """ gets last values """
-        return self.last_values.get(instrument)
-
-    async def get_unique_instruments(self):
+    async def get_uniquetimestamp(self):
         """ getse unique instrumet"""
-        return  list(self.data.keys())
+        unique_timestamps = set(dic.get("timestamp") for dic in self.data.values())
+        return list(unique_timestamps)
 
     async def reset_data(self):
         """ resets data """
@@ -365,7 +354,7 @@ class MarketState:
         aggregated_maps_structure = {}
         ticks = {}
         oi_option = False
-        metrics_to_insttype = [(s.get("objective"), s.get("instTypes") if s.get("instTypes") else s.get("instType")) for s in streams_data]
+        metrics_to_insttype = [(s.get("objective"), s.get("instTypes") or s.get("instType")) for s in streams_data]
         
         if {("trades", "spot")}.issubset(metrics_to_insttype):
             global_data_structure["price_spot"] = 0
@@ -432,7 +421,7 @@ class MarketState:
             if "make_reinforced_books" in args:
                 aggregated_maps_structure["rdepth_future"] = {}
         
-        if {("gta", "perpetual")}.issubset(metrics_to_insttype):
+        if {("gta", "perpetual")}.issubset(metrics_to_insttype) or {("tta", "perpetual")}.issubset(metrics_to_insttype):
             byinsttument_structure["ttp_long_ratio"] = {}
             byinsttument_structure["ttp_short_ratio"] = {}
             byinsttument_structure["ttp_ratio"] = {}
@@ -470,9 +459,9 @@ class MarketState:
                         "future" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}, 
                         "option" :  {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
                                 },
-                    "oi_delta" : {},
+                    "oi_deltas" : {},
                     "oi_option" : {},
-                    "liquidations" : {"buys" : {}, "sells" : {}, "total" : {}, "delta" : {}}
+                    "liquidations" : {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}}
                 },
                 "ticks_data_to_merge": {
                     "trades" : {"spot" : {}, "future" : {}, "option" : {}},
@@ -486,32 +475,30 @@ class MarketState:
                         "future" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
                         "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}
                                 },
-                    "oi_delta" : pd.DataFrame(),
+                    "oi_deltas" : pd.DataFrame(),
                     "oi_option" : pd.DataFrame(),
-                    "liquidations" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+                    "liquidations" : {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
                     "cdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
                     "rdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
                 },
             }
         return d
+    
+    def input_merged_dataframe(self, metric, inst_type=None, metric_subtype=None,  df=None):
+        """ inputs merged dataframe """
+        if metric_subtype:
+            self.raw_data["merged_dataframes"][metric][inst_type][metric_subtype] = df
+        elif not metric_subtype:
+            self.raw_data["merged_dataframes"][metric][inst_type] = df
             
     def input_data(self, metric : str, symbol : str, quantity : float):
         """ inputs data by metric """
-        self.staging_data["by_instrument"][metric].update({symbol : quantity})
+        self.staging_data["by_instrument"][metric][symbol] = quantity
 
     def get_data(self, metric : str, symbol : str, default_value=None):
         """ inputs data by metric """
-        self.staging_data.get("by_instrument", {}).get(metric, {}).get(symbol, default_value)
+        return self.staging_data.get("by_instrument", {}).get(metric, {}).get(symbol, default_value)
     
-    def input_dataframe_ticks(self, *keys):
-        """ inputs dataframe to a certain dictionary"""
-        current_level = self.raw_data
-        for key in keys:
-            if isinstance(current_level, dict) and key in current_level:
-                current_level = current_level[key]
-            else:
-                return None  
-        return current_level
         
     def merge_dataframes(self, dataframes:list):
         pass

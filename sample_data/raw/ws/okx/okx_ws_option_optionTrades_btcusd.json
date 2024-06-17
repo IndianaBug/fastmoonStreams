@@ -1,11 +1,25 @@
 [
   {
-    "event": "subscribe",
     "arg": {
-      "channel": "option-trades",
-      "instType": "OPTION",
-      "instFamily": "BTC-USD"
+        "channel": "option-trades",
+        "instType": "OPTION",
+        "instFamily": "BTC-USD"
     },
-    "connId": "0d3ab0d5"
-  }
+    "data": [
+        {
+            "fillVol": "0.5066007836914062",
+            "fwdPx": "16469.69928595038",
+            "idxPx": "16537.2",
+            "instFamily": "BTC-USD",
+            "instId": "BTC-USD-230224-18000-C",
+            "markPx": "0.04690107010619562",
+            "optType": "C",
+            "px": "0.045",
+            "side": "sell",
+            "sz": "2",
+            "tradeId": "38",
+            "ts": "1672286551080"
+        }
+    ]
+}
 ]

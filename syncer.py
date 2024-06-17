@@ -1,6 +1,6 @@
 from OriginHub.ExchangeGateway import *
 from ProcessCenter import MessageProcessor
-from ProcessCenter.DataFlow import booksflow, tradesflow, oiflow, liqflow, pfflow, ooiflow
+from ProcessCenter.DataFlow import depthflow, tradesflow, oiflow, liqflow, pfflow, ooiflow
 import numpy as np
 
 class ExchangeAPIClient():
@@ -241,7 +241,7 @@ class ExchangeAPIClient():
         on_message_method = connection_data.get("on_message_method_ws") if "on_message_method_ws" in connection_data else connection_data.get("on_message_method_api")
 
         if objective == "depth":
-            connection_data["booksflow"] = booksflow(
+            connection_data["depthflow"] = depthflow(
                 exchange=exchange, 
                 symbol=symbol, 
                 inst_type=inst_type, 

@@ -1,26 +1,27 @@
 [
   {
-    "event": "subscribe",
     "arg": {
-      "channel": "liquidation-orders",
-      "instType": "OPTION"
+        "channel": "liquidation-orders",
+        "instType": "SWAP"
     },
-    "connId": "26b2922e"
-  },
-  {
-    "event": "subscribe",
-    "arg": {
-      "channel": "liquidation-orders",
-      "instType": "SWAP"
-    },
-    "connId": "26b2922e"
-  },
-  {
-    "event": "subscribe",
-    "arg": {
-      "channel": "liquidation-orders",
-      "instType": "FUTURES"
-    },
-    "connId": "26b2922e"
-  }
+    "data": [
+        {
+            "details": [
+                {
+                    "bkLoss": "0",
+                    "bkPx": "0.007831",
+                    "ccy": "",
+                    "posSide": "short",
+                    "side": "buy",
+                    "sz": "13",
+                    "ts": "1692266434010"
+                }
+            ],
+            "instFamily": "IOST-USDT",
+            "instId": "IOST-USDT-SWAP",
+            "instType": "SWAP",
+            "uly": "IOST-USDT"
+        }
+    ]
+}
 ]

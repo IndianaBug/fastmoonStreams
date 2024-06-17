@@ -1,38 +1,23 @@
 [
-  [
-    {
-      "time": 1717253400,
-      "lsr_taker": 0,
-      "lsr_account": 2.9497206703910615,
-      "long_liq_size": 0,
-      "short_liq_size": 0,
-      "open_interest": 11643555,
-      "short_liq_usd": 0,
-      "mark_price": 67702.63,
-      "top_lsr_size": 0.9004543257040718,
-      "short_liq_amount": 0,
-      "long_liq_amount": 0,
-      "open_interest_usd": 11643555,
-      "top_lsr_account": 1.8378378378378377,
-      "long_liq_usd": 0
-    }
-  ],
-  [
-    {
-      "time": 1717253400,
-      "lsr_taker": 0,
-      "lsr_account": 1.9650707618187293,
-      "long_liq_size": 0,
-      "short_liq_size": 0,
-      "open_interest": 150659145,
-      "short_liq_usd": 0,
-      "mark_price": 67763.58,
-      "top_lsr_size": 0.73905648559025,
-      "short_liq_amount": 0,
-      "long_liq_amount": 0,
-      "open_interest_usd": 1020920302.49391,
-      "top_lsr_account": 1,
-      "long_liq_usd": 0
-    }
-  ]
+  {
+    "instrument" : "BTC_USDT",
+    "data" :[
+      {
+        "time": 1717253400,
+        "lsr_taker": 0,
+        "lsr_account": 2.9497206703910615,
+        "long_liq_size": 0,
+        "short_liq_size": 0,
+        "open_interest": 11643555,
+        "short_liq_usd": 0,
+        "mark_price": 67702.63,
+        "top_lsr_size": 0.9004543257040718,
+        "short_liq_amount": 0,
+        "long_liq_amount": 0,
+        "open_interest_usd": 11643555,
+        "top_lsr_account": 1.8378378378378377,
+        "long_liq_usd": 0
+      }
+    ]
+  }
 ]
