@@ -19,8 +19,8 @@ market_state = MarketState(streams_data)
 fusor = MarketDataFusion(
     depth_spot_aggregation_interval = None,
     depth_future_aggregation_interval = None,
-    trades_spot_aggregation_interval = None,
-    trades_future_aggregation_interval = None,
+    trades_spot_aggregation_interval = 10,
+    trades_future_aggregation_interval = 10,
     trades_option_aggregation_interval = None,
     oi_deltas_aggregation_interval = None,
     liquidations_future_aggregation_interval = None,
@@ -47,13 +47,19 @@ reference_dependencies_to_processor()
 async def input_apiws_books(data_ws, data_api,  processor):
     """ helper to input books """
     try:
-        data_ws = json.load(data_ws)
-        data_api = json.load(data_api)
-        await asyncio.sleep(1)
-        await processor.input_data_api(json.dumps(data_api[0]))
-        for d in data_ws[::-1]:
-            await processor.input_data_ws(json.dumps(d))
+        try:
+            data_api = json.load(data_api)
+            await processor.input_data_api(json.dumps(data_api[0]))
+        except:
+            print("Fucken here")
+        try:
+            data_ws = json.load(data_ws)
             await asyncio.sleep(1)
+            for d in data_ws[::-1]:
+                await processor.input_data_ws(json.dumps(d))
+                await asyncio.sleep(1)
+        except Exception as e:
+            print(e)
     except Exception as e:
         print(e)
 
@@ -69,44 +75,51 @@ async def input_apiws_data(data, processor):
 
 async def cereate_tasks_single_dataflow(stream_data):
     """ Creates tasks so you can run them at once"""
-    try:
-        tasks = []
-        exchange = stream_data.get("exchange") 
-        path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
-        path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
-        path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
+    id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
+    if id_ != "bingx_api_perpetual_depth_btcusdt":
+        try:
+            tasks = []
+            exchange = stream_data.get("exchange") 
+            path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
+            path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
+            path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
 
-        if stream_data.get("id_api", "") != "":
-            dataapi = open(path_api, "r")
-        if stream_data.get("id_ws", "") != "":
-            dataws = open(path_ws, "r")
-        if stream_data.get("id_api_2", "") != "":
-            dataapi2 = open(path_api_2, "r")
+            if stream_data.get("id_api", "") != "":
+                dataapi = open(path_api, "r")
+            if stream_data.get("id_ws", "") != "":
+                dataws = open(path_ws, "r")
+            if stream_data.get("id_api_2", "") != "":
+                dataapi2 = open(path_api_2, "r")
 
-        processors_names = [x for x in stream_data if x in flow_types]
-        for processor_name in processors_names:
-            processor = stream_data.get(processor_name)
-            if processor_name == "depthflow":
-                tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
-                tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
-            elif processor_name in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
-                tasks.append(asyncio.ensure_future(input_apiws_data(dataapi, processor)))
-            elif processor_name in ["liqflow", "tradesflow"]:
-                tasks.append(asyncio.ensure_future(input_apiws_data(dataws, processor)))
+            processors_names = [x for x in stream_data if x in flow_types]
+            for processor_name in processors_names:
+                processor = stream_data.get(processor_name)
+                if processor_name != "liqflow":
+                    if processor_name == "depthflow":
+                        tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
+                        tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
+                    elif processor_name in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
+                        tasks.append(asyncio.ensure_future(input_apiws_data(dataapi, processor)))
+                    elif processor_name in ["liqflow", "tradesflow"]:
+                        tasks.append(asyncio.ensure_future(input_apiws_data(dataws, processor)))
 
-            tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
-        return tasks
-    
-    except Exception as e:
-        id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
-        print(f"Something went wrong with {id_} : {e}")  
+                tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
+
+            return tasks
+        
+        except Exception as e:
+            id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
+            print(f"Something went wrong with {id_} : {e}")  
 
 def cereate_tasks_datafusion():
     """ Creates tasks so you can run them at once"""
     tasks = []
     for aggregation_type in fusor.aggregation_intervals:
         if fusor.aggregation_intervals.get(aggregation_type):
-            tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_depth(aggregation_lag = 1, aggregation_type=aggregation_type)))
+            if aggregation_type in ["depth_spot", "depth_future"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_depth(aggregation_type=aggregation_type, aggregation_lag = 1)))
+            elif aggregation_type in ["trades_spot", "trades_future"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_trades(aggregation_type=aggregation_type, aggregation_lag = 1)))
     return tasks
 
 async def run_all_tasks():
@@ -114,20 +127,22 @@ async def run_all_tasks():
     all_tasks = []
     for stream_data in streams_data:
         tasks = await cereate_tasks_single_dataflow(stream_data)
-        for task in tasks:
-            all_tasks.append(asyncio.ensure_future(task))
-    for task in cereate_tasks_datafusion():
-        all_tasks.append(asyncio.ensure_future(task))
+        if tasks:
+            all_tasks.extend(tasks)
+    fusors = cereate_tasks_datafusion()
+    all_tasks.extend(fusors)
 
-    try:
-        await asyncio.wait([all_tasks], timeout=20)
-    except asyncio.TimeoutError:
-        print("Timed out!")
-    finally:
-        for task in all_tasks:
-            task.cancel()
-        await asyncio.gather(all_tasks, return_exceptions=True)
-        print("All tasks are cancelled.")
+    await asyncio.gather(*all_tasks, return_exceptions=True)
+
+    # try:
+    #     await asyncio.wait([all_tasks], timeout=20)
+    # except asyncio.TimeoutError:
+    #     print("Timed out!")
+    # finally:
+    #     for task in all_tasks:
+    #         task.cancel()
+    #     await asyncio.gather(all_tasks, return_exceptions=True)
+    #     print("All tasks are cancelled.")
 
 if __name__ == "__main__":
     asyncio.run(run_all_tasks())
