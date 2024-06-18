@@ -32,7 +32,7 @@ class on_message_helper():
         you need to fetch initial binance futures prices. all futures
 
     """
-    default_price_value = 1000000000000000000.0
+    default_price_value = 70000
 
     @classmethod
     def convert_books(cls, data):
@@ -617,7 +617,6 @@ class bybit_on_message(on_message_helper):
         for trade in data.get("data"):
             symbol = trade.get("s")
             timestamp = float(trade.get("T")) / 1000
-            receive_time = float(trade.get("T")) / 1000
             side = trade.get("S").lower()
             price = float(trade.get("p"))
             size = self.bybit_derivate_multiplier.get(symbol)(float(trade.get("v")), price)
@@ -627,7 +626,7 @@ class bybit_on_message(on_message_helper):
             msid = f"{symbol}@{instType}@bybit"
             market_state.input_data(f"price_future", msid, price)
 
-        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : timestamp}
 
     async def bybit_ws_linear_perpetual_future_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -958,7 +957,7 @@ class deribit_on_message(on_message_helper):
         """
         if derivate_multiplier == None:
             self.deribit_derivate_multiplier = {
-                 "BTC" : lambda amount, price=1, objective="",*args, **kwargs: amount  / price / 10 if objective == "oifuture" else amount  / price / 10,    # bullshit deribit api for oi
+                "BTC" : lambda amount, price=1, objective="",*args, **kwargs: amount  / price / 10 if objective == "oifuture" else amount  / price / 10,    # bullshit deribit api for oi
                 "BTC_USDC" : lambda amount, *args, **kwargs : amount * 0.001,  # any swap or future
                 "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.001,
 
@@ -1072,7 +1071,7 @@ class deribit_on_message(on_message_helper):
             if "liquidation" not in trade:
                 trades.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
             if "liquidation" in trade:
-                liquidations.append([{"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}])
+                liquidations.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
 
             instType = "future" if any(char.isdigit() for char in trade.get("instrument_name").split("-")[-1]) else "perpetual"
             instType = "option" if len(trade.get("instrument_name").split("-")) > 2 else instType
@@ -1080,8 +1079,9 @@ class deribit_on_message(on_message_helper):
             
             if instType != "option":
                 market_state.input_data("price_future", msid, price)
+        r = {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
             
-        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
+        return r
 
     async def deribit_api_perpetual_future_depth(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         bids = []
@@ -1378,12 +1378,11 @@ class bingx_on_message(on_message_helper):
         side = "buy" if trade.get("m") is True else "sell"
         price = float(trade.get("p"))
         amount = float(trade.get("q"))
-        timestamp = float(trade.get("t")) / 1000 
-        receive_time = float(trade.get("t")) / 1000 
+        timestamp = float(trade.get("T")) / 1000 
         trades.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
         msid = f"{symbol}@spot@bingx"
         market_state.input_data(f"price_spot", msid, price)
-        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
+        return {"trades" : trades, "liquidations" : liquidations, "timestamp" : timestamp}
 
 class htx_on_message(on_message_helper):
 
@@ -2029,32 +2028,36 @@ class gateio_on_message(on_message_helper):
         data = data.get("result")
         trades = []
         liquidations = []
-        timestamp = float(data.get("create_time"))
-        receive_time = float(data.get("create_time"))  
+        timestamp = float(data.get("create_time_ms")) / 1000
         side = data.get("side")
         amount =  float(data.get("amount"))
         price = float(data.get("price"))
+        symbol = data.get("currency_pair")
         trades.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
 
-        msid = f"{connection_data.get('exchange_symbol')}@spot@gateio"
+        msid = f"{symbol}@spot@gateio"
         market_state.input_data("price_spot", msid, price)
 
-        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : receive_time}
+        r = {"liquidations" : liquidations, "trades" : trades, "timestamp" : timestamp}
+        return r
 
     async def gateio_ws_perpetual_future_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             https://www.gate.io/docs/developers/futures/ws/en/#trades-notification
         """
         data = json.loads(data)
+        inst_type = connection_data.get("instType") or connection_data.get("instTypes").split("_")[0]
 
         data = data.get("result")
         trades = []
         liquidations = []
         for trade in data:
-            timestamp = float(trade.get("create_time"))
-            receive_time = float(trade.get("create_time"))
+            timestamp = float(trade.get("create_time_ms")) / 1000
             side = "sell" if trade.get("size") < 0 else "buy"
             amount =  abs(float(trade.get("size")))
+            symbol = trade.get("contract")
+            amount = self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(amount)
+            
             price = float(trade.get("price"))
             if "is_internal" in trade and trade.get("is_internal") is True:
                 liquidations.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
@@ -2062,10 +2065,9 @@ class gateio_on_message(on_message_helper):
                 trades.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
             
             sss = trade.get('contract')
-            msid = f"{sss}@spot@gateio"
+            msid = f"{sss}@perpetual@gateio"
             market_state.input_data("price_future", msid, price)
-
-        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : receive_time}
+        return {"liquidations" : liquidations, "trades" : trades, "timestamp" : timestamp}
 
 class coinbase_on_message(on_message_helper):
 

@@ -1,6 +1,6 @@
 from OriginHub.ExchangeGateway import *
 from ProcessCenter import MessageProcessor
-from ProcessCenter.DataFlow import depthflow, tradesflow, oiflow, liqflow, pfflow, ooiflow
+from ProcessCenter.DataFlow import depthflow, tradesflow, oiflow, liqflow, ooiflow
 import numpy as np
 
 class ExchangeAPIClient():
@@ -256,7 +256,7 @@ class ExchangeAPIClient():
 
         elif objective in ["trades", "tradesagg"]:
             
-            if exchange in ["deribit", "gateio"]:
+            if exchange in ["deribit", "gateio"] and inst_type != "spot":
                 connection_data["liqflow"] = liqflow(
                     exchange=exchange, 
                     symbol=symbol, 
