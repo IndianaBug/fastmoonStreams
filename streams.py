@@ -37,33 +37,33 @@ ws = {
     "binance" : [
         # "spot.depth.BTCUSDT.snap",                                        #  api ok   # ok
         # "spot.depth.BTCFDUSD.snap",                                       #  api ok  # ok
-        "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
+        # "spot.trades.BTCUSDT.BTCTUSD.BTCUSDC.BTCUSDS.BTCBUSD.BTCFDUSD",   # ok
         # "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
         # "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
-        "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
-    #     "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
-        "perpetual.trades.BTCUSD_PERP",                                   # ok
-        # "perpetual.liquidations.BTCUSD_PERP",                             # ok
+        # "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
+        "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
+        # "perpetual.trades.BTCUSD_PERP",                                   # ok
+        "perpetual.liquidations.BTCUSD_PERP",                             # ok
     #     "option.trades.BTC",                                              # ok
         ],
     "bybit" : [
-        "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
+        # "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
         # "spot.depth.BTCUSDT.snap",                                          # ok ok
         # "spot.depth.BTCUSDC.snap",                                          # ok ok 
         # "perpetual.depth.BTCUSDT.snap",                                     # ok ok
         # "perpetual.depth.BTCUSD.snap",                                      # ok ok
-        "perpetual.trades.BTCUSDT.BTCPERP",                                 # ok
-        "perpetual.trades.BTCUSD",                                          # ok
-    #     "perpetual.liquidations.BTCUSDT.BTCPERP",                           # ok
-    #     "perpetual.liquidations.BTCUSD",                                    # ok
+        # "perpetual.trades.BTCUSDT.BTCPERP",                                 # ok
+        # "perpetual.trades.BTCUSD",                                          # ok
+        "perpetual.liquidations.BTCUSDT.BTCPERP",                           # ok
+        "perpetual.liquidations.BTCUSD",                                    # ok
     #     "option.trades.BTC",                                                # ok
         ],
     "okx" : [
         # "spot.depth.BTC-USDT.snap",                                             # ok ok
-        "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
+        # "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
         # "perpetual.depth.BTC-USDT-SWAP.snap",                                   # ok ok 
-        "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP",            # ok
-    #     "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
+        # "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP",            # ok
+        "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
     #     "option.optionTrades.BTC-USD",                                          # ok
         ],
     "deribit" : [                                                               
@@ -75,37 +75,37 @@ ws = {
         ],
     "bitget" : [
         # "spot.depth.BTCUSDT.snap",                                              # ok ok
-        "spot.trades.BTCUSDT.BTCUSDC",                                          # ok
+        # "spot.trades.BTCUSDT.BTCUSDC",                                          # ok
         # "perpetual.depth.BTCUSDT.snap",                                         # ok ok
-        "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",                              # ok
+        # "perpetual.trades.BTCUSDT.BTCPERP.BTCUSD",                              # ok
         ],
     "bingx" : [
-        "spot.trades.BTC-USDT",                                                 # ok
-        "perpetual.trades.BTC-USDT",                                            # ok
+        # "spot.trades.BTC-USDT",                                                 # ok
+        # "perpetual.trades.BTC-USDT",                                            # ok
         # "spot.depth.BTC-USDT.snap"                                              # ok ok
         ],
     "kucoin" : [
     #     "spot.depth.BTC-USDT.snap",                                             # ok ok
-        "spot.trades.BTC-USDT",                                                 # ok
+        # "spot.trades.BTC-USDT",                                                 # ok
         # "perpetual.depth.XBTUSDTM.snap",                                        # ok ok
-        "perpetual.trades.XBTUSDTM",                                            # ok
+        # "perpetual.trades.XBTUSDTM",                                            # ok
         ],
     "gateio" : [
         # "spot.depth.BTC_USDT.snap",                                             # ok ok
-        "spot.trades.BTC_USDT",                                                 # ok
+        # "spot.trades.BTC_USDT",                                                 # ok
         # "perpetual.depth.BTC_USDT.snap",                                        # api ok ok
         "perpetual.trades.BTC_USDT",                                            # ok
     #     # liquidations                                                          # ok
         ],
     "mexc" : [
         # "spot.depth.BTCUSDT.snap",                                              # ok ok
-        "spot.trades.BTCUSDT",                                                  # ok
+        # "spot.trades.BTCUSDT",                                                  # ok
     #    "perpetual.depth.BTC_USDT.snap",                                         # api ok
-        "perpetual.trades.BTC_USDT",                                            # ok
+        # "perpetual.trades.BTC_USDT",                                            # ok
         ],
     "coinbase" : [
         # "spot.depth.BTC-USD.snap",                                              # ok ok
-        "spot.trades.BTC-USD",                                                  # ok
+        # "spot.trades.BTC-USD",                                                  # ok
     #     "spot.heartbeats.BTC-USD",                                              # ok
         ],
 }

@@ -693,7 +693,7 @@ class liqflow(CommonFlowFunctionalities):
 
         self.exchange = exchange
         self.symbol = symbol
-        self.inst_type = inst_type
+        self.inst_type = inst_type.split("_")[0]
         self.on_message = on_message
         self.price_level_size = float(price_level_size)
         self.liquidations_process_interval = liquidations_process_interval
@@ -717,33 +717,35 @@ class liqflow(CommonFlowFunctionalities):
             type_ : longs or shorts
         """
         data_object = self.Liquidations.longs if type_ == "longs" else self.Liquidations.shorts
-        df = pd.DataFrame(index=list(range(0, self.liquidations_process_interval)))
-        liquidations = [
-            [int(t % self.liquidations_process_interval), str(self.find_level(trade["price"])), trade["quantity"]]
-            for t in data_object for trade in data_object[t]
-        ]
-        df = pd.DataFrame(liquidations, columns=['timestamp', 'level', 'quantity'])
-        grouped_df = df.groupby(['timestamp', 'level']).sum().reset_index()
-        transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').fillna(0)
-        all_timestamps = pd.Index(range(self.liquidations_process_interval))
-        transposed_df = transposed_df.reindex(all_timestamps, fill_value=0)
-        transposed_df.columns.name = None
-        transposed_df.columns = transposed_df.columns.astype(str)
-        return transposed_df
-
+        
+        if data_object != {}:
+            df = pd.DataFrame(index=list(range(0, self.liquidations_process_interval)))
+            liquidations = [
+                [int(t % self.liquidations_process_interval), str(self.find_level(trade["price"])), trade["quantity"]]
+                for t in data_object for trade in data_object[t]
+            ]
+            df = pd.DataFrame(liquidations, columns=['timestamp', 'level', 'quantity'])
+            grouped_df = df.groupby(['timestamp', 'level']).sum().reset_index()
+            transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').fillna(0)
+            all_timestamps = pd.Index(range(self.liquidations_process_interval))
+            transposed_df = transposed_df.reindex(all_timestamps, fill_value=0)
+            transposed_df.columns.name = None
+            transposed_df.columns = transposed_df.columns.astype(str)
+            return transposed_df
+        else:
+            all_timestamps = pd.Index(range(self.liquidations_process_interval))
+            transposed_df = pd.DataFrame(index=all_timestamps).fillna(0)
+            return transposed_df
 
     def make_dataframes(self):
         """ generates processed dataframes of liquidations """
 
         id_ = self.get_id()
-        inst_type = self.get_inst_type()        
         longs = self.create_pandas_dataframe("longs")
         shorts = self.create_pandas_dataframe("shorts")
         dataframes = {
-            "longs": longs,
-            "shorts": shorts,
-            "total": self.merge_dataframes([longs, shorts], "sum"),
-            "delta": self.merge_dataframes([longs, shorts], "delta")
+            "longs": longs.copy(),
+            "shorts": shorts.copy(),
         }
         for type_, df in dataframes.items():                
             self.market_state.raw_data["dataframes_to_merge"]["liquidations"][type_][id_] = df.copy()
@@ -777,30 +779,30 @@ class liqflow(CommonFlowFunctionalities):
     def dump_df_to_csv(self):
         """ processed, raw"""
         _id = self.get_id()
-        inst_type = self.get_inst_type()
-        for _type in ["longs", "shorts", "total", "delta"]:
-            file_path = f"{self.folderpath}\\sample_data\\dfpandas\\liquidations_{_type}_{_id}.csv"
-            df = self.market_state.raw_data["dataframes_to_merge"]["liquidations"][_type][_id]
-            df.to_csv(file_path, index=False)
+        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\total_liquidaitons_{_id}.csv"
+        longs = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["longs"][_id]
+        shorts = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["shorts"][_id]
+        df = self.merge_dataframes([longs, shorts], "sum")
+        df.to_csv(file_path, index=False)
 
 
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            inst_type = self.get_inst_type()
             _id = self.get_id()
-            for _type in ["longs", "shorts", "total", "delta"]:
-                df = self.market_state.raw_data["dataframes_to_merge"]["liquidations"][_type][_id]
-                filepath = f"{self.folderpath}\\sample_data\\plots\\liquidations_{_type}_{_id}.json"
-                plot_data = {
-                    'x': [float(x) for x in df.columns],
-                    'y': df.sum().tolist(),
-                    'xlabel': 'Level',
-                    'ylabel': 'Amount',
-                    'legend': f'Liquidations_{_type}, {_id}'
-                }
-                with open(filepath, 'w') as file:
-                    json.dump(plot_data, file)
+            longs = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["longs"][_id]
+            shorts = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["shorts"][_id]
+            df = self.merge_dataframes([longs, shorts], "sum")
+            filepath = f"{self.folderpath}\\sample_data\\plots\\liquidations_total_{_id}.json"
+            plot_data = {
+                'x': [float(x) for x in df.columns],
+                'y': df.sum().tolist(),
+                'xlabel': 'Level',
+                'ylabel': 'Amount',
+                'legend': f'Total Liquidations, {_id}'
+            }
+            with open(filepath, 'w') as file:
+                json.dump(plot_data, file)
 
         except Exception as e:
             print(e)

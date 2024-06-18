@@ -19,11 +19,11 @@ market_state = MarketState(streams_data)
 fusor = MarketDataFusion(
     depth_spot_aggregation_interval = None,
     depth_future_aggregation_interval = None,
-    trades_spot_aggregation_interval = 10,
-    trades_future_aggregation_interval = 10,
+    trades_spot_aggregation_interval = None,
+    trades_future_aggregation_interval = None,
     trades_option_aggregation_interval = None,
     oi_deltas_aggregation_interval = None,
-    liquidations_future_aggregation_interval = None,
+    liquidations_future_aggregation_interval = 10,
     oi_options_aggregation_interval = None,
     canceled_books_spot_aggregation_interval = None,
     canceled_books_future_aggregation_interval = None,
@@ -94,7 +94,7 @@ async def cereate_tasks_single_dataflow(stream_data):
             processors_names = [x for x in stream_data if x in flow_types]
             for processor_name in processors_names:
                 processor = stream_data.get(processor_name)
-                if processor_name != "liqflow":
+                if processor_name == "liqflow":
                     if processor_name == "depthflow":
                         tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
                         tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
@@ -102,6 +102,7 @@ async def cereate_tasks_single_dataflow(stream_data):
                         tasks.append(asyncio.ensure_future(input_apiws_data(dataapi, processor)))
                     elif processor_name in ["liqflow", "tradesflow"]:
                         tasks.append(asyncio.ensure_future(input_apiws_data(dataws, processor)))
+
 
                 tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
 
