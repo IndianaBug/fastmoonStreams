@@ -23,8 +23,8 @@ fusor = MarketDataFusion(
     trades_future_aggregation_interval = None,
     trades_option_aggregation_interval = None,
     oi_deltas_aggregation_interval = None,
-    liquidations_future_aggregation_interval = 10,
-    oi_options_aggregation_interval = None,
+    liquidations_future_aggregation_interval = None,
+    oi_options_aggregation_interval = 4,
     canceled_books_spot_aggregation_interval = None,
     canceled_books_future_aggregation_interval = None,
     mode="testing"
@@ -69,7 +69,7 @@ async def input_apiws_data(data, processor):
         data = json.load(data)
         for d in data[::-1]:
             await processor.input_data(json.dumps(d))
-            # await asyncio.sleep(0.4)
+            await asyncio.sleep(0.4)
     except Exception as e:
         print(e)
 
@@ -94,7 +94,7 @@ async def cereate_tasks_single_dataflow(stream_data):
             processors_names = [x for x in stream_data if x in flow_types]
             for processor_name in processors_names:
                 processor = stream_data.get(processor_name)
-                if processor_name == "liqflow":
+                if processor_name != "tradesflow":
                     if processor_name == "depthflow":
                         tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
                         tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
@@ -121,6 +121,12 @@ def cereate_tasks_datafusion():
                 tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_depth(aggregation_type=aggregation_type, aggregation_lag = 1)))
             elif aggregation_type in ["trades_spot", "trades_future"]:
                 tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_trades(aggregation_type=aggregation_type, aggregation_lag = 1)))
+            elif aggregation_type in ["liquidations_future"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_liquidations(aggregation_type=aggregation_type, aggregation_lag = 1)))
+            elif aggregation_type in ["oi_deltas"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_oi_deltas(aggregation_type=aggregation_type, aggregation_lag = 1)))
+            elif aggregation_type in ["oi_options"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_oioption(aggregation_type=aggregation_type, aggregation_lag = 1)))
     return tasks
 
 async def run_all_tasks():
@@ -134,16 +140,6 @@ async def run_all_tasks():
     all_tasks.extend(fusors)
 
     await asyncio.gather(*all_tasks, return_exceptions=True)
-
-    # try:
-    #     await asyncio.wait([all_tasks], timeout=20)
-    # except asyncio.TimeoutError:
-    #     print("Timed out!")
-    # finally:
-    #     for task in all_tasks:
-    #         task.cancel()
-    #     await asyncio.gather(all_tasks, return_exceptions=True)
-    #     print("All tasks are cancelled.")
 
 if __name__ == "__main__":
     asyncio.run(run_all_tasks())
