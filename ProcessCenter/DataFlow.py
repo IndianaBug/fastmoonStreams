@@ -23,6 +23,10 @@ from collections import defaultdict
 
 pd.set_option('future.no_silent_downcasting', True)
 
+def weighted_avg(group):
+    weights = group['ois']
+    prices = group['prices']
+    return (prices * weights).sum() / weights.sum()
 class CommonFlowFunctionalities():
     
     level_size = 20
@@ -118,6 +122,7 @@ class CommonFlowFunctionalities():
             mask = df.apply(lambda row: previous_upper <= 100 * (row['strikes'] / row['weighted_avg_price'] - 1) < upper, axis=1)
             split_dfs[upper] = df[mask]
             previous_upper = upper
+        print(split_dfs)
         return split_dfs
 
     @staticmethod
@@ -152,25 +157,19 @@ class CommonFlowFunctionalities():
         for price_range, df in dfs_by_price_range.itmes():
             ois = self.split_dataframe_by_expiration_ranges(df, expiration_ranges)
             ois_dictionary[price_range] = ois
-        
+
     def merge_options_dataframes(self, dataframes : List[pd.DataFrame]) -> pd.DataFrame:
         """ 
             Merges multiple books into one dataframe
             books : List[pd.DataFrame] -- list of books to merge
         """
-        if len(dataframes) > 1:
-            concatenated_df = pd.concat(dataframes, axis=1, keys=[f'DF{i}' for i in range(len(dataframes))])
-            concatenated_df.columns = [f'{i}_{col}' for i, col in concatenated_df.columns]
-            merged_columns = {'strikes': [], 'days_left': [], 'weighted_avg_price': [], 'sum_ois': []}
-            for (strike, days), group in concatenated_df.groupby([col for col in concatenated_df.columns if col.endswith('_strikes') + col for col in concatenated_df.columns if col.endswith('_days_left')]):
-                total_ois = group[[col for col in group.columns if col.endswith('_ois')]].sum(axis=1).sum()
-                total_weighted_prices = (group[[col for col in group.columns if col.endswith('_prices')]] * group[[col for col in group.columns if col.endswith('_ois')]]).sum().sum()
-                weighted_avg_price = total_weighted_prices / total_ois if total_ois != 0 else 0
-                merged_columns['strikes'].append(strike)
-                merged_columns['days_left'].append(days)
-                merged_columns['weighted_avg_price'].append(weighted_avg_price)
-                merged_columns['sum_ois'].append(total_ois)
-            result_df = pd.DataFrame(merged_columns)
+        if len(dataframes) > 1:            
+            concatenated_df = pd.concat(dataframes, axis = 0)
+            grouped = concatenated_df.groupby(["days_left", "strikes"])
+            result_df = grouped.apply(lambda x: pd.Series({
+                'ois': x['ois'].sum(),
+                'price': weighted_avg(x)
+            })).reset_index()
             return result_df
         elif len(dataframes) == 1:
             return dataframes[0]
@@ -915,7 +914,7 @@ class ooiflow(CommonFlowFunctionalities):
                     'y': df["ois"].tolist(),
                     'xlabel': 'Strike',
                     'ylabel': 'Open Interest',
-                    'legend':f'Option OI, {id_}'
+                    'legend':f'Option OI {option_type}, {id_}'
                 }
                 with open(filepath, 'w') as file:
                     json.dump(plot_data, file)
@@ -1121,6 +1120,8 @@ class MarketDataFusion(CommonFlowFunctionalities):
 
                 merged_calls = self.merge_options_dataframes(calls_to_merge)
                 merged_puts = self.merge_options_dataframes(puts_to_merge)
+                
+                print(self.process_options_dataframe(merged_calls))
                 
                 oi_dictionary = {
                     "calls" : self.process_options_dataframe(merged_calls), 
