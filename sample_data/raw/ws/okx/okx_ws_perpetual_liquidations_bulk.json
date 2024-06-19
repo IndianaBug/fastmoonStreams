@@ -17,10 +17,10 @@
                     "ts": "1692266434010"
                 }
             ],
-            "instFamily": "IOST-USDT",
-            "instId": "IOST-USDT-SWAP",
+            "instFamily": "BTC-USDT",
+            "instId": "BTC-USDT-SWAP",
             "instType": "SWAP",
-            "uly": "IOST-USDT"
+            "uly": "BTC-USDT"
         }
     ]
 }

@@ -153,7 +153,7 @@ class CommonFlowFunctionalities():
             ois = self.split_dataframe_by_expiration_ranges(df, expiration_ranges)
             ois_dictionary[price_range] = ois
         
-    def merge_options_dataframes(self, dataframes : List[pd.DataFrame], obj) -> pd.DataFrame:
+    def merge_options_dataframes(self, dataframes : List[pd.DataFrame]) -> pd.DataFrame:
         """ 
             Merges multiple books into one dataframe
             books : List[pd.DataFrame] -- list of books to merge
@@ -575,6 +575,8 @@ class oiflow(CommonFlowFunctionalities):
         self.last_recieve_time =  {}
         self.last_ois_by_instrument = {}
 
+        self.mode = mode
+
 
     async def input_data(self, data, *args, **kwargs):
         """ 
@@ -587,7 +589,7 @@ class oiflow(CommonFlowFunctionalities):
                 timestamp = oidata.get(symbol).get("timestamp")
                 if timestamp > self.last_recieve_time.get(symbol, 0):
                     d = {"oi" : oidata.get(symbol).get("oi"), "price" : oidata.get(symbol).get("price"), "timestamp" :  oidata.get(symbol).get("timestamp")}
-                    await self.ois.add_entry(d)
+                    await self.ois.add_entry(symbol, d)
                     self.last_recieve_time[symbol] = timestamp
         except:
             return
@@ -595,7 +597,7 @@ class oiflow(CommonFlowFunctionalities):
     def make_dataframe_maps(self):
         """ creates dataframe of OIs"""
         
-        ticks_oi_delta = {timestamp : [] for timestamp in self.ois.get_uniquetimestamp()}
+        ticks_oi_delta = {}
 
         for instrument in self.ois.data:
             for entry in self.ois.data.get(instrument):
@@ -603,23 +605,30 @@ class oiflow(CommonFlowFunctionalities):
                 price = entry.get("price")
                 timestamp = entry.get("timestamp")
                 oi_difference = open_interest - self.last_ois_by_instrument.get(instrument, open_interest)
+                self.last_ois_by_instrument[instrument] = open_interest
                 if oi_difference != 0:
+                    if timestamp not in ticks_oi_delta:
+                        ticks_oi_delta[timestamp] = []
                     ticks_oi_delta[timestamp].append({"oi" : oi_difference,  "price" : price})
+        
+        if ticks_oi_delta != {}:
+            oi_deltas = [
+                        [int(t % self.oi_process_interval), str(self.find_level(oi_tick["price"])), oi_tick["oi"]]
+                        for t in ticks_oi_delta for oi_tick in ticks_oi_delta[t]
+                ]
 
-        oi_deltas = [
-                    [int(t % self.oi_process_interval), str(self.find_level(oi_tick["price"])), oi_tick["oi"]]
-                    for t in ticks_oi_delta for oi_tick in ticks_oi_delta[t]
-            ]
-
-        df = pd.DataFrame(oi_deltas, columns=['timestamp', 'level', 'quantity'])
-        grouped_df = df.groupby(['timestamp', 'level']).sum().reset_index()
-        transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').fillna(0)
-        all_timestamps = pd.Index(range(self.trades_process_interval))
-        transposed_df = transposed_df.reindex(all_timestamps, fill_value=0)
-        transposed_df.columns.name = None
-        transposed_df.columns = transposed_df.columns.astype(str)
-        return ticks_oi_delta, transposed_df
-
+            df = pd.DataFrame(oi_deltas, columns=['timestamp', 'level', 'quantity'])
+            grouped_df = df.groupby(['timestamp', 'level']).sum().reset_index()
+            transposed_df = grouped_df.pivot(index='timestamp', columns='level', values='quantity').fillna(0)
+            all_timestamps = pd.Index(range(self.oi_process_interval))
+            transposed_df = transposed_df.reindex(all_timestamps, fill_value=0)
+            transposed_df.columns.name = None
+            transposed_df.columns = transposed_df.columns.astype(str)
+            return ticks_oi_delta, transposed_df
+        else:
+            all_timestamps = pd.Index(range(self.oi_process_interval))
+            transposed_df = pd.DataFrame(index=all_timestamps).fillna(0)
+            return ticks_oi_delta, transposed_df
 
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
@@ -634,9 +643,9 @@ class oiflow(CommonFlowFunctionalities):
                 self.market_state.raw_data["ticks_data_to_merge"]["oi_deltas"][id_] = ticks_oi_delta
                 
                 if self.mode == "testing":
-                    filepath = f"{self.folderpath}\\sample_data\\plots\\oi_delta_{id_}.csv"
-                    oideltas.to_csv()
-                    self.generate_data_for_plot(filepath, index=False)
+                    filepath = f"{self.folderpath}\\sample_data\\dfpandas\\oi_delta_{id_}.csv"
+                    oideltas.to_csv(filepath, index=False)
+                    self.generate_data_for_plot()
                 
                 await self.ois.reset_data()
                 
@@ -651,7 +660,7 @@ class oiflow(CommonFlowFunctionalities):
         try:
 
             id_ = self.get_id()            
-            df = self.market_state.raw_data["dataframes_to_merge"]["oi_delta"][id_]
+            df = self.market_state.raw_data["dataframes_to_merge"]["oi_deltas"][id_]
             filepath = f"{self.folderpath}\\sample_data\\plots\\oi_delta_{id_}.json"
             plot_data = {
                 'x': [float(x) for x in df.columns],
@@ -759,15 +768,11 @@ class liqflow(CommonFlowFunctionalities):
             await asyncio.sleep(1)
             while True:
                 await asyncio.sleep(self.liquidations_process_interval)
-                
                 self.make_dataframes()
-                self.market_state.raw_data["ticks_data_to_merge"]["liquidations"][_id] = self.merge_ticks_buys_sells(self.Liquidations.buys, self.Liquidations.sells)
-                
                 if self.mode == "testing":
                     self.dump_df_to_csv()
                     self.generate_data_for_plot()
-
-                await self.Liquidations.reset_trades()
+                await self.Liquidations.reset_liquidations()
                 
         except asyncio.CancelledError:
             print("Task was cancelled")
@@ -856,10 +861,13 @@ class ooiflow(CommonFlowFunctionalities):
        
     def create_dataframes(self):
         """ creates puts and calls dataframes """
-        call_data, put_data = self.odata.get_summary_by_option_type()
+        call_data, put_data = self.option_data.get_summary_by_option_type()
         id_ = self.get_id()
-        self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["puts"][id_] = self.process_option_data(put_data)
-        self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["calls"][id_] = self.process_option_data(call_data)        
+        calls = self.process_option_data(call_data)
+        puts = self.process_option_data(put_data)
+        self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["puts"][id_] = self.process_option_data(puts)
+        self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["calls"][id_] = self.process_option_data(calls)
+
     
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
@@ -883,8 +891,8 @@ class ooiflow(CommonFlowFunctionalities):
         """ helper function to dump dataframes to csv """
         
         id_ = self.get_id()
-        dfp = self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["puts"][id_]
-        dfc = self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["calls"][id_]
+        dfp = self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["puts"][id_]
+        dfc = self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["calls"][id_]
         
         for type_, dff in zip(["Puts", "Calls"], [dfp, dfc]):
             file_path = f"{self.folderpath}\\sample_data\\dfpandas\\oi_option_{type_}_{id_}.csv"
@@ -893,22 +901,18 @@ class ooiflow(CommonFlowFunctionalities):
     def generate_data_for_plot(self):
         """ generates plot of option OIS at a random timestamp to verify any discrepancies, good for testing """
         try:
-            
-            dfp = self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["puts"][id_]
-            dfc = self.market_state.raw_data["dataframes_to_merge"]["oi_option"]["calls"][id_]
-
             id_ = self.get_id()
-            data_holder_key = f"oi_option"
+            dfp = self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["puts"][id_]
+            dfc = self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["calls"][id_]
             df_dict = {"put" : dfp, "call" : dfc}
             
             for option_type, df in df_dict.items():
                 
                 filepath = f"{self.folderpath}\\sample_data\\plots\\oi_option_{option_type}_{id_}.json"
-                grouped = df.groupby('strike').sum()
                 
                 plot_data = {
-                    'x': grouped["strike"].tolist(),
-                    'y': grouped["total_open_interest"].tolist(),
+                    'x': df["strikes"].tolist(),
+                    'y': df["ois"].tolist(),
                     'xlabel': 'Strike',
                     'ylabel': 'Open Interest',
                     'legend':f'Option OI, {id_}'
@@ -1023,18 +1027,21 @@ class MarketDataFusion(CommonFlowFunctionalities):
     async def schedule_aggregation_oi_deltas(self, aggregation_lag:int=1, *args, **kwargs):
         """ helper for aggregation """
         try:
-            interval = self.aggregation_intervals.get(f"oi_deltas")
+            interval = self.aggregation_intervals.get("oi_deltas")
             await asyncio.sleep(aggregation_lag)
             while True:
                 await asyncio.sleep(interval)
+                
                 dataframes = list(self.market_state.raw_data.get("dataframes_to_merge").get("oi_deltas").values())
                 mergeddf = self.merge_dataframes(dataframes, "sum")
+
                 oi_deltas_dictionary = self.dataframe_to_dictionary(mergeddf)
-                self.market_state.staging_data["maps"][f"oi_deltas"] = oi_deltas_dictionary
+                self.market_state.staging_data["maps"]["oi_deltas"] = oi_deltas_dictionary
                 
                 merged_ticks = self.merge_ticks(list(self.market_state.raw_data.get("ticks_data_to_merge").get("oi_deltas").values()))
-                self.market_state.staging_data["ticks"][f"oi_deltas"] = merged_ticks
+                self.market_state.staging_data["ticks"]["oi_deltas"] = merged_ticks
                 
+                print(merged_ticks)
                 if self.mode == "testing":
                     self.dump_df_to_csv("oi_deltas", mergeddf)
                     self.generate_oi_data_for_plot(mergeddf)
@@ -1052,22 +1059,20 @@ class MarketDataFusion(CommonFlowFunctionalities):
             await asyncio.sleep(aggregation_lag)
             while True:
                 await asyncio.sleep(interval)
-                for liq_type in ["longs", "shorts", "total", "delta"]:
-                    
+                print("I am here")
+                
+                for liq_type in ["longs", "shorts"]:
                     dataframes = list(self.market_state.raw_data.get("dataframes_to_merge").get("liquidations").get(liq_type).values())
-                    
                     mergeddf = self.merge_dataframes(dataframes, "sum")
-                    buys_dict = self.dataframe_to_dictionary(self.market_state["merged_dataframes"]["liquidations"]["longs"])
-                    sells_dict = self.dataframe_to_dictionary(self.market_state["merged_dataframes"]["liquidations"]["shorts"])
-                    self.market_state.staging_data["maps"][f"longs"] = buys_dict
-                    self.market_state.staging_data["maps"][f"shorts"] = sells_dict
+                    liq_dic = self.dataframe_to_dictionary(mergeddf)
+                    self.market_state.staging_data["maps"][liq_type] = liq_dic
                     
-                    merged_ticks = self.merge_ticks(list(self.market_state.raw_data.get("ticks_data_to_merge").get("liquidations").values()))
-                    self.market_state.staging_data["ticks"][f"liquidations"] = merged_ticks
-                    
-                    if self.mode == "testing":
-                        self.dump_df_to_csv("liquidations_future", mergeddf)
-                        self.generate_trades_data_for_plot(inst_type, liq_type, mergeddf)
+                if self.mode == "testing":
+                    longs = self.merge_dataframes(list(self.market_state.raw_data.get("dataframes_to_merge").get("liquidations").get("longs").values()), "sum")
+                    shorts = self.merge_dataframes(list(self.market_state.raw_data.get("dataframes_to_merge").get("liquidations").get("shorts").values()), "sum")
+                    mergeddf = self.merge_dataframes([longs, shorts], "sum")
+                    self.dump_df_to_csv("liquidations_future", mergeddf)
+                    self.generate_liquidations_data_for_plot(mergeddf)
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -1105,7 +1110,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
 
     async def schedule_aggregation_oioption(self, aggregation_lag=1, *args, **kwargs): 
         try:
-            interval = self.aggregation_intervals.get(f"oi_options")
+            interval = self.aggregation_intervals.get("oi_options")
             await asyncio.sleep(aggregation_lag)
             while True:
                 
@@ -1123,8 +1128,6 @@ class MarketDataFusion(CommonFlowFunctionalities):
                     }
                 
                 self.merket_state.staging_data["oi_option"] = oi_dictionary
-
-
 
                 if self.mode == "testing":
                     self.dump_df_to_csv("oi_option_calls", merged_calls)
@@ -1178,6 +1181,23 @@ class MarketDataFusion(CommonFlowFunctionalities):
             }
             with open(filepath, 'w') as file:
                 json.dump(plot_data, file)
+        except Exception as e:
+            print(e)
+
+    def generate_liquidations_data_for_plot(self, df):
+        """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
+        try:
+            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_liquidations_total.json"
+            plot_data = {
+                'x': [float(x) for x in df.columns],
+                'y': df.sum().tolist(),
+                'xlabel': 'Level',
+                'ylabel': 'Amount',
+                'legend': f'merged_liquidations_total'
+            }
+            with open(filepath, 'w') as file:
+                json.dump(plot_data, file)
+
         except Exception as e:
             print(e)
 

@@ -160,15 +160,17 @@ class OpenInterest:
         """
             Args:
                 timestamp (float): unix
-                instrument (str): str
+                instrument (str): str 
                 oi (float): float
                 price (float): float
         """
-        self.data[symbol] = data_dict
+        if symbol not in self.data:
+            self.data[symbol] = []
+        self.data[symbol].append(data_dict)
 
-    async def get_uniquetimestamp(self):
+    def get_uniquetimestamps(self):
         """ getse unique instrumet"""
-        unique_timestamps = set(dic.get("timestamp") for dic in self.data.values())
+        unique_timestamps = set(dic.get("timestamp") for l in self.data.values() for dic in l)
         return list(unique_timestamps)
 
     async def reset_data(self):
@@ -215,7 +217,7 @@ class OptionInstrumentsData:
         countdowns = [instrument.get("days_left") for instrument in self.data.values()]
         ois = [instrument.get("oi") for instrument in self.data.values()]
         prices = [instrument.get("price") for instrument in self.data.values()]
-        return {"strikes": strikes, "countdowns": countdowns, "ois": ois, "prices" : prices}
+        return {"strikes": strikes, "days_left": countdowns, "ois": ois, "prices" : prices}
     
     def get_summary_by_option_type(self) -> Dict[str, Dict[str, List]]:
 
@@ -234,7 +236,7 @@ class OptionInstrumentsData:
 
             summary[option_category]["strikes"].append(data.get("strike"))
 
-            summary[option_category]["countdowns"].append(data.get("days_left"))
+            summary[option_category]["days_left"].append(data.get("days_left"))
 
             summary[option_category]["ois"].append(data.get("oi"))
 
@@ -396,7 +398,13 @@ class MarketState:
             global_data_structure["shorts"] = 0
             aggregated_maps_structure["longs"] = {}
             aggregated_maps_structure["shorts"] = {}
-            ticks["liquidations"] = {}
+        if "trades" in [x.get("objective") for x in streams_data] and {"deribit", "gateio"}.issubset([x.get("exchnage") for x in streams_data]):
+            insttypes = [x.get("instType").split("_")[0] or x.get("instTypes").split("_")[0] for x in streams_data]
+            if {"perpetual", "future"}.issubset(insttypes):
+                global_data_structure["longs"] = 0
+                global_data_structure["shorts"] = 0
+                aggregated_maps_structure["longs"] = {}
+                aggregated_maps_structure["shorts"] = {}
         if "funding" in [x.get("objective") for x in streams_data]:
             global_data_structure["funding"] = 0
             byinsttument_structure["funding"] = {}
@@ -404,7 +412,7 @@ class MarketState:
             global_data_structure["oi_future"] = 0
             global_data_structure["funding"] = 0
             byinsttument_structure["funding"] = {}
-            aggregated_maps_structure["oi_delta"] = {}
+            aggregated_maps_structure["oi_deltas"] = {}
             ticks["oi_deltas"] = {}
             
         if {("depth", "spot")}.issubset(metrics_to_insttype):
@@ -443,7 +451,7 @@ class MarketState:
         }
         
         if oi_option:
-            d["oi_option"] = {}
+            d["oi_options"] = {}
         return d
     
     def create_raw_datastructure(self):
@@ -461,23 +469,22 @@ class MarketState:
                                 },
                     "oi_deltas" : {},
                     "oi_options" : {"calls" : {}, "puts" : {}},
-                    "liquidations" : {"longs" : {}, "shorts" : {}, "total" : {}, "delta" : {}}
+                    "liquidations" : {"longs" : {}, "shorts" : {}}
                 },
                 "ticks_data_to_merge": {
                     "trades" : {"spot" : {}, "future" : {}, "option" : {}},
-                    "oi_delta" : {},
-                    "liquidations" : {},  
+                    "oi_deltas" : {},
                 },
                 "merged_dataframes": {
                     "depth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
                     "trades" : {
-                        "spot" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
-                        "future" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}, 
-                        "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()}
+                        "spot" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame()}, 
+                        "future" : {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame()}, 
+                        "option" :  {"buys" : pd.DataFrame(), "sells" : pd.DataFrame(), "total" : pd.DataFrame()}
                                 },
                     "oi_deltas" : pd.DataFrame(),
-                    "oi_option" : pd.DataFrame(),
-                    "liquidations" : {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame(), "total" : pd.DataFrame(), "delta" : pd.DataFrame()},
+                    "oi_options" : {"puts" : pd.DataFrame() , "calls":pd.DataFrame()},
+                    "liquidations" : {"longs" : pd.DataFrame(), "shorts" : pd.DataFrame()},
                     "cdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
                     "rdepth" : {"spot" : pd.DataFrame(), "future" : pd.DataFrame()},
                 },
