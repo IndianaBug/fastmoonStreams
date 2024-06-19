@@ -105,58 +105,40 @@ class CommonFlowFunctionalities():
             return pd.DataFrame()
     
     @staticmethod
-    def split_dataframe_by_weighted_price_ranges(df: pd.DataFrame, price_ranges: List[int]) -> List[pd.DataFrame]:
-        """
-            Splits a DataFrame into multiple DataFrames based on percentage ranges specified,
-            relative to each row's 'weighted_avg_price' in the 'strikes' column.
-
-            :param df: DataFrame to split, which includes 'strikes' and 'weighted_avg_price' columns.
-            :param price_ranges: List of percentage ranges up to which the data is split.
-            :return: List of DataFrames, each corresponding to the specified ranges.
-        """
+    def split_dataframe_by_expiration_ranges(df: pd.DataFrame, expiration_ranges: List[int]) -> List[pd.DataFrame]:
+        """ split df into x number of dfs by a range of expirations"""
         split_dfs = {}
-        range_limits = price_ranges + [float('inf')] 
-        previous_upper = 0
-        for upper in range_limits:
-            # Create a mask that checks if the strike is within the current range for each row's weighted_avg_price
-            mask = df.apply(lambda row: previous_upper <= 100 * (row['strikes'] / row['weighted_avg_price'] - 1) < upper, axis=1)
-            split_dfs[upper] = df[mask]
-            previous_upper = upper
-        print(split_dfs)
+        expiration_ranges = expiration_ranges + [float('inf')] 
+        upper = expiration_ranges[1]
+        for index, lower in enumerate(expiration_ranges):
+            mask = (df['days_left'] >= lower) & (df['days_left'] < upper)
+            split_dfs[f"{str(lower)}_{str(upper)}"] = df[mask]
+            if index == len(expiration_ranges)-2:
+                break
+            upper = expiration_ranges[index+2]
         return split_dfs
 
     @staticmethod
-    def split_dataframe_by_expiration_ranges(df: pd.DataFrame, expiration_ranges: List[int]) -> Dict[str, float]:
-        """
-        Splits a DataFrame by expiration ranges specified in 'days_left' and returns a dictionary
-        where each key is an expiration range and each value is the total open interest for that range.
-
-        :param df: DataFrame to split, which includes 'days_left' and 'sum_ois' columns.
-        :param expiration_ranges: List of expiration ranges in days.
-        :return: Dictionary with expiration ranges as keys and total open interest as values.
-        """
+    def split_dataframe_by_strikes_ranges(df: pd.DataFrame, price_range: List[int]) -> Dict[str, float]:
+        """ splits df into dfs by a range of strike from current price %"""
         ois_totals = {}
-        range_limits = expiration_ranges + [float('inf')]  
-        previous_upper = 0
-        for upper in range_limits:
-            mask = (df['days_left'] >= previous_upper) & (df['days_left'] < upper)
-            total_ois = df.loc[mask, 'sum_ois'].sum()
-            if upper == float('inf'):
-                range_label = f"{previous_upper}+ days"
-            else:
-                range_label = f"{previous_upper}-{upper} days"
-            ois_totals[range_label] = total_ois
-            previous_upper = upper
+        price_range = price_range + [float('inf')]
+        for index, lower in enumerate(price_range[:-1]):
+            upper = price_range[index + 1]
+            mask = df.apply(lambda row: lower <= abs(100 * ((row['strikes'] - row['price']) / row["price"])) < upper, axis=1)
+            total_ois = df[mask]['ois'].sum()
+            ois_totals[f"{str(lower)}_{str(upper)}"] = total_ois
         return ois_totals
     
-    @staticmethod
-    def process_options_dataframe(self, dataframes, price_ranges, expiration_ranges):
+    def process_options_dataframe(self, dataframes, expiration_ranges, price_ranges):
         """ abstraction of split_dataframe_by_weighted_price_ranges and split_dataframe_by_expiration_ranges  """
         ois_dictionary = {}
-        dfs_by_price_range = self.split_dfs(dataframes, price_ranges)
-        for price_range, df in dfs_by_price_range.itmes():
-            ois = self.split_dataframe_by_expiration_ranges(df, expiration_ranges)
-            ois_dictionary[price_range] = ois
+        dfs_by_price_range = self.split_dataframe_by_expiration_ranges(dataframes, expiration_ranges)
+        for price_range, df in dfs_by_price_range.items():
+            if not df.empty:
+                ois = self.split_dataframe_by_strikes_ranges(df, price_ranges)
+                ois_dictionary[price_range] = ois
+        return ois_dictionary
 
     def merge_options_dataframes(self, dataframes : List[pd.DataFrame]) -> pd.DataFrame:
         """ 
@@ -947,8 +929,8 @@ class MarketDataFusion(CommonFlowFunctionalities):
             options_expiry_windows : np.array  -- aggregates option open_interest data based on expiry
         """
         self.options_price_ranges = options_price_ranges
-        self.options_index_price_symbols : dict = options_index_price_symbols
-        self.options_expiry_windows : np.array = options_expiry_windows
+        self.options_index_price_symbols = options_index_price_symbols
+        self.options_expiry_windows = options_expiry_windows
 
         self.market_state = dict()
         self.folderpath = ""
@@ -1121,18 +1103,18 @@ class MarketDataFusion(CommonFlowFunctionalities):
                 merged_calls = self.merge_options_dataframes(calls_to_merge)
                 merged_puts = self.merge_options_dataframes(puts_to_merge)
                 
-                print(self.process_options_dataframe(merged_calls))
-                
+                calls = self.process_options_dataframe(merged_calls, self.options_expiry_windows, self.options_price_ranges)
+                puts = self.process_options_dataframe(merged_puts, self.options_expiry_windows, self.options_price_ranges)
                 oi_dictionary = {
-                    "calls" : self.process_options_dataframe(merged_calls), 
-                    "puts" : self.process_options_dataframe(merged_puts),
+                    "calls" : calls, 
+                    "puts" : puts,
                     }
                 
-                self.merket_state.staging_data["oi_option"] = oi_dictionary
+                self.market_state.staging_data["oi_option"] = oi_dictionary
 
                 if self.mode == "testing":
-                    self.dump_df_to_csv("oi_option_calls", merged_calls)
-                    self.dump_df_to_csv("oi_option_puts", merged_puts)
+                    self.dump_df_to_csv("oi_option_calls", merged_calls[["strikes", "ois"]])
+                    self.dump_df_to_csv("oi_option_puts", merged_puts[["strikes", "ois"]])
                     self.generate_oioption_data_for_plot(oi_dictionary)
         except asyncio.CancelledError:
             print("Task was cancelled")
@@ -1239,11 +1221,11 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_oioption_data_for_plot(self, dict_ois):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_oideltas.json"
+            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_option_oi.json"
             plot_data = {
                 'data' : dict_ois,
-                'xlabel': 'Level',
-                'ylabel': 'Amount',
+                'xlabel': '',
+                'ylabel': 'OI',
                 'legend': f'merged_option_oi'
             }
             with open(filepath, 'w') as file:

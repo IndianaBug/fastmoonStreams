@@ -81,13 +81,13 @@ async def cereate_tasks_single_dataflow(stream_data):
             tasks = []
             exchange = stream_data.get("exchange") 
             
-            # path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
-            # path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
-            # path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
+            path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
+            path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
+            path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
             
-            path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{stream_data.get('id_api')}.json"
-            path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{stream_data.get('id_api_2')}.json"
-            path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{stream_data.get('id_ws')}.json"
+            # path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{stream_data.get('id_api')}.json"
+            # path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{stream_data.get('id_api_2')}.json"
+            # path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{stream_data.get('id_ws')}.json"
 
             if stream_data.get("id_api", "") != "":
                 dataapi = open(path_api, "r")

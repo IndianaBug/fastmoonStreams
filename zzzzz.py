@@ -27,16 +27,15 @@ def build_option_dataframes(self, expiration_ranges, ppr):
     
     @staticmethod
     def oiflowOption_getcolumns(price_percentage_ranges: np.array):
-        price_percentage_ranges = np.unique(np.sort(np.concatenate((price_percentage_ranges, -price_percentage_ranges)), axis=0))
         price_percentage_ranges[price_percentage_ranges == -0] = 0
-        price_percentage_ranges[price_percentage_ranges == price_percentage_ranges[0]] = 0
-        price_percentage_ranges = np.unique(price_percentage_ranges)
-        columns = np.concatenate((np.array(['timestamp']), price_percentage_ranges), axis=0)
+        fuckot[fuckot == fuckot[0]] = 0
+        fuckot = np.unique(fuckot)
+        columns = np.concatenate((np.array(['timestamp']), fuckot), axis=0)
         return columns
     
     @staticmethod
-    def oiflowOption_getranges(price_percentage_ranges: np.array):
-        price_percentage_ranges = np.unique(np.sort(np.concatenate((price_percentage_ranges, -price_percentage_ranges)), axis=0))
+    def oiflowOption_getranges(fuckot: np.array):
+        fuckot = np.unique(np.sort(np.concatenate((fuckot, -price_percentage_ranges)), axis=0))
         price_percentage_ranges[price_percentage_ranges == -0] = 0
         price_percentage_ranges[price_percentage_ranges == price_percentage_ranges[0]] = 0
         price_percentage_ranges = np.unique(price_percentage_ranges)
