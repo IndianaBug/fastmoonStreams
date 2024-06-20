@@ -122,10 +122,10 @@ class CommonFlowFunctionalities():
     def split_dataframe_by_strikes_ranges(df: pd.DataFrame, price_range: List[int]) -> Dict[str, float]:
         """ splits df into dfs by a range of strike from current price %"""
         ois_totals = {}
-        price_range = price_range + [float('inf')]
+        price_range =[-float('inf')] + [-x for x in reversed(price_range[1:])] + price_range + [float('inf')]
         for index, lower in enumerate(price_range[:-1]):
             upper = price_range[index + 1]
-            mask = df.apply(lambda row: lower <= abs(100 * ((row['strikes'] - row['price']) / row["price"])) < upper, axis=1)
+            mask = df.apply(lambda row: lower <= 100 * ((row['strikes'] - row['price']) / row["price"]) < upper, axis=1)
             total_ois = df[mask]['ois'].sum()
             ois_totals[f"{str(lower)}_{str(upper)}"] = total_ois
         return ois_totals
@@ -186,7 +186,7 @@ class CommonFlowFunctionalities():
         trades_depth_history = self.merge_dataframes(dataframes, 'sum')
         canceled_depth = trades_depth_history.diff()
         canceled_depth = canceled_depth.where(canceled_depth < 0, 0).dropna().sum().abs()
-        return canceled_depth.to_dict()
+        return {level : amount for level, amount in canceled_depth.to_dict().items() if amount > 0}
 
     def make_rbooks_dictionary(self, dataframes : List[pd.DataFrame]): 
         """ 
@@ -196,7 +196,7 @@ class CommonFlowFunctionalities():
         trades_depth_history = self.merge_dataframes(dataframes, 'sum')
         canceled_depth = trades_depth_history.diff()
         canceled_depth = canceled_depth.where(canceled_depth > 0, 0).dropna().sum()
-        return canceled_depth.to_dict()
+        return {level : amount for level, amount in canceled_depth.to_dict().items() if amount > 0}
 
     def dataframe_to_dictionary(self, dataframe : pd.DataFrame):
         """ aggregated trades by dictionary by timeinterval and returns a dictionary in json format"""
@@ -921,6 +921,8 @@ class MarketDataFusion(CommonFlowFunctionalities):
             oi_options_aggregation_interval = None,
             canceled_books_spot_aggregation_interval = None,
             canceled_books_future_aggregation_interval = None,
+            reinforced_books_spot_aggregation_interval=None,
+            reinforced_books_future_aggregation_interval=None,
             mode = "production"
             ):
         """ 
@@ -946,8 +948,8 @@ class MarketDataFusion(CommonFlowFunctionalities):
             "oi_options": oi_options_aggregation_interval,
             "cdepth_spot": canceled_books_spot_aggregation_interval,
             "cdepth_future": canceled_books_future_aggregation_interval,
-            "rdepth_spot": canceled_books_spot_aggregation_interval,
-            "rdepth_future": canceled_books_future_aggregation_interval,
+            "rdepth_spot": reinforced_books_spot_aggregation_interval,
+            "rdepth_future": reinforced_books_future_aggregation_interval,
         }
         
         self.mode = mode
@@ -1071,7 +1073,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
                 
                 await asyncio.sleep(interval)
                 
-                depth = self.market_state.raw_data.get("merged_dataframes").get("trades").get(inst_type)
+                depth = self.market_state.raw_data.get("merged_dataframes").get("depth").get(inst_type)
                 trades = self.market_state.raw_data.get("merged_dataframes").get("trades").get(inst_type).get("total")
                 
                 if "cdepth" in aggregation_type:
@@ -1082,7 +1084,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
                     self.market_state.staging_data["maps"][aggregation_type] = depth_dict
 
                 if self.mode == "testing":
-                    self.generate_crdepth_data_for_plot(inst_type, depth_type, inst_type)
+                    self.generate_crdepth_data_for_plot(depth_dict, depth_type, inst_type)
         except asyncio.CancelledError:
             print("Task was cancelled")
             raise
@@ -1109,7 +1111,6 @@ class MarketDataFusion(CommonFlowFunctionalities):
                     "calls" : calls, 
                     "puts" : puts,
                     }
-                
                 self.market_state.staging_data["oi_option"] = oi_dictionary
 
                 if self.mode == "testing":
@@ -1136,7 +1137,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
             plot_data = {
                 'x': [float(x) for x in data_dict.keys()],
                 'y': [float(x) for x in data_dict.values()],
-                'price' : self.find_level(self.market_state.staging_data.get("global").get(f"price_{inst_type}", 70000)),
+                'price' : self.find_level(self.market_state.staging_data.get("global", {}).get(f"price_{inst_type}", 70000)),
                 'xlabel': 'Level',
                 'ylabel': 'Amount',
                 'legend': title

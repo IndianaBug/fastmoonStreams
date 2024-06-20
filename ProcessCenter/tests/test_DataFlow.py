@@ -17,17 +17,20 @@ from streams import streams_data, merge_types
 
 market_state = MarketState(streams_data)
 fusor = MarketDataFusion(
-    depth_spot_aggregation_interval = None,
-    depth_future_aggregation_interval = None,
-    trades_spot_aggregation_interval = None,
-    trades_future_aggregation_interval = None,
+    depth_spot_aggregation_interval = 10,   
+    depth_future_aggregation_interval = 10,
+    trades_spot_aggregation_interval = 10,
+    trades_future_aggregation_interval = 10,
     trades_option_aggregation_interval = None,
     oi_deltas_aggregation_interval = None,
     liquidations_future_aggregation_interval = None,
-    oi_options_aggregation_interval = 4,
-    canceled_books_spot_aggregation_interval = None,
-    canceled_books_future_aggregation_interval = None,
+    oi_options_aggregation_interval = None,
+    canceled_books_spot_aggregation_interval = 10,
+    canceled_books_future_aggregation_interval = 10,
+    reinforced_books_spot_aggregation_interval = 10,
+    reinforced_books_future_aggregation_interval = 10,
     mode="testing"
+ 
     )
 ### Reference All dependencies
 
@@ -81,13 +84,13 @@ async def cereate_tasks_single_dataflow(stream_data):
             tasks = []
             exchange = stream_data.get("exchange") 
             
-            path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
-            path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
-            path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
+            # path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
+            # path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
+            # path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
             
-            # path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{stream_data.get('id_api')}.json"
-            # path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{stream_data.get('id_api_2')}.json"
-            # path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{stream_data.get('id_ws')}.json"
+            path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{stream_data.get('id_api')}.json"
+            path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{stream_data.get('id_api_2')}.json"
+            path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{stream_data.get('id_ws')}.json"
 
             if stream_data.get("id_api", "") != "":
                 dataapi = open(path_api, "r")
@@ -132,6 +135,8 @@ def cereate_tasks_datafusion():
                 tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_oi_deltas(aggregation_type=aggregation_type, aggregation_lag = 1)))
             elif aggregation_type in ["oi_options"]:
                 tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_oioption(aggregation_type=aggregation_type, aggregation_lag = 1)))
+            elif aggregation_type in ["cdepth_spot", "cdepth_future", "rdepth_spot", "rdepth_future"]:
+                tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_cdepth_rdepth(aggregation_type=aggregation_type, aggregation_lag = 1)))
     return tasks
 
 async def run_all_tasks():
