@@ -68,3 +68,109 @@ Composite Metrics
 # Rate of change
 # Candlestick Patters
 # Cook with deep clustering, analyze the utility of clusters
+
+
+
+
+
+# Trades
+
+## Open
+## Close
+## High
+## Low
+# Market buys 
+# market sells
+# imbalace
+# Volume-Weighted Average Price (VWAP):
+# Price volume correlation
+# Time-Weighted Average Price (TWAP):
+# Intraday seasonality, any seasonality
+# Volatility
+# Rolling mean of standart deviation over n intervals
+# Trends and exponential oving averages
+# Average True range
+# Bollinger Bands
+# General market impact, caused by all trades
+# Specific market impact, caused by specific trades
+# Microstructure Noise Models, autoregressions, rollm odelsvarianvce models
+# Number of trades per minute
+# Gaps between consegutive trades
+# Momentum indicators, any of these
+# Average trade size
+# Trade size variance
+# Median absolute deviation of trade sizes
+# skewness, kurtosis
+# VWAP
+# TWAP
+# Detection of significant increases in traded volume compared to historical averages Z-score of traded volume to identify outliers
+
+# Depth
+# Quote Stuffing Detection
+
+
+# Terades clustering
+
+# price_impact: impact on price of this trade
+# volume : amount traded
+# execution_gap
+# cumulative_price_impact: over-n intervals
+# price_velocity:  Price impact divided by the time difference.
+# volume_impact : the difference in traded volume between consecutive trades
+# trade_intensity : Over n interval. Number of trades executed within a fixed time window.
+# rolling_volume: over n intervals
+# Volume_velocity: volume_impact / price_velocity
+# volatility: any andicator of volatility like ATR over n intervals
+# momentum: any momentum indicators over n intervals
+# rolling execution gap
+
+# Trade Size Relative to Rolling Volume:
+# Trade Volume Skewness: Indicates the asymmetry in trade volume distribution, capturing the presence of outliers.
+# Trade Volume Kurtosis: Measures the "tailedness" of the volume distribution, indicating the presence of extreme values.
+# Rolling kurtosis
+# Rolling skewness 
+# Rolling price impact
+# autocorrelation
+# Entropy
+# Hurrst exponent
+# Fractal dimention
+# GARCH
+
+Correlation between trade volumes and the number of liquidations over a fixed time window. Formula:Corr(Trade Volume,Liquidations) Corr(Trade Volume,Liquidations)
+
+
+Open Interest Clustering:
+
+Definition: Identify clusters of open interest changes at various price levels.
+Usage: High concentrations of open interest changes can indicate significant positions.
+Trade Volume Clustering:
+
+Definition: Identify clusters of trade volumes at various price levels.
+Usage: High trade volumes at certain levels can indicate active trading and position building.
+Position Density:
+
+Definition: Calculate the density of positions at each price level based on open interest changes.
+Formula: 
+Position Density
+=
+Open Interest Change at Level
+Total Open Interest Change
+Position Density= 
+Total Open Interest Change
+Open Interest Change at Level
+​
+ 
+Price Attraction Levels:
+
+Definition: Identify price levels with the highest concentrations of positions.
+Usage: These levels can act as magnets for price movements.
+Net Position Change:
+
+Definition: Calculate the net change in positions at each price level over time.
+Formula: 
+Net Position Change = Cumulative Open Interest Change at Level − Cumulative Liquidation Volume at Level
+Net Position Change = Cumulative Open Interest Change at Level − Cumulative Liquidation Volume at Level
+
+
+
+wait I have a better idea. So I have ticks of open interest. Right? So suppouse total open interest is 100 000 contracts. Over time, I will just track every contract opened on every level. Once it reaches 100 000 bam, I have a complete map. 
