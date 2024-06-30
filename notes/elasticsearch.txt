@@ -1,0 +1,59 @@
+password: HNtNChGd-2Id-9O_XXg_
+          P0H3MsMaUKy7=6jOi-Jx
+certificate SHA-256 fingerprint: e13b8081995a509320d2882434ec223657befe375fb81f7753565e030afecf9b
+kibana enrolement token: eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTkyLjE2OC4xLjI1Mjo5MjAwIl0sImZnciI6ImUxM2I4MDgxOTk1YTUwOTMyMGQyODgyNDM0ZWMyMjM2NTdiZWZlMzc1ZmI4MWY3NzUzNTY1ZTAzMGFmZWNmOWIiLCJrZXkiOiIzUnlKYVpBQjJaU1RKQktrM2FHZjp0NzdGQ1Fta1RpYU9zR3NqTVZlVi1nIn0=
+nodes_enrolement_token = eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTkyLjE2OC4xLjI1Mjo5MjAwIl0sImZnciI6ImUxM2I4MDgxOTk1YTUwOTMyMGQyODgyNDM0ZWMyMjM2NTdiZWZlMzc1ZmI4MWY3NzUzNTY1ZTAzMGFmZWNmOWIiLCJrZXkiOiIzaHlQYVpBQjJaU1RKQktra0tHajozUXJodkRQZ1Q3LVpSSVZUd05uM2ZnIn0=
+
+(reset with `bin/elasticsearch-reset-password -u elastic`)
+
+Configure other nodes to join this cluster: --- `bin/elasticsearch-create-enrollment-token -s node`. 
+
+setx ELASTIC_PASSWORD
+
+While Elasticsearch is running you can interact with it through its HTTP interface which is on port 9200 by default.
+
+
+# curl --cacert %ES_HOME%\config\certs\http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
+# Get these 2 certificates, transport and htps
+
+
+curl --cacert %ES_HOME%\config\certs\http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200 
+
+
+
+0.1 Nodes from other hosts:
+    --- If you want nodes from another host to join your cluster, you need to set transport.host to a supported value (such as uncommenting the suggested value of 0.0.0.0), or an IP address that’s bound to an interface where other hosts can reach it. Refer to transport settings for more information
+
+create yaml instanace file withj next stuff
+instances:
+  - name: "node-1"
+    dns:
+      - "localhost"
+    ip:
+      - "127.0.0.1"
+notepad %ES_HOME%\config\certs\instance.yml
+
+1. Certigicate Authority (CA):
+    --- Used to sign any other certificates
+    --- cd %ES_HOME%\bin
+    --- elasticsearch-certutil ca --out %ES_HOME%\config\certs\elastic-stack-ca.p12
+
+2. Node certificates:
+    --- securuty communication between nodes. For implementing transport layer security
+    --- elasticsearch-certutil cert --ca %ES_HOME%\config\certs\elastic-stack-ca.p12 --in %ES_HOME%\config\certs\instance.yml --out %ES_HOME%\config\certs\elastic-certificates.p12
+
+
+    
+    cd %ES_HOME%\config\certs
+    openssl pkcs12 -in elastic-stack-ca.p12 -clcerts -nokeys -out elastic-stack-ca.crt
+    openssl pkcs12 -in elastic-certificates.p12 -clcerts -nokeys -out node-1.crt
+    openssl pkcs12 -in elastic-certificates.p12 -nocerts -nodes -out node-1.key
+
+
+
+
+
+
+curl --cacert %ES_HOME%\config\certs\http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200 
+
+curl --insecure -u elastic:%ELASTIC_PASSWORD% https://localhost:9200

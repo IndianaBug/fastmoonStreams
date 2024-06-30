@@ -345,6 +345,7 @@ class MarketState:
         self.streams_data = streams_data
         self.dead_instruments_timeout = dead_instruments_timeout
         self.staging_data = self.create_marketstate_datastructure(self.streams_data)
+        self.data_properties = self.build_properties(self.staging_data)
         self.raw_data = self.create_raw_datastructure()
 
     def create_marketstate_datastructure(self, streams_data, *args, **kwargs,):
@@ -454,6 +455,22 @@ class MarketState:
             d["oi_options"] = {}
         return d
     
+    def build_properties(self, data_structure):
+        """ builds properties for json schema, for elasticsearch database"""
+        properties = {}
+        for key, value in data_structure.items():
+            if isinstance(value, dict):
+                properties[key] = {
+                    "type": "object",
+                    "dynamic": True,
+                    "properties": self.build_properties(value)
+                }
+            elif isinstance(value, (int, float)):
+                properties[key] = {
+                    "type": "float"
+                }
+        return properties
+
     def create_raw_datastructure(self):
         """ creates datastructure that will be merged"""
         d = {

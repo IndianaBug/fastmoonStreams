@@ -5,6 +5,7 @@ coinbase_api = 'organizations/b6a02fc1-cbb0-4658-8bb2-702437518d70/apiKeys/697a8
 kucoin_api = "65d92cc0291aa2000118b67b"
 kucoin_secret = "3d449464-ab5e-4415-9950-ae31648fe90c"
 kucoin_pass = "sN038-(!UK}4"
+elastic_password = "P0H3MsMaUKy7=6jOi-Jx"
 
 merge_types = [
     "depth_spot", "depth_future", "trades_spot", "trades_future", 
