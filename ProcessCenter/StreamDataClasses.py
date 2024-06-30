@@ -340,15 +340,16 @@ class MarketState:
             Each raw_data will contain a timestamp for a corresponding data object in order to ensure the old data wasnt merged.
             If there is old data, the software will notify
     """
-    def __init__(self, streams_data, dead_instruments_timeout=600):
+    def __init__(self, streams_data, cdepth_spot=True, cdepth_future=True, rdepth_spot=True, rdepth_future=True, dead_instruments_timeout=600):
         """ dead_instruments_timeout : timeinterval for removing expired futures"""
         self.streams_data = streams_data
         self.dead_instruments_timeout = dead_instruments_timeout
         self.staging_data = self.create_marketstate_datastructure(self.streams_data)
         self.data_properties = self.build_properties(self.staging_data)
+        self.staging_data = self.create_marketstate_datastructure(self.streams_data, cdepth_spot, cdepth_future, rdepth_spot, rdepth_future)
         self.raw_data = self.create_raw_datastructure()
 
-    def create_marketstate_datastructure(self, streams_data, *args, **kwargs,):
+    def create_marketstate_datastructure(self, streams_data, cdepth_spot, cdepth_future, rdepth_spot, rdepth_future, *args, **kwargs,):
         """ 
             Creates datastructed based on selected streams
         """
@@ -418,16 +419,16 @@ class MarketState:
             
         if {("depth", "spot")}.issubset(metrics_to_insttype):
             aggregated_maps_structure["depth_spot"] = {}
-            if "make_canceled_books" in args:
+            if cdepth_spot:
                 aggregated_maps_structure["cdepth_spot"] = {}
-            if "make_reinforced_books" in args:
+            if rdepth_spot:
                 aggregated_maps_structure["rdepth_spot"] = {}
 
         if {("depth", "perpetual")}.issubset(metrics_to_insttype):
             aggregated_maps_structure["depth_future"] = {}
-            if "make_canceled_books" in args:
+            if cdepth_future:
                 aggregated_maps_structure["cdepth_future"] = {}
-            if "make_reinforced_books" in args:
+            if rdepth_future:
                 aggregated_maps_structure["rdepth_future"] = {}
         
         if {("gta", "perpetual")}.issubset(metrics_to_insttype) or {("tta", "perpetual")}.issubset(metrics_to_insttype):
