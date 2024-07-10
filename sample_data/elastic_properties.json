@@ -1,0 +1,130 @@
+{
+    "global": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+            "price_spot": {
+                "type": "float"
+            },
+            "buys_spot": {
+                "type": "float"
+            },
+            "sells_spot": {
+                "type": "float"
+            },
+            "price_future": {
+                "type": "float"
+            },
+            "buys_future": {
+                "type": "float"
+            },
+            "sells_future": {
+                "type": "float"
+            },
+            "longs": {
+                "type": "float"
+            },
+            "shorts": {
+                "type": "float"
+            }
+        }
+    },
+    "by_instrument": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+            "price_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "price_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            }
+        }
+    },
+    "maps": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+            "buys_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "sells_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "buys_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "sells_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "longs": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "shorts": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "depth_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "cdepth_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "rdepth_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "depth_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "cdepth_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "rdepth_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            }
+        }
+    },
+    "ticks": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+            "trades_spot": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            },
+            "trades_future": {
+                "type": "object",
+                "dynamic": true,
+                "properties": {}
+            }
+        }
+    }
+}

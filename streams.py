@@ -41,10 +41,9 @@ ws = {
         "perpetual.depth.BTCUSDT.snap",                                   # api ok  ws ok
         "perpetual.depth.BTCUSD_PERP.snap",                               # api ok  ws ok
         "perpetual.trades.BTCUSDT.BTCUSDC",                               # ok
-        # "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
+        "perpetual.liquidations.BTCUSDT.BTCUSDC",                         # ok
         "perpetual.trades.BTCUSD_PERP",                                   # ok
-        # "perpetual.liquidations.BTCUSD_PERP",                             # ok
-        # "option.trades.BTC",                                              # ok
+        "perpetual.liquidations.BTCUSD_PERP",                             # ok
         ],
     "bybit" : [
         "spot.trades.BTCUSDT.BTCUSDC",                                      # ok           
@@ -54,23 +53,20 @@ ws = {
         "perpetual.depth.BTCUSD.snap",                                      # ok ok
         "perpetual.trades.BTCUSDT.BTCPERP",                                 # ok
         "perpetual.trades.BTCUSD",                                          # ok
-        # "perpetual.liquidations.BTCUSDT.BTCPERP",                           # ok
-        # "perpetual.liquidations.BTCUSD",                                    # ok
-        # "option.trades.BTC",                                                # ok
+        "perpetual.liquidations.BTCUSDT.BTCPERP",                           # ok
+        "perpetual.liquidations.BTCUSD",                                    # ok
         ],
     "okx" : [
         "spot.depth.BTC-USDT.snap",                                             # ok ok
         "spot.trades.BTC-USDT.BTC-USDC",                                        # ok
         "perpetual.depth.BTC-USDT-SWAP.snap",                                   # ok ok 
         "perpetual.trades.BTC-USD-SWAP.BTC-USDT-SWAP.BTC-USDC-SWAP",            # ok
-        # "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
-    #     "option.optionTrades.BTC-USD",                                          # ok
+        "perpetual.liquidations.SWAP.FUTURES.OPTION",                           # ok
         ],
     "deribit" : [                                                               
-        # "perpetual.heartbeats.BTC-PERPETUAL",                                   # ok 
+        "perpetual.heartbeats.BTC-PERPETUAL",                                   # ok 
         "perpetual.depth.BTC-PERPETUAL.snap",                                   # ok # ok 
         "future.tradesagg.BTC",                                                 # ok
-        # "option.tradesagg.BTC",                                                 # ok
     #     # liquidations                                                          # ok
         ],
     "bitget" : [
@@ -106,66 +102,65 @@ ws = {
     "coinbase" : [
         "spot.depth.BTC-USD.snap",                                              # ok ok
         "spot.trades.BTC-USD",                                                  # ok
-        # "spot.heartbeats.BTC-USD",                                              # ok
+        "spot.heartbeats.BTC-USD",                                              # ok
         ],
 }
 
 api = {
     "binance" : [
-    #     "perpetual.funding.BTC.15.spec", 
-        # "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15.spec",         # nein
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",         # ok
         "option.oi.BTC.15.spec",
         ],
     "bybit" : [                               # ok
-    #     "perpetual.funding.BTC.15.spec", 
-        # "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15.spec",
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.gta.BTC.15.spec",
         "option.oioption.BTC.15"
         ],
     "okx" : [                                # ok
-        # "perpetual.oi.BTC.15.spec", 
-    #     "perpetual.funding.BTC.15.spec", 
-    #     "perpetual.gta.BTC.15",
+        "perpetual.oi.BTC.15.spec", 
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.gta.BTC.15",
         "option.oi.BTC-USD.15",
         ],
     "deribit" : [
-        # "future.oifunding.BTC.60",            # ok
+        "future.oifunding.BTC.60",            # ok
         "option.oifunding.BTC.60",
         ],
     "bitget" : [                               # ok
-    #     "perpetual.funding.BTC.15.spec", 
-        # "perpetual.oi.BTC.15.spec", 
+        "perpetual.funding.BTC.15.spec", 
+        "perpetual.oi.BTC.15.spec", 
     ],
     "bingx" : [                                 # ok
-    #     "perpetual.funding.BTC-USDT.15", 
-        # "perpetual.oi.BTC-USDT.15",  
-        # "perpetual.depth.BTC-USDT.30",  
+        "perpetual.funding.BTC-USDT.15", 
+        "perpetual.oi.BTC-USDT.15",  
+        "perpetual.depth.BTC-USDT.30",  
         ],
     "kucoin" : [
-        # "perpetual.oifunding.XBTUSDTM.15",          # ok
+        "perpetual.oifunding.XBTUSDTM.15",          # ok
         ],
     "gateio" : [
-    #     "perpetual.funding.BTC.20.spec",  
-        # "perpetual.oi.BTC.20.spec",    
-    #     "perpetual.tta.BTC.20.spec",    
+        "perpetual.funding.BTC.20.spec",  
+        "perpetual.oi.BTC.20.spec",    
+        "perpetual.tta.BTC.20.spec",    
         "option.oi.BTC_USDT.60",            # nothing here
         ],
     "mexc" : [                               # ok
-        # "perpetual.oifunding.BTC_USDT.15",
+        "perpetual.oifunding.BTC_USDT.15",
         ],
     "htx" : [                                # ok
-        # "perpetual.oi.BTC.20.spec", 
-    #     "perpetual.funding.BTC.60.spec", 
-    #     "perpetual.gta.BTC.60.spec",
+        "perpetual.oi.BTC.20.spec", 
+        "perpetual.funding.BTC.60.spec", 
+        "perpetual.gta.BTC.60.spec",
         ],
 }
 
 
 streams_data = client.build_connection_data(ws, api)
 
-# for stream in streams_data:
-#     print(stream)
-#     print()
 
-# print(streams_data)
+for e in streams_data:
+    print(e)
+    print()

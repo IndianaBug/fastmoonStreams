@@ -5,11 +5,11 @@ from typing import AsyncIterator
 import logging
 from logging.handlers import RotatingFileHandler
 import faust
-import backoff
-from .errors import faust_proceed_errors, faust_backup_errors, faust_message_errors, faust_shutdown_errors
-from .errors import ws_backoff_errors, ws_unrecoverable_errors
-from .utilis_ConsumerEngine import ws_fetcher_helper
-from .db_connectors import PostgresConnector, MockdbConnector, AsyncClickHouseConnector
+from .db_connectors import PostgresConnector, MockdbConnector
+
+async def ws_fetcher_helper(function):
+    data = await function()
+    return data
 
 backoff_retries = 8
 

@@ -2,37 +2,56 @@ from datetime import datetime
 import time
 import sys
 import os
+
 current_directory = os.path.dirname(os.path.abspath(__file__))
 module_directory = os.path.join(current_directory, '')
 sys.path.append(module_directory)
-from ProcessCenter.utilis_MessageProcessor import *
+
+from ProcessCenter.utilis import *
 from typing import Dict, List, Tuple, Union, Callable, Any, Optional
 import ijson
 import rapidjson as json
 import gzip
 
+from config import (
+    backup_symbols,
+    default_price_value,
+    binance_inverse_multipliers, 
+    binance_option_multipliers,
+    okx_future_multipliers, 
+    okx_option_multipliers,
+    okx_liquidations_inst_types,
+    okx_liquidations_symbol,
+    deribit_future_multipliers,
+    deribit_option_multipliers,
+    kucoin_future_multipliers,
+    mexc_future_multipliers,
+    gateio_future_multipliers,
+    gateio_option_multipliers,
+)
+
 class on_message_helper():
+    """
+        return datatypes by metric:
+            
+            depth: {
+                "bids" : [[price, amount]...], 
+                "asks" : [[price, amount]...], 
+                "timestamp" : unix
+                }
+            trades/liquidations: {
+                "trades" : [{"side" : str, "amount" : float, "price" : float, "timestamp" : unix} ... ],
+                "liquidations" : [{"side" : str, "amount" : float, "price" : float, "timestamp" : unix} ... ],
+                "timestamp" : unix
+                }
+            oi/funding/optionoi/tta/ttp/gta/oifunding : {
+                                                symbol : {"metric" : value, "metric_2" : value, ... "timestamp" : unix},
+                                                "symbol_2, : {"metric" : value, "metric_2" : value, ... "timestamp" : unix},
+                                                .... 
+                                                }
 
     """
-        depth : {"bids" : [[price, amount]], "asks" : [[price, amount]], "timestamp" : '%Y-%m-%d %H:%M:%S'}
-        trades_liquidations : {"liquidations" : {"side" : str, "amount" : float, "price" : float, "timestamp" : '%Y-%m-%d %H:%M:%S'}, 
-                                "asks" : {"side" : str, "amount" : float, "price" : float, "timestamp" : '%Y-%m-%d %H:%M:%S'}, 
-                                "timestamp" : '%Y-%m-%d %H:%M:%S'}
-        oi_funding_optionoi_tta_ttp_gta_pos : {symbol : {"some indicator" : value}, ....}
-
-
-        you must pass at least 3 args to evry function : data, market_state, connection data
-
-        market_state is a dictionary of characteristics per instrument : Ex: btcusdt@spot@binance : {"oi": someoi.....}
-
-        connection_data is the ws identificatio data
-        
-        # TOdo
-        you should randomly initialize market state / remove the data from the first minute
-        you need to fetch initial binance futures prices. all futures
-
-    """
-    default_price_value = 70000
+    default_price_value = default_price_value
 
     @classmethod
     def convert_books(cls, data):
@@ -52,32 +71,23 @@ class on_message_helper():
   
 class binance_on_message(on_message_helper):
 
-    def __init__ (self, binance_derivate_multiplier:Optional[Dict[str, Callable]] = None, backup_symbol_binance:str = None):
+    def __init__ (self):
         """
-            binance_derivate_multiplier: deals with multipliers for the different derivatives contracts as some symbols worth different amounts of USD
-            binance_derivate_multiplier: Suppouse, you have a OI for BTCDUSDTOM and there is not price tracking 
-                                        for BTCUSDTOM, backup symbol will be used as a proxy for a price
-                                        but you must ensure that the trades of this symbol are streamed
-
             https://www.binance.com/en/support/faq/binance-coin-margined-futures-contract-specifications-a4470430e3164c13932be8967961aede
-
             https://www.binance.com/en/support/faq/binance-options-contract-specifications-cdee5d43b70d4d2386980d41786a8533
-
-            Be cautios with option, as units vary for XRP and DOGE
         """
-        if binance_derivate_multiplier is None:
-            self.binance_derivate_multiplier = {
-                "BTCUSD" : lambda amount, price, *args, **kwargs: amount * 100 / price,  # the same for perp and any expiry future
-                "BTCUSDT" : lambda amount, price, *args, **kwargs: amount,
-                "BTCDOMUSDT" : lambda amount, price, *args, **kwargs : amount,
-                "BTCUSDC" : lambda amount, price, *args, **kwargs : amount,
-            }
-        else:
-            self.binance_derivate_multiplier = binance_derivate_multiplier
-        if backup_symbol_binance is None:
-            self.backup_symbol_binance = "BTCUSDT@perpetual@binance"
-        else:
-            self.backup_symbol_binance = backup_symbol_binance
+        self.backup_symbol_binance = backup_symbols.get("binance")
+        self.binance_inverse_multipliers = binance_inverse_multipliers
+        self.binance_option_multipliers = binance_option_multipliers
+    
+    def binance_future_multiplier(self, symbol, amount, price, *args, **kwargs):
+        msymbol = "BTC" if "BTC" in symbol else "other"
+        multiplier = self.binance_inverse_multipliers[msymbol]
+        return amount * multiplier / price
+    
+    def binance_option_multiplier(self, symbol, amount, *args, **kwargs):
+        multiplier = self.binance_inverse_multipliers[symbol]
+        return amount * multiplier 
     
     async def binance_api_spot_depth(self, data:str, *args, **kwargs): 
         bids = []
@@ -146,9 +156,6 @@ class binance_on_message(on_message_helper):
                 symbol = value
             if timestamp != None and symbol != None:
                 break
-        
-        
-        ss = symbol.split("_")[0]
 
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
@@ -161,13 +168,15 @@ class binance_on_message(on_message_helper):
             if prefix == "bids.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "bids.item.item" and previous_map_event == "string":
-                helper_list.append(self.binance_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.binance_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "asks.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "asks.item.item" and previous_map_event == "string":
-                helper_list.append(self.binance_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.binance_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -222,8 +231,6 @@ class binance_on_message(on_message_helper):
             if timestamp != None and symbol != None:
                 break
         
-        ss = symbol.split("_")[0]
-
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
         imid = f"{symbol}@{instType}@binance"
@@ -234,13 +241,15 @@ class binance_on_message(on_message_helper):
             if prefix == "b.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "b.item.item" and previous_map_event == "string":
-                helper_list.append(self.binance_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.binance_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "a.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "a.item.item" and previous_map_event == "string":
-                helper_list.append(self.binance_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.binance_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -250,23 +259,19 @@ class binance_on_message(on_message_helper):
     async def binance_ws_spot_perpetual_future_option_linear_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
 
         data = json.loads(data)
-        
         symbol = data.get("s")
         instType = connection_data.get("instType") or connection_data.get("instTypes") 
         msid = f"{symbol}@{instType}@binance"
-        
         quantity = float(data.get("q"))
         price = float(data.get("p"))
         side = "buy" if data.get("m") is True else "sell"
         timestamp = float(data.get("E")) / 1000
-        # timestamp = self.process_timestamp(timestamp, 1000)
-        receive_time = float(data.get("E")) / 1000
         
         if instType != "option":
             instType = "future" if instType == "perpetual" else instType
             market_state.input_data(f"price_{instType}", msid, price)
 
-        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "timestamp" : receive_time}
+        return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "timestamp" : timestamp}
 
     async def binance_ws_perpetual_future_inverse_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
         data = json.loads(data)
@@ -274,15 +279,14 @@ class binance_on_message(on_message_helper):
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         msid = f"{symbol}@{instType}@binance"
         price = float(data.get("p"))
-        quantity = self.binance_derivate_multiplier.get(data.get("s").split("_")[0])(float(data.get("q")), price)
+        quantity = self.binance_future_multiplier(symbol, float(data.get("q")), price)
         side = "buy" if data.get("m") is True else "sell"
         timestamp = float(data.get("E")) / 1000
-        # timestamp = self.process_timestamp(timestamp, 1000)
         market_state.input_data("price_future", msid, price)
         receive_time = float(data.get("E")) / 1000
         return {"trades" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "liquidations" : [], "timestamp" : receive_time}
 
-    async def binance_ws_perpetual_future_option_linear_liquidations(self, data:str, *args, **kwargs): #  -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_option_liquidations(self, data:str, *args, **kwargs): 
         data = json.loads(data)
         quantity = float(data.get("o").get("q"))
         price = float(data.get("o").get("p"))
@@ -291,25 +295,36 @@ class binance_on_message(on_message_helper):
         r =  {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : timestamp}
         return r
 
-    async def binance_ws_perpetual_future_inverse_liquidations(self, data:str, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
+    async def binance_ws_perpetual_future_linear_liquidations(self, data:str, *args, **kwargs):
         data = json.loads(data)
+        quantity = float(data.get("o").get("q"))
         price = float(data.get("o").get("p"))
-        quantity = self.binance_derivate_multiplier.get(data.get("o").get("ps"))(float(data.get("o").get("q")), price)
         side = data.get("o").get("S").lower()
         timestamp = float(data.get("E")) / 1000
-        # timestamp = self.process_timestamp(timestamp, 1000)
+        r =  {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : timestamp}
+        return r
+
+    async def binance_ws_perpetual_future_inverse_liquidations(self, data:str, market_state, connection_data, *args, **kwargs): # -> 'on_message_helper.trades_liquidations':
+        data = json.loads(data)
+        symbol = data.get("o").get("ps")
+        price = float(data.get("o").get("p"))
+        quantity = self.binance_future_multiplier(symbol, float(data.get("o").get("q")), price)
+        side = data.get("o").get("S").lower()
+        timestamp = float(data.get("E")) / 1000
         receive_time = float(data.get("E")) / 1000
-        return {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : receive_time}
+        r = {"liquidations" : [{"side" : side, "price" : price, "quantity" : quantity, "timestamp" : timestamp}], "trades" : [], "timestamp" : receive_time}
+        return r
 
     async def binance_api_perpetual_linear_inverse_oi_oifutureperp(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): # -> 'on_message_helper.oi_funding_optionoi_tta_ttp_gta_pos':
         oidata = json.loads(data)
         symbol = oidata.get("symbol")
-        ss = symbol.split("_")[0]
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         msid = f"{symbol}@{instType}@binance"
         price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
-        # price = float(market_state.get_data("price_future", msid, backup_price))
-        amount = self.binance_derivate_multiplier.get(ss)(float(oidata.get("openInterest")), price)
+        amount = float(oidata.get("openInterest"))
+
+        if "_PERP" in symbol:
+            amount = self.binance_future_multiplier(symbol, amount, price)
         processed_data = {msid : {"oi" : amount, "price" : price, "timestamp" : time.time()}}    
         market_state.input_data("oi_future", msid, amount)
         return processed_data
@@ -323,6 +338,8 @@ class binance_on_message(on_message_helper):
         strikes = []
         days_left = []
         ois = []
+
+        symbol = connection_data.get("instrument") or connection_data.get("instruments")
         
         backup_price =  market_state.get_data("price_future", self.backup_symbol_binance, self.default_price_value)
 
@@ -335,7 +352,8 @@ class binance_on_message(on_message_helper):
                 strikes.append(float(option_data[2]))
                 days_left.append(binance_option_timedelta(option_data[1]))
             if prefix == "item.sumOpenInterest":
-                ois.append(float(value))
+                amount = self.binance_option_multiplier(symbol, float(value))
+                ois.append(amount)
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
@@ -382,26 +400,17 @@ class binance_on_message(on_message_helper):
 
 class bybit_on_message(on_message_helper):
 
-    def __init__ (self, bybit_derivate_multiplier:Optional[Dict[str, Callable]] = None, backup_symbol_bybit:Optional[str] = None):
+    def __init__ (self):
         """
             https://www.bybit.com/en/announcement-info/transact-parameters
         """
-        if bybit_derivate_multiplier == None:
-            self.bybit_derivate_multiplier = {
-                "BTCUSD" : lambda amount, price : amount / price,  # the same for perp and any expiry future
-                "BTCUSDT" : lambda amount, price : amount,
-                "BTCPERP" : lambda amount, price : amount,
-                "BTCUSDM24" : lambda amount, price : amount / price,
-                "BTCUSDU24" : lambda amount, price : amount / price,
-                "BTC" : lambda amount, price : amount,   # expiry futures
+        self.backup_symbol_bybit = backup_symbols.get("bybit")
 
-            }
+    def bybit_future_multiplier(self, symbol, amount, price, *args, **kwargs):
+        if "USD" in symbol and "USDT" not in symbol:
+            return amount / price
         else:
-            self.bybit_derivate_multiplier = bybit_derivate_multiplier
-        if backup_symbol_bybit is None:
-            self.backup_symbol_bybit = "BTCUSDT@perpetual@bybit"
-        else:
-            self.backup_symbol_bybit = backup_symbol_bybit
+            return amount
 
     async def bybit_api_fundperp_linear_inverse_perpetual_funding_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs): 
         d = {}
@@ -417,13 +426,11 @@ class bybit_on_message(on_message_helper):
         d = {}
         oidata = json.loads(data)
         symbol = oidata.get("result").get("symbol")
-        underlying = symbol.split("-")[0]
         instType = "future" if len(symbol.split("-")) == 2 else "perpetual"
         oi = float(oidata.get("result").get("list")[0].get("openInterest"))
         msid = f"{symbol}@{instType}@bybit"
         price =  market_state.get_data("price_future", self.backup_symbol_bybit, self.default_price_value)
-        # price = market_state.get_data("price_future", msid, backup_price)
-        oi = self.bybit_derivate_multiplier.get(underlying)(oi, price)
+        oi = self.bybit_future_multiplier(symbol, oi, price)
         market_state.input_data(f"oi_future", msid, oi)
         d[msid] = {"oi" : oi, "price" : price, "timestamp" : time.time()}    
         return d
@@ -486,8 +493,6 @@ class bybit_on_message(on_message_helper):
             if timestamp != None and symbol != None:
                 break
         
-        ss = symbol.split("_")[0]
-
         instType = "future" if symbol.split("-")[-1].isdigit() else "perpetual"
         
         imid = f"{symbol}@{instType}@bybit"
@@ -498,13 +503,15 @@ class bybit_on_message(on_message_helper):
             if prefix == "result.b.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "result.b.item.item" and previous_map_event == "string":
-                helper_list.append(self.bybit_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.bybit_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "result.a.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "result.a.item.item" and previous_map_event == "string":
-                helper_list.append(self.bybit_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.bybit_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -560,8 +567,6 @@ class bybit_on_message(on_message_helper):
             if timestamp != None and symbol != None:
                 break
 
-        ss = symbol.split("_")[0]
-
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         
         imid = f"{symbol}@{instType}@bybit"
@@ -572,13 +577,15 @@ class bybit_on_message(on_message_helper):
             if prefix == "data.b.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "data.b.item.item" and previous_map_event == "string":
-                helper_list.append(self.bybit_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.bybit_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "data.a.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "data.a.item.item" and previous_map_event == "string":
-                helper_list.append(self.bybit_derivate_multiplier.get(ss)(float(value), current_price))
+                amount = self.bybit_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -618,7 +625,7 @@ class bybit_on_message(on_message_helper):
             timestamp = float(trade.get("T")) / 1000
             side = trade.get("S").lower()
             price = float(trade.get("p"))
-            size = self.bybit_derivate_multiplier.get(symbol)(float(trade.get("v")), price)
+            size = self.bybit_future_multiplier(symbol, float(trade.get("v")), price)
             trades.append({"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp})
             instType = "perpetual" if len(symbol.split("_")) == 1 else "future"
             instType = "option" if len(symbol.split(symbol)) > 3 else instType
@@ -650,7 +657,7 @@ class bybit_on_message(on_message_helper):
         receive_time = float(trade.get("updatedTime")) / 1000
         side = trade.get("side").lower()
         price = float(trade.get("price"))
-        size = self.bybit_derivate_multiplier.get(symbol)(float(trade.get("size")), price)
+        size = self.bybit_future_multiplier(symbol, float(trade.get("size")), price)
         liquidations.append({"side" : side, "price" : price, "quantity" : size, "timestamp" : timestamp})
         return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}
 
@@ -693,40 +700,35 @@ class okx_on_message(on_message_helper):
 
     okx_inst_type_map = {
         "SWAP" : "perpetual",
-        "FUTURE" : "future",
+        "FUTURES" : "future",
         "OPTION" : "option",
         "SPOT" : "spot"
     }
 
-    def __init__ (self, 
-                  derivate_multiplier:Optional[Dict[str, Callable]] = None, 
-                  backup_symbol_okx:Optional[str] = None,
-                  liquidations_base_symbol = "BTC"):
+    def __init__ (self):
         """
             https://www.okx.com/trade-market/info/futures
             https://www.okx.com/help/i-okx-options-introduction
         """
-        if derivate_multiplier is None:
-            self.okx_derivate_multiplier = {
-                "perpetual@future" : {
-                    "BTC-USDT" : lambda amount, *args, **kwargs : amount * 0.01,  
-                    "BTC-USDC" : lambda amount, *args, **kwargs : amount * 0.0001,  
-                    "BTC-USD" : lambda amount, price, *args, **kwargs : amount / price * 100,
-                },
-                "option" : {
-                    "BTC-USD" : lambda amount, *args, **kwargs : amount * 0.01
-                }
-            }
+        self.okx_liquidation_symbol = okx_liquidations_symbol
+        self.backup_symbol_okx = backup_symbols.get("okx")
+        self.okx_multipliers = okx_future_multipliers
+        self.okx_option_multipliers = okx_option_multipliers
+    
+    def okx_future_multiplier(self, symbol, amount, price, *args, **kwargs):
+        base_coin = symbol.split("-")[0]
+        margin_coin = symbol.split("-")[1]
+        multiplier = self.okx_multipliers.get(margin_coin).get(base_coin)
+        if callable(multiplier):
+            return multiplier(amount)
         else:
-            self.okx_derivate_multiplier = derivate_multiplier
-        if backup_symbol_okx is None:
-            self.backup_symbol_okx = "BTC-USDT-SWAP@perpetual@okx"
-        else:
-            self.backup_symbol_okx = backup_symbol_okx
-        if not liquidations_base_symbol:
-            self.liquidations_base_symbol = liquidations_base_symbol
-        else:
-            self.liquidations_base_symbol = liquidations_base_symbol
+            return amount * multiplier / price
+    
+    def okx_option_multiplier(self, symbol, amount, *args, **kwargs):
+        base_coin = symbol.split("-")[0]
+        multiplier = self.okx_option_multipliers.get(base_coin)
+        return amount * multiplier
+
 
     async def okx_api_fundperp_perpetual_future_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
@@ -743,7 +745,8 @@ class okx_on_message(on_message_helper):
     async def okx_api_gta_perpetual_future(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
         """
-        label = "BTC@perpetual@okx" 
+        symbol = connection_data.get("instrument") or connection_data.get("instruments")
+        label = f"{symbol}@perpetual@okx" 
         count = 0
         for prefix, event, value in ijson.parse(data):
             if event == "string":
@@ -792,7 +795,9 @@ class okx_on_message(on_message_helper):
                 strikes.append(float(option_data[-2]))
                 days_left.append(calculate_option_time_to_expire_okx(option_data[2]))
             if prefix == "data.item.oi":
-                ois.append(self.okx_derivate_multiplier.get("option").get("-".join(option_data[:2]))(float(value)))
+                symbol = "-".join(option_data[:2])
+                oi = float(value)
+                ois.append(self.okx_option_multiplier(symbol, oi))
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
@@ -847,7 +852,6 @@ class okx_on_message(on_message_helper):
                 timestamp = value
 
         symbol = connection_data.get("exchange_symbols")[0]
-        ss = "-".join(symbol.split("-")[:2])
         instType = "future" if symbol.split("_")[-1].isdigit() else "perpetual"
         imid = f"{symbol}@{instType}@okx"
         
@@ -859,7 +863,8 @@ class okx_on_message(on_message_helper):
                 helper_list.append(float(value))
                 string_count += 1
             if prefix == "data.item.bids.item.item" and previous_map_event == "string" and string_count == 1:
-                helper_list.append(self.okx_derivate_multiplier.get("perpetual@future").get(ss)(float(value), current_price))
+                amount = self.okx_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)                
                 bids.append(helper_list)
                 helper_list = []
                 string_count = 0
@@ -867,7 +872,8 @@ class okx_on_message(on_message_helper):
                 helper_list.append(float(value))
                 string_count += 1
             if prefix == "data.item.asks.item.item" and previous_map_event == "string"  and string_count == 1:
-                helper_list.append(self.okx_derivate_multiplier.get("perpetual@future").get(ss)(float(value), current_price))
+                amount = self.okx_future_multiplier(symbol, float(value), current_price)
+                helper_list.append(amount)   
                 asks.append(helper_list)
                 helper_list = []
                 string_count = 0
@@ -910,16 +916,15 @@ class okx_on_message(on_message_helper):
         trades = []
         liquidations = []           
         for trade in data.get("data"):
-            multiplier_symbol = "-".join(trade.get('instId').split("-")[0:2])
+            symbol = trade.get('instId')
             side = trade.get('side')
             price =float(trade.get('px'))
             timestamp = float(trade.get("ts")) / 1000
             receive_time = float(trade.get("ts")) / 1000
-            amount = self.okx_derivate_multiplier.get("perpetual@future").get(multiplier_symbol)(float(trade.get('sz')), price)
+            amount = self.okx_future_multiplier(symbol, float(trade.get('sz')), price)
             trades.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp}) 
-
             instType = connection_data.get("instType")
-            msid = f"{trade.get('instId')}@{instType}@okx"
+            msid = f"{symbol}@{instType}@okx"
             market_state.input_data(f"price_future", msid, price)
 
         return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}          
@@ -932,42 +937,42 @@ class okx_on_message(on_message_helper):
         for liq_by_inst in data.get("data"):
             this_inst_type = liq_by_inst.get("instType")
             this_inst_type = self.okx_inst_type_map.get(this_inst_type)
-            instId = liq_by_inst.get("instId")
-            if self.liquidations_base_symbol in instId and this_inst_type in target_inst_type:
-                multiplier_symbol = liq_by_inst.get('instFamily')
-                for liquidation in liq_by_inst.get("details"):
-                    side = liquidation.get('side')
-                    price =float(liquidation.get('bkPx'))
-                    timestamp = float(liquidation.get("ts")) / 1000
-                    helper = "perpetual@future" if this_inst_type != "option" else "option"
-                    amount = float(liquidation.get("sz"))
-                    amount = self.okx_derivate_multiplier.get(helper).get(multiplier_symbol)(amount, price)
-                    liquidations.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
+            if this_inst_type in okx_liquidations_inst_types:
+                instId = liq_by_inst.get("instId")
+                if okx_liquidations_symbol in instId and this_inst_type in target_inst_type:
+                    multiplier_symbol = liq_by_inst.get('instFamily')
+                    for liquidation in liq_by_inst.get("details"):
+                        side = liquidation.get('side')
+                        price =float(liquidation.get('bkPx'))
+                        timestamp = float(liquidation.get("ts")) / 1000
+                        helper = "perpetual@future" if this_inst_type != "option" else "option"
+                        amount = float(liquidation.get("sz"))
+                        amount = self.okx_derivate_multiplier.get(helper).get(multiplier_symbol)(amount, price)
+                        liquidations.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
         r = {"trades" : trades, "liquidations" : liquidations, "timestamp" : time.time()}   
         return r
 
 class deribit_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier:Optional[Dict[str, Callable]] = None, backup_symbol_deribit:Optional[str] = None):
+    def __init__ (self):
         """
             https://www.deribit.com/kb/deribit-linear-perpetual
-
             https://static.deribit.com/files/USDCContractSpecsandmargins.pdf
         """
-        if derivate_multiplier == None:
-            self.deribit_derivate_multiplier = {
-                "BTC" : lambda amount, price=1, objective="",*args, **kwargs: amount  / price / 10 if objective == "oifuture" else amount  / price / 10,    # bullshit deribit api for oi
-                "BTC_USDC" : lambda amount, *args, **kwargs : amount * 0.001,  # any swap or future
-                "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.001,
+        self.backup_symbol_deribit = backup_symbols.get("deribit")
+        self.deribit_option_multipliers= deribit_option_multipliers
+        self.deribit_future_multipliers = deribit_future_multipliers
+    
+    def deribit_option_multiplier(self, symbol, amount, *args, **kwargs):
+        basecoin = symbol.split("-")[0]
+        multiplier = self.deribit_option_multipliers.get(basecoin)
+        return amount * multiplier
 
-            }
-        else:
-            self.deribit_derivate_multiplier = derivate_multiplier
-
-        if backup_symbol_deribit is None:
-            self.backup_symbol_deribit = "BTC-PERPETUAL@perpetual@deribit"
-        else:
-            self.backup_symbol_deribit = backup_symbol_deribit
+    def deribit_future_multiplier(self, symbol, amount, price, *args, **kwargs):
+        inst_type = "perpetual" if "PERPETUAL" in symbol else "future"
+        symbol = symbol.split("-")[0] if inst_type == "future" else symbol
+        multiplier_function = self.deribit_future_multipliers.get(inst_type).get(symbol)
+        return multiplier_function(amount, price)
 
     async def deribit_api_option_oi_oifunding(self, data:str, market_state:dict, connection_data: dict, *args, **kwargs)-> dict:
         """
@@ -981,6 +986,8 @@ class deribit_on_message(on_message_helper):
         underlying_prices = []
         
         for prefix, event, value in ijson.parse(data):
+            if prefix == "result.item.base_currency":
+                base_currency = value
             if prefix == "result.item.instrument_name":
                 option_data = value.split("-")
                 msids.append(f"{value}@option@deribit")
@@ -988,7 +995,8 @@ class deribit_on_message(on_message_helper):
                 strikes.append(float(option_data[2]))
                 days_left.append(calculate_option_time_to_expire_deribit(option_data[1]))
             if prefix == "result.item.open_interest":
-                ois.append(float(value))
+                oi = self.deribit_option_multiplier(base_currency, float(value))
+                ois.append(oi)
             if prefix == "result.item.underlying_price":
                 underlying_prices.append(float(value))
                 
@@ -1015,17 +1023,25 @@ class deribit_on_message(on_message_helper):
 
         backup_price = market_state.get_data("price_future", self.backup_symbol_deribit, self.default_price_value)
 
+        helper_dict = {}
+
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.item.instrument_name":
                 if value != None:
                     instType = "future" if any(char.isdigit() for char in value.split("-")[-1]) else "perpetual"
                     msids.append(f"{value}@{instType}@deribit")
+                    helper_dict["instrument_name"] = value
             if prefix == "result.item.mid_price":
                 if value != None:
+                    helper_dict["mid_price"] = float(value)
                     prices.append(float(value))
             if prefix == "result.item.open_interest":
                 if value != None:
-                    ois.append(float(value))
+                    helper_dict["open_interest"] = float(value)
+            if len(helper_dict) == 3:
+                oi = self.deribit_future_multiplier(helper_dict.get("instrument_name"), helper_dict.get("open_interest"),helper_dict.get("mid_price"))
+                ois.append(oi)
+                helper_dict = {}
             
         counter_2 = 0
         for prefix, event, value in ijson.parse(data):
@@ -1034,7 +1050,6 @@ class deribit_on_message(on_message_helper):
                     fundings_symbols.append(msids[counter_2])
                     fundings_values.append(float(value))
 
-                
                 
         instruments_data = {x : {} for x in msids}
 
@@ -1064,10 +1079,10 @@ class deribit_on_message(on_message_helper):
         trades = []
         liquidations = []
         for trade in data.get("params").get("data"):
-            symbol = trade.get("instrument_name").split("-")[0]
+            symbol = trade.get("instrument_name")
             side = trade.get("direction")
             price = float(trade.get("price"))
-            amount = self.deribit_derivate_multiplier.get(symbol)(float(trade.get("amount")), price)
+            amount = self.deribit_future_multiplier(symbol, float(trade.get("amount")), price)
             timestamp = float(trade.get("timestamp")) / 1000
             receive_time = float(trade.get("timestamp")) / 1000
             if "liquidation" not in trade:
@@ -1105,13 +1120,15 @@ class deribit_on_message(on_message_helper):
             if prefix == "result.bids.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "result.bids.item.item" and previous_map_event == "number":
-                helper_list.append(self.deribit_derivate_multiplier.get(symbol.split("-")[0])(float(value), price))
+                amount = self.deribit_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "result.asks.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "result.asks.item.item" and previous_map_event == "number":
-                helper_list.append(self.deribit_derivate_multiplier.get(symbol.split("-")[0])(float(value), price))
+                amount = self.deribit_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -1146,13 +1163,15 @@ class deribit_on_message(on_message_helper):
             if prefix == "params.data.bids.item.item" and previous_map_event == "string":
                 helper_list.append(float(value))
             if prefix == "params.data.bids.item.item" and previous_map_event == "number":
-                helper_list.append(self.deribit_derivate_multiplier.get(symbol.split("-")[0])(float(value), price))
+                amount = self.deribit_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "params.data.asks.item.item" and previous_map_event == "string":
                 helper_list.append(float(value))
             if prefix == "params.data.asks.item.item" and previous_map_event == "number":
-                helper_list.append(self.deribit_derivate_multiplier.get(symbol.split("-")[0])(float(value), price))
+                amount = self.deribit_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -1162,17 +1181,11 @@ class deribit_on_message(on_message_helper):
 
 class bitget_on_message(on_message_helper):
 
-    def __init__ (self, backup_symbol_bitget=None):
+    def __init__ (self):
         """
             Contract multipliers not needed 
-            
-            I didnt find any documentations. ANd with api fetch and comparing the data with coinmarketcap it seems they are not necessary
         """
-        if not backup_symbol_bitget:
-            self.backup_symbol_bitget = "BTCUSDT@perpetual@bitget"
-        else:
-            self.backup_symbol_bitget = backup_symbol_bitget
-        pass
+        self.backup_symbol_bitget = backup_symbols.get("bitget")
 
     async def bitget_api_spot_linear_inverse_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
@@ -1275,6 +1288,7 @@ class bingx_on_message(on_message_helper):
         """
             No need, calls provide data in native coin
         """
+        self.backup_symbol_bingx = backup_symbols.get("bingx")
         pass
         if not backup_symbol_bingx:
             self.backup_symbol_bingx = "BTC-USDT@perpetual@bingx"
@@ -1388,15 +1402,8 @@ class bingx_on_message(on_message_helper):
 
 class htx_on_message(on_message_helper):
 
-    def __init__ (self, backup_symbol_htx:str = None):
-        """
-            Contract multipliers not needed (I couldnt find the documentation for htem)
-        """
-        if not backup_symbol_htx:
-            self.backup_symbol_htx = "BTCUSDT@perpetual@binance"
-        else:
-            self.backup_symbol_htx = backup_symbol_htx
-        pass
+    def __init__ (self):
+        self.backup_symbol_htx = backup_symbols.get("htx")
 
     async def htx_api_perpetual_oi(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         d = {}
@@ -1447,20 +1454,18 @@ class htx_on_message(on_message_helper):
 
 class kucoin_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier=None, backup_symbol_kucoin=None):
+    def __init__ (self):
         """
             https://www.kucoin.com/pt/futures/contract/detail/XBTUSDTM
         """
-        if derivate_multiplier == None:
-            self.kucoin_derivate_multiplier = {
-                "XBTUSDTM" : lambda amount, *args, **kwargs : amount * 0.001,  
-            }
+        self.backup_symbol_kucoin = backup_symbols.get("kucoin")
+
+    def kucoin_future_multiplier(self, symbol, amount, price, *args, **kwargs):
+        multiplier = kucoin_future_multipliers.get(symbol)
+        if callable(multiplier):
+            return multiplier(amount, price)
         else:
-            self.kucoin_derivate_multiplier = derivate_multiplier
-        if backup_symbol_kucoin is None:
-            self.backup_symbol_kucoin = "XBTUSDTM@perpetual@kucoin"
-        else:
-            self.backup_symbol_kucoin = backup_symbol_kucoin
+            return amount * multiplier
 
     async def kucoin_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1486,7 +1491,9 @@ class kucoin_on_message(on_message_helper):
         symbol = data.get("data").get("symbol")
         side = data.get("data").get("side")
         price = float(data.get("data").get("price"))
-        amount = self.kucoin_derivate_multiplier.get(symbol)(float(data.get("data").get("size")), price)
+
+        amount = self.kucoin_future_multiplier(symbol, float(data.get("data").get("size")), price)
+        
         receive_time = float(data.get("data").get("ts")) / 10**9 
         trades.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : receive_time})
 
@@ -1556,13 +1563,15 @@ class kucoin_on_message(on_message_helper):
             if prefix == "data.bids.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "data.bids.item.item" and previous_map_event == "number":
-                helper_list.append( self.kucoin_derivate_multiplier.get(symbol)(float(value), price))
+                amount = self.kucoin_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "data.asks.item.item" and previous_map_event == "start_array":
                 helper_list.append(float(value))
             if prefix == "data.asks.item.item" and previous_map_event == "number":
-                helper_list.append( self.kucoin_derivate_multiplier.get(symbol)(float(value), price))
+                amount = self.kucoin_future_multiplier(symbol, float(value), price)
+                helper_list.append(amount)
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -1593,7 +1602,7 @@ class kucoin_on_message(on_message_helper):
         for side in ["asks", "bids"]:
             side2 = "buy" if side == "bids" else "sell"
                         
-            books = [[float(change[0]), self.kucoin_derivate_multiplier.get(symbol)(float(change[-1]), price)]] if side2 == change[1] else [[]]
+            books = [[float(change[0]), self.kucoin_future_multiplier(symbol, float(change[-1]), price)]] if side2 == change[1] else [[]]
             d[side] = books
 
         d["timestamp"] = float(data.get("data").get("timestamp")) / 1000
@@ -1602,21 +1611,18 @@ class kucoin_on_message(on_message_helper):
     
 class mexc_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier=None, backup_symbol_mexc=None):
+    def __init__ (self):
         """
             https://www.mexc.com/support/articles/17827791509072
         """
-        if derivate_multiplier == None:
-            self.mexc_derivate_multiplier = {
-                "BTC-USDT" : lambda amount, *args, **kwargs : amount * 0.0001,  
-                "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.0001, # some unstandart symbols in API, maybe not needed just in case
-            }
+        self.backup_symbol_mexc = backup_symbols.get("mexc")
+
+    def mexc_futures_multiply(self, symbol:str, amount:float, price:float, *args, **kwargs):
+        multiplier = mexc_future_multipliers.get(symbol)
+        if callable(multiplier):
+            return multiplier(amount, price)
         else:
-            self.mexc_derivate_multiplier = derivate_multiplier
-        if backup_symbol_mexc is None:
-            self.backup_symbol_mexc = "BTC_USDT@perpetual@mexc"
-        else:
-            self.backup_symbol_mexc = backup_symbol_mexc
+            return amount * multiplier
 
     async def mexc_ws_spot_trades(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
@@ -1645,7 +1651,7 @@ class mexc_on_message(on_message_helper):
         liquidations = []
         price = float(trade.get("p"))
         side = "buy" if int(trade.get("T")) == 1 else "sell"
-        amount = self.mexc_derivate_multiplier.get(symbol)(float(trade.get("v")), price)
+        amount = self.mexc_futures_multiply(symbol, float(trade.get("v")), price)
         timestamp = float(trade.get("t")) / 10**3 
         receive_time = float(trade.get("t")) / 10**3 
         trades.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
@@ -1666,7 +1672,7 @@ class mexc_on_message(on_message_helper):
         price = market_state.get_data("price_future", msid, backup_price)
 
 
-        oi = self.mexc_derivate_multiplier.get(symbol)(float(data.get("data").get("holdVol")))
+        oi = self.mexc_futures_multiply(symbol, float(data.get("data").get("holdVol")), price)
         timestamp = time.time()
         funding = float(data.get("data").get("fundingRate"))
         d[msid] = {"oi" : oi, "funding" : funding, "timestamp" : timestamp, "price" : price}
@@ -1694,7 +1700,7 @@ class mexc_on_message(on_message_helper):
                 number_count += 1
                 helper_list.append(float(value))
             if prefix == "data.bids.item.item" and previous_map_event == "number" and number_count == 1:
-                helper_list.append(self.mexc_derivate_multiplier.get(symbol)(float(value), current_price))
+                helper_list.append(self.mexc_futures_multiply(symbol, float(value), current_price))
                 bids.append(helper_list)
                 helper_list = []
                 number_count = 0
@@ -1702,7 +1708,7 @@ class mexc_on_message(on_message_helper):
                 number_count += 1
                 helper_list.append(float(value))
             if prefix == "data.asks.item.item" and previous_map_event == "number" and number_count == 1:
-                helper_list.append(self.mexc_derivate_multiplier.get(symbol)(float(value), current_price))
+                helper_list.append(self.mexc_futures_multiply(symbol, float(value), current_price))
                 asks.append(helper_list)
                 number_count = 0
                 helper_list = []
@@ -1740,13 +1746,15 @@ class mexc_on_message(on_message_helper):
     
         data = json.loads(data)
 
+        price = market_state.get("price_future", self.backup_symbol_mexc, self.default_price_value)
+
         timestamp = float(data.get("ts"))
         symbol = data.get("symbol")
 
         data = data.get("data")
 
-        asks = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("asks")] if data.get("asks") != [] else []
-        bids = [[ask[0], self.mexc_derivate_multiplier.get(symbol)(ask[1])] for ask in data.get("bids")] if data.get("bids") != [] else []
+        asks = [[ask[0], self.mexc_futures_multiply(symbol, ask[1]), price] for ask in data.get("asks")] if data.get("asks") != [] else []
+        bids = [[ask[0], self.mexc_futures_multiply(symbol, ask[1], price)] for ask in data.get("bids")] if data.get("bids") != [] else []
 
         d = {"timestamp" :  timestamp/ 1000,  "bids" : bids, "asks" : asks}
         return d
@@ -1766,28 +1774,27 @@ class mexc_on_message(on_message_helper):
 
 class gateio_on_message(on_message_helper):
 
-    def __init__ (self, derivate_multiplier=None, backup_symbol_gateio = None):
+    def __init__ (self):
         """
             Options multiplier was fetched via api
 
             https://www.gate.io/help/futures/perpetual/22147/Calculation-of-Position-Value
         """
-        if derivate_multiplier == None:
-            self.gateio_derivate_multiplier = {
-                "option" : {
-                    "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.01, 
-                },
-                "perpetual_future" : {
-                    "BTC_USDT" : lambda amount, *args, **kwargs : amount * 0.0001, 
-                    "BTC_USD" : lambda amount, *args, **kwargs : amount * 0.0001, 
-                },
-            }
+        self.backup_symbol_gateio = backup_symbols.get("gateio")
+
+    def gateio_futures_multiply(self, symbol:str, amount:float, price:float, *args, **kwargs):
+        symbol = "_".join(symbol.split("_")[:2])
+        multiplier = mexc_future_multipliers.get(symbol)
+        if callable(multiplier):
+            return multiplier(amount, price)
         else:
-            self.gateio_derivate_multiplier = derivate_multiplier
-        if backup_symbol_gateio is None:
-            self.backup_symbol_gateio = "BTC_USDT@perpetual@gateio"
-        else:
-            self.backup_symbol_gateio = backup_symbol_gateio
+            return amount * multiplier
+    
+    def gateio_option_multiply(self, symbol, amount):
+        symbol = symbol.split("-")[0]
+        multiplier = gateio_option_multipliers.get(symbol)
+        return amount * multiplier
+
 
     async def gateio_api_option_oi_oioption(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
@@ -1812,7 +1819,7 @@ class gateio_on_message(on_message_helper):
                 strikes.append(float(option_data[2]))
                 days_left.append(calculate_option_time_to_expire_gateio(option_data[1]))
             if prefix == "item.position_size":
-                ois.append(self.gateio_derivate_multiplier.get("option").get(symbol)(float(value)))
+                ois.append(self.gateio_option_multiply(symbol, float(value)))
         instruments_data = {x : {} for x in msids}
         for i, msid in enumerate(msids):
             instruments_data[msid] = {
@@ -1846,10 +1853,9 @@ class gateio_on_message(on_message_helper):
             market_state.input_data("oi_future", msid, oi)
             
         if "total_size" in data:
-            sdm = "_".join(instrument.split("_")[:-1])
             #price = float(data.get("mark_price"))
             oi = float(data.get("total_size"))
-            oi = self.gateio_derivate_multiplier.get("perpetual_future").get(sdm)(oi)
+            oi = self.gateio_futures_multiply(instrument, oi, price)
             msid = f"{instrument}@future@gateio"
             ddd[msid] = {"price" : price, "oi" : oi, "timestamp" : time.time()}
 
@@ -1867,8 +1873,6 @@ class gateio_on_message(on_message_helper):
         
         instrument_data = data_dict.get("data")[0]
         symbol = data_dict.get("instrument")
-
-        print(symbol)
 
         lsr_taker = float(instrument_data.get("lsr_taker")) # Long/short taker size ratio
         lsr_account = float(instrument_data.get("lsr_account"))   # Long/short account number ratio
@@ -1930,6 +1934,7 @@ class gateio_on_message(on_message_helper):
     async def gateio_api_perpetual_future_depth(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         bids = []
         asks = []
+        price = market_state.get_data("price_future", self.backup_symbol_gateio, self.default_price_value)
 
         previous_map_event = ""
         helper_list = []
@@ -1938,13 +1943,13 @@ class gateio_on_message(on_message_helper):
             if prefix == "bids.item.p" and previous_map_event == "map_key":
                 helper_list.append(float(value))
             if prefix == "bids.item.s" and previous_map_event == "map_key":
-                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                helper_list.append(self.gateio_futures_multiply(symbol, float(value), price))
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "asks.item.p" and previous_map_event == "map_key":
                 helper_list.append(float(value))
             if prefix == "asks.item.s" and previous_map_event == "map_key":
-                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                helper_list.append(self.gateio_futures_multiply(symbol, float(value), price))
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -1993,6 +1998,8 @@ class gateio_on_message(on_message_helper):
         timestamp = None
         symbol = None
 
+        price = market_state.get("price_future", self.backup_symbol_gateio, self.default_price_value)
+
         for prefix, event, value in ijson.parse(data):
             if prefix == "result.t":
                 timestamp = float(value)
@@ -2007,13 +2014,13 @@ class gateio_on_message(on_message_helper):
             if prefix == "result.b.item.p" and previous_map_event == "map_key":
                 helper_list.append(float(value))
             if prefix == "result.b.item.s" and previous_map_event == "map_key":
-                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                helper_list.append(self.gateio_futures_multiply(symbol, float(value), price))
                 bids.append(helper_list)
                 helper_list = []
             if prefix == "result.a.item.p" and previous_map_event == "map_key":
                 helper_list.append(float(value))
             if prefix == "result.a.item.s" and previous_map_event == "map_key":
-                helper_list.append(self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(float(value)))
+                helper_list.append(self.gateio_futures_multiply(symbol, float(value), price))
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
@@ -2058,9 +2065,8 @@ class gateio_on_message(on_message_helper):
             side = "sell" if trade.get("size") < 0 else "buy"
             amount =  abs(float(trade.get("size")))
             symbol = trade.get("contract")
-            amount = self.gateio_derivate_multiplier.get("perpetual_future").get(symbol)(amount)
-            
             price = float(trade.get("price"))
+            amount = self.gateio_futures_multiply(symbol, float(value), price)
             if "is_internal" in trade and trade.get("is_internal") is True:
                 liquidations.append({"side" : side, "timestamp" : timestamp, "price" : price, "quantity" : amount})
             else:

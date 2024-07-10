@@ -1,25 +1,13 @@
-import numpy as np
-import pandas as pd
-import dask
-from dataclasses import dataclass, field
-from typing import Dict, Optional, List
 import time
-import datetime
 import json
-import h5py
 import asyncio
-import uuid
-import matplotlib.pyplot as plt
-import math
+import os
+from typing import Dict, List
+from collections import defaultdict
 import pandas as pd
 import numpy as np
-import socket
-import multiprocessing as mp
-import logging
 from .StreamDataClasses import OrderBook, MarketTradesLiquidations, OpenInterest, OptionInstrumentsData, MarketState
-import copy
-from functools import partial
-from collections import defaultdict
+
 
 pd.set_option('future.no_silent_downcasting', True)
 
@@ -358,7 +346,7 @@ class depthflow(CommonFlowFunctionalities):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         id_ = self.get_id()
         inst_type = self.get_inst_type()
-        filepath = f"{self.folderpath}\\sample_data\\plots\\depth_{id_}.json"
+        filepath = os.path.join(self.folderpath, "sample_data", "plots", f"depth_{id_}.json")
         df = self.market_state.raw_data["dataframes_to_merge"]["depth"][inst_type][id_]
         try:
             for index, row in df.iterrows():
@@ -380,7 +368,7 @@ class depthflow(CommonFlowFunctionalities):
     def dump_df_to_csv(self):
         """ processed, raw"""
         id_ = self.get_id()
-        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\depth_{id_}.csv"
+        file_path = os.path.join(self.folderpath, "sample_data", "dfpandas", f"depth_{id_}.csv")
         self.df.to_csv(file_path, index=False)
        
 class tradesflow(CommonFlowFunctionalities):
@@ -498,7 +486,7 @@ class tradesflow(CommonFlowFunctionalities):
             _id = self.get_id()
             for _type in ["total"]:
                 df = self.market_state.raw_data["dataframes_to_merge"]["trades"][inst_type][_type][_id]
-                filepath = f"{self.folderpath}\\sample_data\\plots\\trades_{_type}_{_id}.json"
+                filepath = os.path.join(self.folderpath, "sample_data", "plots", f"trades_{_type}_{_id}.json")
                 plot_data = {
                     'x': [float(x) for x in df.columns],
                     'y': df.sum().tolist(),
@@ -517,7 +505,7 @@ class tradesflow(CommonFlowFunctionalities):
         _id = self.get_id()
         inst_type = self.get_inst_type()
         for _type in ["total"]:
-            file_path = f"{self.folderpath}\\sample_data\\dfpandas\\trades_{_type}_{_id}.csv"
+            file_path = os.path.join(self.folderpath, "sample_data", "dfpandas", f"trades_{_type}_{_id}.csv")
             df = self.market_state.raw_data["dataframes_to_merge"]["trades"][inst_type][_type][_id]
             df.to_csv(file_path, index=False)
 
@@ -557,7 +545,6 @@ class oiflow(CommonFlowFunctionalities):
         self.last_ois_by_instrument = {}
 
         self.mode = mode
-
 
     async def input_data(self, data, *args, **kwargs):
         """ 
@@ -624,7 +611,7 @@ class oiflow(CommonFlowFunctionalities):
                 self.market_state.raw_data["ticks_data_to_merge"]["oi_deltas"][id_] = ticks_oi_delta
                 
                 if self.mode == "testing":
-                    filepath = f"{self.folderpath}\\sample_data\\dfpandas\\oi_delta_{id_}.csv"
+                    filepath = os.path.join(self.folderpath, "sample_data", "dfpandas", f"oi_delta_{id_}.csv")
                     oideltas.to_csv(filepath, index=False)
                     self.generate_data_for_plot()
                 
@@ -642,7 +629,7 @@ class oiflow(CommonFlowFunctionalities):
 
             id_ = self.get_id()            
             df = self.market_state.raw_data["dataframes_to_merge"]["oi_deltas"][id_]
-            filepath = f"{self.folderpath}\\sample_data\\plots\\oi_delta_{id_}.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", f"oi_delta_{id_}.json")
             plot_data = {
                 'x': [float(x) for x in df.columns],
                 'y': df.sum().tolist(),
@@ -691,7 +678,6 @@ class liqflow(CommonFlowFunctionalities):
         self.folderpath = ""
         self.mode = mode
 
-
     async def input_data(self, data, *args, **kwargs) :
         """ inputs data"""
         try:
@@ -699,7 +685,6 @@ class liqflow(CommonFlowFunctionalities):
             await self.Liquidations.add_liquidations(processed_data)
         except:
             return
-    
     
     def create_pandas_dataframe(self, type_):
         """
@@ -740,7 +725,6 @@ class liqflow(CommonFlowFunctionalities):
         for type_, df in dataframes.items():                
             self.market_state.raw_data["dataframes_to_merge"]["liquidations"][type_][id_] = df.copy()
 
-
     async def schedule_processing_dataframe(self):
         """ Processes dataframes in a while lloop """
         _id = self.get_id()
@@ -761,16 +745,14 @@ class liqflow(CommonFlowFunctionalities):
         except Exception as e:
             print(f"An error occurred: {e}")
         
-
     def dump_df_to_csv(self):
         """ processed, raw"""
         _id = self.get_id()
-        file_path = f"{self.folderpath}\\sample_data\\dfpandas\\total_liquidaitons_{_id}.csv"
+        file_path = os.path.join(self.folderpath, "sample_data", "dfpandas", f"total_liquidaitons_{_id}.csv")
         longs = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["longs"][_id]
         shorts = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["shorts"][_id]
         df = self.merge_dataframes([longs, shorts], "sum")
         df.to_csv(file_path, index=False)
-
 
     def generate_data_for_plot(self):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
@@ -779,7 +761,7 @@ class liqflow(CommonFlowFunctionalities):
             longs = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["longs"][_id]
             shorts = self.market_state.raw_data["dataframes_to_merge"]["liquidations"]["shorts"][_id]
             df = self.merge_dataframes([longs, shorts], "sum")
-            filepath = f"{self.folderpath}\\sample_data\\plots\\liquidations_total_{_id}.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", f"liquidations_total_{_id}.json")
             plot_data = {
                 'x': [float(x) for x in df.columns],
                 'y': df.sum().tolist(),
@@ -876,7 +858,7 @@ class ooiflow(CommonFlowFunctionalities):
         dfc = self.market_state.raw_data["dataframes_to_merge"]["oi_options"]["calls"][id_]
         
         for type_, dff in zip(["Puts", "Calls"], [dfp, dfc]):
-            file_path = f"{self.folderpath}\\sample_data\\dfpandas\\oi_option_{type_}_{id_}.csv"
+            file_path = os.path.join(self.folderpath, "sample_data", "dfpandas", f"oi_option_{type_}_{id_}.csv")
             dff.to_csv(file_path, index=False)
             
     def generate_data_for_plot(self):
@@ -889,7 +871,7 @@ class ooiflow(CommonFlowFunctionalities):
             
             for option_type, df in df_dict.items():
                 
-                filepath = f"{self.folderpath}\\sample_data\\plots\\oi_option_{option_type}_{id_}.json"
+                filepath = os.path.join(self.folderpath, "sample_data", "plots", f"oi_option_{option_type}_{id_}.json")
                 
                 plot_data = {
                     'x': df["strikes"].tolist(),
@@ -1047,6 +1029,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
                 for liq_type in ["longs", "shorts"]:
                     dataframes = list(self.market_state.raw_data.get("dataframes_to_merge").get("liquidations").get(liq_type).values())
                     mergeddf = self.merge_dataframes(dataframes, "sum")
+                    print(mergeddf)
                     liq_dic = self.dataframe_to_dictionary(mergeddf)
                     self.market_state.staging_data["maps"][liq_type] = liq_dic
                     
@@ -1131,7 +1114,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_crdepth_data_for_plot(self, data_dict, depth_type, inst_type):
         """ generates plot of cdepth, rdepth at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\{depth_type}_{inst_type}.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", f"{depth_type}_{inst_type}.json")
             word = "Canceled Depth" if depth_type == "cdepth" else "Reinforced Depth"
             title = f'{word} of {inst_type}'
             plot_data = {
@@ -1150,7 +1133,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_depth_data_for_plot(self, subtype, df):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
 
-        filepath = f"{self.folderpath}\\sample_data\\plots\\merged_depth_{subtype}.json"
+        filepath = os.path.join(self.folderpath, "sample_data", "plots", f"merged_depth_{subtype}.json")
         try:
             for index, row in df.iterrows():
                 if not all(row == 0):
@@ -1171,7 +1154,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_liquidations_data_for_plot(self, df):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_liquidations_total.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", "merged_liquidations_total.json")
             plot_data = {
                 'x': [float(x) for x in df.columns],
                 'y': df.sum().tolist(),
@@ -1188,7 +1171,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_trades_data_for_plot(self, inst_type, trade_type, df):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_trades_{inst_type}_{trade_type}.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", f"merged_trades_{inst_type}_{trade_type}.json")
             plot_data = {
                 'x': [float(x) for x in df.columns],
                 'y': df.sum().tolist(),
@@ -1205,7 +1188,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_oi_data_for_plot(self, df):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_oideltas.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", "merged_oideltas.json")
             plot_data = {
                 'x': [float(x) for x in df.columns],
                 'y': df.sum().tolist(),
@@ -1222,7 +1205,7 @@ class MarketDataFusion(CommonFlowFunctionalities):
     def generate_oioption_data_for_plot(self, dict_ois):
         """ generates plot of books at a random timestamp to verify any discrepancies, good for testing """
         try:
-            filepath = f"{self.folderpath}\\sample_data\\plots\\merged_option_oi.json"
+            filepath = os.path.join(self.folderpath, "sample_data", "plots", "merged_option_oi.json")
             plot_data = {
                 'data' : dict_ois,
                 'xlabel': '',

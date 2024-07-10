@@ -1,11 +1,11 @@
-from dataclasses import dataclass, field
 import asyncio
-import time
-from typing import List, Dict, Optional, Tuple
-import pandas as pd
 import uuid
-import rapidjson as json
+from typing import List, Dict, Optional
+from dataclasses import dataclass, field
 from datetime import datetime
+import pandas as pd
+import rapidjson as json
+
 
 
 class OrderBook:
@@ -302,8 +302,6 @@ class InstrumentsData:
     def __str__(self):
         return '\n'.join(f"{symbol}: {vars(data)}" for symbol, data in self.instruments.items())
     
-
-
 class MarketState:
     """
     This class holds all market data, sanitized data, and data needed for processing.
@@ -344,9 +342,8 @@ class MarketState:
         """ dead_instruments_timeout : timeinterval for removing expired futures"""
         self.streams_data = streams_data
         self.dead_instruments_timeout = dead_instruments_timeout
-        self.staging_data = self.create_marketstate_datastructure(self.streams_data)
-        self.data_properties = self.build_properties(self.staging_data)
         self.staging_data = self.create_marketstate_datastructure(self.streams_data, cdepth_spot, cdepth_future, rdepth_spot, rdepth_future)
+        self.data_properties = self.build_properties(self.staging_data)
         self.raw_data = self.create_raw_datastructure()
 
     def create_marketstate_datastructure(self, streams_data, cdepth_spot, cdepth_future, rdepth_spot, rdepth_future, *args, **kwargs,):

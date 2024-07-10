@@ -1,21 +1,32 @@
-import json
-import asyncio
-import os
 import sys
+import os
+import asyncio
 import pandas as pd
-import numpy as np
+import json
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, "../.."))
 sys.path.append(parent_dir)
 
-flow_types = ["depthflow", "tradesflow", "oiflow", "liqflow", "fundingflow"]
-
 from ProcessCenter.DataFlow import MarketDataFusion
 from ProcessCenter.StreamDataClasses import MarketState
-from streams import streams_data, merge_types
+from streams import streams_data
+
+dump_staging_data_interval = 20
+
+flow_types = ["depthflow", "tradesflow", "oiflow", "liqflow", "fundingflow"]
 
 market_state = MarketState(streams_data)
+
+def dump_elastic_properties():
+    file_path = os.path.join(parent_dir, "sample_data", "elastic_properties.json")
+    with open(file_path, 'w') as json_file:
+        json.dump(market_state.data_properties, json_file, indent=4)
+
+
+dump_elastic_properties()
+
+
 fusor = MarketDataFusion(
     depth_spot_aggregation_interval = 10,   
     depth_future_aggregation_interval = 10,
@@ -23,7 +34,7 @@ fusor = MarketDataFusion(
     trades_future_aggregation_interval = 10,
     trades_option_aggregation_interval = None,
     oi_deltas_aggregation_interval = None,
-    liquidations_future_aggregation_interval = None,
+    liquidations_future_aggregation_interval = 10,
     oi_options_aggregation_interval = None,
     canceled_books_spot_aggregation_interval = 10,
     canceled_books_future_aggregation_interval = 10,
@@ -71,54 +82,57 @@ async def input_apiws_data(data, processor):
     try:
         data = json.load(data)
         for d in data[::-1]:
+            #print(d)
             await processor.input_data(json.dumps(d))
             await asyncio.sleep(0.4)
     except Exception as e:
         print(e)
 
+def open_file_safe(path):
+    try:
+        return open(path, "r")
+    except FileNotFoundError:
+        print(f"File not found: {path}")
+        return None
+    except IOError as e:
+        print(f"Error opening file {path}: {e}")
+        return None
+
 async def cereate_tasks_single_dataflow(stream_data):
     """ Creates tasks so you can run them at once"""
     id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
-    if id_ != "bingx_api_perpetual_depth_btcusdt":
-        try:
-            tasks = []
-            exchange = stream_data.get("exchange") 
-            
-            # path_api = parent_dir+f"\\sample_data\\raw\\api\\{exchange}\\{stream_data.get('id_api')}.json"
-            # path_api_2 = parent_dir+f"\\sample_data\\raw\\api_2\\{exchange}\\{stream_data.get('id_api_2')}.json"
-            # path_ws = parent_dir+f"\\sample_data\\raw\\ws\\{exchange}\\{stream_data.get('id_ws')}.json"
-            
-            path_api = parent_dir+f"/sample_data/raw/api/{exchange}/{stream_data.get('id_api')}.json"
-            path_api_2 = parent_dir+f"/sample_data/raw/api_2/{exchange}/{stream_data.get('id_api_2')}.json"
-            path_ws = parent_dir+f"/sample_data/raw/ws/{exchange}/{stream_data.get('id_ws')}.json"
-
-            if stream_data.get("id_api", "") != "":
-                dataapi = open(path_api, "r")
-            if stream_data.get("id_ws", "") != "":
-                dataws = open(path_ws, "r")
-            if stream_data.get("id_api_2", "") != "":
-                dataapi2 = open(path_api_2, "r")
-
-            processors_names = [x for x in stream_data if x in flow_types]
-            for processor_name in processors_names:
-                processor = stream_data.get(processor_name)
-                if processor_name != "tradesflow":
-                    if processor_name == "depthflow":
-                        tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
-                        tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
-                    elif processor_name in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
-                        tasks.append(asyncio.ensure_future(input_apiws_data(dataapi, processor)))
-                    elif processor_name in ["liqflow", "tradesflow"]:
-                        tasks.append(asyncio.ensure_future(input_apiws_data(dataws, processor)))
-
-
-                tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
-
-            return tasks
+    try:
+        tasks = []
+        exchange = stream_data.get("exchange") 
         
-        except Exception as e:
-            id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
-            print(f"Something went wrong with {id_} : {e}")  
+        path_api = os.path.join(parent_dir, "sample_data", "raw", "api", exchange, f"{stream_data.get('id_api')}.json")
+        path_api_2 = os.path.join(parent_dir, "sample_data", "raw", "api_2", exchange, f"{stream_data.get('id_api_2')}.json")
+        path_ws = os.path.join(parent_dir, "sample_data", "raw", "ws", exchange, f"{stream_data.get('id_ws')}.json")
+
+        if stream_data.get("id_api", "") != "":
+            dataapi = open_file_safe(path_api)
+        if stream_data.get("id_ws", "") != "":
+            dataws = open_file_safe(path_ws)
+        if stream_data.get("id_api_2", "") != "":
+            dataapi2 = open_file_safe(path_api_2)
+        
+        processors_names = [x for x in stream_data if x in flow_types]
+        for processor_name in processors_names:
+            processor = stream_data.get(processor_name)
+            if processor_name == "depthflow":
+                tasks.append(asyncio.ensure_future(input_apiws_books(dataws, dataapi2, processor)))
+                tasks.append(asyncio.ensure_future(processor.schedule_snapshot()))
+            elif processor_name in ["fundingflow", "gtaflow", "ttaflow", "ttpflow", "oiflow"]:
+                tasks.append(asyncio.ensure_future(input_apiws_data(dataapi, processor)))
+            elif processor_name in ["liqflow", "tradesflow"]:
+                tasks.append(asyncio.ensure_future(input_apiws_data(dataws, processor)))
+
+
+            tasks.append(asyncio.ensure_future(processor.schedule_processing_dataframe()))
+        return tasks
+    except Exception as e:
+        id_ = stream_data.get("id_api") if "id_api" in stream_data else stream_data.get("id_ws")
+        print(f"Something went wrong with {id_} : {e}")  
 
 def cereate_tasks_datafusion():
     """ Creates tasks so you can run them at once"""
@@ -139,6 +153,13 @@ def cereate_tasks_datafusion():
                 tasks.append(asyncio.ensure_future(fusor.schedule_aggregation_cdepth_rdepth(aggregation_type=aggregation_type, aggregation_lag = 1)))
     return tasks
 
+async def dump_staging_data():
+    await asyncio.sleep(dump_staging_data_interval)
+    file_path = os.path.join(parent_dir, "sample_data", "staging_data.json")
+    print(market_state.staging_data)
+    with open(file_path, 'w') as json_file:
+        json.dump(market_state.staging_data, json_file, indent=4)
+
 async def run_all_tasks():
     """ Creates tasks so you can run them at once"""
     all_tasks = []
@@ -147,12 +168,16 @@ async def run_all_tasks():
         if tasks:
             all_tasks.extend(tasks)
     fusors = cereate_tasks_datafusion()
+    dump_data = asyncio.ensure_future(dump_staging_data())
     all_tasks.extend(fusors)
+    all_tasks.append(dump_data)
 
     await asyncio.gather(*all_tasks, return_exceptions=True)
 
 if __name__ == "__main__":
     asyncio.run(run_all_tasks())
+
+
 
 
 

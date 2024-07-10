@@ -99,13 +99,17 @@ class ElasticsearchHandler:
         except Exception as e:
             print(f"An error occurred: {e}")
     
-    def create_schema(self, properties, number_of_shards=5, number_of_replicas=0):
+    def create_schema(self, schema_properties, number_of_shards=5, number_of_replicas=0):
         """ creates schema"""
         es_schema  = {
             "settings": {
                 "number_of_shards": number_of_shards,
                 "number_of_replicas": number_of_replicas,
                 },
+            "mappings" : {
+                "dynamic_templates" : self.dynamic_templates,
+                "properties" : schema_properties,
+            }
         }
         return es_schema 
 
