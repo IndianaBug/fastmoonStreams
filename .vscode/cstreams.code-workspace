@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "C:/coding/fastmoon/fastmoonStreams"
+		}
+	],
+	"settings": {
+		"terminal.integrated.defaultProfile.windows": "Command Prompt",
+		"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+		"terminal.integrated.profiles.windows": {
+			"Command Prompt": {
+				"path": "C:\\Windows\\System32\\cmd.exe",
+				"args": [
+					"/K", "C:\\coding\\fastmoon\\fastmoonStreams\\launchers\\activate_venv.cmd"
+				],
+			},
+			"PowerShell": {
+				"source": "PowerShell",
+				"icon": "terminal-powershell"
+			}
+		},
+		"window.zoomLevel": 0.01,
+		"editor.formatOnSaveMode": "file",
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground": "#28562a",
+			"titleBar.inactiveBackground": "#2D2D2D",
+			"titleBar.activeForeground": "#100f0f",
+			"titleBar.inactiveForeground": "#111111",
+		}
+	}
+}

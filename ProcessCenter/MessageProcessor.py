@@ -21,7 +21,7 @@ from config import (
     okx_future_multipliers, 
     okx_option_multipliers,
     okx_liquidations_inst_types,
-    okx_liquidations_symbol,
+    okx_liquidations_symbols,
     deribit_future_multipliers,
     deribit_option_multipliers,
     kucoin_future_multipliers,
@@ -699,10 +699,10 @@ class bybit_on_message(on_message_helper):
 class okx_on_message(on_message_helper):
 
     okx_inst_type_map = {
-        "SWAP" : "perpetual",
-        "FUTURES" : "future",
-        "OPTION" : "option",
-        "SPOT" : "spot"
+        "perpetual" : "SWAP",
+        "future" : "FUTURES",
+        "option" : "OPTION",
+        "spot" : "SPOT"
     }
 
     def __init__ (self):
@@ -710,10 +710,13 @@ class okx_on_message(on_message_helper):
             https://www.okx.com/trade-market/info/futures
             https://www.okx.com/help/i-okx-options-introduction
         """
-        self.okx_liquidation_symbol = okx_liquidations_symbol
         self.backup_symbol_okx = backup_symbols.get("okx")
         self.okx_multipliers = okx_future_multipliers
         self.okx_option_multipliers = okx_option_multipliers
+        
+        self.okx_liquidations_process_type = okx_liquidations_symbols.get("process_type")
+        self.okx_liquidations_basecoin = okx_liquidations_symbols.get("base_coin")
+        self.liquidations_symbols = okx_liquidations_symbols.get("symbols")
     
     def okx_future_multiplier(self, symbol, amount, price, *args, **kwargs):
         base_coin = symbol.split("-")[0]
@@ -728,7 +731,6 @@ class okx_on_message(on_message_helper):
         base_coin = symbol.split("-")[0]
         multiplier = self.okx_option_multipliers.get(base_coin)
         return amount * multiplier
-
 
     async def okx_api_fundperp_perpetual_future_funding(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
@@ -929,6 +931,16 @@ class okx_on_message(on_message_helper):
 
         return {"trades" : trades, "liquidations" : liquidations, "timestamp" : receive_time}          
 
+    def helper_id_1(self, liq_by_inst, liquidations, this_inst_type, market_state):
+        multiplier_symbol = liq_by_inst.get('instFamily')
+        for liquidation in liq_by_inst.get("details"):
+            side = liquidation.get('side')
+            price = market_state.get_data("price_future", self.backup_symbol_okx, self.default_price_value)
+            timestamp = float(liquidation.get("ts")) / 1000
+            amount = float(liquidation.get("sz"))
+            amount = self.okx_future_multiplier(multiplier_symbol, amount, price)
+            liquidations.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
+
     async def okx_ws_future_perpetual_option_liquidations(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         data = json.loads(data)
         target_inst_type = connection_data.get("instType") or connection_data.get("instTypes")
@@ -939,17 +951,13 @@ class okx_on_message(on_message_helper):
             this_inst_type = self.okx_inst_type_map.get(this_inst_type)
             if this_inst_type in okx_liquidations_inst_types:
                 instId = liq_by_inst.get("instId")
-                if okx_liquidations_symbol in instId and this_inst_type in target_inst_type:
-                    multiplier_symbol = liq_by_inst.get('instFamily')
-                    for liquidation in liq_by_inst.get("details"):
-                        side = liquidation.get('side')
-                        price =float(liquidation.get('bkPx'))
-                        timestamp = float(liquidation.get("ts")) / 1000
-                        helper = "perpetual@future" if this_inst_type != "option" else "option"
-                        amount = float(liquidation.get("sz"))
-                        amount = self.okx_derivate_multiplier.get(helper).get(multiplier_symbol)(amount, price)
-                        liquidations.append({"side" : side, "price" : price, "quantity" : amount, "timestamp" : timestamp})
-        r = {"trades" : trades, "liquidations" : liquidations, "timestamp" : time.time()}   
+                if self.okx_liquidations_process_type == "basecoin":
+                    if self.okx_liquidations_basecoin in instId:
+                        self.helper_id_1(liq_by_inst, liquidations, this_inst_type, market_state)
+                if self.okx_liquidations_process_type == "symbols":
+                    if instId in okx_liquidations_symbols:
+                        self.helper_id_1(liq_by_inst, liquidations, this_inst_type, market_state)
+        r = {"trades" : trades, "liquidations" : liquidations, "timestamp" : time.time()}  
         return r
 
 class deribit_on_message(on_message_helper):
@@ -1795,7 +1803,6 @@ class gateio_on_message(on_message_helper):
         multiplier = gateio_option_multipliers.get(symbol)
         return amount * multiplier
 
-
     async def gateio_api_option_oi_oioption(self, data:str, market_state:dict, connection_data:str, *args, **kwargs):
         """
             btc_price_data : dictionary with all prices of bitcoin instruments from every exchange
@@ -2024,6 +2031,8 @@ class gateio_on_message(on_message_helper):
                 asks.append(helper_list)
                 helper_list = []
             previous_map_event = event
+        
+        
 
         d = {"timestamp" :  timestamp/1000,  "bids" : bids, "asks" : asks}
 

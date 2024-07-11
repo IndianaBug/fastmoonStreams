@@ -304,14 +304,23 @@ async def test_dynamic(case):
     stream_data = case["stream_data"]
 
     results = []
-    for data in data_generator():
+    generated_data = data_generator()
+    for index, data in enumerate(generated_data):
         try:
             data = json.dumps(data)
             processed_data = await processing_method(data, market_state, stream_data)
+            
+            # if id_ == "gateio_ws_perpetual_depth_btcusdt":
+            #     print(processed_data)
+            
             result = method_tester(id_, processed_data)
             results.append(result)
         except:
             results.append(False)
+    
+        # if index == len(generated_data) - 1:
+        #     print(json.dumps(market_state.staging_data, indent=4))
+    
 
     true_count = results.count(True)
     total_count = len(results)
