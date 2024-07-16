@@ -11,7 +11,7 @@
 			"Command Prompt": {
 				"path": "C:\\Windows\\System32\\cmd.exe",
 				"args": [
-					"/K", "C:\\coding\\fastmoon\\fastmoonStreams\\launchers\\activate_venv.cmd"
+					"/K", "C:\\coding\\fastmoon\\fastmoonVenv\\v3.9\\Scripts\\activate"
 				],
 			},
 			"PowerShell": {
@@ -19,6 +19,7 @@
 				"icon": "terminal-powershell"
 			}
 		},
+		"python.defaultInterpreterPath": "C:\\coding\\fastmoon\\fastmoonVenv\\v3.9\\Scripts\\activate\\python.exe",
 		"window.zoomLevel": 0.01,
 		"editor.formatOnSaveMode": "file",
 		"workbench.colorCustomizations": {

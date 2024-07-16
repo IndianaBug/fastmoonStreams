@@ -1,0 +1,106 @@
+WEBSOCKETS:
+  depth:
+    spot:
+      - { exchange: binance, instruments: [BTCUSDT] , snapshot: true }
+      - { exchange: binance, instruments: [BTCFDUSD], snapshot: true }
+      - { exchange: bybit, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: bybit, instruments: [BTCUSDC], snapshot: true }
+      - { exchange: okx, instruments: [BTC-USDT], snapshot: true }
+      - { exchange: bitget, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: bitget, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: bingx, instruments: [BTC-USDT], snapshot: true }
+      - { exchange: kucoin, instruments: [BTC-USDT], snapshot: true }
+      - { exchange: gateio, instruments: [BTC_USDT], snapshot: true }
+      - { exchange: mexc, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: coinbase, instruments: [BTC-USD], snapshot: true }
+    perpetual:
+      - { exchange: binance, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: binance, instruments: [BTCUSD_PERP], snapshot: true }
+      - { exchange: bybit, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: bybit, instruments: [BTCUSD], snapshot: true }
+      - { exchange: okx, instruments: [BTC-USDT-SWAP], snapshot: true }
+      - { exchange: okx, instruments: [BTC-USD-SWAP], snapshot: true }
+      - { exchange: deribit, instruments: [BTC-PERPETUAL], snapshot: true }
+      - { exchange: bitget, instruments: [BTCUSDT], snapshot: true }
+      - { exchange: kucoin, instruments: [XBTUSDTM], snapshot: true }
+      - { exchange: gateio, instruments: [BTC_USDT], snapshot: true }
+      - { exchange: mexc, instruments: [BTC_USDT], snapshot: true }
+  trades:
+    spot:
+      - { exchange: binance, instruments: [BTCUSDT, BTCTUSD, BTCUSDC, BTCUSDS, BTCBUSD, BTCFDUSD] }
+      - { exchange: bybit, instruments: [BTCUSDT, BTCUSDC] }
+      - { exchange: okx, instruments: [BTC-USDT, BTC-USDC] }
+      - { exchange: bitget, instruments: [BTCUSDT, BTCUSDC] }
+      - { exchange: bingx, instruments: [BTC-USDT] }
+      - { exchange: kucoin, instruments: [BTC-USDT] }
+      - { exchange: gateio, instruments: [BTC_USDT] }
+      - { exchange: mexc, instruments: [BTCUSDT] }
+      - { exchange: coinbase, instruments: [BTC-USD] }
+    perpetual:
+      - { exchange: binance, instruments: [BTCUSDT, BTCUSDC, BTCUSD_PERP] }
+      - { exchange: bybit, instruments: [BTCUSDT, BTCPERP, BTCUSD] }
+      - { exchange: okx, instruments: [BTC-USD-SWAP, BTC-USDT-SWAP, BTC-USDC-SWAP] }
+      - { exchange: deribit, instruments: [BTC] }
+      - { exchange: bitget, instruments: [BTCUSDT, BTCPERP, BTCUSD] }
+      - { exchange: bingx, instruments: [BTC-USDT] }
+      - { exchange: kucoin, instruments: [XBTUSDTM] }
+      - { exchange: gateio, instruments: [BTC_USDT] }
+      - { exchange: mexc, instruments: [BTC_USDT] }
+  tradesagg:
+    perpetual:
+      - { exchange: deribit, basecoin: BTC } 
+  liquidations:
+    perpetual:
+      - { exchange: binance, instruments: [BTCUSDT, BTCUSDC, BTCUSD_PERP] }
+      - { exchange: bybit, instruments: [BTCUSDT, BTCPERP, BTCUSD] }
+  liquidations_all:
+      - { exchange: okx, intrument_type: SWAP, basecoin : BTC }   
+  heartbeats: 
+    perpetual:
+      - { exchange: deribit, instrument: BTC-PERPETUAL }
+    spot:
+      - { exchange: coinbase, instrument: BTCUSD } 
+
+APIS:
+  perpetual:
+    funding:
+      - { exchange: binance, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: bybit, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: okx, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: bitget, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: gateio, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: htx, basecoin: BTC, fetching_interval_seconds: 3600 }
+      - { exchange: bingx, instruments: [BTC-USDT], fetching_interval_seconds: 3600 }
+    oi:
+      - { exchange: mexc, instruments: [BTC_USDT], fetching_interval_seconds: 15 }
+      - { exchange: bingx, instruments: [BTC-USDT], fetching_interval_seconds: 15 }
+    oifunding:
+      - { exchange : kucoin , instruments : [XBTUSDTM], fetching_interval_seconds: 15 }
+      - { exchange : mexc , instruments : [BTC_USDT], fetching_interval_seconds: 15 }
+    gta:
+      - { exchange: binance, basecoin: BTC, fetching_interval_seconds: 600 }
+      - { exchange: bybit, basecoin: BTC, fetching_interval_seconds: 600 }
+      - { exchange: okx, basecoin: BTC, fetching_interval_seconds: 600 }
+      - { exchange: gateio, basecoin: BTC, fetching_interval_seconds: 600 }
+      - { exchange: htx, basecoin: BTC, fetching_interval_seconds: 600 }
+
+  perpetual_future:
+    oi:
+      - { exchange: binance, basecoin: BTC, fetching_interval_seconds: 15 }
+      - { exchange: bybit, basecoin: BTC, fetching_interval_seconds: 15 }
+      - { exchange: okx, basecoin: BTC, fetching_interval_seconds: 15 }
+      - { exchange: bitget, basecoin: BTC, fetching_interval_seconds: 15 }
+      - { exchange: gateio, basecoin: BTC, fetching_interval_seconds: 20 }
+      - { exchange: htx, basecoin: BTC, fetching_interval_seconds: 20 }
+    oifunding:
+      - { exchange: gateio, basecoin: BTC_USDT, fetching_interval_seconds: 60 }
+      - { exchange: deribit, basecoin: BTC, fetching_interval_seconds: 20 } 
+    
+  option:
+    oi:
+      - { exchange: binance, basecoin: BTC, fetching_interval_seconds: 60 }
+      - { exchange: bybit, basecoin: BTC, fetching_interval_seconds: 60 }
+      - { exchange: okx, basecoin: BTC-USD, fetching_interval_seconds: 60 }
+      - { exchange: gateio, basecoin: BTC_USDT, fetching_interval_seconds: 60 }
+      - { exchange: deribit, basecoin: BTC, fetching_interval_seconds: 60 }
+    

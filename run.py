@@ -16,7 +16,7 @@ shared_commands_linux = [
 # pytest ProcessCenter\tests\test_MessageProcess.py
 
 command_groups_windows  = [
-    ["python streams.py"],
+    ["app\\producer.py"],
     # ["cd C:\Kafka", ".\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties"], # zookeeper
     # ["cd C:\Kafka", ".\bin\windows\kafka-server-start.bat .\config\server.properties"], # kafka server
     # ["python producer.py"],    # producer

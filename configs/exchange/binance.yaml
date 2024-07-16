@@ -1,0 +1,50 @@
+api_default_params:
+  spot:
+    depth:
+      limit : 1000
+  linear:
+    depth:
+      limit : 1000
+    funding:
+      limit : 1
+    global_traders_accounts:
+      period : 5m
+      limit : 1
+    top_traders_positions:
+      period : 5m
+      limit : 1
+    top_traders_positions:
+      period : 5m
+      limit : 1
+  inverse:
+    depth:
+      limit : 1000
+    funding:
+      limit : 1
+    global_traders_accounts:
+      period : 5m
+      limit : 1
+    top_traders_positions:
+      period : 5m
+      limit : 1
+    top_traders_positions:
+      period : 5m
+      limit : 1
+  option:
+    depth:
+      limit: 200
+
+ws_params:
+  spot:
+    depth: 
+      updateSpeed : 1000ms
+  linear:
+    depth:  
+      updateSpeed : 500ms
+  inverse:
+    depth:  
+      updateSpeed : 500ms
+  option:
+    depth:
+      updateSpeed : 500ms
+

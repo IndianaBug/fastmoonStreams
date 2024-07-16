@@ -1,0 +1,86 @@
+your_project/
+│
+├── app/
+│   ├── __init__.py
+│   ├── consumer.py
+│   ├── producer.py
+│   ├── module1.py
+│   ├── module2.py
+│   └── main.py
+│
+├── config/
+│   ├── logging.conf
+│   ├── kafka_config.json
+│   ├── elasticsearch_config.json
+│   ├── prometheus_config.yml
+│   ├── kibana_config.yml
+│   └── app_config.json
+│   └── environments/
+│       ├── testing_config.json
+│       └── production_config.json
+│
+├── data/
+│   ├── testing/
+│   │   ├── test_data1.json
+│   │   ├── test_data2.json
+│   │   └── ...
+│   └── production/
+│       ├── prod_data1.json
+│       ├── prod_data2.json
+│       └── ...
+│
+├── database/
+│   ├── __init__.py
+│   └── setup_elasticsearch.py
+│
+├── docker/
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── scripts/
+│       ├── entrypoint.sh
+│       └── setup.sh
+│
+├── logs/
+│   ├── app.log
+│   ├── error.log
+│   └── debug.log
+│
+├── monitors/
+│   ├── __init__.py
+│   ├── handlers/
+│   │   └── custom_logging_handlers.py
+│   ├── loggers/
+│   │   └── logger_setup.py
+│   ├── kibana/
+│   │   └── kibana_setup.py
+│   ├── prometheus/
+│   │   └── prometheus_setup.py
+│   └── elasticsearch/
+│       └── elasticsearch_monitoring.py
+│
+├── notebooks/
+│   ├── data_analysis.ipynb
+│   └── plot_verification.ipynb
+│
+├── licences/
+│   └── LICENSE
+│
+├── symbols/
+│   ├── __init__.py
+│   └── symbol_finder.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_consumer.py
+│   ├── test_producer.py
+│   ├── test_module1.py
+│   ├── test_module2.py
+│   └── integration_tests.py
+│
+├── venv/
+│   └── (virtual environment files)
+│
+├── run.py
+├── README.md
+├── requirements.txt
+└── setup_elasticsearch.py

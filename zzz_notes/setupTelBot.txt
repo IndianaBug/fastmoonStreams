@@ -1,0 +1,52 @@
+Adding Your Bot to the Channel
+Open Telegram: Open the Telegram app on your device.
+Go to Your Channel: Navigate to the channel where you want to add the bot.
+Add the Bot as an Administrator:
+Tap on the name of your channel at the top of the screen to open the channel settings.
+Tap on "Administrators".
+Tap on "Add Admin" or the "+" button.
+Search for your bot by its username (e.g., @yourbotusername).
+Select your bot from the search results.
+Grant the necessary permissions (at a minimum, it needs permission to send messages).
+Tap on the checkmark or "Save" to confirm.
+Sending a Test Message and Getting the Channel ID
+Send a Test Message: Send any message in your channel (e.g., "Test message from my bot").
+Forward the Message to @getidsbot:
+Long Press on the Message: Long press the test message you sent (or right-click if using the desktop app).
+Select Forward: Tap on the "Forward" option.
+Search for @getidsbot: Type @getidsbot in the search bar and select it from the search results.
+Send the Message: Forward the message to @getidsbot.
+Receiving the Channel ID
+Check the Response: @getidsbot will reply with the channel ID. This is a numerical ID that you will use in your script.
+Example: Forwarding a Message to @getidsbot
+Here is a visual example of how to forward the message:
+
+Long Press on the Message:
+Tap and hold the message until a menu appears (on desktop, right-click on the message).
+Select Forward:
+Choose the "Forward" option from the menu.
+Search for @getidsbot:
+In the search bar, type @getidsbot and select it from the search results.
+Send the Message:
+Tap on @getidsbot to forward the message to it.
+Receive Channel ID:
+Wait for @getidsbot to respond with the channel ID.
+
+
+Ex: 
+👤 You
+ ├ id: 5629020858
+ ├ is_bot: false
+ ├ first_name: Pavlo
+ ├ language_code: en (-)
+ └ created: newer than 10/2021 (?) (https://t.me/getidsbot?start=idhelp)
+
+💬 Origin chat
+ ├ id: -1002197565621 ----- this is your ID
+ ├ title: CryptoStreamsXBT
+ └ type: channel
+
+📃 Message
+ ├ message_id: 4
+ └ forward_date: Sun, 14 Jul 2024 12:40:25 GMT
+

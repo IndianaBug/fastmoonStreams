@@ -1,0 +1,114 @@
+mode: production # testing/production
+
+spot_perpetual_future_data_aggregation:
+  price_level_size: 20
+  merge_interval: 60
+  merge_perpetual_future: True
+  spot_calculate_canceled_depth: True
+  perpetual_calculate_canceled_depth: True
+  future_calculate_canceled_depth: True
+  perpetual_future_calculate_canceled_depth: True
+  spot_calculate_reinforced_depth: True
+  perpetual_calculate_reinforced_depth: True
+  future_calculate_reinforced_depth: True
+  perpetual_future_reinforced_depth: True
+
+option_data_aggregation:
+  price_buckets: [0.0, 1.0, 2.0, 5.0, 10.0]  # Aggregates option open_interest data based on percentages from current price
+  expiry_windows: [0, 1, 3, 7]  # Aggregates option open_interest data based expirations from today
+  calculate_canceled_depth: False
+  calculate_reinforced_depth: False
+  merge_interval : 60
+
+merge_weighting_factor: 
+  spot:
+    depth: None 
+    trades: None 
+  perpetual:
+    depth: None  
+    trades: None 
+    oi: None     
+    liquidations: None 
+  future:
+    depth: oi  
+    trades: oi 
+    oi: oi     
+    liquidations: oi     
+  perpetual_future:
+    depth: oi  
+    trades: oi
+    oi: oi     
+    liquidations: oi    
+       
+initial_price:  # needed in order to start the app
+  spot:
+    symbol: BTCUSDT
+    exchange: binance
+    instrument_type: spot
+  perpetual:
+    symbol: BTCUSDT
+    exchange: binance
+    instrument_type: spot
+  future:
+    symbol: BTCUSDT
+    exchange: binance
+    instrument_type: spot
+  option:
+    symbol: BTCUSDT
+    exchange: binance
+    instrument_type: spot
+
+fallback_symbols_perpetual_future:
+  - symbol: BTCUSDT
+    exchange: binance
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: bybit
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: bitget
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: bingx
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: htx
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: mexc
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: gateio
+    instrument_type: perpetual
+  - symbol: BTC-USDT-SWAP
+    exchange: okx
+    instrument_type: perpetual
+  - symbol: BTC-PERPETUAL
+    exchange: deribit
+    instrument_type: perpetual
+  - symbol: XBTUSDTM
+    exchange: kucoin
+    instrument_type: perpetual
+
+fallback_symbols_option:
+  - symbol: BTCUSDT
+    exchange: binance
+    instrument_type: spot
+  - symbol: BTCUSDT
+    exchange: bybit
+    instrument_type: spot
+  - symbol: BTC-USDT-SWAP
+    exchange: okx
+    instrument_type: spot
+  - symbol: BTC-PERPETUAL
+    exchange: deribit
+    instrument_type: perpetual
+  - symbol: BTCUSDT
+    exchange: gateio
+    instrument_type: spot
+
+
+
+
+
+

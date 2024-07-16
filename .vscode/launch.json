@@ -1,9 +1,19 @@
+// {
+//     "name": "Python: Debug Tests",
+//     "type": "python",
+//     "request": "test",
+//     "console": "integratedTerminal",
+//     "justMyCode": false,
+//     "env": {
+//         "PYTHONPATH": "C:\\coding\\fastmoon\\fastmoonVenv\\v3.9\\Scripts\\activate\\python.exe"
+//     }
+// }
+
+
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
@@ -11,7 +21,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "cwd": "${fileDirname}",
-            "justMyCode": false
+            "justMyCode": false,
         }
     ]
 }
