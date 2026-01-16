@@ -1,3 +1,26 @@
+## ⚠️ Important Notice
+
+This repository is an **abandoned experimental project**.
+
+The original goal was to build a **distributed streaming and processing system** that aggregates all crypto instrument streams (order books, trades, liquidations, etc.) into a single, easily accessible interface.
+
+In practice, this approach **failed in production**.
+
+The operational complexity of maintaining distributed ingestion, synchronization, backpressure handling, fault tolerance, and schema evolution across multiple exchanges quickly outweighed any theoretical benefits. The amount of infrastructure required made the system impractical to operate or extend.
+
+As a result, this project was abandoned.
+
+If you are looking for a **practical and working alternative**, see:
+👉 https://github.com/IndianaBug/mini-fintickstreams
+
+That project focuses on **raw tick ingestion into a database**, enabling simpler, event-driven pipelines that scale better and align more naturally with real ML research workflows.
+
+**Bottom line:**  
+This repository is kept for reference only and is **not useful for production or serious research**.
+
+
+
+
 ## Exchange Streams Overview
 
 The following tables outline the streamlined WebSocket and aiohttp methods provided per exchange.
